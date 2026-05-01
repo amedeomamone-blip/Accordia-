@@ -72,6 +72,7 @@ GRAFO e un asse centrale del progetto: non e decorazione, ma traduzione visiva d
 - `make check-links` controlla che tutti i link locali negli HTML e le ancore `#...` esistano.
 - `make serve` avvia un server statico locale su `http://localhost:8000`.
 - In alternativa puoi eseguire direttamente `python3 scripts/render_nuclei.py`.
+- Regola operativa del progetto: a fine blocco di lavoro completato si fa `git add`, `git commit` e `git push` su `origin/main`, salvo richiesta esplicita di lasciare le modifiche solo in locale o fermarsi prima della pubblicazione.
 
 ## Sorgente del contenuto
 
