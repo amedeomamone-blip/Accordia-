@@ -29,11 +29,11 @@ const lessonData = {
       microtext: "Prima di leggere una partitura, possiamo sentire il tempo con il corpo. In questa lezione impariamo a distinguere pulsazione, ritmo, accento e tempo attraverso mani, piedi, voce, ascolto e gesto.",
       cta: "Inizia dal battito comune",
       idea: "Il ritmo nasce dall'organizzazione del movimento e rende condivisibile il tempo del gruppo.",
-      question: "Possiamo stare tutti nello stesso tempo?"
+      question: "Come facciamo a sentire un battito comune?"
     },
     {
       id: "spark",
-      title: "Possiamo stare tutti nello stesso tempo?",
+      title: "Come facciamo a sentire un battito comune?",
       text: "Camminiamo lentamente nello spazio o battiamo le mani sul banco. All'inizio ognuno segue il proprio impulso. Poi proviamo a trovare una pulsazione comune, uguale per tutti.",
       questions: [
         "Che cosa cambia quando il gruppo si sincronizza?",
