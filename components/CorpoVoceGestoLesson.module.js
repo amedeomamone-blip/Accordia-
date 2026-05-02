@@ -15,8 +15,8 @@ const PANEL_SOFT = "rounded-[2rem] border border-slate-200/60 bg-[#fcfbf8] shado
 const PANEL_SUBTLE = "rounded-[1.5rem] border border-slate-200/70 bg-[#fcfbf8]";
 const BODY_COPY = "text-[1.02rem] leading-8 text-slate-600 sm:text-[1.08rem]";
 const BODY_COPY_SOFT = "text-[0.95rem] leading-7 text-slate-500 sm:text-base";
-const BUTTON_BASE = "lesson-control-button inline-flex min-h-11 items-center justify-center rounded-full border px-5 py-2.5 text-sm font-semibold tracking-[-0.01em] transition-colors duration-150";
-const PILL_BASE = "lesson-control-pill inline-flex min-h-10 items-center rounded-full border bg-white px-4 py-2 text-[0.84rem] font-semibold tracking-[-0.01em] transition-colors duration-150";
+const BUTTON_BASE = "lesson-control-button inline-flex min-h-11 items-center justify-center rounded-full border border-solid px-5 py-2.5 text-sm font-semibold tracking-[-0.01em] transition-colors duration-150";
+const PILL_BASE = "lesson-control-pill inline-flex min-h-10 items-center rounded-full border border-solid bg-white px-4 py-2 text-[0.84rem] font-semibold tracking-[-0.01em] transition-colors duration-150";
 const PILL_DEFAULT = `${PILL_BASE} border-[#e4e8ee] text-[#5e646c] hover:border-[#d7dde5] hover:text-[#18191b]`;
 const PILL_ACTIVE = `${PILL_BASE} border-[#dde2e8] text-[#18191b]`;
 const TAG_CLASS = "inline-flex items-center rounded-full border border-[#f1dec9] bg-[#fff6ed] px-3.5 py-1.5 text-sm font-medium text-[#8a4d18]";
@@ -555,7 +555,7 @@ function PrimaryButton({ children, onClick }) {
       className: cn(
         RING,
         BUTTON_BASE,
-        "border-[#c66a18] bg-[#c66a18] text-white hover:border-[#b25e15] hover:bg-[#b25e15]"
+        "border-[#d8dde4] bg-white text-[#8a4d18] hover:border-[#c8cfd8] hover:text-[#6f3f17]"
       )
     },
     children
@@ -570,7 +570,7 @@ function SecondaryButton({ children, onClick }) {
       className: cn(
         RING,
         BUTTON_BASE,
-        "border-slate-300 bg-[#f5f3ee] text-slate-700 hover:border-slate-400 hover:bg-[#ece8df]"
+        "border-[#e4e8ee] bg-white text-[#5e646c] hover:border-[#d7dde5] hover:text-[#18191b]"
       )
     },
     children
@@ -965,7 +965,7 @@ function BodyPercussionSequencer() {
         ),
         className: cn(
           RING,
-          "flex min-h-[8.75rem] flex-col items-center justify-center rounded-[1.35rem] border border-slate-200/70 bg-white px-4 py-5 text-center transition-colors duration-150 hover:border-slate-300 hover:bg-[#f8f6f1]",
+          "flex min-h-[8.75rem] flex-col items-center justify-center rounded-[1.35rem] border border-solid border-slate-200/70 bg-white px-4 py-5 text-center transition-colors duration-150 hover:border-slate-300 hover:bg-[#f8f6f1]",
           isPlayingNow && "border-[#c66a18] bg-[#fff1e2]"
         )
       },
@@ -1029,7 +1029,7 @@ function GraphicScoreBuilder() {
       ),
       className: cn(
         RING,
-        "rounded-[1.45rem] border border-slate-200/70 bg-white px-4 py-6 text-center transition-colors duration-150 hover:border-slate-300 hover:bg-[#f8f6f1]"
+          "rounded-[1.45rem] border border-solid border-slate-200/70 bg-white px-4 py-6 text-center transition-colors duration-150 hover:border-slate-300 hover:bg-[#f8f6f1]"
       )
     },
     /* @__PURE__ */ React.createElement("span", { className: cn("block", SMALL_LABEL) }, "tempo ", index + 1),

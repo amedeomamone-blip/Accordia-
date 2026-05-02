@@ -2,10 +2,15 @@
 
 [data-immersive-lesson] button,
 .accordia-lesson-page button {
-  -webkit-appearance: none;
-  appearance: none;
-  background-image: none;
-  box-shadow: none;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+  border-style: solid !important;
+  border-image: none !important;
+  background-clip: padding-box;
 }
 
 [data-immersive-lesson] .lesson-control-pill,
@@ -19,6 +24,9 @@
   filter: none !important;
   text-shadow: none !important;
   transform: none !important;
+  border-style: solid !important;
+  border-image: none !important;
+  background-clip: padding-box;
 }
 
 [data-immersive-lesson] button::-moz-focus-inner,
