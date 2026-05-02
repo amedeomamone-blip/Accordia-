@@ -1311,7 +1311,7 @@ function BodyPercussionSequencer() {
             </div>
           </div>
 
-          <SurfacePanel tone="soft" className="p-6 sm:p-8">
+          <SurfacePanel tone="soft" className="w-full max-w-[44rem] justify-self-center p-6 sm:p-8 xl:justify-self-end">
             <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
               {steps.map((step, index) => {
                 const option = optionById[step];
