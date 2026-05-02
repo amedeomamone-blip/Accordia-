@@ -993,50 +993,26 @@ function PulseSection() {
         <SurfacePanel tone="soft" className="mt-10 overflow-hidden p-0">
           <div className="grid gap-0 xl:grid-cols-[minmax(0,0.88fr)_minmax(24rem,1.12fr)]">
             <div className="border-b border-slate-200/70 px-6 py-6 sm:px-8 sm:py-7 xl:border-b-0 xl:border-r">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <p className={SMALL_LABEL}>Come lavori</p>
-                  <p className="mt-3 max-w-[28rem] text-[1rem] leading-7 text-slate-600">
-                    Parti da un battito semplice, scegli la velocita e osserva se il gruppo resta sempre uguale.
-                  </p>
-                </div>
+              <div className="flex items-center justify-between gap-4">
+                <p className={SMALL_LABEL}>Scegli la velocita</p>
                 <ToneTag className="border-[#eadfce] bg-white text-[#8a4d18]">4 battiti · un solo centro</ToneTag>
               </div>
 
-              <div className="mt-6 grid gap-3">
-                {lessonData.pulseGuide.map((item) => (
-                  <div key={item.step} className="rounded-[1.25rem] border border-white/80 bg-white/80 px-4 py-4">
-                    <div className="flex items-start gap-3">
-                      <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-sm font-semibold text-slate-500">
-                        {item.step}
-                      </span>
-                      <div>
-                        <p className="text-[0.98rem] font-semibold tracking-[-0.03em] text-slate-950">{item.title}</p>
-                        <p className="mt-1 text-sm leading-6 text-slate-500">{item.detail}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mt-6">
-                <p className={SMALL_LABEL}>Scegli la velocita</p>
-                <div className="mt-3 flex flex-wrap gap-2.5">
-                  {lessonData.pulseModes.map((mode) => {
-                    const isSelected = mode.id === activeModeId;
-                    return (
-                      <button
-                        key={mode.id}
-                        type="button"
-                        aria-label={`${mode.label}, ${mode.bpm} battiti al minuto`}
-                        onClick={() => setActiveModeId(mode.id)}
-                        className={cn(RING, isSelected ? PILL_ACTIVE : PILL_DEFAULT)}
-                      >
-                        {mode.label} · {mode.bpm} bpm
-                      </button>
-                    );
-                  })}
-                </div>
+              <div className="mt-4 flex flex-wrap gap-2.5">
+                {lessonData.pulseModes.map((mode) => {
+                  const isSelected = mode.id === activeModeId;
+                  return (
+                    <button
+                      key={mode.id}
+                      type="button"
+                      aria-label={`${mode.label}, ${mode.bpm} battiti al minuto`}
+                      onClick={() => setActiveModeId(mode.id)}
+                      className={cn(RING, isSelected ? PILL_ACTIVE : PILL_DEFAULT)}
+                    >
+                      {mode.label} · {mode.bpm} bpm
+                    </button>
+                  );
+                })}
               </div>
 
               <div className="mt-4 flex flex-wrap gap-3">
