@@ -614,11 +614,12 @@ function getMeterPalette(groupSize) {
 
 function buildMeterGroups(groupSize, totalBeats = 8) {
   const groups = [];
+  const adjustedTotalBeats = Math.ceil(totalBeats / groupSize) * groupSize;
   let beatIndex = 0;
 
-  while (beatIndex < totalBeats) {
+  while (beatIndex < adjustedTotalBeats) {
     const group = [];
-    for (let index = 0; index < groupSize && beatIndex < totalBeats; index += 1) {
+    for (let index = 0; index < groupSize && beatIndex < adjustedTotalBeats; index += 1) {
       group.push(index + 1);
       beatIndex += 1;
     }
