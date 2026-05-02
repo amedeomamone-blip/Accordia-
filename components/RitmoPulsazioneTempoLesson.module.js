@@ -103,25 +103,29 @@ const lessonData = {
       id: "pulse",
       title: "Pulsazione",
       definition: "E il battito regolare che sostiene la musica.",
-      visual: ["equal", "equal", "equal", "equal"]
+      visual: ["equal", "equal", "equal", "equal"],
+      exercise: "Negli esercizi tieni quattro battiti uguali, senza cambiare velocita o forma."
     },
     {
       id: "rhythm",
       title: "Ritmo",
       definition: "E il modo in cui suoni e silenzi si organizzano sopra la pulsazione.",
-      visual: ["sound", "pause", "sound", "accent"]
+      visual: ["sound", "pause", "sound", "accent"],
+      exercise: "Negli esercizi cambi suoni e pause, ma la pulsazione sotto resta stabile."
     },
     {
       id: "accent",
       title: "Accento",
       definition: "E un suono o una pulsazione con maggior rilievo.",
-      visual: ["accent", "equal", "equal", "equal"]
+      visual: ["accent", "equal", "equal", "equal"],
+      exercise: "Negli esercizi fai sentire un punto piu forte, di solito all'inizio del gruppo."
     },
     {
       id: "time",
       title: "Tempo",
       definition: "E il modo in cui le pulsazioni vengono raggruppate: a due, a tre, a quattro.",
-      visual: ["group-2", "group-3", "group-4"]
+      visual: ["group-2", "group-3", "group-4"],
+      exercise: "Negli esercizi conti se il gruppo va a due, a tre o a quattro pulsazioni."
     }
   ],
   quoteDefinitions: [
@@ -682,7 +686,7 @@ function PulseSection() {
 }
 function ConceptsSection() {
   const section = getSection("concepts");
-  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-[#fbfbf9]", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Quattro concetti", title: section.title, text: section.text, align: "center" }), /* @__PURE__ */ React.createElement("div", { className: "mt-14 grid gap-4 md:grid-cols-4" }, lessonData.conceptCards.map((card, index) => /* @__PURE__ */ React.createElement(SurfacePanel, { key: card.id, tone: "subtle", className: "p-5 sm:p-7" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "0", index + 1), /* @__PURE__ */ React.createElement("h3", { className: "mt-4 text-2xl font-semibold tracking-[-0.04em] text-slate-950" }, card.title), /* @__PURE__ */ React.createElement("p", { className: cn("mt-4", BODY_COPY_SOFT) }, card.definition), /* @__PURE__ */ React.createElement("div", { className: "mt-8 flex flex-wrap items-center justify-center gap-3" }, card.visual.map((item, itemIndex) => /* @__PURE__ */ React.createElement(ConceptVisual, { key: `${card.id}-${itemIndex}`, type: item })))))), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "soft", className: "mt-10 px-6 py-7 text-center" }, /* @__PURE__ */ React.createElement("p", { className: "mx-auto max-w-3xl text-[2rem] font-semibold tracking-[-0.04em] text-slate-950 sm:text-[2.4rem]" }, section.closing))));
+  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-[#fbfbf9]", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Quattro concetti", title: section.title, text: section.text, align: "center" }), /* @__PURE__ */ React.createElement("div", { className: "mt-14 grid gap-5 xl:grid-cols-2" }, lessonData.conceptCards.map((card, index) => /* @__PURE__ */ React.createElement(SurfacePanel, { key: card.id, tone: "subtle", className: "p-6 sm:p-7 lg:p-8" }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-8 lg:grid-cols-[minmax(0,1.02fr)_minmax(16rem,0.98fr)] lg:items-center" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-[28rem]" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "0", index + 1), /* @__PURE__ */ React.createElement("h3", { className: "mt-4 text-[2.1rem] font-semibold tracking-[-0.05em] text-slate-950" }, card.title), /* @__PURE__ */ React.createElement("p", { className: cn("mt-4", BODY_COPY_SOFT) }, card.definition)), /* @__PURE__ */ React.createElement("div", { className: "rounded-[1.5rem] border border-slate-200/70 bg-white px-5 py-5 sm:px-6 sm:py-6" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Segno visivo"), /* @__PURE__ */ React.createElement("div", { className: "mt-5 flex flex-wrap items-center justify-center gap-3" }, card.visual.map((item, itemIndex) => /* @__PURE__ */ React.createElement(ConceptVisual, { key: `${card.id}-${itemIndex}`, type: item }))), /* @__PURE__ */ React.createElement("div", { className: "mt-6 border-t border-slate-200/70 pt-5" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Negli esercizi"), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[0.95rem] leading-7 text-slate-500 sm:text-base" }, card.exercise))))))), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "soft", className: "mt-10 px-6 py-7 text-center" }, /* @__PURE__ */ React.createElement("p", { className: "mx-auto max-w-3xl text-[2rem] font-semibold tracking-[-0.04em] text-slate-950 sm:text-[2.4rem]" }, section.closing))));
 }
 function RhythmMapSection() {
   const section = getSection("map");
