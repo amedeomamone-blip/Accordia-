@@ -51,9 +51,9 @@ var lessonData = {
     },
     {
       id: "pulse",
-      title: "Che cosa osservi quando il battito resta regolare?",
-      text: "Guarda una pulsazione lenta, media o veloce. Il disegno dei battiti resta uguale: cambia soltanto la velocita con cui torna.",
-      support: "Osserva: la pulsazione resta regolare anche quando il tempo rallenta o accelera."
+      title: "Costruiamo una pulsazione comune.",
+      text: "Scegli una velocita e guarda quattro battiti che tornano regolari. La forma del gruppo resta uguale: cambia solo il tempo con cui scorre.",
+      support: "La pulsazione resta regolare anche quando il tempo rallenta o accelera."
     },
     {
       id: "concepts",
@@ -129,6 +129,23 @@ var lessonData = {
       id: "segni",
       title: "Pattern e notazione grafica",
       detail: "Osserva dove il gruppo riparte e dove senti il punto piu forte."
+    }
+  ],
+  pulseGuide: [
+    {
+      step: "01",
+      title: "Scegli il tempo",
+      detail: "Prova lento, medio o veloce."
+    },
+    {
+      step: "02",
+      title: "Segui i 4 battiti",
+      detail: "Conta 1 2 3 4 senza cambiare forma."
+    },
+    {
+      step: "03",
+      title: "Confronta",
+      detail: "Osserva che cambia solo la velocita."
     }
   ],
   pulseModes: [
@@ -771,7 +788,7 @@ function PulseSection() {
       }
     };
   }, []);
-  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-white", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(24rem,1.08fr)] lg:items-start" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Osservazione guidata", title: section.title, text: section.text }), /* @__PURE__ */ React.createElement("div", { className: "mt-8 grid gap-3 sm:grid-cols-3" }, lessonData.observationCards.map((item) => /* @__PURE__ */ React.createElement(SurfacePanel, { key: item.id, tone: "subtle", className: "px-4 py-4" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, item.title), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-sm leading-6 text-slate-600" }, item.detail)))), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "subtle", className: "mt-8 p-6 sm:p-7" }, /* @__PURE__ */ React.createElement("div", { className: "space-y-3.5 text-[1rem] leading-8 text-slate-600" }, /* @__PURE__ */ React.createElement("p", null, "Seleziona una velocita."), /* @__PURE__ */ React.createElement("p", null, "Guarda quattro battiti che tornano sempre uguali."), /* @__PURE__ */ React.createElement("p", null, "Osserva che cambia solo il tempo, non la forma del gruppo."))), /* @__PURE__ */ React.createElement("div", { className: "mt-8 flex flex-wrap gap-3" }, lessonData.pulseModes.map((mode) => {
+  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-white", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Osservazione guidata", title: section.title, text: section.text }), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "soft", className: "mt-10 overflow-hidden p-0" }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-0 xl:grid-cols-[minmax(0,0.88fr)_minmax(24rem,1.12fr)]" }, /* @__PURE__ */ React.createElement("div", { className: "border-b border-slate-200/70 px-6 py-6 sm:px-8 sm:py-7 xl:border-b-0 xl:border-r" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-start justify-between gap-4" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Come lavori"), /* @__PURE__ */ React.createElement("p", { className: "mt-3 max-w-[28rem] text-[1rem] leading-7 text-slate-600" }, "Parti da un battito semplice, scegli la velocita e osserva se il gruppo resta sempre uguale.")), /* @__PURE__ */ React.createElement(ToneTag, { className: "border-[#eadfce] bg-white text-[#8a4d18]" }, "4 battiti \xB7 un solo centro")), /* @__PURE__ */ React.createElement("div", { className: "mt-6 grid gap-3" }, lessonData.pulseGuide.map((item) => /* @__PURE__ */ React.createElement("div", { key: item.step, className: "rounded-[1.25rem] border border-white/80 bg-white/80 px-4 py-4" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-start gap-3" }, /* @__PURE__ */ React.createElement("span", { className: "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-sm font-semibold text-slate-500" }, item.step), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: "text-[0.98rem] font-semibold tracking-[-0.03em] text-slate-950" }, item.title), /* @__PURE__ */ React.createElement("p", { className: "mt-1 text-sm leading-6 text-slate-500" }, item.detail)))))), /* @__PURE__ */ React.createElement("div", { className: "mt-6" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Scegli la velocita"), /* @__PURE__ */ React.createElement("div", { className: "mt-3 flex flex-wrap gap-2.5" }, lessonData.pulseModes.map((mode) => {
     const isSelected = mode.id === activeModeId;
     return /* @__PURE__ */ React.createElement(
       "button",
@@ -787,21 +804,20 @@ function PulseSection() {
       mode.bpm,
       " bpm"
     );
-  })), /* @__PURE__ */ React.createElement("div", { className: "mt-4 flex flex-wrap gap-3" }, /* @__PURE__ */ React.createElement(SecondaryButton, { onClick: () => setRunning((current) => !current) }, running ? "Ferma il battito" : "Riavvia il battito"), /* @__PURE__ */ React.createElement(SecondaryButton, { onClick: () => setAudioEnabled((current) => !current) }, audioEnabled ? "Audio leggero attivo" : "Audio leggero spento"))), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "soft", className: "w-full max-w-[44rem] justify-self-center p-6 sm:p-8 xl:justify-self-end" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Battito comune"), /* @__PURE__ */ React.createElement("div", { className: "mt-8 flex flex-wrap justify-center gap-4" }, Array.from({ length: 4 }).map((_, index) => {
+  }))), /* @__PURE__ */ React.createElement("div", { className: "mt-4 flex flex-wrap gap-3" }, /* @__PURE__ */ React.createElement(SecondaryButton, { onClick: () => setRunning((current) => !current) }, running ? "Ferma il battito" : "Riavvia il battito"), /* @__PURE__ */ React.createElement(SecondaryButton, { onClick: () => setAudioEnabled((current) => !current) }, audioEnabled ? "Audio leggero attivo" : "Audio leggero spento"))), /* @__PURE__ */ React.createElement("div", { className: "px-6 py-6 sm:px-8 sm:py-7" }, /* @__PURE__ */ React.createElement("div", { className: "flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Battito comune"), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[1.18rem] font-semibold tracking-[-0.03em] text-slate-950" }, "Quattro battiti uguali che tornano sempre nello stesso ordine.")), /* @__PURE__ */ React.createElement(ToneTag, { className: "border-slate-200/70 bg-white text-slate-600" }, activeMode.label, " \xB7 ", activeMode.bpm, " bpm")), /* @__PURE__ */ React.createElement("div", { className: "mt-6 rounded-[1.9rem] border border-slate-200/70 bg-white px-5 py-7 shadow-[0_12px_28px_rgba(15,23,42,0.03)] sm:px-6" }, /* @__PURE__ */ React.createElement("div", { className: "grid grid-cols-2 gap-4 sm:grid-cols-4" }, Array.from({ length: 4 }).map((_, index) => {
     const isActive = index === beatIndex && running;
-    return /* @__PURE__ */ React.createElement(
+    return /* @__PURE__ */ React.createElement("div", { key: `pulse-${index}`, className: "flex flex-col items-center gap-3 text-center" }, /* @__PURE__ */ React.createElement("span", { className: SMALL_LABEL }, "battito ", index + 1), /* @__PURE__ */ React.createElement(
       "span",
       {
-        key: `pulse-${index}`,
         className: cn(
-          "inline-flex h-16 w-16 items-center justify-center rounded-full border text-base font-medium shadow-[0_10px_24px_rgba(15,23,42,0.06)]",
+          "inline-flex h-20 w-20 items-center justify-center rounded-full border text-lg font-semibold shadow-[0_12px_26px_rgba(15,23,42,0.07)] sm:h-24 sm:w-24",
           isActive ? "border-[#e7cdb9] bg-[radial-gradient(circle_at_35%_35%,#fffdfb_0%,#fee8d6_100%)] text-[#8a4d18]" : "border-[#d7e1ec] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#edf3fa_100%)] text-[#647791]"
         ),
         style: reducedMotion ? void 0 : { transition: "background-color 140ms ease, border-color 140ms ease, color 140ms ease" }
       },
       index + 1
-    );
-  })), /* @__PURE__ */ React.createElement("div", { className: "mt-10 rounded-[1.5rem] border border-slate-200/70 bg-[#fcfbf8] px-6 py-5 text-center" }, /* @__PURE__ */ React.createElement("p", { className: "text-lg font-semibold text-slate-950" }, activeMode.label, " \xB7 ", activeMode.bpm, " bpm"), /* @__PURE__ */ React.createElement("p", { className: cn("mt-3 mx-auto max-w-[28rem]", BODY_COPY_SOFT) }, section.support))))));
+    ), /* @__PURE__ */ React.createElement("span", { className: cn("text-sm font-medium", isActive ? "text-[#8a4d18]" : "text-slate-400") }, index === 0 ? "riparte" : "continua"));
+  }))), /* @__PURE__ */ React.createElement("div", { className: "mt-5 grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start" }, /* @__PURE__ */ React.createElement("div", { className: "rounded-[1.45rem] border border-slate-200/70 bg-[#fcfbf8] px-5 py-5" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Che cosa osservi?"), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[0.98rem] leading-7 text-slate-600" }, section.support)), /* @__PURE__ */ React.createElement("div", { className: "flex flex-wrap gap-3 lg:max-w-[14rem] lg:justify-end" }, /* @__PURE__ */ React.createElement(ToneTag, { className: "border-[#d8eadc] bg-[#eef7f1] text-[#45634f]" }, "lenta"), /* @__PURE__ */ React.createElement(ToneTag, { className: "border-[#eedccf] bg-[#fff2e7] text-[#8a4d18]" }, "media"), /* @__PURE__ */ React.createElement(ToneTag, { className: "border-[#d8e3f0] bg-[#edf4fc] text-[#3e5f86]" }, "veloce"))))))));
 }
 function ConceptsSection() {
   const section = getSection("concepts");
