@@ -578,15 +578,7 @@ function SecondaryButton({ children, onClick }) {
 }
 function LessonHero() {
   const section = getSection("hero");
-  return /* @__PURE__ */ React.createElement(
-    "section",
-    {
-      id: section.id,
-      className: "lesson-hero scroll-mt-28",
-      style: { fontFamily: APP_FONT }
-    },
-    /* @__PURE__ */ React.createElement("div", { className: "lesson-hero-stage" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-hero-grid" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-hero-copy max-w-[48rem]" }, /* @__PURE__ */ React.createElement(SectionKicker, null, section.eyebrow), /* @__PURE__ */ React.createElement("h1", { className: "lesson-hero-title mt-6 max-w-[9ch] text-[3.9rem] font-semibold tracking-[-0.065em] text-slate-950 sm:text-[5rem] lg:text-[6rem] lg:leading-[0.9]" }, section.title)), /* @__PURE__ */ React.createElement("div", { className: "lesson-hero-panel max-w-[30rem] xl:justify-self-end xl:pb-2" }, /* @__PURE__ */ React.createElement("p", { className: "lesson-hero-lead text-[1.18rem] leading-[1.65] text-slate-600 sm:text-[1.4rem]" }, section.subtitle), /* @__PURE__ */ React.createElement("p", { className: "lesson-hero-support max-w-[28rem] text-[0.98rem] leading-7 text-slate-500 sm:text-base" }, section.microtext), /* @__PURE__ */ React.createElement("div", { className: "lesson-hero-rhythm", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null)))))
-  );
+  return /* @__PURE__ */ React.createElement("section", { id: section.id, className: "scroll-mt-28 bg-[#fbfaf7]", style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement("div", { className: "mx-auto flex min-h-[calc(88vh-4.75rem)] max-w-[84rem] items-center px-4 pb-16 pt-14 sm:px-6 md:pb-20 lg:px-8 lg:pt-20" }, /* @__PURE__ */ React.createElement("div", { className: "grid w-full gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.78fr)] xl:items-end" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-[48rem]" }, /* @__PURE__ */ React.createElement(SectionKicker, null, section.eyebrow), /* @__PURE__ */ React.createElement("h1", { className: "mt-6 max-w-[9ch] text-[3.9rem] font-semibold tracking-[-0.065em] text-slate-950 sm:text-[5rem] lg:text-[6rem] lg:leading-[0.9]" }, section.title)), /* @__PURE__ */ React.createElement("div", { className: "max-w-[30rem] xl:justify-self-end xl:pb-2" }, /* @__PURE__ */ React.createElement("p", { className: "text-[1.18rem] leading-[1.65] text-slate-600 sm:text-[1.4rem]" }, section.subtitle), /* @__PURE__ */ React.createElement("p", { className: "mt-6 max-w-[28rem] text-[0.98rem] leading-7 text-slate-500 sm:text-base" }, section.microtext)))));
 }
 function ListeningTimerSection() {
   const section = getSection("listening");

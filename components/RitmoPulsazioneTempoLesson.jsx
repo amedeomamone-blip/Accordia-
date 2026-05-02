@@ -663,30 +663,20 @@ function LessonHero() {
   const section = getSection("hero");
 
   return (
-    <section id={section.id} className="lesson-hero scroll-mt-28" style={{ fontFamily: APP_FONT }}>
-      <div className="lesson-hero-stage">
-        <div className="lesson-hero-grid">
-          <div className="lesson-hero-copy max-w-[48rem]">
+    <section id={section.id} className="scroll-mt-28 bg-[#fbfaf7]" style={{ fontFamily: APP_FONT }}>
+      <div className="mx-auto flex min-h-[calc(88vh-4.75rem)] max-w-[84rem] items-center px-4 pb-16 pt-14 sm:px-6 md:pb-20 lg:px-8 lg:pt-20">
+        <div className="w-full">
+          <div className="max-w-[48rem]">
             <SectionKicker>{section.eyebrow}</SectionKicker>
-            <h1 className="lesson-hero-title mt-6 max-w-[9ch] text-[3.9rem] font-semibold tracking-[-0.065em] text-slate-950 sm:text-[5rem] lg:text-[6rem] lg:leading-[0.9]">
+            <h1 className="mt-6 max-w-[9ch] text-[3.9rem] font-semibold tracking-[-0.065em] text-slate-950 sm:text-[5rem] lg:text-[6rem] lg:leading-[0.9]">
               {section.title}
             </h1>
-          </div>
-          <div className="lesson-hero-panel max-w-[30rem] xl:justify-self-end xl:pb-2">
-            <p className="lesson-hero-lead text-[1.18rem] leading-[1.65] text-slate-600 sm:text-[1.4rem]">
+            <p className="mt-7 max-w-[30rem] text-[1.18rem] leading-[1.65] text-slate-600 sm:text-[1.4rem]">
               {section.subtitle}
             </p>
-            <p className="lesson-hero-support max-w-[43rem] text-[0.98rem] leading-7 text-slate-500 sm:text-base">
+            <p className="mt-6 max-w-[43rem] text-[0.98rem] leading-7 text-slate-500 sm:text-base">
               {section.microtext}
             </p>
-            <div className="lesson-hero-rhythm" aria-hidden="true">
-              <span />
-              <span />
-              <span />
-              <span />
-              <span />
-              <span />
-            </div>
           </div>
         </div>
       </div>
