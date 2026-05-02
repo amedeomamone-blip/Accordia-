@@ -1368,6 +1368,7 @@ function RhythmSequencerSection() {
   };
 
   const activeOption = optionById[selectedStateId];
+  const bars = [steps.slice(0, 4), steps.slice(4, 8)];
 
   const renderStepButton = (step, index) => {
     const option = optionById[step];
@@ -1385,7 +1386,7 @@ function RhythmSequencerSection() {
         }
         className={cn(
           RING,
-          "group flex aspect-square w-full max-w-[6.2rem] flex-col rounded-[1.2rem] border border-solid px-2.5 py-2.5 text-left transition-colors duration-150 justify-self-center",
+          "group flex h-[6.5rem] w-[6.5rem] shrink-0 flex-col rounded-[1.2rem] border border-solid px-2.5 py-2.5 text-left transition-colors duration-150",
           isAccent
             ? "border-[#e6c8a8] bg-[#fff8f1] hover:border-[#d7b692] hover:bg-[#fff3e5]"
             : isPause
@@ -1527,8 +1528,12 @@ function RhythmSequencerSection() {
                   </div>
 
                   <div className="mt-5 rounded-[1.6rem] border border-slate-200/70 bg-[#fcfbf8] px-3 py-4 sm:px-4 sm:py-4">
-                    <div className="mx-auto grid max-w-[28rem] grid-cols-4 justify-items-center gap-3">
-                      {steps.map((step, index) => renderStepButton(step, index))}
+                    <div className="mx-auto flex max-w-[29rem] flex-col gap-3">
+                      {bars.map((barSteps, barIndex) => (
+                        <div key={`bar-row-${barIndex}`} className="grid grid-cols-4 justify-items-center gap-3">
+                          {barSteps.map((step, stepIndex) => renderStepButton(step, barIndex * 4 + stepIndex))}
+                        </div>
+                      ))}
                     </div>
                   </div>
                 </div>
