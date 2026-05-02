@@ -1062,11 +1062,13 @@ function PulseSection() {
               </div>
 
               <div className="mt-6 rounded-[1.9rem] border border-slate-200/70 bg-white px-5 py-7 shadow-[0_12px_28px_rgba(15,23,42,0.03)] sm:px-6">
-                <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
+                <div className="relative">
+                  <div className="absolute left-0 right-0 top-[4.3rem] hidden h-px bg-slate-200 sm:block" aria-hidden="true" />
+                  <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
                   {Array.from({ length: 4 }).map((_, index) => {
                     const isActive = index === beatIndex && running;
                     return (
-                      <div key={`pulse-${index}`} className="flex flex-col items-center gap-3 text-center">
+                      <div key={`pulse-${index}`} className="relative flex flex-1 flex-col items-center gap-3 text-center">
                         <span className={SMALL_LABEL}>battito {index + 1}</span>
                         <span
                           className={cn(
@@ -1085,6 +1087,7 @@ function PulseSection() {
                       </div>
                     );
                   })}
+                  </div>
                 </div>
               </div>
 
