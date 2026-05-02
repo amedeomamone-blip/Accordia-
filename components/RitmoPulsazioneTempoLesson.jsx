@@ -597,7 +597,50 @@ function ConceptVisual({ type }) {
   );
 }
 
-function MeterPreview({ groupSize }) {
+function MeterPreview({ groupSize, compact = false }) {
+  if (compact) {
+    return (
+      <div className="mt-4 rounded-[1.45rem] border border-slate-200/70 bg-[linear-gradient(180deg,#ffffff_0%,#fcfbf8_100%)] px-4 py-4">
+        <div className="flex items-center justify-between gap-3">
+          <p className={SMALL_LABEL}>Traccia visiva</p>
+          <span className="inline-flex items-center rounded-full border border-[#eadfce] bg-[#fff7ef] px-3 py-1 text-xs font-medium text-[#8a4d18]">
+            gruppo da {groupSize}
+          </span>
+        </div>
+
+        <div className="relative mt-4">
+          <div
+            className="pointer-events-none absolute inset-x-4 top-[0.8rem] h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"
+            aria-hidden="true"
+          />
+          <div className="relative grid grid-cols-4 gap-3">
+            {Array.from({ length: 8 }).map((_, index) => {
+              const accented = index % groupSize === 0;
+              const cycleNumber = (index % groupSize) + 1;
+              return (
+                <div key={`${groupSize}-${index}`} className="flex flex-col items-center gap-2">
+                  <span
+                    className={cn(
+                      "inline-flex items-center justify-center rounded-full border bg-white text-sm font-medium",
+                      accented
+                        ? "h-11 w-11 border-[#e6c8a8] bg-[#fff6ed] text-[#8a4d18]"
+                        : "h-8 w-8 border-slate-200 text-slate-500"
+                    )}
+                  >
+                    {accented ? "●" : "•"}
+                  </span>
+                  <span className={cn("text-[0.78rem] font-medium", accented ? "text-[#8a4d18]" : "text-slate-400")}>
+                    {cycleNumber}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="mt-6 rounded-[1.7rem] border border-slate-200/70 bg-[linear-gradient(180deg,#ffffff_0%,#fcfbf8_100%)] px-5 py-6 sm:px-6 sm:py-7">
       <div className="flex items-center justify-between gap-4">
@@ -1015,11 +1058,11 @@ function ListeningCardsSection() {
   const [selectedMeters, setSelectedMeters] = useState({});
 
   return (
-    <SectionShell id={section.id} backgroundClass="bg-white" className={SECTION_SPACE}>
+    <SectionShell id={section.id} backgroundClass="bg-white" className="py-16 sm:py-20 lg:py-24">
       <div className={LESSON_SHELL_WIDE} style={{ fontFamily: APP_FONT }}>
         <SectionHeading kicker="Ascolto guidato" title={section.title} text={section.text} />
 
-        <SurfacePanel tone="soft" className="mt-12 px-6 py-6 sm:px-8 sm:py-7">
+        <SurfacePanel tone="soft" className="mt-8 px-4 py-4 sm:px-5 sm:py-5">
           <div className="grid gap-4 lg:grid-cols-3">
             {[
               {
@@ -1038,99 +1081,94 @@ function ListeningCardsSection() {
                 text: "Usa le domande per distinguere pulsazione, ritmo e accento.",
               },
             ].map((item) => (
-              <div key={item.step} className="rounded-[1.4rem] border border-white/80 bg-white/80 px-5 py-5">
-                <p className={SMALL_LABEL}>{item.step}</p>
-                <h3 className="mt-3 text-xl font-semibold tracking-[-0.04em] text-slate-950">{item.title}</h3>
-                <p className="mt-3 text-[0.98rem] leading-7 text-slate-500">{item.text}</p>
+              <div key={item.step} className="rounded-[1.25rem] border border-white/80 bg-white/80 px-4 py-4">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-xs font-semibold text-slate-500">
+                    {item.step}
+                  </span>
+                  <h3 className="text-[1.02rem] font-semibold tracking-[-0.03em] text-slate-950">{item.title}</h3>
+                </div>
+                <p className="mt-2 text-sm leading-6 text-slate-500">{item.text}</p>
               </div>
             ))}
           </div>
         </SurfacePanel>
 
-        <div className="mt-10 space-y-6">
+        <div className="mt-6 grid gap-5 xl:grid-cols-3">
           {lessonData.listeningCards.map((card) => {
             const selectedMeter = selectedMeters[card.id] || card.expected;
             return (
               <SurfacePanel
                 key={card.id}
                 tone="soft"
-                className="overflow-hidden border-slate-200/60 bg-[linear-gradient(180deg,#fffefb_0%,#fcfaf6_100%)] p-0"
+                className="overflow-hidden border-slate-200/60 bg-[linear-gradient(180deg,#fffefb_0%,#fcfaf6_100%)] p-5 sm:p-6"
               >
-                <div className="grid gap-0 xl:grid-cols-[minmax(0,1.04fr)_minmax(21rem,0.82fr)]">
-                  <div className="p-6 sm:p-8 lg:p-9">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <p className={SMALL_LABEL}>Ascolto {card.code}</p>
-                      <ToneTag className="border-[#eadfce] bg-white/90 text-[#8a4d18]">{card.focus}</ToneTag>
+                <div className="flex flex-wrap items-center gap-3">
+                  <p className={SMALL_LABEL}>Ascolto {card.code}</p>
+                  <ToneTag className="border-[#eadfce] bg-white/90 text-[#8a4d18]">{card.focus}</ToneTag>
+                </div>
+
+                <h3 className="mt-3 text-[1.55rem] font-semibold tracking-[-0.05em] text-slate-950">{card.title}</h3>
+                <p className="mt-3 text-[0.95rem] leading-6 text-slate-500">{card.description}</p>
+
+                <div className="mt-4 rounded-[1.45rem] border border-slate-200/70 bg-white/90 px-4 py-4">
+                  <div className="flex flex-wrap items-start justify-between gap-3">
+                    <div className="max-w-[24rem]">
+                      <p className={SMALL_LABEL}>Prova</p>
+                      <p className="mt-2 text-sm leading-6 text-slate-500">{card.exercise}</p>
                     </div>
-
-                    <h3 className="mt-4 text-[2rem] font-semibold tracking-[-0.05em] text-slate-950">{card.title}</h3>
-                    <p className={cn("mt-4 max-w-[38rem]", BODY_COPY_SOFT)}>{card.description}</p>
-
-                    <div className="mt-6 rounded-[1.8rem] border border-slate-200/70 bg-white/90 px-5 py-5 sm:px-6 sm:py-6">
-                      <div className="flex flex-wrap items-start justify-between gap-4">
-                        <div className="max-w-[28rem]">
-                          <p className={SMALL_LABEL}>Prova pratica</p>
-                          <p className="mt-3 text-[0.98rem] leading-7 text-slate-500">{card.exercise}</p>
-                        </div>
-                        <span className="inline-flex items-center rounded-full border border-[#eadfce] bg-[#fff7ef] px-3.5 py-1.5 text-sm font-medium text-[#8a4d18]">
-                          atteso · {card.expected} pulsazioni
-                        </span>
-                      </div>
-
-                      <MeterPreview groupSize={selectedMeter} />
-                    </div>
-
-                    <div className="mt-6">
-                      <p className={SMALL_LABEL}>Cambia il gruppo</p>
-                      <div className="mt-3 flex flex-wrap gap-3">
-                        {[2, 3, 4].map((meter) => (
-                          <button
-                            key={`${card.id}-${meter}`}
-                            type="button"
-                            aria-label={`${meter} pulsazioni`}
-                            onClick={() => setSelectedMeters((current) => ({ ...current, [card.id]: meter }))}
-                            className={cn(RING, selectedMeter === meter ? PILL_ACTIVE : PILL_DEFAULT)}
-                          >
-                            {meter} pulsazioni
-                          </button>
-                        ))}
-                      </div>
-                    </div>
+                    <span className="inline-flex items-center rounded-full border border-[#eadfce] bg-[#fff7ef] px-3 py-1 text-xs font-medium text-[#8a4d18]">
+                      atteso · {card.expected}
+                    </span>
                   </div>
 
-                  <div className="border-t border-slate-200/70 bg-[#fcfbf8]/95 p-6 sm:p-8 xl:border-l xl:border-t-0">
-                    <p className={SMALL_LABEL}>Cosa fai</p>
-                    <ol className="mt-5 space-y-4">
-                      {lessonData.listeningQuestions.map((question, questionIndex) => (
-                        <li key={`${card.id}-${question}`} className="flex items-start gap-4">
-                          <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-sm font-semibold text-slate-500">
-                            {questionIndex + 1}
-                          </span>
-                          <p className="pt-1 text-[1rem] leading-7 text-slate-600">{question}</p>
-                        </li>
-                      ))}
-                    </ol>
+                  <MeterPreview groupSize={selectedMeter} compact />
+                </div>
 
-                    <div className="mt-8 rounded-[1.6rem] border border-slate-200/70 bg-white px-5 py-5">
-                      <p className={SMALL_LABEL}>Osserva</p>
-                      <p className="mt-3 text-[1rem] leading-7 text-slate-600">
-                        Se l'accento torna ogni {selectedMeter} battiti, stai sentendo un gruppo {meterGroupLabel(selectedMeter)}.
+                <div className="mt-4">
+                  <div className="flex flex-wrap gap-2.5">
+                    {[2, 3, 4].map((meter) => (
+                      <button
+                        key={`${card.id}-${meter}`}
+                        type="button"
+                        aria-label={`${meter} pulsazioni`}
+                        onClick={() => setSelectedMeters((current) => ({ ...current, [card.id]: meter }))}
+                        className={cn(RING, selectedMeter === meter ? PILL_ACTIVE : PILL_DEFAULT)}
+                      >
+                        {meter} pulsazioni
+                      </button>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="mt-4 rounded-[1.4rem] border border-slate-200/70 bg-[#fcfbf8]/95 px-4 py-4">
+                  <p className={SMALL_LABEL}>Domande guida</p>
+                  <div className="mt-3 space-y-2.5">
+                    {lessonData.listeningQuestions.map((question) => (
+                      <p key={`${card.id}-${question}`} className="text-sm leading-6 text-slate-600">
+                        {question}
                       </p>
-                      <div className="mt-5 flex flex-wrap gap-2.5">
-                        {Array.from({ length: selectedMeter }).map((_, index) => (
-                          <span
-                            key={`${card.id}-count-${index}`}
-                            className={cn(
-                              "inline-flex h-10 w-10 items-center justify-center rounded-full border text-sm font-medium",
-                              index === 0
-                                ? "border-[#e6c8a8] bg-[#fff6ed] text-[#8a4d18]"
-                                : "border-slate-200 bg-white text-slate-500"
-                            )}
-                          >
-                            {index + 1}
-                          </span>
-                        ))}
-                      </div>
+                    ))}
+                  </div>
+
+                  <div className="mt-4 border-t border-slate-200/70 pt-4">
+                    <p className="text-sm leading-6 text-slate-600">
+                      Se l'accento torna ogni {selectedMeter} battiti, stai sentendo un gruppo {meterGroupLabel(selectedMeter)}.
+                    </p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {Array.from({ length: selectedMeter }).map((_, index) => (
+                        <span
+                          key={`${card.id}-count-${index}`}
+                          className={cn(
+                            "inline-flex h-9 w-9 items-center justify-center rounded-full border text-sm font-medium",
+                            index === 0
+                              ? "border-[#e6c8a8] bg-[#fff6ed] text-[#8a4d18]"
+                              : "border-slate-200 bg-white text-slate-500"
+                          )}
+                        >
+                          {index + 1}
+                        </span>
+                      ))}
                     </div>
                   </div>
                 </div>

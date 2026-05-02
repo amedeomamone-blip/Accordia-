@@ -555,7 +555,29 @@ function ConceptVisual({ type }) {
     pause ? "\u25CB" : "\u25CF"
   );
 }
-function MeterPreview({ groupSize }) {
+function MeterPreview({ groupSize, compact = false }) {
+  if (compact) {
+    return /* @__PURE__ */ React.createElement("div", { className: "mt-4 rounded-[1.45rem] border border-slate-200/70 bg-[linear-gradient(180deg,#ffffff_0%,#fcfbf8_100%)] px-4 py-4" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-center justify-between gap-3" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Traccia visiva"), /* @__PURE__ */ React.createElement("span", { className: "inline-flex items-center rounded-full border border-[#eadfce] bg-[#fff7ef] px-3 py-1 text-xs font-medium text-[#8a4d18]" }, "gruppo da ", groupSize)), /* @__PURE__ */ React.createElement("div", { className: "relative mt-4" }, /* @__PURE__ */ React.createElement(
+      "div",
+      {
+        className: "pointer-events-none absolute inset-x-4 top-[0.8rem] h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent",
+        "aria-hidden": "true"
+      }
+    ), /* @__PURE__ */ React.createElement("div", { className: "relative grid grid-cols-4 gap-3" }, Array.from({ length: 8 }).map((_, index) => {
+      const accented = index % groupSize === 0;
+      const cycleNumber = index % groupSize + 1;
+      return /* @__PURE__ */ React.createElement("div", { key: `${groupSize}-${index}`, className: "flex flex-col items-center gap-2" }, /* @__PURE__ */ React.createElement(
+        "span",
+        {
+          className: cn(
+            "inline-flex items-center justify-center rounded-full border bg-white text-sm font-medium",
+            accented ? "h-11 w-11 border-[#e6c8a8] bg-[#fff6ed] text-[#8a4d18]" : "h-8 w-8 border-slate-200 text-slate-500"
+          )
+        },
+        accented ? "\u25CF" : "\u2022"
+      ), /* @__PURE__ */ React.createElement("span", { className: cn("text-[0.78rem] font-medium", accented ? "text-[#8a4d18]" : "text-slate-400") }, cycleNumber));
+    }))));
+  }
   return /* @__PURE__ */ React.createElement("div", { className: "mt-6 rounded-[1.7rem] border border-slate-200/70 bg-[linear-gradient(180deg,#ffffff_0%,#fcfbf8_100%)] px-5 py-6 sm:px-6 sm:py-7" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-center justify-between gap-4" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Traccia visiva"), /* @__PURE__ */ React.createElement("p", { className: "mt-2 text-sm leading-6 text-slate-500" }, "Guarda dove torna il battito forte e come si ricompone il gruppo.")), /* @__PURE__ */ React.createElement("span", { className: "inline-flex items-center rounded-full border border-[#eadfce] bg-[#fff7ef] px-3.5 py-1.5 text-sm font-medium text-[#8a4d18]" }, "gruppo da ", groupSize)), /* @__PURE__ */ React.createElement("div", { className: "relative mt-7" }, /* @__PURE__ */ React.createElement(
     "div",
     {
@@ -759,7 +781,7 @@ function RhythmMapSection() {
 function ListeningCardsSection() {
   const section = getSection("listening");
   const [selectedMeters, setSelectedMeters] = useState({});
-  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-white", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL_WIDE, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Ascolto guidato", title: section.title, text: section.text }), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "soft", className: "mt-12 px-6 py-6 sm:px-8 sm:py-7" }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-4 lg:grid-cols-3" }, [
+  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-white", className: "py-16 sm:py-20 lg:py-24" }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL_WIDE, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Ascolto guidato", title: section.title, text: section.text }), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "soft", className: "mt-8 px-4 py-4 sm:px-5 sm:py-5" }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-4 lg:grid-cols-3" }, [
     {
       step: "01",
       title: "Scegli il gruppo",
@@ -775,16 +797,20 @@ function ListeningCardsSection() {
       title: "Rispondi e confronta",
       text: "Usa le domande per distinguere pulsazione, ritmo e accento."
     }
-  ].map((item) => /* @__PURE__ */ React.createElement("div", { key: item.step, className: "rounded-[1.4rem] border border-white/80 bg-white/80 px-5 py-5" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, item.step), /* @__PURE__ */ React.createElement("h3", { className: "mt-3 text-xl font-semibold tracking-[-0.04em] text-slate-950" }, item.title), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[0.98rem] leading-7 text-slate-500" }, item.text))))), /* @__PURE__ */ React.createElement("div", { className: "mt-10 space-y-6" }, lessonData.listeningCards.map((card) => {
+  ].map((item) => /* @__PURE__ */ React.createElement("div", { key: item.step, className: "rounded-[1.25rem] border border-white/80 bg-white/80 px-4 py-4" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ React.createElement("span", { className: "inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-xs font-semibold text-slate-500" }, item.step), /* @__PURE__ */ React.createElement("h3", { className: "text-[1.02rem] font-semibold tracking-[-0.03em] text-slate-950" }, item.title)), /* @__PURE__ */ React.createElement("p", { className: "mt-2 text-sm leading-6 text-slate-500" }, item.text))))), /* @__PURE__ */ React.createElement("div", { className: "mt-6 grid gap-5 xl:grid-cols-3" }, lessonData.listeningCards.map((card) => {
     const selectedMeter = selectedMeters[card.id] || card.expected;
     return /* @__PURE__ */ React.createElement(
       SurfacePanel,
       {
         key: card.id,
         tone: "soft",
-        className: "overflow-hidden border-slate-200/60 bg-[linear-gradient(180deg,#fffefb_0%,#fcfaf6_100%)] p-0"
+        className: "overflow-hidden border-slate-200/60 bg-[linear-gradient(180deg,#fffefb_0%,#fcfaf6_100%)] p-5 sm:p-6"
       },
-      /* @__PURE__ */ React.createElement("div", { className: "grid gap-0 xl:grid-cols-[minmax(0,1.04fr)_minmax(21rem,0.82fr)]" }, /* @__PURE__ */ React.createElement("div", { className: "p-6 sm:p-8 lg:p-9" }, /* @__PURE__ */ React.createElement("div", { className: "flex flex-wrap items-center gap-3" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Ascolto ", card.code), /* @__PURE__ */ React.createElement(ToneTag, { className: "border-[#eadfce] bg-white/90 text-[#8a4d18]" }, card.focus)), /* @__PURE__ */ React.createElement("h3", { className: "mt-4 text-[2rem] font-semibold tracking-[-0.05em] text-slate-950" }, card.title), /* @__PURE__ */ React.createElement("p", { className: cn("mt-4 max-w-[38rem]", BODY_COPY_SOFT) }, card.description), /* @__PURE__ */ React.createElement("div", { className: "mt-6 rounded-[1.8rem] border border-slate-200/70 bg-white/90 px-5 py-5 sm:px-6 sm:py-6" }, /* @__PURE__ */ React.createElement("div", { className: "flex flex-wrap items-start justify-between gap-4" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-[28rem]" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Prova pratica"), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[0.98rem] leading-7 text-slate-500" }, card.exercise)), /* @__PURE__ */ React.createElement("span", { className: "inline-flex items-center rounded-full border border-[#eadfce] bg-[#fff7ef] px-3.5 py-1.5 text-sm font-medium text-[#8a4d18]" }, "atteso \xB7 ", card.expected, " pulsazioni")), /* @__PURE__ */ React.createElement(MeterPreview, { groupSize: selectedMeter })), /* @__PURE__ */ React.createElement("div", { className: "mt-6" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Cambia il gruppo"), /* @__PURE__ */ React.createElement("div", { className: "mt-3 flex flex-wrap gap-3" }, [2, 3, 4].map((meter) => /* @__PURE__ */ React.createElement(
+      /* @__PURE__ */ React.createElement("div", { className: "flex flex-wrap items-center gap-3" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Ascolto ", card.code), /* @__PURE__ */ React.createElement(ToneTag, { className: "border-[#eadfce] bg-white/90 text-[#8a4d18]" }, card.focus)),
+      /* @__PURE__ */ React.createElement("h3", { className: "mt-3 text-[1.55rem] font-semibold tracking-[-0.05em] text-slate-950" }, card.title),
+      /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[0.95rem] leading-6 text-slate-500" }, card.description),
+      /* @__PURE__ */ React.createElement("div", { className: "mt-4 rounded-[1.45rem] border border-slate-200/70 bg-white/90 px-4 py-4" }, /* @__PURE__ */ React.createElement("div", { className: "flex flex-wrap items-start justify-between gap-3" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-[24rem]" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Prova"), /* @__PURE__ */ React.createElement("p", { className: "mt-2 text-sm leading-6 text-slate-500" }, card.exercise)), /* @__PURE__ */ React.createElement("span", { className: "inline-flex items-center rounded-full border border-[#eadfce] bg-[#fff7ef] px-3 py-1 text-xs font-medium text-[#8a4d18]" }, "atteso \xB7 ", card.expected)), /* @__PURE__ */ React.createElement(MeterPreview, { groupSize: selectedMeter, compact: true })),
+      /* @__PURE__ */ React.createElement("div", { className: "mt-4" }, /* @__PURE__ */ React.createElement("div", { className: "flex flex-wrap gap-2.5" }, [2, 3, 4].map((meter) => /* @__PURE__ */ React.createElement(
         "button",
         {
           key: `${card.id}-${meter}`,
@@ -795,17 +821,18 @@ function ListeningCardsSection() {
         },
         meter,
         " pulsazioni"
-      ))))), /* @__PURE__ */ React.createElement("div", { className: "border-t border-slate-200/70 bg-[#fcfbf8]/95 p-6 sm:p-8 xl:border-l xl:border-t-0" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Cosa fai"), /* @__PURE__ */ React.createElement("ol", { className: "mt-5 space-y-4" }, lessonData.listeningQuestions.map((question, questionIndex) => /* @__PURE__ */ React.createElement("li", { key: `${card.id}-${question}`, className: "flex items-start gap-4" }, /* @__PURE__ */ React.createElement("span", { className: "inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-sm font-semibold text-slate-500" }, questionIndex + 1), /* @__PURE__ */ React.createElement("p", { className: "pt-1 text-[1rem] leading-7 text-slate-600" }, question)))), /* @__PURE__ */ React.createElement("div", { className: "mt-8 rounded-[1.6rem] border border-slate-200/70 bg-white px-5 py-5" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Osserva"), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[1rem] leading-7 text-slate-600" }, "Se l'accento torna ogni ", selectedMeter, " battiti, stai sentendo un gruppo ", meterGroupLabel(selectedMeter), "."), /* @__PURE__ */ React.createElement("div", { className: "mt-5 flex flex-wrap gap-2.5" }, Array.from({ length: selectedMeter }).map((_, index) => /* @__PURE__ */ React.createElement(
+      )))),
+      /* @__PURE__ */ React.createElement("div", { className: "mt-4 rounded-[1.4rem] border border-slate-200/70 bg-[#fcfbf8]/95 px-4 py-4" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Domande guida"), /* @__PURE__ */ React.createElement("div", { className: "mt-3 space-y-2.5" }, lessonData.listeningQuestions.map((question) => /* @__PURE__ */ React.createElement("p", { key: `${card.id}-${question}`, className: "text-sm leading-6 text-slate-600" }, question))), /* @__PURE__ */ React.createElement("div", { className: "mt-4 border-t border-slate-200/70 pt-4" }, /* @__PURE__ */ React.createElement("p", { className: "text-sm leading-6 text-slate-600" }, "Se l'accento torna ogni ", selectedMeter, " battiti, stai sentendo un gruppo ", meterGroupLabel(selectedMeter), "."), /* @__PURE__ */ React.createElement("div", { className: "mt-3 flex flex-wrap gap-2" }, Array.from({ length: selectedMeter }).map((_, index) => /* @__PURE__ */ React.createElement(
         "span",
         {
           key: `${card.id}-count-${index}`,
           className: cn(
-            "inline-flex h-10 w-10 items-center justify-center rounded-full border text-sm font-medium",
+            "inline-flex h-9 w-9 items-center justify-center rounded-full border text-sm font-medium",
             index === 0 ? "border-[#e6c8a8] bg-[#fff6ed] text-[#8a4d18]" : "border-slate-200 bg-white text-slate-500"
           )
         },
         index + 1
-      ))))))
+      )))))
     );
   }))));
 }
