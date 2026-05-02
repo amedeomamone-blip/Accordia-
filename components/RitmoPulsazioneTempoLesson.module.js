@@ -193,6 +193,23 @@ const lessonData = {
     pauses: ["sound", "pause", "sound", "pause", "sound", "sound", "pause", "sound"],
     accents: ["accent", "sound", "sound", "sound", "accent", "sound", "sound", "sound"]
   },
+  sequenceWorkflow: [
+    {
+      step: "01",
+      title: "Scegli il segno",
+      detail: "Decidi se ogni tempo sara suono, pausa o accento."
+    },
+    {
+      step: "02",
+      title: "Scrivi due battute",
+      detail: "Riempi 8 tempi in due gruppi da quattro, senza perdere il battito."
+    },
+    {
+      step: "03",
+      title: "Ripeti col gruppo",
+      detail: "Prova la sequenza finche diventa chiara, stabile e condivisa."
+    }
+  ],
   conductorSteps: [
     {
       id: "rest",
@@ -557,14 +574,14 @@ function meterGroupLabel(groupSize) {
   if (groupSize === 3) return "a tre";
   return "a quattro";
 }
-function SequencerSymbol({ stateId }) {
+function SequencerSymbol({ stateId, className = "" }) {
   if (stateId === "accent") {
-    return /* @__PURE__ */ React.createElement("span", { className: "mt-4 block text-4xl font-semibold text-slate-950" }, "\u25CF");
+    return /* @__PURE__ */ React.createElement("span", { className: cn("block text-4xl font-semibold text-slate-950", className) }, "\u25CF");
   }
   if (stateId === "pause") {
-    return /* @__PURE__ */ React.createElement("span", { className: "mt-4 block text-4xl font-semibold text-slate-300" }, "\u25CB");
+    return /* @__PURE__ */ React.createElement("span", { className: cn("block text-4xl font-semibold text-slate-300", className) }, "\u25CB");
   }
-  return /* @__PURE__ */ React.createElement("span", { className: "mt-4 block text-4xl font-semibold text-slate-950" }, "\u25CF");
+  return /* @__PURE__ */ React.createElement("span", { className: cn("block text-4xl font-semibold text-slate-950", className) }, "\u25CF");
 }
 function LessonHero() {
   const section = getSection("hero");
@@ -795,21 +812,12 @@ function RhythmSequencerSection() {
   const applyPreset = (presetKey) => {
     setSteps([...lessonData.sequencePresets[presetKey]]);
   };
-  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-[#fbfbf9]", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(24rem,1.08fr)] lg:items-start" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Laboratorio ritmico", title: section.title, text: section.text }), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "subtle", className: "mt-8 p-6 sm:p-7" }, /* @__PURE__ */ React.createElement("div", { className: "space-y-3.5 text-[1rem] leading-8 text-slate-600" }, /* @__PURE__ */ React.createElement("p", null, "Scegli un simbolo."), /* @__PURE__ */ React.createElement("p", null, "Scrivi un ritmo di 8 tempi."), /* @__PURE__ */ React.createElement("p", null, "Ripetilo finche il gruppo non lo sente stabile."))), /* @__PURE__ */ React.createElement("div", { className: "mt-8 flex flex-wrap gap-3" }, lessonData.sequenceStates.map((option) => {
-    const isSelected = option.id === selectedStateId;
-    return /* @__PURE__ */ React.createElement(
-      "button",
-      {
-        key: option.id,
-        type: "button",
-        "aria-label": `Seleziona ${option.longLabel}`,
-        onClick: () => setSelectedStateId(option.id),
-        className: cn(RING, isSelected ? PILL_ACTIVE : PILL_DEFAULT)
-      },
-      option.label
-    );
-  }))), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "soft", className: "w-full max-w-[44rem] justify-self-center p-6 sm:p-8 xl:justify-self-end" }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-3 sm:grid-cols-2 xl:grid-cols-4" }, steps.map((step, index) => {
+  const activeOption = optionById[selectedStateId];
+  const bars = [steps.slice(0, 4), steps.slice(4, 8)];
+  const renderStepButton = (step, index) => {
     const option = optionById[step];
+    const isAccent = step === "accent";
+    const isPause = step === "pause";
     return /* @__PURE__ */ React.createElement(
       "button",
       {
@@ -821,14 +829,60 @@ function RhythmSequencerSection() {
         ),
         className: cn(
           RING,
-          "flex min-h-[8.75rem] flex-col items-center justify-center rounded-[1.35rem] border border-solid border-slate-200/70 bg-white px-4 py-5 text-center transition-colors duration-150 hover:border-slate-300 hover:bg-[#f8f6f1]"
+          "group flex min-h-[9.5rem] flex-col rounded-[1.6rem] border border-solid px-4 py-4 text-left transition-colors duration-150",
+          isAccent ? "border-[#e6c8a8] bg-[#fff8f1] hover:border-[#d7b692] hover:bg-[#fff3e5]" : isPause ? "border-slate-200/80 bg-[#fbfaf7] hover:border-slate-300 hover:bg-[#f6f4ef]" : "border-slate-200/80 bg-white hover:border-slate-300 hover:bg-[#f8f6f1]"
         )
       },
-      /* @__PURE__ */ React.createElement("span", { className: cn("block", SMALL_LABEL) }, "tempo ", index + 1),
-      /* @__PURE__ */ React.createElement(SequencerSymbol, { stateId: step }),
-      /* @__PURE__ */ React.createElement("span", { className: "mt-2 block text-[0.92rem] leading-5 text-slate-500" }, option.longLabel)
+      /* @__PURE__ */ React.createElement("div", { className: "flex items-start justify-between gap-3" }, /* @__PURE__ */ React.createElement("span", { className: SMALL_LABEL }, "tempo ", index + 1), /* @__PURE__ */ React.createElement(
+        "span",
+        {
+          className: cn(
+            "inline-flex h-9 w-9 items-center justify-center rounded-full border text-sm font-medium",
+            isAccent ? "border-[#e6c8a8] bg-white text-[#8a4d18]" : isPause ? "border-slate-200 bg-white text-slate-400" : "border-slate-200 bg-[#fcfbf8] text-slate-500"
+          )
+        },
+        index + 1
+      )),
+      /* @__PURE__ */ React.createElement("div", { className: "mt-4 flex flex-1 flex-col items-center justify-center text-center" }, /* @__PURE__ */ React.createElement(SequencerSymbol, { stateId: step, className: isAccent ? "text-[2.85rem] text-[#8a4d18]" : "text-[2.5rem]" }), /* @__PURE__ */ React.createElement("span", { className: cn("mt-4 text-[0.98rem] font-medium", isAccent ? "text-[#8a4d18]" : "text-slate-500") }, option.longLabel))
     );
-  })), /* @__PURE__ */ React.createElement("div", { className: "mt-8 flex flex-wrap gap-3" }, /* @__PURE__ */ React.createElement(SecondaryButton, { onClick: () => applyPreset("reset") }, "Reset"), /* @__PURE__ */ React.createElement(SecondaryButton, { onClick: () => applyPreset("simple") }, "Esempio semplice"), /* @__PURE__ */ React.createElement(SecondaryButton, { onClick: () => applyPreset("pauses") }, "Esempio con pause"), /* @__PURE__ */ React.createElement(SecondaryButton, { onClick: () => applyPreset("accents") }, "Esempio con accenti")), /* @__PURE__ */ React.createElement("div", { className: "mt-8 flex flex-wrap gap-3 border-t border-slate-200/70 pt-6" }, /* @__PURE__ */ React.createElement(ToneTag, { className: "border-slate-200/70 bg-white text-slate-600" }, "\u25CF = suono"), /* @__PURE__ */ React.createElement(ToneTag, { className: "border-slate-200/70 bg-white text-slate-600" }, "\u25CB = pausa"), /* @__PURE__ */ React.createElement(ToneTag, { className: "border-slate-200/70 bg-white text-slate-600" }, "\u25CF grande = accento"))))));
+  };
+  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-[#fbfbf9]", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(24rem,1.1fr)] lg:items-start" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-[31rem]" }, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Laboratorio ritmico", title: section.title, text: section.text }), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "subtle", className: "mt-8 overflow-hidden p-0" }, /* @__PURE__ */ React.createElement("div", { className: "border-b border-slate-200/70 px-6 py-6 sm:px-7" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Come lavori"), /* @__PURE__ */ React.createElement("div", { className: "mt-5 space-y-4" }, lessonData.sequenceWorkflow.map((item) => /* @__PURE__ */ React.createElement("div", { key: item.step, className: "flex items-start gap-4" }, /* @__PURE__ */ React.createElement("span", { className: "inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-sm font-semibold text-slate-500" }, item.step), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: "text-[1rem] font-semibold tracking-[-0.02em] text-slate-950" }, item.title), /* @__PURE__ */ React.createElement("p", { className: "mt-1 text-[0.98rem] leading-7 text-slate-500" }, item.detail)))))), /* @__PURE__ */ React.createElement("div", { className: "px-6 py-6 sm:px-7" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-center justify-between gap-4" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Segno attivo"), /* @__PURE__ */ React.createElement("p", { className: "mt-2 text-[1rem] font-semibold tracking-[-0.02em] text-slate-950" }, activeOption.longLabel)), /* @__PURE__ */ React.createElement(ToneTag, { className: "border-[#eadfce] bg-white text-[#8a4d18]" }, "8 tempi \xB7 corpo \xB7 voce \xB7 banco")), /* @__PURE__ */ React.createElement("div", { className: "mt-5 grid gap-3 sm:grid-cols-3" }, lessonData.sequenceStates.map((option) => {
+    const isSelected = option.id === selectedStateId;
+    const isAccent = option.id === "accent";
+    const isPause = option.id === "pause";
+    return /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key: option.id,
+        type: "button",
+        "aria-label": `Seleziona ${option.longLabel}`,
+        onClick: () => setSelectedStateId(option.id),
+        className: cn(
+          RING,
+          "rounded-[1.45rem] border border-solid px-4 py-4 text-left transition-colors duration-150",
+          isSelected ? "border-[#e6c8a8] bg-[#fff8f1]" : "border-slate-200/80 bg-white hover:border-slate-300 hover:bg-[#f8f6f1]"
+        )
+      },
+      /* @__PURE__ */ React.createElement("div", { className: "flex items-center gap-3" }, /* @__PURE__ */ React.createElement(
+        "span",
+        {
+          className: cn(
+            "inline-flex h-11 w-11 items-center justify-center rounded-full border text-lg font-semibold",
+            isSelected ? "border-[#e6c8a8] bg-white text-[#8a4d18]" : isPause ? "border-slate-200 bg-[#fcfbf8] text-slate-400" : "border-slate-200 bg-[#fcfbf8] text-slate-600"
+          )
+        },
+        isPause ? "\u25CB" : "\u25CF"
+      ), /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: "text-[1rem] font-semibold tracking-[-0.02em] text-slate-950" }, option.label), /* @__PURE__ */ React.createElement("p", { className: "mt-1 text-sm text-slate-500" }, isAccent ? "punto piu forte" : isPause ? "spazio di silenzio" : "battito presente")))
+    );
+  }))))), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "soft", className: "w-full max-w-[47rem] justify-self-center overflow-hidden p-0 xl:justify-self-end" }, /* @__PURE__ */ React.createElement("div", { className: "border-b border-slate-200/70 px-6 py-6 sm:px-8 sm:py-7" }, /* @__PURE__ */ React.createElement("div", { className: "flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Lavagna ritmica"), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[1.18rem] font-semibold tracking-[-0.03em] text-slate-950" }, "Scrivi il ritmo in due battute da quattro tempi."), /* @__PURE__ */ React.createElement("p", { className: "mt-2 max-w-[34rem] text-[0.98rem] leading-7 text-slate-500" }, "Tocca una casella per inserirvi il segno selezionato. Il gruppo deve poter leggere e ripetere la sequenza senza perdere la pulsazione.")), /* @__PURE__ */ React.createElement("div", { className: "flex flex-wrap gap-2.5" }, /* @__PURE__ */ React.createElement(ToneTag, { className: "border-slate-200/70 bg-white text-slate-600" }, "battuta 1"), /* @__PURE__ */ React.createElement(ToneTag, { className: "border-slate-200/70 bg-white text-slate-600" }, "battuta 2")))), /* @__PURE__ */ React.createElement("div", { className: "px-6 py-6 sm:px-8 sm:py-8" }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-5" }, bars.map((barSteps, barIndex) => /* @__PURE__ */ React.createElement(
+    "div",
+    {
+      key: `bar-${barIndex}`,
+      className: "rounded-[1.8rem] border border-slate-200/70 bg-white px-4 py-5 shadow-[0_12px_28px_rgba(15,23,42,0.03)] sm:px-5"
+    },
+    /* @__PURE__ */ React.createElement("div", { className: "flex items-center justify-between gap-4" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "battuta ", barIndex + 1), /* @__PURE__ */ React.createElement("p", { className: "text-sm font-medium text-slate-500" }, "tempi ", barIndex * 4 + 1, "-", barIndex * 4 + 4)),
+    /* @__PURE__ */ React.createElement("div", { className: "mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4" }, barSteps.map((step, stepIndex) => renderStepButton(step, barIndex * 4 + stepIndex)))
+  ))), /* @__PURE__ */ React.createElement("div", { className: "mt-6 grid gap-4 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-start" }, /* @__PURE__ */ React.createElement("div", { className: "rounded-[1.55rem] border border-slate-200/70 bg-white px-5 py-5" }, /* @__PURE__ */ React.createElement("div", { className: "flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Prova un esempio"), /* @__PURE__ */ React.createElement("p", { className: "mt-2 text-sm leading-6 text-slate-500" }, "Usa i preset per confrontare un ritmo lineare, uno con pause e uno con accenti.")), /* @__PURE__ */ React.createElement("div", { className: "flex flex-wrap gap-3" }, /* @__PURE__ */ React.createElement(SecondaryButton, { onClick: () => applyPreset("reset") }, "Reset"), /* @__PURE__ */ React.createElement(SecondaryButton, { onClick: () => applyPreset("simple") }, "Esempio semplice"), /* @__PURE__ */ React.createElement(SecondaryButton, { onClick: () => applyPreset("pauses") }, "Esempio con pause"), /* @__PURE__ */ React.createElement(SecondaryButton, { onClick: () => applyPreset("accents") }, "Esempio con accenti")))), /* @__PURE__ */ React.createElement("div", { className: "flex flex-wrap gap-3 xl:max-w-[14rem] xl:justify-end" }, /* @__PURE__ */ React.createElement(ToneTag, { className: "border-slate-200/70 bg-white text-slate-600" }, "\u25CF = suono"), /* @__PURE__ */ React.createElement(ToneTag, { className: "border-slate-200/70 bg-white text-slate-600" }, "\u25CB = pausa"), /* @__PURE__ */ React.createElement(ToneTag, { className: "border-slate-200/70 bg-white text-slate-600" }, "\u25CF grande = accento"))))))));
 }
 function ConductorSection() {
   const section = getSection("conductor");

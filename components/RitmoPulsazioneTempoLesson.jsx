@@ -199,6 +199,23 @@ const lessonData = {
     pauses: ["sound", "pause", "sound", "pause", "sound", "sound", "pause", "sound"],
     accents: ["accent", "sound", "sound", "sound", "accent", "sound", "sound", "sound"],
   },
+  sequenceWorkflow: [
+    {
+      step: "01",
+      title: "Scegli il segno",
+      detail: "Decidi se ogni tempo sara suono, pausa o accento.",
+    },
+    {
+      step: "02",
+      title: "Scrivi due battute",
+      detail: "Riempi 8 tempi in due gruppi da quattro, senza perdere il battito.",
+    },
+    {
+      step: "03",
+      title: "Ripeti col gruppo",
+      detail: "Prova la sequenza finche diventa chiara, stabile e condivisa.",
+    },
+  ],
   conductorSteps: [
     {
       id: "rest",
@@ -624,14 +641,14 @@ function meterGroupLabel(groupSize) {
   return "a quattro";
 }
 
-function SequencerSymbol({ stateId }) {
+function SequencerSymbol({ stateId, className = "" }) {
   if (stateId === "accent") {
-    return <span className="mt-4 block text-4xl font-semibold text-slate-950">●</span>;
+    return <span className={cn("block text-4xl font-semibold text-slate-950", className)}>●</span>;
   }
   if (stateId === "pause") {
-    return <span className="mt-4 block text-4xl font-semibold text-slate-300">○</span>;
+    return <span className={cn("block text-4xl font-semibold text-slate-300", className)}>○</span>;
   }
-  return <span className="mt-4 block text-4xl font-semibold text-slate-950">●</span>;
+  return <span className={cn("block text-4xl font-semibold text-slate-950", className)}>●</span>;
 }
 
 function LessonHero() {
@@ -1141,75 +1158,197 @@ function RhythmSequencerSection() {
     setSteps([...lessonData.sequencePresets[presetKey]]);
   };
 
+  const activeOption = optionById[selectedStateId];
+  const bars = [steps.slice(0, 4), steps.slice(4, 8)];
+
+  const renderStepButton = (step, index) => {
+    const option = optionById[step];
+    const isAccent = step === "accent";
+    const isPause = step === "pause";
+    return (
+      <button
+        key={`${step}-${index}`}
+        type="button"
+        aria-label={`Tempo ${index + 1}, ${option.longLabel}`}
+        onClick={() =>
+          setSteps((current) =>
+            current.map((value, stepIndex) => (stepIndex === index ? selectedStateId : value))
+          )
+        }
+        className={cn(
+          RING,
+          "group flex min-h-[9.5rem] flex-col rounded-[1.6rem] border border-solid px-4 py-4 text-left transition-colors duration-150",
+          isAccent
+            ? "border-[#e6c8a8] bg-[#fff8f1] hover:border-[#d7b692] hover:bg-[#fff3e5]"
+            : isPause
+              ? "border-slate-200/80 bg-[#fbfaf7] hover:border-slate-300 hover:bg-[#f6f4ef]"
+              : "border-slate-200/80 bg-white hover:border-slate-300 hover:bg-[#f8f6f1]"
+        )}
+      >
+        <div className="flex items-start justify-between gap-3">
+          <span className={SMALL_LABEL}>tempo {index + 1}</span>
+          <span
+            className={cn(
+              "inline-flex h-9 w-9 items-center justify-center rounded-full border text-sm font-medium",
+              isAccent
+                ? "border-[#e6c8a8] bg-white text-[#8a4d18]"
+                : isPause
+                  ? "border-slate-200 bg-white text-slate-400"
+                  : "border-slate-200 bg-[#fcfbf8] text-slate-500"
+            )}
+          >
+            {index + 1}
+          </span>
+        </div>
+        <div className="mt-4 flex flex-1 flex-col items-center justify-center text-center">
+          <SequencerSymbol stateId={step} className={isAccent ? "text-[2.85rem] text-[#8a4d18]" : "text-[2.5rem]"} />
+          <span className={cn("mt-4 text-[0.98rem] font-medium", isAccent ? "text-[#8a4d18]" : "text-slate-500")}>
+            {option.longLabel}
+          </span>
+        </div>
+      </button>
+    );
+  };
+
   return (
     <SectionShell id={section.id} backgroundClass="bg-[#fbfbf9]" className={SECTION_SPACE}>
       <div className={LESSON_SHELL} style={{ fontFamily: APP_FONT }}>
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(24rem,1.08fr)] lg:items-start">
-          <div>
+        <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(24rem,1.1fr)] lg:items-start">
+          <div className="max-w-[31rem]">
             <SectionHeading kicker="Laboratorio ritmico" title={section.title} text={section.text} />
-            <SurfacePanel tone="subtle" className="mt-8 p-6 sm:p-7">
-              <div className="space-y-3.5 text-[1rem] leading-8 text-slate-600">
-                <p>Scegli un simbolo.</p>
-                <p>Scrivi un ritmo di 8 tempi.</p>
-                <p>Ripetilo finche il gruppo non lo sente stabile.</p>
+            <SurfacePanel tone="subtle" className="mt-8 overflow-hidden p-0">
+              <div className="border-b border-slate-200/70 px-6 py-6 sm:px-7">
+                <p className={SMALL_LABEL}>Come lavori</p>
+                <div className="mt-5 space-y-4">
+                  {lessonData.sequenceWorkflow.map((item) => (
+                    <div key={item.step} className="flex items-start gap-4">
+                      <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-sm font-semibold text-slate-500">
+                        {item.step}
+                      </span>
+                      <div>
+                        <p className="text-[1rem] font-semibold tracking-[-0.02em] text-slate-950">{item.title}</p>
+                        <p className="mt-1 text-[0.98rem] leading-7 text-slate-500">{item.detail}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="px-6 py-6 sm:px-7">
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className={SMALL_LABEL}>Segno attivo</p>
+                    <p className="mt-2 text-[1rem] font-semibold tracking-[-0.02em] text-slate-950">{activeOption.longLabel}</p>
+                  </div>
+                  <ToneTag className="border-[#eadfce] bg-white text-[#8a4d18]">8 tempi · corpo · voce · banco</ToneTag>
+                </div>
+
+                <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                  {lessonData.sequenceStates.map((option) => {
+                    const isSelected = option.id === selectedStateId;
+                    const isAccent = option.id === "accent";
+                    const isPause = option.id === "pause";
+                    return (
+                      <button
+                        key={option.id}
+                        type="button"
+                        aria-label={`Seleziona ${option.longLabel}`}
+                        onClick={() => setSelectedStateId(option.id)}
+                        className={cn(
+                          RING,
+                          "rounded-[1.45rem] border border-solid px-4 py-4 text-left transition-colors duration-150",
+                          isSelected
+                            ? "border-[#e6c8a8] bg-[#fff8f1]"
+                            : "border-slate-200/80 bg-white hover:border-slate-300 hover:bg-[#f8f6f1]"
+                        )}
+                      >
+                        <div className="flex items-center gap-3">
+                          <span
+                            className={cn(
+                              "inline-flex h-11 w-11 items-center justify-center rounded-full border text-lg font-semibold",
+                              isSelected
+                                ? "border-[#e6c8a8] bg-white text-[#8a4d18]"
+                                : isPause
+                                  ? "border-slate-200 bg-[#fcfbf8] text-slate-400"
+                                  : "border-slate-200 bg-[#fcfbf8] text-slate-600"
+                            )}
+                          >
+                            {isPause ? "○" : "●"}
+                          </span>
+                          <div>
+                            <p className="text-[1rem] font-semibold tracking-[-0.02em] text-slate-950">{option.label}</p>
+                            <p className="mt-1 text-sm text-slate-500">
+                              {isAccent ? "punto piu forte" : isPause ? "spazio di silenzio" : "battito presente"}
+                            </p>
+                          </div>
+                        </div>
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </SurfacePanel>
-            <div className="mt-8 flex flex-wrap gap-3">
-              {lessonData.sequenceStates.map((option) => {
-                const isSelected = option.id === selectedStateId;
-                return (
-                  <button
-                    key={option.id}
-                    type="button"
-                    aria-label={`Seleziona ${option.longLabel}`}
-                    onClick={() => setSelectedStateId(option.id)}
-                    className={cn(RING, isSelected ? PILL_ACTIVE : PILL_DEFAULT)}
-                  >
-                    {option.label}
-                  </button>
-                );
-              })}
-            </div>
           </div>
 
-          <SurfacePanel tone="soft" className="w-full max-w-[44rem] justify-self-center p-6 sm:p-8 xl:justify-self-end">
-            <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
-              {steps.map((step, index) => {
-                const option = optionById[step];
-                return (
-                  <button
-                    key={`${step}-${index}`}
-                    type="button"
-                    aria-label={`Tempo ${index + 1}, ${option.longLabel}`}
-                    onClick={() =>
-                      setSteps((current) =>
-                        current.map((value, stepIndex) => (stepIndex === index ? selectedStateId : value))
-                      )
-                    }
-                    className={cn(
-                      RING,
-                      "flex min-h-[8.75rem] flex-col items-center justify-center rounded-[1.35rem] border border-solid border-slate-200/70 bg-white px-4 py-5 text-center transition-colors duration-150 hover:border-slate-300 hover:bg-[#f8f6f1]"
-                    )}
+          <SurfacePanel tone="soft" className="w-full max-w-[47rem] justify-self-center overflow-hidden p-0 xl:justify-self-end">
+            <div className="border-b border-slate-200/70 px-6 py-6 sm:px-8 sm:py-7">
+              <div className="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+                <div>
+                  <p className={SMALL_LABEL}>Lavagna ritmica</p>
+                  <p className="mt-3 text-[1.18rem] font-semibold tracking-[-0.03em] text-slate-950">Scrivi il ritmo in due battute da quattro tempi.</p>
+                  <p className="mt-2 max-w-[34rem] text-[0.98rem] leading-7 text-slate-500">
+                    Tocca una casella per inserirvi il segno selezionato. Il gruppo deve poter leggere e ripetere la sequenza senza perdere la pulsazione.
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2.5">
+                  <ToneTag className="border-slate-200/70 bg-white text-slate-600">battuta 1</ToneTag>
+                  <ToneTag className="border-slate-200/70 bg-white text-slate-600">battuta 2</ToneTag>
+                </div>
+              </div>
+            </div>
+
+            <div className="px-6 py-6 sm:px-8 sm:py-8">
+              <div className="grid gap-5">
+                {bars.map((barSteps, barIndex) => (
+                  <div
+                    key={`bar-${barIndex}`}
+                    className="rounded-[1.8rem] border border-slate-200/70 bg-white px-4 py-5 shadow-[0_12px_28px_rgba(15,23,42,0.03)] sm:px-5"
                   >
-                    <span className={cn("block", SMALL_LABEL)}>tempo {index + 1}</span>
-                    <SequencerSymbol stateId={step} />
-                    <span className="mt-2 block text-[0.92rem] leading-5 text-slate-500">{option.longLabel}</span>
-                  </button>
-                );
-              })}
-            </div>
+                    <div className="flex items-center justify-between gap-4">
+                      <p className={SMALL_LABEL}>battuta {barIndex + 1}</p>
+                      <p className="text-sm font-medium text-slate-500">
+                        tempi {barIndex * 4 + 1}-{barIndex * 4 + 4}
+                      </p>
+                    </div>
+                    <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                      {barSteps.map((step, stepIndex) => renderStepButton(step, barIndex * 4 + stepIndex))}
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-            <div className="mt-8 flex flex-wrap gap-3">
-              <SecondaryButton onClick={() => applyPreset("reset")}>Reset</SecondaryButton>
-              <SecondaryButton onClick={() => applyPreset("simple")}>Esempio semplice</SecondaryButton>
-              <SecondaryButton onClick={() => applyPreset("pauses")}>Esempio con pause</SecondaryButton>
-              <SecondaryButton onClick={() => applyPreset("accents")}>Esempio con accenti</SecondaryButton>
-            </div>
+              <div className="mt-6 grid gap-4 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-start">
+                <div className="rounded-[1.55rem] border border-slate-200/70 bg-white px-5 py-5">
+                  <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                    <div>
+                      <p className={SMALL_LABEL}>Prova un esempio</p>
+                      <p className="mt-2 text-sm leading-6 text-slate-500">Usa i preset per confrontare un ritmo lineare, uno con pause e uno con accenti.</p>
+                    </div>
+                    <div className="flex flex-wrap gap-3">
+                      <SecondaryButton onClick={() => applyPreset("reset")}>Reset</SecondaryButton>
+                      <SecondaryButton onClick={() => applyPreset("simple")}>Esempio semplice</SecondaryButton>
+                      <SecondaryButton onClick={() => applyPreset("pauses")}>Esempio con pause</SecondaryButton>
+                      <SecondaryButton onClick={() => applyPreset("accents")}>Esempio con accenti</SecondaryButton>
+                    </div>
+                  </div>
+                </div>
 
-            <div className="mt-8 flex flex-wrap gap-3 border-t border-slate-200/70 pt-6">
-              <ToneTag className="border-slate-200/70 bg-white text-slate-600">● = suono</ToneTag>
-              <ToneTag className="border-slate-200/70 bg-white text-slate-600">○ = pausa</ToneTag>
-              <ToneTag className="border-slate-200/70 bg-white text-slate-600">● grande = accento</ToneTag>
+                <div className="flex flex-wrap gap-3 xl:max-w-[14rem] xl:justify-end">
+                  <ToneTag className="border-slate-200/70 bg-white text-slate-600">● = suono</ToneTag>
+                  <ToneTag className="border-slate-200/70 bg-white text-slate-600">○ = pausa</ToneTag>
+                  <ToneTag className="border-slate-200/70 bg-white text-slate-600">● grande = accento</ToneTag>
+                </div>
+              </div>
             </div>
           </SurfacePanel>
         </div>
