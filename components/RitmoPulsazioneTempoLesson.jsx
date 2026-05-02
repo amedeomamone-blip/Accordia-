@@ -157,20 +157,29 @@ const lessonData = {
   listeningCards: [
     {
       id: "listening-a",
+      code: "A",
       title: "Passo / marcia",
       focus: "Pulsazione in 2",
+      description: "Il corpo tende a camminare in coppie regolari: uno-due, uno-due. Qui la pulsazione e molto leggibile.",
+      exercise: "Prova a battere mani o banco seguendo un passo fermo e regolare.",
       expected: 2,
     },
     {
       id: "listening-b",
+      code: "B",
       title: "Dondolio / valzer",
       focus: "Pulsazione in 3",
+      description: "Il movimento oscilla e fa sentire gruppi di tre: uno accompagna, due completano il giro.",
+      exercise: "Prova a contare uno-due-tre con un piccolo movimento del corpo.",
       expected: 3,
     },
     {
       id: "listening-c",
+      code: "C",
       title: "Groove / battito moderno",
       focus: "Pulsazione stabile con ritmo sovrapposto",
+      description: "Il battito resta sotto, ma il ritmo in superficie si muove e puo farti perdere il centro.",
+      exercise: "Prova a tenere il battito con una mano mentre l'altra immagina un ritmo diverso.",
       expected: 4,
     },
   ],
@@ -565,25 +574,54 @@ function ConceptVisual({ type }) {
 
 function MeterPreview({ groupSize }) {
   return (
-    <div className="mt-6 flex flex-wrap justify-center gap-3">
-      {Array.from({ length: 8 }).map((_, index) => {
-        const accented = index % groupSize === 0;
-        return (
-          <span
-            key={`${groupSize}-${index}`}
-            className={cn(
-              "inline-flex items-center justify-center rounded-full border bg-white text-sm font-medium",
-              accented
-                ? "h-14 w-14 border-[#e6c8a8] bg-[#fff6ed] text-[#8a4d18]"
-                : "h-10 w-10 border-slate-200 text-slate-500"
-            )}
-          >
-            {accented ? "●" : "•"}
-          </span>
-        );
-      })}
+    <div className="mt-6 rounded-[1.7rem] border border-slate-200/70 bg-[linear-gradient(180deg,#ffffff_0%,#fcfbf8_100%)] px-5 py-6 sm:px-6 sm:py-7">
+      <div className="flex items-center justify-between gap-4">
+        <div>
+          <p className={SMALL_LABEL}>Traccia visiva</p>
+          <p className="mt-2 text-sm leading-6 text-slate-500">Guarda dove torna il battito forte e come si ricompone il gruppo.</p>
+        </div>
+        <span className="inline-flex items-center rounded-full border border-[#eadfce] bg-[#fff7ef] px-3.5 py-1.5 text-sm font-medium text-[#8a4d18]">
+          gruppo da {groupSize}
+        </span>
+      </div>
+
+      <div className="relative mt-7">
+        <div
+          className="pointer-events-none absolute inset-x-5 top-[1.05rem] h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"
+          aria-hidden="true"
+        />
+        <div className="relative grid grid-cols-4 gap-4 sm:grid-cols-8">
+          {Array.from({ length: 8 }).map((_, index) => {
+            const accented = index % groupSize === 0;
+            const cycleNumber = (index % groupSize) + 1;
+            return (
+              <div key={`${groupSize}-${index}`} className="flex flex-col items-center gap-3">
+                <span
+                  className={cn(
+                    "inline-flex items-center justify-center rounded-full border bg-white text-sm font-medium",
+                    accented
+                      ? "h-14 w-14 border-[#e6c8a8] bg-[#fff6ed] text-[#8a4d18]"
+                      : "h-10 w-10 border-slate-200 text-slate-500"
+                  )}
+                >
+                  {accented ? "●" : "•"}
+                </span>
+                <span className={cn("text-[0.86rem] font-medium", accented ? "text-[#8a4d18]" : "text-slate-400")}>
+                  {cycleNumber}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
+}
+
+function meterGroupLabel(groupSize) {
+  if (groupSize === 2) return "a due";
+  if (groupSize === 3) return "a tre";
+  return "a quattro";
 }
 
 function SequencerSymbol({ stateId }) {
@@ -963,46 +1001,123 @@ function ListeningCardsSection() {
 
   return (
     <SectionShell id={section.id} backgroundClass="bg-white" className={SECTION_SPACE}>
-      <div className={LESSON_SHELL} style={{ fontFamily: APP_FONT }}>
+      <div className={LESSON_SHELL_WIDE} style={{ fontFamily: APP_FONT }}>
         <SectionHeading kicker="Ascolto guidato" title={section.title} text={section.text} />
 
-        <div className="mt-14 grid gap-6 lg:grid-cols-3">
+        <SurfacePanel tone="soft" className="mt-12 px-6 py-6 sm:px-8 sm:py-7">
+          <div className="grid gap-4 lg:grid-cols-3">
+            {[
+              {
+                step: "01",
+                title: "Scegli il gruppo",
+                text: "Prova 2, 3 o 4 pulsazioni e guarda come cambia l'accento.",
+              },
+              {
+                step: "02",
+                title: "Segui il battito forte",
+                text: "La traccia visiva ti aiuta a capire dove il gruppo riparte.",
+              },
+              {
+                step: "03",
+                title: "Rispondi e confronta",
+                text: "Usa le domande per distinguere pulsazione, ritmo e accento.",
+              },
+            ].map((item) => (
+              <div key={item.step} className="rounded-[1.4rem] border border-white/80 bg-white/80 px-5 py-5">
+                <p className={SMALL_LABEL}>{item.step}</p>
+                <h3 className="mt-3 text-xl font-semibold tracking-[-0.04em] text-slate-950">{item.title}</h3>
+                <p className="mt-3 text-[0.98rem] leading-7 text-slate-500">{item.text}</p>
+              </div>
+            ))}
+          </div>
+        </SurfacePanel>
+
+        <div className="mt-10 space-y-6">
           {lessonData.listeningCards.map((card) => {
             const selectedMeter = selectedMeters[card.id] || card.expected;
             return (
-              <SurfacePanel key={card.id} tone="soft" className="p-6 sm:p-7">
-                <p className={SMALL_LABEL}>{card.focus}</p>
-                <h3 className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-slate-950">{card.title}</h3>
+              <SurfacePanel
+                key={card.id}
+                tone="soft"
+                className="overflow-hidden border-slate-200/60 bg-[linear-gradient(180deg,#fffefb_0%,#fcfaf6_100%)] p-0"
+              >
+                <div className="grid gap-0 xl:grid-cols-[minmax(0,1.04fr)_minmax(21rem,0.82fr)]">
+                  <div className="p-6 sm:p-8 lg:p-9">
+                    <div className="flex flex-wrap items-center gap-3">
+                      <p className={SMALL_LABEL}>Ascolto {card.code}</p>
+                      <ToneTag className="border-[#eadfce] bg-white/90 text-[#8a4d18]">{card.focus}</ToneTag>
+                    </div>
 
-                <div className="mt-6 rounded-[1.6rem] border border-slate-200/70 bg-white px-5 py-6 text-center">
-                  <p className="text-base leading-7 text-slate-500">Placeholder di ascolto guidato.</p>
-                  <MeterPreview groupSize={selectedMeter} />
-                </div>
+                    <h3 className="mt-4 text-[2rem] font-semibold tracking-[-0.05em] text-slate-950">{card.title}</h3>
+                    <p className={cn("mt-4 max-w-[38rem]", BODY_COPY_SOFT)}>{card.description}</p>
 
-                <div className="mt-6 flex flex-wrap gap-3">
-                  {[2, 3, 4].map((meter) => (
-                    <button
-                      key={`${card.id}-${meter}`}
-                      type="button"
-                      aria-label={`${meter} pulsazioni`}
-                      onClick={() => setSelectedMeters((current) => ({ ...current, [card.id]: meter }))}
-                      className={cn(RING, selectedMeter === meter ? PILL_ACTIVE : PILL_DEFAULT)}
-                    >
-                      {meter} pulsazioni
-                    </button>
-                  ))}
-                </div>
+                    <div className="mt-6 rounded-[1.8rem] border border-slate-200/70 bg-white/90 px-5 py-5 sm:px-6 sm:py-6">
+                      <div className="flex flex-wrap items-start justify-between gap-4">
+                        <div className="max-w-[28rem]">
+                          <p className={SMALL_LABEL}>Prova pratica</p>
+                          <p className="mt-3 text-[0.98rem] leading-7 text-slate-500">{card.exercise}</p>
+                        </div>
+                        <span className="inline-flex items-center rounded-full border border-[#eadfce] bg-[#fff7ef] px-3.5 py-1.5 text-sm font-medium text-[#8a4d18]">
+                          atteso · {card.expected} pulsazioni
+                        </span>
+                      </div>
 
-                <div className="mt-6 space-y-4">
-                  {lessonData.listeningQuestions.map((question) => (
-                    <p key={`${card.id}-${question}`} className={BODY_COPY_SOFT}>
-                      {question}
-                    </p>
-                  ))}
-                </div>
+                      <MeterPreview groupSize={selectedMeter} />
+                    </div>
 
-                <div className="mt-6 border-t border-slate-200/70 pt-5">
-                  <p className={BODY_COPY_SOFT}>Osserva se l'accento torna ogni due, tre o quattro battiti.</p>
+                    <div className="mt-6">
+                      <p className={SMALL_LABEL}>Cambia il gruppo</p>
+                      <div className="mt-3 flex flex-wrap gap-3">
+                        {[2, 3, 4].map((meter) => (
+                          <button
+                            key={`${card.id}-${meter}`}
+                            type="button"
+                            aria-label={`${meter} pulsazioni`}
+                            onClick={() => setSelectedMeters((current) => ({ ...current, [card.id]: meter }))}
+                            className={cn(RING, selectedMeter === meter ? PILL_ACTIVE : PILL_DEFAULT)}
+                          >
+                            {meter} pulsazioni
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="border-t border-slate-200/70 bg-[#fcfbf8]/95 p-6 sm:p-8 xl:border-l xl:border-t-0">
+                    <p className={SMALL_LABEL}>Cosa fai</p>
+                    <ol className="mt-5 space-y-4">
+                      {lessonData.listeningQuestions.map((question, questionIndex) => (
+                        <li key={`${card.id}-${question}`} className="flex items-start gap-4">
+                          <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-white text-sm font-semibold text-slate-500">
+                            {questionIndex + 1}
+                          </span>
+                          <p className="pt-1 text-[1rem] leading-7 text-slate-600">{question}</p>
+                        </li>
+                      ))}
+                    </ol>
+
+                    <div className="mt-8 rounded-[1.6rem] border border-slate-200/70 bg-white px-5 py-5">
+                      <p className={SMALL_LABEL}>Osserva</p>
+                      <p className="mt-3 text-[1rem] leading-7 text-slate-600">
+                        Se l'accento torna ogni {selectedMeter} battiti, stai sentendo un gruppo {meterGroupLabel(selectedMeter)}.
+                      </p>
+                      <div className="mt-5 flex flex-wrap gap-2.5">
+                        {Array.from({ length: selectedMeter }).map((_, index) => (
+                          <span
+                            key={`${card.id}-count-${index}`}
+                            className={cn(
+                              "inline-flex h-10 w-10 items-center justify-center rounded-full border text-sm font-medium",
+                              index === 0
+                                ? "border-[#e6c8a8] bg-[#fff6ed] text-[#8a4d18]"
+                                : "border-slate-200 bg-white text-slate-500"
+                            )}
+                          >
+                            {index + 1}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </SurfacePanel>
             );
