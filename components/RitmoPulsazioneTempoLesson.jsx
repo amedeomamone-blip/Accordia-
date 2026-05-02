@@ -562,44 +562,66 @@ function SecondaryButton({ children, onClick }) {
   );
 }
 
+function getMeterPalette(groupSize) {
+  if (groupSize === 2) {
+    return {
+      groupSurface: "border-[#d8eadc] bg-[#f4faf5]",
+      beat: "border-[#d4e2d7] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#eef5f0_100%)] text-[#64756a]",
+      accent: "border-[#c2d8c8] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#dfeee3_100%)] text-[#45634f]",
+      pill: "border-[#d8eadc] bg-[#eef7f1] text-[#45634f]",
+      note: "text-[#4f6857]",
+    };
+  }
+
+  if (groupSize === 3) {
+    return {
+      groupSurface: "border-[#eedccf] bg-[#fff7f0]",
+      beat: "border-[#eadfd4] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#fbf2ea_100%)] text-[#8a6f5e]",
+      accent: "border-[#e6cdb9] bg-[radial-gradient(circle_at_35%_35%,#fffdfb_0%,#fee9d7_100%)] text-[#8a4d18]",
+      pill: "border-[#eedccf] bg-[#fff2e7] text-[#8a4d18]",
+      note: "text-[#8a5a34]",
+    };
+  }
+
+  return {
+    groupSurface: "border-[#d8e3f0] bg-[#f4f8fd]",
+    beat: "border-[#dbe4f0] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#edf3fa_100%)] text-[#66758a]",
+    accent: "border-[#c8d7ea] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#e2ebf8_100%)] text-[#3e5f86]",
+    pill: "border-[#d8e3f0] bg-[#edf4fc] text-[#3e5f86]",
+    note: "text-[#516a88]",
+  };
+}
+
+function buildMeterGroups(groupSize, totalBeats = 8) {
+  const groups = [];
+  let beatIndex = 0;
+
+  while (beatIndex < totalBeats) {
+    const group = [];
+    for (let index = 0; index < groupSize && beatIndex < totalBeats; index += 1) {
+      group.push(index + 1);
+      beatIndex += 1;
+    }
+    groups.push(group);
+  }
+
+  return groups;
+}
+
 function ConceptVisual({ type }) {
   if (type === "group-2" || type === "group-3" || type === "group-4") {
     const size = type === "group-2" ? 2 : type === "group-3" ? 3 : 4;
-    const groupStyle =
-      type === "group-2"
-        ? {
-            wrap: "border-[#dbe9dd] bg-[#f4faf4]",
-            label: "text-[#5b7362]",
-            chip: "h-10 w-10 border-[#d9e4dc] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#f2f7f3_100%)] text-[#66756c] shadow-[0_8px_18px_rgba(95,129,104,0.08)]",
-            accent:
-              "h-11 w-11 border-[#c8dbc9] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#e4f0e6_100%)] text-[#45634f] shadow-[0_10px_22px_rgba(95,129,104,0.12)]",
-          }
-        : type === "group-3"
-          ? {
-              wrap: "border-[#eedccf] bg-[#fff7f0]",
-              label: "text-[#9b6d49]",
-              chip: "h-10 w-10 border-[#eadfd4] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#fbf2ea_100%)] text-[#8a6f5e] shadow-[0_8px_18px_rgba(138,111,94,0.08)]",
-              accent:
-                "h-11 w-11 border-[#e7cdb9] bg-[radial-gradient(circle_at_35%_35%,#fffdfb_0%,#fee9d7_100%)] text-[#8a4d18] shadow-[0_10px_22px_rgba(198,106,24,0.14)]",
-            }
-          : {
-              wrap: "border-[#d8e3f0] bg-[#f4f8fd]",
-              label: "text-[#617690]",
-              chip: "h-10 w-10 border-[#dbe4f0] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#edf3fa_100%)] text-[#66758a] shadow-[0_8px_18px_rgba(102,117,138,0.08)]",
-              accent:
-                "h-11 w-11 border-[#c8d7ea] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#e2ebf8_100%)] text-[#3e5f86] shadow-[0_10px_22px_rgba(62,95,134,0.13)]",
-            };
+    const palette = getMeterPalette(size);
 
     return (
-      <div className={cn("flex items-center gap-3 rounded-full border px-3 py-2", groupStyle.wrap)}>
-        <span className={cn("text-[0.72rem] font-semibold uppercase tracking-[0.18em]", groupStyle.label)}>a {size}</span>
-        <div className="flex items-center gap-2">
+      <div className={cn("flex items-center gap-2.5 rounded-[1.35rem] border px-3 py-3", palette.groupSurface)}>
+        <div className="flex items-center gap-2.5">
           {Array.from({ length: size }).map((_, index) => (
             <span
               key={`${type}-${index}`}
               className={cn(
-                "inline-flex items-center justify-center rounded-full border text-sm font-medium",
-                index === 0 ? groupStyle.accent : groupStyle.chip
+                "inline-flex h-11 w-11 items-center justify-center rounded-full border text-sm font-semibold shadow-[0_10px_22px_rgba(15,23,42,0.06)]",
+                index === 0 ? palette.accent : palette.beat
               )}
             >
               {index + 1}
@@ -628,45 +650,41 @@ function ConceptVisual({ type }) {
 }
 
 function MeterPreview({ groupSize, compact = false }) {
+  const palette = getMeterPalette(groupSize);
+  const groups = buildMeterGroups(groupSize);
+
   if (compact) {
     return (
-      <div className="mt-4 rounded-[1.45rem] border border-slate-200/70 bg-[linear-gradient(180deg,#ffffff_0%,#fcfbf8_100%)] px-4 py-4">
+      <div className="mt-4 rounded-[1.55rem] border border-slate-200/70 bg-[linear-gradient(180deg,#ffffff_0%,#fcfbf8_100%)] px-4 py-4">
         <div className="flex items-center justify-between gap-3">
           <p className={SMALL_LABEL}>Traccia visiva</p>
-          <span className="inline-flex items-center rounded-full border border-[#eadfce] bg-[#fff7ef] px-3 py-1 text-xs font-medium text-[#8a4d18]">
-            gruppo da {groupSize}
+          <span className={cn("inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium", palette.pill)}>
+            {groupSize} pulsazioni
           </span>
         </div>
 
-        <div className="relative mt-4">
-          <div
-            className="pointer-events-none absolute inset-x-4 top-[0.8rem] h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"
-            aria-hidden="true"
-          />
-          <div className="relative grid grid-cols-4 gap-3">
-            {Array.from({ length: 8 }).map((_, index) => {
-              const accented = index % groupSize === 0;
-              const cycleNumber = (index % groupSize) + 1;
-              return (
-                <div key={`${groupSize}-${index}`} className="flex flex-col items-center gap-2">
-                  <span
-                    className={cn(
-                      "inline-flex items-center justify-center rounded-full border text-sm font-medium shadow-[0_8px_18px_rgba(15,23,42,0.06)]",
-                      accented
-                        ? "h-14 w-14 border-[#e7cdb9] bg-[radial-gradient(circle_at_35%_35%,#fffdfb_0%,#fee8d6_100%)] text-[#8a4d18]"
-                        : "h-10 w-10 border-[#d7e1ec] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#edf3fa_100%)] text-[#647791]"
-                    )}
-                  >
-                    {accented ? "●" : "•"}
-                  </span>
-                  <span className={cn("text-[0.78rem] font-medium", accented ? "text-[#8a4d18]" : "text-slate-400")}>
-                    {cycleNumber}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
+        <div className="mt-4 flex flex-wrap gap-3">
+          {groups.map((group, index) => (
+            <div
+              key={`${groupSize}-compact-${index}`}
+              className={cn("flex items-center gap-2.5 rounded-[1.2rem] border px-3 py-3", palette.groupSurface)}
+            >
+              {group.map((value, valueIndex) => (
+                <span
+                  key={`${groupSize}-${index}-${value}`}
+                  className={cn(
+                    "inline-flex h-12 w-12 items-center justify-center rounded-full border text-sm font-semibold shadow-[0_10px_22px_rgba(15,23,42,0.06)]",
+                    valueIndex === 0 ? palette.accent : palette.beat
+                  )}
+                >
+                  {value}
+                </span>
+              ))}
+            </div>
+          ))}
         </div>
+
+        <p className={cn("mt-4 text-sm font-medium", palette.note)}>Il numero 1 riapre il gruppo e fa sentire l'accento.</p>
       </div>
     );
   }
@@ -676,42 +694,36 @@ function MeterPreview({ groupSize, compact = false }) {
       <div className="flex items-center justify-between gap-4">
         <div>
           <p className={SMALL_LABEL}>Traccia visiva</p>
-          <p className="mt-2 text-sm leading-6 text-slate-500">Guarda dove torna il battito forte e come si ricompone il gruppo.</p>
+          <p className="mt-2 text-sm leading-6 text-slate-500">Guarda dove il gruppo si chiude e dove il numero 1 riparte.</p>
         </div>
-        <span className="inline-flex items-center rounded-full border border-[#eadfce] bg-[#fff7ef] px-3.5 py-1.5 text-sm font-medium text-[#8a4d18]">
-          gruppo da {groupSize}
+        <span className={cn("inline-flex items-center rounded-full border px-3.5 py-1.5 text-sm font-medium", palette.pill)}>
+          {groupSize} pulsazioni
         </span>
       </div>
 
-      <div className="relative mt-7">
-        <div
-          className="pointer-events-none absolute inset-x-5 top-[1.05rem] h-px bg-gradient-to-r from-transparent via-slate-200 to-transparent"
-          aria-hidden="true"
-        />
-        <div className="relative grid grid-cols-4 gap-4 sm:grid-cols-8">
-          {Array.from({ length: 8 }).map((_, index) => {
-            const accented = index % groupSize === 0;
-            const cycleNumber = (index % groupSize) + 1;
-            return (
-              <div key={`${groupSize}-${index}`} className="flex flex-col items-center gap-3">
+      <div className="mt-6 flex flex-wrap gap-4">
+        {groups.map((group, index) => (
+          <div key={`${groupSize}-full-${index}`} className={cn("flex items-center gap-3 rounded-[1.35rem] border px-4 py-4", palette.groupSurface)}>
+            {group.map((value, valueIndex) => (
+              <div key={`${groupSize}-full-${index}-${value}`} className="flex flex-col items-center gap-2">
                 <span
                   className={cn(
-                    "inline-flex items-center justify-center rounded-full border text-sm font-medium shadow-[0_10px_22px_rgba(15,23,42,0.06)]",
-                    accented
-                      ? "h-16 w-16 border-[#e7cdb9] bg-[radial-gradient(circle_at_35%_35%,#fffdfb_0%,#fee8d6_100%)] text-[#8a4d18]"
-                      : "h-12 w-12 border-[#d7e1ec] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#edf3fa_100%)] text-[#647791]"
+                    "inline-flex h-14 w-14 items-center justify-center rounded-full border text-base font-semibold shadow-[0_10px_24px_rgba(15,23,42,0.06)]",
+                    valueIndex === 0 ? palette.accent : palette.beat
                   )}
                 >
-                  {accented ? "●" : "•"}
+                  {value}
                 </span>
-                <span className={cn("text-[0.86rem] font-medium", accented ? "text-[#8a4d18]" : "text-slate-400")}>
-                  {cycleNumber}
+                <span className={cn("text-[0.82rem] font-medium", valueIndex === 0 ? palette.note : "text-slate-400")}>
+                  battito
                 </span>
               </div>
-            );
-          })}
-        </div>
+            ))}
+          </div>
+        ))}
       </div>
+
+      <p className={cn("mt-5 text-sm font-medium", palette.note)}>Ogni blocco colorato mostra uno stesso gruppo che ritorna.</p>
     </div>
   );
 }
@@ -1094,62 +1106,66 @@ function ListeningCardsSection() {
       <div className={LESSON_SHELL_WIDE} style={{ fontFamily: APP_FONT }}>
         <SectionHeading kicker="Ascolto guidato" title={section.title} text={section.text} />
 
-        <SurfacePanel tone="soft" className="mt-8 px-4 py-4 sm:px-5 sm:py-5">
-          <div className="grid gap-4 lg:grid-cols-3">
-            {[
-              {
-                step: "01",
-                title: "Scegli il gruppo",
-                text: "Prova 2, 3 o 4 pulsazioni e guarda come cambia l'accento.",
-              },
-              {
-                step: "02",
-                title: "Segui il battito forte",
-                text: "La traccia visiva ti aiuta a capire dove il gruppo riparte.",
-              },
-              {
-                step: "03",
-                title: "Rispondi e confronta",
-                text: "Usa le domande per distinguere pulsazione, ritmo e accento.",
-              },
-            ].map((item) => (
-              <div key={item.step} className="rounded-[1.25rem] border border-white/80 bg-white/80 px-4 py-4">
-                <div className="flex items-center gap-3">
-                  <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-slate-200 bg-white text-xs font-semibold text-slate-500">
-                    {item.step}
-                  </span>
-                  <h3 className="text-[1.02rem] font-semibold tracking-[-0.03em] text-slate-950">{item.title}</h3>
+        <SurfacePanel tone="soft" className="mt-8 px-5 py-5 sm:px-6 sm:py-6">
+          <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
+            <div className="max-w-[28rem]">
+              <p className={SMALL_LABEL}>Come leggi la sezione</p>
+              <p className="mt-3 text-[0.98rem] leading-7 text-slate-600">
+                Guarda i tre casi uno accanto all'altro: scegli il gruppo, osserva dove ricomincia il numero 1 e poi confronta le risposte.
+              </p>
+            </div>
+            <div className="grid gap-3 sm:grid-cols-3 xl:min-w-[38rem]">
+              {[
+                { step: "01", title: "Scegli", text: "2, 3 o 4" },
+                { step: "02", title: "Guarda", text: "dove riparte 1" },
+                { step: "03", title: "Confronta", text: "le tre risposte" },
+              ].map((item) => (
+                <div key={item.step} className="rounded-[1.2rem] border border-white/80 bg-white/80 px-4 py-3">
+                  <div className="flex items-center gap-3">
+                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-sm font-semibold text-slate-500">
+                      {item.step}
+                    </span>
+                    <div>
+                      <p className="text-[0.98rem] font-semibold tracking-[-0.03em] text-slate-950">{item.title}</p>
+                      <p className="text-sm text-slate-500">{item.text}</p>
+                    </div>
+                  </div>
                 </div>
-                <p className="mt-2 text-sm leading-6 text-slate-500">{item.text}</p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </SurfacePanel>
 
         <div className="mt-6 grid gap-5 xl:grid-cols-3">
           {lessonData.listeningCards.map((card) => {
             const selectedMeter = selectedMeters[card.id] || card.expected;
+            const selectedPalette = getMeterPalette(selectedMeter);
+            const expectedPalette = getMeterPalette(card.expected);
             return (
               <SurfacePanel
                 key={card.id}
                 tone="soft"
                 className="overflow-hidden border-slate-200/60 bg-[linear-gradient(180deg,#fffefb_0%,#fcfaf6_100%)] p-5 sm:p-6"
               >
-                <div className="flex flex-wrap items-center gap-3">
-                  <p className={SMALL_LABEL}>Ascolto {card.code}</p>
-                  <ToneTag className="border-[#eadfce] bg-white/90 text-[#8a4d18]">{card.focus}</ToneTag>
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className={SMALL_LABEL}>Ascolto {card.code}</p>
+                    <h3 className="mt-4 text-[1.7rem] font-semibold tracking-[-0.05em] text-slate-950">{card.title}</h3>
+                  </div>
+                  <span className={cn("inline-flex items-center rounded-full border px-3.5 py-1.5 text-sm font-medium", expectedPalette.pill)}>
+                    {card.focus}
+                  </span>
                 </div>
 
-                <h3 className="mt-3 text-[1.55rem] font-semibold tracking-[-0.05em] text-slate-950">{card.title}</h3>
-                <p className="mt-3 text-[0.95rem] leading-6 text-slate-500">{card.description}</p>
+                <p className="mt-3 text-[1rem] leading-7 text-slate-600">{card.description}</p>
 
                 <div className="mt-4 rounded-[1.45rem] border border-slate-200/70 bg-white/90 px-4 py-4">
-                  <div className="flex flex-wrap items-start justify-between gap-3">
-                    <div className="max-w-[24rem]">
+                  <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
+                    <div>
                       <p className={SMALL_LABEL}>Prova</p>
-                      <p className="mt-2 text-sm leading-6 text-slate-500">{card.exercise}</p>
+                      <p className="mt-2 text-[0.98rem] leading-7 text-slate-600">{card.exercise}</p>
                     </div>
-                    <span className="inline-flex items-center rounded-full border border-[#eadfce] bg-[#fff7ef] px-3 py-1 text-xs font-medium text-[#8a4d18]">
+                    <span className={cn("inline-flex items-center rounded-full border px-3 py-1.5 text-sm font-medium", expectedPalette.pill)}>
                       atteso · {card.expected}
                     </span>
                   </div>
@@ -1157,8 +1173,9 @@ function ListeningCardsSection() {
                   <MeterPreview groupSize={selectedMeter} compact />
                 </div>
 
-                <div className="mt-4">
-                  <div className="flex flex-wrap gap-2.5">
+                <div className="mt-5">
+                  <p className={SMALL_LABEL}>Prova il gruppo</p>
+                  <div className="mt-3 flex flex-wrap gap-2.5">
                     {[2, 3, 4].map((meter) => (
                       <button
                         key={`${card.id}-${meter}`}
@@ -1173,41 +1190,38 @@ function ListeningCardsSection() {
                   </div>
                 </div>
 
-                <div className="mt-4 rounded-[1.4rem] border border-slate-200/70 bg-[#fcfbf8]/95 px-4 py-4">
-                  <p className={SMALL_LABEL}>Domande guida</p>
-                  <div className="mt-3 space-y-2.5">
-                    {lessonData.listeningQuestions.map((question) => (
-                      <p key={`${card.id}-${question}`} className="text-sm leading-6 text-slate-600">
-                        {question}
-                      </p>
-                    ))}
-                  </div>
-
-                  <div className="mt-4 border-t border-slate-200/70 pt-4">
-                    <p className="text-sm leading-6 text-slate-600">
-                      Se l'accento torna ogni {selectedMeter} battiti, stai sentendo un gruppo {meterGroupLabel(selectedMeter)}.
-                    </p>
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {Array.from({ length: selectedMeter }).map((_, index) => (
-                        <span
-                          key={`${card.id}-count-${index}`}
-                          className={cn(
-                            "inline-flex h-9 w-9 items-center justify-center rounded-full border text-sm font-medium",
-                            index === 0
-                              ? "border-[#e6c8a8] bg-[#fff6ed] text-[#8a4d18]"
-                              : "border-slate-200 bg-white text-slate-500"
-                          )}
-                        >
-                          {index + 1}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
+                <div className={cn("mt-4 rounded-[1.35rem] border px-4 py-4", selectedPalette.groupSurface)}>
+                  <p className={cn("text-sm leading-6 font-medium", selectedPalette.note)}>
+                    Se il numero 1 torna ogni {selectedMeter} battiti, stai sentendo un gruppo {meterGroupLabel(selectedMeter)}.
+                  </p>
                 </div>
               </SurfacePanel>
             );
           })}
         </div>
+
+        <SurfacePanel tone="subtle" className="mt-6 px-5 py-5 sm:px-6 sm:py-6">
+          <div className="grid gap-5 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:items-start">
+            <div>
+              <p className={SMALL_LABEL}>Domande guida</p>
+              <p className="mt-3 text-[1rem] leading-7 text-slate-600">
+                Usa le stesse tre domande per tutti e tre gli ascolti, cosi il confronto diventa piu chiaro.
+              </p>
+            </div>
+            <div className="grid gap-3 md:grid-cols-3">
+              {lessonData.listeningQuestions.map((question, index) => (
+                <div key={question} className="rounded-[1.25rem] border border-slate-200/70 bg-white px-4 py-4">
+                  <div className="flex items-start gap-3">
+                    <span className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 bg-[#fcfbf8] text-sm font-semibold text-slate-500">
+                      {index + 1}
+                    </span>
+                    <p className="pt-1 text-sm leading-6 text-slate-600">{question}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </SurfacePanel>
       </div>
     </SectionShell>
   );
