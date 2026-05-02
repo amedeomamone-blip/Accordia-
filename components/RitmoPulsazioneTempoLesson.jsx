@@ -1436,7 +1436,7 @@ function RhythmSequencerSection() {
         }
         className={cn(
           RING,
-          "group flex min-h-[9.5rem] flex-col rounded-[1.6rem] border border-solid px-4 py-4 text-left transition-colors duration-150",
+          "group flex min-h-[7.4rem] min-w-[5.8rem] flex-col rounded-[1.35rem] border border-solid px-3 py-3 text-left transition-colors duration-150",
           isAccent
             ? "border-[#e6c8a8] bg-[#fff8f1] hover:border-[#d7b692] hover:bg-[#fff3e5]"
             : isPause
@@ -1448,7 +1448,7 @@ function RhythmSequencerSection() {
           <span className={SMALL_LABEL}>tempo {index + 1}</span>
           <span
             className={cn(
-              "inline-flex h-9 w-9 items-center justify-center rounded-full border text-sm font-medium",
+              "inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-medium",
               isAccent
                 ? "border-[#e6c8a8] bg-white text-[#8a4d18]"
                 : isPause
@@ -1460,8 +1460,8 @@ function RhythmSequencerSection() {
           </span>
         </div>
         <div className="mt-4 flex flex-1 flex-col items-center justify-center text-center">
-          <SequencerSymbol stateId={step} className={isAccent ? "text-[2.85rem] text-[#8a4d18]" : "text-[2.5rem]"} />
-          <span className={cn("mt-4 text-[0.98rem] font-medium", isAccent ? "text-[#8a4d18]" : "text-slate-500")}>
+          <SequencerSymbol stateId={step} className={isAccent ? "text-[2.3rem] text-[#8a4d18]" : "text-[2rem]"} />
+          <span className={cn("mt-3 text-[0.84rem] font-medium leading-5", isAccent ? "text-[#8a4d18]" : "text-slate-500")}>
             {option.longLabel}
           </span>
         </div>
@@ -1567,23 +1567,27 @@ function RhythmSequencerSection() {
             </div>
 
             <div className="px-6 py-6 sm:px-8 sm:py-8">
-              <div className="grid gap-5">
-                {bars.map((barSteps, barIndex) => (
-                  <div
-                    key={`bar-${barIndex}`}
-                    className="rounded-[1.8rem] border border-slate-200/70 bg-white px-4 py-5 shadow-[0_12px_28px_rgba(15,23,42,0.03)] sm:px-5"
-                  >
-                    <div className="flex items-center justify-between gap-4">
-                      <p className={SMALL_LABEL}>battuta {barIndex + 1}</p>
-                      <p className="text-sm font-medium text-slate-500">
-                        tempi {barIndex * 4 + 1}-{barIndex * 4 + 4}
-                      </p>
-                    </div>
-                    <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                      {barSteps.map((step, stepIndex) => renderStepButton(step, barIndex * 4 + stepIndex))}
-                    </div>
+              <div className="rounded-[1.8rem] border border-slate-200/70 bg-white px-4 py-5 shadow-[0_12px_28px_rgba(15,23,42,0.03)] sm:px-5">
+                <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                  <div className="flex flex-wrap gap-3">
+                    <ToneTag className="border-slate-200/70 bg-[#fcfbf8] text-slate-600">battuta 1 · tempi 1-4</ToneTag>
+                    <ToneTag className="border-slate-200/70 bg-[#fcfbf8] text-slate-600">battuta 2 · tempi 5-8</ToneTag>
                   </div>
-                ))}
+                  <p className="text-sm font-medium text-slate-500">leggi il ritmo da sinistra a destra</p>
+                </div>
+
+                <div className="mt-5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                  <div className="flex min-w-[48rem] items-stretch gap-3">
+                    {bars.map((barSteps, barIndex) => (
+                      <div
+                        key={`bar-${barIndex}`}
+                        className="flex flex-1 items-stretch gap-3 rounded-[1.5rem] border border-slate-200/70 bg-[#fcfbf8] px-3 py-3"
+                      >
+                        {barSteps.map((step, stepIndex) => renderStepButton(step, barIndex * 4 + stepIndex))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
 
               <div className="mt-6 grid gap-4 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-start">
