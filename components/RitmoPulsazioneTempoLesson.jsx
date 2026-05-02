@@ -1259,37 +1259,7 @@ function ListeningCardsSection() {
       <div className={LESSON_SHELL_WIDE} style={{ fontFamily: APP_FONT }}>
         <SectionHeading kicker="Ascolto guidato" title={section.title} text={section.text} />
 
-        <SurfacePanel tone="soft" className="mt-8 px-5 py-5 sm:px-6 sm:py-6">
-          <div className="flex flex-col gap-4 xl:flex-row xl:items-center xl:justify-between">
-            <div className="max-w-[28rem]">
-              <p className={SMALL_LABEL}>Come leggi la sezione</p>
-              <p className="mt-3 text-[0.98rem] leading-7 text-slate-600">
-                Usa sempre lo stesso pannello: scegli A, B o C, prova il gruppo, osserva dove ricomincia il numero 1 e poi confronta le risposte.
-              </p>
-            </div>
-            <div className="grid gap-3 sm:grid-cols-3 xl:min-w-[38rem]">
-              {[
-                { step: "01", title: "Scegli", text: "A, B o C" },
-                { step: "02", title: "Prova", text: "2, 3 o 4" },
-                { step: "03", title: "Confronta", text: "le risposte" },
-              ].map((item) => (
-                <div key={item.step} className="rounded-[1.2rem] border border-white/80 bg-white/80 px-4 py-3">
-                  <div className="flex items-center gap-3">
-                    <span className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-slate-200 bg-white text-sm font-semibold text-slate-500">
-                      {item.step}
-                    </span>
-                    <div>
-                      <p className="text-[0.98rem] font-semibold tracking-[-0.03em] text-slate-950">{item.title}</p>
-                      <p className="text-sm text-slate-500">{item.text}</p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </SurfacePanel>
-
-        <SurfacePanel tone="soft" className="mt-6 overflow-hidden border-slate-200/60 bg-[linear-gradient(180deg,#fffefb_0%,#fcfaf6_100%)] p-5 sm:p-6 lg:p-7">
+        <SurfacePanel tone="soft" className="mt-8 overflow-hidden border-slate-200/60 bg-[linear-gradient(180deg,#fffefb_0%,#fcfaf6_100%)] p-5 sm:p-6 lg:p-7">
           <div className="grid gap-3 lg:grid-cols-3">
             {lessonData.listeningCards.map((card) => {
               const isActive = card.id === activeCard.id;
