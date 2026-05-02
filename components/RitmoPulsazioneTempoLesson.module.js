@@ -529,17 +529,33 @@ function SecondaryButton({ children, onClick }) {
 function ConceptVisual({ type }) {
   if (type === "group-2" || type === "group-3" || type === "group-4") {
     const size = type === "group-2" ? 2 : type === "group-3" ? 3 : 4;
-    return /* @__PURE__ */ React.createElement("div", { className: "flex items-center justify-center gap-2" }, Array.from({ length: size }).map((_, index) => /* @__PURE__ */ React.createElement(
+    const groupStyle = type === "group-2" ? {
+      wrap: "border-[#dbe9dd] bg-[#f4faf4]",
+      label: "text-[#5b7362]",
+      chip: "border-[#d9e4dc] bg-white text-[#66756c]",
+      accent: "border-[#c8dbc9] bg-[#e7f3e8] text-[#45634f]"
+    } : type === "group-3" ? {
+      wrap: "border-[#eedccf] bg-[#fff7f0]",
+      label: "text-[#9b6d49]",
+      chip: "border-[#eadfd4] bg-white text-[#8a6f5e]",
+      accent: "border-[#e7cdb9] bg-[#fff0e2] text-[#8a4d18]"
+    } : {
+      wrap: "border-[#d8e3f0] bg-[#f4f8fd]",
+      label: "text-[#617690]",
+      chip: "border-[#dbe4f0] bg-white text-[#66758a]",
+      accent: "border-[#c8d7ea] bg-[#e8f0fb] text-[#3e5f86]"
+    };
+    return /* @__PURE__ */ React.createElement("div", { className: cn("flex items-center gap-3 rounded-full border px-3 py-2", groupStyle.wrap) }, /* @__PURE__ */ React.createElement("span", { className: cn("text-[0.72rem] font-semibold uppercase tracking-[0.18em]", groupStyle.label) }, "a ", size), /* @__PURE__ */ React.createElement("div", { className: "flex items-center gap-2" }, Array.from({ length: size }).map((_, index) => /* @__PURE__ */ React.createElement(
       "span",
       {
         key: `${type}-${index}`,
         className: cn(
-          "inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-sm font-medium text-slate-600",
-          index === 0 && "border-[#e6c8a8] bg-[#fff6ed] text-[#8a4d18]"
+          "inline-flex h-9 w-9 items-center justify-center rounded-full border text-sm font-medium",
+          index === 0 ? groupStyle.accent : groupStyle.chip
         )
       },
       index + 1
-    )));
+    ))));
   }
   const active = type === "accent";
   const pause = type === "pause";
