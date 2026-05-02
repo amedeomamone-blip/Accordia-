@@ -1385,7 +1385,7 @@ function RhythmSequencerSection() {
         }
         className={cn(
           RING,
-          "group flex aspect-square w-full min-h-[7.1rem] min-w-[5.8rem] flex-col rounded-[1.35rem] border border-solid px-3 py-3 text-left transition-colors duration-150",
+          "group flex aspect-square w-full max-w-[6.2rem] flex-col rounded-[1.2rem] border border-solid px-2.5 py-2.5 text-left transition-colors duration-150 justify-self-center",
           isAccent
             ? "border-[#e6c8a8] bg-[#fff8f1] hover:border-[#d7b692] hover:bg-[#fff3e5]"
             : isPause
@@ -1397,7 +1397,7 @@ function RhythmSequencerSection() {
           <span className={SMALL_LABEL}>tempo {index + 1}</span>
           <span
             className={cn(
-              "inline-flex h-8 w-8 items-center justify-center rounded-full border text-xs font-medium",
+              "inline-flex h-7 w-7 items-center justify-center rounded-full border text-[0.72rem] font-medium",
               isAccent
                 ? "border-[#e6c8a8] bg-white text-[#8a4d18]"
                 : isPause
@@ -1408,9 +1408,9 @@ function RhythmSequencerSection() {
             {index + 1}
           </span>
         </div>
-        <div className="mt-4 flex flex-1 flex-col items-center justify-center text-center">
-          <SequencerSymbol stateId={step} className={isAccent ? "text-[2.3rem] text-[#8a4d18]" : "text-[2rem]"} />
-          <span className={cn("mt-3 text-[0.84rem] font-medium leading-5", isAccent ? "text-[#8a4d18]" : "text-slate-500")}>
+        <div className="mt-3 flex flex-1 flex-col items-center justify-center text-center">
+          <SequencerSymbol stateId={step} className={isAccent ? "text-[1.95rem] text-[#8a4d18]" : "text-[1.7rem]"} />
+          <span className={cn("mt-2 text-[0.75rem] font-medium leading-4", isAccent ? "text-[#8a4d18]" : "text-slate-500")}>
             {option.longLabel}
           </span>
         </div>
@@ -1526,8 +1526,8 @@ function RhythmSequencerSection() {
                     <p className="text-sm font-medium text-slate-500">griglia 2 x 4</p>
                   </div>
 
-                  <div className="mt-5 rounded-[1.6rem] border border-slate-200/70 bg-[#fcfbf8] px-3 py-3 sm:px-4 sm:py-4">
-                    <div className="grid grid-cols-4 gap-3">
+                  <div className="mt-5 rounded-[1.6rem] border border-slate-200/70 bg-[#fcfbf8] px-3 py-4 sm:px-4 sm:py-4">
+                    <div className="mx-auto grid max-w-[28rem] grid-cols-4 justify-items-center gap-3">
                       {steps.map((step, index) => renderStepButton(step, index))}
                     </div>
                   </div>
