@@ -3283,13 +3283,6 @@ def render_lesson_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str
 
     if panel_only and immersive_preview:
         main_content = f"""
-        <nav class="nucleus-mini-timeline" aria-label="Mini timeline dei nuclei">
-            <div class="shell nucleus-mini-timeline__track">
-                {render_nucleus_mini_links(nucleo["slug"], "../../../../")}
-            </div>
-        </nav>
-
-{render_topic_rail(nucleo, topic["slug"])}
 {render_immersive_lesson_mount(topic)}"""
         footer_html = f"""
     <footer class="site-footer">
@@ -3314,13 +3307,6 @@ def render_lesson_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str
     </footer>"""
     elif panel_only:
         main_content = f"""
-        <nav class="nucleus-mini-timeline" aria-label="Mini timeline dei nuclei">
-            <div class="shell nucleus-mini-timeline__track">
-                {render_nucleus_mini_links(nucleo["slug"], "../../../../")}
-            </div>
-        </nav>
-
-{render_topic_rail(nucleo, topic["slug"])}
 {render_lesson_phase_explorer(topic)}"""
 
     if not panel_only:
@@ -3358,13 +3344,6 @@ def render_lesson_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str
             </div>
         </section>
 
-        <nav class="nucleus-mini-timeline" aria-label="Mini timeline dei nuclei">
-            <div class="shell nucleus-mini-timeline__track">
-                {render_nucleus_mini_links(nucleo["slug"], "../../../../")}
-            </div>
-        </nav>
-
-{render_topic_rail(nucleo, topic["slug"])}
 {render_lesson_phase_explorer(topic)}
 {render_lesson_materials_section(topic)}
 {render_lesson_inclusion_section(topic)}
@@ -3410,7 +3389,6 @@ def render_lesson_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str
                     <strong>Accordia</strong>
                 </span>
             </a>
-{nav_dropdown("../../../../", nucleo["slug"])}
         </div>
     </header>
 
