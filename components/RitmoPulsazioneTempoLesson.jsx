@@ -1386,7 +1386,7 @@ function RhythmSequencerSection() {
         }
         className={cn(
           RING,
-          "group flex min-h-[7.4rem] min-w-[5.8rem] flex-col rounded-[1.35rem] border border-solid px-3 py-3 text-left transition-colors duration-150",
+          "group flex aspect-square w-full min-h-[7.1rem] min-w-[5.8rem] flex-col rounded-[1.35rem] border border-solid px-3 py-3 text-left transition-colors duration-150",
           isAccent
             ? "border-[#e6c8a8] bg-[#fff8f1] hover:border-[#d7b692] hover:bg-[#fff3e5]"
             : isPause
@@ -1518,25 +1518,27 @@ function RhythmSequencerSection() {
 
             <div className="px-6 py-6 sm:px-8 sm:py-8">
               <div className="rounded-[1.8rem] border border-slate-200/70 bg-white px-4 py-5 shadow-[0_12px_28px_rgba(15,23,42,0.03)] sm:px-5">
-                <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-                  <div className="flex flex-wrap gap-3">
-                    <ToneTag className="border-slate-200/70 bg-[#fcfbf8] text-slate-600">battuta 1 · tempi 1-4</ToneTag>
-                    <ToneTag className="border-slate-200/70 bg-[#fcfbf8] text-slate-600">battuta 2 · tempi 5-8</ToneTag>
+                <div className="mx-auto max-w-[34rem]">
+                  <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+                    <div className="flex flex-wrap gap-3">
+                      <ToneTag className="border-slate-200/70 bg-[#fcfbf8] text-slate-600">battuta 1 · tempi 1-4</ToneTag>
+                      <ToneTag className="border-slate-200/70 bg-[#fcfbf8] text-slate-600">battuta 2 · tempi 5-8</ToneTag>
+                    </div>
+                    <p className="text-sm font-medium text-slate-500">4 sopra · 4 sotto</p>
                   </div>
-                  <p className="text-sm font-medium text-slate-500">una battuta per riga</p>
-                </div>
 
-                <div className="mt-5 grid gap-4">
+                  <div className="mt-5 grid gap-4">
                   {bars.map((barSteps, barIndex) => (
                     <div
                       key={`bar-${barIndex}`}
-                      className="overflow-x-auto rounded-[1.5rem] border border-slate-200/70 bg-[#fcfbf8] px-3 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                      className="rounded-[1.5rem] border border-slate-200/70 bg-[#fcfbf8] px-3 py-3"
                     >
-                      <div className="grid min-w-[26rem] grid-cols-4 gap-3">
+                      <div className="grid grid-cols-4 gap-3">
                         {barSteps.map((step, stepIndex) => renderStepButton(step, barIndex * 4 + stepIndex))}
                       </div>
                     </div>
                   ))}
+                </div>
                 </div>
               </div>
 
