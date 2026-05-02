@@ -11,6 +11,7 @@ VERSIONED_ASSET_PATHS = [
     ROOT / "css" / "lesson-immersive.css",
     ROOT / "js" / "main.js",
     ROOT / "components" / "CorpoVoceGestoLesson.module.js",
+    ROOT / "components" / "RitmoPulsazioneTempoLesson.module.js",
 ]
 ASSET_VERSION = str(
     int(

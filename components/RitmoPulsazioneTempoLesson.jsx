@@ -521,13 +521,6 @@ function usePrefersReducedMotion() {
   return reducedMotion;
 }
 
-function scrollToSection(id, reducedMotion) {
-  const target = document.getElementById(id);
-  if (target) {
-    target.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
-  }
-}
-
 function useReveal() {
   const ref = useRef(null);
   const [visible, setVisible] = useState(false);
@@ -636,21 +629,6 @@ function SecondaryButton({ children, onClick }) {
   );
 }
 
-function ActionLink({ href, children, onClick }) {
-  return (
-    <a
-      href={href}
-      onClick={onClick}
-      className={cn(
-        BUTTON_BASE,
-        "border-[#d8dde4] bg-white text-[#8a4d18] hover:border-[#c8cfd8] hover:text-[#6f3f17]"
-      )}
-    >
-      {children}
-    </a>
-  );
-}
-
 function ConceptVisual({ type }) {
   if (type === "group-2" || type === "group-3" || type === "group-4") {
     const size = type === "group-2" ? 2 : type === "group-3" ? 3 : 4;
@@ -721,12 +699,11 @@ function SequencerSymbol({ stateId }) {
 
 function LessonHero() {
   const section = getSection("hero");
-  const reducedMotion = usePrefersReducedMotion();
 
   return (
     <section id={section.id} className="scroll-mt-28 bg-[#fbfaf7]" style={{ fontFamily: APP_FONT }}>
       <div className="mx-auto flex min-h-[calc(88vh-4.75rem)] max-w-[84rem] items-center px-4 pb-16 pt-14 sm:px-6 md:pb-20 lg:px-8 lg:pt-20">
-        <div className="grid w-full gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.78fr)] xl:items-end">
+        <div className="w-full">
           <div className="max-w-[48rem]">
             <SectionKicker>{section.eyebrow}</SectionKicker>
             <h1 className="mt-6 max-w-[9ch] text-[3.9rem] font-semibold tracking-[-0.065em] text-slate-950 sm:text-[5rem] lg:text-[6rem] lg:leading-[0.9]">
@@ -738,32 +715,7 @@ function LessonHero() {
             <p className="mt-6 max-w-[43rem] text-[0.98rem] leading-7 text-slate-500 sm:text-base">
               {section.microtext}
             </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ActionLink
-                href="#spark"
-                onClick={(event) => {
-                  event.preventDefault();
-                  scrollToSection("spark", reducedMotion);
-                }}
-              >
-                {section.cta}
-              </ActionLink>
-            </div>
           </div>
-
-          <SurfacePanel tone="soft" className="p-6 sm:p-7 xl:justify-self-end">
-            <p className={SMALL_LABEL}>Idea guida</p>
-            <p className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-slate-950">{section.idea}</p>
-            <div className="mt-8 border-t border-slate-200/70 pt-6">
-              <p className={SMALL_LABEL}>Domanda iniziale</p>
-              <p className={cn("mt-3", BODY_COPY)}>{section.question}</p>
-            </div>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <ToneTag>prima media</ToneTag>
-              <ToneTag>corpo e ascolto</ToneTag>
-              <ToneTag>tempo di gruppo</ToneTag>
-            </div>
-          </SurfacePanel>
         </div>
       </div>
     </section>
