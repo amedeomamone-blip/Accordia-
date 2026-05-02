@@ -1171,7 +1171,7 @@ function ConceptsSection() {
         </SurfacePanel>
 
         <SurfacePanel tone="soft" className="mt-10 px-6 py-7 text-center">
-          <p className="mx-auto max-w-3xl text-[2rem] font-semibold tracking-[-0.04em] text-slate-950 sm:text-[2.4rem]">
+          <p className="mx-auto max-w-none text-[1.8rem] font-semibold tracking-[-0.05em] text-slate-950 sm:text-[2.15rem] lg:text-[2.7rem] lg:whitespace-nowrap">
             {section.closing}
           </p>
         </SurfacePanel>
