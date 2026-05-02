@@ -1717,7 +1717,6 @@ function LessonProductPage() {
       <ListeningTimerSection />
       <OriginStorySection />
       <BodyInstrumentSection />
-      <VoiceMemorySection />
       <ConceptBoardSection />
       <BodyPercussionSequencer />
       <GraphicScoreBuilder />
