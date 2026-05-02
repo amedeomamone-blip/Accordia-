@@ -32,71 +32,108 @@ const lessonData = {
       title: "Ritmo, pulsazione e tempo",
       subtitle: "Misurare il gesto collettivo.",
       microtext:
-        "Prima di leggere una partitura, possiamo sentire il tempo con il corpo. In questa lezione impariamo a distinguere pulsazione, ritmo, accento e tempo attraverso mani, piedi, voce, ascolto e gesto.",
+        "Partiamo dal corpo per distinguere battito comune, ritmo, accento, tempo e metro con esempi visivi, ascolto e lavoro di gruppo.",
       cta: "Inizia dal battito comune",
       idea: "Il ritmo nasce dall'organizzazione del movimento e rende condivisibile il tempo del gruppo.",
-      question: "Come facciamo a sentire un battito comune?",
+      question: "Che differenza c'e tra ritmo, pulsazione e tempo?",
     },
     {
       id: "spark",
-      title: "Come facciamo a sentire un battito comune?",
-      text: "Camminiamo lentamente nello spazio o battiamo le mani sul banco. All'inizio ognuno segue il proprio impulso. Poi proviamo a trovare una pulsazione comune, uguale per tutti.",
+      title: "Che differenza c'e tra ritmo, pulsazione e tempo?",
+      text: "Camminiamo, battiamo le mani o seguiamo un passo comune. Prima sentiamo il battito regolare. Poi osserviamo che sopra quel battito possono comparire ritmi diversi e velocita diverse.",
       questions: [
-        "Che cosa cambia quando il gruppo si sincronizza?",
+        "Che cosa resta uguale mentre il ritmo cambia?",
         "Che cosa ci aiuta a restare insieme?",
-        "Il tempo si sente solo con le orecchie o anche con il corpo?",
-        "Che differenza c'e tra battere insieme e inventare un ritmo?",
+        "Quando il battito sembra piu lento o piu veloce?",
+        "Dove senti il punto piu forte del gruppo?",
       ],
-      keywords: ["pulsazione", "gruppo", "ascolto", "sincronizzazione"],
+      keywords: ["pulsazione", "ritmo", "tempo", "accento"],
+    },
+    {
+      id: "context",
+      title: "Il ritmo accompagna da sempre il movimento umano.",
+      text: "Camminare, danzare, lavorare, marciare, pregare, suonare insieme: molto prima della scrittura musicale, gli esseri umani hanno organizzato il tempo con gesti, battiti, ripetizioni e accenti.",
     },
     {
       id: "pulse",
-      title: "La pulsazione e il passo comune.",
-      text: "La pulsazione e un battito regolare. Puo essere lenta o veloce, ma resta costante. E come un passo condiviso: permette al gruppo di muoversi, suonare e cantare insieme.",
-      support: "Osserva: la pulsazione non cambia forma, cambia velocita.",
+      title: "Che cosa osservi quando il battito resta regolare?",
+      text: "Guarda una pulsazione lenta, media o veloce. Il disegno dei battiti resta uguale: cambia soltanto la velocita con cui torna.",
+      support: "Osserva: la pulsazione resta regolare anche quando il tempo rallenta o accelera.",
     },
     {
       id: "concepts",
-      title: "Pulsazione, ritmo, accento, tempo.",
-      text: "Usiamo parole semplici, simboli chiari e piccoli esempi per capire come funziona il tempo musicale.",
-      closing: "La pulsazione e regolare. Il ritmo si muove sopra di lei.",
+      title: "Pulsazione, ritmo, tempo, accento, metro.",
+      text: "Cinque parole chiave ci aiutano a descrivere cio che sentiamo e cio che facciamo insieme.",
+      closing: "La pulsazione sostiene. Il ritmo si muove. Il tempo accelera o rallenta. Il metro organizza gli accenti.",
     },
     {
       id: "map",
-      title: "Tre definizioni da ricopiare.",
-      text: "Fermiamo tre parole chiave con frasi brevi, chiare e pronte per il quaderno.",
+      title: "Definizioni chiave da ricopiare.",
+      text: "Tre frasi brevi fissano il lessico del quaderno: pulsazione, ritmo e tempo.",
     },
     {
       id: "listening",
-      title: "Cos'e la pulsazione?",
-      text: "Osserva tre situazioni ritmiche. Il compito e sentire il battito comune, seguirlo con il corpo e capire dove torna l'accento.",
+      title: "Dove senti il battito comune?",
+      text: "Confronta tre situazioni di ascolto. Cerca la pulsazione costante, il ritmo che si muove sopra e il punto in cui torna l'accento.",
     },
     {
       id: "sequencer",
-      title: "Costruiamo un ritmo sopra la pulsazione.",
-      text: "Scegli una pulsazione stabile. Poi costruisci una sequenza di 8 tempi usando mani, piedi, voce o banco. Il ritmo deve poter essere ripetuto dal gruppo.",
-    },
-    {
-      id: "conductor",
-      title: "Il direttore del tempo.",
-      text: "Il direttore non parla. Usa il gesto per far partire il gruppo, mantenere la pulsazione, indicare gli accenti e fermare l'esecuzione.",
-      note: "Il battere e il punto forte. Il levare prepara il battere.",
+      title: "Attivita pratica: battito comune e ritmi diversi.",
+      text: "La classe mantiene una pulsazione comune con mani o piedi. Sopra quel battito costruiamo ritmi diversi con corpo, voce, banco o oggetti sonori.",
     },
     {
       id: "performance",
-      title: "Performance: il tempo del gruppo.",
-      text: "Dividetevi in piccoli gruppi. Ogni gruppo sceglie un direttore. Create una breve performance di 30 secondi usando corpo, voce, banco o oggetti sonori.",
+      title: "Produzione degli studenti: una sequenza del gruppo.",
+      text: "A coppie o in piccoli gruppi costruite una breve sequenza con pulsazione, ritmo e accenti. Potete usare corpo, voce, banco, oggetti sonori o notazione grafica.",
     },
     {
       id: "quiz",
       title: "Che cosa abbiamo capito?",
-      text: "Le domande finali controllano se sai distinguere pulsazione, ritmo, accento, battuta, gesto e tempo comune.",
+      text: "Nell'esempio finale distingui pulsazione, ritmo, accento, tempo e metro.",
+    },
+  ],
+  contextExamples: [
+    {
+      id: "cammino",
+      title: "Camminare",
+      detail: "Il corpo ripete passi regolari e crea un battito comune.",
     },
     {
-      id: "self",
-      title: "Mi ascolto mentre suono.",
-      text: "Rifletto sul mio ruolo nel gruppo e su come uso corpo, orecchio e gesto.",
-      closing: "Quando il tempo e condiviso, il gruppo diventa musica.",
+      id: "danza",
+      title: "Danzare",
+      detail: "Il gruppo organizza gesti, accenti e ripetizioni nello spazio.",
+    },
+    {
+      id: "lavoro",
+      title: "Lavorare",
+      detail: "Molti gesti collettivi chiedono ritmo per restare coordinati.",
+    },
+    {
+      id: "marcia",
+      title: "Marciare",
+      detail: "Un battito stabile aiuta il gruppo a procedere insieme.",
+    },
+    {
+      id: "rito",
+      title: "Pregare o celebrare",
+      detail: "Voce, gesto e ripetizione danno forma al tempo condiviso.",
+    },
+  ],
+  observationCards: [
+    {
+      id: "passi",
+      title: "Passi e battiti",
+      detail: "Conta se i colpi tornano sempre uguali oppure cambiano in modo irregolare.",
+    },
+    {
+      id: "onde",
+      title: "Onde e oscillazioni",
+      detail: "Guarda se il movimento e continuo, regolare o pieno di interruzioni.",
+    },
+    {
+      id: "segni",
+      title: "Pattern e notazione grafica",
+      detail: "Osserva dove il gruppo riparte e dove senti il punto piu forte.",
     },
   ],
   pulseModes: [
@@ -110,7 +147,7 @@ const lessonData = {
       title: "Pulsazione",
       definition: "E il battito regolare che sostiene la musica.",
       visual: ["equal", "equal", "equal", "equal"],
-      exercise: "Negli esercizi tieni quattro battiti uguali, senza cambiare velocita o forma.",
+      exercise: "Negli esercizi tieni quattro battiti uguali, senza cambiare forma.",
     },
     {
       id: "rhythm",
@@ -120,18 +157,25 @@ const lessonData = {
       exercise: "Negli esercizi cambi suoni e pause, ma la pulsazione sotto resta stabile.",
     },
     {
+      id: "tempo",
+      title: "Tempo",
+      definition: "E la velocita della pulsazione: lenta, moderata o veloce.",
+      visual: ["tempo-slow", "tempo-medium", "tempo-fast"],
+      exercise: "Negli esercizi ascolti se il battito scorre lento, moderato o veloce.",
+    },
+    {
       id: "accent",
       title: "Accento",
       definition: "E un suono o una pulsazione con maggior rilievo.",
       visual: ["accent", "equal", "equal", "equal"],
-      exercise: "Negli esercizi fai sentire un punto piu forte, di solito all'inizio del gruppo.",
+      exercise: "Negli esercizi fai sentire un punto piu forte dentro il gruppo.",
     },
     {
-      id: "time",
-      title: "Tempo",
-      definition: "E il modo in cui le pulsazioni vengono raggruppate: a due, a tre, a quattro.",
+      id: "meter",
+      title: "Metro",
+      definition: "E l'organizzazione regolare degli accenti in gruppi da due, tre o quattro.",
       visual: ["group-2", "group-3", "group-4"],
-      exercise: "Negli esercizi conti se il gruppo va a due, a tre o a quattro pulsazioni.",
+      exercise: "Negli esercizi conti se gli accenti tornano a due, a tre o a quattro.",
     },
   ],
   quoteDefinitions: [
@@ -150,8 +194,8 @@ const lessonData = {
     {
       id: "tempo",
       term: "Tempo",
-      quote: '"Il tempo e il modo in cui le pulsazioni si raggruppano e fanno sentire il gesto comune."',
-      support: "Ci aiuta a percepire se il gruppo va a due, a tre o a quattro.",
+      quote: '"Il tempo dice se la pulsazione scorre lenta, moderata o veloce."',
+      support: "Ci aiuta a percepire la velocita del battito comune.",
     },
   ],
   listeningCards: [
@@ -216,59 +260,24 @@ const lessonData = {
       detail: "Prova la sequenza finche diventa chiara, stabile e condivisa.",
     },
   ],
-  conductorSteps: [
-    {
-      id: "rest",
-      title: "Punto di fermo",
-      command: "Fermati e raccogli il gruppo.",
-      summary: "Il gruppo si concentra.",
-      detail: "Il corpo e pronto. Gli occhi guardano. Il tempo non parte ancora, ma tutti sentono che sta per arrivare.",
-      tags: ["ascolto", "silenzio", "attenzione"],
-    },
-    {
-      id: "prep",
-      title: "Gesto di preparazione",
-      command: "Prepara il primo battito.",
-      summary: "Il corpo prepara il tempo.",
-      detail: "Il levare rende visibile il respiro del gruppo e prepara il primo battere.",
-      tags: ["levare", "respiro", "avvio"],
-    },
-    {
-      id: "attack",
-      title: "Attacco",
-      command: "Fai partire il suono insieme.",
-      summary: "Il suono comincia insieme.",
-      detail: "Il battere coincide con l'inizio comune. Se il gesto e chiaro, il gruppo entra compatto.",
-      tags: ["battere", "entrata", "insieme"],
-    },
-    {
-      id: "stop",
-      title: "Stop",
-      command: "Chiudi il gesto con chiarezza.",
-      summary: "Il gruppo chiude insieme.",
-      detail: "Il gesto finale ferma il suono e aiuta il gruppo a non sfilacciarsi nell'ultima pulsazione.",
-      tags: ["chiusura", "ultimo gesto", "tempo comune"],
-    },
-  ],
   performanceRules: [
     "La pulsazione deve restare stabile.",
     "Il ritmo puo cambiare.",
-    "Gli accenti devono essere riconoscibili.",
-    "Il direttore comunica solo con i gesti.",
-    "Il gruppo ascolta e risponde.",
+    "Gli accenti devono sentirsi.",
+    "Il tempo va scelto e mantenuto.",
+    "La sequenza deve poter essere ripetuta dal gruppo.",
   ],
   performanceRoles: [
-    "Direttore",
-    "Gruppo pulsazione",
-    "Gruppo ritmo",
-    "Gruppo accenti",
-    "Osservatori",
+    "Chi tiene la pulsazione",
+    "Chi costruisce il ritmo",
+    "Chi marca gli accenti",
+    "Chi osserva e corregge",
   ],
   performanceCriteria: [
-    "Manteniamo una pulsazione comune.",
+    "Manteniamo il battito comune.",
     "Distinguiamo pulsazione e ritmo.",
     "Facciamo sentire gli accenti.",
-    "Rispettiamo il gesto del direttore.",
+    "Scegliamo un tempo chiaro.",
     "Ripetiamo la sequenza senza perderci.",
   ],
   quizQuestions: [
@@ -322,22 +331,46 @@ const lessonData = {
     },
     {
       id: "q3",
-      prompt: "Che cos'e l'accento?",
+      prompt: "Che cos'e il tempo?",
       options: [
         {
           id: "q3-a",
-          label: "Un suono o una pulsazione con maggior rilievo.",
+          label: "La velocita della pulsazione.",
           correct: true,
-          feedback: "Esatto. L'accento fa sentire un punto piu forte dentro il flusso.",
+          feedback: "Esatto. Il tempo ci dice se la pulsazione scorre lenta, moderata o veloce.",
         },
         {
           id: "q3-b",
+          label: "L'organizzazione degli accenti in gruppi.",
+          correct: false,
+          feedback: "Non proprio. Questa definizione riguarda il metro.",
+        },
+        {
+          id: "q3-c",
+          label: "Un suono sempre piu forte.",
+          correct: false,
+          feedback: "No. Il tempo non riguarda la forza del suono, ma la velocita del battito.",
+        },
+      ],
+    },
+    {
+      id: "q4",
+      prompt: "Che cos'e l'accento?",
+      options: [
+        {
+          id: "q4-a",
+          label: "Un suono o una pulsazione con maggior rilievo.",
+          correct: true,
+          feedback: "Esatto. L'accento fa sentire un punto piu forte dentro il gruppo.",
+        },
+        {
+          id: "q4-b",
           label: "Una pulsazione sempre piu veloce.",
           correct: false,
           feedback: "Non proprio. Velocita e accento non sono la stessa cosa.",
         },
         {
-          id: "q3-c",
+          id: "q4-c",
           label: "Un silenzio obbligatorio.",
           correct: false,
           feedback: "No. Il silenzio puo essere importante, ma l'accento e un punto piu marcato del suono o del gesto.",
@@ -345,84 +378,54 @@ const lessonData = {
       ],
     },
     {
-      id: "q4",
-      prompt: "Che cos'e una battuta?",
-      options: [
-        {
-          id: "q4-a",
-          label: "Un contenitore ordinato di pulsazioni.",
-          correct: true,
-          feedback: "Esatto. La battuta raccoglie le pulsazioni in gruppi leggibili.",
-        },
-        {
-          id: "q4-b",
-          label: "Un urlo del direttore.",
-          correct: false,
-          feedback: "No. Il direttore usa il gesto, non un urlo. La battuta organizza il tempo.",
-        },
-        {
-          id: "q4-c",
-          label: "Una serie di suoni senza ordine.",
-          correct: false,
-          feedback: "Non e corretto. La battuta serve proprio a dare ordine al tempo.",
-        },
-      ],
-    },
-    {
       id: "q5",
-      prompt: "Che differenza c'e tra battere e levare?",
+      prompt: "Che cos'e il metro?",
       options: [
         {
           id: "q5-a",
-          label: "Il battere e il punto forte, il levare prepara il battere.",
+          label: "L'organizzazione regolare degli accenti in gruppi.",
           correct: true,
-          feedback: "Esatto. Il levare prepara il gesto, il battere rende visibile il punto forte.",
+          feedback: "Esatto. Il metro fa sentire gruppi regolari a due, a tre o a quattro.",
         },
         {
           id: "q5-b",
-          label: "Sono due parole che vogliono dire la stessa cosa.",
+          label: "La velocita della pulsazione.",
           correct: false,
-          feedback: "Non proprio. Hanno ruoli diversi nel gesto del tempo.",
+          feedback: "Non proprio. Questa definizione riguarda il tempo.",
         },
         {
           id: "q5-c",
-          label: "Il levare chiude sempre la musica.",
+          label: "Il numero totale degli strumenti.",
           correct: false,
-          feedback: "No. Lo stop chiude. Il levare prepara l'attacco o il gesto seguente.",
+          feedback: "No. Il metro non conta gli strumenti: organizza gli accenti nel tempo.",
         },
       ],
     },
     {
       id: "q6",
-      prompt: "Nel lavoro di gruppo, a che cosa serve il direttore?",
+      prompt: "Come capisci se il tempo e lento, moderato o veloce?",
       options: [
         {
           id: "q6-a",
-          label: "A far partire, mantenere e fermare il tempo comune.",
+          label: "Osservando la velocita con cui torna la pulsazione.",
           correct: true,
-          feedback: "Esatto. Il direttore rende visibile il tempo condiviso del gruppo.",
+          feedback: "Esatto. Se il battito torna piu in fretta, il tempo e piu veloce.",
         },
         {
           id: "q6-b",
-          label: "A parlare piu forte degli altri.",
+          label: "Guardando quante mani ci sono nel gruppo.",
           correct: false,
-          feedback: "No. Il direttore guida soprattutto con il gesto e con l'ascolto reciproco.",
+          feedback: "No. Il numero di persone non basta a definire il tempo.",
         },
         {
           id: "q6-c",
-          label: "A decidere chi non deve ascoltare.",
+          label: "Ascoltando solo il primo colpo.",
           correct: false,
-          feedback: "Non e corretto. Il suo compito e aiutare tutti a coordinarsi meglio.",
+          feedback: "Non basta un solo colpo. Serve osservare come il battito continua nel tempo.",
         },
       ],
     },
   ],
-  selfChecks: [
-    "Riesco a mantenere una pulsazione stabile?",
-    "Riesco a distinguere pulsazione e ritmo?",
-    "Riesco a seguire o guidare il gruppo con un gesto?",
-  ],
-  selfOptions: ["ancora no", "abbastanza", "si"],
 };
 
 function cn(...classes) {
@@ -609,6 +612,26 @@ function buildMeterGroups(groupSize, totalBeats = 8) {
 }
 
 function ConceptVisual({ type }) {
+  if (type === "tempo-slow" || type === "tempo-medium" || type === "tempo-fast") {
+    const tempoMeta =
+      type === "tempo-slow"
+        ? { label: "lenta", className: "border-[#d7e1ec] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#edf3fa_100%)] text-[#5f738d]" }
+        : type === "tempo-medium"
+          ? { label: "moderata", className: "border-[#eadfd4] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#fbf2ea_100%)] text-[#8a6f5e]" }
+          : { label: "veloce", className: "border-[#e6cdb9] bg-[radial-gradient(circle_at_35%_35%,#fffdfb_0%,#fee9d7_100%)] text-[#8a4d18]" };
+
+    return (
+      <span
+        className={cn(
+          "inline-flex min-w-[5.8rem] items-center justify-center rounded-full border px-4 py-3 text-sm font-semibold uppercase tracking-[0.14em] shadow-[0_10px_22px_rgba(15,23,42,0.06)]",
+          tempoMeta.className
+        )}
+      >
+        {tempoMeta.label}
+      </span>
+    );
+  }
+
   if (type === "group-2" || type === "group-3" || type === "group-4") {
     const size = type === "group-2" ? 2 : type === "group-3" ? 3 : 4;
     const palette = getMeterPalette(size);
@@ -769,6 +792,32 @@ function LessonHero() {
   );
 }
 
+function ContextSection() {
+  const section = getSection("context");
+
+  return (
+    <SectionShell id={section.id} backgroundClass="bg-white" className={SECTION_SPACE}>
+      <div className={LESSON_SHELL} style={{ fontFamily: APP_FONT }}>
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(24rem,1.08fr)] lg:items-start">
+          <SectionHeading kicker="Contesto storico e culturale" title={section.title} text={section.text} />
+
+          <SurfacePanel tone="soft" className="px-6 py-6 sm:px-7">
+            <p className={SMALL_LABEL}>Dove il ritmo serve al gruppo</p>
+            <div className="mt-5 grid gap-3 sm:grid-cols-2">
+              {lessonData.contextExamples.map((item) => (
+                <div key={item.id} className="rounded-[1.25rem] border border-slate-200/70 bg-white px-4 py-4">
+                  <p className="text-[1rem] font-semibold tracking-[-0.02em] text-slate-950">{item.title}</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-500">{item.detail}</p>
+                </div>
+              ))}
+            </div>
+          </SurfacePanel>
+        </div>
+      </div>
+    </SectionShell>
+  );
+}
+
 function SparkSection() {
   const section = getSection("spark");
   const [secondsLeft, setSecondsLeft] = useState(30);
@@ -923,12 +972,20 @@ function PulseSection() {
       <div className={LESSON_SHELL} style={{ fontFamily: APP_FONT }}>
         <div className="grid gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(24rem,1.08fr)] lg:items-start">
           <div>
-            <SectionHeading kicker="Pulsazione" title={section.title} text={section.text} />
+            <SectionHeading kicker="Osservazione guidata" title={section.title} text={section.text} />
+            <div className="mt-8 grid gap-3 sm:grid-cols-3">
+              {lessonData.observationCards.map((item) => (
+                <SurfacePanel key={item.id} tone="subtle" className="px-4 py-4">
+                  <p className={SMALL_LABEL}>{item.title}</p>
+                  <p className="mt-3 text-sm leading-6 text-slate-600">{item.detail}</p>
+                </SurfacePanel>
+              ))}
+            </div>
             <SurfacePanel tone="subtle" className="mt-8 p-6 sm:p-7">
               <div className="space-y-3.5 text-[1rem] leading-8 text-slate-600">
                 <p>Seleziona una velocita.</p>
-                <p>Guarda i quattro battiti che tornano regolari.</p>
-                <p>Se vuoi, attiva un suono leggero di riferimento.</p>
+                <p>Guarda quattro battiti che tornano sempre uguali.</p>
+                <p>Osserva che cambia solo il tempo, non la forma del gruppo.</p>
               </div>
             </SurfacePanel>
             <div className="mt-8 flex flex-wrap gap-3">
@@ -997,7 +1054,7 @@ function ConceptsSection() {
   return (
     <SectionShell id={section.id} backgroundClass="bg-[#fbfbf9]" className={SECTION_SPACE}>
       <div className={LESSON_SHELL} style={{ fontFamily: APP_FONT }}>
-        <SectionHeading kicker="Quattro concetti" title={section.title} text={section.text} align="center" />
+        <SectionHeading kicker="Spiegazione dei contenuti" title={section.title} text={section.text} align="center" />
 
         <div className="mt-14 grid gap-5 xl:grid-cols-2">
           {lessonData.conceptCards.map((card, index) => (
@@ -1025,6 +1082,34 @@ function ConceptsSection() {
             </SurfacePanel>
           ))}
         </div>
+
+        <SurfacePanel tone="soft" className="mt-8 overflow-hidden px-6 py-7 sm:px-8 sm:py-8">
+          <div className="flex flex-wrap items-start justify-between gap-5">
+            <div className="max-w-[38rem]">
+              <p className={SMALL_LABEL}>Definizioni chiave</p>
+              <p className="mt-3 text-[1rem] leading-7 text-slate-600">
+                Queste tre frasi possono essere ricopiate sul quaderno e usate mentre provi con il gruppo.
+              </p>
+            </div>
+            <ToneTag className="border-[#ecdcc9] bg-white/80 text-[#8a4d18]">quaderno · ascolto · gesto</ToneTag>
+          </div>
+
+          <div className="mt-8 grid gap-4 xl:grid-cols-3">
+            {lessonData.quoteDefinitions.map((definition, index) => (
+              <SurfacePanel key={definition.id} tone="base" className="border-[#eadfce] bg-white/90 p-6 sm:p-7">
+                <div className="flex items-center justify-between gap-4">
+                  <p className={SMALL_LABEL}>0{index + 1}</p>
+                  <span className="h-1 w-12 rounded-full bg-[#c66a18]/60" aria-hidden="true" />
+                </div>
+                <h3 className="mt-5 text-[2rem] font-semibold tracking-[-0.05em] text-slate-950">{definition.term}</h3>
+                <p className="mt-6 text-[1.18rem] leading-[1.6] tracking-[-0.03em] text-slate-700 italic sm:text-[1.28rem]">
+                  {definition.quote}
+                </p>
+                <p className={cn("mt-6 max-w-[24rem]", BODY_COPY_SOFT)}>{definition.support}</p>
+              </SurfacePanel>
+            ))}
+          </div>
+        </SurfacePanel>
 
         <SurfacePanel tone="soft" className="mt-10 px-6 py-7 text-center">
           <p className="mx-auto max-w-3xl text-[2rem] font-semibold tracking-[-0.04em] text-slate-950 sm:text-[2.4rem]">
@@ -1297,7 +1382,7 @@ function RhythmSequencerSection() {
       <div className={LESSON_SHELL} style={{ fontFamily: APP_FONT }}>
         <div className="grid gap-10 lg:grid-cols-[minmax(0,0.9fr)_minmax(24rem,1.1fr)] lg:items-start">
           <div className="max-w-[31rem]">
-            <SectionHeading kicker="Laboratorio ritmico" title={section.title} text={section.text} />
+            <SectionHeading kicker="Attivita pratica" title={section.title} text={section.text} />
             <SurfacePanel tone="subtle" className="mt-8 overflow-hidden p-0">
               <div className="border-b border-slate-200/70 px-6 py-6 sm:px-7">
                 <p className={SMALL_LABEL}>Come lavori</p>
@@ -1551,13 +1636,13 @@ function PerformanceSection() {
   return (
     <SectionShell id={section.id} backgroundClass="bg-[#f8f6f2]" className={SECTION_SPACE}>
       <div className={LESSON_SHELL} style={{ fontFamily: APP_FONT }}>
-        <SectionHeading kicker="Compito operativo" title={section.title} text={section.text} />
+        <SectionHeading kicker="Produzione degli studenti" title={section.title} text={section.text} />
 
         <div className="mt-14 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(21rem,0.92fr)]">
           <SurfacePanel tone="soft" className="p-6 sm:p-8">
             <p className={SMALL_LABEL}>Consegna</p>
             <p className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-slate-950">
-              Ogni gruppo costruisce 30 secondi di tempo condiviso.
+              Ogni gruppo costruisce una breve sequenza comune da ripetere con chiarezza.
             </p>
             <div className="mt-8 space-y-4">
               {lessonData.performanceRules.map((rule) => (
@@ -1605,7 +1690,7 @@ function FinalQuizSection() {
     <SectionShell id={section.id} backgroundClass="bg-white" className={SECTION_SPACE}>
       <div className={LESSON_SHELL_COMPACT} style={{ fontFamily: APP_FONT }}>
         <SurfacePanel className="px-6 py-10 sm:px-10 sm:py-12">
-          <SectionHeading kicker="Verifica formativa" title={section.title} text={section.text} align="center" />
+          <SectionHeading kicker="Verifica e conclusione" title={section.title} text={section.text} align="center" />
 
           <div className="mt-14 divide-y divide-slate-200/80">
             {lessonData.quizQuestions.map((question, questionIndex) => {
@@ -1664,6 +1749,12 @@ function FinalQuizSection() {
               );
             })}
           </div>
+
+          <div className="mt-14 border-t border-slate-200/80 pt-10 text-center">
+            <p className="mt-6 text-[2.4rem] font-semibold tracking-[-0.05em] text-slate-950 sm:text-[3rem]">
+              La pulsazione e il battito regolare, il ritmo e cio che accade dentro quel battito, il tempo indica quanto veloce scorre la musica.
+            </p>
+          </div>
         </SurfacePanel>
       </div>
     </SectionShell>
@@ -1720,15 +1811,13 @@ function RitmoPulsazioneTempoLesson() {
     <div style={{ fontFamily: APP_FONT }} className="accordia-lesson-page bg-[#fbfaf7] text-slate-950 antialiased">
       <LessonHero />
       <SparkSection />
+      <ContextSection />
       <PulseSection />
       <ConceptsSection />
-      <RhythmMapSection />
       <ListeningCardsSection />
       <RhythmSequencerSection />
-      <ConductorSection />
       <PerformanceSection />
       <FinalQuizSection />
-      <SelfEvaluationSection />
     </div>
   );
 }

@@ -1,28 +1,26 @@
+// components/CorpoVoceGestoLesson.jsx
 import React, { useEffect, useMemo, useRef, useState } from "https://esm.sh/react@18";
-const APP_FONT = "'SF Pro Display','SF Pro Text',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif";
-const ACCENT = "#c66a18";
-const ACCENT_SOFT = "#fff4e8";
-const BORDER = "rgba(148, 163, 184, 0.22)";
-const SURFACE = "#f7f5f1";
-const RING = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c66a18] focus-visible:ring-offset-2 focus-visible:ring-offset-white";
-const LESSON_SHELL = "mx-auto max-w-[84rem] px-4 sm:px-6 lg:px-8";
-const LESSON_SHELL_WIDE = "mx-auto max-w-[88rem] px-4 sm:px-6 lg:px-8";
-const LESSON_SHELL_COMPACT = "mx-auto max-w-[78rem] px-4 sm:px-6 lg:px-8";
-const ORIGIN_CAVE_IMAGE = "/assets/lesson/corpo-voce-gesto/lascaux-painting.jpg";
-const SECTION_SPACE = "py-20 sm:py-24 lg:py-28";
-const PANEL_BASE = "rounded-[2rem] border border-slate-200/70 bg-white shadow-[0_12px_30px_rgba(15,23,42,0.04)]";
-const PANEL_SOFT = "rounded-[2rem] border border-slate-200/60 bg-[#fcfbf8] shadow-[0_10px_24px_rgba(15,23,42,0.03)]";
-const PANEL_SUBTLE = "rounded-[1.5rem] border border-slate-200/70 bg-[#fcfbf8]";
-const BODY_COPY = "text-[1.02rem] leading-8 text-slate-600 sm:text-[1.08rem]";
-const BODY_COPY_SOFT = "text-[0.95rem] leading-7 text-slate-500 sm:text-base";
-const BUTTON_BASE = "lesson-control-button inline-flex min-h-11 items-center justify-center rounded-full border border-solid px-5 py-2.5 text-sm font-semibold tracking-[-0.01em] transition-colors duration-150";
-const PILL_BASE = "lesson-control-pill inline-flex min-h-10 items-center rounded-full border border-solid bg-white px-4 py-2 text-[0.84rem] font-semibold tracking-[-0.01em] transition-colors duration-150";
-const PILL_DEFAULT = `${PILL_BASE} border-[#e4e8ee] text-[#5e646c] hover:border-[#d7dde5] hover:text-[#18191b]`;
-const PILL_ACTIVE = `${PILL_BASE} border-[#dde2e8] text-[#18191b]`;
-const TAG_CLASS = "inline-flex items-center rounded-full border border-[#f1dec9] bg-[#fff6ed] px-3.5 py-1.5 text-sm font-medium text-[#8a4d18]";
-const SMALL_LABEL = "text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-slate-400";
-const INPUT_AREA = "mt-6 min-h-[9rem] w-full resize-none rounded-[1.35rem] border border-slate-200/80 bg-[#fcfbf8] px-4 py-4 text-sm leading-7 text-slate-700 placeholder:text-slate-400";
-const lessonData = {
+var APP_FONT = "'SF Pro Display','SF Pro Text',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif";
+var ACCENT = "#c66a18";
+var RING = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c66a18] focus-visible:ring-offset-2 focus-visible:ring-offset-white";
+var LESSON_SHELL = "mx-auto max-w-[84rem] px-4 sm:px-6 lg:px-8";
+var LESSON_SHELL_WIDE = "mx-auto max-w-[88rem] px-4 sm:px-6 lg:px-8";
+var LESSON_SHELL_COMPACT = "mx-auto max-w-[78rem] px-4 sm:px-6 lg:px-8";
+var ORIGIN_CAVE_IMAGE = "/assets/lesson/corpo-voce-gesto/lascaux-painting.jpg";
+var SECTION_SPACE = "py-20 sm:py-24 lg:py-28";
+var PANEL_BASE = "rounded-[2rem] border border-slate-200/70 bg-white shadow-[0_12px_30px_rgba(15,23,42,0.04)]";
+var PANEL_SOFT = "rounded-[2rem] border border-slate-200/60 bg-[#fcfbf8] shadow-[0_10px_24px_rgba(15,23,42,0.03)]";
+var PANEL_SUBTLE = "rounded-[1.5rem] border border-slate-200/70 bg-[#fcfbf8]";
+var BODY_COPY = "text-[1.02rem] leading-8 text-slate-600 sm:text-[1.08rem]";
+var BODY_COPY_SOFT = "text-[0.95rem] leading-7 text-slate-500 sm:text-base";
+var BUTTON_BASE = "lesson-control-button inline-flex min-h-11 items-center justify-center rounded-full border border-solid px-5 py-2.5 text-sm font-semibold tracking-[-0.01em] transition-colors duration-150";
+var PILL_BASE = "lesson-control-pill inline-flex min-h-10 items-center rounded-full border border-solid bg-white px-4 py-2 text-[0.84rem] font-semibold tracking-[-0.01em] transition-colors duration-150";
+var PILL_DEFAULT = `${PILL_BASE} border-[#e4e8ee] text-[#5e646c] hover:border-[#d7dde5] hover:text-[#18191b]`;
+var PILL_ACTIVE = `${PILL_BASE} border-[#dde2e8] text-[#18191b]`;
+var TAG_CLASS = "inline-flex items-center rounded-full border border-[#f1dec9] bg-[#fff6ed] px-3.5 py-1.5 text-sm font-medium text-[#8a4d18]";
+var SMALL_LABEL = "text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-slate-400";
+var INPUT_AREA = "mt-6 min-h-[9rem] w-full resize-none rounded-[1.35rem] border border-slate-200/80 bg-[#fcfbf8] px-4 py-4 text-sm leading-7 text-slate-700 placeholder:text-slate-400";
+var lessonData = {
   title: "Corpo, voce e gesto",
   nucleus: "Origini del suono",
   subtitle: "Prima degli strumenti, prima dello spartito, prima della scrittura: il suono comincia da noi.",
@@ -34,7 +32,7 @@ const lessonData = {
       eyebrow: "ORIGINI DEL SUONO",
       title: "Corpo, voce e gesto",
       subtitle: "Prima degli strumenti, prima dello spartito, prima della scrittura: il suono comincia da noi.",
-      microtext: "Ascolteremo il silenzio, useremo il corpo come strumento, costruiremo una sequenza ritmica e la trasformeremo in una partitura grafica.",
+      microtext: "Dal silenzio al ritmo: osserviamo, ascoltiamo, proviamo e costruiamo una breve sequenza usando solo corpo, voce e gesto.",
       cta: "Inizia l'ascolto"
     },
     {
@@ -42,7 +40,7 @@ const lessonData = {
       navGroup: "ascolto",
       navLabel: "Ascolto",
       title: "Possiamo fare musica senza strumenti?",
-      text: "Restiamo in silenzio per 30 secondi. Ascoltiamo il respiro, i piccoli movimenti, i rumori dell'aula, i suoni lontani. Poi distinguiamo cio che nasce dal corpo, dall'ambiente e da un gesto intenzionale.",
+      text: "Restiamo in silenzio per 30 secondi. Poi distinguiamo i suoni del corpo, dell'ambiente e del gesto intenzionale.",
       questions: [
         "Quali suoni arrivano dal nostro corpo?",
         "Quali suoni arrivano dall'ambiente?",
@@ -53,10 +51,10 @@ const lessonData = {
       id: "origin",
       navGroup: "origine",
       navLabel: "Origine",
-      title: "Prima degli strumenti, il corpo.",
-      headline: "La musica nasce con l'uomo.",
-      text: "Prima degli strumenti complessi e prima della scrittura musicale, gli esseri umani usavano il corpo, la voce e il gesto per comunicare, imitare la natura, accompagnare il lavoro, danzare, celebrare riti e stare insieme.",
-      supporting: "Nelle societa antiche la musica poteva avere una funzione sacra, magica o comunitaria. Prima di essere scritta, veniva ricordata e trasmessa oralmente: si imparava ascoltando, imitando e ripetendo.",
+      title: "Corpo, voce e gesto prima degli strumenti.",
+      headline: "La musica comincia da un gesto condiviso.",
+      text: "Prima degli strumenti musicali, l'uomo ha usato il corpo, la voce e il gesto per produrre suoni, comunicare, accompagnare il movimento e dare significato ai momenti collettivi.",
+      supporting: "Prima di essere scritta, la musica si imparava ascoltando, imitando e ripetendo. Cosi ritmo, voce e movimento diventavano memoria comune.",
       concepts: ["corpo", "voce", "gesto", "comunita"],
       imageLabel: "Immagine da inserire: pitture rupestri / corpo in movimento / rito sonoro."
     },
@@ -64,16 +62,16 @@ const lessonData = {
       id: "body",
       navGroup: "corpo",
       navLabel: "Corpo",
-      title: "Il primo strumento e gia presente.",
-      text: "Il corpo produce suoni diversi. Le mani danno un attacco chiaro. I piedi creano stabilita. Il petto produce un suono piu profondo. Il respiro prepara il gesto."
+      title: "Che cosa osserviamo quando il corpo diventa strumento?",
+      text: "Osserva dove nasce il suono: mani, piedi, petto, cosce, schiocco e respiro. Ogni punto cambia timbro, intensita e funzione nel gruppo."
     },
     {
       id: "voice",
       navGroup: "voce",
       navLabel: "Voce",
-      title: "La voce non e solo canto.",
-      text: "La voce puo chiamare, imitare, raccontare, guidare e ricordare. Prima dello spartito, una musica poteva vivere nella memoria di chi la ascoltava e la ripeteva.",
-      question: "Quale suono vocale useresti per costruire un ritmo?"
+      title: "Che cosa senti in questi esempi?",
+      text: "Confronta body percussion, voce ritmica e pause intenzionali. Cerca timbro, intenzione, ripetizione e rapporto con il silenzio.",
+      question: "Quale suono ti aiuta a sentire meglio il ritmo?"
     },
     {
       id: "gesture",
@@ -95,23 +93,24 @@ const lessonData = {
       id: "concept-map",
       navGroup: "mappa",
       navLabel: "Mappa",
-      title: "Dal corpo alla musica.",
-      text: "Ogni parola racconta un passaggio: dal corpo che produce suono, alla voce che comunica, fino al gruppo che costruisce una musica condivisa."
+      title: "Suono, rumore, silenzio, corpo, voce e ritmo.",
+      text: "Il lessico essenziale della lezione viene spiegato con definizioni brevi, parole chiave centrate e segni facili da ricordare.",
+      closing: "La musica nasce quando il suono viene organizzato con intenzione."
     },
     {
       id: "percussion",
       navGroup: "laboratorio",
       navLabel: "Laboratorio",
-      title: "Costruiamo una sequenza di 8 pulsazioni.",
-      text: "Scegli tre suoni corporei. Mantieni una pulsazione regolare. Costruisci una sequenza semplice. Ripetila. Poi aggiungi una piccola variazione."
+      title: "Attivita pratica: una sequenza semplice.",
+      text: "La classe prova una pulsazione comune e costruisce una breve sequenza con mani, piedi, schiocchi, voce e pause."
     },
     {
       id: "graphic-score",
       navGroup: "laboratorio",
       navLabel: "Laboratorio",
-      title: "Dal gesto alla partitura grafica.",
-      text: "Prima della notazione tradizionale possiamo usare simboli semplici per ricordare i gesti e organizzare i suoni nel tempo.",
-      activity: "Ogni gruppo crea una partitura grafica di 8 tempi e la passa a un altro gruppo. L'altro gruppo prova a eseguirla senza spiegazione orale.",
+      title: "Produzione degli studenti: una sequenza del gruppo.",
+      text: "Ogni gruppo crea una breve sequenza ritmica usando solo corpo, voce e gesto. Poi la traduce in una partitura grafica semplice.",
+      activity: "Ogni gruppo costruisce 8 tempi, li prova insieme e li passa a un altro gruppo.",
       questions: [
         "La partitura si capisce senza spiegazione?",
         "I simboli sono coerenti?",
@@ -129,9 +128,96 @@ const lessonData = {
       id: "final-quiz",
       navGroup: "verifica",
       navLabel: "Verifica",
-      title: "Che cosa abbiamo scoperto?",
-      text: "La musica puo nascere dal corpo, dalla voce e dal gesto. Prima degli strumenti complessi, gli esseri umani potevano organizzare i suoni attraverso ritmo, movimento, imitazione e ripetizione. Il silenzio non e vuoto: aiuta ad ascoltare e da forma ai suoni.",
-      closing: "Il primo strumento musicale puo essere il corpo."
+      title: "Che cosa abbiamo capito?",
+      text: "Gli studenti spiegano quali suoni hanno usato, come li hanno organizzati e perche questa esperienza puo essere considerata musica.",
+      closing: "La musica nasce quando il suono viene organizzato con intenzione."
+    }
+  ],
+  observationCards: [
+    {
+      id: "corpo",
+      title: "Corpo in movimento",
+      detail: "Guarda mani, piedi, busto e respiro. Ogni parte puo produrre un suono diverso."
+    },
+    {
+      id: "voce",
+      title: "Voce che guida",
+      detail: "Guarda bocca, fiato, sillabe e richiami. La voce puo dare ritmo e memoria."
+    },
+    {
+      id: "gesto",
+      title: "Gesto che coordina",
+      detail: "Guarda attacco, stop, pausa e ripetizione. Il gesto rende visibile l'intenzione."
+    },
+    {
+      id: "origine",
+      title: "Musica delle origini",
+      detail: "Guarda danza, rito, gruppo e oggetti semplici. Il suono nasce da cio che il corpo incontra."
+    }
+  ],
+  listeningScenes: [
+    {
+      id: "body",
+      title: "Body percussion",
+      focus: "mani, piedi, colpi sul corpo",
+      prompt: "Riesci a riconoscere un ritmo che si ripete?",
+      cues: ["ritmo", "ripetizione", "pulsazione"]
+    },
+    {
+      id: "voice",
+      title: "Voce ritmica",
+      focus: "ta, tum, ah, richiami brevi",
+      prompt: "Che timbro senti? E il suono e secco, lungo o morbido?",
+      cues: ["voce", "timbro", "memoria"]
+    },
+    {
+      id: "pause",
+      title: "Suono e pausa",
+      focus: "gesto, stop, ripartenza",
+      prompt: "Quando il silenzio aiuta il gruppo a ripartire insieme?",
+      cues: ["silenzio", "attesa", "ripresa"]
+    }
+  ],
+  conceptDefinitions: [
+    {
+      id: "suono",
+      term: "Suono",
+      definition: "E cio che sentiamo quando una sorgente vibra."
+    },
+    {
+      id: "rumore",
+      term: "Rumore",
+      definition: "E un suono non ancora organizzato o non scelto con intenzione."
+    },
+    {
+      id: "silenzio",
+      term: "Silenzio",
+      definition: "Non e vuoto: prepara l'ascolto e da forma ai suoni."
+    },
+    {
+      id: "corpo-sonoro",
+      term: "Corpo sonoro",
+      definition: "E il corpo usato come sorgente di suono: mani, piedi, petto, respiro, voce."
+    },
+    {
+      id: "voce",
+      term: "Voce",
+      definition: "Puo chiamare, guidare, imitare, ricordare e costruire ritmo."
+    },
+    {
+      id: "gesto",
+      term: "Gesto intenzionale",
+      definition: "E un movimento scelto che prepara, produce o coordina il suono."
+    },
+    {
+      id: "ritmo",
+      term: "Ritmo",
+      definition: "E il modo in cui suoni e pause si organizzano nel tempo."
+    },
+    {
+      id: "pulsazione",
+      term: "Pulsazione",
+      definition: "E il battito regolare che aiuta il gruppo a restare insieme."
     }
   ],
   soundSources: [
@@ -469,7 +555,7 @@ const lessonData = {
     }
   ]
 };
-const conceptFloatingMeta = {
+var conceptFloatingMeta = {
   body: { number: "01", category: "sorgente" },
   voice: { number: "02", category: "oralita" },
   gesture: { number: "03", category: "intenzione" },
@@ -484,12 +570,6 @@ function cn(...classes) {
 }
 function getSection(id) {
   return lessonData.sections.find((section) => section.id === id);
-}
-function scrollToSection(id) {
-  const target = document.getElementById(id);
-  if (target) {
-    target.scrollIntoView({ behavior: "smooth", block: "start" });
-  }
 }
 function useReveal() {
   const ref = useRef(null);
@@ -599,7 +679,7 @@ function ListeningTimerSection() {
   }, [running, secondsLeft]);
   const circumference = 2 * Math.PI * 54;
   const dashOffset = circumference - (30 - secondsLeft) / 30 * circumference;
-  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-[#f8f6f2]", className: SECTION_SPACE }, () => /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Silenzio e ascolto", title: section.title, text: section.text, align: "center" }), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "soft", className: "mt-14 px-6 py-8 sm:px-10 sm:py-10" }, /* @__PURE__ */ React.createElement("div", { className: "flex flex-col items-center" }, /* @__PURE__ */ React.createElement("div", { className: "relative flex h-56 w-56 items-center justify-center" }, /* @__PURE__ */ React.createElement("svg", { viewBox: "0 0 140 140", className: "h-full w-full -rotate-90", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("circle", { cx: "70", cy: "70", r: "54", fill: "none", stroke: "rgba(148,163,184,0.18)", strokeWidth: "6" }), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-[#f8f6f2]", className: SECTION_SPACE }, () => /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Domanda iniziale", title: section.title, text: section.text, align: "center" }), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "soft", className: "mt-14 px-6 py-8 sm:px-10 sm:py-10" }, /* @__PURE__ */ React.createElement("div", { className: "flex flex-col items-center" }, /* @__PURE__ */ React.createElement("div", { className: "relative flex h-56 w-56 items-center justify-center" }, /* @__PURE__ */ React.createElement("svg", { viewBox: "0 0 140 140", className: "h-full w-full -rotate-90", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("circle", { cx: "70", cy: "70", r: "54", fill: "none", stroke: "rgba(148,163,184,0.18)", strokeWidth: "6" }), /* @__PURE__ */ React.createElement(
     "circle",
     {
       cx: "70",
@@ -656,7 +736,7 @@ function ListeningTimerSection() {
 }
 function OriginStorySection() {
   const section = getSection("origin");
-  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-white", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-12 lg:grid-cols-[minmax(0,1.04fr)_minmax(22rem,0.96fr)] lg:items-center" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-[39rem]" }, /* @__PURE__ */ React.createElement(SectionKicker, null, "Prima degli strumenti"), /* @__PURE__ */ React.createElement("h2", { className: "mt-4 text-[2.7rem] font-semibold tracking-[-0.05em] text-slate-950 sm:text-[3.35rem] lg:leading-[0.95]" }, section.title), /* @__PURE__ */ React.createElement("p", { className: "mt-7 text-[2rem] font-semibold tracking-[-0.05em] text-slate-950 sm:text-[2.4rem]" }, section.headline), /* @__PURE__ */ React.createElement("p", { className: cn("mt-6", BODY_COPY) }, section.text), /* @__PURE__ */ React.createElement("p", { className: cn("mt-5", BODY_COPY_SOFT) }, section.supporting)), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "soft", className: "p-4 sm:p-5" }, /* @__PURE__ */ React.createElement("div", { className: "relative overflow-hidden rounded-[1.75rem] border border-white/80 bg-white" }, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-white", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-12 lg:grid-cols-[minmax(0,1.04fr)_minmax(22rem,0.96fr)] lg:items-center" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-[39rem]" }, /* @__PURE__ */ React.createElement(SectionKicker, null, "Contesto storico e culturale"), /* @__PURE__ */ React.createElement("h2", { className: "mt-4 text-[2.7rem] font-semibold tracking-[-0.05em] text-slate-950 sm:text-[3.35rem] lg:leading-[0.95]" }, section.title), /* @__PURE__ */ React.createElement("p", { className: "mt-7 text-[2rem] font-semibold tracking-[-0.05em] text-slate-950 sm:text-[2.4rem]" }, section.headline), /* @__PURE__ */ React.createElement("p", { className: cn("mt-6", BODY_COPY) }, section.text), /* @__PURE__ */ React.createElement("p", { className: cn("mt-5", BODY_COPY_SOFT) }, section.supporting)), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "soft", className: "p-4 sm:p-5" }, /* @__PURE__ */ React.createElement("div", { className: "relative overflow-hidden rounded-[1.75rem] border border-white/80 bg-white" }, /* @__PURE__ */ React.createElement(
     "img",
     {
       src: ORIGIN_CAVE_IMAGE,
@@ -690,7 +770,7 @@ function BodyInstrumentSection() {
   const section = getSection("body");
   const [activeId, setActiveId] = useState(lessonData.bodySounds[0].id);
   const activeSound = lessonData.bodySounds.find((sound) => sound.id === activeId) || lessonData.bodySounds[0];
-  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-[#fbfbf9]", className: "py-20 sm:py-28" }, /* @__PURE__ */ React.createElement("div", { className: cn("grid gap-14 lg:grid-cols-[minmax(25rem,0.95fr)_minmax(0,1.05fr)] lg:items-center", LESSON_SHELL), style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Il corpo come primo strumento", title: section.title, text: section.text }), /* @__PURE__ */ React.createElement("div", { className: "mt-10 rounded-[2rem] border border-slate-200/80 bg-white/80 p-6 shadow-[0_18px_38px_rgba(15,23,42,0.04)]" }, /* @__PURE__ */ React.createElement("p", { className: "text-sm font-semibold uppercase tracking-[0.18em] text-[#a86b34]" }, activeSound.label), /* @__PURE__ */ React.createElement("p", { className: "mt-4 text-2xl font-semibold tracking-[-0.04em] text-slate-950" }, activeSound.description), /* @__PURE__ */ React.createElement("div", { className: "mt-6 flex flex-wrap gap-3" }, activeSound.keywords.map((keyword) => /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-[#fbfbf9]", className: "py-20 sm:py-28" }, /* @__PURE__ */ React.createElement("div", { className: cn("grid gap-14 lg:grid-cols-[minmax(25rem,0.95fr)_minmax(0,1.05fr)] lg:items-center", LESSON_SHELL), style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Osservazione guidata", title: section.title, text: section.text }), /* @__PURE__ */ React.createElement("div", { className: "mt-8 grid gap-3 sm:grid-cols-2" }, lessonData.observationCards.map((item) => /* @__PURE__ */ React.createElement(SurfacePanel, { key: item.id, tone: "subtle", className: "px-5 py-5" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, item.title), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[0.96rem] leading-7 text-slate-600" }, item.detail)))), /* @__PURE__ */ React.createElement("div", { className: "mt-8 rounded-[2rem] border border-slate-200/80 bg-white/80 p-6 shadow-[0_18px_38px_rgba(15,23,42,0.04)]" }, /* @__PURE__ */ React.createElement("p", { className: "text-sm font-semibold uppercase tracking-[0.18em] text-[#a86b34]" }, activeSound.label), /* @__PURE__ */ React.createElement("p", { className: "mt-4 text-2xl font-semibold tracking-[-0.04em] text-slate-950" }, activeSound.description), /* @__PURE__ */ React.createElement("div", { className: "mt-6 flex flex-wrap gap-3" }, activeSound.keywords.map((keyword) => /* @__PURE__ */ React.createElement(
     "span",
     {
       key: keyword,
@@ -701,22 +781,15 @@ function BodyInstrumentSection() {
 }
 function VoiceMemorySection() {
   const section = getSection("voice");
-  const [sequence, setSequence] = useState([]);
-  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-white", className: SECTION_SPACE }, () => /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "La voce come memoria", title: section.title, text: section.text }), /* @__PURE__ */ React.createElement("div", { className: "mt-14 grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(24rem,1.1fr)] lg:items-start" }, /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "subtle", className: "p-6 sm:p-7" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Sequenza vocale"), /* @__PURE__ */ React.createElement("p", { className: cn("mt-4", BODY_COPY_SOFT) }, "Tocca le sillabe per costruire una piccola traccia visiva. Non serve audio: qui conta il rapporto tra voce, ritmo e memoria."), /* @__PURE__ */ React.createElement("div", { className: "mt-8 flex flex-wrap gap-3" }, lessonData.voiceSyllables.map((syllable) => /* @__PURE__ */ React.createElement(
-    "button",
-    {
-      key: syllable,
-      type: "button",
-      "aria-label": `Aggiungi ${syllable}`,
-      onClick: () => setSequence((current) => [...current, syllable].slice(-8)),
-      className: cn(
-        RING,
-        PILL_DEFAULT,
-        "text-base hover:border-[#d8a06d] hover:text-[#8a4d18]"
-      )
-    },
-    syllable
-  )), /* @__PURE__ */ React.createElement(SecondaryButton, { onClick: () => setSequence([]) }, "Svuota"))), /* @__PURE__ */ React.createElement(SurfacePanel, { className: "p-6 sm:p-7" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Sequenza in memoria"), /* @__PURE__ */ React.createElement("div", { className: "mt-6 flex min-h-[10rem] flex-wrap content-start gap-3 rounded-[1.5rem] border border-slate-200/70 bg-[#fcfbf8] p-5" }, sequence.length ? sequence.map((item, index) => /* @__PURE__ */ React.createElement(ToneTag, { key: `${item}-${index}` }, item)) : /* @__PURE__ */ React.createElement("p", { className: cn("max-w-[28rem]", BODY_COPY_SOFT, "text-slate-400") }, "Tocca le sillabe. La sequenza apparira qui e mostrera come la voce possa organizzare il tempo e fissarsi nella memoria.")), /* @__PURE__ */ React.createElement("div", { className: "mt-6 border-t border-slate-200/70 pt-5" }, /* @__PURE__ */ React.createElement("p", { className: BODY_COPY }, section.question))))));
+  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-white", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL_WIDE, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Ascolto guidato", title: section.title, text: section.text }), /* @__PURE__ */ React.createElement("div", { className: "mt-10 grid gap-5 xl:grid-cols-3" }, lessonData.listeningScenes.map((scene, index) => /* @__PURE__ */ React.createElement(SurfacePanel, { key: scene.id, tone: "soft", className: "p-6 sm:p-7" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "0", index + 1), /* @__PURE__ */ React.createElement("h3", { className: "mt-4 text-[1.8rem] font-semibold tracking-[-0.05em] text-slate-950" }, scene.title), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[0.98rem] leading-7 text-slate-600" }, scene.focus), /* @__PURE__ */ React.createElement("div", { className: "mt-6 rounded-[1.4rem] border border-slate-200/70 bg-white px-5 py-5" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Che cosa ascolti?"), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[0.98rem] leading-7 text-slate-600" }, scene.prompt)), /* @__PURE__ */ React.createElement("div", { className: "mt-5 flex flex-wrap gap-3" }, scene.cues.map((cue) => /* @__PURE__ */ React.createElement(ToneTag, { key: `${scene.id}-${cue}` }, cue)))))), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "subtle", className: "mt-6 px-6 py-6" }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-4 md:grid-cols-3" }, [
+    "Riesci a riconoscere il ritmo?",
+    "Quale timbro senti meglio?",
+    "Dove la pausa rende piu chiaro il gesto?"
+  ].map((prompt) => /* @__PURE__ */ React.createElement("div", { key: prompt, className: "rounded-[1.25rem] border border-slate-200/70 bg-white px-4 py-4" }, /* @__PURE__ */ React.createElement("p", { className: "text-sm leading-6 text-slate-600" }, prompt)))))));
+}
+function ConceptBoardSection() {
+  const section = getSection("concept-map");
+  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-[#f8f6f2]", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL_WIDE, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Spiegazione dei contenuti", title: section.title, text: section.text }), /* @__PURE__ */ React.createElement("div", { className: "mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4" }, lessonData.conceptDefinitions.map((item) => /* @__PURE__ */ React.createElement(SurfacePanel, { key: item.id, tone: "base", className: "px-5 py-5" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, item.term), /* @__PURE__ */ React.createElement("p", { className: "mt-4 text-[1rem] leading-7 text-slate-600" }, item.definition)))), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "soft", className: "mt-8 px-6 py-8 text-center" }, /* @__PURE__ */ React.createElement("p", { className: "mx-auto max-w-4xl text-[1.8rem] font-semibold tracking-[-0.04em] text-slate-950 sm:text-[2.2rem]" }, section.closing))));
 }
 function GestureTimeline({ steps, visible }) {
   const [activeIndex, setActiveIndex] = useState(0);
@@ -927,7 +1000,7 @@ function BodyPercussionSequencer() {
   const optionById = useMemo(() => {
     return Object.fromEntries(lessonData.percussionSteps.map((option) => [option.id, option]));
   }, []);
-  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-white", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(24rem,1.08fr)] lg:items-start" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Laboratorio di body percussion", title: section.title, text: section.text }), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "subtle", className: "mt-8 p-6 sm:p-7" }, /* @__PURE__ */ React.createElement("div", { className: "space-y-3.5 text-[1rem] leading-8 text-slate-600" }, /* @__PURE__ */ React.createElement("p", null, "Scegli tre suoni corporei."), /* @__PURE__ */ React.createElement("p", null, "Mantieni una pulsazione regolare."), /* @__PURE__ */ React.createElement("p", null, "Costruisci una sequenza semplice."), /* @__PURE__ */ React.createElement("p", null, "Ripetila."), /* @__PURE__ */ React.createElement("p", null, "Poi aggiungi una piccola variazione."))), /* @__PURE__ */ React.createElement("div", { className: "mt-8 flex flex-wrap gap-3" }, lessonData.percussionSteps.map((option) => {
+  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-white", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(24rem,1.08fr)] lg:items-start" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Attivita pratica", title: section.title, text: section.text }), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "subtle", className: "mt-8 p-6 sm:p-7" }, /* @__PURE__ */ React.createElement("div", { className: "space-y-3.5 text-[1rem] leading-8 text-slate-600" }, /* @__PURE__ */ React.createElement("p", null, "Scegli tre suoni corporei."), /* @__PURE__ */ React.createElement("p", null, "Mantieni una pulsazione regolare."), /* @__PURE__ */ React.createElement("p", null, "Costruisci una sequenza semplice."), /* @__PURE__ */ React.createElement("p", null, "Ripetila."), /* @__PURE__ */ React.createElement("p", null, "Poi aggiungi una piccola variazione."))), /* @__PURE__ */ React.createElement("div", { className: "mt-8 flex flex-wrap gap-3" }, lessonData.percussionSteps.map((option) => {
     const isSelected = option.id === selectedStepType;
     return /* @__PURE__ */ React.createElement(
       "button",
@@ -992,7 +1065,7 @@ function GraphicScoreBuilder() {
   const [activeSymbolId, setActiveSymbolId] = useState(lessonData.graphicSymbols[0].id);
   const [score, setScore] = useState(["\u25CF", "\u25B2", "\u25CF", "\u25A0", "\u25CF", "\u25B2", "\u2014", "\u25C6"]);
   const activeSymbol = lessonData.graphicSymbols.find((item) => item.id === activeSymbolId) || lessonData.graphicSymbols[0];
-  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-[#fbfbf9]", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Partitura grafica", title: section.title, text: section.text }), /* @__PURE__ */ React.createElement("div", { className: "mt-10 flex flex-wrap gap-3" }, lessonData.graphicSymbols.map((item) => {
+  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-[#fbfbf9]", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Produzione degli studenti", title: section.title, text: section.text }), /* @__PURE__ */ React.createElement("div", { className: "mt-10 flex flex-wrap gap-3" }, lessonData.graphicSymbols.map((item) => {
     const isActive = item.id === activeSymbolId;
     return /* @__PURE__ */ React.createElement(
       "button",
@@ -1062,7 +1135,7 @@ function SharingRubric() {
 function FinalQuiz() {
   const section = getSection("final-quiz");
   const [answers, setAnswers] = useState({});
-  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-[#fbfbf9]", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL_COMPACT, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement(SurfacePanel, { className: "px-6 py-10 sm:px-10 sm:py-12" }, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Verifica finale", title: section.title, text: section.text, align: "center" }), /* @__PURE__ */ React.createElement("div", { className: "mt-14 divide-y divide-slate-200/80" }, lessonData.quizQuestions.map((question, questionIndex) => {
+  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-[#fbfbf9]", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL_COMPACT, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement(SurfacePanel, { className: "px-6 py-10 sm:px-10 sm:py-12" }, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Verifica e conclusione", title: section.title, text: section.text, align: "center" }), /* @__PURE__ */ React.createElement("div", { className: "mt-14 divide-y divide-slate-200/80" }, lessonData.quizQuestions.map((question, questionIndex) => {
     const selectedOptionId = answers[question.id];
     const selectedOption = question.options.find((option) => option.id === selectedOptionId);
     return /* @__PURE__ */ React.createElement("div", { key: question.id, className: "py-8 first:pt-0" }, /* @__PURE__ */ React.createElement("p", { className: "text-sm font-semibold uppercase tracking-[0.2em] text-slate-400" }, "Domanda ", questionIndex + 1), /* @__PURE__ */ React.createElement("h3", { className: "mt-3 text-2xl font-semibold tracking-[-0.04em] text-slate-950" }, question.prompt), /* @__PURE__ */ React.createElement("div", { className: "mt-6 space-y-3" }, question.options.map((option) => {
@@ -1095,10 +1168,10 @@ function FinalQuiz() {
       /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, selectedOption.correct ? "Risposta corretta" : "Da rivedere"),
       /* @__PURE__ */ React.createElement("p", { className: "mt-3" }, selectedOption.feedback)
     ) : null);
-  })), /* @__PURE__ */ React.createElement("div", { className: "mt-14 border-t border-slate-200/80 pt-10 text-center" }, /* @__PURE__ */ React.createElement("p", { className: "mx-auto max-w-3xl text-[1.02rem] leading-8 text-slate-600" }, "Il primo strumento musicale puo essere il corpo."), /* @__PURE__ */ React.createElement("p", { className: "mt-6 text-[2.6rem] font-semibold tracking-[-0.05em] text-slate-950 sm:text-[3.35rem]" }, section.closing)))));
+  })), /* @__PURE__ */ React.createElement("div", { className: "mt-14 border-t border-slate-200/80 pt-10 text-center" }, /* @__PURE__ */ React.createElement("p", { className: "mt-6 text-[2.6rem] font-semibold tracking-[-0.05em] text-slate-950 sm:text-[3.35rem]" }, section.closing)))));
 }
 function LessonProductPage() {
-  return /* @__PURE__ */ React.createElement("div", { style: { fontFamily: APP_FONT }, className: "accordia-lesson-page bg-[#fbfaf7] text-slate-950 antialiased" }, /* @__PURE__ */ React.createElement(LessonHero, null), /* @__PURE__ */ React.createElement(ListeningTimerSection, null), /* @__PURE__ */ React.createElement(OriginStorySection, null), /* @__PURE__ */ React.createElement(VoiceMemorySection, null), /* @__PURE__ */ React.createElement(LivingConceptMap, null), /* @__PURE__ */ React.createElement(BodyPercussionSequencer, null), /* @__PURE__ */ React.createElement(GraphicScoreBuilder, null), /* @__PURE__ */ React.createElement(SharingRubric, null), /* @__PURE__ */ React.createElement(FinalQuiz, null));
+  return /* @__PURE__ */ React.createElement("div", { style: { fontFamily: APP_FONT }, className: "accordia-lesson-page bg-[#fbfaf7] text-slate-950 antialiased" }, /* @__PURE__ */ React.createElement(LessonHero, null), /* @__PURE__ */ React.createElement(ListeningTimerSection, null), /* @__PURE__ */ React.createElement(OriginStorySection, null), /* @__PURE__ */ React.createElement(BodyInstrumentSection, null), /* @__PURE__ */ React.createElement(VoiceMemorySection, null), /* @__PURE__ */ React.createElement(ConceptBoardSection, null), /* @__PURE__ */ React.createElement(BodyPercussionSequencer, null), /* @__PURE__ */ React.createElement(GraphicScoreBuilder, null), /* @__PURE__ */ React.createElement(FinalQuiz, null));
 }
 function CorpoVoceGestoLesson() {
   return /* @__PURE__ */ React.createElement(LessonProductPage, null);
@@ -1106,6 +1179,7 @@ function CorpoVoceGestoLesson() {
 export {
   BodyInstrumentSection,
   BodyPercussionSequencer,
+  ConceptBoardSection,
   FinalQuiz,
   GestureIntentSection,
   GraphicScoreBuilder,

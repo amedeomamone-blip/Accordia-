@@ -41,7 +41,7 @@ const lessonData = {
       title: "Corpo, voce e gesto",
       subtitle: "Prima degli strumenti, prima dello spartito, prima della scrittura: il suono comincia da noi.",
       microtext:
-        "Ascolteremo il silenzio, useremo il corpo come strumento, costruiremo una sequenza ritmica e la trasformeremo in una partitura grafica.",
+        "Dal silenzio al ritmo: osserviamo, ascoltiamo, proviamo e costruiamo una breve sequenza usando solo corpo, voce e gesto.",
       cta: "Inizia l'ascolto",
     },
     {
@@ -50,7 +50,7 @@ const lessonData = {
       navLabel: "Ascolto",
       title: "Possiamo fare musica senza strumenti?",
       text:
-        "Restiamo in silenzio per 30 secondi. Ascoltiamo il respiro, i piccoli movimenti, i rumori dell'aula, i suoni lontani. Poi distinguiamo cio che nasce dal corpo, dall'ambiente e da un gesto intenzionale.",
+        "Restiamo in silenzio per 30 secondi. Poi distinguiamo i suoni del corpo, dell'ambiente e del gesto intenzionale.",
       questions: [
         "Quali suoni arrivano dal nostro corpo?",
         "Quali suoni arrivano dall'ambiente?",
@@ -61,12 +61,12 @@ const lessonData = {
       id: "origin",
       navGroup: "origine",
       navLabel: "Origine",
-      title: "Prima degli strumenti, il corpo.",
-      headline: "La musica nasce con l'uomo.",
+      title: "Corpo, voce e gesto prima degli strumenti.",
+      headline: "La musica comincia da un gesto condiviso.",
       text:
-        "Prima degli strumenti complessi e prima della scrittura musicale, gli esseri umani usavano il corpo, la voce e il gesto per comunicare, imitare la natura, accompagnare il lavoro, danzare, celebrare riti e stare insieme.",
+        "Prima degli strumenti musicali, l'uomo ha usato il corpo, la voce e il gesto per produrre suoni, comunicare, accompagnare il movimento e dare significato ai momenti collettivi.",
       supporting:
-        "Nelle societa antiche la musica poteva avere una funzione sacra, magica o comunitaria. Prima di essere scritta, veniva ricordata e trasmessa oralmente: si imparava ascoltando, imitando e ripetendo.",
+        "Prima di essere scritta, la musica si imparava ascoltando, imitando e ripetendo. Cosi ritmo, voce e movimento diventavano memoria comune.",
       concepts: ["corpo", "voce", "gesto", "comunita"],
       imageLabel: "Immagine da inserire: pitture rupestri / corpo in movimento / rito sonoro.",
     },
@@ -74,18 +74,18 @@ const lessonData = {
       id: "body",
       navGroup: "corpo",
       navLabel: "Corpo",
-      title: "Il primo strumento e gia presente.",
+      title: "Che cosa osserviamo quando il corpo diventa strumento?",
       text:
-        "Il corpo produce suoni diversi. Le mani danno un attacco chiaro. I piedi creano stabilita. Il petto produce un suono piu profondo. Il respiro prepara il gesto.",
+        "Osserva dove nasce il suono: mani, piedi, petto, cosce, schiocco e respiro. Ogni punto cambia timbro, intensita e funzione nel gruppo.",
     },
     {
       id: "voice",
       navGroup: "voce",
       navLabel: "Voce",
-      title: "La voce non e solo canto.",
+      title: "Che cosa senti in questi esempi?",
       text:
-        "La voce puo chiamare, imitare, raccontare, guidare e ricordare. Prima dello spartito, una musica poteva vivere nella memoria di chi la ascoltava e la ripeteva.",
-      question: "Quale suono vocale useresti per costruire un ritmo?",
+        "Confronta body percussion, voce ritmica e pause intenzionali. Cerca timbro, intenzione, ripetizione e rapporto con il silenzio.",
+      question: "Quale suono ti aiuta a sentire meglio il ritmo?",
     },
     {
       id: "gesture",
@@ -110,27 +110,28 @@ const lessonData = {
       id: "concept-map",
       navGroup: "mappa",
       navLabel: "Mappa",
-      title: "Dal corpo alla musica.",
+      title: "Suono, rumore, silenzio, corpo, voce e ritmo.",
       text:
-        "Ogni parola racconta un passaggio: dal corpo che produce suono, alla voce che comunica, fino al gruppo che costruisce una musica condivisa.",
+        "Il lessico essenziale della lezione viene spiegato con definizioni brevi, parole chiave centrate e segni facili da ricordare.",
+      closing: "La musica nasce quando il suono viene organizzato con intenzione.",
     },
     {
       id: "percussion",
       navGroup: "laboratorio",
       navLabel: "Laboratorio",
-      title: "Costruiamo una sequenza di 8 pulsazioni.",
+      title: "Attivita pratica: una sequenza semplice.",
       text:
-        "Scegli tre suoni corporei. Mantieni una pulsazione regolare. Costruisci una sequenza semplice. Ripetila. Poi aggiungi una piccola variazione.",
+        "La classe prova una pulsazione comune e costruisce una breve sequenza con mani, piedi, schiocchi, voce e pause.",
     },
     {
       id: "graphic-score",
       navGroup: "laboratorio",
       navLabel: "Laboratorio",
-      title: "Dal gesto alla partitura grafica.",
+      title: "Produzione degli studenti: una sequenza del gruppo.",
       text:
-        "Prima della notazione tradizionale possiamo usare simboli semplici per ricordare i gesti e organizzare i suoni nel tempo.",
+        "Ogni gruppo crea una breve sequenza ritmica usando solo corpo, voce e gesto. Poi la traduce in una partitura grafica semplice.",
       activity:
-        "Ogni gruppo crea una partitura grafica di 8 tempi e la passa a un altro gruppo. L'altro gruppo prova a eseguirla senza spiegazione orale.",
+        "Ogni gruppo costruisce 8 tempi, li prova insieme e li passa a un altro gruppo.",
       questions: [
         "La partitura si capisce senza spiegazione?",
         "I simboli sono coerenti?",
@@ -149,10 +150,97 @@ const lessonData = {
       id: "final-quiz",
       navGroup: "verifica",
       navLabel: "Verifica",
-      title: "Che cosa abbiamo scoperto?",
+      title: "Che cosa abbiamo capito?",
       text:
-        "La musica puo nascere dal corpo, dalla voce e dal gesto. Prima degli strumenti complessi, gli esseri umani potevano organizzare i suoni attraverso ritmo, movimento, imitazione e ripetizione. Il silenzio non e vuoto: aiuta ad ascoltare e da forma ai suoni.",
-      closing: "Il primo strumento musicale puo essere il corpo.",
+        "Gli studenti spiegano quali suoni hanno usato, come li hanno organizzati e perche questa esperienza puo essere considerata musica.",
+      closing: "La musica nasce quando il suono viene organizzato con intenzione.",
+    },
+  ],
+  observationCards: [
+    {
+      id: "corpo",
+      title: "Corpo in movimento",
+      detail: "Guarda mani, piedi, busto e respiro. Ogni parte puo produrre un suono diverso.",
+    },
+    {
+      id: "voce",
+      title: "Voce che guida",
+      detail: "Guarda bocca, fiato, sillabe e richiami. La voce puo dare ritmo e memoria.",
+    },
+    {
+      id: "gesto",
+      title: "Gesto che coordina",
+      detail: "Guarda attacco, stop, pausa e ripetizione. Il gesto rende visibile l'intenzione.",
+    },
+    {
+      id: "origine",
+      title: "Musica delle origini",
+      detail: "Guarda danza, rito, gruppo e oggetti semplici. Il suono nasce da cio che il corpo incontra.",
+    },
+  ],
+  listeningScenes: [
+    {
+      id: "body",
+      title: "Body percussion",
+      focus: "mani, piedi, colpi sul corpo",
+      prompt: "Riesci a riconoscere un ritmo che si ripete?",
+      cues: ["ritmo", "ripetizione", "pulsazione"],
+    },
+    {
+      id: "voice",
+      title: "Voce ritmica",
+      focus: "ta, tum, ah, richiami brevi",
+      prompt: "Che timbro senti? E il suono e secco, lungo o morbido?",
+      cues: ["voce", "timbro", "memoria"],
+    },
+    {
+      id: "pause",
+      title: "Suono e pausa",
+      focus: "gesto, stop, ripartenza",
+      prompt: "Quando il silenzio aiuta il gruppo a ripartire insieme?",
+      cues: ["silenzio", "attesa", "ripresa"],
+    },
+  ],
+  conceptDefinitions: [
+    {
+      id: "suono",
+      term: "Suono",
+      definition: "E cio che sentiamo quando una sorgente vibra.",
+    },
+    {
+      id: "rumore",
+      term: "Rumore",
+      definition: "E un suono non ancora organizzato o non scelto con intenzione.",
+    },
+    {
+      id: "silenzio",
+      term: "Silenzio",
+      definition: "Non e vuoto: prepara l'ascolto e da forma ai suoni.",
+    },
+    {
+      id: "corpo-sonoro",
+      term: "Corpo sonoro",
+      definition: "E il corpo usato come sorgente di suono: mani, piedi, petto, respiro, voce.",
+    },
+    {
+      id: "voce",
+      term: "Voce",
+      definition: "Puo chiamare, guidare, imitare, ricordare e costruire ritmo.",
+    },
+    {
+      id: "gesto",
+      term: "Gesto intenzionale",
+      definition: "E un movimento scelto che prepara, produce o coordina il suono.",
+    },
+    {
+      id: "ritmo",
+      term: "Ritmo",
+      definition: "E il modo in cui suoni e pause si organizzano nel tempo.",
+    },
+    {
+      id: "pulsazione",
+      term: "Pulsazione",
+      definition: "E il battito regolare che aiuta il gruppo a restare insieme.",
     },
   ],
   soundSources: [
@@ -682,7 +770,7 @@ function ListeningTimerSection() {
     <SectionShell id={section.id} backgroundClass="bg-[#f8f6f2]" className={SECTION_SPACE}>
       {() => (
         <div className={LESSON_SHELL} style={{ fontFamily: APP_FONT }}>
-          <SectionHeading kicker="Silenzio e ascolto" title={section.title} text={section.text} align="center" />
+          <SectionHeading kicker="Domanda iniziale" title={section.title} text={section.text} align="center" />
 
           <SurfacePanel tone="soft" className="mt-14 px-6 py-8 sm:px-10 sm:py-10">
             <div className="flex flex-col items-center">
@@ -789,7 +877,7 @@ function OriginStorySection() {
       <div className={LESSON_SHELL} style={{ fontFamily: APP_FONT }}>
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1.04fr)_minmax(22rem,0.96fr)] lg:items-center">
           <div className="max-w-[39rem]">
-            <SectionKicker>Prima degli strumenti</SectionKicker>
+            <SectionKicker>Contesto storico e culturale</SectionKicker>
             <h2 className="mt-4 text-[2.7rem] font-semibold tracking-[-0.05em] text-slate-950 sm:text-[3.35rem] lg:leading-[0.95]">
               {section.title}
             </h2>
@@ -873,8 +961,16 @@ function BodyInstrumentSection() {
     <SectionShell id={section.id} backgroundClass="bg-[#fbfbf9]" className="py-20 sm:py-28">
       <div className={cn("grid gap-14 lg:grid-cols-[minmax(25rem,0.95fr)_minmax(0,1.05fr)] lg:items-center", LESSON_SHELL)} style={{ fontFamily: APP_FONT }}>
         <div>
-          <SectionHeading kicker="Il corpo come primo strumento" title={section.title} text={section.text} />
-          <div className="mt-10 rounded-[2rem] border border-slate-200/80 bg-white/80 p-6 shadow-[0_18px_38px_rgba(15,23,42,0.04)]">
+          <SectionHeading kicker="Osservazione guidata" title={section.title} text={section.text} />
+          <div className="mt-8 grid gap-3 sm:grid-cols-2">
+            {lessonData.observationCards.map((item) => (
+              <SurfacePanel key={item.id} tone="subtle" className="px-5 py-5">
+                <p className={SMALL_LABEL}>{item.title}</p>
+                <p className="mt-3 text-[0.96rem] leading-7 text-slate-600">{item.detail}</p>
+              </SurfacePanel>
+            ))}
+          </div>
+          <div className="mt-8 rounded-[2rem] border border-slate-200/80 bg-white/80 p-6 shadow-[0_18px_38px_rgba(15,23,42,0.04)]">
             <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[#a86b34]">
               {activeSound.label}
             </p>
@@ -902,60 +998,72 @@ function BodyInstrumentSection() {
 
 function VoiceMemorySection() {
   const section = getSection("voice");
-  const [sequence, setSequence] = useState([]);
 
   return (
     <SectionShell id={section.id} backgroundClass="bg-white" className={SECTION_SPACE}>
-      {() => (
-        <div className={LESSON_SHELL} style={{ fontFamily: APP_FONT }}>
-          <SectionHeading kicker="La voce come memoria" title={section.title} text={section.text} />
+      <div className={LESSON_SHELL_WIDE} style={{ fontFamily: APP_FONT }}>
+        <SectionHeading kicker="Ascolto guidato" title={section.title} text={section.text} />
 
-          <div className="mt-14 grid gap-6 lg:grid-cols-[minmax(0,0.9fr)_minmax(24rem,1.1fr)] lg:items-start">
-            <SurfacePanel tone="subtle" className="p-6 sm:p-7">
-              <p className={SMALL_LABEL}>Sequenza vocale</p>
-              <p className={cn("mt-4", BODY_COPY_SOFT)}>
-                Tocca le sillabe per costruire una piccola traccia visiva. Non serve audio: qui conta il rapporto tra voce, ritmo e memoria.
-              </p>
-              <div className="mt-8 flex flex-wrap gap-3">
-                {lessonData.voiceSyllables.map((syllable) => (
-                  <button
-                    key={syllable}
-                    type="button"
-                    aria-label={`Aggiungi ${syllable}`}
-                    onClick={() => setSequence((current) => [...current, syllable].slice(-8))}
-                    className={cn(
-                      RING,
-                      PILL_DEFAULT,
-                      "text-base hover:border-[#d8a06d] hover:text-[#8a4d18]"
-                    )}
-                  >
-                    {syllable}
-                  </button>
+        <div className="mt-10 grid gap-5 xl:grid-cols-3">
+          {lessonData.listeningScenes.map((scene, index) => (
+            <SurfacePanel key={scene.id} tone="soft" className="p-6 sm:p-7">
+              <p className={SMALL_LABEL}>0{index + 1}</p>
+              <h3 className="mt-4 text-[1.8rem] font-semibold tracking-[-0.05em] text-slate-950">{scene.title}</h3>
+              <p className="mt-3 text-[0.98rem] leading-7 text-slate-600">{scene.focus}</p>
+              <div className="mt-6 rounded-[1.4rem] border border-slate-200/70 bg-white px-5 py-5">
+                <p className={SMALL_LABEL}>Che cosa ascolti?</p>
+                <p className="mt-3 text-[0.98rem] leading-7 text-slate-600">{scene.prompt}</p>
+              </div>
+              <div className="mt-5 flex flex-wrap gap-3">
+                {scene.cues.map((cue) => (
+                  <ToneTag key={`${scene.id}-${cue}`}>{cue}</ToneTag>
                 ))}
-                <SecondaryButton onClick={() => setSequence([])}>Svuota</SecondaryButton>
               </div>
             </SurfacePanel>
-
-            <SurfacePanel className="p-6 sm:p-7">
-              <p className={SMALL_LABEL}>Sequenza in memoria</p>
-              <div className="mt-6 flex min-h-[10rem] flex-wrap content-start gap-3 rounded-[1.5rem] border border-slate-200/70 bg-[#fcfbf8] p-5">
-                {sequence.length ? (
-                  sequence.map((item, index) => (
-                    <ToneTag key={`${item}-${index}`}>{item}</ToneTag>
-                  ))
-                ) : (
-                  <p className={cn("max-w-[28rem]", BODY_COPY_SOFT, "text-slate-400")}>
-                    Tocca le sillabe. La sequenza apparira qui e mostrera come la voce possa organizzare il tempo e fissarsi nella memoria.
-                  </p>
-                )}
-              </div>
-              <div className="mt-6 border-t border-slate-200/70 pt-5">
-                <p className={BODY_COPY}>{section.question}</p>
-              </div>
-            </SurfacePanel>
-          </div>
+          ))}
         </div>
-      )}
+
+        <SurfacePanel tone="subtle" className="mt-6 px-6 py-6">
+          <div className="grid gap-4 md:grid-cols-3">
+            {[
+              "Riesci a riconoscere il ritmo?",
+              "Quale timbro senti meglio?",
+              "Dove la pausa rende piu chiaro il gesto?",
+            ].map((prompt) => (
+              <div key={prompt} className="rounded-[1.25rem] border border-slate-200/70 bg-white px-4 py-4">
+                <p className="text-sm leading-6 text-slate-600">{prompt}</p>
+              </div>
+            ))}
+          </div>
+        </SurfacePanel>
+      </div>
+    </SectionShell>
+  );
+}
+
+function ConceptBoardSection() {
+  const section = getSection("concept-map");
+
+  return (
+    <SectionShell id={section.id} backgroundClass="bg-[#f8f6f2]" className={SECTION_SPACE}>
+      <div className={LESSON_SHELL_WIDE} style={{ fontFamily: APP_FONT }}>
+        <SectionHeading kicker="Spiegazione dei contenuti" title={section.title} text={section.text} />
+
+        <div className="mt-10 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {lessonData.conceptDefinitions.map((item) => (
+            <SurfacePanel key={item.id} tone="base" className="px-5 py-5">
+              <p className={SMALL_LABEL}>{item.term}</p>
+              <p className="mt-4 text-[1rem] leading-7 text-slate-600">{item.definition}</p>
+            </SurfacePanel>
+          ))}
+        </div>
+
+        <SurfacePanel tone="soft" className="mt-8 px-6 py-8 text-center">
+          <p className="mx-auto max-w-4xl text-[1.8rem] font-semibold tracking-[-0.04em] text-slate-950 sm:text-[2.2rem]">
+            {section.closing}
+          </p>
+        </SurfacePanel>
+      </div>
     </SectionShell>
   );
 }
@@ -1276,7 +1384,7 @@ function BodyPercussionSequencer() {
       <div className={LESSON_SHELL} style={{ fontFamily: APP_FONT }}>
         <div className="grid gap-8 lg:grid-cols-[minmax(0,0.92fr)_minmax(24rem,1.08fr)] lg:items-start">
           <div>
-            <SectionHeading kicker="Laboratorio di body percussion" title={section.title} text={section.text} />
+            <SectionHeading kicker="Attivita pratica" title={section.title} text={section.text} />
             <SurfacePanel tone="subtle" className="mt-8 p-6 sm:p-7">
               <div className="space-y-3.5 text-[1rem] leading-8 text-slate-600">
                 <p>Scegli tre suoni corporei.</p>
@@ -1391,7 +1499,7 @@ function GraphicScoreBuilder() {
   return (
     <SectionShell id={section.id} backgroundClass="bg-[#fbfbf9]" className={SECTION_SPACE}>
       <div className={LESSON_SHELL} style={{ fontFamily: APP_FONT }}>
-        <SectionHeading kicker="Partitura grafica" title={section.title} text={section.text} />
+        <SectionHeading kicker="Produzione degli studenti" title={section.title} text={section.text} />
 
         <div className="mt-10 flex flex-wrap gap-3">
           {lessonData.graphicSymbols.map((item) => {
@@ -1525,7 +1633,7 @@ function FinalQuiz() {
     <SectionShell id={section.id} backgroundClass="bg-[#fbfbf9]" className={SECTION_SPACE}>
       <div className={LESSON_SHELL_COMPACT} style={{ fontFamily: APP_FONT }}>
         <SurfacePanel className="px-6 py-10 sm:px-10 sm:py-12">
-          <SectionHeading kicker="Verifica finale" title={section.title} text={section.text} align="center" />
+          <SectionHeading kicker="Verifica e conclusione" title={section.title} text={section.text} align="center" />
 
           <div className="mt-14 divide-y divide-slate-200/80">
             {lessonData.quizQuestions.map((question, questionIndex) => {
@@ -1592,9 +1700,6 @@ function FinalQuiz() {
           </div>
 
           <div className="mt-14 border-t border-slate-200/80 pt-10 text-center">
-            <p className="mx-auto max-w-3xl text-[1.02rem] leading-8 text-slate-600">
-              Il primo strumento musicale puo essere il corpo.
-            </p>
             <p className="mt-6 text-[2.6rem] font-semibold tracking-[-0.05em] text-slate-950 sm:text-[3.35rem]">
               {section.closing}
             </p>
@@ -1611,11 +1716,11 @@ function LessonProductPage() {
       <LessonHero />
       <ListeningTimerSection />
       <OriginStorySection />
+      <BodyInstrumentSection />
       <VoiceMemorySection />
-      <LivingConceptMap />
+      <ConceptBoardSection />
       <BodyPercussionSequencer />
       <GraphicScoreBuilder />
-      <SharingRubric />
       <FinalQuiz />
     </div>
   );
@@ -1631,6 +1736,7 @@ export {
   GestureIntentSection,
   SoundscapeSection,
   LivingConceptMap,
+  ConceptBoardSection,
   BodyPercussionSequencer,
   GraphicScoreBuilder,
   SharingRubric,
