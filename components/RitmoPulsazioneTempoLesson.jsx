@@ -1523,20 +1523,20 @@ function RhythmSequencerSection() {
                     <ToneTag className="border-slate-200/70 bg-[#fcfbf8] text-slate-600">battuta 1 · tempi 1-4</ToneTag>
                     <ToneTag className="border-slate-200/70 bg-[#fcfbf8] text-slate-600">battuta 2 · tempi 5-8</ToneTag>
                   </div>
-                  <p className="text-sm font-medium text-slate-500">leggi il ritmo da sinistra a destra</p>
+                  <p className="text-sm font-medium text-slate-500">una battuta per riga</p>
                 </div>
 
-                <div className="mt-5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                  <div className="flex min-w-[48rem] items-stretch gap-3">
-                    {bars.map((barSteps, barIndex) => (
-                      <div
-                        key={`bar-${barIndex}`}
-                        className="flex flex-1 items-stretch gap-3 rounded-[1.5rem] border border-slate-200/70 bg-[#fcfbf8] px-3 py-3"
-                      >
+                <div className="mt-5 grid gap-4">
+                  {bars.map((barSteps, barIndex) => (
+                    <div
+                      key={`bar-${barIndex}`}
+                      className="overflow-x-auto rounded-[1.5rem] border border-slate-200/70 bg-[#fcfbf8] px-3 py-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+                    >
+                      <div className="grid min-w-[26rem] grid-cols-4 gap-3">
                         {barSteps.map((step, stepIndex) => renderStepButton(step, barIndex * 4 + stepIndex))}
                       </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
