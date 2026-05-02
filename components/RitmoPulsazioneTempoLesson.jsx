@@ -1243,7 +1243,13 @@ function RhythmMapSection() {
 
 function ListeningCardsSection() {
   const section = getSection("listening");
+  const [activeCardId, setActiveCardId] = useState(lessonData.listeningCards[0].id);
   const [selectedMeters, setSelectedMeters] = useState({});
+  const activeCard =
+    lessonData.listeningCards.find((card) => card.id === activeCardId) || lessonData.listeningCards[0];
+  const selectedMeter = selectedMeters[activeCard.id] || activeCard.expected;
+  const selectedPalette = getMeterPalette(selectedMeter);
+  const expectedPalette = getMeterPalette(activeCard.expected);
 
   return (
     <SectionShell id={section.id} backgroundClass="bg-white" className="py-16 sm:py-20 lg:py-24">
@@ -1255,14 +1261,14 @@ function ListeningCardsSection() {
             <div className="max-w-[28rem]">
               <p className={SMALL_LABEL}>Come leggi la sezione</p>
               <p className="mt-3 text-[0.98rem] leading-7 text-slate-600">
-                Guarda i tre casi uno accanto all'altro: scegli il gruppo, osserva dove ricomincia il numero 1 e poi confronta le risposte.
+                Usa sempre lo stesso pannello: scegli A, B o C, prova il gruppo, osserva dove ricomincia il numero 1 e poi confronta le risposte.
               </p>
             </div>
             <div className="grid gap-3 sm:grid-cols-3 xl:min-w-[38rem]">
               {[
-                { step: "01", title: "Scegli", text: "2, 3 o 4" },
-                { step: "02", title: "Guarda", text: "dove riparte 1" },
-                { step: "03", title: "Confronta", text: "le tre risposte" },
+                { step: "01", title: "Scegli", text: "A, B o C" },
+                { step: "02", title: "Prova", text: "2, 3 o 4" },
+                { step: "03", title: "Confronta", text: "le risposte" },
               ].map((item) => (
                 <div key={item.step} className="rounded-[1.2rem] border border-white/80 bg-white/80 px-4 py-3">
                   <div className="flex items-center gap-3">
@@ -1280,69 +1286,96 @@ function ListeningCardsSection() {
           </div>
         </SurfacePanel>
 
-        <div className="mt-6 grid gap-5 xl:grid-cols-3">
-          {lessonData.listeningCards.map((card) => {
-            const selectedMeter = selectedMeters[card.id] || card.expected;
-            const selectedPalette = getMeterPalette(selectedMeter);
-            const expectedPalette = getMeterPalette(card.expected);
-            return (
-              <SurfacePanel
-                key={card.id}
-                tone="soft"
-                className="overflow-hidden border-slate-200/60 bg-[linear-gradient(180deg,#fffefb_0%,#fcfaf6_100%)] p-5 sm:p-6"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div>
-                    <p className={SMALL_LABEL}>Ascolto {card.code}</p>
-                    <h3 className="mt-4 text-[1.7rem] font-semibold tracking-[-0.05em] text-slate-950">{card.title}</h3>
-                  </div>
-                  <span className={cn("inline-flex items-center rounded-full border px-3.5 py-1.5 text-sm font-medium", expectedPalette.pill)}>
-                    {card.focus}
-                  </span>
-                </div>
-
-                <p className="mt-3 text-[1rem] leading-7 text-slate-600">{card.description}</p>
-
-                <div className="mt-4 rounded-[1.45rem] border border-slate-200/70 bg-white/90 px-4 py-4">
-                  <div className="grid gap-4 md:grid-cols-[minmax(0,1fr)_auto] md:items-start">
+        <SurfacePanel tone="soft" className="mt-6 overflow-hidden border-slate-200/60 bg-[linear-gradient(180deg,#fffefb_0%,#fcfaf6_100%)] p-5 sm:p-6 lg:p-7">
+          <div className="grid gap-3 lg:grid-cols-3">
+            {lessonData.listeningCards.map((card) => {
+              const isActive = card.id === activeCard.id;
+              const palette = getMeterPalette(card.expected);
+              return (
+                <button
+                  key={card.id}
+                  type="button"
+                  aria-label={`Apri ascolto ${card.code}`}
+                  onClick={() => setActiveCardId(card.id)}
+                  className={cn(
+                    RING,
+                    "rounded-[1.45rem] border px-4 py-4 text-left transition-colors duration-150",
+                    isActive
+                      ? "border-[#e6c8a8] bg-white"
+                      : "border-white/80 bg-white/75 hover:border-slate-200 hover:bg-white"
+                  )}
+                >
+                  <div className="flex items-start justify-between gap-3">
                     <div>
-                      <p className={SMALL_LABEL}>Prova</p>
-                      <p className="mt-2 text-[0.98rem] leading-7 text-slate-600">{card.exercise}</p>
+                      <p className={SMALL_LABEL}>Ascolto {card.code}</p>
+                      <p className="mt-3 text-[1.05rem] font-semibold tracking-[-0.03em] text-slate-950">{card.title}</p>
                     </div>
-                    <span className={cn("inline-flex items-center rounded-full border px-3 py-1.5 text-sm font-medium", expectedPalette.pill)}>
-                      atteso · {card.expected}
+                    <span className={cn("inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium", palette.pill)}>
+                      {card.expected}
                     </span>
                   </div>
+                </button>
+              );
+            })}
+          </div>
 
-                  <MeterPreview groupSize={selectedMeter} compact />
+          <div className="mt-6 grid gap-6 xl:grid-cols-[minmax(0,0.95fr)_minmax(24rem,1.05fr)] xl:items-start">
+            <div>
+              <div className="flex items-start justify-between gap-4">
+                <div>
+                  <p className={SMALL_LABEL}>Ascolto {activeCard.code}</p>
+                  <h3 className="mt-4 text-[2.1rem] font-semibold tracking-[-0.05em] text-slate-950">{activeCard.title}</h3>
                 </div>
+                <span className={cn("inline-flex items-center rounded-full border px-3.5 py-1.5 text-sm font-medium", expectedPalette.pill)}>
+                  {activeCard.focus}
+                </span>
+              </div>
 
-                <div className="mt-5">
-                  <p className={SMALL_LABEL}>Prova il gruppo</p>
-                  <div className="mt-3 flex flex-wrap gap-2.5">
-                    {[2, 3, 4].map((meter) => (
-                      <button
-                        key={`${card.id}-${meter}`}
-                        type="button"
-                        aria-label={`${meter} pulsazioni`}
-                        onClick={() => setSelectedMeters((current) => ({ ...current, [card.id]: meter }))}
-                        className={cn(RING, selectedMeter === meter ? PILL_ACTIVE : PILL_DEFAULT)}
-                      >
-                        {meter} pulsazioni
-                      </button>
-                    ))}
+              <p className="mt-4 text-[1.02rem] leading-8 text-slate-600">{activeCard.description}</p>
+
+              <div className="mt-6 rounded-[1.45rem] border border-slate-200/70 bg-white/90 px-5 py-5">
+                <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
+                  <div>
+                    <p className={SMALL_LABEL}>Prova</p>
+                    <p className="mt-3 text-[1rem] leading-7 text-slate-600">{activeCard.exercise}</p>
                   </div>
+                  <span className={cn("inline-flex items-center rounded-full border px-3 py-1.5 text-sm font-medium", expectedPalette.pill)}>
+                    atteso · {activeCard.expected}
+                  </span>
                 </div>
+              </div>
 
-                <div className={cn("mt-4 rounded-[1.35rem] border px-4 py-4", selectedPalette.groupSurface)}>
-                  <p className={cn("text-sm leading-6 font-medium", selectedPalette.note)}>
-                    Se il numero 1 torna ogni {selectedMeter} battiti, stai sentendo un gruppo {meterGroupLabel(selectedMeter)}.
-                  </p>
+              <div className="mt-6">
+                <p className={SMALL_LABEL}>Prova il gruppo</p>
+                <div className="mt-3 flex flex-wrap gap-2.5">
+                  {[2, 3, 4].map((meter) => (
+                    <button
+                      key={`${activeCard.id}-${meter}`}
+                      type="button"
+                      aria-label={`${meter} pulsazioni`}
+                      onClick={() => setSelectedMeters((current) => ({ ...current, [activeCard.id]: meter }))}
+                      className={cn(RING, selectedMeter === meter ? PILL_ACTIVE : PILL_DEFAULT)}
+                    >
+                      {meter} pulsazioni
+                    </button>
+                  ))}
                 </div>
-              </SurfacePanel>
-            );
-          })}
-        </div>
+              </div>
+            </div>
+
+            <div className="grid gap-4">
+              <div className="rounded-[1.45rem] border border-slate-200/70 bg-white/90 px-5 py-5">
+                <MeterPreview groupSize={selectedMeter} compact={false} />
+              </div>
+
+              <div className={cn("rounded-[1.35rem] border px-5 py-5", selectedPalette.groupSurface)}>
+                <p className={cn("text-sm leading-6 font-medium", selectedPalette.note)}>
+                  Se il numero 1 torna ogni {selectedMeter} battiti, stai sentendo un gruppo {meterGroupLabel(selectedMeter)}.
+                </p>
+              </div>
+            </div>
+          </div>
+        </SurfacePanel>
 
         <SurfacePanel tone="subtle" className="mt-6 px-5 py-5 sm:px-6 sm:py-6">
           <div className="grid gap-5 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:items-start">
