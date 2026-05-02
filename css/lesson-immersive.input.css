@@ -1,1 +1,15 @@
 @tailwind utilities;
+
+[data-immersive-lesson] button,
+.accordia-lesson-page button {
+  -webkit-appearance: none;
+  appearance: none;
+  background-image: none;
+  box-shadow: none;
+}
+
+[data-immersive-lesson] button::-moz-focus-inner,
+.accordia-lesson-page button::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
