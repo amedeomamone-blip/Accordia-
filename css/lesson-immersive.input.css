@@ -8,6 +8,19 @@
   box-shadow: none;
 }
 
+[data-immersive-lesson] .lesson-control-pill,
+[data-immersive-lesson] .lesson-control-button,
+.accordia-lesson-page .lesson-control-pill,
+.accordia-lesson-page .lesson-control-button {
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  text-shadow: none !important;
+  transform: none !important;
+}
+
 [data-immersive-lesson] button::-moz-focus-inner,
 .accordia-lesson-page button::-moz-focus-inner {
   border: 0;

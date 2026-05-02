@@ -17,9 +17,9 @@ const PANEL_SUBTLE = "rounded-[1.5rem] border border-slate-200/70 bg-[#fcfbf8]";
 const BODY_COPY = "text-[1.02rem] leading-8 text-slate-600 sm:text-[1.08rem]";
 const BODY_COPY_SOFT = "text-[0.95rem] leading-7 text-slate-500 sm:text-base";
 const BUTTON_BASE =
-  "inline-flex min-h-11 items-center justify-center rounded-full border px-5 py-2.5 text-sm font-semibold tracking-[-0.01em] transition-colors duration-150";
+  "lesson-control-button inline-flex min-h-11 items-center justify-center rounded-full border px-5 py-2.5 text-sm font-semibold tracking-[-0.01em] transition-colors duration-150";
 const PILL_BASE =
-  "inline-flex min-h-10 items-center rounded-full border bg-white px-4 py-2 text-[0.84rem] font-semibold tracking-[-0.01em] transition-colors duration-150";
+  "lesson-control-pill inline-flex min-h-10 items-center rounded-full border bg-white px-4 py-2 text-[0.84rem] font-semibold tracking-[-0.01em] transition-colors duration-150";
 const PILL_DEFAULT = `${PILL_BASE} border-[#e4e8ee] text-[#5e646c] hover:border-[#d7dde5] hover:text-[#18191b]`;
 const PILL_ACTIVE = `${PILL_BASE} border-[#dde2e8] text-[#18191b]`;
 const TAG_CLASS =
