@@ -672,7 +672,6 @@ function SparkSection() {
               <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
                 <span className={SMALL_LABEL}>timer</span>
                 <span className="mt-2 text-6xl font-semibold tracking-[-0.06em] text-slate-950">{secondsLeft}</span>
-                <span className="mt-2 text-sm text-slate-500">secondi di ascolto comune</span>
               </div>
             </div>
 

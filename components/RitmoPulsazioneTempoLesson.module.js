@@ -576,7 +576,7 @@ function SparkSection() {
       strokeDasharray: circumference,
       strokeDashoffset: dashOffset
     }
-  )), /* @__PURE__ */ React.createElement("div", { className: "absolute inset-0 flex flex-col items-center justify-center text-center" }, /* @__PURE__ */ React.createElement("span", { className: SMALL_LABEL }, "timer"), /* @__PURE__ */ React.createElement("span", { className: "mt-2 text-6xl font-semibold tracking-[-0.06em] text-slate-950" }, secondsLeft), /* @__PURE__ */ React.createElement("span", { className: "mt-2 text-sm text-slate-500" }, "secondi di ascolto comune"))), /* @__PURE__ */ React.createElement("div", { className: "mt-8 flex flex-wrap justify-center gap-3" }, /* @__PURE__ */ React.createElement(
+  )), /* @__PURE__ */ React.createElement("div", { className: "absolute inset-0 flex flex-col items-center justify-center text-center" }, /* @__PURE__ */ React.createElement("span", { className: SMALL_LABEL }, "timer"), /* @__PURE__ */ React.createElement("span", { className: "mt-2 text-6xl font-semibold tracking-[-0.06em] text-slate-950" }, secondsLeft))), /* @__PURE__ */ React.createElement("div", { className: "mt-8 flex flex-wrap justify-center gap-3" }, /* @__PURE__ */ React.createElement(
     PrimaryButton,
     {
       onClick: () => {
