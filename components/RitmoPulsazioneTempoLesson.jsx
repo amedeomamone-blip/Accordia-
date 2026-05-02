@@ -83,8 +83,8 @@ const lessonData = {
     },
     {
       id: "performance",
-      title: "Produzione degli studenti: una sequenza del gruppo.",
-      text: "A coppie o in piccoli gruppi costruite una breve sequenza con pulsazione, ritmo e accenti. Potete usare corpo, voce, banco, oggetti sonori o notazione grafica.",
+      title: "Compito: una sequenza del gruppo.",
+      text: "Lavora in coppia o in piccolo gruppo. Costruisci una breve sequenza con pulsazione, ritmo e accenti. Puoi usare corpo, voce, banco, oggetti sonori o notazione grafica.",
     },
     {
       id: "quiz",
@@ -278,24 +278,24 @@ const lessonData = {
     },
   ],
   performanceRules: [
-    "La pulsazione deve restare stabile.",
-    "Il ritmo puo cambiare.",
-    "Gli accenti devono sentirsi.",
-    "Il tempo va scelto e mantenuto.",
-    "La sequenza deve poter essere ripetuta dal gruppo.",
+    "Tieni stabile la pulsazione.",
+    "Lascia che il ritmo possa cambiare.",
+    "Fai sentire gli accenti.",
+    "Scegli un tempo chiaro e mantienilo.",
+    "Ripeti la sequenza senza perderti.",
   ],
   performanceRoles: [
-    "Chi tiene la pulsazione",
-    "Chi costruisce il ritmo",
-    "Chi marca gli accenti",
-    "Chi osserva e corregge",
+    "Se tieni la pulsazione, resta regolare.",
+    "Se costruisci il ritmo, varia senza perdere il centro.",
+    "Se marchi gli accenti, rendili chiari.",
+    "Se osservi, aiuta il gruppo a correggersi.",
   ],
   performanceCriteria: [
-    "Manteniamo il battito comune.",
-    "Distinguiamo pulsazione e ritmo.",
-    "Facciamo sentire gli accenti.",
-    "Scegliamo un tempo chiaro.",
-    "Ripetiamo la sequenza senza perderci.",
+    "Mantieni il battito comune.",
+    "Distingui pulsazione e ritmo.",
+    "Fai sentire gli accenti.",
+    "Scegli un tempo chiaro.",
+    "Ripeti la sequenza senza perderti.",
   ],
   quizQuestions: [
     {
@@ -1682,13 +1682,13 @@ function PerformanceSection() {
   return (
     <SectionShell id={section.id} backgroundClass="bg-[#f8f6f2]" className={SECTION_SPACE}>
       <div className={LESSON_SHELL} style={{ fontFamily: APP_FONT }}>
-        <SectionHeading kicker="Produzione degli studenti" title={section.title} text={section.text} />
+        <SectionHeading kicker="Compito" title={section.title} text={section.text} />
 
         <div className="mt-14 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(21rem,0.92fr)]">
           <SurfacePanel tone="soft" className="p-6 sm:p-8">
             <p className={SMALL_LABEL}>Consegna</p>
             <p className="mt-4 text-2xl font-semibold tracking-[-0.04em] text-slate-950">
-              Ogni gruppo costruisce una breve sequenza comune da ripetere con chiarezza.
+              Costruisci con il tuo gruppo una breve sequenza comune da ripetere con chiarezza.
             </p>
             <div className="mt-8 space-y-4">
               {lessonData.performanceRules.map((rule) => (

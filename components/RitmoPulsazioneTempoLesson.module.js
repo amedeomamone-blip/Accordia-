@@ -78,8 +78,8 @@ var lessonData = {
     },
     {
       id: "performance",
-      title: "Produzione degli studenti: una sequenza del gruppo.",
-      text: "A coppie o in piccoli gruppi costruite una breve sequenza con pulsazione, ritmo e accenti. Potete usare corpo, voce, banco, oggetti sonori o notazione grafica."
+      title: "Compito: una sequenza del gruppo.",
+      text: "Lavora in coppia o in piccolo gruppo. Costruisci una breve sequenza con pulsazione, ritmo e accenti. Puoi usare corpo, voce, banco, oggetti sonori o notazione grafica."
     },
     {
       id: "quiz",
@@ -273,24 +273,24 @@ var lessonData = {
     }
   ],
   performanceRules: [
-    "La pulsazione deve restare stabile.",
-    "Il ritmo puo cambiare.",
-    "Gli accenti devono sentirsi.",
-    "Il tempo va scelto e mantenuto.",
-    "La sequenza deve poter essere ripetuta dal gruppo."
+    "Tieni stabile la pulsazione.",
+    "Lascia che il ritmo possa cambiare.",
+    "Fai sentire gli accenti.",
+    "Scegli un tempo chiaro e mantienilo.",
+    "Ripeti la sequenza senza perderti."
   ],
   performanceRoles: [
-    "Chi tiene la pulsazione",
-    "Chi costruisce il ritmo",
-    "Chi marca gli accenti",
-    "Chi osserva e corregge"
+    "Se tieni la pulsazione, resta regolare.",
+    "Se costruisci il ritmo, varia senza perdere il centro.",
+    "Se marchi gli accenti, rendili chiari.",
+    "Se osservi, aiuta il gruppo a correggersi."
   ],
   performanceCriteria: [
-    "Manteniamo il battito comune.",
-    "Distinguiamo pulsazione e ritmo.",
-    "Facciamo sentire gli accenti.",
-    "Scegliamo un tempo chiaro.",
-    "Ripetiamo la sequenza senza perderci."
+    "Mantieni il battito comune.",
+    "Distingui pulsazione e ritmo.",
+    "Fai sentire gli accenti.",
+    "Scegli un tempo chiaro.",
+    "Ripeti la sequenza senza perderti."
   ],
   quizQuestions: [
     {
@@ -947,7 +947,7 @@ function RhythmSequencerSection() {
 }
 function PerformanceSection() {
   const section = getSection("performance");
-  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-[#f8f6f2]", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Produzione degli studenti", title: section.title, text: section.text }), /* @__PURE__ */ React.createElement("div", { className: "mt-14 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(21rem,0.92fr)]" }, /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "soft", className: "p-6 sm:p-8" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Consegna"), /* @__PURE__ */ React.createElement("p", { className: "mt-4 text-2xl font-semibold tracking-[-0.04em] text-slate-950" }, "Ogni gruppo costruisce una breve sequenza comune da ripetere con chiarezza."), /* @__PURE__ */ React.createElement("div", { className: "mt-8 space-y-4" }, lessonData.performanceRules.map((rule) => /* @__PURE__ */ React.createElement("p", { key: rule, className: BODY_COPY_SOFT }, rule)))), /* @__PURE__ */ React.createElement("div", { className: "grid gap-6" }, /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "subtle", className: "px-6 py-5" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Ruoli"), /* @__PURE__ */ React.createElement("div", { className: "mt-5 space-y-4" }, lessonData.performanceRoles.map((role) => /* @__PURE__ */ React.createElement("p", { key: role, className: BODY_COPY_SOFT }, role)))), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "subtle", className: "px-6 py-5" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Criteri di riuscita"), /* @__PURE__ */ React.createElement("div", { className: "mt-5 space-y-4" }, lessonData.performanceCriteria.map((criterion) => /* @__PURE__ */ React.createElement("p", { key: criterion, className: BODY_COPY_SOFT }, criterion))))))));
+  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-[#f8f6f2]", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Compito", title: section.title, text: section.text }), /* @__PURE__ */ React.createElement("div", { className: "mt-14 grid gap-6 lg:grid-cols-[minmax(0,1fr)_minmax(21rem,0.92fr)]" }, /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "soft", className: "p-6 sm:p-8" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Consegna"), /* @__PURE__ */ React.createElement("p", { className: "mt-4 text-2xl font-semibold tracking-[-0.04em] text-slate-950" }, "Costruisci con il tuo gruppo una breve sequenza comune da ripetere con chiarezza."), /* @__PURE__ */ React.createElement("div", { className: "mt-8 space-y-4" }, lessonData.performanceRules.map((rule) => /* @__PURE__ */ React.createElement("p", { key: rule, className: BODY_COPY_SOFT }, rule)))), /* @__PURE__ */ React.createElement("div", { className: "grid gap-6" }, /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "subtle", className: "px-6 py-5" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Ruoli"), /* @__PURE__ */ React.createElement("div", { className: "mt-5 space-y-4" }, lessonData.performanceRoles.map((role) => /* @__PURE__ */ React.createElement("p", { key: role, className: BODY_COPY_SOFT }, role)))), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "subtle", className: "px-6 py-5" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Criteri di riuscita"), /* @__PURE__ */ React.createElement("div", { className: "mt-5 space-y-4" }, lessonData.performanceCriteria.map((criterion) => /* @__PURE__ */ React.createElement("p", { key: criterion, className: BODY_COPY_SOFT }, criterion))))))));
 }
 function FinalQuizSection() {
   const section = getSection("quiz");
