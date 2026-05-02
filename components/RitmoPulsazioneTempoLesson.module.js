@@ -214,26 +214,34 @@ const lessonData = {
     {
       id: "rest",
       title: "Punto di fermo",
+      command: "Fermati e raccogli il gruppo.",
       summary: "Il gruppo si concentra.",
-      detail: "Il corpo e pronto. Gli occhi guardano. Il tempo non parte ancora, ma tutti sentono che sta per arrivare."
+      detail: "Il corpo e pronto. Gli occhi guardano. Il tempo non parte ancora, ma tutti sentono che sta per arrivare.",
+      tags: ["ascolto", "silenzio", "attenzione"]
     },
     {
       id: "prep",
       title: "Gesto di preparazione",
+      command: "Prepara il primo battito.",
       summary: "Il corpo prepara il tempo.",
-      detail: "Il levare rende visibile il respiro del gruppo e prepara il primo battere."
+      detail: "Il levare rende visibile il respiro del gruppo e prepara il primo battere.",
+      tags: ["levare", "respiro", "avvio"]
     },
     {
       id: "attack",
       title: "Attacco",
+      command: "Fai partire il suono insieme.",
       summary: "Il suono comincia insieme.",
-      detail: "Il battere coincide con l'inizio comune. Se il gesto e chiaro, il gruppo entra compatto."
+      detail: "Il battere coincide con l'inizio comune. Se il gesto e chiaro, il gruppo entra compatto.",
+      tags: ["battere", "entrata", "insieme"]
     },
     {
       id: "stop",
       title: "Stop",
+      command: "Chiudi il gesto con chiarezza.",
       summary: "Il gruppo chiude insieme.",
-      detail: "Il gesto finale ferma il suono e aiuta il gruppo a non sfilacciarsi nell'ultima pulsazione."
+      detail: "Il gesto finale ferma il suono e aiuta il gruppo a non sfilacciarsi nell'ultima pulsazione.",
+      tags: ["chiusura", "ultimo gesto", "tempo comune"]
     }
   ],
   performanceRules: [
@@ -887,8 +895,9 @@ function RhythmSequencerSection() {
 function ConductorSection() {
   const section = getSection("conductor");
   const [activeStepId, setActiveStepId] = useState(lessonData.conductorSteps[0].id);
+  const activeIndex = lessonData.conductorSteps.findIndex((step) => step.id === activeStepId);
   const activeStep = lessonData.conductorSteps.find((step) => step.id === activeStepId) || lessonData.conductorSteps[0];
-  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-white", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Gesto del direttore", title: section.title, text: section.text }), /* @__PURE__ */ React.createElement("div", { className: "mt-14 grid gap-10 lg:grid-cols-[minmax(0,1.18fr)_minmax(24rem,0.82fr)]" }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-4 md:grid-cols-4" }, lessonData.conductorSteps.map((step, index) => {
+  return /* @__PURE__ */ React.createElement(SectionShell, { id: section.id, backgroundClass: "bg-white", className: SECTION_SPACE }, /* @__PURE__ */ React.createElement("div", { className: LESSON_SHELL, style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement(SectionHeading, { kicker: "Gesto del direttore", title: section.title, text: section.text }), /* @__PURE__ */ React.createElement("div", { className: "mt-14 grid gap-6 xl:grid-cols-[minmax(0,1.02fr)_minmax(22rem,0.98fr)] xl:items-start" }, /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "soft", className: "overflow-hidden p-0" }, /* @__PURE__ */ React.createElement("div", { className: "border-b border-slate-200/70 px-6 py-6 sm:px-8 sm:py-7" }, /* @__PURE__ */ React.createElement("div", { className: "flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Sequenza del gesto"), /* @__PURE__ */ React.createElement("p", { className: "mt-3 max-w-[34rem] text-[1.05rem] leading-7 text-slate-600" }, "Il direttore guida il gruppo in quattro mosse: fermarsi, preparare, attaccare, chiudere.")), /* @__PURE__ */ React.createElement(ToneTag, { className: "border-[#eadfce] bg-white text-[#8a4d18]" }, "4 gesti \xB7 un solo tempo comune"))), /* @__PURE__ */ React.createElement("div", { className: "grid gap-4 p-6 sm:p-8 md:grid-cols-2" }, lessonData.conductorSteps.map((step, index) => {
     const isActive = step.id === activeStepId;
     return /* @__PURE__ */ React.createElement(
       "button",
@@ -899,24 +908,24 @@ function ConductorSection() {
         onClick: () => setActiveStepId(step.id),
         className: cn(
           RING,
-          "relative rounded-[1.5rem] border bg-white px-5 py-7 text-left transition duration-300",
-          isActive ? "border-[#c66a18] bg-[#fff1e2]" : "border-slate-200/80 bg-[#f8f6f1] hover:border-slate-300 hover:bg-[#efede7]"
+          "rounded-[1.65rem] border px-5 py-5 text-left transition duration-300",
+          isActive ? "border-[#c66a18] bg-[#fff6ed]" : "border-slate-200/80 bg-white hover:border-slate-300 hover:bg-[#f8f6f1]"
         )
       },
-      /* @__PURE__ */ React.createElement(
+      /* @__PURE__ */ React.createElement("div", { className: "flex items-center justify-between gap-4" }, /* @__PURE__ */ React.createElement(
         "span",
         {
           className: cn(
-            "absolute left-5 top-0 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border text-sm font-semibold",
-            isActive ? "border-[#c66a18] bg-[#fff1e2] text-[#8a4d18]" : "border-slate-200 bg-[#f5f3ee] text-slate-500"
+            "inline-flex h-11 w-11 items-center justify-center rounded-full border text-sm font-semibold",
+            isActive ? "border-[#e6c8a8] bg-white text-[#8a4d18]" : "border-slate-200 bg-[#fcfbf8] text-slate-500"
           )
         },
         index + 1
-      ),
-      /* @__PURE__ */ React.createElement("p", { className: "mt-2 text-2xl font-semibold tracking-[-0.04em] text-slate-950" }, step.title),
-      /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-sm leading-7 text-slate-500" }, step.summary)
+      ), /* @__PURE__ */ React.createElement("span", { className: "text-sm font-medium text-slate-400" }, step.command)),
+      /* @__PURE__ */ React.createElement("p", { className: "mt-6 text-[2rem] font-semibold tracking-[-0.05em] text-slate-950" }, step.title),
+      /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[1rem] leading-7 text-slate-500" }, step.summary)
     );
-  })), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "soft", className: "p-7" }, /* @__PURE__ */ React.createElement(SectionKicker, null, "Step attivo"), /* @__PURE__ */ React.createElement("h3", { className: "mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950" }, activeStep.title), /* @__PURE__ */ React.createElement("p", { className: "mt-5 text-lg leading-8 text-slate-600" }, activeStep.detail), /* @__PURE__ */ React.createElement("div", { className: "mt-8 flex flex-wrap gap-3" }, /* @__PURE__ */ React.createElement(ToneTag, null, "battere"), /* @__PURE__ */ React.createElement(ToneTag, null, "levare"), /* @__PURE__ */ React.createElement(ToneTag, null, "tempo comune")), /* @__PURE__ */ React.createElement("div", { className: "mt-8 border-t border-slate-200/70 pt-5" }, /* @__PURE__ */ React.createElement("p", { className: BODY_COPY_SOFT }, section.note))))));
+  }))), /* @__PURE__ */ React.createElement(SurfacePanel, { tone: "subtle", className: "overflow-hidden p-0" }, /* @__PURE__ */ React.createElement("div", { className: "border-b border-slate-200/70 px-6 py-6 sm:px-8" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-center justify-between gap-4" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement(SectionKicker, null, "Step attivo"), /* @__PURE__ */ React.createElement("h3", { className: "mt-4 text-3xl font-semibold tracking-[-0.04em] text-slate-950" }, activeStep.title)), /* @__PURE__ */ React.createElement("span", { className: "inline-flex h-12 min-w-12 items-center justify-center rounded-full border border-[#eadfce] bg-white px-4 text-sm font-semibold text-[#8a4d18]" }, String(activeIndex + 1).padStart(2, "0"), " / 04")), /* @__PURE__ */ React.createElement("p", { className: "mt-4 text-[1.06rem] font-medium leading-7 text-[#8a4d18]" }, activeStep.command)), /* @__PURE__ */ React.createElement("div", { className: "px-6 py-6 sm:px-8 sm:py-7" }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-4" }, /* @__PURE__ */ React.createElement("div", { className: "rounded-[1.5rem] border border-slate-200/70 bg-white px-5 py-5" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Che cosa fa il direttore"), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[1rem] leading-7 text-slate-600" }, activeStep.detail)), /* @__PURE__ */ React.createElement("div", { className: "rounded-[1.5rem] border border-slate-200/70 bg-[#fcfbf8] px-5 py-5" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Che cosa fa il gruppo"), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[1rem] leading-7 text-slate-600" }, activeStep.summary))), /* @__PURE__ */ React.createElement("div", { className: "mt-6 flex flex-wrap gap-3" }, activeStep.tags.map((tag) => /* @__PURE__ */ React.createElement(ToneTag, { key: `${activeStep.id}-${tag}` }, tag)))), /* @__PURE__ */ React.createElement("div", { className: "border-t border-slate-200/70 bg-[#fcfbf8] px-6 py-5 sm:px-8" }, /* @__PURE__ */ React.createElement("p", { className: BODY_COPY_SOFT }, section.note))))));
 }
 function PerformanceSection() {
   const section = getSection("performance");
