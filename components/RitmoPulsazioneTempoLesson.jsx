@@ -63,8 +63,8 @@ const lessonData = {
     },
     {
       id: "map",
-      title: "Come si organizza il tempo musicale?",
-      text: "La mappa mette in relazione battito regolare, accenti, gruppi di pulsazioni, gesto visibile e modi semplici per ricordare quello che facciamo.",
+      title: "Tre definizioni da ricopiare.",
+      text: "Fermiamo tre parole chiave con frasi brevi, chiare e pronte per il quaderno.",
     },
     {
       id: "listening",
@@ -130,114 +130,24 @@ const lessonData = {
       visual: ["group-2", "group-3", "group-4"],
     },
   ],
-  mapNodes: [
-    {
-      id: "tempo-musicale",
-      label: "Tempo musicale",
-      x: 50,
-      y: 48,
-      description: "Il tempo che il gruppo sente insieme.",
-      tooltip: "Centro della mappa.",
-      links: ["pulsazione", "ritmo", "accento", "battuta"],
-    },
+  quoteDefinitions: [
     {
       id: "pulsazione",
-      label: "Pulsazione",
-      x: 18,
-      y: 18,
-      description: "Battito regolare.",
-      tooltip: "Pulsazione = battito regolare.",
-      links: ["binario", "ternario", "quaternario"],
+      term: "Pulsazione",
+      quote: '"La pulsazione e il battito regolare che sostiene la musica."',
+      support: "E il passo comune che aiuta il gruppo a stare insieme.",
     },
     {
       id: "ritmo",
-      label: "Ritmo",
-      x: 50,
-      y: 14,
-      description: "Suoni e silenzi organizzati.",
-      tooltip: "Ritmo = suoni e silenzi organizzati.",
-      links: ["battere", "levare"],
+      term: "Ritmo",
+      quote: '"Il ritmo e il modo in cui suoni e silenzi si organizzano nel tempo."',
+      support: "Si muove sopra la pulsazione e rende la sequenza riconoscibile.",
     },
     {
-      id: "accento",
-      label: "Accento",
-      x: 82,
-      y: 18,
-      description: "Punto piu forte.",
-      tooltip: "Accento = punto piu forte.",
-      links: ["binario", "ternario", "quaternario"],
-    },
-    {
-      id: "battuta",
-      label: "Battuta",
-      x: 18,
-      y: 50,
-      description: "Contenitore ordinato.",
-      tooltip: "Battuta = contenitore ordinato.",
-      links: ["tempo-semplice", "tempo-composto"],
-    },
-    {
-      id: "battere",
-      label: "Battere",
-      x: 82,
-      y: 50,
-      description: "Punto forte del gesto.",
-      tooltip: "Battere = punto forte del gesto.",
-      links: ["levare"],
-    },
-    {
-      id: "levare",
-      label: "Levare",
-      x: 50,
-      y: 80,
-      description: "Gesto che prepara il battere.",
-      tooltip: "Levare = gesto che prepara il battere.",
-      links: ["tempo-semplice", "tempo-composto"],
-    },
-    {
-      id: "binario",
-      label: "Binario",
-      x: 10,
-      y: 82,
-      description: "Accento ogni 2 pulsazioni.",
-      tooltip: "Binario = accento ogni 2 pulsazioni.",
-      links: [],
-    },
-    {
-      id: "ternario",
-      label: "Ternario",
-      x: 28,
-      y: 90,
-      description: "Accento ogni 3 pulsazioni.",
-      tooltip: "Ternario = accento ogni 3 pulsazioni.",
-      links: [],
-    },
-    {
-      id: "quaternario",
-      label: "Quaternario",
-      x: 72,
-      y: 90,
-      description: "Accento ogni 4 pulsazioni.",
-      tooltip: "Quaternario = accento ogni 4 pulsazioni.",
-      links: [],
-    },
-    {
-      id: "tempo-semplice",
-      label: "Tempo semplice",
-      x: 90,
-      y: 82,
-      description: "Pulsazione divisa in due.",
-      tooltip: "Tempo semplice = pulsazione divisa in due.",
-      links: [],
-    },
-    {
-      id: "tempo-composto",
-      label: "Tempo composto",
-      x: 90,
-      y: 66,
-      description: "Pulsazione divisa in tre.",
-      tooltip: "Tempo composto = pulsazione divisa in tre.",
-      links: [],
+      id: "tempo",
+      term: "Tempo",
+      quote: '"Il tempo e il modo in cui le pulsazioni si raggruppano e fanno sentire il gesto comune."',
+      support: "Ci aiuta a percepire se il gruppo va a due, a tre o a quattro.",
     },
   ],
   listeningCards: [
@@ -477,21 +387,6 @@ const lessonData = {
   selfOptions: ["ancora no", "abbastanza", "si"],
 };
 
-const mapFloatingMeta = {
-  "tempo-musicale": { number: "01", category: "centro" },
-  pulsazione: { number: "02", category: "fondamento" },
-  ritmo: { number: "03", category: "azione" },
-  accento: { number: "04", category: "rilievo" },
-  battuta: { number: "05", category: "misura" },
-  battere: { number: "06", category: "gesto" },
-  levare: { number: "07", category: "preparazione" },
-  binario: { number: "08", category: "gruppo" },
-  ternario: { number: "09", category: "gruppo" },
-  quaternario: { number: "10", category: "gruppo" },
-  "tempo-semplice": { number: "11", category: "divisione" },
-  "tempo-composto": { number: "12", category: "divisione" },
-};
-
 function cn(...classes) {
   return classes.filter(Boolean).join(" ");
 }
@@ -701,20 +596,30 @@ function LessonHero() {
   const section = getSection("hero");
 
   return (
-    <section id={section.id} className="scroll-mt-28 bg-[#fbfaf7]" style={{ fontFamily: APP_FONT }}>
-      <div className="mx-auto flex min-h-[calc(88vh-4.75rem)] max-w-[84rem] items-center px-4 pb-16 pt-14 sm:px-6 md:pb-20 lg:px-8 lg:pt-20">
-        <div className="w-full">
-          <div className="max-w-[48rem]">
+    <section id={section.id} className="lesson-hero scroll-mt-28" style={{ fontFamily: APP_FONT }}>
+      <div className="lesson-hero-stage">
+        <div className="lesson-hero-grid">
+          <div className="lesson-hero-copy max-w-[48rem]">
             <SectionKicker>{section.eyebrow}</SectionKicker>
-            <h1 className="mt-6 max-w-[9ch] text-[3.9rem] font-semibold tracking-[-0.065em] text-slate-950 sm:text-[5rem] lg:text-[6rem] lg:leading-[0.9]">
+            <h1 className="lesson-hero-title mt-6 max-w-[9ch] text-[3.9rem] font-semibold tracking-[-0.065em] text-slate-950 sm:text-[5rem] lg:text-[6rem] lg:leading-[0.9]">
               {section.title}
             </h1>
-            <p className="mt-7 max-w-[30rem] text-[1.18rem] leading-[1.65] text-slate-600 sm:text-[1.4rem]">
+          </div>
+          <div className="lesson-hero-panel max-w-[30rem] xl:justify-self-end xl:pb-2">
+            <p className="lesson-hero-lead text-[1.18rem] leading-[1.65] text-slate-600 sm:text-[1.4rem]">
               {section.subtitle}
             </p>
-            <p className="mt-6 max-w-[43rem] text-[0.98rem] leading-7 text-slate-500 sm:text-base">
+            <p className="lesson-hero-support max-w-[43rem] text-[0.98rem] leading-7 text-slate-500 sm:text-base">
               {section.microtext}
             </p>
+            <div className="lesson-hero-rhythm" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+              <span />
+            </div>
           </div>
         </div>
       </div>
@@ -978,116 +883,60 @@ function ConceptsSection() {
 
 function RhythmMapSection() {
   const section = getSection("map");
-  const floatingMapRef = useRef(null);
-  const nodeLookup = useMemo(() => new Map(lessonData.mapNodes.map((node) => [node.id, node])), []);
-
-  const mapLines = useMemo(() => {
-    const seen = new Set();
-    return lessonData.mapNodes.flatMap((node) =>
-      node.links.flatMap((targetId) => {
-        const target = nodeLookup.get(targetId);
-        const sourceNumber = mapFloatingMeta[node.id]?.number;
-        const targetNumber = mapFloatingMeta[targetId]?.number;
-
-        if (!target || !sourceNumber || !targetNumber) {
-          return [];
-        }
-
-        const relationKey = [sourceNumber, targetNumber].sort().join(":");
-        if (seen.has(relationKey)) {
-          return [];
-        }
-        seen.add(relationKey);
-
-        return [
-          {
-            key: relationKey,
-            from: sourceNumber,
-            to: targetNumber,
-            x1: node.x,
-            y1: node.y,
-            x2: target.x,
-            y2: target.y,
-          },
-        ];
-      })
-    );
-  }, [nodeLookup]);
-
-  useEffect(() => {
-    let timerId = 0;
-    let attempts = 0;
-
-    const tryInitFloatingMap = () => {
-      const root = floatingMapRef.current;
-      const initTopicMaps = window.Accordia?.initTopicMaps;
-
-      if (root && typeof initTopicMaps === "function") {
-        initTopicMaps(root);
-        return;
-      }
-
-      attempts += 1;
-      if (attempts < 20) {
-        timerId = window.setTimeout(tryInitFloatingMap, 60);
-      }
-    };
-
-    tryInitFloatingMap();
-    return () => window.clearTimeout(timerId);
-  }, []);
-
   return (
     <SectionShell id={section.id} backgroundClass="bg-[#f8f6f2]" className={SECTION_SPACE}>
       <div className={LESSON_SHELL_WIDE} style={{ fontFamily: APP_FONT }}>
-        <SectionHeading kicker="Mappa visiva" title={section.title} text={section.text} />
+        <SectionHeading kicker="Definizioni guida" title={section.title} text={section.text} />
 
-        <div ref={floatingMapRef} className="mt-14">
-          <div className="nucleus-topic-map lesson-floating-map lesson-floating-map--concepts" data-topic-map>
-            <svg className="nucleus-topic-map__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-              {mapLines.map((line) => (
-                <line
-                  key={line.key}
-                  className="nucleus-topic-map__line nucleus-topic-map__line--main"
-                  data-topic-line
-                  data-topic-from={line.from}
-                  data-topic-to={line.to}
-                  x1={line.x1}
-                  y1={line.y1}
-                  x2={line.x2}
-                  y2={line.y2}
-                />
-              ))}
-            </svg>
-
-            <div className="nucleus-topic-map__canvas">
-              {lessonData.mapNodes.map((node) => {
-                const meta = mapFloatingMeta[node.id] || { number: node.id, category: "concetto" };
-                const relatedTitles = node.links
-                  .map((targetId) => nodeLookup.get(targetId)?.label)
-                  .filter(Boolean)
-                  .join(", ");
-
-                return (
-                  <div
-                    key={node.id}
-                    className="nucleus-topic-node"
-                    data-topic-node
-                    data-topic-number={meta.number}
-                    tabIndex={0}
-                    aria-label={`${node.label}. ${node.description}`}
-                    style={{ "--node-x": node.x, "--node-y": node.y }}
-                  >
-                    <strong>{node.label}</strong>
-                    <p>{node.description}</p>
-                    <small>{node.tooltip}</small>
-                    {relatedTitles ? <span className="nucleus-topic-node__related">Si collega a: {relatedTitles}</span> : null}
-                  </div>
-                );
-              })}
+        <SurfacePanel tone="soft" className="mt-14 overflow-hidden px-6 py-7 sm:px-8 sm:py-8 lg:px-10 lg:py-10">
+          <div className="flex flex-wrap items-start justify-between gap-5">
+            <div className="max-w-[38rem]">
+              <p className={SMALL_LABEL}>Da leggere, dire e ricopiare</p>
+              <p className="mt-3 text-[1.02rem] leading-7 text-slate-600 sm:text-[1.08rem]">
+                Tre frasi brevi fissano il lessico del lavoro comune. Le teniamo davanti agli occhi mentre battiamo,
+                ascoltiamo e costruiamo il ritmo del gruppo.
+              </p>
             </div>
+            <ToneTag className="border-[#ecdcc9] bg-white/80 text-[#8a4d18]">quaderno · voce · gesto</ToneTag>
           </div>
-        </div>
+
+          <div className="mt-8 h-px bg-gradient-to-r from-transparent via-[#d9c1a7] to-transparent" aria-hidden="true" />
+
+          <div className="mt-8 grid gap-4 xl:grid-cols-3">
+            {lessonData.quoteDefinitions.map((definition, index) => (
+              <SurfacePanel
+                key={definition.id}
+                tone="base"
+                className="relative overflow-hidden border-[#eadfce] bg-white/90 p-6 sm:p-7"
+              >
+                <div
+                  className="pointer-events-none absolute inset-x-0 top-0 h-full opacity-70"
+                  aria-hidden="true"
+                  style={{
+                    backgroundImage:
+                      "linear-gradient(180deg, rgba(255,255,255,0) 0, rgba(255,255,255,0) 47px, rgba(198,106,24,0.08) 48px)",
+                    backgroundSize: "100% 48px",
+                  }}
+                />
+                <div className="relative">
+                  <div className="flex items-center justify-between gap-4">
+                    <p className={SMALL_LABEL}>0{index + 1}</p>
+                    <span className="h-1 w-12 rounded-full bg-[#c66a18]/60" aria-hidden="true" />
+                  </div>
+                  <h3 className="mt-5 text-[2rem] font-semibold tracking-[-0.05em] text-slate-950">{definition.term}</h3>
+                  <p className="mt-6 text-[1.3rem] leading-[1.65] tracking-[-0.03em] text-slate-700 italic sm:text-[1.42rem]">
+                    {definition.quote}
+                  </p>
+                  <p className={cn("mt-8 max-w-[24rem]", BODY_COPY_SOFT)}>{definition.support}</p>
+                </div>
+              </SurfacePanel>
+            ))}
+          </div>
+
+          <p className="mt-8 text-sm font-medium uppercase tracking-[0.22em] text-slate-400">
+            Scrivile uguali sul quaderno e usale mentre provi con il gruppo.
+          </p>
+        </SurfacePanel>
       </div>
     </SectionShell>
   );

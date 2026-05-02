@@ -582,10 +582,10 @@ function LessonHero() {
     "section",
     {
       id: section.id,
-      className: "scroll-mt-28 bg-[#fbfaf7]",
+      className: "lesson-hero scroll-mt-28",
       style: { fontFamily: APP_FONT }
     },
-    /* @__PURE__ */ React.createElement("div", { className: "mx-auto flex min-h-[calc(88vh-4.75rem)] max-w-[84rem] items-center px-4 pb-16 pt-14 sm:px-6 md:pb-20 lg:px-8 lg:pt-20" }, /* @__PURE__ */ React.createElement("div", { className: "grid w-full gap-10 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.78fr)] xl:items-end" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-[48rem]" }, /* @__PURE__ */ React.createElement(SectionKicker, null, section.eyebrow), /* @__PURE__ */ React.createElement("h1", { className: "mt-6 max-w-[9ch] text-[3.9rem] font-semibold tracking-[-0.065em] text-slate-950 sm:text-[5rem] lg:text-[6rem] lg:leading-[0.9]" }, section.title)), /* @__PURE__ */ React.createElement("div", { className: "max-w-[30rem] xl:justify-self-end xl:pb-2" }, /* @__PURE__ */ React.createElement("p", { className: "text-[1.18rem] leading-[1.65] text-slate-600 sm:text-[1.4rem]" }, section.subtitle), /* @__PURE__ */ React.createElement("p", { className: "mt-6 max-w-[28rem] text-[0.98rem] leading-7 text-slate-500 sm:text-base" }, section.microtext))))
+    /* @__PURE__ */ React.createElement("div", { className: "lesson-hero-stage" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-hero-grid" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-hero-copy max-w-[48rem]" }, /* @__PURE__ */ React.createElement(SectionKicker, null, section.eyebrow), /* @__PURE__ */ React.createElement("h1", { className: "lesson-hero-title mt-6 max-w-[9ch] text-[3.9rem] font-semibold tracking-[-0.065em] text-slate-950 sm:text-[5rem] lg:text-[6rem] lg:leading-[0.9]" }, section.title)), /* @__PURE__ */ React.createElement("div", { className: "lesson-hero-panel max-w-[30rem] xl:justify-self-end xl:pb-2" }, /* @__PURE__ */ React.createElement("p", { className: "lesson-hero-lead text-[1.18rem] leading-[1.65] text-slate-600 sm:text-[1.4rem]" }, section.subtitle), /* @__PURE__ */ React.createElement("p", { className: "lesson-hero-support max-w-[28rem] text-[0.98rem] leading-7 text-slate-500 sm:text-base" }, section.microtext), /* @__PURE__ */ React.createElement("div", { className: "lesson-hero-rhythm", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null), /* @__PURE__ */ React.createElement("span", null)))))
   );
 }
 function ListeningTimerSection() {
@@ -720,7 +720,7 @@ function VoiceMemorySection() {
       className: cn(
         RING,
         PILL_DEFAULT,
-                      "text-base hover:border-[#d8a06d] hover:text-[#8a4d18]"
+        "text-base hover:border-[#d8a06d] hover:text-[#8a4d18]"
       )
     },
     syllable
@@ -747,7 +747,7 @@ function GestureTimeline({ steps, visible }) {
         className: cn(
           RING,
           "relative rounded-[1.5rem] border bg-white px-5 py-7 text-left transition duration-300",
-                  isActive ? "border-[#c66a18] bg-[#fff1e2]" : "border-slate-200/80 bg-[#f8f6f1] hover:border-slate-300 hover:bg-[#efede7]"
+          isActive ? "border-[#c66a18] bg-[#fff1e2]" : "border-slate-200/80 bg-[#f8f6f1] hover:border-slate-300 hover:bg-[#efede7]"
         )
       },
       /* @__PURE__ */ React.createElement(
@@ -755,7 +755,7 @@ function GestureTimeline({ steps, visible }) {
         {
           className: cn(
             "absolute left-5 top-0 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border text-sm font-semibold",
-                    isActive ? "border-[#c66a18] bg-[#fff1e2] text-[#8a4d18]" : "border-slate-200 bg-[#f5f3ee] text-slate-500"
+            isActive ? "border-[#c66a18] bg-[#fff1e2] text-[#8a4d18]" : "border-slate-200 bg-[#f5f3ee] text-slate-500"
           )
         },
         index + 1
@@ -1029,7 +1029,7 @@ function GraphicScoreBuilder() {
       ),
       className: cn(
         RING,
-          "rounded-[1.45rem] border border-solid border-slate-200/70 bg-white px-4 py-6 text-center transition-colors duration-150 hover:border-slate-300 hover:bg-[#f8f6f1]"
+        "rounded-[1.45rem] border border-solid border-slate-200/70 bg-white px-4 py-6 text-center transition-colors duration-150 hover:border-slate-300 hover:bg-[#f8f6f1]"
       )
     },
     /* @__PURE__ */ React.createElement("span", { className: cn("block", SMALL_LABEL) }, "tempo ", index + 1),
