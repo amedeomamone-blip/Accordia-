@@ -2047,6 +2047,16 @@ ORIGINI_TOPIC_MAP = {
                     "body": "La valutazione controlla se distingui pulsazione, ritmo e accento e se sai applicarli in modo coerente.",
                 },
             },
+            "lesson": {
+                "panel_only": True,
+                "immersive_preview": True,
+                "immersive_mount_id": "immersive-rhythm-lesson-root",
+                "immersive_data_key": "ritmo-pulsazione-tempo",
+                "immersive_stylesheet": "../../../../css/lesson-immersive.css",
+                "immersive_module": "../../../../components/RitmoPulsazioneTempoLesson.module.js",
+                "author": "Lezione di Amedeo Mamone",
+                "description": "Prima di leggere una partitura, possiamo sentire il tempo con il corpo. In questa lezione la classe distingue pulsazione, ritmo, accento e tempo usando mani, piedi, voce, ascolto e gesto.",
+            },
         },
         {
             "number": "03",
@@ -3072,9 +3082,11 @@ def render_lesson_phase_explorer(topic: dict) -> str:
 
 def render_immersive_lesson_mount(topic: dict) -> str:
     lesson = topic["lesson"]
+    mount_id = lesson.get("immersive_mount_id", "immersive-lesson-root")
+    data_key = lesson.get("immersive_data_key", topic["slug"])
     return f"""
         <section class="nucleus-section lesson-section lesson-section--immersive" id="lezione">
-            <div id="immersive-lesson-root" data-immersive-lesson="corpo-voce-gesto">
+            <div id="{e(mount_id)}" data-immersive-lesson="{e(data_key)}">
                 <div class="shell" style="padding: 2rem 0 2.5rem;">
                     <section class="lesson-panel-card lesson-panel-card--wide lesson-panel-card--accent">
                         <div class="lesson-panel-card__head">
@@ -3109,20 +3121,22 @@ def render_immersive_lesson_stylesheet(lesson: dict) -> str:
     return f'\n    <link rel="stylesheet" href="{asset_url(stylesheet)}">'
 
 
-def render_immersive_lesson_script(lesson: dict) -> str:
+def render_immersive_lesson_script(topic: dict) -> str:
+    lesson = topic["lesson"]
     module_path = lesson.get("immersive_module")
     if not module_path:
         return ""
+    mount_id = lesson.get("immersive_mount_id", "immersive-lesson-root")
 
     return f"""
     <script type="module">
         import React from "https://esm.sh/react@18";
         import {{ createRoot }} from "https://esm.sh/react-dom@18/client";
-        import CorpoVoceGestoLesson from "{asset_url(module_path)}";
+        import ImmersiveLesson from "{asset_url(module_path)}";
 
-        const mountNode = document.getElementById("immersive-lesson-root");
+        const mountNode = document.getElementById("{e(mount_id)}");
         if (mountNode) {{
-            createRoot(mountNode).render(React.createElement(CorpoVoceGestoLesson));
+            createRoot(mountNode).render(React.createElement(ImmersiveLesson));
         }}
     </script>"""
 
@@ -3278,7 +3292,7 @@ def render_lesson_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str
         if next_topic
         else '<span class="site-footer__muted">Ultimo argomento della mappa</span>'
     )
-    main_content = render_lesson_phase_explorer(topic)
+    main_content = render_lesson_phase_explorer(topic) if lesson.get("phases") else ""
     footer_html = ""
 
     if panel_only and immersive_preview:
@@ -3420,7 +3434,7 @@ def render_lesson_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str
 {footer_html}
 
     <script src="{asset_url('../../../../js/main.js')}"></script>
-{render_immersive_lesson_script(lesson) if immersive_preview else ""}
+{render_immersive_lesson_script(topic) if immersive_preview else ""}
 </body>
 </html>
 """
