@@ -1368,7 +1368,6 @@ function RhythmSequencerSection() {
   };
 
   const activeOption = optionById[selectedStateId];
-  const bars = [steps.slice(0, 4), steps.slice(4, 8)];
 
   const renderStepButton = (step, index) => {
     const option = optionById[step];
@@ -1518,27 +1517,20 @@ function RhythmSequencerSection() {
 
             <div className="px-6 py-6 sm:px-8 sm:py-8">
               <div className="rounded-[1.8rem] border border-slate-200/70 bg-white px-4 py-5 shadow-[0_12px_28px_rgba(15,23,42,0.03)] sm:px-5">
-                <div className="mx-auto max-w-[34rem]">
+                <div className="mx-auto max-w-[35rem]">
                   <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
                     <div className="flex flex-wrap gap-3">
                       <ToneTag className="border-slate-200/70 bg-[#fcfbf8] text-slate-600">battuta 1 · tempi 1-4</ToneTag>
                       <ToneTag className="border-slate-200/70 bg-[#fcfbf8] text-slate-600">battuta 2 · tempi 5-8</ToneTag>
                     </div>
-                    <p className="text-sm font-medium text-slate-500">4 sopra · 4 sotto</p>
+                    <p className="text-sm font-medium text-slate-500">griglia 2 x 4</p>
                   </div>
 
-                  <div className="mt-5 grid gap-4">
-                  {bars.map((barSteps, barIndex) => (
-                    <div
-                      key={`bar-${barIndex}`}
-                      className="rounded-[1.5rem] border border-slate-200/70 bg-[#fcfbf8] px-3 py-3"
-                    >
-                      <div className="grid grid-cols-4 gap-3">
-                        {barSteps.map((step, stepIndex) => renderStepButton(step, barIndex * 4 + stepIndex))}
-                      </div>
+                  <div className="mt-5 rounded-[1.6rem] border border-slate-200/70 bg-[#fcfbf8] px-3 py-3 sm:px-4 sm:py-4">
+                    <div className="grid grid-cols-4 gap-3">
+                      {steps.map((step, index) => renderStepButton(step, index))}
                     </div>
-                  ))}
-                </div>
+                  </div>
                 </div>
               </div>
 
