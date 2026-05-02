@@ -15,10 +15,10 @@ const PANEL_SOFT = "rounded-[2rem] border border-slate-200/60 bg-[#fcfbf8] shado
 const PANEL_SUBTLE = "rounded-[1.5rem] border border-slate-200/70 bg-[#fcfbf8]";
 const BODY_COPY = "text-[1.02rem] leading-8 text-slate-600 sm:text-[1.08rem]";
 const BODY_COPY_SOFT = "text-[0.95rem] leading-7 text-slate-500 sm:text-base";
-const BUTTON_BASE = "inline-flex min-h-11 items-center justify-center rounded-full px-5 py-2.5 text-sm font-semibold tracking-[-0.01em] transition duration-200";
-const PILL_BASE = "inline-flex min-h-10 items-center rounded-full border px-4 py-2 text-[0.84rem] font-semibold tracking-[-0.01em] transition duration-200";
-const PILL_DEFAULT = `${PILL_BASE} border-slate-200/80 bg-white text-slate-700 hover:border-slate-300 hover:bg-[#fcfbf8]`;
-const PILL_ACTIVE = `${PILL_BASE} border-[#d8a06d] bg-[#fff5eb] text-[#8a4d18] shadow-[inset_0_0_0_1px_rgba(198,106,24,0.08)]`;
+const BUTTON_BASE = "inline-flex min-h-11 items-center justify-center rounded-full border px-5 py-2.5 text-sm font-semibold tracking-[-0.01em] transition-colors duration-150";
+const PILL_BASE = "inline-flex min-h-10 items-center rounded-full border px-4 py-2 text-[0.84rem] font-semibold tracking-[-0.01em] transition-colors duration-150";
+const PILL_DEFAULT = `${PILL_BASE} border-slate-200 bg-[#f5f3ee] text-slate-700 hover:border-slate-300 hover:bg-[#ece8df]`;
+const PILL_ACTIVE = `${PILL_BASE} border-[#c66a18] bg-[#fff1e2] text-[#8a4d18]`;
 const TAG_CLASS = "inline-flex items-center rounded-full border border-[#f1dec9] bg-[#fff6ed] px-3.5 py-1.5 text-sm font-medium text-[#8a4d18]";
 const SMALL_LABEL = "text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-slate-400";
 const INPUT_AREA = "mt-6 min-h-[9rem] w-full resize-none rounded-[1.35rem] border border-slate-200/80 bg-[#fcfbf8] px-4 py-4 text-sm leading-7 text-slate-700 placeholder:text-slate-400";
@@ -555,7 +555,7 @@ function PrimaryButton({ children, onClick }) {
       className: cn(
         RING,
         BUTTON_BASE,
-        "bg-[#c66a18] text-white hover:bg-[#b25e15]"
+        "border-[#c66a18] bg-[#c66a18] text-white hover:border-[#b25e15] hover:bg-[#b25e15]"
       )
     },
     children
@@ -570,7 +570,7 @@ function SecondaryButton({ children, onClick }) {
       className: cn(
         RING,
         BUTTON_BASE,
-        "border border-slate-200/80 bg-white text-slate-700 hover:border-slate-300 hover:bg-[#fcfbf8]"
+        "border-slate-300 bg-[#f5f3ee] text-slate-700 hover:border-slate-400 hover:bg-[#ece8df]"
       )
     },
     children
@@ -685,7 +685,7 @@ function BodyFigure({ activeSound, onSelect }) {
         className: cn(
           RING,
           "absolute -translate-x-1/2 -translate-y-1/2 rounded-full border px-4 py-2 text-sm font-medium transition duration-200",
-          isActive ? "border-[#c66a18] bg-[#fff3e6] text-[#8a4d18] shadow-[0_14px_32px_rgba(198,106,24,0.14)]" : "border-slate-200 bg-white text-slate-600 hover:border-slate-300 hover:bg-slate-50"
+          isActive ? "border-[#c66a18] bg-[#fff1e2] text-[#8a4d18]" : "border-slate-200 bg-[#f5f3ee] text-slate-600 hover:border-slate-300 hover:bg-[#ece8df]"
         ),
         style: { left: `${sound.buttonX}%`, top: `${sound.buttonY}%` },
         onClick: () => onSelect(sound.id)
@@ -720,7 +720,7 @@ function VoiceMemorySection() {
       className: cn(
         RING,
         PILL_DEFAULT,
-        "text-base hover:-translate-y-0.5 hover:border-[#d8a06d] hover:text-[#8a4d18]"
+                      "text-base hover:border-[#d8a06d] hover:text-[#8a4d18]"
       )
     },
     syllable
@@ -747,7 +747,7 @@ function GestureTimeline({ steps, visible }) {
         className: cn(
           RING,
           "relative rounded-[1.5rem] border bg-white px-5 py-7 text-left transition duration-300",
-          isActive ? "border-[#d8a06d] bg-[#fffaf5] shadow-[0_12px_28px_rgba(15,23,42,0.04)]" : "border-slate-200/80 hover:border-slate-300"
+                  isActive ? "border-[#c66a18] bg-[#fff1e2]" : "border-slate-200/80 bg-[#f8f6f1] hover:border-slate-300 hover:bg-[#efede7]"
         )
       },
       /* @__PURE__ */ React.createElement(
@@ -755,7 +755,7 @@ function GestureTimeline({ steps, visible }) {
         {
           className: cn(
             "absolute left-5 top-0 inline-flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border text-sm font-semibold",
-            isActive ? "border-[#d8a06d] bg-[#fff5eb] text-[#8a4d18]" : "border-slate-200 bg-white text-slate-500"
+                    isActive ? "border-[#c66a18] bg-[#fff1e2] text-[#8a4d18]" : "border-slate-200 bg-[#f5f3ee] text-slate-500"
           )
         },
         index + 1
@@ -778,8 +778,8 @@ function SoundTile({ source, isActive, onClick }) {
       onClick,
       className: cn(
         RING,
-        "group rounded-[2rem] border bg-white p-5 text-left transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_38px_rgba(15,23,42,0.05)]",
-        isActive ? "border-[#c66a18] shadow-[0_18px_34px_rgba(198,106,24,0.10)]" : "border-slate-200"
+        "group rounded-[2rem] border p-5 text-left transition-colors duration-150",
+        isActive ? "border-[#c66a18] bg-[#fffaf4]" : "border-slate-200 bg-white hover:border-slate-300 hover:bg-[#f8f6f1]"
       )
     },
     /* @__PURE__ */ React.createElement(
@@ -787,7 +787,7 @@ function SoundTile({ source, isActive, onClick }) {
       {
         className: "flex aspect-[4/3] items-center justify-center rounded-[1.6rem]",
         style: {
-          background: `radial-gradient(circle at 30% 30%, rgba(255,255,255,0.95), ${source.accent}33 58%, ${source.accent}18 100%)`
+          backgroundColor: `${source.accent}1a`
         }
       },
       /* @__PURE__ */ React.createElement("div", { className: "flex flex-col items-center gap-3" }, /* @__PURE__ */ React.createElement(
@@ -965,8 +965,8 @@ function BodyPercussionSequencer() {
         ),
         className: cn(
           RING,
-          "flex min-h-[8.75rem] flex-col items-center justify-center rounded-[1.35rem] border border-slate-200/70 bg-white px-4 py-5 text-center transition duration-200 hover:border-slate-300",
-          isPlayingNow && "border-[#d8a06d] bg-[#fffaf5] shadow-[0_0_0_2px_rgba(198,106,24,0.16)]"
+          "flex min-h-[8.75rem] flex-col items-center justify-center rounded-[1.35rem] border border-slate-200/70 bg-white px-4 py-5 text-center transition-colors duration-150 hover:border-slate-300 hover:bg-[#f8f6f1]",
+          isPlayingNow && "border-[#c66a18] bg-[#fff1e2]"
         )
       },
       /* @__PURE__ */ React.createElement("span", { className: cn("block", SMALL_LABEL) }, "tempo ", index + 1),
@@ -1029,7 +1029,7 @@ function GraphicScoreBuilder() {
       ),
       className: cn(
         RING,
-        "rounded-[1.45rem] border border-slate-200/70 bg-white px-4 py-6 text-center shadow-[0_8px_22px_rgba(15,23,42,0.03)] transition duration-200 hover:-translate-y-0.5 hover:border-slate-300"
+        "rounded-[1.45rem] border border-slate-200/70 bg-white px-4 py-6 text-center transition-colors duration-150 hover:border-slate-300 hover:bg-[#f8f6f1]"
       )
     },
     /* @__PURE__ */ React.createElement("span", { className: cn("block", SMALL_LABEL) }, "tempo ", index + 1),
@@ -1086,7 +1086,7 @@ function FinalQuiz() {
           className: cn(
             RING,
             "block w-full rounded-[1.4rem] border px-5 py-4 text-left text-base leading-7 transition duration-200",
-            isSelected ? "border-[#d8a06d] bg-[#fff5eb] text-slate-900" : showCorrectReference ? "border-slate-300 bg-white text-slate-900" : "border-slate-200 bg-[#fcfbf8] text-slate-700 hover:border-slate-300"
+            isSelected ? "border-[#c66a18] bg-[#fff1e2] text-slate-900" : showCorrectReference ? "border-slate-300 bg-white text-slate-900" : "border-slate-200 bg-[#f8f6f1] text-slate-700 hover:border-slate-300 hover:bg-[#efede7]"
           )
         },
         /* @__PURE__ */ React.createElement("span", { className: "flex items-start justify-between gap-4" }, /* @__PURE__ */ React.createElement("span", null, option.label), showCorrectReference ? /* @__PURE__ */ React.createElement(ToneTag, { className: "shrink-0 border-slate-200/80 bg-white text-slate-600" }, "corretta") : null)

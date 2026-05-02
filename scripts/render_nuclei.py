@@ -6,11 +6,17 @@ import re
 
 
 ROOT = Path(__file__).resolve().parents[1]
+VERSIONED_ASSET_PATHS = [
+    ROOT / "css" / "style.css",
+    ROOT / "css" / "lesson-immersive.css",
+    ROOT / "js" / "main.js",
+    ROOT / "components" / "CorpoVoceGestoLesson.module.js",
+]
 ASSET_VERSION = str(
     int(
         max(
-            (ROOT / "css" / "style.css").stat().st_mtime,
-            (ROOT / "js" / "main.js").stat().st_mtime,
+            path.stat().st_mtime
+            for path in VERSIONED_ASSET_PATHS
         )
     )
 )
