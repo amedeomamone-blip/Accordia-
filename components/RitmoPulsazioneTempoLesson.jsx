@@ -570,21 +570,24 @@ function ConceptVisual({ type }) {
         ? {
             wrap: "border-[#dbe9dd] bg-[#f4faf4]",
             label: "text-[#5b7362]",
-            chip: "border-[#d9e4dc] bg-white text-[#66756c]",
-            accent: "border-[#c8dbc9] bg-[#e7f3e8] text-[#45634f]",
+            chip: "h-10 w-10 border-[#d9e4dc] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#f2f7f3_100%)] text-[#66756c] shadow-[0_8px_18px_rgba(95,129,104,0.08)]",
+            accent:
+              "h-11 w-11 border-[#c8dbc9] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#e4f0e6_100%)] text-[#45634f] shadow-[0_10px_22px_rgba(95,129,104,0.12)]",
           }
         : type === "group-3"
           ? {
               wrap: "border-[#eedccf] bg-[#fff7f0]",
               label: "text-[#9b6d49]",
-              chip: "border-[#eadfd4] bg-white text-[#8a6f5e]",
-              accent: "border-[#e7cdb9] bg-[#fff0e2] text-[#8a4d18]",
+              chip: "h-10 w-10 border-[#eadfd4] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#fbf2ea_100%)] text-[#8a6f5e] shadow-[0_8px_18px_rgba(138,111,94,0.08)]",
+              accent:
+                "h-11 w-11 border-[#e7cdb9] bg-[radial-gradient(circle_at_35%_35%,#fffdfb_0%,#fee9d7_100%)] text-[#8a4d18] shadow-[0_10px_22px_rgba(198,106,24,0.14)]",
             }
           : {
               wrap: "border-[#d8e3f0] bg-[#f4f8fd]",
               label: "text-[#617690]",
-              chip: "border-[#dbe4f0] bg-white text-[#66758a]",
-              accent: "border-[#c8d7ea] bg-[#e8f0fb] text-[#3e5f86]",
+              chip: "h-10 w-10 border-[#dbe4f0] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#edf3fa_100%)] text-[#66758a] shadow-[0_8px_18px_rgba(102,117,138,0.08)]",
+              accent:
+                "h-11 w-11 border-[#c8d7ea] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#e2ebf8_100%)] text-[#3e5f86] shadow-[0_10px_22px_rgba(62,95,134,0.13)]",
             };
 
     return (
@@ -595,7 +598,7 @@ function ConceptVisual({ type }) {
             <span
               key={`${type}-${index}`}
               className={cn(
-                "inline-flex h-9 w-9 items-center justify-center rounded-full border text-sm font-medium",
+                "inline-flex items-center justify-center rounded-full border text-sm font-medium",
                 index === 0 ? groupStyle.accent : groupStyle.chip
               )}
             >
@@ -612,9 +615,11 @@ function ConceptVisual({ type }) {
   return (
     <span
       className={cn(
-        "inline-flex items-center justify-center rounded-full border",
-        active ? "h-14 w-14 border-[#e6c8a8] bg-[#fff6ed] text-2xl text-[#8a4d18]" : "h-10 w-10 border-slate-200 bg-white text-base text-slate-500",
-        pause && "border-slate-200 bg-[#fcfbf8] text-slate-400"
+        "inline-flex items-center justify-center rounded-full border shadow-[0_10px_22px_rgba(15,23,42,0.06)]",
+        active
+          ? "h-16 w-16 border-[#e7ceb9] bg-[radial-gradient(circle_at_35%_35%,#fffdfb_0%,#feead9_100%)] text-[1.7rem] text-[#8a4d18]"
+          : "h-12 w-12 border-[#d7e1ec] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#edf3fa_100%)] text-lg text-[#647791]",
+        pause && "border-[#d9e0e8] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#f5f7fa_100%)] text-[#93a4b8]"
       )}
     >
       {pause ? "○" : "●"}
@@ -646,10 +651,10 @@ function MeterPreview({ groupSize, compact = false }) {
                 <div key={`${groupSize}-${index}`} className="flex flex-col items-center gap-2">
                   <span
                     className={cn(
-                      "inline-flex items-center justify-center rounded-full border bg-white text-sm font-medium",
+                      "inline-flex items-center justify-center rounded-full border text-sm font-medium shadow-[0_8px_18px_rgba(15,23,42,0.06)]",
                       accented
-                        ? "h-11 w-11 border-[#e6c8a8] bg-[#fff6ed] text-[#8a4d18]"
-                        : "h-8 w-8 border-slate-200 text-slate-500"
+                        ? "h-14 w-14 border-[#e7cdb9] bg-[radial-gradient(circle_at_35%_35%,#fffdfb_0%,#fee8d6_100%)] text-[#8a4d18]"
+                        : "h-10 w-10 border-[#d7e1ec] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#edf3fa_100%)] text-[#647791]"
                     )}
                   >
                     {accented ? "●" : "•"}
@@ -691,10 +696,10 @@ function MeterPreview({ groupSize, compact = false }) {
               <div key={`${groupSize}-${index}`} className="flex flex-col items-center gap-3">
                 <span
                   className={cn(
-                    "inline-flex items-center justify-center rounded-full border bg-white text-sm font-medium",
+                    "inline-flex items-center justify-center rounded-full border text-sm font-medium shadow-[0_10px_22px_rgba(15,23,42,0.06)]",
                     accented
-                      ? "h-14 w-14 border-[#e6c8a8] bg-[#fff6ed] text-[#8a4d18]"
-                      : "h-10 w-10 border-slate-200 text-slate-500"
+                      ? "h-16 w-16 border-[#e7cdb9] bg-[radial-gradient(circle_at_35%_35%,#fffdfb_0%,#fee8d6_100%)] text-[#8a4d18]"
+                      : "h-12 w-12 border-[#d7e1ec] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#edf3fa_100%)] text-[#647791]"
                   )}
                 >
                   {accented ? "●" : "•"}
@@ -949,8 +954,10 @@ function PulseSection() {
                   <span
                     key={`pulse-${index}`}
                     className={cn(
-                      "inline-flex h-14 w-14 items-center justify-center rounded-full border text-sm font-medium",
-                      isActive ? "border-[#e6c8a8] bg-[#fff6ed] text-[#8a4d18]" : "border-slate-200 bg-white text-slate-500"
+                      "inline-flex h-16 w-16 items-center justify-center rounded-full border text-base font-medium shadow-[0_10px_24px_rgba(15,23,42,0.06)]",
+                      isActive
+                        ? "border-[#e7cdb9] bg-[radial-gradient(circle_at_35%_35%,#fffdfb_0%,#fee8d6_100%)] text-[#8a4d18]"
+                        : "border-[#d7e1ec] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#edf3fa_100%)] text-[#647791]"
                     )}
                     style={reducedMotion ? undefined : { transition: "background-color 140ms ease, border-color 140ms ease, color 140ms ease" }}
                   >
