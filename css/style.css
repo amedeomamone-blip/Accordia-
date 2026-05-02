@@ -1762,7 +1762,7 @@ body[data-nav="home"] .site-footer__label {
     border-bottom: 1px solid #eceef2;
     background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(14px);
-    transition: padding 220ms ease, background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease, opacity 220ms ease;
+    transition: padding 220ms ease, background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease, opacity 220ms ease, transform 220ms ease;
 }
 
 .nucleus-mini-timeline__track {
@@ -2432,6 +2432,7 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     background: rgba(255, 255, 255, 0.94);
     backdrop-filter: blur(14px);
     box-shadow: 0 10px 22px rgba(15, 23, 42, 0.04);
+    transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease, opacity 220ms ease, transform 220ms ease;
 }
 
 .topic-rail .shell {
@@ -2580,6 +2581,31 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     margin-left: 0.68rem;
     opacity: 1;
     color: #18191b;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .topic-page--lesson .nucleus-mini-timeline.is-hover-hidden,
+    .topic-page--lesson .topic-rail.is-hover-hidden {
+        opacity: 0.06;
+    }
+
+    .topic-page--lesson .nucleus-mini-timeline.is-hover-hidden:not(:hover):not(:focus-within) {
+        transform: translateY(calc(-100% + 0.55rem));
+        box-shadow: none;
+    }
+
+    .topic-page--lesson .topic-rail.is-hover-hidden:not(:hover):not(:focus-within) {
+        transform: translateY(calc(-100% + 0.55rem));
+        box-shadow: none;
+    }
+
+    .topic-page--lesson .nucleus-mini-timeline.is-hover-hidden:hover,
+    .topic-page--lesson .nucleus-mini-timeline.is-hover-hidden:focus-within,
+    .topic-page--lesson .topic-rail.is-hover-hidden:hover,
+    .topic-page--lesson .topic-rail.is-hover-hidden:focus-within {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 .nucleus-hero--topic .nucleus-hero__copy h1 {

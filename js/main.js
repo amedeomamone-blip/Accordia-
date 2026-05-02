@@ -230,6 +230,33 @@ document.addEventListener('DOMContentLoaded', () => {
         syncMiniTimelines();
     }
 
+    const lessonRailHoverMedia = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const lessonRails = [...document.querySelectorAll('.topic-page--lesson .nucleus-mini-timeline, .topic-page--lesson .topic-rail')];
+
+    if (lessonRails.length) {
+        let lessonRailFrame = 0;
+
+        const syncLessonRails = () => {
+            const shouldHide = desktopMiniTimelineMedia.matches && lessonRailHoverMedia.matches && window.scrollY > 24;
+            lessonRails.forEach((rail) => {
+                rail.classList.toggle('is-hover-hidden', shouldHide);
+            });
+        };
+
+        const scheduleLessonRailSync = () => {
+            if (lessonRailFrame) cancelAnimationFrame(lessonRailFrame);
+            lessonRailFrame = requestAnimationFrame(() => {
+                lessonRailFrame = 0;
+                syncLessonRails();
+            });
+        };
+
+        bindMediaChange(desktopMiniTimelineMedia, scheduleLessonRailSync);
+        bindMediaChange(lessonRailHoverMedia, scheduleLessonRailSync);
+        window.addEventListener('scroll', scheduleLessonRailSync, { passive: true });
+        scheduleLessonRailSync();
+    }
+
     const topicMapInteractiveMedia = window.matchMedia('(min-width: 901px)');
     const topicMapAnimatedMedia = window.matchMedia('(min-width: 901px)');
     const topicMapAnyHoverMedia = window.matchMedia('(any-hover: hover)');
