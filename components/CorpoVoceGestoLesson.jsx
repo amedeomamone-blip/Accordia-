@@ -19,9 +19,9 @@ const BODY_COPY_SOFT = "text-[0.95rem] leading-7 text-slate-500 sm:text-base";
 const BUTTON_BASE =
   "inline-flex min-h-11 items-center justify-center rounded-full border px-5 py-2.5 text-sm font-semibold tracking-[-0.01em] transition-colors duration-150";
 const PILL_BASE =
-  "inline-flex min-h-10 items-center rounded-full border px-4 py-2 text-[0.84rem] font-semibold tracking-[-0.01em] transition-colors duration-150";
-const PILL_DEFAULT = `${PILL_BASE} border-slate-200 bg-[#f5f3ee] text-slate-700 hover:border-slate-300 hover:bg-[#ece8df]`;
-const PILL_ACTIVE = `${PILL_BASE} border-[#c66a18] bg-[#fff1e2] text-[#8a4d18]`;
+  "inline-flex min-h-10 items-center rounded-full border bg-white px-4 py-2 text-[0.84rem] font-semibold tracking-[-0.01em] transition-colors duration-150";
+const PILL_DEFAULT = `${PILL_BASE} border-[#e4e8ee] text-[#5e646c] hover:border-[#d7dde5] hover:text-[#18191b]`;
+const PILL_ACTIVE = `${PILL_BASE} border-[#dde2e8] text-[#18191b]`;
 const TAG_CLASS =
   "inline-flex items-center rounded-full border border-[#f1dec9] bg-[#fff6ed] px-3.5 py-1.5 text-sm font-medium text-[#8a4d18]";
 const SMALL_LABEL = "text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-slate-400";
@@ -605,7 +605,7 @@ function PrimaryButton({ children, onClick }) {
       className={cn(
         RING,
         BUTTON_BASE,
-        "border-[#c66a18] bg-[#c66a18] text-white hover:border-[#b25e15] hover:bg-[#b25e15]"
+        "border-[#d8dde4] bg-white text-[#8a4d18] hover:border-[#c8cfd8] hover:text-[#6f3f17]"
       )}
     >
       {children}
@@ -621,7 +621,7 @@ function SecondaryButton({ children, onClick }) {
       className={cn(
         RING,
         BUTTON_BASE,
-        "border-slate-300 bg-[#f5f3ee] text-slate-700 hover:border-slate-400 hover:bg-[#ece8df]"
+        "border-[#e4e8ee] bg-white text-[#5e646c] hover:border-[#d7dde5] hover:text-[#18191b]"
       )}
     >
       {children}
