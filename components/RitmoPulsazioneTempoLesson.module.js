@@ -62,8 +62,8 @@ const lessonData = {
     },
     {
       id: "listening",
-      title: "Dov'e la pulsazione?",
-      text: "Guardiamo tre situazioni di ascolto senza usare brani coperti da copyright. Il compito non e indovinare un titolo: e capire dove si sente il battito comune."
+      title: "Cos'e la pulsazione?",
+      text: "Osserva tre situazioni ritmiche. Il compito e sentire il battito comune, seguirlo con il corpo e capire dove torna l'accento."
     },
     {
       id: "sequencer",
