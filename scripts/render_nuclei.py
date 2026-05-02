@@ -2338,7 +2338,6 @@ def nav_dropdown(prefix: str, active_slug: str | None = None) -> str:
                 <a href="{e(page_href(f"{prefix}compiti/"))}" data-nav-link="compiti">Compiti di realta</a>
                 <a href="{e(page_href(f"{prefix}docente/"))}" data-nav-link="docenti">Docenti</a>
                 <a href="{e(page_href(f"{prefix}pages/risorse.html"))}" data-nav-link="strumenti">Strumenti</a>
-                <a href="{e(page_href(f"{prefix}metodo/"))}" data-nav-link="metodo">8 fasi</a>
             </nav>"""
 
 
@@ -2478,6 +2477,34 @@ def render_topic_structure_section(topic: dict) -> str:
         "struttura-argomento",
         "Percorso dell'argomento in 8 fasi",
     )
+
+
+def render_topic_content_section(topic: dict) -> str:
+    cards = []
+    for phase in PHASE_LABELS:
+        phase_id, _, default_subtitle = phase
+        phase_data = topic["phases"][phase_id]
+        label = phase_data.get("nav_subtitle", default_subtitle)
+        cards.append(
+            f"""<article class="nucleus-card">
+                    <p class="panel-label">{e(label)}</p>
+                    <h3>{e(phase_data["title"])}</h3>
+                    <p>{e(phase_data["body"])}</p>
+                </article>"""
+        )
+
+    return f"""
+        <section class="nucleus-section" id="percorso-argomento">
+            <div class="shell">
+                <div class="nucleus-section__intro">
+                    <p class="eyebrow">Dentro l'argomento</p>
+                    <p>I contenuti sono raccolti in blocchi brevi e leggibili: domanda iniziale, contesto, ascolto, mappa, attivita, compito e verifica restano visibili senza trasformarsi in uno schema rigido.</p>
+                </div>
+                <div class="nucleus-card-grid">
+                    {"".join(cards)}
+                </div>
+            </div>
+        </section>"""
 
 
 def render_paragraphs(text: str) -> str:
@@ -3049,7 +3076,7 @@ def render_lesson_phase_explorer(topic: dict) -> str:
                     </div>
                     <div class="phase-card-shell">
                         <div class="phase-card-head">
-                            <span class="phase-index">Fase {index:02d}</span>
+                            <span class="phase-index">Tappa {index:02d}</span>
                             <span class="phase-badge">{e(nav_subtitle)}</span>
                         </div>
                         <h3 class="phase-title">{e(phase_data.get('panel_subtitle', phase_name))}</h3>
@@ -3067,11 +3094,11 @@ def render_lesson_phase_explorer(topic: dict) -> str:
                 <section class="student-lesson-board" aria-label="Percorso della lezione">
                     <header class="lesson-board-header">
                         <div>
-                            <span class="lesson-board-kicker">Lezione in 8 fasi</span>
+                            <span class="lesson-board-kicker">Percorso della lezione</span>
                             <h2>{e(topic['title'])}</h2>
-                            <p>{e((topic_subtitle + ". " if topic_subtitle else "") + "Scorri in orizzontale e segui le fasi in ordine.")}</p>
+                            <p>{e((topic_subtitle + ". " if topic_subtitle else "") + "Scorri in orizzontale e segui il percorso della lezione.")}</p>
                         </div>
-                        <span class="lesson-board-pill">Segui le fasi in ordine</span>
+                        <span class="lesson-board-pill">Segui il percorso</span>
                     </header>
                     <div class="lesson-flow" data-lesson-flow>
                         {"".join(phase_cards)}
@@ -3355,7 +3382,7 @@ def render_lesson_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str
                     </div>
                     <div class="nucleus-hero__actions">
                         <a class="button button--secondary" href="{e(page_href('../../'))}">Torna alla mappa del nucleo</a>
-                        <a class="button button--secondary" href="#lezione">Vai alle 8 fasi</a>
+                        <a class="button button--secondary" href="#lezione">Vai alla lezione</a>
                         <a class="button button--primary" href="#materiali">Materiali della lezione</a>
                     </div>
                 </div>
@@ -3399,7 +3426,7 @@ def render_lesson_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str
             </div>
             <div>
                 <span class="site-footer__label">Lezione</span>
-                <a href="#lezione">Vai alle 8 fasi</a>
+                <a href="#lezione">Vai alla lezione</a>
                 <a href="#materiali">Materiali e schede</a>
                 <a href="#riferimenti">Riferimenti</a>
             </div>
@@ -3411,7 +3438,7 @@ def render_lesson_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{e(topic['title'])}: lezione completa del nucleo {e(nucleo['title'])}, organizzata nello schema Accordia a 8 fasi.">
+    <meta name="description" content="{e(topic['title'])}: lezione completa del nucleo {e(nucleo['title'])}, con ascolto, attivita, materiali e riferimenti collegati.">
     <title>{e(topic['title'])} | {e(nucleo['title'])} | Accordia</title>
     <link rel="stylesheet" href="{asset_url('../../../../css/style.css')}">
 {render_immersive_lesson_stylesheet(lesson) if immersive_preview else ""}
@@ -3549,7 +3576,7 @@ def render_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{e(topic['title'])}: approfondimento del nucleo {e(nucleo['title'])}, organizzato in una struttura chiara di otto fasi.">
+    <meta name="description" content="{e(topic['title'])}: approfondimento del nucleo {e(nucleo['title'])}, con contenuti, ascolti, attivita e collegamenti utili.">
     <title>{e(topic['title'])} | {e(nucleo['title'])} | Accordia</title>
     <link rel="stylesheet" href="{asset_url('../../../../css/style.css')}">
 </head>
@@ -3606,7 +3633,7 @@ def render_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str:
             <div class="shell">
                 <div class="nucleus-section__intro">
                     <p class="eyebrow">Argomento in evidenza</p>
-                    <p>Aprendo un nodo della mappa entri in una vista dedicata: la struttura resta sempre la stessa, ma si concentra su un tema preciso del nucleo.</p>
+                    <p>Aprendo un nodo della mappa entri in una vista dedicata: qui trovi i contenuti essenziali dell'argomento, raccolti in blocchi chiari e vicini tra loro.</p>
                 </div>
                 <div class="nucleus-card-grid">
                     <article class="nucleus-card">
@@ -3623,7 +3650,7 @@ def render_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str:
             </div>
         </section>
 
-{render_topic_structure_section(topic)}
+{render_topic_content_section(topic)}
     </main>
 
     <footer class="site-footer">
@@ -3639,9 +3666,9 @@ def render_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str:
                 {footer_next}
             </div>
             <div>
-                <span class="site-footer__label">Otto fasi</span>
-                <a href="{e(page_href('../../../../metodo/'))}">Struttura in 8 fasi</a>
+                <span class="site-footer__label">Strumenti</span>
                 <a href="{e(page_href('../../../../compiti/'))}">Compiti di realta</a>
+                <a href="{e(page_href('../../../../pages/teoria.html'))}">Teoria in ascolto</a>
             </div>
         </div>
     </footer>
@@ -3672,7 +3699,7 @@ def render_timeline_page() -> str:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="La timeline di Accordia apre dieci nuclei storico-musicali completi, ognuno con una struttura in 8 fasi, contenuti da manuale, compito di realta e verifica.">
+    <meta name="description" content="La timeline di Accordia apre dieci nuclei storico-musicali completi, con mappe, lezioni, compiti di realta e verifiche.">
     <title>Nuclei | Accordia</title>
     <link rel="stylesheet" href="{asset_url('../css/style.css')}">
 </head>
@@ -3695,10 +3722,10 @@ def render_timeline_page() -> str:
                 <div class="timeline-editorial-hero__copy">
                     <p class="eyebrow">Nuclei Accordia</p>
                     <h1>Ogni card apre un nucleo vero, non una scheda riassuntiva.</h1>
-                    <p class="lead">La timeline di Accordia organizza la storia della musica in dieci nuclei editoriali completi: ogni tappa ha hero, indice interno, struttura in 8 fasi, contenuti da libro di testo, compito di realta e verifica.</p>
+                    <p class="lead">La timeline di Accordia organizza la storia della musica in dieci nuclei editoriali completi: ogni tappa ha hero, indice interno, mappe degli argomenti, contenuti da libro di testo, compito di realta e verifica.</p>
                     <div class="timeline-editorial-hero__actions">
                         <a class="button button--primary" href="#timeline-track">Esplora i nuclei</a>
-                        <a class="button button--secondary" href="{e(page_href('../metodo/'))}">Guarda le 8 fasi</a>
+                        <a class="button button--secondary" href="{e(page_href('../pages/lezioni.html'))}">Apri le lezioni</a>
                     </div>
                 </div>
                 <aside class="timeline-editorial-hero__panel">
@@ -3706,7 +3733,7 @@ def render_timeline_page() -> str:
                     <ul class="timeline-editorial-hero__list">
                         <li>hero con posizione nella timeline</li>
                         <li>mini timeline sticky per muoversi tra i nuclei</li>
-                        <li>struttura in 8 fasi sempre leggibile</li>
+                        <li>mappa degli argomenti e lezioni collegate</li>
                         <li>contenuti da manuale, compito e verifica</li>
                     </ul>
                 </aside>
@@ -3737,9 +3764,9 @@ def render_timeline_page() -> str:
                     <p>Ogni nucleo chiarisce subito posizione, periodo storico, nodo tematico e passaggi successivi nel percorso complessivo.</p>
                 </article>
                 <article class="timeline-editorial-framework__card">
-                    <p class="panel-label">Otto fasi</p>
-                    <h3>Struttura in 8 fasi sempre leggibile.</h3>
-                    <p>Scintilla, Rotta, Orecchio, Grafo, Cantiere, Varco, Ribalta e Specchio rimontano i contenuti in una progressione stabile.</p>
+                    <p class="panel-label">Percorso</p>
+                    <h3>Mappe, lezioni e approfondimenti collegati.</h3>
+                    <p>Ogni nucleo tiene insieme panorama storico, argomenti interni, percorsi guidati e accessi rapidi ai punti davvero utili in classe.</p>
                 </article>
                 <article class="timeline-editorial-framework__card">
                     <p class="panel-label">Didattica</p>
@@ -3754,11 +3781,11 @@ def render_timeline_page() -> str:
         <div class="shell site-footer__grid">
             <div>
                 <strong>Accordia</strong>
-                <p>La timeline ora apre nuclei editoriali completi, collegati fra loro da una mini timeline sticky e da una struttura didattica stabile in 8 fasi.</p>
+                <p>La timeline apre nuclei editoriali completi, collegati fra loro da una mini timeline sticky, mappe degli argomenti e lezioni guidate.</p>
             </div>
             <div>
                 <span class="site-footer__label">Continua</span>
-                <a href="{e(page_href('../metodo/'))}">Struttura in 8 fasi</a>
+                <a href="{e(page_href('../pages/lezioni.html'))}">Lezioni guidate</a>
                 <a href="{e(page_href('../compiti/'))}">Compiti di realta</a>
             </div>
             <div>
@@ -3842,7 +3869,6 @@ def render_nucleus_page(index: int, nucleo: dict) -> str:
     if topic_map:
         index_links.append(("#mappa", "Mappa argomenti"))
     index_links.extend([
-        ("#struttura", "8 fasi"),
         ("#sintesi", "Sintesi"),
         ("#ascolti", "Ascolti"),
         ("#concetti", "Concetti chiave"),
@@ -3902,7 +3928,7 @@ def render_nucleus_page(index: int, nucleo: dict) -> str:
                     <ul class="nucleus-bullet-list">
                         <li>indice interno per orientarsi rapidamente</li>
                         {"<li>mappa visiva interconnessa degli argomenti</li>" if topic_map else ""}
-                        <li>struttura in 8 fasi con la stessa gerarchia visiva</li>
+                        <li>snodi del nucleo ordinati in modo chiaro e leggibile</li>
                         <li>contenuti storici, ascolti, autori e lessico</li>
                         <li>compito di realta, verifica e materiali docente</li>
                     </ul>
@@ -3926,7 +3952,6 @@ def render_nucleus_page(index: int, nucleo: dict) -> str:
         </section>
 
 {render_topic_map_section(nucleo)}
-{render_nucleus_structure_section(nucleo)}
 
         <section class="nucleus-section" id="sintesi">
             <div class="shell">
@@ -4127,7 +4152,7 @@ def render_nucleus_page(index: int, nucleo: dict) -> str:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{e(nucleo['title'])} in Accordia: nucleo storico-musicale completo con struttura in 8 fasi, contenuti da manuale, compito di realta e verifica.">
+    <meta name="description" content="{e(nucleo['title'])} in Accordia: nucleo storico-musicale completo con contenuti da manuale, ascolti, compito di realta e verifica.">
     <title>{e(nucleo['title'])} | Accordia</title>
     <link rel="stylesheet" href="{asset_url('../../css/style.css')}">
 </head>
@@ -4188,9 +4213,9 @@ def render_nucleus_page(index: int, nucleo: dict) -> str:
                 {footer_next}
             </div>
             <div>
-                <span class="site-footer__label">Otto fasi</span>
-                <a href="{e(page_href('../../metodo/'))}">Struttura in 8 fasi</a>
+                <span class="site-footer__label">Strumenti</span>
                 <a href="{e(page_href('../../compiti/'))}">Compiti di realta</a>
+                <a href="{e(page_href('../../pages/lezioni.html'))}">Lezioni guidate</a>
             </div>
         </div>
     </footer>

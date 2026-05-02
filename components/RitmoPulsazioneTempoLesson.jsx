@@ -650,7 +650,7 @@ function SparkSection() {
   return (
     <SectionShell id={section.id} backgroundClass="bg-[#f8f6f2]" className={SECTION_SPACE}>
       <div className={LESSON_SHELL} style={{ fontFamily: APP_FONT }}>
-        <SectionHeading kicker="Scintilla" title={section.title} text={section.text} align="center" />
+        <SectionHeading kicker="Domanda iniziale" title={section.title} text={section.text} align="center" />
 
         <SurfacePanel tone="soft" className="mt-14 px-6 py-8 sm:px-10 sm:py-10">
           <div className="flex flex-col items-center">
