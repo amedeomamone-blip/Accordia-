@@ -28,85 +28,127 @@ const frameworkCards = [
 
 export default function TimelinePage() {
   return (
-    <div className="overflow-hidden">
-      <section className="relative isolate border-b border-accordia-line/80">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_18%_20%,rgba(112,87,201,0.16),transparent_24%),radial-gradient(circle_at_88%_16%,rgba(193,79,64,0.18),transparent_22%),linear-gradient(180deg,#fff8ef_0%,#fffdfa_56%,#f3ebdf_100%)]" />
+    <div className="overflow-hidden bg-white">
+      <section className="border-b border-[#eceef2] bg-[#fffdfb] py-5">
+        <div className="mx-auto flex w-[min(100%-2rem,84rem)] flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
+          <p className="text-sm leading-7 text-[#545a63]">
+            Questa e' la copia Piny della timeline reale di Accordia. La struttura qui sotto
+            adesso segue molto piu' da vicino la pagina statica che hai gia' costruito.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <a
+              className="inline-flex items-center justify-center rounded-full bg-[#18191b] px-5 py-3 text-[0.82rem] font-bold uppercase tracking-[0.05em] text-white transition duration-200 hover:-translate-y-0.5"
+              href="http://127.0.0.1:8000/timeline/index.html"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Apri riferimento reale
+            </a>
+            <a
+              className="inline-flex items-center justify-center rounded-full border-2 border-[#18191b] px-5 py-3 text-[0.82rem] font-bold uppercase tracking-[0.05em] text-[#18191b] transition duration-200 hover:-translate-y-0.5 hover:bg-white"
+              href="http://127.0.0.1:8000/index.html"
+              rel="noreferrer"
+              target="_blank"
+            >
+              Apri home reale
+            </a>
+          </div>
+        </div>
+      </section>
 
-        <div className="relative mx-auto grid w-[min(100%-2rem,84rem)] gap-10 py-16 lg:grid-cols-[minmax(0,1.15fr)_minmax(18rem,0.85fr)] lg:items-start lg:py-24">
+      <section className="border-b border-[#eceef2] py-[5.4rem] pb-[3.5rem]">
+        <div className="mx-auto grid w-[min(100%-2rem,84rem)] gap-[1.4rem] lg:grid-cols-[minmax(0,1.16fr)_minmax(19rem,0.84fr)]">
           <div>
-            <p className="mb-5 text-[0.72rem] font-semibold uppercase tracking-[0.34em] text-accordia-ocean">
-              Timeline editoriale
+            <p className="inline-flex items-center gap-[0.6rem] text-[0.76rem] font-extrabold uppercase tracking-[0.14em] text-[#6d737c] before:h-px before:w-8 before:bg-[#d5d9df] before:content-['']">
+              Nuclei Accordia
             </p>
-            <h1 className="max-w-4xl text-[clamp(2.9rem,6vw,5.2rem)] font-black leading-[0.92] tracking-[-0.06em] text-accordia-ink">
-              Ogni card apre un nucleo vero, non una copertina muta.
+            <h1 className="mt-4 max-w-[15ch] font-display text-[clamp(2.6rem,6vw,5rem)] font-black leading-[0.94] tracking-[-0.05em] text-[#18191b]">
+              Ogni card apre un nucleo vero, non una scheda riassuntiva.
             </h1>
-            <p className="mt-6 max-w-3xl text-lg leading-8 text-accordia-muted">
-              Questa vista porta dentro Piny la logica della pagina timeline di Accordia:
-              i nuclei scorrono in orizzontale, hanno piu materia editoriale e ti lasciano
-              intervenire su ritmo, densita, etichette, colori e gerarchie con precisione.
+            <p className="mt-4 max-w-[68ch] text-[1.08rem] leading-[1.85] text-[#40454c]">
+              La timeline di Accordia organizza la storia della musica in dieci nuclei
+              editoriali completi: ogni tappa ha hero, indice interno, mappe degli argomenti,
+              contenuti da libro di testo, compito di realta e verifica.
             </p>
+            <div className="mt-8 flex flex-wrap gap-[0.85rem]">
+              <a
+                className="inline-flex items-center justify-center rounded-full bg-[#18191b] px-6 py-4 text-[0.95rem] font-bold uppercase tracking-[0.05em] text-white transition duration-200 hover:-translate-y-0.5"
+                href="#timeline-track"
+              >
+                Esplora i nuclei
+              </a>
+              <a
+                className="inline-flex items-center justify-center rounded-full border-2 border-[#18191b] px-6 py-4 text-[0.95rem] font-bold uppercase tracking-[0.05em] text-[#18191b] transition duration-200 hover:-translate-y-0.5 hover:bg-[#f7f7f7]"
+                href="http://127.0.0.1:8000/pages/lezioni.html"
+                rel="noreferrer"
+                target="_blank"
+              >
+                Apri le lezioni
+              </a>
+            </div>
           </div>
 
-          <aside className="rounded-[2.2rem] border border-white/70 bg-white/82 p-7 shadow-[0_24px_60px_rgba(15,23,42,0.12)] backdrop-blur">
-            <p className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-accordia-red">
+          <aside className="rounded-[1.5rem] border border-[#e8ebf0] bg-white p-[1.6rem] shadow-[0_14px_30px_rgba(15,23,42,0.05)]">
+            <p className="inline-flex items-center gap-[0.6rem] text-[0.76rem] font-extrabold uppercase tracking-[0.14em] text-[#6d737c] before:h-px before:w-8 before:bg-[#d5d9df] before:content-['']">
               Dentro ogni nucleo
             </p>
-            <div className="mt-5 space-y-3">
+            <ul className="mt-4 grid gap-[0.7rem] pl-[1.1rem] text-[#545a63]">
               {timelinePoints.map((point) => (
-                <div
-                  key={point}
-                  className="flex items-start gap-3 rounded-[1.25rem] border border-accordia-line bg-accordia-shell/70 px-4 py-4"
-                >
-                  <span className="mt-1 h-2.5 w-2.5 rounded-full bg-accordia-red" />
-                  <p className="text-sm leading-7 text-accordia-ink">{point}</p>
-                </div>
+                <li key={point} className="text-[0.98rem] leading-7">
+                  {point}
+                </li>
               ))}
-            </div>
+            </ul>
           </aside>
         </div>
       </section>
 
-      <section className="border-b border-accordia-line/80 bg-accordia-shell/75 py-16" id="timeline-track">
+      <section className="py-16 pb-[4.6rem]" id="timeline-track">
         <div className="mx-auto w-[min(100%-2rem,84rem)]">
-          <div className="mb-8 flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
-            <div className="max-w-3xl">
-              <p className="text-[0.72rem] font-semibold uppercase tracking-[0.34em] text-accordia-red">
-                Rail completo
+          <div className="mb-6 grid gap-5 lg:grid-cols-[minmax(0,1.15fr)_minmax(20rem,24rem)] lg:items-end">
+            <div>
+              <p className="inline-flex items-center gap-[0.6rem] text-[0.76rem] font-extrabold uppercase tracking-[0.14em] text-[#6d737c] before:h-px before:w-8 before:bg-[#d5d9df] before:content-['']">
+                Timeline a scorrimento
               </p>
-              <h2 className="mt-3 text-[clamp(2.1rem,4.6vw,3.8rem)] font-black leading-[0.95] tracking-[-0.05em] text-accordia-ink">
-                Dieci card con piu contenuto, piu massa e piu punti di intervento.
+              <h2 className="mt-4 max-w-[18ch] font-display text-[clamp(2rem,5vw,3.6rem)] font-black leading-[0.96] tracking-[-0.04em] text-[#18191b]">
+                Dieci nuclei storico-musicali da attraversare in ordine.
               </h2>
             </div>
-            <p className="max-w-xl text-sm leading-7 text-accordia-muted">
-              Qui il lavoro visuale puo diventare piu chirurgico: puoi riequilibrare CTA,
-              pannelli periodo, spessori, colori accento e spazio verticale delle schede.
+            <p className="text-[1rem] leading-7 text-[#545a63]">
+              Quando apri un nucleo entri in un capitolo costruito per la didattica: non
+              un&apos;anteprima, ma una pagina completa. Tornando qui, Accordia ripristina la
+              posizione dell&apos;ultima tappa visitata.
             </p>
           </div>
 
-          <div className="overflow-x-auto pb-6">
-            <div className="flex min-w-max gap-5 pr-6">
+          <div className="overflow-x-auto px-[0.15rem] pb-5 pt-[0.35rem]">
+            <div className="grid min-w-max auto-cols-[minmax(20rem,20vw)] grid-flow-col gap-4">
               {nuclei.map((nucleus) => (
                 <NucleusCard key={nucleus.id} mode="timeline" nucleus={nucleus} />
               ))}
             </div>
           </div>
+          <p className="mt-4 text-[0.94rem] text-[#6d737c]">
+            Scorri lateralmente o usa la mini timeline interna ai nuclei per continuare il
+            percorso da dove eri arrivato.
+          </p>
         </div>
       </section>
 
       <section className="py-16 lg:py-20">
-        <div className="mx-auto grid w-[min(100%-2rem,84rem)] gap-6 lg:grid-cols-3">
+        <div className="mx-auto grid w-[min(100%-2rem,84rem)] gap-4 lg:grid-cols-12">
           {frameworkCards.map((card) => (
             <article
               key={card.title}
-              className="rounded-[2rem] border border-accordia-line bg-white/88 p-7 shadow-[0_16px_40px_rgba(15,23,42,0.08)]"
+              className="rounded-[1.5rem] border border-[#e8ebf0] bg-white p-6 shadow-[0_14px_30px_rgba(15,23,42,0.05)] lg:col-span-4"
             >
-              <p className="text-[0.68rem] font-semibold uppercase tracking-[0.3em] text-accordia-ocean">
+              <p className="inline-flex items-center gap-[0.6rem] text-[0.76rem] font-extrabold uppercase tracking-[0.14em] text-[#6d737c] before:h-px before:w-8 before:bg-[#d5d9df] before:content-['']">
                 {card.eyebrow}
               </p>
-              <h2 className="mt-4 text-[1.6rem] font-black leading-tight tracking-[-0.04em] text-accordia-ink">
+              <h2 className="mt-[0.85rem] font-display text-[1.35rem] font-black leading-[1.05] tracking-[-0.04em] text-[#18191b]">
                 {card.title}
               </h2>
-              <p className="mt-4 text-sm leading-7 text-accordia-muted">{card.text}</p>
+              <p className="mt-[0.8rem] text-[1rem] leading-7 text-[#545a63]">{card.text}</p>
             </article>
           ))}
         </div>

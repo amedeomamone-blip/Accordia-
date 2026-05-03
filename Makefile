@@ -1,4 +1,4 @@
-.PHONY: build check-links serve studio-install studio-dev studio-build
+.PHONY: build check-links serve studio-install studio-dev studio-build studio-open
 
 build:
 	python3 scripts/render_nuclei.py
@@ -17,3 +17,6 @@ studio-dev:
 
 studio-build:
 	cd studio && npm run build
+
+studio-open:
+	./scripts/open_accordia_studio.sh

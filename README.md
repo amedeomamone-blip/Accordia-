@@ -74,6 +74,7 @@ GRAFO e un asse centrale del progetto: non e decorazione, ma traduzione visiva d
 - `make studio-install` installa il laboratorio visivo compatibile con Piny.
 - `make studio-dev` avvia il laboratorio su `http://127.0.0.1:5173`.
 - `make studio-build` verifica che il laboratorio React/Tailwind compili correttamente.
+- `make studio-open` avvia i server necessari e apre il flusso di lavoro visuale.
 - In alternativa puoi eseguire direttamente `python3 scripts/render_nuclei.py`.
 - Regola operativa del progetto: a fine blocco di lavoro completato si fa `git add`, `git commit` e `git push` su `origin/main`, salvo richiesta esplicita di lasciare le modifiche solo in locale o fermarsi prima della pubblicazione.
 
@@ -94,6 +95,8 @@ GRAFO e un asse centrale del progetto: non e decorazione, ma traduzione visiva d
   - `Cmd+Shift+P` -> `Simple Browser: Show`
   - apri `http://127.0.0.1:5173/timeline`
   - oppure fai click destro nel file `.jsx` e usa `Edit in Piny`
+- Per avviare tutto con meno attrito puoi usare anche `make studio-open` oppure il file `Open Accordia Studio.command` nella root del repo.
+- La route `studio` adesso riproduce molto piu' da vicino la `timeline` reale. Se vuoi vedere il riferimento statico esatto, il launcher apre anche `http://127.0.0.1:8000/timeline/index.html`.
 - Il sito statico principale resta intatto finche non decidiamo di riportare i ritocchi dal laboratorio ai file HTML/CSS di produzione.
 
 ## Sorgente del contenuto

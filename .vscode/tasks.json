@@ -37,6 +37,15 @@
       "problemMatcher": []
     },
     {
+      "label": "Accordia Studio: open",
+      "type": "shell",
+      "command": "./scripts/open_accordia_studio.sh",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "problemMatcher": []
+    },
+    {
       "label": "Accordia Static Site: serve",
       "type": "shell",
       "command": "make serve",
