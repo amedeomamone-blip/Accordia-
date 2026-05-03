@@ -1,0 +1,82 @@
+{
+  "origini-del-suono": {
+    "title": "Origini del suono",
+    "nav_title": "Origini del suono",
+    "category": "Origini",
+    "period": "Preistoria sonora e prime comunita",
+    "accent": "#c06a1c",
+    "description": "Corpo, ritmo, gesto, ambiente e primi usi condivisi del suono."
+  },
+  "civilta-del-mediterraneo": {
+    "title": "Civilta del Mediterraneo",
+    "nav_title": "Civilta del Mediterraneo",
+    "category": "Antico Mediterraneo",
+    "period": "III millennio a.C. - V secolo d.C.",
+    "accent": "#9b4d2f",
+    "description": "Rito, mito, teatro e potere nelle prime grandi culture storiche."
+  },
+  "dalla-tarda-antichita-al-sacro": {
+    "title": "Dalla tarda antichita al sacro",
+    "nav_title": "Dalla tarda antichita al sacro",
+    "category": "Transizione",
+    "period": "IV - IX secolo",
+    "accent": "#5b67d6",
+    "description": "Un passaggio chiave verso nuove comunita di ascolto e di canto."
+  },
+  "medioevo": {
+    "title": "Medioevo",
+    "nav_title": "Medioevo",
+    "category": "Medioevo",
+    "period": "IX - XIV secolo",
+    "accent": "#1f7f90",
+    "description": "Gregoriano, notazione, prime polifonie e istituzioni del suono scritto."
+  },
+  "rinascimento": {
+    "title": "Rinascimento",
+    "nav_title": "Rinascimento",
+    "category": "Rinascimento",
+    "period": "XV - XVI secolo",
+    "accent": "#768a2a",
+    "description": "Polifonia, umanesimo, corti e nuova centralita dell'uomo."
+  },
+  "barocco": {
+    "title": "Barocco",
+    "nav_title": "Barocco",
+    "category": "Barocco",
+    "period": "XVII - prima meta XVIII secolo",
+    "accent": "#c14f40",
+    "description": "Teatro, contrasto, meraviglia e nascita dell'opera moderna."
+  },
+  "classicismo": {
+    "title": "Classicismo",
+    "nav_title": "Classicismo",
+    "category": "Classicismo",
+    "period": "Seconda meta XVIII - inizio XIX secolo",
+    "accent": "#2f6fd6",
+    "description": "Equilibrio, forma, chiarezza e grande stagione viennese."
+  },
+  "romanticismo": {
+    "title": "Romanticismo e secondo Ottocento",
+    "nav_title": "Romanticismo e secondo Ottocento",
+    "category": "Romanticismo",
+    "period": "XIX secolo e secondo Ottocento europeo",
+    "accent": "#a94d87",
+    "description": "Io, emozione, pianoforte, orchestra, opera e nazioni."
+  },
+  "novecento-delle-rivoluzioni": {
+    "title": "Novecento delle rivoluzioni",
+    "nav_title": "Novecento delle rivoluzioni",
+    "category": "Novecento",
+    "period": "Primo Novecento - secondo dopoguerra",
+    "accent": "#7057c9",
+    "description": "Avanguardie, nuove sonorita, cinema, jazz e fratture del linguaggio."
+  },
+  "musica-contemporanea": {
+    "title": "Musica contemporanea e culture globali",
+    "nav_title": "Musica contemporanea e culture globali",
+    "category": "Oggi",
+    "period": "Fine Novecento - oggi",
+    "accent": "#2f8c63",
+    "description": "Media, popular music, culture del mondo e produzione digitale."
+  }
+}

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accordia Editor</title>
+    <link rel="stylesheet" href="editor.css">
+</head>
+<body>
+    <div class="editor-shell">
+        <header class="editor-topbar">
+            <div>
+                <p class="editor-kicker">Accordia Editor</p>
+                <h1>Timeline visuale con salvataggio sulla sorgente</h1>
+            </div>
+            <div class="editor-topbar__actions">
+                <button id="reload-button" class="editor-button editor-button--secondary" type="button">Ricarica</button>
+                <button id="save-button" class="editor-button editor-button--primary" type="button">Salva e rigenera</button>
+            </div>
+        </header>
+
+        <div class="editor-statusbar">
+            <span id="status-pill" class="status-pill">Caricamento...</span>
+            <span class="status-text">La preview mostra la timeline generata reale. Il salvataggio aggiorna `data/editor/*.json` e rigenera il sito.</span>
+        </div>
+
+        <div class="editor-layout">
+            <aside class="editor-sidebar">
+                <section class="editor-panel">
+                    <h2>Blocchi</h2>
+                    <div class="editor-nav" id="fixed-sections"></div>
+                </section>
+                <section class="editor-panel">
+                    <h2>Card dei nuclei</h2>
+                    <div class="editor-card-list" id="card-sections"></div>
+                </section>
+            </aside>
+
+            <main class="editor-preview">
+                <div class="editor-preview__frame">
+                    <iframe id="preview-frame" title="Preview della timeline Accordia"></iframe>
+                </div>
+            </main>
+
+            <aside class="editor-inspector">
+                <div class="editor-panel editor-panel--sticky">
+                    <div class="editor-panel__header">
+                        <h2 id="inspector-title">Inspector</h2>
+                        <p id="inspector-subtitle">Seleziona un blocco dalla sidebar o clicca nella preview.</p>
+                    </div>
+                    <form id="inspector-form" class="editor-form"></form>
+                </div>
+            </aside>
+        </div>
+    </div>
+
+    <script src="editor.js"></script>
+</body>
+</html>

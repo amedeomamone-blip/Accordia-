@@ -1,0 +1,57 @@
+{
+  "meta_description": "La timeline di Accordia apre dieci nuclei storico-musicali completi, con mappe, lezioni, compiti di realta e verifiche.",
+  "page_title": "Nuclei | Accordia",
+  "hero": {
+    "eyebrow": "Nuclei Accordia",
+    "title": "Ogni card apre un nucleo vero, non una scheda riassuntiva.",
+    "lead": "La timeline di Accordia organizza la storia della musica in dieci nuclei editoriali completi: ogni tappa ha hero, indice interno, mappe degli argomenti, contenuti da libro di testo, compito di realta e verifica.",
+    "primary_cta_label": "Esplora i nuclei",
+    "primary_cta_href": "#timeline-track",
+    "secondary_cta_label": "Apri le lezioni",
+    "secondary_cta_href": "../pages/lezioni.html",
+    "panel_label": "Dentro ogni nucleo",
+    "panel_items": [
+      "hero con posizione nella timeline",
+      "mini timeline sticky per muoversi tra i nuclei",
+      "mappa degli argomenti e lezioni collegate",
+      "contenuti da manuale, compito e verifica"
+    ]
+  },
+  "track": {
+    "eyebrow": "Timeline a scorrimento",
+    "title": "Dieci nuclei storico-musicali da attraversare in ordine.",
+    "body": "Quando apri un nucleo entri in un capitolo costruito per la didattica: non un'anteprima, ma una pagina completa. Tornando qui, Accordia ripristina la posizione dell'ultima tappa visitata.",
+    "hint": "Scorri lateralmente o usa la mini timeline interna ai nuclei per continuare il percorso da dove eri arrivato."
+  },
+  "framework_cards": [
+    {
+      "eyebrow": "Struttura",
+      "title": "Hero, indice e navigazione di capitolo.",
+      "body": "Ogni nucleo chiarisce subito posizione, periodo storico, nodo tematico e passaggi successivi nel percorso complessivo."
+    },
+    {
+      "eyebrow": "Percorso",
+      "title": "Mappe, lezioni e approfondimenti collegati.",
+      "body": "Ogni nucleo tiene insieme panorama storico, argomenti interni, percorsi guidati e accessi rapidi ai punti davvero utili in classe."
+    },
+    {
+      "eyebrow": "Didattica",
+      "title": "Manuale, compito di realta e verifica.",
+      "body": "Contesto storico, ascolti, lessico, autori, attivita, compito e materiali docente convivono nello stesso capitolo."
+    }
+  ],
+  "footer": {
+    "summary": "La timeline apre nuclei editoriali completi, collegati fra loro da una mini timeline sticky, mappe degli argomenti e lezioni guidate.",
+    "continue_label": "Continua",
+    "project_label": "Progetto"
+  },
+  "style": {
+    "hero_padding_top": "5.4rem",
+    "hero_padding_bottom": "3.5rem",
+    "track_padding_top": "4rem",
+    "track_padding_bottom": "4.6rem",
+    "card_min_height": "25rem",
+    "card_gap": "1rem",
+    "card_auto_columns": "minmax(20rem, 20vw)"
+  }
+}

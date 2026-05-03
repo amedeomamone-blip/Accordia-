@@ -1,5 +1,7 @@
 from __future__ import annotations
 
+import copy
+import json
 from html import escape
 from pathlib import Path
 import re
@@ -34,6 +36,74 @@ STATIC_PAGES = [
 ]
 CSS_ASSET_RE = re.compile(r'href="(?P<path>[^"]*css/style\.css)(?:\?v=\d+)?"')
 JS_ASSET_RE = re.compile(r'src="(?P<path>[^"]*js/main\.js)(?:\?v=\d+)?"')
+EDITOR_DATA_DIR = ROOT / "data" / "editor"
+TIMELINE_PAGE_DATA_PATH = EDITOR_DATA_DIR / "timeline_page.json"
+NUCLEI_OVERRIDES_PATH = EDITOR_DATA_DIR / "nuclei_overrides.json"
+EDITOR_NUCLEUS_FIELDS = (
+    "title",
+    "nav_title",
+    "category",
+    "period",
+    "accent",
+    "description",
+)
+DEFAULT_TIMELINE_PAGE_DATA = {
+    "meta_description": "La timeline di Accordia apre dieci nuclei storico-musicali completi, con mappe, lezioni, compiti di realta e verifiche.",
+    "page_title": "Nuclei | Accordia",
+    "hero": {
+        "eyebrow": "Nuclei Accordia",
+        "title": "Ogni card apre un nucleo vero, non una scheda riassuntiva.",
+        "lead": "La timeline di Accordia organizza la storia della musica in dieci nuclei editoriali completi: ogni tappa ha hero, indice interno, mappe degli argomenti, contenuti da libro di testo, compito di realta e verifica.",
+        "primary_cta_label": "Esplora i nuclei",
+        "primary_cta_href": "#timeline-track",
+        "secondary_cta_label": "Apri le lezioni",
+        "secondary_cta_href": "../pages/lezioni.html",
+        "panel_label": "Dentro ogni nucleo",
+        "panel_items": [
+            "hero con posizione nella timeline",
+            "mini timeline sticky per muoversi tra i nuclei",
+            "mappa degli argomenti e lezioni collegate",
+            "contenuti da manuale, compito e verifica",
+        ],
+    },
+    "track": {
+        "eyebrow": "Timeline a scorrimento",
+        "title": "Dieci nuclei storico-musicali da attraversare in ordine.",
+        "body": "Quando apri un nucleo entri in un capitolo costruito per la didattica: non un'anteprima, ma una pagina completa. Tornando qui, Accordia ripristina la posizione dell'ultima tappa visitata.",
+        "hint": "Scorri lateralmente o usa la mini timeline interna ai nuclei per continuare il percorso da dove eri arrivato.",
+    },
+    "framework_cards": [
+        {
+            "eyebrow": "Struttura",
+            "title": "Hero, indice e navigazione di capitolo.",
+            "body": "Ogni nucleo chiarisce subito posizione, periodo storico, nodo tematico e passaggi successivi nel percorso complessivo.",
+        },
+        {
+            "eyebrow": "Percorso",
+            "title": "Mappe, lezioni e approfondimenti collegati.",
+            "body": "Ogni nucleo tiene insieme panorama storico, argomenti interni, percorsi guidati e accessi rapidi ai punti davvero utili in classe.",
+        },
+        {
+            "eyebrow": "Didattica",
+            "title": "Manuale, compito di realta e verifica.",
+            "body": "Contesto storico, ascolti, lessico, autori, attivita, compito e materiali docente convivono nello stesso capitolo.",
+        },
+    ],
+    "footer": {
+        "summary": "La timeline apre nuclei editoriali completi, collegati fra loro da una mini timeline sticky, mappe degli argomenti e lezioni guidate.",
+        "continue_label": "Continua",
+        "project_label": "Progetto",
+    },
+    "style": {
+        "hero_padding_top": "5.4rem",
+        "hero_padding_bottom": "3.5rem",
+        "track_padding_top": "4rem",
+        "track_padding_bottom": "4.6rem",
+        "card_min_height": "25rem",
+        "card_gap": "1rem",
+        "card_auto_columns": "minmax(20rem, 20vw)",
+    },
+}
 
 PHASE_LABELS = [
     ("scintilla", "Scintilla", "Domanda iniziale"),
@@ -2296,6 +2366,93 @@ ORIGINI_TOPIC_MAP = {
 NUCLEI[0]["topic_map"] = ORIGINI_TOPIC_MAP
 
 
+def clone_data(value):
+    return copy.deepcopy(value)
+
+
+def merge_dicts(base: dict, override: dict) -> dict:
+    merged = clone_data(base)
+    for key, value in override.items():
+        if key in merged and isinstance(merged[key], dict) and isinstance(value, dict):
+            merged[key] = merge_dicts(merged[key], value)
+        else:
+            merged[key] = clone_data(value)
+    return merged
+
+
+def default_nuclei_overrides() -> dict[str, dict]:
+    payload = {}
+    for nucleo in NUCLEI:
+        payload[nucleo["slug"]] = {field: nucleo[field] for field in EDITOR_NUCLEUS_FIELDS}
+    return payload
+
+
+def load_json_data(path: Path, default):
+    if not path.exists():
+        return clone_data(default)
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return clone_data(default)
+
+
+def write_json_data(path: Path, payload) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+
+
+def load_timeline_page_data() -> dict:
+    raw = load_json_data(TIMELINE_PAGE_DATA_PATH, DEFAULT_TIMELINE_PAGE_DATA)
+    return merge_dicts(DEFAULT_TIMELINE_PAGE_DATA, raw)
+
+
+def save_timeline_page_data(payload: dict) -> None:
+    normalized = merge_dicts(DEFAULT_TIMELINE_PAGE_DATA, payload)
+    write_json_data(TIMELINE_PAGE_DATA_PATH, normalized)
+
+
+def load_nuclei_overrides() -> dict[str, dict]:
+    raw = load_json_data(NUCLEI_OVERRIDES_PATH, default_nuclei_overrides())
+    merged = default_nuclei_overrides()
+    for slug, values in raw.items():
+        if slug in merged and isinstance(values, dict):
+            for field in EDITOR_NUCLEUS_FIELDS:
+                if field in values:
+                    merged[slug][field] = values[field]
+    return merged
+
+
+def save_nuclei_overrides(payload) -> None:
+    overrides = {}
+    items = payload.values() if isinstance(payload, dict) else payload
+    for item in items:
+        slug = item["slug"]
+        overrides[slug] = {field: item[field] for field in EDITOR_NUCLEUS_FIELDS if field in item}
+    write_json_data(NUCLEI_OVERRIDES_PATH, overrides)
+
+
+def get_nuclei() -> list[dict]:
+    nuclei = clone_data(NUCLEI)
+    overrides = load_nuclei_overrides()
+    for nucleo in nuclei:
+        for field, value in overrides.get(nucleo["slug"], {}).items():
+            nucleo[field] = value
+    return nuclei
+
+
+def get_editor_payload() -> dict:
+    nuclei_payload = []
+    for nucleo in get_nuclei():
+        entry = {"slug": nucleo["slug"], "number": nucleo["number"]}
+        for field in EDITOR_NUCLEUS_FIELDS:
+            entry[field] = nucleo[field]
+        nuclei_payload.append(entry)
+    return {
+        "timeline_page": load_timeline_page_data(),
+        "nuclei": nuclei_payload,
+    }
+
+
 def e(value: str) -> str:
     return escape(value, quote=True)
 
@@ -2317,7 +2474,7 @@ def link_button(label: str, href: str | None, variant: str, extra: str = "") -> 
 
 def nav_dropdown(prefix: str, active_slug: str | None = None) -> str:
     items = []
-    for nucleo in NUCLEI:
+    for nucleo in get_nuclei():
         current = nucleo["slug"] == active_slug
         cls = ' class="is-current"' if current else ""
         aria = ' aria-current="page"' if current else ""
@@ -2342,7 +2499,7 @@ def nav_dropdown(prefix: str, active_slug: str | None = None) -> str:
 
 
 def find_nucleo(slug: str) -> dict:
-    return next(nucleo for nucleo in NUCLEI if nucleo["slug"] == slug)
+    return next(nucleo for nucleo in get_nuclei() if nucleo["slug"] == slug)
 
 
 def build_topic_relations(topic_map: dict) -> tuple[dict[str, list[str]], dict[str, dict]]:
@@ -2358,7 +2515,7 @@ def build_topic_relations(topic_map: dict) -> tuple[dict[str, list[str]], dict[s
 
 def render_nucleus_mini_links(current_slug: str, prefix: str) -> str:
     items = []
-    for item in NUCLEI:
+    for item in get_nuclei():
         attrs = [
             f'href="{e(page_href(prefix + "nuclei/" + item["slug"] + "/"))}"',
             f'style="--mini-accent: {e(item["accent"])};"',
@@ -3675,16 +3832,51 @@ def render_timeline_card(nucleo: dict, prefix: str) -> str:
                     </a>"""
 
 
+def render_timeline_page_style(style: dict) -> str:
+    return f"""
+    <style>
+        .timeline-editorial-hero {{
+            padding: {style["hero_padding_top"]} 0 {style["hero_padding_bottom"]};
+        }}
+
+        .timeline-editorial-track {{
+            padding: {style["track_padding_top"]} 0 {style["track_padding_bottom"]};
+        }}
+
+        .timeline-editorial-track__scroll {{
+            gap: {style["card_gap"]};
+            grid-auto-columns: {style["card_auto_columns"]};
+        }}
+
+        .timeline-editorial-card {{
+            min-height: {style["card_min_height"]};
+        }}
+    </style>"""
+
+
 def render_timeline_page() -> str:
-    cards = "".join(render_timeline_card(nucleo, "../") for nucleo in NUCLEI)
+    config = load_timeline_page_data()
+    nuclei = get_nuclei()
+    cards = "".join(render_timeline_card(nucleo, "../") for nucleo in nuclei)
+    panel_items = "".join(f"<li>{e(item)}</li>" for item in config["hero"]["panel_items"])
+    framework_cards = "".join(
+        f"""
+                <article class="timeline-editorial-framework__card">
+                    <p class="panel-label">{e(card["eyebrow"])}</p>
+                    <h3>{e(card["title"])}</h3>
+                    <p>{e(card["body"])}</p>
+                </article>"""
+        for card in config["framework_cards"]
+    )
     return f"""<!DOCTYPE html>
 <html lang="it">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="La timeline di Accordia apre dieci nuclei storico-musicali completi, con mappe, lezioni, compiti di realta e verifiche.">
-    <title>Nuclei | Accordia</title>
+    <meta name="description" content="{e(config["meta_description"])}">
+    <title>{e(config["page_title"])}</title>
     <link rel="stylesheet" href="{asset_url('../css/style.css')}">
+{render_timeline_page_style(config["style"])}
 </head>
 <body data-nav="timeline">
     <header class="site-header">
@@ -3703,21 +3895,18 @@ def render_timeline_page() -> str:
         <section class="timeline-editorial-hero">
             <div class="shell timeline-editorial-hero__grid">
                 <div class="timeline-editorial-hero__copy">
-                    <p class="eyebrow">Nuclei Accordia</p>
-                    <h1>Ogni card apre un nucleo vero, non una scheda riassuntiva.</h1>
-                    <p class="lead">La timeline di Accordia organizza la storia della musica in dieci nuclei editoriali completi: ogni tappa ha hero, indice interno, mappe degli argomenti, contenuti da libro di testo, compito di realta e verifica.</p>
+                    <p class="eyebrow">{e(config["hero"]["eyebrow"])}</p>
+                    <h1>{e(config["hero"]["title"])}</h1>
+                    <p class="lead">{e(config["hero"]["lead"])}</p>
                     <div class="timeline-editorial-hero__actions">
-                        <a class="button button--primary" href="#timeline-track">Esplora i nuclei</a>
-                        <a class="button button--secondary" href="{e(page_href('../pages/lezioni.html'))}">Apri le lezioni</a>
+                        <a class="button button--primary" href="{e(page_href(config["hero"]["primary_cta_href"]))}">{e(config["hero"]["primary_cta_label"])}</a>
+                        <a class="button button--secondary" href="{e(page_href(config["hero"]["secondary_cta_href"]))}">{e(config["hero"]["secondary_cta_label"])}</a>
                     </div>
                 </div>
                 <aside class="timeline-editorial-hero__panel">
-                    <p class="panel-label">Dentro ogni nucleo</p>
+                    <p class="panel-label">{e(config["hero"]["panel_label"])}</p>
                     <ul class="timeline-editorial-hero__list">
-                        <li>hero con posizione nella timeline</li>
-                        <li>mini timeline sticky per muoversi tra i nuclei</li>
-                        <li>mappa degli argomenti e lezioni collegate</li>
-                        <li>contenuti da manuale, compito e verifica</li>
+                        {panel_items}
                     </ul>
                 </aside>
             </div>
@@ -3727,35 +3916,21 @@ def render_timeline_page() -> str:
             <div class="shell">
                 <div class="timeline-editorial-track__heading">
                     <div>
-                        <p class="eyebrow">Timeline a scorrimento</p>
-                        <h2>Dieci nuclei storico-musicali da attraversare in ordine.</h2>
+                        <p class="eyebrow">{e(config["track"]["eyebrow"])}</p>
+                        <h2>{e(config["track"]["title"])}</h2>
                     </div>
-                    <p>Quando apri un nucleo entri in un capitolo costruito per la didattica: non un'anteprima, ma una pagina completa. Tornando qui, Accordia ripristina la posizione dell'ultima tappa visitata.</p>
+                    <p>{e(config["track"]["body"])}</p>
                 </div>
                 <div class="timeline-editorial-track__scroll" data-scroll-track data-scroll-key="main-timeline">
 {cards}
                 </div>
-                <p class="timeline-editorial-track__hint">Scorri lateralmente o usa la mini timeline interna ai nuclei per continuare il percorso da dove eri arrivato.</p>
+                <p class="timeline-editorial-track__hint">{e(config["track"]["hint"])}</p>
             </div>
         </section>
 
         <section class="timeline-editorial-framework section">
             <div class="shell timeline-editorial-framework__grid">
-                <article class="timeline-editorial-framework__card">
-                    <p class="panel-label">Struttura</p>
-                    <h3>Hero, indice e navigazione di capitolo.</h3>
-                    <p>Ogni nucleo chiarisce subito posizione, periodo storico, nodo tematico e passaggi successivi nel percorso complessivo.</p>
-                </article>
-                <article class="timeline-editorial-framework__card">
-                    <p class="panel-label">Percorso</p>
-                    <h3>Mappe, lezioni e approfondimenti collegati.</h3>
-                    <p>Ogni nucleo tiene insieme panorama storico, argomenti interni, percorsi guidati e accessi rapidi ai punti davvero utili in classe.</p>
-                </article>
-                <article class="timeline-editorial-framework__card">
-                    <p class="panel-label">Didattica</p>
-                    <h3>Manuale, compito di realta e verifica.</h3>
-                    <p>Contesto storico, ascolti, lessico, autori, attivita, compito e materiali docente convivono nello stesso capitolo.</p>
-                </article>
+{framework_cards}
             </div>
         </section>
     </main>
@@ -3764,15 +3939,15 @@ def render_timeline_page() -> str:
         <div class="shell site-footer__grid">
             <div>
                 <strong>Accordia</strong>
-                <p>La timeline apre nuclei editoriali completi, collegati fra loro da una mini timeline sticky, mappe degli argomenti e lezioni guidate.</p>
+                <p>{e(config["footer"]["summary"])}</p>
             </div>
             <div>
-                <span class="site-footer__label">Continua</span>
+                <span class="site-footer__label">{e(config["footer"]["continue_label"])}</span>
                 <a href="{e(page_href('../pages/lezioni.html'))}">Lezioni guidate</a>
                 <a href="{e(page_href('../compiti/'))}">Compiti di realta</a>
             </div>
             <div>
-                <span class="site-footer__label">Progetto</span>
+                <span class="site-footer__label">{e(config["footer"]["project_label"])}</span>
                 <a href="{e(page_href('../docente/'))}">Docenti</a>
                 <a href="../index.html">Home</a>
             </div>
@@ -3832,9 +4007,9 @@ def render_list_block(title: str, items: list[str], css_class: str = "nucleus-bu
                 </article>"""
 
 
-def render_nucleus_page(index: int, nucleo: dict) -> str:
-    prev_nucleo = NUCLEI[index - 1] if index > 0 else None
-    next_nucleo = NUCLEI[index + 1] if index < len(NUCLEI) - 1 else None
+def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
+    prev_nucleo = nuclei[index - 1] if index > 0 else None
+    next_nucleo = nuclei[index + 1] if index < len(nuclei) - 1 else None
     topic_map = nucleo.get("topic_map")
     map_only_landing = nucleo.get("landing_mode") == "map-only"
     footer_prev = (
@@ -4230,9 +4405,10 @@ def refresh_static_page_assets() -> None:
 
 
 def main() -> None:
+    nuclei = get_nuclei()
     write(ROOT / "timeline" / "index.html", render_timeline_page())
-    for index, nucleo in enumerate(NUCLEI):
-        write(ROOT / "nuclei" / nucleo["slug"] / "index.html", render_nucleus_page(index, nucleo))
+    for index, nucleo in enumerate(nuclei):
+        write(ROOT / "nuclei" / nucleo["slug"] / "index.html", render_nucleus_page(index, nucleo, nuclei))
         topic_map = nucleo.get("topic_map")
         if topic_map:
             for topic_index, topic in enumerate(topic_map["nodes"]):

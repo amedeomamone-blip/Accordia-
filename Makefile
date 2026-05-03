@@ -1,4 +1,4 @@
-.PHONY: build check-links serve
+.PHONY: build check-links serve editor
 
 build:
 	python3 scripts/render_nuclei.py
@@ -8,3 +8,6 @@ check-links:
 
 serve:
 	python3 -m http.server 8000
+
+editor:
+	python3 scripts/run_editor.py
