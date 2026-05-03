@@ -71,33 +71,8 @@ GRAFO e un asse centrale del progetto: non e decorazione, ma traduzione visiva d
 - `make build` rigenera timeline, nuclei e argomenti a partire da `scripts/render_nuclei.py`.
 - `make check-links` controlla che tutti i link locali negli HTML e le ancore `#...` esistano.
 - `make serve` avvia un server statico locale su `http://localhost:8000`.
-- `make studio-install` installa il laboratorio visivo compatibile con Piny.
-- `make studio-dev` avvia il laboratorio su `http://127.0.0.1:5173`.
-- `make studio-build` verifica che il laboratorio React/Tailwind compili correttamente.
-- `make studio-open` avvia i server necessari e apre il flusso di lavoro visuale.
 - In alternativa puoi eseguire direttamente `python3 scripts/render_nuclei.py`.
 - Regola operativa del progetto: a fine blocco di lavoro completato si fa `git add`, `git commit` e `git push` su `origin/main`, salvo richiesta esplicita di lasciare le modifiche solo in locale o fermarsi prima della pubblicazione.
-
-## Accordia Studio per Piny
-
-- `Piny` non modifica direttamente il sito statico HTML/CSS di Accordia. Per questo il repo include ora `studio/`, un laboratorio parallelo in `React + Vite + Tailwind`, pensato per l'editing visivo in VS Code.
-- Route disponibili:
-  - `/` per la home editoriale di studio
-  - `/timeline` per la timeline editoriale di studio
-- Il plugin `@pinegrow/piny-vite` e gia configurato nel dev server Vite. Se usi Piny Pro puoi anche attivare la selezione visuale nella preview.
-- Workflow consigliato:
-  1. apri il repo in VS Code
-  2. esegui `make studio-install`
-  3. esegui `make studio-dev`
-  4. apri `studio/src/pages/HomePage.jsx` o `studio/src/pages/TimelinePage.jsx`
-  5. usa Piny sulla preview per ritoccare layout, spacing, tipografia e card
-- Nota pratica: il risultato grafico non compare dentro il tab del file `.jsx`. In VS Code devi aprire una preview separata:
-  - `Cmd+Shift+P` -> `Simple Browser: Show`
-  - apri `http://127.0.0.1:5173/timeline`
-  - oppure fai click destro nel file `.jsx` e usa `Edit in Piny`
-- Per avviare tutto con meno attrito puoi usare anche `make studio-open` oppure il file `Open Accordia Studio.command` nella root del repo.
-- La route `studio` adesso riproduce molto piu' da vicino la `timeline` reale. Se vuoi vedere il riferimento statico esatto, il launcher apre anche `http://127.0.0.1:8000/timeline/index.html`.
-- Il sito statico principale resta intatto finche non decidiamo di riportare i ritocchi dal laboratorio ai file HTML/CSS di produzione.
 
 ## Sorgente del contenuto
 
