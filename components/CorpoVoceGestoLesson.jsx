@@ -1782,16 +1782,16 @@ function FlowProgressBar() {
 
 function BodyHeroMedia() {
   return (
-    <div className="accordia-flow-hero__media accordia-flow-hero__media--soft">
+    <div className="accordia-flow-hero__media">
       <img
         src={ORIGIN_CAVE_IMAGE}
         alt="Pitture rupestri con figure animali e tracce del gesto umano."
         className="h-full w-full object-cover"
       />
-      <div className="absolute inset-0 bg-gradient-to-tr from-[#fff5ea]/45 via-transparent to-[#edf2f8]/35" />
       <div className="accordia-flow-hero__caption">
-        <span className="accordia-flow-hero__caption-note">origine del suono · corpo in movimento</span>
-        <span className="accordia-flow-hero__caption-note">guarda, ascolta, prova, crea</span>
+        <span className="accordia-flow-hero__caption-note">origine del suono</span>
+        <span className="accordia-flow-hero__caption-note">corpo, voce, gesto</span>
+        <span className="accordia-flow-hero__caption-note">guarda, ascolta, prova</span>
       </div>
     </div>
   );
@@ -1919,11 +1919,9 @@ function BodyExplorationMovement() {
                   Non devi riconoscere un brano. Devi capire che cosa si ripete, che timbro senti e come il silenzio aiuta il gruppo.
                 </p>
               </div>
-              <div className="accordia-flow-keywords mt-0">
-                <span className="accordia-flow-keyword">osserva</span>
-                <span className="accordia-flow-keyword">ascolta</span>
-                <span className="accordia-flow-keyword">confronta</span>
-              </div>
+              <p className="max-w-[26rem] text-sm leading-6 text-slate-500">
+                Parti da una domanda alla volta: che cosa si ripete, che timbro senti, dove il gruppo si ferma e riparte?
+              </p>
             </div>
 
             <div className="mt-6 accordia-flow-rail">
@@ -1932,13 +1930,7 @@ function BodyExplorationMovement() {
                   <p className={SMALL_LABEL}>{scene.title}</p>
                   <p className="mt-3 text-[0.96rem] leading-7 text-slate-600">{scene.focus}</p>
                   <p className="mt-4 text-[0.95rem] leading-7 text-slate-500">{scene.prompt}</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {scene.cues.map((cue) => (
-                      <ToneTag key={`${scene.id}-${cue}`} className="border-slate-200/70 bg-white text-slate-600">
-                        {cue}
-                      </ToneTag>
-                    ))}
-                  </div>
+                  <p className="mt-4 text-sm font-medium leading-6 text-slate-500">{scene.cues.join(" · ")}</p>
                 </div>
               ))}
             </div>
@@ -1985,11 +1977,11 @@ function BodyActiveMovement() {
         <div className="mt-10 grid gap-6">
           <div className="accordia-flow-surface accordia-flow-surface--soft">
             <div className="accordia-flow-split accordia-flow-split--wide">
-              <div className="grid gap-4">
+              <div className="grid gap-8">
                 {conceptGroups.map((group) => (
-                  <div key={group.title} className="rounded-[1.55rem] border border-slate-200/70 bg-white px-5 py-5">
+                  <section key={group.title} className="border-t border-slate-200/80 pt-5 first:border-t-0 first:pt-0">
                     <p className={SMALL_LABEL}>{group.title}</p>
-                    <div className="mt-4 space-y-4">
+                    <div className="mt-4 grid gap-4 sm:grid-cols-2">
                       {group.ids.map((id) => {
                         const item = lessonData.conceptDefinitions.find((definition) => definition.id === id);
                         if (!item) return null;
@@ -2001,11 +1993,11 @@ function BodyActiveMovement() {
                         );
                       })}
                     </div>
-                  </div>
+                  </section>
                 ))}
               </div>
 
-              <div className="rounded-[1.8rem] border border-slate-200/70 bg-white px-5 py-6">
+              <div className="px-1 py-1">
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <p className={SMALL_LABEL}>Attivita pratica</p>
@@ -2061,16 +2053,16 @@ function BodyActiveMovement() {
                   })}
                 </div>
 
-                <div className="mt-6 grid gap-3 lg:grid-cols-3">
-                  <div className="rounded-[1.3rem] border border-slate-200/70 bg-[#fcfbf8] px-4 py-4">
+                <div className="mt-6 grid gap-4 lg:grid-cols-3">
+                  <div className="border-t border-slate-200/80 pt-4">
                     <p className={SMALL_LABEL}>Cosa fai</p>
                     <p className="mt-2 text-sm leading-6 text-slate-600">Scegli tre suoni corporei e ripetili con una pulsazione stabile.</p>
                   </div>
-                  <div className="rounded-[1.3rem] border border-slate-200/70 bg-[#fcfbf8] px-4 py-4">
+                  <div className="border-t border-slate-200/80 pt-4">
                     <p className={SMALL_LABEL}>Versione essenziale</p>
                     <p className="mt-2 text-sm leading-6 text-slate-600">Usa solo mani, piedi e una pausa. Ripeti due volte senza cambiare.</p>
                   </div>
-                  <div className="rounded-[1.3rem] border border-slate-200/70 bg-[#fcfbf8] px-4 py-4">
+                  <div className="border-t border-slate-200/80 pt-4">
                     <p className={SMALL_LABEL}>Se vuoi fare di piu</p>
                     <p className="mt-2 text-sm leading-6 text-slate-600">Aggiungi la voce oppure cambia un solo tempo senza perdere il gruppo.</p>
                   </div>

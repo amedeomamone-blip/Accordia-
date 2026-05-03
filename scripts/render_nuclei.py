@@ -2759,7 +2759,7 @@ def render_phase_tags(items: list[str]) -> str:
     normalized = dedupe_lesson_texts(items)[:4]
     if not normalized:
         return ""
-    return f'<div class="phase-tags">{"".join(f"<span>{e(item)}</span>" for item in normalized)}</div>'
+    return f'<p class="phase-meta">{e(" · ".join(normalized))}</p>'
 
 
 def build_phase_card_body(phase_id: str, phase_data: dict) -> tuple[str, str]:
@@ -3020,11 +3020,13 @@ def render_lesson_student_mode(phase_data: dict) -> str:
 
     questions = [item["prompt"] for item in student_view["questions"] if item.get("prompt")]
     keywords = [item["term"] for item in student_view["keywords"] if item.get("term")]
+    reflection_body = render_list(questions, "student-list") if questions else ""
+    if keywords:
+        reflection_body += f'<p class="student-inline-keywords"><strong>Parole che ritornano:</strong> {e(" · ".join(keywords))}</p>'
     reflection_grid = render_student_grid(
         "reflection-grid",
         [
-            render_student_dashboard_card(render_list(questions, "student-list"), title="Domande guida") if questions else "",
-            render_student_dashboard_card(render_student_chip_list(keywords), title="Parole chiave") if keywords else "",
+            render_student_dashboard_card(reflection_body, title="Domande guida") if reflection_body else "",
         ],
     )
 
@@ -3096,9 +3098,8 @@ def render_lesson_phase_explorer(topic: dict) -> str:
                         <div>
                             <span class="lesson-board-kicker">Percorso della lezione</span>
                             <h2>{e(topic['title'])}</h2>
-                            <p>{e((topic_subtitle + ". " if topic_subtitle else "") + "Scorri in orizzontale e segui il percorso della lezione.")}</p>
+                            <p>{e((topic_subtitle + ". " if topic_subtitle else "") + "Segui il percorso della lezione con una lettura ampia e continua, senza perdere il filo.")}</p>
                         </div>
-                        <span class="lesson-board-pill">Segui il percorso</span>
                     </header>
                     <div class="lesson-flow" data-lesson-flow>
                         {"".join(phase_cards)}

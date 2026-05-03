@@ -1,26 +1,28 @@
-// components/CorpoVoceGestoLesson.jsx
 import React, { useEffect, useMemo, useRef, useState } from "https://esm.sh/react@18";
-var APP_FONT = "'SF Pro Display','SF Pro Text',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif";
-var ACCENT = "#c66a18";
-var RING = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c66a18] focus-visible:ring-offset-2 focus-visible:ring-offset-white";
-var LESSON_SHELL = "mx-auto max-w-[84rem] px-4 sm:px-6 lg:px-8";
-var LESSON_SHELL_WIDE = "mx-auto max-w-[88rem] px-4 sm:px-6 lg:px-8";
-var LESSON_SHELL_COMPACT = "mx-auto max-w-[78rem] px-4 sm:px-6 lg:px-8";
-var ORIGIN_CAVE_IMAGE = "/assets/lesson/corpo-voce-gesto/lascaux-painting.jpg";
-var SECTION_SPACE = "py-20 sm:py-24 lg:py-28";
-var PANEL_BASE = "rounded-[2rem] border border-slate-200/70 bg-white shadow-[0_12px_30px_rgba(15,23,42,0.04)]";
-var PANEL_SOFT = "rounded-[2rem] border border-slate-200/60 bg-[#fcfbf8] shadow-[0_10px_24px_rgba(15,23,42,0.03)]";
-var PANEL_SUBTLE = "rounded-[1.5rem] border border-slate-200/70 bg-[#fcfbf8]";
-var BODY_COPY = "text-[1.02rem] leading-8 text-slate-600 sm:text-[1.08rem]";
-var BODY_COPY_SOFT = "text-[0.95rem] leading-7 text-slate-500 sm:text-base";
-var BUTTON_BASE = "lesson-control-button inline-flex min-h-11 items-center justify-center rounded-full border border-solid px-5 py-2.5 text-sm font-semibold tracking-[-0.01em] transition-colors duration-150";
-var PILL_BASE = "lesson-control-pill inline-flex min-h-10 items-center rounded-full border border-solid bg-white px-4 py-2 text-[0.84rem] font-semibold tracking-[-0.01em] transition-colors duration-150";
-var PILL_DEFAULT = `${PILL_BASE} border-[#e4e8ee] text-[#5e646c] hover:border-[#d7dde5] hover:text-[#18191b]`;
-var PILL_ACTIVE = `${PILL_BASE} border-[#dde2e8] text-[#18191b]`;
-var TAG_CLASS = "inline-flex items-center rounded-full border border-[#f1dec9] bg-[#fff6ed] px-3.5 py-1.5 text-sm font-medium text-[#8a4d18]";
-var SMALL_LABEL = "text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-slate-400";
-var INPUT_AREA = "mt-6 min-h-[9rem] w-full resize-none rounded-[1.35rem] border border-slate-200/80 bg-[#fcfbf8] px-4 py-4 text-sm leading-7 text-slate-700 placeholder:text-slate-400";
-var lessonData = {
+const APP_FONT = "'SF Pro Display','SF Pro Text',-apple-system,BlinkMacSystemFont,'Helvetica Neue',Arial,sans-serif";
+const ACCENT = "#c66a18";
+const ACCENT_SOFT = "#fff4e8";
+const BORDER = "rgba(148, 163, 184, 0.22)";
+const SURFACE = "#f7f5f1";
+const RING = "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#c66a18] focus-visible:ring-offset-2 focus-visible:ring-offset-white";
+const LESSON_SHELL = "mx-auto max-w-[84rem] px-4 sm:px-6 lg:px-8";
+const LESSON_SHELL_WIDE = "mx-auto max-w-[88rem] px-4 sm:px-6 lg:px-8";
+const LESSON_SHELL_COMPACT = "mx-auto max-w-[78rem] px-4 sm:px-6 lg:px-8";
+const ORIGIN_CAVE_IMAGE = "/assets/lesson/corpo-voce-gesto/lascaux-painting.jpg";
+const SECTION_SPACE = "py-20 sm:py-24 lg:py-28";
+const PANEL_BASE = "rounded-[2rem] border border-slate-200/70 bg-white shadow-[0_12px_30px_rgba(15,23,42,0.04)]";
+const PANEL_SOFT = "rounded-[2rem] border border-slate-200/60 bg-[#fcfbf8] shadow-[0_10px_24px_rgba(15,23,42,0.03)]";
+const PANEL_SUBTLE = "rounded-[1.5rem] border border-slate-200/70 bg-[#fcfbf8]";
+const BODY_COPY = "text-[1.02rem] leading-8 text-slate-600 sm:text-[1.08rem]";
+const BODY_COPY_SOFT = "text-[0.95rem] leading-7 text-slate-500 sm:text-base";
+const BUTTON_BASE = "lesson-control-button inline-flex min-h-11 items-center justify-center rounded-full border border-solid px-5 py-2.5 text-sm font-semibold tracking-[-0.01em] transition-colors duration-150";
+const PILL_BASE = "lesson-control-pill inline-flex min-h-10 items-center rounded-full border border-solid bg-white px-4 py-2 text-[0.84rem] font-semibold tracking-[-0.01em] transition-colors duration-150";
+const PILL_DEFAULT = `${PILL_BASE} border-[#e4e8ee] text-[#5e646c] hover:border-[#d7dde5] hover:text-[#18191b]`;
+const PILL_ACTIVE = `${PILL_BASE} border-[#dde2e8] text-[#18191b]`;
+const TAG_CLASS = "inline-flex items-center rounded-full border border-[#f1dec9] bg-[#fff6ed] px-3.5 py-1.5 text-sm font-medium text-[#8a4d18]";
+const SMALL_LABEL = "text-[0.72rem] font-semibold uppercase tracking-[0.22em] text-slate-400";
+const INPUT_AREA = "mt-6 min-h-[9rem] w-full resize-none rounded-[1.35rem] border border-slate-200/80 bg-[#fcfbf8] px-4 py-4 text-sm leading-7 text-slate-700 placeholder:text-slate-400";
+const lessonData = {
   title: "Corpo, voce e gesto",
   nucleus: "Origini del suono",
   subtitle: "Prima degli strumenti, prima dello spartito, prima della scrittura: il suono comincia da noi.",
@@ -599,7 +601,7 @@ var lessonData = {
     }
   ]
 };
-var conceptFloatingMeta = {
+const conceptFloatingMeta = {
   body: { number: "01", category: "sorgente" },
   voice: { number: "02", category: "oralita" },
   gesture: { number: "03", category: "intenzione" },
@@ -614,6 +616,12 @@ function cn(...classes) {
 }
 function getSection(id) {
   return lessonData.sections.find((section) => section.id === id);
+}
+function scrollToSection(id) {
+  const target = document.getElementById(id);
+  if (target) {
+    target.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
 }
 function useReveal() {
   const ref = useRef(null);
@@ -1226,14 +1234,14 @@ function FlowProgressBar() {
   ))));
 }
 function BodyHeroMedia() {
-  return /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-hero__media accordia-flow-hero__media--soft" }, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-hero__media" }, /* @__PURE__ */ React.createElement(
     "img",
     {
       src: ORIGIN_CAVE_IMAGE,
       alt: "Pitture rupestri con figure animali e tracce del gesto umano.",
       className: "h-full w-full object-cover"
     }
-  ), /* @__PURE__ */ React.createElement("div", { className: "absolute inset-0 bg-gradient-to-tr from-[#fff5ea]/45 via-transparent to-[#edf2f8]/35" }), /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-hero__caption" }, /* @__PURE__ */ React.createElement("span", { className: "accordia-flow-hero__caption-note" }, "origine del suono \xB7 corpo in movimento"), /* @__PURE__ */ React.createElement("span", { className: "accordia-flow-hero__caption-note" }, "guarda, ascolta, prova, crea")));
+  ), /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-hero__caption" }, /* @__PURE__ */ React.createElement("span", { className: "accordia-flow-hero__caption-note" }, "origine del suono"), /* @__PURE__ */ React.createElement("span", { className: "accordia-flow-hero__caption-note" }, "corpo, voce, gesto"), /* @__PURE__ */ React.createElement("span", { className: "accordia-flow-hero__caption-note" }, "guarda, ascolta, prova")));
 }
 function BodyFlowHero() {
   return /* @__PURE__ */ React.createElement("section", { id: "opening", className: "accordia-flow-hero scroll-mt-28", style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-hero__stage" }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-hero__copy" }, /* @__PURE__ */ React.createElement(SectionKicker, null, lessonData.nucleus), /* @__PURE__ */ React.createElement("h1", { className: "mt-5 max-w-[9ch] text-[3.8rem] font-semibold tracking-[-0.07em] text-slate-950 sm:text-[4.9rem] lg:text-[6rem] lg:leading-[0.9]" }, lessonData.title), /* @__PURE__ */ React.createElement("p", { className: "accordia-flow-hero__question" }, lessonData.question), /* @__PURE__ */ React.createElement("p", { className: "accordia-flow-hero__intro" }, lessonData.intro), /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-keywords" }, lessonData.keywords.map((keyword) => /* @__PURE__ */ React.createElement("span", { key: keyword, className: "accordia-flow-keyword" }, keyword)))), /* @__PURE__ */ React.createElement(BodyHeroMedia, null)));
@@ -1275,7 +1283,7 @@ function BodyExplorationMovement() {
     "Quali suoni arrivano dal corpo?",
     "Quali suoni arrivano dall'ambiente?",
     "Quando un gesto fa partire il gruppo?"
-  ].map((question) => /* @__PURE__ */ React.createElement("div", { key: question, className: "accordia-flow-question-card" }, /* @__PURE__ */ React.createElement("p", { className: "text-sm leading-6 text-slate-600" }, question))))))), /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-surface" }, /* @__PURE__ */ React.createElement("div", { className: "flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-[34rem]" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Tre esempi da confrontare"), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[1.02rem] leading-7 text-slate-600" }, "Non devi riconoscere un brano. Devi capire che cosa si ripete, che timbro senti e come il silenzio aiuta il gruppo.")), /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-keywords mt-0" }, /* @__PURE__ */ React.createElement("span", { className: "accordia-flow-keyword" }, "osserva"), /* @__PURE__ */ React.createElement("span", { className: "accordia-flow-keyword" }, "ascolta"), /* @__PURE__ */ React.createElement("span", { className: "accordia-flow-keyword" }, "confronta"))), /* @__PURE__ */ React.createElement("div", { className: "mt-6 accordia-flow-rail" }, lessonData.listeningScenes.map((scene) => /* @__PURE__ */ React.createElement("div", { key: scene.id, className: "accordia-flow-chip-card" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, scene.title), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[0.96rem] leading-7 text-slate-600" }, scene.focus), /* @__PURE__ */ React.createElement("p", { className: "mt-4 text-[0.95rem] leading-7 text-slate-500" }, scene.prompt), /* @__PURE__ */ React.createElement("div", { className: "mt-4 flex flex-wrap gap-2" }, scene.cues.map((cue) => /* @__PURE__ */ React.createElement(ToneTag, { key: `${scene.id}-${cue}`, className: "border-slate-200/70 bg-white text-slate-600" }, cue))))))))));
+  ].map((question) => /* @__PURE__ */ React.createElement("div", { key: question, className: "accordia-flow-question-card" }, /* @__PURE__ */ React.createElement("p", { className: "text-sm leading-6 text-slate-600" }, question))))))), /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-surface" }, /* @__PURE__ */ React.createElement("div", { className: "flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-[34rem]" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Tre esempi da confrontare"), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[1.02rem] leading-7 text-slate-600" }, "Non devi riconoscere un brano. Devi capire che cosa si ripete, che timbro senti e come il silenzio aiuta il gruppo.")), /* @__PURE__ */ React.createElement("p", { className: "max-w-[26rem] text-sm leading-6 text-slate-500" }, "Parti da una domanda alla volta: che cosa si ripete, che timbro senti, dove il gruppo si ferma e riparte?")), /* @__PURE__ */ React.createElement("div", { className: "mt-6 accordia-flow-rail" }, lessonData.listeningScenes.map((scene) => /* @__PURE__ */ React.createElement("div", { key: scene.id, className: "accordia-flow-chip-card" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, scene.title), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[0.96rem] leading-7 text-slate-600" }, scene.focus), /* @__PURE__ */ React.createElement("p", { className: "mt-4 text-[0.95rem] leading-7 text-slate-500" }, scene.prompt), /* @__PURE__ */ React.createElement("p", { className: "mt-4 text-sm font-medium leading-6 text-slate-500" }, scene.cues.join(" \xB7 ")))))))));
 }
 function BodyActiveMovement() {
   const section = getSection("percussion");
@@ -1299,11 +1307,11 @@ function BodyActiveMovement() {
       ids: ["ritmo", "pulsazione"]
     }
   ];
-  return /* @__PURE__ */ React.createElement(SectionShell, { id: "active-understanding", backgroundClass: "bg-[#f7f4ee]", className: "accordia-flow-movement" }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-movement__stage accordia-flow-movement__stage--wide", style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement("p", { className: "accordia-flow-movement__eyebrow" }, "Comprensione attiva"), /* @__PURE__ */ React.createElement("h2", { className: "accordia-flow-movement__title" }, "Capisci facendo."), /* @__PURE__ */ React.createElement("p", { className: "accordia-flow-movement__text" }, "Prima nominiamo i concetti essenziali. Poi li mettiamo subito al lavoro con una sequenza che il gruppo puo leggere e ripetere."), /* @__PURE__ */ React.createElement("div", { className: "mt-10 grid gap-6" }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-surface accordia-flow-surface--soft" }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-split accordia-flow-split--wide" }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-4" }, conceptGroups.map((group) => /* @__PURE__ */ React.createElement("div", { key: group.title, className: "rounded-[1.55rem] border border-slate-200/70 bg-white px-5 py-5" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, group.title), /* @__PURE__ */ React.createElement("div", { className: "mt-4 space-y-4" }, group.ids.map((id) => {
+  return /* @__PURE__ */ React.createElement(SectionShell, { id: "active-understanding", backgroundClass: "bg-[#f7f4ee]", className: "accordia-flow-movement" }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-movement__stage accordia-flow-movement__stage--wide", style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement("p", { className: "accordia-flow-movement__eyebrow" }, "Comprensione attiva"), /* @__PURE__ */ React.createElement("h2", { className: "accordia-flow-movement__title" }, "Capisci facendo."), /* @__PURE__ */ React.createElement("p", { className: "accordia-flow-movement__text" }, "Prima nominiamo i concetti essenziali. Poi li mettiamo subito al lavoro con una sequenza che il gruppo puo leggere e ripetere."), /* @__PURE__ */ React.createElement("div", { className: "mt-10 grid gap-6" }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-surface accordia-flow-surface--soft" }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-split accordia-flow-split--wide" }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-8" }, conceptGroups.map((group) => /* @__PURE__ */ React.createElement("section", { key: group.title, className: "border-t border-slate-200/80 pt-5 first:border-t-0 first:pt-0" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, group.title), /* @__PURE__ */ React.createElement("div", { className: "mt-4 grid gap-4 sm:grid-cols-2" }, group.ids.map((id) => {
     const item = lessonData.conceptDefinitions.find((definition) => definition.id === id);
     if (!item) return null;
     return /* @__PURE__ */ React.createElement("div", { key: item.id }, /* @__PURE__ */ React.createElement("p", { className: "text-[1rem] font-semibold tracking-[-0.02em] text-slate-950" }, item.term), /* @__PURE__ */ React.createElement("p", { className: "mt-1 text-[0.95rem] leading-7 text-slate-500" }, item.definition));
-  }))))), /* @__PURE__ */ React.createElement("div", { className: "rounded-[1.8rem] border border-slate-200/70 bg-white px-5 py-6" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-center justify-between gap-4" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Attivita pratica"), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[1.14rem] font-semibold tracking-[-0.03em] text-slate-950" }, section.text)), /* @__PURE__ */ React.createElement(ToneTag, { className: "border-[#eadfce] bg-[#fff8f1] text-[#8a4d18]" }, "8 tempi")), /* @__PURE__ */ React.createElement("div", { className: "mt-5 flex flex-wrap gap-2.5" }, lessonData.percussionSteps.map((option) => {
+  }))))), /* @__PURE__ */ React.createElement("div", { className: "px-1 py-1" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-center justify-between gap-4" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Attivita pratica"), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[1.14rem] font-semibold tracking-[-0.03em] text-slate-950" }, section.text)), /* @__PURE__ */ React.createElement(ToneTag, { className: "border-[#eadfce] bg-[#fff8f1] text-[#8a4d18]" }, "8 tempi")), /* @__PURE__ */ React.createElement("div", { className: "mt-5 flex flex-wrap gap-2.5" }, lessonData.percussionSteps.map((option) => {
     const isSelected = option.id === selectedStepType;
     return /* @__PURE__ */ React.createElement(
       "button",
@@ -1336,7 +1344,7 @@ function BodyActiveMovement() {
       /* @__PURE__ */ React.createElement("span", { className: "mt-2 text-[1.35rem] font-semibold tracking-[0.08em] text-slate-950" }, option.short),
       /* @__PURE__ */ React.createElement("span", { className: "mt-1 text-[0.72rem] text-slate-500" }, option.longLabel)
     );
-  })), /* @__PURE__ */ React.createElement("div", { className: "mt-6 grid gap-3 lg:grid-cols-3" }, /* @__PURE__ */ React.createElement("div", { className: "rounded-[1.3rem] border border-slate-200/70 bg-[#fcfbf8] px-4 py-4" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Cosa fai"), /* @__PURE__ */ React.createElement("p", { className: "mt-2 text-sm leading-6 text-slate-600" }, "Scegli tre suoni corporei e ripetili con una pulsazione stabile.")), /* @__PURE__ */ React.createElement("div", { className: "rounded-[1.3rem] border border-slate-200/70 bg-[#fcfbf8] px-4 py-4" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Versione essenziale"), /* @__PURE__ */ React.createElement("p", { className: "mt-2 text-sm leading-6 text-slate-600" }, "Usa solo mani, piedi e una pausa. Ripeti due volte senza cambiare.")), /* @__PURE__ */ React.createElement("div", { className: "rounded-[1.3rem] border border-slate-200/70 bg-[#fcfbf8] px-4 py-4" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Se vuoi fare di piu"), /* @__PURE__ */ React.createElement("p", { className: "mt-2 text-sm leading-6 text-slate-600" }, "Aggiungi la voce oppure cambia un solo tempo senza perdere il gruppo.")))))), /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-key-idea" }, "La musica nasce quando il suono viene scelto, organizzato e condiviso."))));
+  })), /* @__PURE__ */ React.createElement("div", { className: "mt-6 grid gap-4 lg:grid-cols-3" }, /* @__PURE__ */ React.createElement("div", { className: "border-t border-slate-200/80 pt-4" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Cosa fai"), /* @__PURE__ */ React.createElement("p", { className: "mt-2 text-sm leading-6 text-slate-600" }, "Scegli tre suoni corporei e ripetili con una pulsazione stabile.")), /* @__PURE__ */ React.createElement("div", { className: "border-t border-slate-200/80 pt-4" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Versione essenziale"), /* @__PURE__ */ React.createElement("p", { className: "mt-2 text-sm leading-6 text-slate-600" }, "Usa solo mani, piedi e una pausa. Ripeti due volte senza cambiare.")), /* @__PURE__ */ React.createElement("div", { className: "border-t border-slate-200/80 pt-4" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Se vuoi fare di piu"), /* @__PURE__ */ React.createElement("p", { className: "mt-2 text-sm leading-6 text-slate-600" }, "Aggiungi la voce oppure cambia un solo tempo senza perdere il gruppo.")))))), /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-key-idea" }, "La musica nasce quando il suono viene scelto, organizzato e condiviso."))));
 }
 function BodyReworkingMovement() {
   const [activeSymbolId, setActiveSymbolId] = useState(lessonData.graphicSymbols[0].id);

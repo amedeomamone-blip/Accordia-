@@ -1929,51 +1929,39 @@ function RhythmHeroMedia() {
   ];
 
   return (
-    <div className="accordia-flow-hero__media accordia-flow-hero__media--soft">
-      <div className="absolute inset-0 p-5 sm:p-7 lg:p-8">
-        <div className="flex h-full flex-col justify-between">
-          <div className="flex flex-wrap gap-3">
-            <span className="accordia-flow-hero__caption-note">battito comune</span>
-            <span className="accordia-flow-hero__caption-note">gruppo · gesto · ascolto</span>
-          </div>
+    <div className="accordia-flow-hero__media">
+      <div className="grid h-full content-between gap-6 px-6 py-6 sm:px-7 lg:px-8">
+        <div className="max-w-[30rem]">
+          <p className={SMALL_LABEL}>Un solo centro, gruppi diversi</p>
+          <p className="mt-3 text-[1.08rem] leading-8 text-slate-600">
+            Lo stesso battito puo organizzarsi a due, a tre o a quattro. Il gruppo cambia forma, ma il centro resta.
+          </p>
+        </div>
 
-          <div className="grid gap-4 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-end">
-            <div className="rounded-[1.8rem] border border-white/90 bg-white/82 px-5 py-5">
-              <p className={SMALL_LABEL}>Una sola idea</p>
-              <p className="mt-3 text-[1.18rem] font-semibold tracking-[-0.03em] text-slate-950">
-                Uno stesso battito puo contenere gruppi diversi.
-              </p>
-              <p className="mt-3 text-[0.98rem] leading-7 text-slate-600">
-                Prima senti il centro. Poi osserva come ritmi, accenti e gruppi cambiano la forma del tempo.
-              </p>
+        <div className="grid gap-4">
+          {groups.map((group) => (
+            <div key={group.label} className="grid gap-3 border-t border-slate-200/80 pt-4 first:border-t-0 first:pt-0 sm:grid-cols-[6rem_1fr] sm:items-center">
+              <p className="text-sm font-semibold uppercase tracking-[0.16em] text-slate-400">{group.label}</p>
+              <div className="flex flex-wrap gap-2.5">
+                {group.values.map((value, index) => (
+                  <span
+                    key={`${group.label}-${index}`}
+                    className={cn(
+                      "inline-flex h-12 w-12 items-center justify-center rounded-full border text-sm font-semibold",
+                      value === 1 ? group.tone : "border-slate-200 bg-white text-slate-500"
+                    )}
+                  >
+                    {value}
+                  </span>
+                ))}
+              </div>
             </div>
+          ))}
+        </div>
 
-            <div className="grid gap-3">
-              {groups.map((group) => (
-                <div key={group.label} className="rounded-[1.5rem] border border-white/90 bg-white/78 px-4 py-3">
-                  <div className="flex items-center justify-between gap-3">
-                    <p className={SMALL_LABEL}>{group.label}</p>
-                    <span className={cn("inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium", group.tone)}>
-                      gruppo {group.label}
-                    </span>
-                  </div>
-                  <div className="mt-3 flex flex-wrap gap-2.5">
-                    {group.values.map((value, index) => (
-                      <span
-                        key={`${group.label}-${index}`}
-                        className={cn(
-                          "inline-flex h-11 w-11 items-center justify-center rounded-full border text-sm font-semibold shadow-[0_10px_22px_rgba(15,23,42,0.06)]",
-                          value === 1 ? group.tone : "border-slate-200 bg-white text-slate-500"
-                        )}
-                      >
-                        {value}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
+        <div className="accordia-flow-hero__caption">
+          <span className="accordia-flow-hero__caption-note">battito comune</span>
+          <span className="accordia-flow-hero__caption-note">gruppo, gesto, ascolto</span>
         </div>
       </div>
     </div>
@@ -2251,11 +2239,9 @@ function RhythmFlowExploration() {
                   Camminare, danzare, lavorare, marciare e pregare insieme chiedono un tempo condiviso. Il ritmo nasce per coordinare il movimento.
                 </p>
               </div>
-              <div className="accordia-flow-keywords mt-0">
-                <span className="accordia-flow-keyword">camminare</span>
-                <span className="accordia-flow-keyword">danzare</span>
-                <span className="accordia-flow-keyword">coordinare</span>
-              </div>
+              <p className="max-w-[25rem] text-sm leading-6 text-slate-500">
+                Osserva dove torna il battito comune e che cosa cambia quando il gruppo accelera, oscilla o si distribuisce nello spazio.
+              </p>
             </div>
 
             <div className="mt-6 accordia-flow-rail">
@@ -2311,7 +2297,7 @@ function RhythmFlowBoard() {
         }
         className={cn(
           RING,
-          "flex aspect-square h-[5.1rem] w-[5.1rem] shrink-0 flex-col items-center justify-center rounded-[1.18rem] border border-solid px-2 py-2 text-center transition-colors duration-150",
+          "flex aspect-square h-[4.75rem] w-[4.75rem] shrink-0 flex-col items-center justify-center rounded-[1.05rem] border border-solid px-2 py-2 text-center transition-colors duration-150",
           isAccent
             ? "border-[#e6c8a8] bg-[#fff8f1] hover:border-[#d7b692] hover:bg-[#fff3e5]"
             : isPause
@@ -2358,19 +2344,14 @@ function RhythmFlowBoard() {
       </div>
 
       <div className="mt-6 rounded-[1.8rem] border border-slate-200/70 bg-white px-4 py-5 shadow-[0_12px_28px_rgba(15,23,42,0.03)] sm:px-5">
-        <div className="mx-auto max-w-[31rem]">
-          <div className="flex flex-wrap gap-3">
-            <ToneTag className="border-slate-200/70 bg-[#fcfbf8] text-slate-600">battuta 1 · tempi 1-4</ToneTag>
-            <ToneTag className="border-slate-200/70 bg-[#fcfbf8] text-slate-600">battuta 2 · tempi 5-8</ToneTag>
-          </div>
-
-          <div className="mt-5 grid gap-3">
+        <div className="mx-auto max-w-[29rem]">
+          <div className="grid gap-5">
             {bars.map((barSteps, barIndex) => (
-              <div key={`bar-row-${barIndex}`} className="flex items-center gap-3">
-                <span className="inline-flex h-11 min-w-[5.4rem] items-center justify-center rounded-full border border-slate-200/70 bg-[#fcfbf8] px-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+              <div key={`bar-row-${barIndex}`}>
+                <span className="inline-flex h-10 items-center justify-center rounded-full border border-slate-200/70 bg-[#fcfbf8] px-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
                   battuta {barIndex + 1}
                 </span>
-                <div className="grid grid-cols-4 gap-3">
+                <div className="mt-3 grid grid-cols-4 gap-3">
                   {barSteps.map((step, stepIndex) => renderStepButton(step, barIndex * 4 + stepIndex))}
                 </div>
               </div>
@@ -2448,9 +2429,9 @@ function RhythmFlowActive() {
                 </div>
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+              <div className="grid gap-5 sm:grid-cols-2">
                 {lessonData.conceptCards.map((card) => (
-                  <div key={card.id} className="rounded-[1.55rem] border border-slate-200/70 bg-white px-5 py-5">
+                  <section key={card.id} className="border-t border-slate-200/80 pt-4 first:border-t-0 first:pt-0">
                     <p className={SMALL_LABEL}>{card.title}</p>
                     <p className="mt-3 text-[0.96rem] leading-7 text-slate-600">{card.definition}</p>
                     <div className="mt-5 flex flex-wrap items-center gap-2.5">
@@ -2458,7 +2439,7 @@ function RhythmFlowActive() {
                         <ConceptVisual key={`${card.id}-${index}`} type={item} />
                       ))}
                     </div>
-                  </div>
+                  </section>
                 ))}
               </div>
             </div>
@@ -2537,13 +2518,13 @@ function RhythmFlowReworking() {
               </div>
 
               <div className="grid gap-4">
-                <div className="rounded-[1.4rem] border border-slate-200/70 bg-white px-5 py-5">
+                <div className="border-t border-slate-200/80 pt-4">
                   <p className={SMALL_LABEL}>Se vuoi semplificare</p>
                   <p className="mt-2 text-sm leading-6 text-slate-600">
                     Tieni solo la pulsazione con mani o piedi. Aggiungi un solo accento chiaro e ripeti.
                   </p>
                 </div>
-                <div className="rounded-[1.4rem] border border-slate-200/70 bg-white px-5 py-5">
+                <div className="border-t border-slate-200/80 pt-4">
                   <p className={SMALL_LABEL}>Ruoli possibili</p>
                   <div className="mt-3 space-y-3">
                     {lessonData.performanceRoles.map((role) => (
@@ -2551,7 +2532,7 @@ function RhythmFlowReworking() {
                     ))}
                   </div>
                 </div>
-                <div className="rounded-[1.4rem] border border-slate-200/70 bg-white px-5 py-5">
+                <div className="border-t border-slate-200/80 pt-4">
                   <p className={SMALL_LABEL}>Come capisci se funziona</p>
                   <div className="mt-3 space-y-3">
                     {lessonData.performanceCriteria.map((criterion) => (

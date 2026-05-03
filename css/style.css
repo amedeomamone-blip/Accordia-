@@ -4822,3 +4822,433 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
         font-size: 0.9rem;
     }
 }
+
+/* Accordia Flow lesson layout overrides */
+
+.lesson-section--explorer .shell {
+    width: min(calc(100% - 2rem), 1440px);
+}
+
+.student-lesson-board {
+    max-width: 1440px;
+    min-height: 0;
+    padding: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    gap: 0;
+}
+
+.lesson-board-header {
+    align-items: end;
+    gap: 2rem;
+    margin-bottom: 2rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid #e6e0d6;
+}
+
+.lesson-board-header h2 {
+    max-width: 14ch;
+    font-size: clamp(2.4rem, 4vw, 4.2rem);
+    line-height: 1.02;
+    text-wrap: pretty;
+}
+
+.lesson-board-header p {
+    max-width: 44rem;
+    font-size: 18px;
+    line-height: 1.65;
+}
+
+.lesson-board-pill {
+    display: none;
+}
+
+.lesson-flow {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1.5rem 2rem;
+    overflow: visible;
+    align-items: start;
+    align-content: start;
+    padding: 0;
+    scroll-snap-type: none;
+    scroll-padding-inline: 0;
+}
+
+.phase-card {
+    grid-template-rows: auto 1fr;
+    gap: 0.85rem;
+    cursor: default;
+    opacity: 1;
+    transform: none;
+    filter: none;
+}
+
+.phase-card.active {
+    transform: none;
+}
+
+.phase-card-shell {
+    min-height: 0;
+    gap: 1rem;
+    padding: 1.15rem 0 0;
+    border: 0;
+    border-top: 1px solid #e6e0d6;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.phase-card.active .phase-card-shell {
+    border-color: #d7b28d;
+    background: transparent;
+    box-shadow: none;
+}
+
+.phase-rail {
+    min-height: 36px;
+    justify-content: flex-start;
+}
+
+.phase-rail::after,
+.phase-card:first-child .phase-rail::after,
+.phase-card:last-child .phase-rail::after {
+    display: none;
+}
+
+.phase-marker {
+    width: 36px;
+    height: 36px;
+    border: 1px solid #e6e0d6;
+    background: #fffdfa;
+    color: #b56e2b;
+    box-shadow: none;
+}
+
+.phase-card:not(.active) .phase-marker {
+    opacity: 1;
+}
+
+.phase-card.active .phase-marker {
+    border-color: #d7b28d;
+    background: #fff7ef;
+    box-shadow: none;
+}
+
+.phase-card-head {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.4rem;
+}
+
+.phase-index {
+    color: #8a8f98;
+}
+
+.phase-badge {
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #8a8f98;
+    font-size: 0.84rem;
+    font-weight: 600;
+}
+
+.phase-title {
+    max-width: 18ch;
+    font-size: 1.35rem;
+    line-height: 1.15;
+    text-wrap: pretty;
+}
+
+.phase-body {
+    gap: 0.8rem;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #5f6368;
+}
+
+.phase-tags {
+    display: none;
+}
+
+.phase-meta {
+    margin: 0;
+    padding-top: 0.35rem;
+    color: #8a8f98;
+    font-size: 0.94rem;
+    line-height: 1.6;
+}
+
+.student-panel {
+    max-width: 1280px;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    gap: 2.25rem;
+}
+
+.student-panel .panel-header {
+    justify-content: flex-start;
+    padding-bottom: 1rem;
+    margin-bottom: 0;
+    border-bottom: 1px solid #e6e0d6;
+}
+
+.student-panel .panel-header h2 {
+    font-size: clamp(1.9rem, 3vw, 2.6rem);
+}
+
+.student-panel .hero-grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 2rem;
+}
+
+.student-panel .main-grid,
+.student-panel .reflection-grid {
+    gap: 2rem;
+}
+
+.student-panel .card {
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.student-panel .card-primary,
+.student-panel .card-secondary {
+    padding: 0;
+}
+
+.student-panel .card-primary::before {
+    display: none;
+}
+
+.student-panel .card h3 {
+    margin: 0 0 0.65rem;
+    font-size: clamp(1.4rem, 2vw, 1.75rem);
+}
+
+.student-panel .card-body {
+    gap: 1rem;
+}
+
+.student-panel .card p,
+.student-panel .card li,
+.student-panel .student-list li {
+    font-size: 17px;
+    line-height: 1.72;
+}
+
+.student-panel__note {
+    margin-top: 0.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e6e0d6;
+}
+
+.student-inline-keywords {
+    margin: 1rem 0 0;
+    color: #6f7680;
+    font-size: 15px;
+    line-height: 1.62;
+}
+
+.student-inline-keywords strong {
+    color: #1d1d1f;
+    font-weight: 600;
+}
+
+.student-panel .chips,
+.student-panel .chips span {
+    display: none !important;
+}
+
+.student-workspace {
+    gap: 2rem;
+}
+
+.student-workspace .lesson-panel-card,
+.lesson-panel-card {
+    padding: 1.4rem 0 0;
+    border: 0;
+    border-top: 1px solid #e6e0d6;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.lesson-panel-card__head h4 {
+    color: #8a8f98;
+    font-size: 0.94rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.lesson-panel-card__body {
+    gap: 0.8rem;
+}
+
+.lesson-panel-card__body p {
+    color: #5f6368;
+    font-size: 17px;
+    line-height: 1.72;
+}
+
+.lesson-panel-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.65rem 1rem;
+}
+
+.lesson-panel-tags span {
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #5f6368;
+    font-size: 0.94rem;
+    font-weight: 600;
+}
+
+.lesson-panel-card--materials .lesson-panel-tags span {
+    padding: 0;
+    border: 0;
+    background: transparent;
+}
+
+.student-panel .materials-dock {
+    padding: 1.5rem 0 0;
+    border: 0;
+    border-top: 1px solid #e6e0d6;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.student-panel .materials-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem 1.5rem;
+}
+
+.student-panel .material-card {
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    color: #5f6368;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.lesson-media-carousel__viewport,
+.student-workspace .lesson-media-carousel__viewport {
+    border: 1px solid #e6e0d6;
+    border-radius: 28px;
+    background: #fffefa;
+}
+
+.lesson-media-slide__frame,
+.student-workspace .lesson-media-slide__frame {
+    display: grid;
+    grid-template-rows: minmax(0, 1fr) auto;
+    aspect-ratio: 16 / 9;
+    background: #f1ece3;
+}
+
+.lesson-media-slide__caption,
+.student-workspace .lesson-media-slide__caption {
+    position: static;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    display: grid;
+    gap: 0.35rem;
+    padding: 1rem 1.1rem 1.15rem;
+    background: #fffefa;
+    color: #1d1d1f;
+    border-top: 1px solid #e6e0d6;
+    backdrop-filter: none;
+}
+
+.lesson-media-slide__caption span,
+.student-workspace .lesson-media-slide__caption span {
+    color: #8a8f98;
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+}
+
+.lesson-media-slide__caption strong,
+.student-workspace .lesson-media-slide__caption strong {
+    color: #1d1d1f;
+}
+
+.lesson-media-slide__caption p,
+.lesson-media-slide__caption small,
+.student-workspace .lesson-media-slide__caption p,
+.student-workspace .lesson-media-slide__caption small {
+    color: #5f6368;
+    line-height: 1.6;
+}
+
+.student-workspace .lesson-floating-map {
+    min-height: auto;
+    padding: 1.25rem;
+    border: 1px solid #e6e0d6;
+    border-radius: 28px;
+    background: #fffefa;
+    box-shadow: none;
+}
+
+.student-workspace .nucleus-topic-node {
+    border-color: #e6e0d6;
+    box-shadow: none;
+}
+
+.lesson-resource-card,
+.lesson-inclusion-card,
+.lesson-overview-card,
+.lesson-phase-panel__objective,
+.lesson-phase-panel__block,
+.lesson-disclosure {
+    border-radius: 24px;
+    border: 1px solid #e6e0d6;
+    background: #fffefa;
+    box-shadow: none;
+}
+
+.lesson-quote {
+    background: #fff7ef;
+}
+
+@media (max-width: 1200px) {
+    .lesson-flow {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 900px) {
+    .lesson-board-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .lesson-flow,
+    .student-panel .hero-grid,
+    .student-panel .main-grid,
+    .student-panel .reflection-grid,
+    .student-panel .materials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .student-workspace .lesson-floating-map {
+        border-radius: 24px;
+    }
+}
