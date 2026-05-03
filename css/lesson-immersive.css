@@ -2,6 +2,7 @@
   --page-max: 1440px;
   --content-max: 980px;
   --wide-max: 1240px;
+  --lesson-phase-max: var(--wide-max);
   --space-xs: 8px;
   --space-sm: 16px;
   --space-md: 32px;
@@ -209,8 +210,16 @@
 }
 
 .lesson-phase {
-  padding: var(--space-2xl) 0;
+  min-height: 100svh;
+  min-height: 100dvh;
+  height: 100svh;
+  height: 100dvh;
+  padding: clamp(2.75rem, 5vw, 4rem) 0;
   scroll-margin-top: 8rem;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr);
+  gap: 2rem;
+  align-items: start;
 }
 
 .lesson-phase--white {
@@ -222,8 +231,8 @@
 }
 
 .lesson-phase__header {
-  width: min(calc(100% - 2rem), var(--content-max));
-  margin: 0 auto 3rem;
+  width: min(calc(100% - 2rem), var(--lesson-phase-max));
+  margin: 0 auto;
   display: grid;
   gap: 0.8rem;
 }
@@ -257,13 +266,23 @@
 }
 
 .lesson-phase__body--wide {
-  width: min(calc(100% - 2rem), var(--wide-max));
+  width: min(calc(100% - 2rem), var(--lesson-phase-max));
   margin: 0 auto;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  align-self: stretch;
+  padding-right: 0.35rem;
 }
 
 .lesson-phase__body--editorial {
-  width: min(calc(100% - 2rem), var(--content-max));
+  width: min(calc(100% - 2rem), var(--lesson-phase-max));
   margin: 0 auto;
+  min-height: 0;
+  overflow-y: auto;
+  scrollbar-gutter: stable;
+  align-self: stretch;
+  padding-right: 0.35rem;
 }
 
 .lesson-prose {
@@ -1025,7 +1044,7 @@
 
 @media (max-width: 1200px) {
   .lesson-phase {
-    padding: var(--space-xl) 0;
+    padding: clamp(2.4rem, 5vw, 3.25rem) 0;
   }
 
   .lesson-split,
@@ -1091,11 +1110,18 @@
   }
 
   .lesson-phase {
-    padding: 4.5rem 0;
+    gap: 1.35rem;
+    padding: 2rem 0;
   }
 
   .lesson-phase__header {
-    margin-bottom: 2rem;
+    width: min(calc(100% - 1.5rem), var(--lesson-phase-max));
+  }
+
+  .lesson-phase__body--wide,
+  .lesson-phase__body--editorial {
+    width: min(calc(100% - 1.5rem), var(--lesson-phase-max));
+    padding-right: 0.1rem;
   }
 
   .lesson-activity-panel {
