@@ -1,0 +1,43 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Accordia Studio: install",
+      "type": "shell",
+      "command": "npm install",
+      "options": {
+        "cwd": "${workspaceFolder}/studio"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Accordia Studio: dev",
+      "type": "shell",
+      "command": "npm run dev",
+      "options": {
+        "cwd": "${workspaceFolder}/studio"
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    },
+    {
+      "label": "Accordia Studio: build",
+      "type": "shell",
+      "command": "npm run build",
+      "options": {
+        "cwd": "${workspaceFolder}/studio"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Accordia Static Site: serve",
+      "type": "shell",
+      "command": "make serve",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "isBackground": true,
+      "problemMatcher": []
+    }
+  ]
+}
