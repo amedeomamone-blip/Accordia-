@@ -21,7 +21,7 @@
 
         <div class="editor-statusbar">
             <span id="status-pill" class="status-pill">Caricamento...</span>
-            <span class="status-text">La preview mostra la timeline generata reale. Il salvataggio aggiorna `data/editor/*.json` e rigenera il sito.</span>
+            <span class="status-text">La preview mostra la timeline generata reale. Clicca qualsiasi elemento visibile per aprire la barra di stile; il salvataggio aggiorna `data/editor/*.json` e rigenera il sito.</span>
         </div>
 
         <div class="editor-layout">
@@ -37,6 +37,15 @@
             </aside>
 
             <main class="editor-preview">
+                <section id="element-toolbar" class="editor-element-bar" hidden>
+                    <div class="editor-element-bar__meta">
+                        <p class="editor-element-bar__kicker">Elemento selezionato</p>
+                        <strong id="element-toolbar-title">Nessun elemento</strong>
+                        <code id="element-toolbar-selector"></code>
+                    </div>
+                    <div id="element-toolbar-controls" class="editor-element-bar__controls"></div>
+                    <button id="element-reset-button" class="editor-button editor-button--secondary" type="button">Reset elemento</button>
+                </section>
                 <div class="editor-preview__frame">
                     <iframe id="preview-frame" title="Preview della timeline Accordia"></iframe>
                 </div>

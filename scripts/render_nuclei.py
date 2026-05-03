@@ -39,6 +39,7 @@ JS_ASSET_RE = re.compile(r'src="(?P<path>[^"]*js/main\.js)(?:\?v=\d+)?"')
 EDITOR_DATA_DIR = ROOT / "data" / "editor"
 TIMELINE_PAGE_DATA_PATH = EDITOR_DATA_DIR / "timeline_page.json"
 NUCLEI_OVERRIDES_PATH = EDITOR_DATA_DIR / "nuclei_overrides.json"
+ELEMENT_OVERRIDES_PATH = EDITOR_DATA_DIR / "element_overrides.json"
 EDITOR_NUCLEUS_FIELDS = (
     "title",
     "nav_title",
@@ -46,6 +47,22 @@ EDITOR_NUCLEUS_FIELDS = (
     "period",
     "accent",
     "description",
+)
+EDITOR_ELEMENT_STYLE_FIELDS = (
+    "background",
+    "border-radius",
+    "box-shadow",
+    "color",
+    "font-size",
+    "font-weight",
+    "gap",
+    "letter-spacing",
+    "line-height",
+    "max-width",
+    "min-height",
+    "padding",
+    "text-align",
+    "width",
 )
 DEFAULT_TIMELINE_PAGE_DATA = {
     "meta_description": "La timeline di Accordia apre dieci nuclei storico-musicali completi, con mappe, lezioni, compiti di realta e verifiche.",
@@ -2431,6 +2448,80 @@ def save_nuclei_overrides(payload) -> None:
     write_json_data(NUCLEI_OVERRIDES_PATH, overrides)
 
 
+def load_element_overrides() -> dict[str, dict[str, str]]:
+    raw = load_json_data(ELEMENT_OVERRIDES_PATH, {})
+    if not isinstance(raw, dict):
+        return {}
+
+    cleaned: dict[str, dict[str, str]] = {}
+    for selector, rules in raw.items():
+        if not isinstance(selector, str):
+            continue
+        normalized_selector = selector.strip()
+        if (
+            not normalized_selector
+            or len(normalized_selector) > 240
+            or any(token in normalized_selector for token in ("{", "}", ";", "<", ">"))
+        ):
+            continue
+        if not isinstance(rules, dict):
+            continue
+
+        declarations: dict[str, str] = {}
+        for prop, value in rules.items():
+            if prop not in EDITOR_ELEMENT_STYLE_FIELDS or not isinstance(value, str):
+                continue
+            normalized_value = value.strip()
+            if (
+                not normalized_value
+                or len(normalized_value) > 160
+                or any(token in normalized_value for token in ("{", "}", ";", "<", ">"))
+            ):
+                continue
+            declarations[prop] = normalized_value
+
+        if declarations:
+            cleaned[normalized_selector] = declarations
+
+    return cleaned
+
+
+def save_element_overrides(payload) -> None:
+    overrides: dict[str, dict[str, str]] = {}
+    if not isinstance(payload, dict):
+        write_json_data(ELEMENT_OVERRIDES_PATH, overrides)
+        return
+
+    for selector, rules in payload.items():
+        if not isinstance(selector, str) or not isinstance(rules, dict):
+            continue
+        normalized_selector = selector.strip()
+        if (
+            not normalized_selector
+            or len(normalized_selector) > 240
+            or any(token in normalized_selector for token in ("{", "}", ";", "<", ">"))
+        ):
+            continue
+
+        declarations: dict[str, str] = {}
+        for prop, value in rules.items():
+            if prop not in EDITOR_ELEMENT_STYLE_FIELDS or not isinstance(value, str):
+                continue
+            normalized_value = value.strip()
+            if (
+                not normalized_value
+                or len(normalized_value) > 160
+                or any(token in normalized_value for token in ("{", "}", ";", "<", ">"))
+            ):
+                continue
+            declarations[prop] = normalized_value
+
+        if declarations:
+            overrides[normalized_selector] = declarations
+
+    write_json_data(ELEMENT_OVERRIDES_PATH, overrides)
+
+
 def get_nuclei() -> list[dict]:
     nuclei = clone_data(NUCLEI)
     overrides = load_nuclei_overrides()
@@ -2450,6 +2541,7 @@ def get_editor_payload() -> dict:
     return {
         "timeline_page": load_timeline_page_data(),
         "nuclei": nuclei_payload,
+        "element_overrides": load_element_overrides(),
     }
 
 
@@ -3854,9 +3946,31 @@ def render_timeline_page_style(style: dict) -> str:
     </style>"""
 
 
+def render_element_overrides_style(overrides: dict[str, dict[str, str]]) -> str:
+    if not overrides:
+        return ""
+
+    blocks = []
+    for selector, rules in overrides.items():
+        declarations = " ".join(f"{prop}: {value} !important;" for prop, value in rules.items())
+        if declarations:
+            blocks.append(f"{selector} {{ {declarations} }}")
+
+    if not blocks:
+        return ""
+
+    css = "\n".join(blocks).replace("</style", "<\\/style")
+    return f"""
+    <style>
+        {css}
+    </style>"""
+
+
 def render_timeline_page() -> str:
     config = load_timeline_page_data()
     nuclei = get_nuclei()
+    element_overrides = load_element_overrides()
+    element_override_style = render_element_overrides_style(element_overrides)
     cards = "".join(render_timeline_card(nucleo, "../") for nucleo in nuclei)
     panel_items = "".join(f"<li>{e(item)}</li>" for item in config["hero"]["panel_items"])
     framework_cards = "".join(
@@ -3876,7 +3990,7 @@ def render_timeline_page() -> str:
     <meta name="description" content="{e(config["meta_description"])}">
     <title>{e(config["page_title"])}</title>
     <link rel="stylesheet" href="{asset_url('../css/style.css')}">
-{render_timeline_page_style(config["style"])}
+{render_timeline_page_style(config["style"])}{element_override_style}
 </head>
 <body data-nav="timeline">
     <header class="site-header">

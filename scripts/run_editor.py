@@ -43,9 +43,11 @@ class AccordiaEditorHandler(SimpleHTTPRequestHandler):
 
             timeline_page = payload["timeline_page"]
             nuclei = payload["nuclei"]
+            element_overrides = payload.get("element_overrides", {})
 
             render_nuclei.save_timeline_page_data(timeline_page)
             render_nuclei.save_nuclei_overrides(nuclei)
+            render_nuclei.save_element_overrides(element_overrides)
             render_nuclei.main()
 
             self._send_json({"ok": True})

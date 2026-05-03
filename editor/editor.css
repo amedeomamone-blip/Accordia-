@@ -202,6 +202,55 @@ textarea {
     padding: 0.8rem;
 }
 
+.editor-preview {
+    display: grid;
+    gap: 0.9rem;
+}
+
+.editor-element-bar {
+    display: grid;
+    gap: 0.9rem;
+    padding: 1rem;
+    border: 1px solid var(--editor-line);
+    border-radius: var(--editor-radius);
+    background: rgba(255, 253, 249, 0.96);
+    box-shadow: var(--editor-shadow);
+}
+
+.editor-element-bar__meta {
+    display: grid;
+    gap: 0.35rem;
+}
+
+.editor-element-bar__kicker {
+    margin: 0;
+    color: var(--editor-accent);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.editor-element-bar__meta strong {
+    font-size: 1rem;
+}
+
+.editor-element-bar__meta code {
+    overflow: auto;
+    white-space: nowrap;
+    padding: 0.35rem 0.55rem;
+    border-radius: 999px;
+    background: #f4eee5;
+    color: var(--editor-muted);
+    font-size: 0.78rem;
+}
+
+.editor-element-bar__controls {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 0.75rem;
+}
+
 #preview-frame {
     width: 100%;
     min-height: calc(100vh - 10rem);
@@ -240,7 +289,8 @@ textarea {
 }
 
 .form-field input,
-.form-field textarea {
+.form-field textarea,
+.form-field select {
     width: 100%;
     padding: 0.85rem 0.95rem;
     border: 1px solid var(--editor-line);
@@ -304,6 +354,10 @@ textarea {
     .editor-layout {
         grid-template-columns: 16rem minmax(0, 1fr) 21rem;
     }
+
+    .editor-element-bar__controls {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
 }
 
 @media (max-width: 1120px) {
@@ -317,6 +371,10 @@ textarea {
 
     #preview-frame {
         min-height: 70vh;
+    }
+
+    .editor-element-bar__controls {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 }
 
@@ -332,6 +390,10 @@ textarea {
     }
 
     .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .editor-element-bar__controls {
         grid-template-columns: 1fr;
     }
 }
