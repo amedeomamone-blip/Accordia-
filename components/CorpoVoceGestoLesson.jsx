@@ -32,6 +32,58 @@ const lessonData = {
   title: "Corpo, voce e gesto",
   nucleus: "Origini del suono",
   subtitle: "Prima degli strumenti, prima dello spartito, prima della scrittura: il suono comincia da noi.",
+  question: "Possiamo fare musica senza strumenti?",
+  intro:
+    "Entriamo nella lezione ascoltando il silenzio, osservando il corpo e costruendo una breve sequenza con mani, piedi, voce e pause.",
+  keywords: ["corpo", "voce", "gesto", "ritmo", "intenzione"],
+  visualStyle: {
+    nucleusColor: "#c66a18",
+    imageStyle: "wireframe-marker",
+    mood: "clean, calm, premium, educational",
+  },
+  internalStructure: {
+    initialQuestion: "Possiamo fare musica senza strumenti?",
+    historicalCulturalContext:
+      "Prima degli strumenti musicali, l'uomo ha usato il corpo, la voce e il gesto per produrre suoni, comunicare, accompagnare il movimento e dare significato ai momenti collettivi.",
+    guidedObservation:
+      "Gli studenti osservano immagini legate alla musica delle origini, ai gesti sonori, alla danza, alla voce e agli strumenti primitivi.",
+    guidedListening:
+      "Gli studenti ascoltano esempi di body percussion, vocalita e percussioni corporee, riconoscendo ritmo, timbro, intenzione e ripetizione.",
+    contentExplanation:
+      "Il docente chiarisce i concetti di suono, rumore, silenzio, corpo sonoro, voce, gesto intenzionale, ritmo e pulsazione.",
+    practicalActivity:
+      "La classe sperimenta sequenze semplici con mani, piedi, schiocchi, voce e pause.",
+    studentProduction:
+      "A gruppi, gli studenti creano una breve sequenza ritmica usando solo corpo, voce e gesto.",
+    assessmentAndClosing:
+      "Gli studenti spiegano quali suoni hanno usato, come li hanno organizzati e perche possono essere considerati musica.",
+  },
+  flow: [
+    {
+      id: "opening",
+      label: "Apertura",
+      contains: ["Domanda iniziale"],
+      layout: "hero",
+    },
+    {
+      id: "exploration",
+      label: "Esplorazione",
+      contains: ["Contesto storico e culturale", "Osservazione guidata", "Ascolto guidato"],
+      layout: "narrative-media",
+    },
+    {
+      id: "active-understanding",
+      label: "Comprensione attiva",
+      contains: ["Spiegazione dei contenuti", "Attivita pratica"],
+      layout: "concept-practice",
+    },
+    {
+      id: "reworking",
+      label: "Rielaborazione",
+      contains: ["Produzione degli studenti", "Verifica e conclusione"],
+      layout: "production-closing",
+    },
+  ],
   sections: [
     {
       id: "hero",
@@ -1710,16 +1762,493 @@ function FinalQuiz() {
   );
 }
 
+function FlowProgressBar() {
+  return (
+    <div className="accordia-flow-progress">
+      <div className="accordia-flow-progress__inner">
+        {lessonData.flow.map((movement) => (
+          <a
+            key={movement.id}
+            href={`#${movement.id}`}
+            className="accordia-flow-progress__item"
+          >
+            {movement.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function BodyHeroMedia() {
+  return (
+    <div className="accordia-flow-hero__media accordia-flow-hero__media--soft">
+      <img
+        src={ORIGIN_CAVE_IMAGE}
+        alt="Pitture rupestri con figure animali e tracce del gesto umano."
+        className="h-full w-full object-cover"
+      />
+      <div className="absolute inset-0 bg-gradient-to-tr from-[#fff5ea]/45 via-transparent to-[#edf2f8]/35" />
+      <div className="accordia-flow-hero__caption">
+        <span className="accordia-flow-hero__caption-note">origine del suono · corpo in movimento</span>
+        <span className="accordia-flow-hero__caption-note">guarda, ascolta, prova, crea</span>
+      </div>
+    </div>
+  );
+}
+
+function BodyFlowHero() {
+  return (
+    <section id="opening" className="accordia-flow-hero scroll-mt-28" style={{ fontFamily: APP_FONT }}>
+      <div className="accordia-flow-hero__stage">
+        <div className="accordia-flow-hero__copy">
+          <SectionKicker>{lessonData.nucleus}</SectionKicker>
+          <h1 className="mt-5 max-w-[9ch] text-[3.8rem] font-semibold tracking-[-0.07em] text-slate-950 sm:text-[4.9rem] lg:text-[6rem] lg:leading-[0.9]">
+            {lessonData.title}
+          </h1>
+          <p className="accordia-flow-hero__question">{lessonData.question}</p>
+          <p className="accordia-flow-hero__intro">{lessonData.intro}</p>
+          <div className="accordia-flow-keywords">
+            {lessonData.keywords.map((keyword) => (
+              <span key={keyword} className="accordia-flow-keyword">
+                {keyword}
+              </span>
+            ))}
+          </div>
+        </div>
+        <BodyHeroMedia />
+      </div>
+    </section>
+  );
+}
+
+function BodyExplorationMovement() {
+  const originSection = getSection("origin");
+  const [secondsLeft, setSecondsLeft] = useState(30);
+  const [running, setRunning] = useState(false);
+
+  useEffect(() => {
+    if (!running) return undefined;
+    if (secondsLeft === 0) {
+      setRunning(false);
+      return undefined;
+    }
+    const timer = window.setTimeout(() => {
+      setSecondsLeft((current) => current - 1);
+    }, 1000);
+    return () => window.clearTimeout(timer);
+  }, [running, secondsLeft]);
+
+  return (
+    <SectionShell id="exploration" backgroundClass="bg-[#fffdfa]" className="accordia-flow-movement">
+      <div className="accordia-flow-movement__stage accordia-flow-movement__stage--wide" style={{ fontFamily: APP_FONT }}>
+        <p className="accordia-flow-movement__eyebrow">Esplorazione</p>
+        <h2 className="accordia-flow-movement__title">Il suono nasce prima degli strumenti.</h2>
+        <p className="accordia-flow-movement__text">
+          {originSection.text} {originSection.supporting}
+        </p>
+
+        <div className="mt-10 grid gap-6">
+          <div className="accordia-flow-surface accordia-flow-surface--soft">
+            <div className="accordia-flow-split accordia-flow-split--balanced">
+              <div>
+                <p className={SMALL_LABEL}>Che cosa osservi?</p>
+                <div className="mt-5 accordia-flow-rail">
+                  {lessonData.observationCards.map((item) => (
+                    <div key={item.id} className="accordia-flow-chip-card">
+                      <p className="text-[1rem] font-semibold tracking-[-0.02em] text-slate-950">{item.title}</p>
+                      <p className="mt-2 text-[0.95rem] leading-7 text-slate-500">{item.detail}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="rounded-[1.8rem] border border-slate-200/70 bg-white px-5 py-6">
+                <div className="flex items-center justify-between gap-4">
+                  <p className={SMALL_LABEL}>Ascolto guidato</p>
+                  <ToneTag className="border-[#eadfce] bg-white text-[#8a4d18]">30 secondi</ToneTag>
+                </div>
+                <p className="mt-4 text-[1.06rem] leading-8 text-slate-600">
+                  Parti dal silenzio. Poi distingui tre famiglie di suoni: corpo, ambiente e gesto intenzionale.
+                </p>
+
+                <div className="mt-6 flex items-end gap-4">
+                  <div className="flex h-24 w-24 items-center justify-center rounded-full border border-[#eadfce] bg-[#fff8f1]">
+                    <span className="text-[2.6rem] font-semibold tracking-[-0.06em] text-[#8a4d18]">{secondsLeft}</span>
+                  </div>
+                  <div className="flex flex-wrap gap-3">
+                    <PrimaryButton
+                      onClick={() => {
+                        setSecondsLeft(30);
+                        setRunning(true);
+                      }}
+                    >
+                      Avvia il silenzio
+                    </PrimaryButton>
+                    <SecondaryButton
+                      onClick={() => {
+                        setRunning(false);
+                        setSecondsLeft(30);
+                      }}
+                    >
+                      Reimposta
+                    </SecondaryButton>
+                  </div>
+                </div>
+
+                <div className="mt-6 accordia-flow-question-grid">
+                  {[
+                    "Quali suoni arrivano dal corpo?",
+                    "Quali suoni arrivano dall'ambiente?",
+                    "Quando un gesto fa partire il gruppo?",
+                  ].map((question) => (
+                    <div key={question} className="accordia-flow-question-card">
+                      <p className="text-sm leading-6 text-slate-600">{question}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="accordia-flow-surface">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+              <div className="max-w-[34rem]">
+                <p className={SMALL_LABEL}>Tre esempi da confrontare</p>
+                <p className="mt-3 text-[1.02rem] leading-7 text-slate-600">
+                  Non devi riconoscere un brano. Devi capire che cosa si ripete, che timbro senti e come il silenzio aiuta il gruppo.
+                </p>
+              </div>
+              <div className="accordia-flow-keywords mt-0">
+                <span className="accordia-flow-keyword">osserva</span>
+                <span className="accordia-flow-keyword">ascolta</span>
+                <span className="accordia-flow-keyword">confronta</span>
+              </div>
+            </div>
+
+            <div className="mt-6 accordia-flow-rail">
+              {lessonData.listeningScenes.map((scene) => (
+                <div key={scene.id} className="accordia-flow-chip-card">
+                  <p className={SMALL_LABEL}>{scene.title}</p>
+                  <p className="mt-3 text-[0.96rem] leading-7 text-slate-600">{scene.focus}</p>
+                  <p className="mt-4 text-[0.95rem] leading-7 text-slate-500">{scene.prompt}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {scene.cues.map((cue) => (
+                      <ToneTag key={`${scene.id}-${cue}`} className="border-slate-200/70 bg-white text-slate-600">
+                        {cue}
+                      </ToneTag>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </SectionShell>
+  );
+}
+
+function BodyActiveMovement() {
+  const section = getSection("percussion");
+  const [selectedStepType, setSelectedStepType] = useState(lessonData.percussionSteps[0].id);
+  const [steps, setSteps] = useState(["clap", "thigh", "clap", "stomp", "clap", "voice", "pause", "snap"]);
+  const optionById = useMemo(
+    () => Object.fromEntries(lessonData.percussionSteps.map((option) => [option.id, option])),
+    []
+  );
+
+  const conceptGroups = [
+    {
+      title: "Suono, rumore, silenzio",
+      ids: ["suono", "rumore", "silenzio"],
+    },
+    {
+      title: "Corpo, voce, gesto",
+      ids: ["corpo-sonoro", "voce", "gesto"],
+    },
+    {
+      title: "Ritmo e pulsazione",
+      ids: ["ritmo", "pulsazione"],
+    },
+  ];
+
+  return (
+    <SectionShell id="active-understanding" backgroundClass="bg-[#f7f4ee]" className="accordia-flow-movement">
+      <div className="accordia-flow-movement__stage accordia-flow-movement__stage--wide" style={{ fontFamily: APP_FONT }}>
+        <p className="accordia-flow-movement__eyebrow">Comprensione attiva</p>
+        <h2 className="accordia-flow-movement__title">Capisci facendo.</h2>
+        <p className="accordia-flow-movement__text">
+          Prima nominiamo i concetti essenziali. Poi li mettiamo subito al lavoro con una sequenza che il gruppo puo leggere e ripetere.
+        </p>
+
+        <div className="mt-10 grid gap-6">
+          <div className="accordia-flow-surface accordia-flow-surface--soft">
+            <div className="accordia-flow-split accordia-flow-split--wide">
+              <div className="grid gap-4">
+                {conceptGroups.map((group) => (
+                  <div key={group.title} className="rounded-[1.55rem] border border-slate-200/70 bg-white px-5 py-5">
+                    <p className={SMALL_LABEL}>{group.title}</p>
+                    <div className="mt-4 space-y-4">
+                      {group.ids.map((id) => {
+                        const item = lessonData.conceptDefinitions.find((definition) => definition.id === id);
+                        if (!item) return null;
+                        return (
+                          <div key={item.id}>
+                            <p className="text-[1rem] font-semibold tracking-[-0.02em] text-slate-950">{item.term}</p>
+                            <p className="mt-1 text-[0.95rem] leading-7 text-slate-500">{item.definition}</p>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="rounded-[1.8rem] border border-slate-200/70 bg-white px-5 py-6">
+                <div className="flex items-center justify-between gap-4">
+                  <div>
+                    <p className={SMALL_LABEL}>Attivita pratica</p>
+                    <p className="mt-3 text-[1.14rem] font-semibold tracking-[-0.03em] text-slate-950">
+                      {section.text}
+                    </p>
+                  </div>
+                  <ToneTag className="border-[#eadfce] bg-[#fff8f1] text-[#8a4d18]">8 tempi</ToneTag>
+                </div>
+
+                <div className="mt-5 flex flex-wrap gap-2.5">
+                  {lessonData.percussionSteps.map((option) => {
+                    const isSelected = option.id === selectedStepType;
+                    return (
+                      <button
+                        key={option.id}
+                        type="button"
+                        aria-label={`Seleziona ${option.longLabel}`}
+                        onClick={() => setSelectedStepType(option.id)}
+                        className={cn(RING, isSelected ? PILL_ACTIVE : PILL_DEFAULT)}
+                      >
+                        {option.longLabel}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="mt-6 grid grid-cols-4 gap-3">
+                  {steps.map((step, index) => {
+                    const option = optionById[step];
+                    return (
+                      <button
+                        key={`${step}-${index}`}
+                        type="button"
+                        aria-label={`Tempo ${index + 1}, ${option.longLabel}`}
+                        onClick={() =>
+                          setSteps((current) =>
+                            current.map((value, stepIndex) => (stepIndex === index ? selectedStepType : value))
+                          )
+                        }
+                        className={cn(
+                          RING,
+                          "flex aspect-square min-h-[5.15rem] flex-col items-center justify-center rounded-[1.2rem] border border-slate-200/80 bg-[#fffdf9] px-2 py-2 text-center transition-colors duration-150 hover:border-slate-300 hover:bg-white"
+                        )}
+                      >
+                        <span className={SMALL_LABEL}>t{index + 1}</span>
+                        <span className="mt-2 text-[1.35rem] font-semibold tracking-[0.08em] text-slate-950">
+                          {option.short}
+                        </span>
+                        <span className="mt-1 text-[0.72rem] text-slate-500">{option.longLabel}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+
+                <div className="mt-6 grid gap-3 lg:grid-cols-3">
+                  <div className="rounded-[1.3rem] border border-slate-200/70 bg-[#fcfbf8] px-4 py-4">
+                    <p className={SMALL_LABEL}>Cosa fai</p>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">Scegli tre suoni corporei e ripetili con una pulsazione stabile.</p>
+                  </div>
+                  <div className="rounded-[1.3rem] border border-slate-200/70 bg-[#fcfbf8] px-4 py-4">
+                    <p className={SMALL_LABEL}>Versione essenziale</p>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">Usa solo mani, piedi e una pausa. Ripeti due volte senza cambiare.</p>
+                  </div>
+                  <div className="rounded-[1.3rem] border border-slate-200/70 bg-[#fcfbf8] px-4 py-4">
+                    <p className={SMALL_LABEL}>Se vuoi fare di piu</p>
+                    <p className="mt-2 text-sm leading-6 text-slate-600">Aggiungi la voce oppure cambia un solo tempo senza perdere il gruppo.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="accordia-flow-key-idea">
+            La musica nasce quando il suono viene scelto, organizzato e condiviso.
+          </div>
+        </div>
+      </div>
+    </SectionShell>
+  );
+}
+
+function BodyReworkingMovement() {
+  const [activeSymbolId, setActiveSymbolId] = useState(lessonData.graphicSymbols[0].id);
+  const [score, setScore] = useState(["●", "▲", "●", "■", "●", "▲", "—", "◆"]);
+  const [selfCheck, setSelfCheck] = useState({});
+  const activeSymbol =
+    lessonData.graphicSymbols.find((item) => item.id === activeSymbolId) || lessonData.graphicSymbols[0];
+
+  const closingChecks = [
+    "Riesci a spiegare quali suoni hai scelto?",
+    "Riesci a far capire la sequenza anche senza parole?",
+    "Riesci a dire perche questo puo essere musica?",
+  ];
+
+  return (
+    <SectionShell id="reworking" backgroundClass="bg-[#fffdfa]" className="accordia-flow-movement">
+      <div className="accordia-flow-movement__stage accordia-flow-movement__stage--wide" style={{ fontFamily: APP_FONT }}>
+        <p className="accordia-flow-movement__eyebrow">Rielaborazione</p>
+        <h2 className="accordia-flow-movement__title">Trasforma il lavoro in una traccia condivisa.</h2>
+        <p className="accordia-flow-movement__text">
+          Ora costruisci la tua sequenza, la rendi leggibile e controlli se il gruppo riesce davvero a capirla e ripeterla.
+        </p>
+
+        <div className="mt-10 grid gap-6 lg:grid-cols-[minmax(0,1.04fr)_minmax(22rem,0.96fr)]">
+          <div className="accordia-flow-surface accordia-flow-surface--soft">
+            <div className="flex flex-wrap items-center justify-between gap-4">
+              <div>
+                <p className={SMALL_LABEL}>Compito</p>
+                <p className="mt-3 text-[1.18rem] font-semibold tracking-[-0.03em] text-slate-950">
+                  Costruisci con il tuo gruppo una sequenza breve e trasformala in una partitura grafica semplice.
+                </p>
+              </div>
+              <ToneTag className="border-[#eadfce] bg-white text-[#8a4d18]">gruppo · 8 tempi</ToneTag>
+            </div>
+
+            <div className="mt-6 flex flex-wrap gap-2.5">
+              {lessonData.graphicSymbols.map((item) => {
+                const isActive = item.id === activeSymbolId;
+                return (
+                  <button
+                    key={item.id}
+                    type="button"
+                    aria-label={`Seleziona simbolo ${item.label}`}
+                    onClick={() => setActiveSymbolId(item.id)}
+                    className={cn(RING, isActive ? PILL_ACTIVE : PILL_DEFAULT, "gap-2")}
+                  >
+                    <span className="text-lg">{item.symbol}</span>
+                    <span>{item.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            <div className="mt-6 grid grid-cols-4 gap-3">
+              {score.map((symbol, index) => (
+                <button
+                  key={`${symbol}-${index}`}
+                  type="button"
+                  aria-label={`Tempo ${index + 1}`}
+                  onClick={() =>
+                    setScore((current) =>
+                      current.map((value, stepIndex) => (stepIndex === index ? activeSymbol.symbol : value))
+                    )
+                  }
+                  className={cn(
+                    RING,
+                    "flex aspect-square min-h-[5.15rem] flex-col items-center justify-center rounded-[1.2rem] border border-slate-200/80 bg-white px-2 py-2 text-center transition-colors duration-150 hover:border-slate-300 hover:bg-[#f8f6f1]"
+                  )}
+                >
+                  <span className={SMALL_LABEL}>t{index + 1}</span>
+                  <span className="mt-2 text-[1.55rem] font-semibold text-slate-950">{symbol}</span>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid gap-6">
+            <div className="accordia-flow-surface">
+              <p className={SMALL_LABEL}>Come capisci se funziona</p>
+              <div className="mt-5 space-y-4">
+                {[
+                  "Il gruppo entra insieme.",
+                  "La pulsazione resta chiara.",
+                  "La pausa ha un posto preciso.",
+                  "Chi ascolta capisce il disegno.",
+                ].map((item) => (
+                  <p key={item} className="text-[0.98rem] leading-7 text-slate-600">
+                    {item}
+                  </p>
+                ))}
+              </div>
+            </div>
+
+            <div className="accordia-flow-surface accordia-flow-surface--plain accordia-flow-copy-lines">
+              <div className="relative px-1 py-1">
+                <p className={SMALL_LABEL}>Domanda finale</p>
+                <p className="mt-5 text-[1.14rem] font-semibold tracking-[-0.03em] text-slate-950">
+                  Perche questa esperienza puo essere considerata musica?
+                </p>
+                <p className="mt-4 text-[0.98rem] leading-7 text-slate-600">
+                  Rispondi con parole semplici: quali suoni hai scelto, come li hai organizzati e che cosa ha fatto il gruppo per stare insieme?
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-6 accordia-flow-surface accordia-flow-surface--soft">
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.9fr)]">
+            <div>
+              <p className={SMALL_LABEL}>Autovalutazione</p>
+              <div className="mt-5 space-y-5">
+                {closingChecks.map((check) => (
+                  <div key={check}>
+                    <p className="text-[1rem] leading-7 text-slate-700">{check}</p>
+                    <div className="mt-3 flex flex-wrap gap-3">
+                      {["ancora no", "abbastanza", "si"].map((option) => {
+                        const isSelected = selfCheck[check] === option;
+                        return (
+                          <button
+                            key={`${check}-${option}`}
+                            type="button"
+                            aria-label={option}
+                            onClick={() => setSelfCheck((current) => ({ ...current, [check]: option }))}
+                            className={cn(RING, isSelected ? PILL_ACTIVE : PILL_DEFAULT)}
+                          >
+                            {option}
+                          </button>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-col justify-between gap-6 rounded-[1.6rem] border border-slate-200/70 bg-white px-5 py-5">
+              <div>
+                <p className={SMALL_LABEL}>Idea chiave</p>
+                <p className="mt-4 text-[2rem] font-semibold tracking-[-0.05em] text-slate-950">
+                  La musica nasce quando il suono viene organizzato con intenzione.
+                </p>
+              </div>
+              <p className="text-[0.96rem] leading-7 text-slate-500">
+                Se il gruppo riesce a scegliere, ripetere e condividere il gesto sonoro, il suono diventa forma, memoria e musica.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </SectionShell>
+  );
+}
+
 function LessonProductPage() {
   return (
-    <div style={{ fontFamily: APP_FONT }} className="accordia-lesson-page bg-[#fbfaf7] text-slate-950 antialiased">
-      <LessonHero />
-      <ListeningTimerSection />
-      <OriginStorySection />
-      <ConceptBoardSection />
-      <BodyPercussionSequencer />
-      <GraphicScoreBuilder />
-      <FinalQuiz />
+    <div style={{ fontFamily: APP_FONT }} className="accordia-lesson-page accordia-flow-page text-slate-950 antialiased">
+      <BodyFlowHero />
+      <FlowProgressBar />
+      <BodyExplorationMovement />
+      <BodyActiveMovement />
+      <BodyReworkingMovement />
     </div>
   );
 }

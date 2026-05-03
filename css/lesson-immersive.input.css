@@ -259,3 +259,352 @@
   border: 0;
   padding: 0;
 }
+
+[data-immersive-lesson] .accordia-flow-page,
+.accordia-lesson-page.accordia-flow-page {
+  background: #faf8f3;
+  color: #1d1d1f;
+}
+
+[data-immersive-lesson] .accordia-flow-hero,
+.accordia-lesson-page .accordia-flow-hero {
+  padding: 4.5rem 0 3.25rem;
+}
+
+[data-immersive-lesson] .accordia-flow-hero__stage,
+.accordia-lesson-page .accordia-flow-hero__stage {
+  width: min(calc(100% - 2rem), 88rem);
+  margin: 0 auto;
+}
+
+[data-immersive-lesson] .accordia-flow-hero__copy,
+.accordia-lesson-page .accordia-flow-hero__copy {
+  max-width: 47rem;
+}
+
+[data-immersive-lesson] .accordia-flow-hero__question,
+.accordia-lesson-page .accordia-flow-hero__question {
+  margin-top: 1.35rem;
+  max-width: 17ch;
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  line-height: 1.02;
+  letter-spacing: -0.055em;
+  color: #1d1d1f;
+}
+
+[data-immersive-lesson] .accordia-flow-hero__intro,
+.accordia-lesson-page .accordia-flow-hero__intro {
+  margin-top: 1.35rem;
+  max-width: 44rem;
+  font-size: clamp(1.02rem, 1.3vw, 1.18rem);
+  line-height: 1.72;
+  color: #5f6368;
+}
+
+[data-immersive-lesson] .accordia-flow-keywords,
+.accordia-lesson-page .accordia-flow-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.85rem;
+}
+
+[data-immersive-lesson] .accordia-flow-keyword,
+.accordia-lesson-page .accordia-flow-keyword {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.5rem;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  border: 1px solid rgba(230, 224, 214, 0.92);
+  background: rgba(255, 250, 244, 0.92);
+  color: #8a4d18;
+  font-size: 0.94rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+[data-immersive-lesson] .accordia-flow-hero__media,
+.accordia-lesson-page .accordia-flow-hero__media {
+  position: relative;
+  overflow: hidden;
+  margin-top: 2.4rem;
+  aspect-ratio: 2 / 1;
+  border-radius: 2.15rem;
+  border: 1px solid rgba(230, 224, 214, 0.92);
+  background: linear-gradient(180deg, #fffefb 0%, #f4efe6 100%);
+  box-shadow: 0 24px 52px rgba(15, 23, 42, 0.07);
+}
+
+[data-immersive-lesson] .accordia-flow-hero__media--soft,
+.accordia-lesson-page .accordia-flow-hero__media--soft {
+  background:
+    radial-gradient(circle at 14% 20%, rgba(217, 130, 43, 0.16) 0%, rgba(217, 130, 43, 0.06) 24%, rgba(217, 130, 43, 0) 46%),
+    linear-gradient(180deg, #fffefb 0%, #f4efe6 100%);
+}
+
+[data-immersive-lesson] .accordia-flow-hero__caption,
+.accordia-lesson-page .accordia-flow-hero__caption {
+  position: absolute;
+  left: 1.35rem;
+  right: 1.35rem;
+  bottom: 1.35rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 2;
+}
+
+[data-immersive-lesson] .accordia-flow-hero__caption-note,
+.accordia-lesson-page .accordia-flow-hero__caption-note {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2.4rem;
+  padding: 0.55rem 0.95rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.86);
+  border: 1px solid rgba(255, 255, 255, 0.82);
+  color: #5f6368;
+  font-size: 0.84rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+[data-immersive-lesson] .accordia-flow-progress,
+.accordia-lesson-page .accordia-flow-progress {
+  position: sticky;
+  top: 1rem;
+  z-index: 28;
+  padding: 0 1rem;
+}
+
+[data-immersive-lesson] .accordia-flow-progress__inner,
+.accordia-lesson-page .accordia-flow-progress__inner {
+  width: min(calc(100% - 2rem), 84rem);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.6rem;
+  padding: 0.7rem;
+  border-radius: 999px;
+  border: 1px solid rgba(230, 224, 214, 0.92);
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 18px 34px rgba(15, 23, 42, 0.05);
+  backdrop-filter: blur(18px);
+}
+
+[data-immersive-lesson] .accordia-flow-progress__item,
+.accordia-lesson-page .accordia-flow-progress__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.8rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 999px;
+  color: #6f7680;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background-color 200ms ease, color 200ms ease;
+}
+
+[data-immersive-lesson] .accordia-flow-progress__item:hover,
+.accordia-flow-page .accordia-flow-progress__item:hover,
+.accordia-lesson-page .accordia-flow-progress__item:hover {
+  background: rgba(248, 243, 235, 0.95);
+  color: #1d1d1f;
+}
+
+[data-immersive-lesson] .accordia-flow-movement,
+.accordia-lesson-page .accordia-flow-movement {
+  padding: 5.25rem 0;
+}
+
+[data-immersive-lesson] .accordia-flow-movement--warm,
+.accordia-lesson-page .accordia-flow-movement--warm {
+  background: linear-gradient(180deg, #faf8f3 0%, #f7f3ec 100%);
+}
+
+[data-immersive-lesson] .accordia-flow-movement--white,
+.accordia-lesson-page .accordia-flow-movement--white {
+  background: #fffdfa;
+}
+
+[data-immersive-lesson] .accordia-flow-movement__stage,
+.accordia-lesson-page .accordia-flow-movement__stage {
+  width: min(calc(100% - 2rem), 84rem);
+  margin: 0 auto;
+}
+
+[data-immersive-lesson] .accordia-flow-movement__stage--wide,
+.accordia-lesson-page .accordia-flow-movement__stage--wide {
+  width: min(calc(100% - 2rem), 88rem);
+}
+
+[data-immersive-lesson] .accordia-flow-movement__eyebrow,
+.accordia-lesson-page .accordia-flow-movement__eyebrow {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #8a8f98;
+}
+
+[data-immersive-lesson] .accordia-flow-movement__title,
+.accordia-lesson-page .accordia-flow-movement__title {
+  margin-top: 1rem;
+  max-width: 18ch;
+  font-size: clamp(2.1rem, 4vw, 3.35rem);
+  line-height: 1.04;
+  letter-spacing: -0.055em;
+  color: #1d1d1f;
+}
+
+[data-immersive-lesson] .accordia-flow-movement__text,
+.accordia-lesson-page .accordia-flow-movement__text {
+  margin-top: 1.25rem;
+  max-width: 46rem;
+  font-size: 1.04rem;
+  line-height: 1.8;
+  color: #5f6368;
+}
+
+[data-immersive-lesson] .accordia-flow-surface,
+.accordia-lesson-page .accordia-flow-surface {
+  border-radius: 2rem;
+  border: 1px solid rgba(230, 224, 214, 0.92);
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 18px 38px rgba(15, 23, 42, 0.04);
+  padding: clamp(1.4rem, 2vw, 2.2rem);
+}
+
+[data-immersive-lesson] .accordia-flow-surface--soft,
+.accordia-lesson-page .accordia-flow-surface--soft {
+  background: linear-gradient(180deg, #fffefb 0%, #fcfaf6 100%);
+}
+
+[data-immersive-lesson] .accordia-flow-surface--plain,
+.accordia-lesson-page .accordia-flow-surface--plain {
+  box-shadow: none;
+  background: #fffdfa;
+}
+
+[data-immersive-lesson] .accordia-flow-rail,
+.accordia-lesson-page .accordia-flow-rail {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+}
+
+[data-immersive-lesson] .accordia-flow-chip-card,
+.accordia-lesson-page .accordia-flow-chip-card {
+  padding: 1.15rem 1.1rem;
+  border-radius: 1.4rem;
+  border: 1px solid rgba(230, 224, 214, 0.88);
+  background: rgba(255, 255, 255, 0.92);
+}
+
+[data-immersive-lesson] .accordia-flow-question-grid,
+.accordia-lesson-page .accordia-flow-question-grid {
+  display: grid;
+  gap: 0.95rem;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+}
+
+[data-immersive-lesson] .accordia-flow-question-card,
+.accordia-lesson-page .accordia-flow-question-card {
+  border-radius: 1.35rem;
+  border: 1px solid rgba(230, 224, 214, 0.86);
+  background: rgba(255, 255, 255, 0.92);
+  padding: 1rem 1rem 1.05rem;
+}
+
+[data-immersive-lesson] .accordia-flow-split,
+.accordia-lesson-page .accordia-flow-split {
+  display: grid;
+  gap: 1.35rem;
+}
+
+[data-immersive-lesson] .accordia-flow-key-idea,
+.accordia-lesson-page .accordia-flow-key-idea {
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(230, 224, 214, 0.92);
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  line-height: 1.08;
+  letter-spacing: -0.05em;
+  font-weight: 650;
+  color: #1d1d1f;
+}
+
+[data-immersive-lesson] .accordia-flow-note,
+.accordia-lesson-page .accordia-flow-note {
+  font-size: 0.94rem;
+  line-height: 1.65;
+  color: #6f7680;
+}
+
+[data-immersive-lesson] .accordia-flow-wireframe,
+.accordia-lesson-page .accordia-flow-wireframe {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+[data-immersive-lesson] .accordia-flow-copy-lines,
+.accordia-lesson-page .accordia-flow-copy-lines {
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0,
+    rgba(255, 255, 255, 0) 43px,
+    rgba(217, 130, 43, 0.08) 44px
+  );
+  background-size: 100% 44px;
+}
+
+@media (min-width: 1024px) {
+  [data-immersive-lesson] .accordia-flow-split--balanced,
+  .accordia-lesson-page .accordia-flow-split--balanced {
+    grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.9fr);
+  }
+
+  [data-immersive-lesson] .accordia-flow-split--wide,
+  .accordia-lesson-page .accordia-flow-split--wide {
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  }
+}
+
+@media (max-width: 767px) {
+  [data-immersive-lesson] .accordia-flow-hero,
+  .accordia-lesson-page .accordia-flow-hero {
+    padding: 3.25rem 0 2.6rem;
+  }
+
+  [data-immersive-lesson] .accordia-flow-hero__media,
+  .accordia-lesson-page .accordia-flow-hero__media {
+    aspect-ratio: 16 / 11;
+    border-radius: 1.7rem;
+  }
+
+  [data-immersive-lesson] .accordia-flow-progress__inner,
+  .accordia-lesson-page .accordia-flow-progress__inner {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    border-radius: 1.5rem;
+  }
+
+  [data-immersive-lesson] .accordia-flow-progress__item,
+  .accordia-lesson-page .accordia-flow-progress__item {
+    min-height: 2.55rem;
+    font-size: 0.74rem;
+  }
+
+  [data-immersive-lesson] .accordia-flow-movement,
+  .accordia-lesson-page .accordia-flow-movement {
+    padding: 4rem 0;
+  }
+}

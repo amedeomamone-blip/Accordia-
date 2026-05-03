@@ -25,6 +25,58 @@ const SMALL_LABEL = "text-[0.72rem] font-semibold uppercase tracking-[0.22em] te
 const lessonData = {
   title: "Ritmo, pulsazione e tempo",
   subtitle: "Misurare il gesto collettivo.",
+  question: "Che differenza c'e tra ritmo, pulsazione e tempo?",
+  intro:
+    "Partiamo dal corpo e dal battito comune per capire come pulsazione, ritmo, tempo, accento e metro rendono leggibile il lavoro del gruppo.",
+  keywords: ["pulsazione", "ritmo", "tempo", "accento", "gruppo"],
+  visualStyle: {
+    nucleusColor: "#c66a18",
+    imageStyle: "wireframe-marker",
+    mood: "clean, calm, premium, educational",
+  },
+  internalStructure: {
+    initialQuestion: "Che differenza c'e tra ritmo, pulsazione e tempo?",
+    historicalCulturalContext:
+      "Il ritmo accompagna da sempre il movimento umano: camminare, danzare, lavorare, marciare, pregare e suonare insieme.",
+    guidedObservation:
+      "Gli studenti osservano sequenze regolari e irregolari, passi, battiti, pattern semplici e notazione grafica.",
+    guidedListening:
+      "Gli studenti ascoltano esempi e individuano la pulsazione costante, il ritmo sopra la pulsazione, gli accenti e la velocita del brano.",
+    contentExplanation:
+      "Il docente chiarisce la differenza tra pulsazione, ritmo, tempo, accento e metro con esempi essenziali.",
+    practicalActivity:
+      "La classe batte una pulsazione comune e costruisce ritmi diversi sopra quel battito.",
+    studentProduction:
+      "A coppie o in piccoli gruppi, gli studenti costruiscono una breve sequenza con pulsazione, ritmo e accenti.",
+    assessmentAndClosing:
+      "Gli studenti riconoscono la pulsazione, distinguono il ritmo dalla pulsazione e spiegano se il tempo e lento, moderato o veloce.",
+  },
+  flow: [
+    {
+      id: "opening",
+      label: "Apertura",
+      contains: ["Domanda iniziale"],
+      layout: "hero",
+    },
+    {
+      id: "exploration",
+      label: "Esplorazione",
+      contains: ["Contesto storico e culturale", "Osservazione guidata", "Ascolto guidato"],
+      layout: "narrative-media",
+    },
+    {
+      id: "active-understanding",
+      label: "Comprensione attiva",
+      contains: ["Spiegazione dei contenuti", "Attivita pratica"],
+      layout: "concept-practice",
+    },
+    {
+      id: "reworking",
+      label: "Rielaborazione",
+      contains: ["Produzione degli studenti", "Verifica e conclusione"],
+      layout: "production-closing",
+    },
+  ],
   sections: [
     {
       id: "hero",
@@ -1851,18 +1903,765 @@ function SelfEvaluationSection() {
   );
 }
 
+function RhythmFlowProgressBar() {
+  return (
+    <div className="accordia-flow-progress">
+      <div className="accordia-flow-progress__inner">
+        {lessonData.flow.map((movement) => (
+          <a
+            key={movement.id}
+            href={`#${movement.id}`}
+            className="accordia-flow-progress__item"
+          >
+            {movement.label}
+          </a>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function RhythmHeroMedia() {
+  const groups = [
+    { label: "a 2", values: [1, 2, 1, 2], tone: "border-[#d8eadc] bg-[#eef7f1] text-[#45634f]" },
+    { label: "a 3", values: [1, 2, 3, 1, 2, 3], tone: "border-[#eedccf] bg-[#fff2e7] text-[#8a4d18]" },
+    { label: "a 4", values: [1, 2, 3, 4], tone: "border-[#d8e3f0] bg-[#edf4fc] text-[#3e5f86]" },
+  ];
+
+  return (
+    <div className="accordia-flow-hero__media accordia-flow-hero__media--soft">
+      <div className="absolute inset-0 p-5 sm:p-7 lg:p-8">
+        <div className="flex h-full flex-col justify-between">
+          <div className="flex flex-wrap gap-3">
+            <span className="accordia-flow-hero__caption-note">battito comune</span>
+            <span className="accordia-flow-hero__caption-note">gruppo · gesto · ascolto</span>
+          </div>
+
+          <div className="grid gap-4 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-end">
+            <div className="rounded-[1.8rem] border border-white/90 bg-white/82 px-5 py-5">
+              <p className={SMALL_LABEL}>Una sola idea</p>
+              <p className="mt-3 text-[1.18rem] font-semibold tracking-[-0.03em] text-slate-950">
+                Uno stesso battito puo contenere gruppi diversi.
+              </p>
+              <p className="mt-3 text-[0.98rem] leading-7 text-slate-600">
+                Prima senti il centro. Poi osserva come ritmi, accenti e gruppi cambiano la forma del tempo.
+              </p>
+            </div>
+
+            <div className="grid gap-3">
+              {groups.map((group) => (
+                <div key={group.label} className="rounded-[1.5rem] border border-white/90 bg-white/78 px-4 py-3">
+                  <div className="flex items-center justify-between gap-3">
+                    <p className={SMALL_LABEL}>{group.label}</p>
+                    <span className={cn("inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium", group.tone)}>
+                      gruppo {group.label}
+                    </span>
+                  </div>
+                  <div className="mt-3 flex flex-wrap gap-2.5">
+                    {group.values.map((value, index) => (
+                      <span
+                        key={`${group.label}-${index}`}
+                        className={cn(
+                          "inline-flex h-11 w-11 items-center justify-center rounded-full border text-sm font-semibold shadow-[0_10px_22px_rgba(15,23,42,0.06)]",
+                          value === 1 ? group.tone : "border-slate-200 bg-white text-slate-500"
+                        )}
+                      >
+                        {value}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function RhythmFlowHero() {
+  return (
+    <section id="opening" className="accordia-flow-hero scroll-mt-28" style={{ fontFamily: APP_FONT }}>
+      <div className="accordia-flow-hero__stage">
+        <div className="accordia-flow-hero__copy">
+          <SectionKicker>Origini del suono</SectionKicker>
+          <h1 className="mt-5 max-w-[10ch] text-[3.8rem] font-semibold tracking-[-0.07em] text-slate-950 sm:text-[4.9rem] lg:text-[6rem] lg:leading-[0.9]">
+            {lessonData.title}
+          </h1>
+          <p className="accordia-flow-hero__question">{lessonData.question}</p>
+          <p className="accordia-flow-hero__intro">{lessonData.intro}</p>
+          <div className="accordia-flow-keywords">
+            {lessonData.keywords.map((keyword) => (
+              <span key={keyword} className="accordia-flow-keyword">
+                {keyword}
+              </span>
+            ))}
+          </div>
+        </div>
+        <RhythmHeroMedia />
+      </div>
+    </section>
+  );
+}
+
+function RhythmFlowPulsePanel() {
+  const reducedMotion = usePrefersReducedMotion();
+  const [activeModeId, setActiveModeId] = useState(lessonData.pulseModes[1].id);
+  const [beatIndex, setBeatIndex] = useState(0);
+  const [running, setRunning] = useState(true);
+  const [audioEnabled, setAudioEnabled] = useState(false);
+  const audioContextRef = useRef(null);
+  const activeMode = lessonData.pulseModes.find((mode) => mode.id === activeModeId) || lessonData.pulseModes[1];
+
+  const playTick = (accented) => {
+    if (!audioEnabled) return;
+    const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContextClass) return;
+
+    if (!audioContextRef.current) {
+      audioContextRef.current = new AudioContextClass();
+    }
+
+    const context = audioContextRef.current;
+    if (context.state === "suspended") {
+      context.resume();
+    }
+
+    const oscillator = context.createOscillator();
+    const gain = context.createGain();
+    oscillator.type = "sine";
+    oscillator.frequency.value = accented ? 880 : 660;
+    gain.gain.setValueAtTime(0.0001, context.currentTime);
+    gain.gain.exponentialRampToValueAtTime(accented ? 0.04 : 0.025, context.currentTime + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.0001, context.currentTime + 0.08);
+    oscillator.connect(gain);
+    gain.connect(context.destination);
+    oscillator.start(context.currentTime);
+    oscillator.stop(context.currentTime + 0.09);
+  };
+
+  useEffect(() => {
+    if (!running) return undefined;
+    playTick(beatIndex === 0);
+    const beatDuration = 60000 / activeMode.bpm;
+    const timer = window.setTimeout(() => {
+      setBeatIndex((current) => (current + 1) % 4);
+    }, beatDuration);
+    return () => window.clearTimeout(timer);
+  }, [activeMode.bpm, audioEnabled, beatIndex, running]);
+
+  useEffect(() => {
+    setBeatIndex(0);
+    setRunning(true);
+  }, [activeModeId]);
+
+  useEffect(() => {
+    return () => {
+      if (audioContextRef.current) {
+        audioContextRef.current.close();
+      }
+    };
+  }, []);
+
+  return (
+    <div className="accordia-flow-surface accordia-flow-surface--soft">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <p className={SMALL_LABEL}>Pulsazione</p>
+          <p className="mt-3 text-[1.16rem] font-semibold tracking-[-0.03em] text-slate-950">
+            Quattro battiti uguali che tornano sempre nello stesso ordine.
+          </p>
+        </div>
+        <ToneTag className="border-[#eadfce] bg-white text-[#8a4d18]">{activeMode.label} · {activeMode.bpm} bpm</ToneTag>
+      </div>
+
+      <div className="mt-5 flex flex-wrap gap-2.5">
+        {lessonData.pulseModes.map((mode) => {
+          const isSelected = mode.id === activeModeId;
+          return (
+            <button
+              key={mode.id}
+              type="button"
+              aria-label={`${mode.label}, ${mode.bpm} battiti al minuto`}
+              onClick={() => setActiveModeId(mode.id)}
+              className={cn(RING, isSelected ? PILL_ACTIVE : PILL_DEFAULT)}
+            >
+              {mode.label} · {mode.bpm}
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="mt-6 rounded-[1.7rem] border border-slate-200/70 bg-white px-5 py-6">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+          {Array.from({ length: 4 }).map((_, index) => {
+            const isActive = index === beatIndex && running;
+            return (
+              <div key={`pulse-${index}`} className="text-center">
+                <span className={SMALL_LABEL}>b {index + 1}</span>
+                <span
+                  className={cn(
+                    "mx-auto mt-3 inline-flex h-16 w-16 items-center justify-center rounded-full border text-base font-semibold shadow-[0_12px_26px_rgba(15,23,42,0.06)]",
+                    isActive
+                      ? "border-[#e7cdb9] bg-[radial-gradient(circle_at_35%_35%,#fffdfb_0%,#fee8d6_100%)] text-[#8a4d18]"
+                      : "border-[#d7e1ec] bg-[radial-gradient(circle_at_35%_35%,#ffffff_0%,#edf3fa_100%)] text-[#647791]"
+                  )}
+                  style={reducedMotion ? undefined : { transition: "background-color 140ms ease, border-color 140ms ease, color 140ms ease" }}
+                >
+                  {index + 1}
+                </span>
+                <span className={cn("mt-2 block text-sm font-medium", isActive ? "text-[#8a4d18]" : "text-slate-400")}>
+                  {index === 0 ? "riparte" : "continua"}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="mt-5 grid gap-3 sm:grid-cols-2">
+        <div className="rounded-[1.3rem] border border-slate-200/70 bg-white px-4 py-4">
+          <p className={SMALL_LABEL}>Che cosa noti?</p>
+          <p className="mt-2 text-sm leading-6 text-slate-600">
+            La forma del gruppo non cambia. Cambia solo la velocita con cui il battito ritorna.
+          </p>
+        </div>
+        <div className="rounded-[1.3rem] border border-slate-200/70 bg-white px-4 py-4">
+          <p className={SMALL_LABEL}>Supporto accessibile</p>
+          <p className="mt-2 text-sm leading-6 text-slate-600">
+            Se vuoi semplificare, conta solo 1 e 2. Se vuoi estendere, prova a battere anche con i piedi.
+          </p>
+        </div>
+      </div>
+
+      <div className="mt-5 flex flex-wrap gap-3">
+        <SecondaryButton onClick={() => setRunning((current) => !current)}>
+          {running ? "Ferma il battito" : "Riavvia il battito"}
+        </SecondaryButton>
+        <SecondaryButton onClick={() => setAudioEnabled((current) => !current)}>
+          {audioEnabled ? "Audio leggero attivo" : "Audio leggero spento"}
+        </SecondaryButton>
+      </div>
+    </div>
+  );
+}
+
+function RhythmFlowListeningPanel() {
+  const [activeCardId, setActiveCardId] = useState(lessonData.listeningCards[0].id);
+  const [selectedMeters, setSelectedMeters] = useState({});
+  const activeCard =
+    lessonData.listeningCards.find((card) => card.id === activeCardId) || lessonData.listeningCards[0];
+  const selectedMeter = selectedMeters[activeCard.id] || activeCard.expected;
+  const palette = getMeterPalette(selectedMeter);
+
+  return (
+    <div className="accordia-flow-surface">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <p className={SMALL_LABEL}>Ascolto guidato</p>
+          <p className="mt-3 text-[1.16rem] font-semibold tracking-[-0.03em] text-slate-950">
+            Confronta situazioni diverse e cerca sempre il battito comune.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-2.5">
+          {lessonData.listeningCards.map((card) => {
+            const isActive = card.id === activeCard.id;
+            return (
+              <button
+                key={card.id}
+                type="button"
+                aria-label={`Apri ascolto ${card.code}`}
+                onClick={() => setActiveCardId(card.id)}
+                className={cn(RING, isActive ? PILL_ACTIVE : PILL_DEFAULT)}
+              >
+                Ascolto {card.code}
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div className="mt-6 accordia-flow-split accordia-flow-split--balanced">
+        <div className="rounded-[1.7rem] border border-slate-200/70 bg-white px-5 py-6">
+          <p className={SMALL_LABEL}>{activeCard.focus}</p>
+          <h3 className="mt-4 text-[2rem] font-semibold tracking-[-0.05em] text-slate-950">{activeCard.title}</h3>
+          <p className="mt-4 text-[1rem] leading-7 text-slate-600">{activeCard.description}</p>
+          <div className="mt-6 rounded-[1.35rem] border border-slate-200/70 bg-[#fcfbf8] px-4 py-4">
+            <p className={SMALL_LABEL}>Prova</p>
+            <p className="mt-2 text-sm leading-6 text-slate-600">{activeCard.exercise}</p>
+          </div>
+
+          <div className="mt-6">
+            <p className={SMALL_LABEL}>Quale gruppo senti?</p>
+            <div className="mt-3 flex flex-wrap gap-2.5">
+              {[2, 3, 4].map((meter) => (
+                <button
+                  key={`${activeCard.id}-${meter}`}
+                  type="button"
+                  aria-label={`${meter} pulsazioni`}
+                  onClick={() => setSelectedMeters((current) => ({ ...current, [activeCard.id]: meter }))}
+                  className={cn(RING, selectedMeter === meter ? PILL_ACTIVE : PILL_DEFAULT)}
+                >
+                  {meter} pulsazioni
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="grid gap-4">
+          <div className="rounded-[1.7rem] border border-slate-200/70 bg-white px-5 py-5">
+            <MeterPreview groupSize={selectedMeter} compact={true} />
+          </div>
+          <div className={cn("rounded-[1.35rem] border px-4 py-4", palette.groupSurface)}>
+            <p className={cn("text-sm font-medium leading-6", palette.note)}>
+              Se il numero 1 torna ogni {selectedMeter} battiti, il gruppo si chiude {meterGroupLabel(selectedMeter)}.
+            </p>
+          </div>
+          <div className="accordia-flow-question-grid">
+            {lessonData.listeningQuestions.map((question) => (
+              <div key={question} className="accordia-flow-question-card">
+                <p className="text-sm leading-6 text-slate-600">{question}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function RhythmFlowExploration() {
+  return (
+    <SectionShell id="exploration" backgroundClass="bg-[#fffdfa]" className="accordia-flow-movement">
+      <div className="accordia-flow-movement__stage accordia-flow-movement__stage--wide" style={{ fontFamily: APP_FONT }}>
+        <p className="accordia-flow-movement__eyebrow">Esplorazione</p>
+        <h2 className="accordia-flow-movement__title">Prima senti il centro, poi lo confronti.</h2>
+        <p className="accordia-flow-movement__text">
+          {getSection("context").text}
+        </p>
+
+        <div className="mt-10 grid gap-6">
+          <div className="accordia-flow-surface accordia-flow-surface--soft">
+            <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
+              <div className="max-w-[36rem]">
+                <p className={SMALL_LABEL}>Dove il ritmo serve al gruppo</p>
+                <p className="mt-3 text-[1rem] leading-7 text-slate-600">
+                  Camminare, danzare, lavorare, marciare e pregare insieme chiedono un tempo condiviso. Il ritmo nasce per coordinare il movimento.
+                </p>
+              </div>
+              <div className="accordia-flow-keywords mt-0">
+                <span className="accordia-flow-keyword">camminare</span>
+                <span className="accordia-flow-keyword">danzare</span>
+                <span className="accordia-flow-keyword">coordinare</span>
+              </div>
+            </div>
+
+            <div className="mt-6 accordia-flow-rail">
+              {lessonData.contextExamples.map((item) => (
+                <div key={item.id} className="accordia-flow-chip-card">
+                  <p className="text-[1rem] font-semibold tracking-[-0.02em] text-slate-950">{item.title}</p>
+                  <p className="mt-2 text-[0.95rem] leading-7 text-slate-500">{item.detail}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="accordia-flow-split accordia-flow-split--wide">
+            <RhythmFlowPulsePanel />
+            <RhythmFlowListeningPanel />
+          </div>
+        </div>
+      </div>
+    </SectionShell>
+  );
+}
+
+function RhythmFlowBoard() {
+  const section = getSection("sequencer");
+  const [selectedStateId, setSelectedStateId] = useState("sound");
+  const [steps, setSteps] = useState([...lessonData.sequencePresets.simple]);
+  const optionById = useMemo(
+    () => Object.fromEntries(lessonData.sequenceStates.map((option) => [option.id, option])),
+    []
+  );
+
+  const bars = [steps.slice(0, 4), steps.slice(4, 8)];
+  const activeOption = optionById[selectedStateId];
+
+  const applyPreset = (presetKey) => {
+    setSteps([...lessonData.sequencePresets[presetKey]]);
+  };
+
+  const renderStepButton = (step, index) => {
+    const option = optionById[step];
+    const isAccent = step === "accent";
+    const isPause = step === "pause";
+
+    return (
+      <button
+        key={`${step}-${index}`}
+        type="button"
+        aria-label={`Tempo ${index + 1}, ${option.longLabel}`}
+        onClick={() =>
+          setSteps((current) =>
+            current.map((value, stepIndex) => (stepIndex === index ? selectedStateId : value))
+          )
+        }
+        className={cn(
+          RING,
+          "flex aspect-square h-[5.1rem] w-[5.1rem] shrink-0 flex-col items-center justify-center rounded-[1.18rem] border border-solid px-2 py-2 text-center transition-colors duration-150",
+          isAccent
+            ? "border-[#e6c8a8] bg-[#fff8f1] hover:border-[#d7b692] hover:bg-[#fff3e5]"
+            : isPause
+              ? "border-slate-200/80 bg-[#fbfaf7] hover:border-slate-300 hover:bg-[#f6f4ef]"
+              : "border-slate-200/80 bg-white hover:border-slate-300 hover:bg-[#f8f6f1]"
+        )}
+      >
+        <span className={SMALL_LABEL}>t{index + 1}</span>
+        <SequencerSymbol stateId={step} className={isAccent ? "mt-2 text-[1.55rem] text-[#8a4d18]" : "mt-2 text-[1.45rem]"} />
+        <span className={cn("mt-1 text-[0.7rem] leading-4", isAccent ? "text-[#8a4d18]" : "text-slate-500")}>
+          {option.longLabel}
+        </span>
+      </button>
+    );
+  };
+
+  return (
+    <div className="accordia-flow-surface accordia-flow-surface--soft">
+      <div className="flex flex-wrap items-center justify-between gap-4">
+        <div>
+          <p className={SMALL_LABEL}>Lavagna ritmica</p>
+          <p className="mt-3 text-[1.16rem] font-semibold tracking-[-0.03em] text-slate-950">
+            {section.title}
+          </p>
+        </div>
+        <ToneTag className="border-[#eadfce] bg-white text-[#8a4d18]">{activeOption.longLabel}</ToneTag>
+      </div>
+
+      <div className="mt-5 flex flex-wrap gap-2.5">
+        {lessonData.sequenceStates.map((option) => {
+          const isSelected = option.id === selectedStateId;
+          return (
+            <button
+              key={option.id}
+              type="button"
+              aria-label={`Seleziona ${option.longLabel}`}
+              onClick={() => setSelectedStateId(option.id)}
+              className={cn(RING, isSelected ? PILL_ACTIVE : PILL_DEFAULT)}
+            >
+              {option.longLabel}
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="mt-6 rounded-[1.8rem] border border-slate-200/70 bg-white px-4 py-5 shadow-[0_12px_28px_rgba(15,23,42,0.03)] sm:px-5">
+        <div className="mx-auto max-w-[31rem]">
+          <div className="flex flex-wrap gap-3">
+            <ToneTag className="border-slate-200/70 bg-[#fcfbf8] text-slate-600">battuta 1 · tempi 1-4</ToneTag>
+            <ToneTag className="border-slate-200/70 bg-[#fcfbf8] text-slate-600">battuta 2 · tempi 5-8</ToneTag>
+          </div>
+
+          <div className="mt-5 grid gap-3">
+            {bars.map((barSteps, barIndex) => (
+              <div key={`bar-row-${barIndex}`} className="flex items-center gap-3">
+                <span className="inline-flex h-11 min-w-[5.4rem] items-center justify-center rounded-full border border-slate-200/70 bg-[#fcfbf8] px-3 text-xs font-semibold uppercase tracking-[0.16em] text-slate-500">
+                  battuta {barIndex + 1}
+                </span>
+                <div className="grid grid-cols-4 gap-3">
+                  {barSteps.map((step, stepIndex) => renderStepButton(step, barIndex * 4 + stepIndex))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-6 grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-start">
+        <div className="rounded-[1.35rem] border border-slate-200/70 bg-white px-4 py-4">
+          <p className={SMALL_LABEL}>Che cosa fai</p>
+          <p className="mt-2 text-sm leading-6 text-slate-600">
+            Scegli una pulsazione stabile. Poi costruisci il ritmo in due righe da quattro tempi: prima battuta sopra, seconda battuta sotto.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          <SecondaryButton onClick={() => applyPreset("reset")}>Reset</SecondaryButton>
+          <SecondaryButton onClick={() => applyPreset("simple")}>Esempio semplice</SecondaryButton>
+          <SecondaryButton onClick={() => applyPreset("pauses")}>Esempio con pause</SecondaryButton>
+          <SecondaryButton onClick={() => applyPreset("accents")}>Esempio con accenti</SecondaryButton>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function RhythmFlowActive() {
+  const conductorSteps = [
+    {
+      id: "still",
+      title: "Punto di fermo",
+      detail: "Ti fermi, guardi il gruppo e prepari l'attenzione.",
+    },
+    {
+      id: "prepare",
+      title: "Preparazione",
+      detail: "Il gesto fa capire quando sta per partire il battito.",
+    },
+    {
+      id: "attack",
+      title: "Attacco",
+      detail: "Il suono comincia insieme, nello stesso punto.",
+    },
+    {
+      id: "stop",
+      title: "Stop",
+      detail: "Il gruppo chiude insieme senza perdere il centro.",
+    },
+  ];
+
+  return (
+    <SectionShell id="active-understanding" backgroundClass="bg-[#f7f4ee]" className="accordia-flow-movement">
+      <div className="accordia-flow-movement__stage accordia-flow-movement__stage--wide" style={{ fontFamily: APP_FONT }}>
+        <p className="accordia-flow-movement__eyebrow">Comprensione attiva</p>
+        <h2 className="accordia-flow-movement__title">Ora distingui le parole e le usi subito.</h2>
+        <p className="accordia-flow-movement__text">
+          Leggi le definizioni essenziali, guarda gli esempi concreti e prova subito a costruire un ritmo che il gruppo possa ripetere.
+        </p>
+
+        <div className="mt-10 grid gap-6">
+          <div className="accordia-flow-surface accordia-flow-surface--soft">
+            <div className="accordia-flow-split accordia-flow-split--wide">
+              <div className="rounded-[1.8rem] border border-slate-200/70 bg-white px-5 py-6 accordia-flow-copy-lines">
+                <div className="relative">
+                  <p className={SMALL_LABEL}>Definizioni da ricopiare</p>
+                  <div className="mt-5 space-y-6">
+                    {lessonData.quoteDefinitions.map((definition) => (
+                      <div key={definition.id}>
+                        <p className="text-[1.02rem] font-semibold tracking-[-0.02em] text-slate-950">{definition.term}</p>
+                        <p className="mt-2 text-[1.14rem] italic leading-8 text-slate-700">{definition.quote}</p>
+                        <p className="mt-2 text-[0.95rem] leading-7 text-slate-500">{definition.support}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+                {lessonData.conceptCards.map((card) => (
+                  <div key={card.id} className="rounded-[1.55rem] border border-slate-200/70 bg-white px-5 py-5">
+                    <p className={SMALL_LABEL}>{card.title}</p>
+                    <p className="mt-3 text-[0.96rem] leading-7 text-slate-600">{card.definition}</p>
+                    <div className="mt-5 flex flex-wrap items-center gap-2.5">
+                      {card.visual.map((item, index) => (
+                        <ConceptVisual key={`${card.id}-${index}`} type={item} />
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="accordia-flow-key-idea">
+              La pulsazione sostiene. Il ritmo si muove. Il tempo accelera o rallenta. Il metro organizza gli accenti.
+            </div>
+          </div>
+
+          <div className="accordia-flow-split accordia-flow-split--wide">
+            <div className="accordia-flow-surface">
+              <p className={SMALL_LABEL}>Gesto del direttore</p>
+              <p className="mt-3 text-[1.02rem] leading-7 text-slate-600">
+                Anche un gesto semplice puo aiutarti a far partire, mantenere e chiudere il tempo del gruppo.
+              </p>
+              <div className="mt-6 accordia-flow-rail">
+                {conductorSteps.map((step, index) => (
+                  <div key={step.id} className="accordia-flow-chip-card">
+                    <p className={SMALL_LABEL}>0{index + 1}</p>
+                    <p className="mt-3 text-[1rem] font-semibold tracking-[-0.02em] text-slate-950">{step.title}</p>
+                    <p className="mt-2 text-[0.95rem] leading-7 text-slate-500">{step.detail}</p>
+                  </div>
+                ))}
+              </div>
+              <div className="mt-6 grid gap-3 sm:grid-cols-2">
+                <div className="rounded-[1.3rem] border border-slate-200/70 bg-[#fcfbf8] px-4 py-4">
+                  <p className={SMALL_LABEL}>Versione essenziale</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">Usa solo preparazione, attacco e stop.</p>
+                </div>
+                <div className="rounded-[1.3rem] border border-slate-200/70 bg-[#fcfbf8] px-4 py-4">
+                  <p className={SMALL_LABEL}>Se vuoi estendere</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">Aggiungi anche un accento piu forte sul primo battito.</p>
+                </div>
+              </div>
+            </div>
+
+            <RhythmFlowBoard />
+          </div>
+        </div>
+      </div>
+    </SectionShell>
+  );
+}
+
+function RhythmFlowReworking() {
+  const [answers, setAnswers] = useState({});
+  const [selfAnswers, setSelfAnswers] = useState({});
+  const selfChecks = [
+    "Riesci a mantenere una pulsazione stabile?",
+    "Riesci a distinguere pulsazione e ritmo?",
+    "Riesci a seguire o guidare il gruppo con un gesto?",
+  ];
+
+  return (
+    <SectionShell id="reworking" backgroundClass="bg-[#fffdfa]" className="accordia-flow-movement">
+      <div className="accordia-flow-movement__stage accordia-flow-movement__stage--wide" style={{ fontFamily: APP_FONT }}>
+        <p className="accordia-flow-movement__eyebrow">Rielaborazione</p>
+        <h2 className="accordia-flow-movement__title">Porta il ritmo nel gruppo e ricordalo.</h2>
+        <p className="accordia-flow-movement__text">
+          Ora usi cio che hai capito per costruire una breve performance, spiegare le tue scelte e fissare l'idea chiave della lezione.
+        </p>
+
+        <div className="mt-10 grid gap-6">
+          <div className="accordia-flow-surface accordia-flow-surface--soft">
+            <div className="accordia-flow-split accordia-flow-split--balanced">
+              <div>
+                <p className={SMALL_LABEL}>Compito</p>
+                <p className="mt-4 text-[1.22rem] font-semibold tracking-[-0.03em] text-slate-950">
+                  Lavora in coppia o in piccolo gruppo. Costruisci una breve sequenza con pulsazione, ritmo e accenti.
+                </p>
+                <div className="mt-6 space-y-4">
+                  {lessonData.performanceRules.map((rule) => (
+                    <p key={rule} className="text-[0.98rem] leading-7 text-slate-600">{rule}</p>
+                  ))}
+                </div>
+              </div>
+
+              <div className="grid gap-4">
+                <div className="rounded-[1.4rem] border border-slate-200/70 bg-white px-5 py-5">
+                  <p className={SMALL_LABEL}>Se vuoi semplificare</p>
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
+                    Tieni solo la pulsazione con mani o piedi. Aggiungi un solo accento chiaro e ripeti.
+                  </p>
+                </div>
+                <div className="rounded-[1.4rem] border border-slate-200/70 bg-white px-5 py-5">
+                  <p className={SMALL_LABEL}>Ruoli possibili</p>
+                  <div className="mt-3 space-y-3">
+                    {lessonData.performanceRoles.map((role) => (
+                      <p key={role} className="text-sm leading-6 text-slate-600">{role}</p>
+                    ))}
+                  </div>
+                </div>
+                <div className="rounded-[1.4rem] border border-slate-200/70 bg-white px-5 py-5">
+                  <p className={SMALL_LABEL}>Come capisci se funziona</p>
+                  <div className="mt-3 space-y-3">
+                    {lessonData.performanceCriteria.map((criterion) => (
+                      <p key={criterion} className="text-sm leading-6 text-slate-600">{criterion}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="grid gap-6 xl:grid-cols-[minmax(0,1.05fr)_minmax(22rem,0.95fr)]">
+            <div className="accordia-flow-surface">
+              <p className={SMALL_LABEL}>Verifica leggera</p>
+              <div className="mt-5 divide-y divide-slate-200/80">
+                {lessonData.quizQuestions.map((question, questionIndex) => {
+                  const selectedOptionId = answers[question.id];
+                  const selectedOption = question.options.find((option) => option.id === selectedOptionId);
+
+                  return (
+                    <div key={question.id} className="py-5 first:pt-0">
+                      <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                        Domanda {questionIndex + 1}
+                      </p>
+                      <p className="mt-3 text-[1.02rem] font-semibold tracking-[-0.02em] text-slate-950">{question.prompt}</p>
+                      <div className="mt-4 space-y-2.5">
+                        {question.options.map((option) => {
+                          const isSelected = option.id === selectedOptionId;
+                          return (
+                            <button
+                              key={option.id}
+                              type="button"
+                              aria-label={option.label}
+                              onClick={() => setAnswers((current) => ({ ...current, [question.id]: option.id }))}
+                              className={cn(
+                                RING,
+                                "block w-full rounded-[1.2rem] border px-4 py-3 text-left text-sm leading-6 transition duration-200",
+                                isSelected
+                                  ? "border-[#c66a18] bg-[#fff1e2] text-slate-900"
+                                  : "border-slate-200 bg-[#f8f6f1] text-slate-700 hover:border-slate-300 hover:bg-[#efede7]"
+                              )}
+                            >
+                              {option.label}
+                            </button>
+                          );
+                        })}
+                      </div>
+                      {selectedOption ? (
+                        <div className="mt-3 rounded-[1.2rem] border border-slate-200/70 bg-[#fcfbf8] px-4 py-3 text-sm leading-6 text-slate-600">
+                          {selectedOption.feedback}
+                        </div>
+                      ) : null}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+
+            <div className="grid gap-6">
+              <div className="accordia-flow-surface accordia-flow-surface--plain accordia-flow-copy-lines">
+                <div className="relative px-1 py-1">
+                  <p className={SMALL_LABEL}>Autovalutazione</p>
+                  <div className="mt-5 space-y-5">
+                    {selfChecks.map((prompt) => (
+                      <div key={prompt}>
+                        <p className="text-[0.98rem] leading-7 text-slate-700">{prompt}</p>
+                        <div className="mt-3 flex flex-wrap gap-3">
+                          {["ancora no", "abbastanza", "si"].map((option) => {
+                            const isSelected = selfAnswers[prompt] === option;
+                            return (
+                              <button
+                                key={`${prompt}-${option}`}
+                                type="button"
+                                aria-label={option}
+                                onClick={() => setSelfAnswers((current) => ({ ...current, [prompt]: option }))}
+                                className={cn(RING, isSelected ? PILL_ACTIVE : PILL_DEFAULT)}
+                              >
+                                {option}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="accordia-flow-surface accordia-flow-surface--soft">
+                <p className={SMALL_LABEL}>Idea chiave</p>
+                <p className="mt-4 text-[2rem] font-semibold tracking-[-0.05em] text-slate-950">
+                  La pulsazione e il battito regolare, il ritmo e cio che accade dentro quel battito, il tempo dice quanto veloce scorre la musica.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </SectionShell>
+  );
+}
+
 function RitmoPulsazioneTempoLesson() {
   return (
-    <div style={{ fontFamily: APP_FONT }} className="accordia-lesson-page bg-[#fbfaf7] text-slate-950 antialiased">
-      <LessonHero />
-      <SparkSection />
-      <ContextSection />
-      <PulseSection />
-      <ConceptsSection />
-      <ListeningCardsSection />
-      <RhythmSequencerSection />
-      <PerformanceSection />
-      <FinalQuizSection />
+    <div style={{ fontFamily: APP_FONT }} className="accordia-lesson-page accordia-flow-page text-slate-950 antialiased">
+      <RhythmFlowHero />
+      <RhythmFlowProgressBar />
+      <RhythmFlowExploration />
+      <RhythmFlowActive />
+      <RhythmFlowReworking />
     </div>
   );
 }

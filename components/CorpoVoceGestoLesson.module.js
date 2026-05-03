@@ -24,6 +24,50 @@ var lessonData = {
   title: "Corpo, voce e gesto",
   nucleus: "Origini del suono",
   subtitle: "Prima degli strumenti, prima dello spartito, prima della scrittura: il suono comincia da noi.",
+  question: "Possiamo fare musica senza strumenti?",
+  intro: "Entriamo nella lezione ascoltando il silenzio, osservando il corpo e costruendo una breve sequenza con mani, piedi, voce e pause.",
+  keywords: ["corpo", "voce", "gesto", "ritmo", "intenzione"],
+  visualStyle: {
+    nucleusColor: "#c66a18",
+    imageStyle: "wireframe-marker",
+    mood: "clean, calm, premium, educational"
+  },
+  internalStructure: {
+    initialQuestion: "Possiamo fare musica senza strumenti?",
+    historicalCulturalContext: "Prima degli strumenti musicali, l'uomo ha usato il corpo, la voce e il gesto per produrre suoni, comunicare, accompagnare il movimento e dare significato ai momenti collettivi.",
+    guidedObservation: "Gli studenti osservano immagini legate alla musica delle origini, ai gesti sonori, alla danza, alla voce e agli strumenti primitivi.",
+    guidedListening: "Gli studenti ascoltano esempi di body percussion, vocalita e percussioni corporee, riconoscendo ritmo, timbro, intenzione e ripetizione.",
+    contentExplanation: "Il docente chiarisce i concetti di suono, rumore, silenzio, corpo sonoro, voce, gesto intenzionale, ritmo e pulsazione.",
+    practicalActivity: "La classe sperimenta sequenze semplici con mani, piedi, schiocchi, voce e pause.",
+    studentProduction: "A gruppi, gli studenti creano una breve sequenza ritmica usando solo corpo, voce e gesto.",
+    assessmentAndClosing: "Gli studenti spiegano quali suoni hanno usato, come li hanno organizzati e perche possono essere considerati musica."
+  },
+  flow: [
+    {
+      id: "opening",
+      label: "Apertura",
+      contains: ["Domanda iniziale"],
+      layout: "hero"
+    },
+    {
+      id: "exploration",
+      label: "Esplorazione",
+      contains: ["Contesto storico e culturale", "Osservazione guidata", "Ascolto guidato"],
+      layout: "narrative-media"
+    },
+    {
+      id: "active-understanding",
+      label: "Comprensione attiva",
+      contains: ["Spiegazione dei contenuti", "Attivita pratica"],
+      layout: "concept-practice"
+    },
+    {
+      id: "reworking",
+      label: "Rielaborazione",
+      contains: ["Produzione degli studenti", "Verifica e conclusione"],
+      layout: "production-closing"
+    }
+  ],
   sections: [
     {
       id: "hero",
@@ -1170,8 +1214,192 @@ function FinalQuiz() {
     ) : null);
   })), /* @__PURE__ */ React.createElement("div", { className: "mt-14 border-t border-slate-200/80 pt-10 text-center" }, /* @__PURE__ */ React.createElement("p", { className: "mt-6 text-[2.6rem] font-semibold tracking-[-0.05em] text-slate-950 sm:text-[3.35rem]" }, section.closing)))));
 }
+function FlowProgressBar() {
+  return /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-progress" }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-progress__inner" }, lessonData.flow.map((movement) => /* @__PURE__ */ React.createElement(
+    "a",
+    {
+      key: movement.id,
+      href: `#${movement.id}`,
+      className: "accordia-flow-progress__item"
+    },
+    movement.label
+  ))));
+}
+function BodyHeroMedia() {
+  return /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-hero__media accordia-flow-hero__media--soft" }, /* @__PURE__ */ React.createElement(
+    "img",
+    {
+      src: ORIGIN_CAVE_IMAGE,
+      alt: "Pitture rupestri con figure animali e tracce del gesto umano.",
+      className: "h-full w-full object-cover"
+    }
+  ), /* @__PURE__ */ React.createElement("div", { className: "absolute inset-0 bg-gradient-to-tr from-[#fff5ea]/45 via-transparent to-[#edf2f8]/35" }), /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-hero__caption" }, /* @__PURE__ */ React.createElement("span", { className: "accordia-flow-hero__caption-note" }, "origine del suono \xB7 corpo in movimento"), /* @__PURE__ */ React.createElement("span", { className: "accordia-flow-hero__caption-note" }, "guarda, ascolta, prova, crea")));
+}
+function BodyFlowHero() {
+  return /* @__PURE__ */ React.createElement("section", { id: "opening", className: "accordia-flow-hero scroll-mt-28", style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-hero__stage" }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-hero__copy" }, /* @__PURE__ */ React.createElement(SectionKicker, null, lessonData.nucleus), /* @__PURE__ */ React.createElement("h1", { className: "mt-5 max-w-[9ch] text-[3.8rem] font-semibold tracking-[-0.07em] text-slate-950 sm:text-[4.9rem] lg:text-[6rem] lg:leading-[0.9]" }, lessonData.title), /* @__PURE__ */ React.createElement("p", { className: "accordia-flow-hero__question" }, lessonData.question), /* @__PURE__ */ React.createElement("p", { className: "accordia-flow-hero__intro" }, lessonData.intro), /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-keywords" }, lessonData.keywords.map((keyword) => /* @__PURE__ */ React.createElement("span", { key: keyword, className: "accordia-flow-keyword" }, keyword)))), /* @__PURE__ */ React.createElement(BodyHeroMedia, null)));
+}
+function BodyExplorationMovement() {
+  const originSection = getSection("origin");
+  const [secondsLeft, setSecondsLeft] = useState(30);
+  const [running, setRunning] = useState(false);
+  useEffect(() => {
+    if (!running) return void 0;
+    if (secondsLeft === 0) {
+      setRunning(false);
+      return void 0;
+    }
+    const timer = window.setTimeout(() => {
+      setSecondsLeft((current) => current - 1);
+    }, 1e3);
+    return () => window.clearTimeout(timer);
+  }, [running, secondsLeft]);
+  return /* @__PURE__ */ React.createElement(SectionShell, { id: "exploration", backgroundClass: "bg-[#fffdfa]", className: "accordia-flow-movement" }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-movement__stage accordia-flow-movement__stage--wide", style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement("p", { className: "accordia-flow-movement__eyebrow" }, "Esplorazione"), /* @__PURE__ */ React.createElement("h2", { className: "accordia-flow-movement__title" }, "Il suono nasce prima degli strumenti."), /* @__PURE__ */ React.createElement("p", { className: "accordia-flow-movement__text" }, originSection.text, " ", originSection.supporting), /* @__PURE__ */ React.createElement("div", { className: "mt-10 grid gap-6" }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-surface accordia-flow-surface--soft" }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-split accordia-flow-split--balanced" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Che cosa osservi?"), /* @__PURE__ */ React.createElement("div", { className: "mt-5 accordia-flow-rail" }, lessonData.observationCards.map((item) => /* @__PURE__ */ React.createElement("div", { key: item.id, className: "accordia-flow-chip-card" }, /* @__PURE__ */ React.createElement("p", { className: "text-[1rem] font-semibold tracking-[-0.02em] text-slate-950" }, item.title), /* @__PURE__ */ React.createElement("p", { className: "mt-2 text-[0.95rem] leading-7 text-slate-500" }, item.detail))))), /* @__PURE__ */ React.createElement("div", { className: "rounded-[1.8rem] border border-slate-200/70 bg-white px-5 py-6" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-center justify-between gap-4" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Ascolto guidato"), /* @__PURE__ */ React.createElement(ToneTag, { className: "border-[#eadfce] bg-white text-[#8a4d18]" }, "30 secondi")), /* @__PURE__ */ React.createElement("p", { className: "mt-4 text-[1.06rem] leading-8 text-slate-600" }, "Parti dal silenzio. Poi distingui tre famiglie di suoni: corpo, ambiente e gesto intenzionale."), /* @__PURE__ */ React.createElement("div", { className: "mt-6 flex items-end gap-4" }, /* @__PURE__ */ React.createElement("div", { className: "flex h-24 w-24 items-center justify-center rounded-full border border-[#eadfce] bg-[#fff8f1]" }, /* @__PURE__ */ React.createElement("span", { className: "text-[2.6rem] font-semibold tracking-[-0.06em] text-[#8a4d18]" }, secondsLeft)), /* @__PURE__ */ React.createElement("div", { className: "flex flex-wrap gap-3" }, /* @__PURE__ */ React.createElement(
+    PrimaryButton,
+    {
+      onClick: () => {
+        setSecondsLeft(30);
+        setRunning(true);
+      }
+    },
+    "Avvia il silenzio"
+  ), /* @__PURE__ */ React.createElement(
+    SecondaryButton,
+    {
+      onClick: () => {
+        setRunning(false);
+        setSecondsLeft(30);
+      }
+    },
+    "Reimposta"
+  ))), /* @__PURE__ */ React.createElement("div", { className: "mt-6 accordia-flow-question-grid" }, [
+    "Quali suoni arrivano dal corpo?",
+    "Quali suoni arrivano dall'ambiente?",
+    "Quando un gesto fa partire il gruppo?"
+  ].map((question) => /* @__PURE__ */ React.createElement("div", { key: question, className: "accordia-flow-question-card" }, /* @__PURE__ */ React.createElement("p", { className: "text-sm leading-6 text-slate-600" }, question))))))), /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-surface" }, /* @__PURE__ */ React.createElement("div", { className: "flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between" }, /* @__PURE__ */ React.createElement("div", { className: "max-w-[34rem]" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Tre esempi da confrontare"), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[1.02rem] leading-7 text-slate-600" }, "Non devi riconoscere un brano. Devi capire che cosa si ripete, che timbro senti e come il silenzio aiuta il gruppo.")), /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-keywords mt-0" }, /* @__PURE__ */ React.createElement("span", { className: "accordia-flow-keyword" }, "osserva"), /* @__PURE__ */ React.createElement("span", { className: "accordia-flow-keyword" }, "ascolta"), /* @__PURE__ */ React.createElement("span", { className: "accordia-flow-keyword" }, "confronta"))), /* @__PURE__ */ React.createElement("div", { className: "mt-6 accordia-flow-rail" }, lessonData.listeningScenes.map((scene) => /* @__PURE__ */ React.createElement("div", { key: scene.id, className: "accordia-flow-chip-card" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, scene.title), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[0.96rem] leading-7 text-slate-600" }, scene.focus), /* @__PURE__ */ React.createElement("p", { className: "mt-4 text-[0.95rem] leading-7 text-slate-500" }, scene.prompt), /* @__PURE__ */ React.createElement("div", { className: "mt-4 flex flex-wrap gap-2" }, scene.cues.map((cue) => /* @__PURE__ */ React.createElement(ToneTag, { key: `${scene.id}-${cue}`, className: "border-slate-200/70 bg-white text-slate-600" }, cue))))))))));
+}
+function BodyActiveMovement() {
+  const section = getSection("percussion");
+  const [selectedStepType, setSelectedStepType] = useState(lessonData.percussionSteps[0].id);
+  const [steps, setSteps] = useState(["clap", "thigh", "clap", "stomp", "clap", "voice", "pause", "snap"]);
+  const optionById = useMemo(
+    () => Object.fromEntries(lessonData.percussionSteps.map((option) => [option.id, option])),
+    []
+  );
+  const conceptGroups = [
+    {
+      title: "Suono, rumore, silenzio",
+      ids: ["suono", "rumore", "silenzio"]
+    },
+    {
+      title: "Corpo, voce, gesto",
+      ids: ["corpo-sonoro", "voce", "gesto"]
+    },
+    {
+      title: "Ritmo e pulsazione",
+      ids: ["ritmo", "pulsazione"]
+    }
+  ];
+  return /* @__PURE__ */ React.createElement(SectionShell, { id: "active-understanding", backgroundClass: "bg-[#f7f4ee]", className: "accordia-flow-movement" }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-movement__stage accordia-flow-movement__stage--wide", style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement("p", { className: "accordia-flow-movement__eyebrow" }, "Comprensione attiva"), /* @__PURE__ */ React.createElement("h2", { className: "accordia-flow-movement__title" }, "Capisci facendo."), /* @__PURE__ */ React.createElement("p", { className: "accordia-flow-movement__text" }, "Prima nominiamo i concetti essenziali. Poi li mettiamo subito al lavoro con una sequenza che il gruppo puo leggere e ripetere."), /* @__PURE__ */ React.createElement("div", { className: "mt-10 grid gap-6" }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-surface accordia-flow-surface--soft" }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-split accordia-flow-split--wide" }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-4" }, conceptGroups.map((group) => /* @__PURE__ */ React.createElement("div", { key: group.title, className: "rounded-[1.55rem] border border-slate-200/70 bg-white px-5 py-5" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, group.title), /* @__PURE__ */ React.createElement("div", { className: "mt-4 space-y-4" }, group.ids.map((id) => {
+    const item = lessonData.conceptDefinitions.find((definition) => definition.id === id);
+    if (!item) return null;
+    return /* @__PURE__ */ React.createElement("div", { key: item.id }, /* @__PURE__ */ React.createElement("p", { className: "text-[1rem] font-semibold tracking-[-0.02em] text-slate-950" }, item.term), /* @__PURE__ */ React.createElement("p", { className: "mt-1 text-[0.95rem] leading-7 text-slate-500" }, item.definition));
+  }))))), /* @__PURE__ */ React.createElement("div", { className: "rounded-[1.8rem] border border-slate-200/70 bg-white px-5 py-6" }, /* @__PURE__ */ React.createElement("div", { className: "flex items-center justify-between gap-4" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Attivita pratica"), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[1.14rem] font-semibold tracking-[-0.03em] text-slate-950" }, section.text)), /* @__PURE__ */ React.createElement(ToneTag, { className: "border-[#eadfce] bg-[#fff8f1] text-[#8a4d18]" }, "8 tempi")), /* @__PURE__ */ React.createElement("div", { className: "mt-5 flex flex-wrap gap-2.5" }, lessonData.percussionSteps.map((option) => {
+    const isSelected = option.id === selectedStepType;
+    return /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key: option.id,
+        type: "button",
+        "aria-label": `Seleziona ${option.longLabel}`,
+        onClick: () => setSelectedStepType(option.id),
+        className: cn(RING, isSelected ? PILL_ACTIVE : PILL_DEFAULT)
+      },
+      option.longLabel
+    );
+  })), /* @__PURE__ */ React.createElement("div", { className: "mt-6 grid grid-cols-4 gap-3" }, steps.map((step, index) => {
+    const option = optionById[step];
+    return /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key: `${step}-${index}`,
+        type: "button",
+        "aria-label": `Tempo ${index + 1}, ${option.longLabel}`,
+        onClick: () => setSteps(
+          (current) => current.map((value, stepIndex) => stepIndex === index ? selectedStepType : value)
+        ),
+        className: cn(
+          RING,
+          "flex aspect-square min-h-[5.15rem] flex-col items-center justify-center rounded-[1.2rem] border border-slate-200/80 bg-[#fffdf9] px-2 py-2 text-center transition-colors duration-150 hover:border-slate-300 hover:bg-white"
+        )
+      },
+      /* @__PURE__ */ React.createElement("span", { className: SMALL_LABEL }, "t", index + 1),
+      /* @__PURE__ */ React.createElement("span", { className: "mt-2 text-[1.35rem] font-semibold tracking-[0.08em] text-slate-950" }, option.short),
+      /* @__PURE__ */ React.createElement("span", { className: "mt-1 text-[0.72rem] text-slate-500" }, option.longLabel)
+    );
+  })), /* @__PURE__ */ React.createElement("div", { className: "mt-6 grid gap-3 lg:grid-cols-3" }, /* @__PURE__ */ React.createElement("div", { className: "rounded-[1.3rem] border border-slate-200/70 bg-[#fcfbf8] px-4 py-4" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Cosa fai"), /* @__PURE__ */ React.createElement("p", { className: "mt-2 text-sm leading-6 text-slate-600" }, "Scegli tre suoni corporei e ripetili con una pulsazione stabile.")), /* @__PURE__ */ React.createElement("div", { className: "rounded-[1.3rem] border border-slate-200/70 bg-[#fcfbf8] px-4 py-4" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Versione essenziale"), /* @__PURE__ */ React.createElement("p", { className: "mt-2 text-sm leading-6 text-slate-600" }, "Usa solo mani, piedi e una pausa. Ripeti due volte senza cambiare.")), /* @__PURE__ */ React.createElement("div", { className: "rounded-[1.3rem] border border-slate-200/70 bg-[#fcfbf8] px-4 py-4" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Se vuoi fare di piu"), /* @__PURE__ */ React.createElement("p", { className: "mt-2 text-sm leading-6 text-slate-600" }, "Aggiungi la voce oppure cambia un solo tempo senza perdere il gruppo.")))))), /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-key-idea" }, "La musica nasce quando il suono viene scelto, organizzato e condiviso."))));
+}
+function BodyReworkingMovement() {
+  const [activeSymbolId, setActiveSymbolId] = useState(lessonData.graphicSymbols[0].id);
+  const [score, setScore] = useState(["\u25CF", "\u25B2", "\u25CF", "\u25A0", "\u25CF", "\u25B2", "\u2014", "\u25C6"]);
+  const [selfCheck, setSelfCheck] = useState({});
+  const activeSymbol = lessonData.graphicSymbols.find((item) => item.id === activeSymbolId) || lessonData.graphicSymbols[0];
+  const closingChecks = [
+    "Riesci a spiegare quali suoni hai scelto?",
+    "Riesci a far capire la sequenza anche senza parole?",
+    "Riesci a dire perche questo puo essere musica?"
+  ];
+  return /* @__PURE__ */ React.createElement(SectionShell, { id: "reworking", backgroundClass: "bg-[#fffdfa]", className: "accordia-flow-movement" }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-movement__stage accordia-flow-movement__stage--wide", style: { fontFamily: APP_FONT } }, /* @__PURE__ */ React.createElement("p", { className: "accordia-flow-movement__eyebrow" }, "Rielaborazione"), /* @__PURE__ */ React.createElement("h2", { className: "accordia-flow-movement__title" }, "Trasforma il lavoro in una traccia condivisa."), /* @__PURE__ */ React.createElement("p", { className: "accordia-flow-movement__text" }, "Ora costruisci la tua sequenza, la rendi leggibile e controlli se il gruppo riesce davvero a capirla e ripeterla."), /* @__PURE__ */ React.createElement("div", { className: "mt-10 grid gap-6 lg:grid-cols-[minmax(0,1.04fr)_minmax(22rem,0.96fr)]" }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-surface accordia-flow-surface--soft" }, /* @__PURE__ */ React.createElement("div", { className: "flex flex-wrap items-center justify-between gap-4" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Compito"), /* @__PURE__ */ React.createElement("p", { className: "mt-3 text-[1.18rem] font-semibold tracking-[-0.03em] text-slate-950" }, "Costruisci con il tuo gruppo una sequenza breve e trasformala in una partitura grafica semplice.")), /* @__PURE__ */ React.createElement(ToneTag, { className: "border-[#eadfce] bg-white text-[#8a4d18]" }, "gruppo \xB7 8 tempi")), /* @__PURE__ */ React.createElement("div", { className: "mt-6 flex flex-wrap gap-2.5" }, lessonData.graphicSymbols.map((item) => {
+    const isActive = item.id === activeSymbolId;
+    return /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key: item.id,
+        type: "button",
+        "aria-label": `Seleziona simbolo ${item.label}`,
+        onClick: () => setActiveSymbolId(item.id),
+        className: cn(RING, isActive ? PILL_ACTIVE : PILL_DEFAULT, "gap-2")
+      },
+      /* @__PURE__ */ React.createElement("span", { className: "text-lg" }, item.symbol),
+      /* @__PURE__ */ React.createElement("span", null, item.label)
+    );
+  })), /* @__PURE__ */ React.createElement("div", { className: "mt-6 grid grid-cols-4 gap-3" }, score.map((symbol, index) => /* @__PURE__ */ React.createElement(
+    "button",
+    {
+      key: `${symbol}-${index}`,
+      type: "button",
+      "aria-label": `Tempo ${index + 1}`,
+      onClick: () => setScore(
+        (current) => current.map((value, stepIndex) => stepIndex === index ? activeSymbol.symbol : value)
+      ),
+      className: cn(
+        RING,
+        "flex aspect-square min-h-[5.15rem] flex-col items-center justify-center rounded-[1.2rem] border border-slate-200/80 bg-white px-2 py-2 text-center transition-colors duration-150 hover:border-slate-300 hover:bg-[#f8f6f1]"
+      )
+    },
+    /* @__PURE__ */ React.createElement("span", { className: SMALL_LABEL }, "t", index + 1),
+    /* @__PURE__ */ React.createElement("span", { className: "mt-2 text-[1.55rem] font-semibold text-slate-950" }, symbol)
+  )))), /* @__PURE__ */ React.createElement("div", { className: "grid gap-6" }, /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-surface" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Come capisci se funziona"), /* @__PURE__ */ React.createElement("div", { className: "mt-5 space-y-4" }, [
+    "Il gruppo entra insieme.",
+    "La pulsazione resta chiara.",
+    "La pausa ha un posto preciso.",
+    "Chi ascolta capisce il disegno."
+  ].map((item) => /* @__PURE__ */ React.createElement("p", { key: item, className: "text-[0.98rem] leading-7 text-slate-600" }, item)))), /* @__PURE__ */ React.createElement("div", { className: "accordia-flow-surface accordia-flow-surface--plain accordia-flow-copy-lines" }, /* @__PURE__ */ React.createElement("div", { className: "relative px-1 py-1" }, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Domanda finale"), /* @__PURE__ */ React.createElement("p", { className: "mt-5 text-[1.14rem] font-semibold tracking-[-0.03em] text-slate-950" }, "Perche questa esperienza puo essere considerata musica?"), /* @__PURE__ */ React.createElement("p", { className: "mt-4 text-[0.98rem] leading-7 text-slate-600" }, "Rispondi con parole semplici: quali suoni hai scelto, come li hai organizzati e che cosa ha fatto il gruppo per stare insieme?"))))), /* @__PURE__ */ React.createElement("div", { className: "mt-6 accordia-flow-surface accordia-flow-surface--soft" }, /* @__PURE__ */ React.createElement("div", { className: "grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(20rem,0.9fr)]" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Autovalutazione"), /* @__PURE__ */ React.createElement("div", { className: "mt-5 space-y-5" }, closingChecks.map((check) => /* @__PURE__ */ React.createElement("div", { key: check }, /* @__PURE__ */ React.createElement("p", { className: "text-[1rem] leading-7 text-slate-700" }, check), /* @__PURE__ */ React.createElement("div", { className: "mt-3 flex flex-wrap gap-3" }, ["ancora no", "abbastanza", "si"].map((option) => {
+    const isSelected = selfCheck[check] === option;
+    return /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key: `${check}-${option}`,
+        type: "button",
+        "aria-label": option,
+        onClick: () => setSelfCheck((current) => ({ ...current, [check]: option })),
+        className: cn(RING, isSelected ? PILL_ACTIVE : PILL_DEFAULT)
+      },
+      option
+    );
+  })))))), /* @__PURE__ */ React.createElement("div", { className: "flex flex-col justify-between gap-6 rounded-[1.6rem] border border-slate-200/70 bg-white px-5 py-5" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: SMALL_LABEL }, "Idea chiave"), /* @__PURE__ */ React.createElement("p", { className: "mt-4 text-[2rem] font-semibold tracking-[-0.05em] text-slate-950" }, "La musica nasce quando il suono viene organizzato con intenzione.")), /* @__PURE__ */ React.createElement("p", { className: "text-[0.96rem] leading-7 text-slate-500" }, "Se il gruppo riesce a scegliere, ripetere e condividere il gesto sonoro, il suono diventa forma, memoria e musica."))))));
+}
 function LessonProductPage() {
-  return /* @__PURE__ */ React.createElement("div", { style: { fontFamily: APP_FONT }, className: "accordia-lesson-page bg-[#fbfaf7] text-slate-950 antialiased" }, /* @__PURE__ */ React.createElement(LessonHero, null), /* @__PURE__ */ React.createElement(ListeningTimerSection, null), /* @__PURE__ */ React.createElement(OriginStorySection, null), /* @__PURE__ */ React.createElement(ConceptBoardSection, null), /* @__PURE__ */ React.createElement(BodyPercussionSequencer, null), /* @__PURE__ */ React.createElement(GraphicScoreBuilder, null), /* @__PURE__ */ React.createElement(FinalQuiz, null));
+  return /* @__PURE__ */ React.createElement("div", { style: { fontFamily: APP_FONT }, className: "accordia-lesson-page accordia-flow-page text-slate-950 antialiased" }, /* @__PURE__ */ React.createElement(BodyFlowHero, null), /* @__PURE__ */ React.createElement(FlowProgressBar, null), /* @__PURE__ */ React.createElement(BodyExplorationMovement, null), /* @__PURE__ */ React.createElement(BodyActiveMovement, null), /* @__PURE__ */ React.createElement(BodyReworkingMovement, null));
 }
 function CorpoVoceGestoLesson() {
   return /* @__PURE__ */ React.createElement(LessonProductPage, null);
