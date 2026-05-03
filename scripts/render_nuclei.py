@@ -3114,31 +3114,13 @@ def render_immersive_lesson_mount(topic: dict) -> str:
     mount_id = lesson.get("immersive_mount_id", "immersive-lesson-root")
     data_key = lesson.get("immersive_data_key", topic["slug"])
     return f"""
-        <section class="nucleus-section lesson-section lesson-section--immersive" id="lezione">
-            <div id="{e(mount_id)}" data-immersive-lesson="{e(data_key)}">
-                <div class="shell" style="padding: 2rem 0 2.5rem;">
-                    <section class="lesson-panel-card lesson-panel-card--wide lesson-panel-card--accent">
-                        <div class="lesson-panel-card__head">
-                            <h4>Lezione immersiva</h4>
-                        </div>
-                        <div class="lesson-panel-card__body">
-                            <p>{e(lesson['description'])}</p>
-                            <p>Sto caricando la versione estesa e interattiva di questa lezione.</p>
-                        </div>
-                    </section>
-                </div>
-            </div>
+        <section class="lesson-mount" id="lezione">
+            <div id="{e(mount_id)}" data-immersive-lesson="{e(data_key)}"></div>
             <noscript>
-                <div class="shell" style="padding-bottom: 2.5rem;">
-                    <section class="lesson-panel-card lesson-panel-card--wide">
-                        <div class="lesson-panel-card__head">
-                            <h4>JavaScript richiesto</h4>
-                        </div>
-                        <div class="lesson-panel-card__body">
-                            <p>Questa versione della lezione usa componenti interattivi. Attiva JavaScript per visualizzarla.</p>
-                        </div>
-                    </section>
-                </div>
+                <section class="lesson-noscript">
+                    <h2>JavaScript richiesto</h2>
+                    <p>Questa versione della lezione usa componenti interattivi. Attiva JavaScript per visualizzarla.</p>
+                </section>
             </noscript>
         </section>"""
 
@@ -3325,15 +3307,7 @@ def render_lesson_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str
     footer_html = ""
 
     if panel_only and immersive_preview:
-        main_content = f"""
-        <nav class="nucleus-mini-timeline" aria-label="Mini timeline dei nuclei">
-            <div class="shell nucleus-mini-timeline__track">
-                {render_nucleus_mini_links(nucleo["slug"], "../../../../")}
-            </div>
-        </nav>
-
-{render_topic_rail(nucleo, topic["slug"])}
-{render_immersive_lesson_mount(topic)}"""
+        main_content = render_immersive_lesson_mount(topic)
         footer_html = f"""
     <footer class="site-footer">
         <div class="shell site-footer__grid">
@@ -3349,7 +3323,7 @@ def render_lesson_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str
             </div>
             <div>
                 <span class="site-footer__label">Lezione</span>
-                <a href="#lezione">Versione immersiva</a>
+                <a href="#lezione">Torna all'inizio della lezione</a>
                 <a href="../../../../pages/lezioni.html">Lezioni guidate</a>
                 <a href="../../../../index.html">Home</a>
             </div>
