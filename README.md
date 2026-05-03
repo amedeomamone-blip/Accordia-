@@ -90,6 +90,10 @@ GRAFO e un asse centrale del progetto: non e decorazione, ma traduzione visiva d
   3. esegui `make studio-dev`
   4. apri `studio/src/pages/HomePage.jsx` o `studio/src/pages/TimelinePage.jsx`
   5. usa Piny sulla preview per ritoccare layout, spacing, tipografia e card
+- Nota pratica: il risultato grafico non compare dentro il tab del file `.jsx`. In VS Code devi aprire una preview separata:
+  - `Cmd+Shift+P` -> `Simple Browser: Show`
+  - apri `http://127.0.0.1:5173/timeline`
+  - oppure fai click destro nel file `.jsx` e usa `Edit in Piny`
 - Il sito statico principale resta intatto finche non decidiamo di riportare i ritocchi dal laboratorio ai file HTML/CSS di produzione.
 
 ## Sorgente del contenuto

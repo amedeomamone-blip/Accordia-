@@ -17,7 +17,14 @@
       "options": {
         "cwd": "${workspaceFolder}/studio"
       },
+      "runOptions": {
+        "runOn": "folderOpen"
+      },
       "isBackground": true,
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated"
+      },
       "problemMatcher": []
     },
     {
