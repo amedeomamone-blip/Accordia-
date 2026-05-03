@@ -3307,7 +3307,15 @@ def render_lesson_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str
     footer_html = ""
 
     if panel_only and immersive_preview:
-        main_content = render_immersive_lesson_mount(topic)
+        main_content = f"""
+        <nav class="nucleus-mini-timeline" aria-label="Mini timeline dei nuclei">
+            <div class="shell nucleus-mini-timeline__track">
+                {render_nucleus_mini_links(nucleo["slug"], "../../../../")}
+            </div>
+        </nav>
+
+{render_topic_rail(nucleo, topic["slug"])}
+{render_immersive_lesson_mount(topic)}"""
         footer_html = f"""
     <footer class="site-footer">
         <div class="shell site-footer__grid">
