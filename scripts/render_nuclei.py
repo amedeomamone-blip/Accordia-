@@ -52,7 +52,7 @@ DEFAULT_TIMELINE_PAGE_DATA = {
     "page_title": "Nuclei | Accordia",
     "hero": {
         "eyebrow": "Nuclei Accordia",
-        "title": "Ogni card apre un nucleo vero, non una scheda riassuntiva.",
+        "title": "La Musica nel tempo",
         "lead": "La timeline di Accordia organizza la storia della musica in dieci nuclei editoriali completi: ogni tappa ha hero, indice interno, mappe degli argomenti, contenuti da libro di testo, compito di realta e verifica.",
         "primary_cta_label": "Esplora i nuclei",
         "primary_cta_href": "#timeline-track",
