@@ -965,9 +965,9 @@ body[data-nav="home"] .button--secondary:hover {
     min-height: 22.45rem;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    gap: 0.54rem;
-    padding: 1.42rem;
+    justify-content: flex-start;
+    gap: 0.58rem;
+    padding: 3.7rem 1.42rem 1.42rem;
     border: 1px solid #e8e8ea;
     border-radius: 1.5rem;
     background: #ffffff;
@@ -1025,7 +1025,7 @@ body[data-nav="home"] .button--secondary:hover {
 .home-era-card__era {
     display: block;
     max-width: 22ch;
-    min-height: 2.15rem;
+    min-height: 2.3rem;
     margin-bottom: 0;
     color: #8b9198;
     font-size: 0.87rem;
@@ -1038,7 +1038,7 @@ body[data-nav="home"] .button--secondary:hover {
 .home-era-card strong {
     display: block;
     max-width: none;
-    min-height: 2.75rem;
+    min-height: 2.95rem;
     color: #18191b;
     font-family: var(--font-display);
     font-size: 1.46rem;
@@ -1047,13 +1047,15 @@ body[data-nav="home"] .button--secondary:hover {
 
 .home-era-card p {
     max-width: 29ch;
-    margin-top: 0.16rem;
+    min-height: 4.8rem;
+    margin-top: 0.12rem;
     font-size: 0.93rem;
     line-height: 1.68;
 }
 
 .home-era-card__cta {
-    margin-top: 0.92rem;
+    margin-top: auto;
+    padding-top: 0.92rem;
     color: #18191b;
     font-size: 0.74rem;
     font-weight: 800;
@@ -1549,9 +1551,9 @@ body[data-nav="home"] .site-footer__label {
     min-height: 25rem;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    gap: 0.7rem;
-    padding: 1.35rem;
+    justify-content: flex-start;
+    gap: 0.62rem;
+    padding: 3.75rem 1.35rem 1.35rem;
     border: 1px solid #e6e9ee;
     border-radius: 1.6rem;
     background: #ffffff;
@@ -1621,12 +1623,16 @@ body[data-nav="home"] .site-footer__label {
 }
 
 .timeline-editorial-card__category {
+    display: block;
+    min-height: 2.2rem;
     color: #6d737c;
     transition: color 180ms ease;
 }
 
 .timeline-editorial-card strong {
+    display: block;
     max-width: 14ch;
+    min-height: 3.15rem;
     color: #18191b;
     font-family: var(--font-display);
     font-size: 1.55rem;
@@ -1636,6 +1642,7 @@ body[data-nav="home"] .site-footer__label {
 
 .timeline-editorial-card p {
     max-width: 28ch;
+    min-height: 5.35rem;
     margin: 0;
     line-height: 1.75;
     transition: color 180ms ease;
@@ -1647,11 +1654,16 @@ body[data-nav="home"] .site-footer__label {
     transition: color 180ms ease;
 }
 
-.timeline-editorial-card__kind {
+.timeline-editorial-card__period {
     margin-top: auto;
 }
 
+.timeline-editorial-card__kind {
+    margin-top: 0.08rem;
+}
+
 .timeline-editorial-card__cta {
+    margin-top: 0.08rem;
     color: #18191b;
     transition: color 180ms ease;
 }
