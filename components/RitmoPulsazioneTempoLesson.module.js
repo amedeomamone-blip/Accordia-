@@ -3,13 +3,13 @@ const lesson = {
   nucleus: "Origini del suono",
   title: "Ritmo, pulsazione e tempo",
   question: "Che differenza c'e tra ritmo, pulsazione e tempo?",
-  intro: "Parti dal corpo e dal battito comune. In questa lezione distingui pulsazione, ritmo, tempo, accento e metro con ascolto, confronto e lavoro di gruppo.",
+  intro: "Le guide consultate propongono di partire da corpo, ascolto e battito comune per distinguere pulsazione, ritmo, tempo, accento e metro. In questa lezione la classe cammina, conta, prova, scrive e confronta pattern condivisi.",
   breadcrumbs: [
     { label: "Home", href: "../../../../index.html" },
     { label: "Origini del suono", href: "../../index.html" },
     { label: "Ritmo, pulsazione e tempo" }
   ],
-  heroCaption: "Un battito regolare rende leggibile il gruppo. Il ritmo lo trasforma in azione condivisa.",
+  heroCaption: "La pulsazione tiene insieme il gruppo; ritmo, accenti e metro dicono come quel battito prende forma.",
   flow: [
     { id: "apertura", label: "Apertura" },
     { id: "esplorazione", label: "Esplorazione" },
@@ -22,112 +22,112 @@ const lesson = {
   ],
   openingQuestions: [
     "Che cosa resta uguale mentre il ritmo cambia?",
-    "Che cosa ti aiuta a restare nel gruppo?",
-    "Quando il battito ti sembra piu lento o piu veloce?"
+    "Dove senti il battito che ritorna sempre?",
+    "Quando il gruppo accelera o rallenta, cambia il tempo o cambia il ritmo?"
   ],
-  contextText: "Il ritmo accompagna da sempre il movimento umano: camminare, danzare, lavorare, marciare, pregare e suonare insieme. Prima della scrittura musicale, il tempo veniva organizzato con gesti, battiti, ripetizioni e accenti condivisi.",
+  contextText: "Il ritmo accompagna da sempre il movimento umano: camminare, lavorare, danzare, pregare, marciare e suonare insieme. Le guide per la secondaria suggeriscono di far distinguere pulsazione, ritmo, tempo, accento e metro partendo dal corpo, dalla voce, da pattern brevi e da notazioni intuitive che rendono visibile il battito comune.",
   observationPrompts: [
-    "Guarda se i gesti tornano regolari o irregolari.",
-    "Cerca il punto in cui il gruppo riparte insieme.",
-    "Osserva se l'accento torna a due, a tre o a quattro."
+    "Individua il battito regolare che torna sotto tutti i gesti.",
+    "Conta se gli accenti si organizzano a due, a tre o a quattro.",
+    "Osserva se cambia il tempo oppure cambia solo il disegno ritmico."
   ],
   conceptRows: [
     {
       id: "pulsazione",
       title: "Pulsazione",
-      definition: "E il battito regolare che sostiene la musica.",
-      example: "La senti quando i passi o le mani tornano uguali.",
+      definition: "E il battito regolare che fa da riferimento al gruppo.",
+      example: "La senti quando passi, mani o colpi sul banco tornano uguali e permettono agli altri di orientarsi.",
       visual: "pulse"
     },
     {
       id: "ritmo",
       title: "Ritmo",
       definition: "E il modo in cui suoni e silenzi si organizzano sopra la pulsazione.",
-      example: "Puoi cambiare il ritmo anche se il battito sotto resta stabile.",
+      example: "Puoi cambiare il ritmo, aggiungere pause o contrasti, anche se il battito sotto resta stabile.",
       visual: "rhythm"
     },
     {
       id: "tempo",
       title: "Tempo",
-      definition: "E la velocita della pulsazione: lenta, moderata o veloce.",
-      example: "La forma del battito non cambia: cambia la velocita con cui ritorna.",
+      definition: "E la velocita con cui ritorna la pulsazione.",
+      example: "La forma del battito puo restare la stessa, ma il gruppo lo sente piu lento, medio o veloce.",
       visual: "tempo"
     },
     {
       id: "accento",
       title: "Accento",
-      definition: "E un suono o una pulsazione con maggior rilievo.",
-      example: "Ti aiuta a capire dove cade il punto forte del gruppo.",
+      definition: "E il punto in cui una pulsazione o un suono ricevono maggior rilievo.",
+      example: "Ti aiuta a capire dove cade il punto forte che orienta il gruppo e rende leggibile il metro.",
       visual: "accent"
     },
     {
       id: "metro",
       title: "Metro",
-      definition: "E l'organizzazione regolare degli accenti in gruppi.",
-      example: "Puoi sentire gruppi a due, a tre o a quattro.",
+      definition: "E il modo regolare con cui gli accenti si organizzano in gruppi.",
+      example: "Puoi sentire gruppi a due, a tre o a quattro a partire dallo stesso battito comune.",
       visual: "meter"
     }
   ],
   notebookDefinitions: [
     {
       term: "Pulsazione",
-      quote: '"La pulsazione e il battito regolare che sostiene la musica."',
-      support: "E il centro comune che aiuta il gruppo a stare insieme."
+      quote: '"La pulsazione e il battito regolare che fa da riferimento al gruppo."',
+      support: "E il centro comune che aiuta tutti a stare insieme senza perdersi."
     },
     {
       term: "Ritmo",
-      quote: '"Il ritmo e il modo in cui suoni e silenzi si organizzano nel tempo."',
-      support: "Si muove sopra la pulsazione e rende la sequenza riconoscibile."
+      quote: '"Il ritmo dispone suoni e pause sopra la pulsazione."',
+      support: "Si muove sopra il battito comune e rende la sequenza riconoscibile."
     },
     {
       term: "Tempo",
-      quote: '"Il tempo dice se la pulsazione scorre lenta, moderata o veloce."',
-      support: "Ti fa capire quanto rapidamente ritorna il battito comune."
+      quote: '"Il tempo indica quanto velocemente ritorna la pulsazione."',
+      support: "Ti fa capire se il battito comune scorre lento, medio o veloce."
     }
   ],
   listeningSamples: [
     {
       id: "a",
       label: "Ascolto A",
-      title: "Passo / marcia",
+      title: "Cammino / passo condiviso",
       focus: "Pulsazione in 2",
-      description: "Il corpo tende a camminare in coppie regolari: uno-due, uno-due. Qui la pulsazione e molto leggibile.",
-      action: "Batti mani o banco seguendo un passo fermo e regolare.",
+      description: "Molte azioni di movimento e di lavoro si appoggiano a coppie regolari: uno-due, uno-due. Qui la pulsazione si sente con grande chiarezza.",
+      action: "Cammina o batti due colpi regolari: uno-due, uno-due.",
       expectedGroup: 2
     },
     {
       id: "b",
       label: "Ascolto B",
-      title: "Dondolio / valzer",
+      title: "Danza circolare / dondolio",
       focus: "Pulsazione in 3",
-      description: "Il movimento oscilla e fa sentire gruppi di tre: uno accompagna, due completano il giro.",
-      action: "Conta uno-due-tre con un piccolo movimento del corpo.",
+      description: "Alcuni movimenti e alcune danze fanno percepire gruppi di tre: un primo battito orienta, gli altri completano il giro.",
+      action: "Conta uno-due-tre accompagnando il primo battito con un gesto piu forte.",
       expectedGroup: 3
     },
     {
       id: "c",
       label: "Ascolto C",
-      title: "Groove / battito moderno",
-      focus: "Pulsazione stabile con ritmo sovrapposto",
-      description: "Il battito resta sotto, ma il ritmo in superficie si muove e puo farti perdere il centro.",
-      action: "Tieni il battito con una mano e immagina un ritmo diverso con l'altra.",
+      title: "Ostinato e variazione",
+      focus: "Pulsazione in 4 con ritmo sovrapposto",
+      description: "Il battito comune resta stabile mentre un altro pattern aggiunge accenti, pause e contrasti. Qui la difficolta e non perdere il centro.",
+      action: "Tieni quattro pulsazioni regolari con una mano e prova un ritmo diverso con l'altra o con la voce.",
       expectedGroup: 4
     }
   ],
   listeningQuestions: [
-    "Riesci a battere la pulsazione?",
-    "Dove senti l'accento piu forte?",
-    "Il ritmo coincide sempre con la pulsazione?"
+    "Riesci a tenere la pulsazione anche quando il ritmo cambia?",
+    "Dove senti l'accento principale?",
+    "Il tempo resta uguale o accelera?"
   ],
   pulseModes: [
-    { id: "slow", label: "Lenta", bpm: 60 },
-    { id: "medium", label: "Media", bpm: 90 },
-    { id: "fast", label: "Veloce", bpm: 120 }
+    { id: "slow", label: "Lenta", bpm: 66 },
+    { id: "medium", label: "Media", bpm: 88 },
+    { id: "fast", label: "Veloce", bpm: 112 }
   ],
   pulseSteps: [
-    "Scegli il tempo del battito comune.",
-    "Segui i 4 battiti senza cambiare forma.",
-    "Poi aggiungi un ritmo diverso sopra la pulsazione."
+    "Stabilisci il battito comune con corpo o banco.",
+    "Scegli dove cade l'accento forte: a 2, a 3 o a 4.",
+    "Aggiungi un ritmo diverso senza perdere la pulsazione."
   ],
   sequenceStates: [
     { id: "sound", label: "suono", symbol: "\u25CF" },
@@ -140,23 +140,23 @@ const lesson = {
     accents: ["accent", "sound", "sound", "sound", "accent", "sound", "sound", "sound"]
   },
   sharingTask: {
-    title: "Compito: fai sentire il gruppo.",
-    intro: "Lavora in coppia o in piccolo gruppo. Costruisci una breve sequenza con pulsazione, ritmo e accenti. Puoi usare corpo, voce, banco, oggetti sonori o notazione grafica.",
+    title: "Compito: fai sentire il metro del gruppo.",
+    intro: "Lavora in coppia o in piccolo gruppo. Assegnate ruoli chiari: chi tiene la pulsazione, chi costruisce il ritmo, chi rende visibili gli accenti. Potete usare corpo, voce, banco, oggetti sonori o notazione grafica intuitiva.",
     steps: [
-      "Scegli chi tiene la pulsazione.",
-      "Aggiungi un ritmo che si distingua dal battito comune.",
-      "Fai sentire almeno due accenti riconoscibili.",
-      "Ripeti la sequenza finche resta chiara per tutto il gruppo."
+      "Scegli chi tiene la pulsazione stabile.",
+      "Decidi se il metro torna a 2, a 3 o a 4.",
+      "Aggiungi un ritmo che non copra il battito comune.",
+      "Fissa la sequenza con segni semplici e ripetila finche un altro gruppo la riconosce."
     ],
-    output: "Alla fine il gruppo deve riuscire a ripetere la sequenza senza spiegazioni lunghe.",
+    output: "Un altro gruppo deve riuscire a riconoscere pulsazione, accenti e metro senza una lunga spiegazione.",
     materials: "corpo, voce, banco, oggetti sonori, notazione grafica",
     duration: "20 minuti"
   },
   sharingCriteria: [
-    "Il battito comune resta stabile.",
-    "Ritmo e pulsazione si distinguono chiaramente.",
-    "Gli accenti si sentono davvero.",
-    "Il tempo scelto resta coerente dall'inizio alla fine."
+    "La pulsazione resta stabile dall'inizio alla fine.",
+    "Il ritmo si distingue dal battito comune.",
+    "Gli accenti fanno sentire chiaramente se il metro e a 2, 3 o 4.",
+    "Il tempo scelto resta coerente e condiviso."
   ],
   quizQuestions: [
     {
@@ -185,13 +185,13 @@ const lesson = {
           id: "q2a",
           label: "L'organizzazione di suoni e silenzi nel tempo.",
           correct: true,
-          feedback: "Esatto. Il ritmo si muove sopra la pulsazione e cambia il disegno della sequenza."
+          feedback: "Esatto. Il ritmo si appoggia alla pulsazione ma puo cambiarne il disegno con accenti, pause e contrasti."
         },
         {
           id: "q2b",
-          label: "La velocita con cui suoni piu forte.",
+          label: "Il battito che torna sempre uguale.",
           correct: false,
-          feedback: "Non proprio. Qui stai mescolando ritmo e accento."
+          feedback: "Non proprio. Qui stai descrivendo la pulsazione, non il ritmo."
         }
       ]
     },
@@ -207,9 +207,9 @@ const lesson = {
         },
         {
           id: "q3b",
-          label: "Il numero totale dei suoni.",
+          label: "Il numero totale dei suoni prodotti.",
           correct: false,
-          feedback: "No. Il tempo non conta i suoni: descrive la velocita del battito."
+          feedback: "No. Il tempo non conta i suoni: descrive la velocita del battito comune."
         }
       ]
     },
@@ -225,20 +225,20 @@ const lesson = {
         },
         {
           id: "q4b",
-          label: "A rendere tutti i suoni uguali.",
+          label: "A scegliere solo suoni forti.",
           correct: false,
-          feedback: "Non proprio. Il metro organizza gli accenti, non cancella le differenze."
+          feedback: "Non proprio. Il metro organizza il ritorno degli accenti, non obbliga a usare solo suoni forti."
         }
       ]
     }
   ],
   selfCheck: [
-    "Riesci a distinguere pulsazione e ritmo?",
-    "Riesci a riconoscere se il tempo e lento, moderato o veloce?",
-    "Riesci a tenere il battito comune mentre il gruppo cambia ritmo?"
+    "Riesci a distinguere pulsazione, ritmo, tempo, accento e metro?",
+    "Riesci a riconoscere se il tempo e lento, medio o veloce?",
+    "Riesci a tenere il battito comune mentre un compagno cambia ritmo?"
   ],
-  closingLine: "La pulsazione e il battito regolare. Il ritmo e cio che accade dentro quel battito.",
-  closingBridge: "Nella lezione successiva prova a chiederti: come cambia il ritmo quando il corpo diventa strumento?"
+  closingLine: "La pulsazione e il battito comune; il ritmo e il disegno che vi si appoggia; il metro organizza il ritorno degli accenti.",
+  closingBridge: "Nella lezione successiva osserva come ritmo e ripetizione aiutino rito, lavoro e comunita."
 };
 function cn(...classes) {
   return classes.filter(Boolean).join(" ");

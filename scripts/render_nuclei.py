@@ -1440,7 +1440,7 @@ ORIGINI_TOPIC_MAP = {
                 "immersive_stylesheet": "../../../../css/lesson-immersive.css",
                 "immersive_module": "../../../../components/CorpoVoceGestoLesson.module.js",
                 "author": "Lezione di Amedeo Mamone",
-                "description": "Prima degli strumenti, il corpo e il primo spazio in cui il suono prende forma e intenzione. In questa lezione gli studenti scoprono come corpo, voce e gesto possano diventare materiali musicali attraverso ascolto, imitazione, organizzazione, notazione e restituzione collettiva.",
+                "description": "Prima degli strumenti, il corpo e il primo spazio in cui il suono prende forma e intenzione. In questa lezione gli studenti lavorano su ascolto multisensoriale, improvvisazione, voce, gesto e notazione intuitiva per trasformare il suono in esperienza condivisa.",
                 "classroom": "Prima secondaria di primo grado",
                 "duration": "2 ore",
                 "spaces": "Aula musica, palestra, auditorium o aula con banchi spostabili",
@@ -1449,18 +1449,18 @@ ORIGINI_TOPIC_MAP = {
                 "overview_cards": [
                     {
                         "label": "Focus didattico",
-                        "title": "Dal suono casuale al gesto intenzionale",
-                        "body": "La lezione mostra che il corpo non produce solo rumore: puo organizzare pulsazione, timbri, pause e finali condivisi.",
+                        "title": "Ascolto multisensoriale e gesto intenzionale",
+                        "body": "La lezione porta la classe dal silenzio alla produzione sonora con corpo, voce, pausa e segni grafici semplici.",
                     },
                     {
                         "label": "Che cosa fa la classe",
-                        "title": "Ascolta, imita, scrive, costruisce",
-                        "body": "Gli studenti passano dall'ascolto del silenzio a una piccola partitura corporea, fino a una performance breve di gruppo.",
+                        "title": "Ascolta, improvvisa, codifica",
+                        "body": "Gli studenti esplorano suoni del corpo, provano cellule vocali e trasformano la sequenza in una notazione condivisa.",
                     },
                     {
                         "label": "Output finali",
-                        "title": "Sequenza sonora, partitura, verifica",
-                        "body": "Ogni gruppo produce una sequenza corporea e una notazione grafica; la lezione si chiude con ascolto tra pari, verifica breve e autovalutazione.",
+                        "title": "Sequenza corporea, segni, confronto",
+                        "body": "Ogni gruppo produce una sequenza corporea, la fa leggere ad altri e chiude con verifica breve e autovalutazione.",
                     },
                 ],
                 "default_phase": "scintilla",
@@ -2126,7 +2126,7 @@ ORIGINI_TOPIC_MAP = {
                 "immersive_stylesheet": "../../../../css/lesson-immersive.css",
                 "immersive_module": "../../../../components/RitmoPulsazioneTempoLesson.module.js",
                 "author": "Lezione di Amedeo Mamone",
-                "description": "Prima di leggere una partitura, possiamo sentire il tempo con il corpo. In questa lezione la classe distingue pulsazione, ritmo, accento e tempo usando mani, piedi, voce, ascolto e gesto.",
+                "description": "Prima di leggere una partitura, la classe sente il tempo con il corpo. In questa lezione distingue pulsazione, ritmo, tempo, accento e metro attraverso cammino, ascolto guidato, notazione intuitiva e lavoro di gruppo.",
             },
         },
         {

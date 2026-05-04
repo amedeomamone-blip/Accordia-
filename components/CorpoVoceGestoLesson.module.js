@@ -4,30 +4,30 @@ const GALLERY_IMAGES = [
   {
     src: "/assets/lesson/corpo-voce-gesto/lascaux-painting.jpg",
     title: "Segni sulla parete",
-    caption: "Il gesto lascia traccia, ritmo e memoria prima della scrittura musicale."
+    caption: "Prima della scrittura musicale, gesto e movimento lasciano gia tracce di rito, memoria e coordinazione del gruppo."
   },
   {
     src: "/assets/lesson/corpo-voce-gesto/hands-clapping.jpg",
     title: "Mani e pulsazione",
-    caption: "Il corpo puo gia organizzare un battito comune e far nascere il ritmo."
+    caption: "Le pratiche corporee e vocali aiutano a costruire un battito comune, distinguere i timbri e rendere visibile il ritmo."
   },
   {
     src: "/assets/lesson/corpo-voce-gesto/divje-babe-flute.jpg",
     title: "Primi strumenti",
-    caption: "Anche quando compaiono strumenti semplici, corpo e voce restano il primo laboratorio del suono."
+    caption: "Anche quando compaiono strumenti semplici, corpo, voce e gesto restano la base dell'improvvisazione e della memoria sonora."
   }
 ];
 const lesson = {
   nucleus: "Origini del suono",
   title: "Corpo, voce e gesto",
-  question: "Possiamo fare musica senza strumenti?",
-  intro: "Prima degli strumenti, prima dello spartito e prima della scrittura, il suono nasce dal corpo. In questa lezione osservi, provi e organizzi una sequenza usando mani, piedi, voce e pause.",
+  question: "Come fa un gesto a diventare musica senza strumenti?",
+  intro: "Le fonti didattiche sulle origini del suono insistono su ascolto, multisensorialita, improvvisazione, corpo, voce e segni grafici semplici. In questa lezione la classe parte dal silenzio, costruisce una sequenza corporea e la trasforma in una piccola partitura leggibile.",
   breadcrumbs: [
     { label: "Home", href: "../../../../index.html" },
     { label: "Origini del suono", href: "../../index.html" },
     { label: "Corpo, voce e gesto" }
   ],
-  heroCaption: "Prima del repertorio e della notazione, il suono esiste gia come gesto condiviso, voce, battito e memoria del gruppo.",
+  heroCaption: "Prima della notazione tradizionale, il suono vive gia come respiro, voce, battito, gesto condiviso e memoria del gruppo.",
   flow: [
     { id: "apertura", label: "Apertura" },
     { id: "esplorazione", label: "Esplorazione" },
@@ -39,66 +39,67 @@ const lesson = {
     { id: "chiusura", label: "Chiusura" }
   ],
   openingPrompts: [
-    "Quali suoni arrivano dal tuo corpo?",
-    "Quali suoni arrivano dall'ambiente?",
-    "Quando un rumore puo diventare musica?"
+    "Quali suoni nascono dal tuo corpo e quali arrivano dall'ambiente?",
+    "Quale gesto trasforma un rumore in segnale condiviso?",
+    "Quali suoni del corpo sono secchi, lunghi, gravi o leggeri?",
+    "Quando il silenzio prepara meglio l'attacco del gruppo?"
   ],
-  contextText: "Prima degli strumenti musicali, gli esseri umani hanno usato il corpo, la voce e il gesto per produrre suoni, comunicare, accompagnare il movimento e dare significato ai momenti collettivi. La musica nasce come esperienza condivisa prima ancora di diventare scrittura.",
+  contextText: "Prima degli strumenti musicali, gli esseri umani hanno usato il corpo, la voce e il gesto per richiamare, coordinare, imitare, celebrare e ricordare. Le guide didattiche consultate insistono su ascolto, improvvisazione e produzione sonora con corpo, voce e oggetti, accompagnate da segni grafici semplici che aiutano il gruppo a ricordare e ripetere.",
   explorationQuestions: [
-    "Che cosa noti nel rapporto tra gesto e suono?",
-    "Quale parte del corpo produce un timbro piu chiaro?",
-    "Dove il gruppo ha bisogno del silenzio per ripartire insieme?"
+    "In quali momenti voce e gesto aiutano il gruppo a partire insieme?",
+    "Quale parte del corpo produce un suono piu secco, piu lungo o piu grave?",
+    "Quando una pausa o un respiro rendono piu chiara la sequenza?"
   ],
   conceptRows: [
     {
       title: "Suono",
-      definition: "E cio che senti quando una sorgente vibra.",
-      example: "Una mano che batte, un piede che colpisce il pavimento, una sillaba pronunciata.",
+      definition: "E un evento percepito che nasce da una vibrazione e acquista senso quando viene ascoltato.",
+      example: "Una mano che batte, un piede che colpisce il pavimento o una sillaba detta insieme possono diventare materiali musicali.",
       visual: "sound"
     },
     {
       title: "Rumore",
-      definition: "E un suono non ancora scelto o non ancora organizzato con intenzione.",
-      example: "Un colpo casuale puo restare rumore finche non entra in un ritmo condiviso.",
+      definition: "E un suono non ancora selezionato o non ancora condiviso come segnale musicale.",
+      example: "Un colpo casuale resta rumore finche il gruppo non lo sceglie, lo ripete e gli assegna una funzione.",
       visual: "noise"
     },
     {
       title: "Silenzio",
-      definition: "Non e vuoto: prepara l'ascolto e da forma ai suoni.",
-      example: "Una pausa comune rende piu chiaro l'attacco successivo.",
+      definition: "Non e vuoto: e una condizione attiva di ascolto, attesa e orientamento.",
+      example: "Una pausa comune rende piu chiaro l'attacco successivo e aiuta il gruppo a respirare insieme.",
       visual: "silence"
     },
     {
       title: "Corpo sonoro",
-      definition: "E il corpo usato come sorgente di suono.",
-      example: "Mani, piedi, petto, cosce, respiro e voce possono gia costruire musica.",
+      definition: "E il corpo considerato come sorgente sonora e spazio di risonanza.",
+      example: "Mani, piedi, petto, cosce, respiro e postura offrono timbri diversi e gia organizzabili.",
       visual: "body"
     },
     {
       title: "Voce",
-      definition: "Puo chiamare, guidare, ricordare e costruire ritmo.",
-      example: "Una sillaba breve puo fissare una sequenza nella memoria del gruppo.",
+      definition: "E respiro trasformato in richiamo, sillaba, fonema, canto o scansione ritmica.",
+      example: "Una sillaba breve come ta o tum aiuta memoria, attacco comune e imitazione della sequenza.",
       visual: "voice"
     },
     {
       title: "Gesto intenzionale",
-      definition: "E un movimento scelto che prepara, produce o coordina il suono.",
-      example: "Alzare la mano, fermarsi, ripartire insieme: il gesto rende visibile l'intenzione.",
+      definition: "E il movimento che avvia, interrompe, coordina o rende visibile la musica.",
+      example: "Un gesto di attacco, pausa o arresto aiuta tutti a capire quando entrare e come restare insieme.",
       visual: "gesture"
     }
   ],
   reworkingRows: [
     {
       title: "Corpo",
-      text: "Il corpo e il primo spazio del suono: mani, piedi, petto, respiro e movimento fanno nascere timbri diversi."
+      text: "Il corpo e il primo spazio del suono: mani, piedi, petto, cosce e respiro fanno nascere timbri diversi e aiutano a sentire durata, intensita e pulsazione."
     },
     {
       title: "Voce",
-      text: "La voce chiama, accompagna, ricorda e sostiene il ritmo quando non c'e ancora scrittura."
+      text: "La voce chiama, accompagna, memorizza e sostiene il ritmo attraverso fonemi, sillabe, richiami e piccole cellule vocali."
     },
     {
       title: "Gesto",
-      text: "Il gesto prepara il suono, lo rende leggibile al gruppo e coordina attacco, pausa e ripresa."
+      text: "Il gesto prepara il suono, lo rende leggibile al gruppo e coordina attacco, pausa, ripresa e direzione comune."
     }
   ],
   sourceOptions: [
@@ -109,20 +110,20 @@ const lesson = {
     { id: "pausa", label: "Pausa", short: "PA", symbol: "\u2014" }
   ],
   sequencePresets: {
-    simple: ["mani", "piedi", "mani", "voce", "mani", "piedi", "pausa", "voce"],
-    echo: ["mani", "mani", "pausa", "voce", "mani", "mani", "pausa", "voce"],
-    contrast: ["piedi", "voce", "cosce", "pausa", "piedi", "voce", "cosce", "pausa"]
+    simple: ["mani", "pausa", "mani", "voce", "piedi", "pausa", "voce", "mani"],
+    echo: ["mani", "voce", "mani", "pausa", "mani", "voce", "mani", "pausa"],
+    contrast: ["piedi", "cosce", "voce", "pausa", "piedi", "mani", "voce", "pausa"]
   },
   productionSteps: [
-    "Scegli un suono del corpo come base.",
-    "Aggiungi un secondo suono che faccia contrasto.",
-    "Inserisci almeno una pausa riconoscibile.",
-    "Ripeti gli 8 tempi finche la sequenza resta stabile."
+    "Scegli una pulsazione comune che tutti riescano a mantenere.",
+    "Aggiungi una voce breve o un fonema che aiuti memoria e attacco.",
+    "Inserisci almeno una pausa e un gesto chiaro di avvio o arresto.",
+    "Trascrivi la sequenza con segni semplici e ripetila finche il gruppo la legge da solo."
   ],
   sharingRules: [
-    "Passa la sequenza a un altro gruppo senza spiegarla troppo.",
-    "Chi ascolta prova a ripeterla guardando segni, pause e accenti.",
-    "Confronta che cosa resta chiaro e che cosa va corretto."
+    "Consegna la sequenza a un altro gruppo mostrando solo i segni e il gesto iniziale.",
+    "Chi ascolta prova a ricostruire battito, pause e voce senza spiegazioni lunghe.",
+    "Se qualcosa non funziona, semplifica o evidenzia i punti chiave con colore, spazio o accento."
   ],
   notationLegend: [
     "\u25CF mani",
@@ -138,61 +139,61 @@ const lesson = {
       options: [
         {
           id: "q1a",
-          label: "Si, se corpo, voce, gesto e silenzio vengono organizzati.",
+          label: "Si, se corpo, voce, gesto e silenzio vengono organizzati dal gruppo.",
           correct: true,
-          feedback: "Esatto. Gli strumenti aiutano, ma il suono puo diventare musica anche prima di loro."
+          feedback: "Esatto. Le fonti insistono proprio su questo: il suono diventa musica quando e intenzionale, condiviso e ripetibile."
         },
         {
           id: "q1b",
           label: "No, servono sempre strumenti musicali.",
           correct: false,
-          feedback: "Non proprio. Il corpo e la voce possono gia produrre un'esperienza musicale."
+          feedback: "Non proprio. Corpo, voce e gesto sono gia risorse sonore complete, anche prima degli strumenti."
         }
       ]
     },
     {
       id: "q2",
-      prompt: "Che cosa rende musicale un gesto?",
+      prompt: "Perche una notazione grafica semplice puo essere utile?",
       options: [
         {
           id: "q2a",
-          label: "L'intenzione e l'organizzazione del suono nel tempo.",
+          label: "Perche aiuta memoria, coordinazione e ripetizione anche senza pentagramma.",
           correct: true,
-          feedback: "Esatto. Il gesto diventa musica quando orienta il suono e il gruppo con intenzione."
+          feedback: "Esatto. Le codificazioni analogiche servono proprio a fissare e condividere il gesto sonoro."
         },
         {
           id: "q2b",
-          label: "Il fatto che sia molto forte.",
+          label: "Perche sostituisce completamente ascolto e prova.",
           correct: false,
-          feedback: "No. La forza da sola non basta: serve una funzione chiara nel tempo condiviso."
+          feedback: "No. Il segno aiuta, ma resta efficace solo se nasce da ascolto, prova e confronto nel gruppo."
         }
       ]
     },
     {
       id: "q3",
-      prompt: "Perche il silenzio e importante?",
+      prompt: "Che funzione ha la pausa in una sequenza corporea?",
       options: [
         {
           id: "q3a",
-          label: "Perche prepara l'ascolto e da forma ai suoni.",
+          label: "Da respiro, chiarisce l'attacco e rende piu leggibile la forma.",
           correct: true,
-          feedback: "Esatto. Il silenzio non spegne la musica: la rende piu leggibile."
+          feedback: "Esatto. La pausa non cancella la musica: la organizza e la rende piu comprensibile."
         },
         {
           id: "q3b",
-          label: "Perche interrompe definitivamente il ritmo.",
+          label: "Serve solo a fermare definitivamente il gruppo.",
           correct: false,
-          feedback: "Non proprio. Una pausa puo anzi chiarire l'attacco successivo."
+          feedback: "Non proprio. Una pausa puo anzi preparare meglio la ripresa e il gesto successivo."
         }
       ]
     }
   ],
   selfCheck: [
-    "Riesci a distinguere suono, rumore e silenzio?",
-    "Riesci a costruire una sequenza breve con corpo, voce e pausa?",
-    "Riesci a spiegare perche il gruppo puo fare musica anche senza strumenti?"
+    "Riesci a distinguere suono, rumore, silenzio e gesto intenzionale?",
+    "Riesci a costruire e leggere una sequenza breve con corpo, voce, pausa e segni grafici?",
+    "Riesci a spiegare perche il gruppo puo fare musica anche prima degli strumenti?"
   ],
-  closingLine: "La musica nasce quando il suono viene scelto, organizzato e condiviso con intenzione.",
+  closingLine: "Il corpo non sostituisce la musica: la inaugura, quando il suono viene ascoltato, scelto e condiviso.",
   closingBridge: "Nella prossima lezione chiediti: che cosa cambia quando il gruppo lavora su pulsazione, ritmo e tempo?"
 };
 function cn(...classes) {
