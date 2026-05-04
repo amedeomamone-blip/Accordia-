@@ -1389,7 +1389,7 @@ LESSON_CREDIT_FLUTE = "Foto: Thilo Parg / Wikimedia Commons · CC BY-SA 3.0"
 
 ORIGINI_TOPIC_MAP = {
     "eyebrow": "Mappa degli argomenti",
-    "intro": "Il nucleo non procede come una semplice sequenza di paragrafi: seleziona pochi temi forti, tipici dell'avvio dei manuali di educazione musicale, e li rimonta in una rete di relazioni leggibile, narrativa e cliccabile.",
+    "intro": "Qui puoi muoverti tra pochi temi chiave e collegarli tra loro. Ogni tappa ti aiuta a capire come corpo, suono, rito e strumenti costruiscono le origini della musica.",
     "nodes": [
         {
             "number": "01",
@@ -1440,27 +1440,27 @@ ORIGINI_TOPIC_MAP = {
                 "immersive_stylesheet": "../../../../css/lesson-immersive.css",
                 "immersive_module": "../../../../components/CorpoVoceGestoLesson.module.js",
                 "author": "Lezione di Amedeo Mamone",
-                "description": "Prima degli strumenti, il corpo e il primo spazio in cui il suono prende forma e intenzione. In questa lezione gli studenti lavorano su ascolto multisensoriale, improvvisazione, voce, gesto e notazione intuitiva per trasformare il suono in esperienza condivisa.",
+                "description": "Parti dal corpo, dalla voce e dal silenzio. Ascolti, provi, scegli un gesto e lo trasformi in una frase sonora che il gruppo sa riconoscere.",
                 "classroom": "Prima secondaria di primo grado",
                 "duration": "2 ore",
                 "spaces": "Aula musica, palestra, auditorium o aula con banchi spostabili",
                 "historical_range": "Preistoria sonora · circa 40.000-10.000 a.C.",
-                "materials_text": "LIM o proiettore, casse audio, fogli A4, pennarelli, post-it, smartphone o tablet del docente per registrare brevi sequenze, eventuale lavagna digitale.",
+                "materials_text": "LIM o proiettore, casse audio, fogli A4, pennarelli, post-it, smartphone o tablet per registrare brevi sequenze, eventuale lavagna digitale.",
                 "overview_cards": [
                     {
-                        "label": "Focus didattico",
-                        "title": "Ascolto multisensoriale e gesto intenzionale",
-                        "body": "La lezione porta la classe dal silenzio alla produzione sonora con corpo, voce, pausa e segni grafici semplici.",
+                        "label": "Focus",
+                        "title": "Ascolto, gesto, pausa",
+                        "body": "Parti dal silenzio e arrivi a una piccola produzione sonora con corpo, voce, pausa e segni semplici.",
                     },
                     {
-                        "label": "Che cosa fa la classe",
-                        "title": "Ascolta, improvvisa, codifica",
-                        "body": "Gli studenti esplorano suoni del corpo, provano cellule vocali e trasformano la sequenza in una notazione condivisa.",
+                        "label": "Che cosa fai",
+                        "title": "Ascolta, prova, organizza",
+                        "body": "Esplori i suoni del corpo, provi cellule vocali e trasformi la sequenza in una notazione condivisa.",
                     },
                     {
-                        "label": "Output finali",
-                        "title": "Sequenza corporea, segni, confronto",
-                        "body": "Ogni gruppo produce una sequenza corporea, la fa leggere ad altri e chiude con verifica breve e autovalutazione.",
+                        "label": "Alla fine",
+                        "title": "Sequenza, segni, confronto",
+                        "body": "Ogni gruppo crea una sequenza corporea, la fa leggere ad altri e capisce se funziona davvero.",
                     },
                 ],
                 "default_phase": "scintilla",
@@ -2126,7 +2126,7 @@ ORIGINI_TOPIC_MAP = {
                 "immersive_stylesheet": "../../../../css/lesson-immersive.css",
                 "immersive_module": "../../../../components/RitmoPulsazioneTempoLesson.module.js",
                 "author": "Lezione di Amedeo Mamone",
-                "description": "Prima di leggere una partitura, la classe sente il tempo con il corpo. In questa lezione distingue pulsazione, ritmo, tempo, accento e metro attraverso cammino, ascolto guidato, notazione intuitiva e lavoro di gruppo.",
+                "description": "Trovi un battito comune con il corpo, ascolti come tornano gli accenti e capisci che cosa cambia tra pulsazione, ritmo, tempo e metro.",
             },
         },
         {

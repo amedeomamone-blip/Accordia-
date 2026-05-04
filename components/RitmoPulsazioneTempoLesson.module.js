@@ -1,413 +1,354 @@
-import React, { useEffect, useMemo, useRef, useState } from "https://esm.sh/react@18";
+import React, { useEffect, useState } from "https://esm.sh/react@18";
+import {
+  LessonHero,
+  LessonProgress,
+  LessonSection,
+  Panel,
+  PhaseTabs,
+  PromptList,
+  QuizList,
+  ResultCallout,
+  SelfCheckList,
+  SimpleTimer,
+  StepList,
+  cn,
+  useActiveSection,
+  usePrefersReducedMotion
+} from "./LessonShared.module.js";
 const lesson = {
   nucleus: "Origini del suono",
   title: "Ritmo, pulsazione e tempo",
   question: "Che differenza c'e tra ritmo, pulsazione e tempo?",
-  intro: "Le guide consultate propongono di partire da corpo, ascolto e battito comune per distinguere pulsazione, ritmo, tempo, accento e metro. In questa lezione la classe cammina, conta, prova, scrive e confronta pattern condivisi.",
+  subtitle: "Prima trovi un battito comune. Poi capisci che il ritmo puo cambiare, mentre la pulsazione resta sotto e il tempo ne decide la velocita.",
   breadcrumbs: [
     { label: "Home", href: "../../../../index.html" },
     { label: "Origini del suono", href: "../../index.html" },
     { label: "Ritmo, pulsazione e tempo" }
   ],
-  heroCaption: "La pulsazione tiene insieme il gruppo; ritmo, accenti e metro dicono come quel battito prende forma.",
-  flow: [
-    { id: "apertura", label: "Apertura" },
-    { id: "esplorazione", label: "Esplorazione" },
-    { id: "comprensione-attiva", label: "Comprensione attiva" },
-    { id: "rielaborazione", label: "Rielaborazione" },
-    { id: "produzione", label: "Produzione" },
-    { id: "condivisione", label: "Condivisione" },
-    { id: "valutazione", label: "Valutazione" },
-    { id: "chiusura", label: "Chiusura" }
+  meta: [
+    { label: "Durata", value: "2 ore" },
+    { label: "Ti serve", value: "corpo, voce, banco" },
+    { label: "Obiettivo", value: "distinguere pulsazione, ritmo, tempo, accento e metro" }
   ],
-  openingQuestions: [
-    "Che cosa resta uguale mentre il ritmo cambia?",
-    "Dove senti il battito che ritorna sempre?",
-    "Quando il gruppo accelera o rallenta, cambia il tempo o cambia il ritmo?"
+  heroNote: "La pulsazione tiene insieme il gruppo. Ritmo, accenti e metro dicono come quel battito prende forma.",
+  progress: [
+    { id: "apertura", label: "Apertura", type: "anchor" },
+    { id: "esplorazione", label: "Esplorazione", type: "anchor" },
+    { id: "comprensione-attiva", label: "Comprensione attiva", type: "anchor" },
+    { id: "rielaborazione", label: "Rielaborazione", type: "followup" },
+    { id: "produzione", label: "Produzione", type: "followup" },
+    { id: "condivisione", label: "Condivisione", type: "followup" },
+    { id: "valutazione", label: "Valutazione", type: "followup" },
+    { id: "chiusura", label: "Chiusura", type: "followup" }
   ],
-  contextText: "Il ritmo accompagna da sempre il movimento umano: camminare, lavorare, danzare, pregare, marciare e suonare insieme. Le guide per la secondaria suggeriscono di far distinguere pulsazione, ritmo, tempo, accento e metro partendo dal corpo, dalla voce, da pattern brevi e da notazioni intuitive che rendono visibile il battito comune.",
-  observationPrompts: [
-    "Individua il battito regolare che torna sotto tutti i gesti.",
-    "Conta se gli accenti si organizzano a due, a tre o a quattro.",
-    "Osserva se cambia il tempo oppure cambia solo il disegno ritmico."
-  ],
-  conceptRows: [
-    {
-      id: "pulsazione",
-      title: "Pulsazione",
-      definition: "E il battito regolare che fa da riferimento al gruppo.",
-      example: "La senti quando passi, mani o colpi sul banco tornano uguali e permettono agli altri di orientarsi.",
-      visual: "pulse"
-    },
-    {
-      id: "ritmo",
-      title: "Ritmo",
-      definition: "E il modo in cui suoni e silenzi si organizzano sopra la pulsazione.",
-      example: "Puoi cambiare il ritmo, aggiungere pause o contrasti, anche se il battito sotto resta stabile.",
-      visual: "rhythm"
-    },
-    {
-      id: "tempo",
-      title: "Tempo",
-      definition: "E la velocita con cui ritorna la pulsazione.",
-      example: "La forma del battito puo restare la stessa, ma il gruppo lo sente piu lento, medio o veloce.",
-      visual: "tempo"
-    },
-    {
-      id: "accento",
-      title: "Accento",
-      definition: "E il punto in cui una pulsazione o un suono ricevono maggior rilievo.",
-      example: "Ti aiuta a capire dove cade il punto forte che orienta il gruppo e rende leggibile il metro.",
-      visual: "accent"
-    },
-    {
-      id: "metro",
-      title: "Metro",
-      definition: "E il modo regolare con cui gli accenti si organizzano in gruppi.",
-      example: "Puoi sentire gruppi a due, a tre o a quattro a partire dallo stesso battito comune.",
-      visual: "meter"
-    }
-  ],
-  notebookDefinitions: [
-    {
-      term: "Pulsazione",
-      quote: '"La pulsazione e il battito regolare che fa da riferimento al gruppo."',
-      support: "E il centro comune che aiuta tutti a stare insieme senza perdersi."
-    },
-    {
-      term: "Ritmo",
-      quote: '"Il ritmo dispone suoni e pause sopra la pulsazione."',
-      support: "Si muove sopra il battito comune e rende la sequenza riconoscibile."
-    },
-    {
-      term: "Tempo",
-      quote: '"Il tempo indica quanto velocemente ritorna la pulsazione."',
-      support: "Ti fa capire se il battito comune scorre lento, medio o veloce."
-    }
-  ],
+  opening: {
+    label: "Esperienza iniziale",
+    title: "Trova il battito comune",
+    intro: "All'inizio ognuno segue il proprio impulso. Poi il gruppo prova a entrare nello stesso battito.",
+    cardTitle: "Entra nello stesso tempo",
+    meta: [
+      { label: "Durata", value: "30 secondi" },
+      { label: "Ti serve", value: "corpo, banco o piccolo spazio libero" },
+      { label: "Alla fine", value: "senti una pulsazione condivisa" }
+    ],
+    steps: [
+      "Cammina lentamente o batti le mani sul banco.",
+      "Ascolta gli altri e cerca il battito che torna uguale per tutti.",
+      "Resta su quel battito senza accelerare."
+    ],
+    observe: [
+      "Che cosa resta uguale mentre i gesti cambiano?",
+      "Dove senti il battito che ritorna sempre?",
+      "Quando il gruppo accelera, cambia il ritmo o cambia il tempo?"
+    ],
+    result: "Riconosci il battito comune sotto i gesti del gruppo."
+  },
+  exploration: {
+    label: "Esplorazione",
+    title: "Sotto il ritmo c'e un battito che ritorna",
+    intro: "Cammino, danza, lavoro e gioco fanno sentire un ordine. Quel centro regolare si chiama pulsazione. Sopra quel centro il ritmo puo muoversi.",
+    paragraphs: [
+      "Se la pulsazione resta stabile, il gruppo non si perde anche quando il ritmo cambia.",
+      "Gli accenti aiutano a sentire se il battito si organizza a 2, a 3 o a 4."
+    ],
+    questions: [
+      "Dove senti il battito regolare?",
+      "L'accento cade ogni 2, 3 o 4 pulsazioni?",
+      "Il tempo resta uguale o cambia?"
+    ]
+  },
   listeningSamples: [
     {
       id: "a",
-      label: "Ascolto A",
-      title: "Cammino / passo condiviso",
+      label: "Ascolto 1 \xB7 Battito regolare",
+      title: "Passo condiviso",
       focus: "Pulsazione in 2",
-      description: "Molte azioni di movimento e di lavoro si appoggiano a coppie regolari: uno-due, uno-due. Qui la pulsazione si sente con grande chiarezza.",
+      description: "Molti movimenti si appoggiano a coppie regolari: uno-due, uno-due. Qui il battito comune si sente con chiarezza.",
       action: "Cammina o batti due colpi regolari: uno-due, uno-due.",
       expectedGroup: 2
     },
     {
       id: "b",
-      label: "Ascolto B",
-      title: "Danza circolare / dondolio",
+      label: "Ascolto 2 \xB7 Accento che ritorna",
+      title: "Dondolio in 3",
       focus: "Pulsazione in 3",
-      description: "Alcuni movimenti e alcune danze fanno percepire gruppi di tre: un primo battito orienta, gli altri completano il giro.",
-      action: "Conta uno-due-tre accompagnando il primo battito con un gesto piu forte.",
+      description: "Alcune danze e alcuni movimenti fanno sentire gruppi di tre. Il primo battito orienta, gli altri completano il giro.",
+      action: "Conta uno-due-tre e rendi piu forte il primo battito.",
       expectedGroup: 3
     },
     {
       id: "c",
-      label: "Ascolto C",
+      label: "Ascolto 3 \xB7 Ritmo che cambia",
       title: "Ostinato e variazione",
-      focus: "Pulsazione in 4 con ritmo sovrapposto",
-      description: "Il battito comune resta stabile mentre un altro pattern aggiunge accenti, pause e contrasti. Qui la difficolta e non perdere il centro.",
+      focus: "Pulsazione in 4",
+      description: "Il battito sotto resta fermo mentre sopra appaiono pause, accenti e contrasti. La sfida e non perdere il centro.",
       action: "Tieni quattro pulsazioni regolari con una mano e prova un ritmo diverso con l'altra o con la voce.",
       expectedGroup: 4
     }
   ],
-  listeningQuestions: [
-    "Riesci a tenere la pulsazione anche quando il ritmo cambia?",
-    "Dove senti l'accento principale?",
-    "Il tempo resta uguale o accelera?"
+  active: {
+    label: "Comprensione attiva",
+    title: "Tieni la pulsazione. Cambia il ritmo.",
+    intro: "Prima mantieni il battito comune. Poi aggiungi pause, accenti e contrasti senza perdere il centro.",
+    cardTitle: "Prova con il corpo e con i segni",
+    meta: [
+      { label: "Durata", value: "15 minuti" },
+      { label: "Ti serve", value: "corpo, voce, banco, foglio" },
+      { label: "Alla fine", value: "leggi e costruisci una sequenza di 8 tempi" }
+    ],
+    steps: [
+      "Scegli una pulsazione stabile.",
+      "Decidi se l'accento torna a 2, a 3 o a 4.",
+      "Aggiungi un ritmo diverso senza perdere la pulsazione.",
+      "Rendi visibile la sequenza con segni semplici."
+    ],
+    observe: [
+      "Il battito sotto resta stabile?",
+      "Gli accenti fanno sentire il gruppo?",
+      "Il ritmo cambia senza coprire la pulsazione?"
+    ],
+    result: "Sai distinguere il battito comune dal disegno ritmico."
+  },
+  conceptRows: [
+    {
+      term: "Pulsazione",
+      text: "E il battito regolare che fa da riferimento al gruppo."
+    },
+    {
+      term: "Ritmo",
+      text: "E il disegno di suoni e pause che si appoggia alla pulsazione."
+    },
+    {
+      term: "Tempo",
+      text: "E la velocita con cui ritorna la pulsazione."
+    },
+    {
+      term: "Accento",
+      text: "E il punto che senti piu forte o piu evidente."
+    },
+    {
+      term: "Metro",
+      text: "E il modo regolare con cui gli accenti si organizzano in gruppi."
+    }
   ],
   pulseModes: [
     { id: "slow", label: "Lenta", bpm: 66 },
     { id: "medium", label: "Media", bpm: 88 },
     { id: "fast", label: "Veloce", bpm: 112 }
   ],
-  pulseSteps: [
-    "Stabilisci il battito comune con corpo o banco.",
-    "Scegli dove cade l'accento forte: a 2, a 3 o a 4.",
-    "Aggiungi un ritmo diverso senza perdere la pulsazione."
-  ],
   sequenceStates: [
-    { id: "sound", label: "suono", symbol: "\u25CF" },
-    { id: "pause", label: "pausa", symbol: "\u25CB" },
-    { id: "accent", label: "accento", symbol: "\u25CF" }
+    { id: "sound", label: "Suono", symbol: "\u25CF" },
+    { id: "pause", label: "Pausa", symbol: "\u25CB" },
+    { id: "accent", label: "Accento", symbol: "\u25C9" }
   ],
   sequencePresets: {
     simple: Array.from({ length: 8 }, () => "sound"),
     pauses: ["sound", "pause", "sound", "pause", "sound", "sound", "pause", "sound"],
     accents: ["accent", "sound", "sound", "sound", "accent", "sound", "sound", "sound"]
   },
-  sharingTask: {
-    title: "Compito: fai sentire il metro del gruppo.",
-    intro: "Lavora in coppia o in piccolo gruppo. Assegnate ruoli chiari: chi tiene la pulsazione, chi costruisce il ritmo, chi rende visibili gli accenti. Potete usare corpo, voce, banco, oggetti sonori o notazione grafica intuitiva.",
-    steps: [
-      "Scegli chi tiene la pulsazione stabile.",
-      "Decidi se il metro torna a 2, a 3 o a 4.",
-      "Aggiungi un ritmo che non copra il battito comune.",
-      "Fissa la sequenza con segni semplici e ripetila finche un altro gruppo la riconosce."
-    ],
-    output: "Un altro gruppo deve riuscire a riconoscere pulsazione, accenti e metro senza una lunga spiegazione.",
-    materials: "corpo, voce, banco, oggetti sonori, notazione grafica",
-    duration: "20 minuti"
-  },
-  sharingCriteria: [
-    "La pulsazione resta stabile dall'inizio alla fine.",
-    "Il ritmo si distingue dal battito comune.",
-    "Gli accenti fanno sentire chiaramente se il metro e a 2, 3 o 4.",
-    "Il tempo scelto resta coerente e condiviso."
-  ],
-  quizQuestions: [
-    {
-      id: "q1",
-      prompt: "Che cos'e la pulsazione?",
-      options: [
+  followupDefault: "produzione",
+  followups: {
+    rielaborazione: {
+      label: "Rielaborazione",
+      title: "Fissa tre parole nel quaderno",
+      meta: [
+        { label: "Durata", value: "6 minuti" },
+        { label: "Ti serve", value: "quaderno o voce" },
+        { label: "Alla fine", value: "distingui tre idee chiave" }
+      ],
+      steps: [
+        "Scrivi con parole tue che cos'e la pulsazione.",
+        "Spiega come il ritmo si appoggia alla pulsazione.",
+        "Aggiungi che cosa cambia quando il tempo diventa piu lento o piu veloce."
+      ],
+      observe: [
+        "Le tre definizioni sono diverse tra loro?",
+        "Riesci a fare un esempio per ogni parola?"
+      ],
+      result: "Le idee chiave diventano piu stabili nella memoria."
+    },
+    produzione: {
+      label: "Produzione",
+      title: "Crea un pattern di gruppo",
+      meta: [
+        { label: "Durata", value: "12 minuti" },
+        { label: "Ti serve", value: "corpo, voce, banco" },
+        { label: "Alla fine", value: "un gruppo fa sentire il proprio metro" }
+      ],
+      steps: [
+        "Scegli chi tiene la pulsazione stabile.",
+        "Decidi se il metro torna a 2, a 3 o a 4.",
+        "Aggiungi un ritmo che non faccia sparire il battito comune."
+      ],
+      observe: [
+        "La pulsazione resta chiara dall'inizio alla fine?",
+        "Il ritmo si distingue dal battito comune?"
+      ],
+      result: "Il gruppo costruisce una sequenza leggibile e condivisa."
+    },
+    condivisione: {
+      label: "Condivisione",
+      title: "Fallo riconoscere a un altro gruppo",
+      meta: [
+        { label: "Durata", value: "8 minuti" },
+        { label: "Ti serve", value: "la sequenza preparata" },
+        { label: "Alla fine", value: "un altro gruppo riconosce il metro" }
+      ],
+      steps: [
+        "Fai ascoltare la sequenza senza spiegare tutto subito.",
+        "Chiedi all'altro gruppo se sente 2, 3 o 4 pulsazioni.",
+        "Correggi solo il punto che crea piu confusione."
+      ],
+      observe: [
+        "L'altro gruppo riconosce la pulsazione?",
+        "Gli accenti fanno capire il metro?"
+      ],
+      result: "Capisci se la tua sequenza comunica davvero."
+    },
+    valutazione: {
+      label: "Valutazione",
+      title: "Controlla che cosa hai capito",
+      meta: [
+        { label: "Durata", value: "8 minuti" },
+        { label: "Ti serve", value: "voce o quaderno" },
+        { label: "Alla fine", value: "distingui parole e gesti chiave" }
+      ],
+      quiz: [
         {
-          id: "q1a",
-          label: "Il battito regolare che sostiene la musica.",
-          correct: true,
-          feedback: "Esatto. La pulsazione e il battito comune che tiene insieme il gruppo."
+          id: "q1",
+          prompt: "Che cos'e la pulsazione?",
+          options: [
+            {
+              id: "q1a",
+              label: "Il battito regolare che sostiene la musica.",
+              correct: true,
+              feedback: "Esatto. La pulsazione e il battito comune che tiene insieme il gruppo."
+            },
+            {
+              id: "q1b",
+              label: "Una pausa molto lunga.",
+              correct: false,
+              feedback: "No. La pulsazione non e una pausa: e il battito che ritorna regolare."
+            }
+          ]
         },
         {
-          id: "q1b",
-          label: "Una pausa molto lunga.",
-          correct: false,
-          feedback: "No. La pulsazione non e una pausa: e il battito che ritorna regolare."
+          id: "q2",
+          prompt: "Che cos'e il ritmo?",
+          options: [
+            {
+              id: "q2a",
+              label: "L'organizzazione di suoni e silenzi nel tempo.",
+              correct: true,
+              feedback: "Esatto. Il ritmo si appoggia alla pulsazione ma ne cambia il disegno."
+            },
+            {
+              id: "q2b",
+              label: "Il battito che torna sempre uguale.",
+              correct: false,
+              feedback: "Non proprio. Qui stai descrivendo la pulsazione, non il ritmo."
+            }
+          ]
+        },
+        {
+          id: "q3",
+          prompt: "Che cos'e il tempo?",
+          options: [
+            {
+              id: "q3a",
+              label: "La velocita della pulsazione.",
+              correct: true,
+              feedback: "Esatto. Il tempo dice se il battito scorre lento, medio o veloce."
+            },
+            {
+              id: "q3b",
+              label: "Il numero totale dei suoni prodotti.",
+              correct: false,
+              feedback: "No. Il tempo non conta i suoni: descrive la velocita del battito comune."
+            }
+          ]
+        },
+        {
+          id: "q4",
+          prompt: "A che cosa serve il metro?",
+          options: [
+            {
+              id: "q4a",
+              label: "A organizzare gli accenti in gruppi regolari.",
+              correct: true,
+              feedback: "Esatto. Il metro ti aiuta a sentire se il gruppo torna a 2, a 3 o a 4."
+            },
+            {
+              id: "q4b",
+              label: "A scegliere solo suoni forti.",
+              correct: false,
+              feedback: "Non proprio. Il metro organizza il ritorno degli accenti."
+            }
+          ]
         }
+      ],
+      selfCheck: [
+        "Riesci a distinguere pulsazione, ritmo, tempo, accento e metro?",
+        "Riesci a riconoscere se il tempo e lento, medio o veloce?",
+        "Riesci a tenere il battito comune mentre un compagno cambia ritmo?"
       ]
     },
-    {
-      id: "q2",
-      prompt: "Che cos'e il ritmo?",
-      options: [
-        {
-          id: "q2a",
-          label: "L'organizzazione di suoni e silenzi nel tempo.",
-          correct: true,
-          feedback: "Esatto. Il ritmo si appoggia alla pulsazione ma puo cambiarne il disegno con accenti, pause e contrasti."
-        },
-        {
-          id: "q2b",
-          label: "Il battito che torna sempre uguale.",
-          correct: false,
-          feedback: "Non proprio. Qui stai descrivendo la pulsazione, non il ritmo."
-        }
-      ]
-    },
-    {
-      id: "q3",
-      prompt: "Che cos'e il tempo?",
-      options: [
-        {
-          id: "q3a",
-          label: "La velocita della pulsazione.",
-          correct: true,
-          feedback: "Esatto. Il tempo dice se il battito scorre lento, moderato o veloce."
-        },
-        {
-          id: "q3b",
-          label: "Il numero totale dei suoni prodotti.",
-          correct: false,
-          feedback: "No. Il tempo non conta i suoni: descrive la velocita del battito comune."
-        }
-      ]
-    },
-    {
-      id: "q4",
-      prompt: "A che cosa serve il metro?",
-      options: [
-        {
-          id: "q4a",
-          label: "A organizzare gli accenti in gruppi regolari.",
-          correct: true,
-          feedback: "Esatto. Il metro ti aiuta a sentire se il gruppo torna a due, a tre o a quattro."
-        },
-        {
-          id: "q4b",
-          label: "A scegliere solo suoni forti.",
-          correct: false,
-          feedback: "Non proprio. Il metro organizza il ritorno degli accenti, non obbliga a usare solo suoni forti."
-        }
-      ]
+    chiusura: {
+      label: "Chiusura",
+      title: "Ricorda il centro del lavoro",
+      line: "La pulsazione e il battito comune. Il ritmo e il disegno che si appoggia sopra. Il tempo decide quanto velocemente quel battito ritorna.",
+      bridge: "Nella prossima lezione vedrai come ritmo e ripetizione aiutano il gruppo a stare insieme."
     }
-  ],
-  selfCheck: [
-    "Riesci a distinguere pulsazione, ritmo, tempo, accento e metro?",
-    "Riesci a riconoscere se il tempo e lento, medio o veloce?",
-    "Riesci a tenere il battito comune mentre un compagno cambia ritmo?"
-  ],
-  closingLine: "La pulsazione e il battito comune; il ritmo e il disegno che vi si appoggia; il metro organizza il ritorno degli accenti.",
-  closingBridge: "Nella lezione successiva osserva come ritmo e ripetizione aiutino rito, lavoro e comunita."
+  }
 };
-function cn(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
-function usePrefersReducedMotion() {
-  const [reducedMotion, setReducedMotion] = useState(false);
-  useEffect(() => {
-    if (!("matchMedia" in window)) return void 0;
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const sync = () => setReducedMotion(mediaQuery.matches);
-    sync();
-    if ("addEventListener" in mediaQuery) {
-      mediaQuery.addEventListener("change", sync);
-      return () => mediaQuery.removeEventListener("change", sync);
+function buildGroupSequence(groupSize) {
+  const sequence = [];
+  while (sequence.length < 8) {
+    for (let index = 1; index <= groupSize && sequence.length < 8; index += 1) {
+      sequence.push(index);
     }
-    mediaQuery.addListener(sync);
-    return () => mediaQuery.removeListener(sync);
-  }, []);
-  return reducedMotion;
+  }
+  return sequence;
 }
-function useActiveSection(ids) {
-  const [activeId, setActiveId] = useState(ids[0]);
-  useEffect(() => {
-    const nodes = ids.map((id) => document.getElementById(id)).filter(Boolean);
-    if (!nodes.length || !("IntersectionObserver" in window)) {
-      return void 0;
-    }
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-        if (visible[0]?.target?.id) {
-          setActiveId(visible[0].target.id);
-        }
-      },
-      {
-        rootMargin: "-18% 0px -58% 0px",
-        threshold: [0.18, 0.3, 0.5, 0.72]
-      }
-    );
-    nodes.forEach((node) => observer.observe(node));
-    return () => observer.disconnect();
-  }, [ids]);
-  return activeId;
+function buildCompactGroup(groupSize) {
+  return Array.from({ length: groupSize }, (_, index) => index + 1);
 }
-function LessonBreadcrumb({ items }) {
-  return /* @__PURE__ */ React.createElement("nav", { className: "lesson-breadcrumb", "aria-label": "Percorso della pagina" }, items.map((item, index) => /* @__PURE__ */ React.createElement(React.Fragment, { key: `${item.label}-${index}` }, item.href ? /* @__PURE__ */ React.createElement("a", { href: item.href }, item.label) : /* @__PURE__ */ React.createElement("span", { "aria-current": "page" }, item.label), index < items.length - 1 ? /* @__PURE__ */ React.createElement("span", { className: "lesson-breadcrumb__separator" }, "/") : null)));
+function getMeterTone(groupSize) {
+  if (groupSize === 2) {
+    return { "--meter-bg": "#edf4ec", "--meter-accent": "#355e3b", "--meter-soft": "#dbe9dc" };
+  }
+  if (groupSize === 3) {
+    return { "--meter-bg": "#f6efe4", "--meter-accent": "#8a5b20", "--meter-soft": "#ecdfca" };
+  }
+  return { "--meter-bg": "#edf2f6", "--meter-accent": "#355f7a", "--meter-soft": "#dbe4ea" };
 }
-function RhythmHeroGraphic() {
-  return /* @__PURE__ */ React.createElement(
-    "svg",
-    {
-      className: "lesson-hero-graphic",
-      viewBox: "0 0 1200 520",
-      role: "img",
-      "aria-label": "Illustrazione con pulsazione regolare, ritmo sovrapposto e accenti organizzati in gruppi.",
-      preserveAspectRatio: "xMidYMid slice"
-    },
-    /* @__PURE__ */ React.createElement("rect", { x: "0", y: "0", width: "1200", height: "520", fill: "#f2ede4" }),
-    /* @__PURE__ */ React.createElement("line", { x1: "120", y1: "150", x2: "1080", y2: "150", stroke: "#d6cec1", strokeWidth: "2" }),
-    /* @__PURE__ */ React.createElement("line", { x1: "120", y1: "260", x2: "1080", y2: "260", stroke: "#d6cec1", strokeWidth: "2" }),
-    /* @__PURE__ */ React.createElement("line", { x1: "120", y1: "372", x2: "1080", y2: "372", stroke: "#d6cec1", strokeWidth: "2" }),
-    [220, 420, 620, 820, 1020].map((x) => /* @__PURE__ */ React.createElement("g", { key: `pulse-${x}` }, /* @__PURE__ */ React.createElement("circle", { cx: x, cy: 150, r: "26", fill: "#d9822b" }), /* @__PURE__ */ React.createElement("circle", { cx: x, cy: 150, r: "54", fill: "none", stroke: "#e7dbcc", strokeWidth: "12" }))),
-    [180, 300, 450, 590, 720, 900, 1035].map((x, index) => /* @__PURE__ */ React.createElement(
-      "circle",
-      {
-        key: `rhythm-${x}`,
-        cx: x,
-        cy: 260,
-        r: index % 3 === 0 ? 32 : 18,
-        fill: index % 3 === 0 ? "#111827" : "#71819a"
-      }
-    )),
-    [
-      { x: 210, width: 180, fill: "#eef3f8", text: "1 2" },
-      { x: 445, width: 250, fill: "#fff1e4", text: "1 2 3" },
-      { x: 760, width: 310, fill: "#edf4ec", text: "1 2 3 4" }
-    ].map((group) => /* @__PURE__ */ React.createElement("g", { key: group.text }, /* @__PURE__ */ React.createElement("rect", { x: group.x, y: "332", width: group.width, height: "80", rx: "40", fill: group.fill }), /* @__PURE__ */ React.createElement(
-      "text",
-      {
-        x: group.x + group.width / 2,
-        y: "382",
-        textAnchor: "middle",
-        fontFamily: "SF Pro Text, Inter, system-ui, sans-serif",
-        fontSize: "34",
-        fill: "#111827"
-      },
-      group.text
-    ))),
-    /* @__PURE__ */ React.createElement("text", { x: "120", y: "118", fontSize: "22", fill: "#6b7280", fontFamily: "SF Pro Text, Inter, system-ui, sans-serif" }, "pulsazione"),
-    /* @__PURE__ */ React.createElement("text", { x: "120", y: "228", fontSize: "22", fill: "#6b7280", fontFamily: "SF Pro Text, Inter, system-ui, sans-serif" }, "ritmo"),
-    /* @__PURE__ */ React.createElement("text", { x: "120", y: "340", fontSize: "22", fill: "#6b7280", fontFamily: "SF Pro Text, Inter, system-ui, sans-serif" }, "metro")
-  );
+function HeroVisual() {
+  return /* @__PURE__ */ React.createElement("div", { className: "lesson-rhythm-hero" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-rhythm-hero__row" }, /* @__PURE__ */ React.createElement("span", { className: "lesson-rhythm-hero__label" }, "pulsazione"), /* @__PURE__ */ React.createElement("div", { className: "lesson-dot-track" }, Array.from({ length: 4 }).map((_, index) => /* @__PURE__ */ React.createElement("span", { key: `pulse-${index}`, className: "lesson-dot-track__dot" })))), /* @__PURE__ */ React.createElement("div", { className: "lesson-rhythm-hero__row" }, /* @__PURE__ */ React.createElement("span", { className: "lesson-rhythm-hero__label" }, "ritmo"), /* @__PURE__ */ React.createElement("div", { className: "lesson-dot-track lesson-dot-track--rhythm" }, /* @__PURE__ */ React.createElement("span", { className: "lesson-dot-track__dot lesson-dot-track__dot--accent" }), /* @__PURE__ */ React.createElement("span", { className: "lesson-dot-track__dot lesson-dot-track__dot--pause" }), /* @__PURE__ */ React.createElement("span", { className: "lesson-dot-track__dot" }), /* @__PURE__ */ React.createElement("span", { className: "lesson-dot-track__dot lesson-dot-track__dot--wide" }))), /* @__PURE__ */ React.createElement("div", { className: "lesson-rhythm-hero__row lesson-rhythm-hero__row--stacked" }, /* @__PURE__ */ React.createElement("span", { className: "lesson-rhythm-hero__label" }, "metro"), /* @__PURE__ */ React.createElement("div", { className: "lesson-meter-stack" }, [2, 3, 4].map((groupSize) => /* @__PURE__ */ React.createElement("div", { key: groupSize, className: "lesson-meter-stack__row" }, buildCompactGroup(groupSize).map((item) => /* @__PURE__ */ React.createElement("span", { key: `${groupSize}-${item}`, className: cn("lesson-meter-chip", item === 1 && "is-accent"), style: getMeterTone(groupSize) }, item)))))));
 }
-function LessonHero() {
-  return /* @__PURE__ */ React.createElement("header", { className: "lesson-hero", id: "apertura" }, /* @__PURE__ */ React.createElement(LessonBreadcrumb, { items: lesson.breadcrumbs }), /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-shell" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-hero__copy" }, /* @__PURE__ */ React.createElement("p", { className: "lesson-hero__eyebrow" }, lesson.nucleus), /* @__PURE__ */ React.createElement("h1", { className: "lesson-hero__title" }, lesson.title), /* @__PURE__ */ React.createElement("p", { className: "lesson-hero__question" }, lesson.question), /* @__PURE__ */ React.createElement("p", { className: "lesson-hero__intro" }, lesson.intro)), /* @__PURE__ */ React.createElement("figure", { className: "lesson-hero__media" }, /* @__PURE__ */ React.createElement(RhythmHeroGraphic, null)), /* @__PURE__ */ React.createElement("figcaption", { className: "lesson-editorial-shell lesson-hero__caption" }, lesson.heroCaption)));
+function OpeningSection() {
+  return /* @__PURE__ */ React.createElement(LessonSection, { id: "apertura", label: lesson.opening.label, title: lesson.opening.title, intro: lesson.opening.intro }, /* @__PURE__ */ React.createElement(Panel, { kicker: "Attivita", title: lesson.opening.cardTitle, meta: lesson.opening.meta }, /* @__PURE__ */ React.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-stack" }, /* @__PURE__ */ React.createElement(StepList, { title: "Fai cosi", items: lesson.opening.steps }), /* @__PURE__ */ React.createElement(PromptList, { title: "Osserva", items: lesson.opening.observe }), /* @__PURE__ */ React.createElement(ResultCallout, { text: lesson.opening.result })), /* @__PURE__ */ React.createElement(SimpleTimer, { total: 30, startLabel: "Avvia 30 secondi" }))));
 }
-function LessonNav({ activeId }) {
-  return /* @__PURE__ */ React.createElement("nav", { className: "lesson-nav", "aria-label": "Indice della lezione" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-nav__track" }, lesson.flow.map((item) => /* @__PURE__ */ React.createElement("a", { key: item.id, href: `#${item.id}`, className: cn("lesson-nav__item", activeId === item.id && "is-active") }, item.label))));
-}
-function SectionHeader({ label, title, intro }) {
-  return /* @__PURE__ */ React.createElement("header", { className: "lesson-phase__header" }, /* @__PURE__ */ React.createElement("p", { className: "lesson-phase__label" }, label), /* @__PURE__ */ React.createElement("h2", { className: "lesson-phase__title" }, title), intro ? /* @__PURE__ */ React.createElement("p", { className: "lesson-phase__intro" }, intro) : null);
-}
-function LessonSection({ id, label, title, intro, tone = "plain", children, width = "wide" }) {
-  return /* @__PURE__ */ React.createElement("section", { id, className: cn("lesson-phase", tone === "warm" && "lesson-phase--warm", tone === "white" && "lesson-phase--white") }, /* @__PURE__ */ React.createElement(SectionHeader, { label, title, intro }), /* @__PURE__ */ React.createElement("div", { className: cn(width === "content" ? "lesson-phase__body--editorial" : "lesson-phase__body--wide") }, children));
-}
-function ActivityPanel({ title, duration, materials, output, children }) {
-  return /* @__PURE__ */ React.createElement("section", { className: "lesson-activity-panel" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-activity-panel__lead" }, /* @__PURE__ */ React.createElement("div", null, /* @__PURE__ */ React.createElement("p", { className: "lesson-activity-panel__label" }, "Attivita"), /* @__PURE__ */ React.createElement("h3", null, title)), /* @__PURE__ */ React.createElement("div", { className: "lesson-activity-panel__meta" }, duration ? /* @__PURE__ */ React.createElement("span", null, "Durata: ", duration) : null, materials ? /* @__PURE__ */ React.createElement("span", null, "Materiali: ", materials) : null, output ? /* @__PURE__ */ React.createElement("span", null, "Output: ", output) : null)), children);
-}
-function CountdownPanel() {
-  const total = 30;
-  const [seconds, setSeconds] = useState(total);
-  const [running, setRunning] = useState(false);
-  const reducedMotion = usePrefersReducedMotion();
-  useEffect(() => {
-    if (!running) return void 0;
-    if (seconds === 0) {
-      setRunning(false);
-      return void 0;
-    }
-    const timer = window.setTimeout(() => setSeconds((value) => Math.max(0, value - 1)), 1e3);
-    return () => window.clearTimeout(timer);
-  }, [running, seconds]);
-  const progress = seconds / total * 100;
-  return /* @__PURE__ */ React.createElement(
-    ActivityPanel,
-    {
-      title: "Prendi un battito comune",
-      duration: "30 secondi",
-      materials: "corpo, banco o piccolo spazio libero",
-      output: "una pulsazione condivisa"
-    },
-    /* @__PURE__ */ React.createElement("div", { className: "lesson-opening-panel" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-opening-panel__copy lesson-prose" }, /* @__PURE__ */ React.createElement("p", null, "Cammina lentamente o batti le mani sul banco. All'inizio ognuno segue il proprio impulso."), /* @__PURE__ */ React.createElement("p", null, "Poi prova a trovare un battito comune uguale per tutti."), /* @__PURE__ */ React.createElement("ul", { className: "lesson-bullets" }, lesson.openingQuestions.map((item) => /* @__PURE__ */ React.createElement("li", { key: item }, item)))), /* @__PURE__ */ React.createElement("div", { className: "lesson-countdown" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-countdown__dial", "aria-live": "polite" }, /* @__PURE__ */ React.createElement("svg", { viewBox: "0 0 120 120", className: "lesson-countdown__ring", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("circle", { cx: "60", cy: "60", r: "52", pathLength: "100" }), /* @__PURE__ */ React.createElement(
-      "circle",
-      {
-        cx: "60",
-        cy: "60",
-        r: "52",
-        pathLength: "100",
-        style: {
-          strokeDasharray: "100",
-          strokeDashoffset: reducedMotion ? 0 : 100 - progress
-        }
-      }
-    )), /* @__PURE__ */ React.createElement("div", { className: "lesson-countdown__value" }, /* @__PURE__ */ React.createElement("span", null, "timer"), /* @__PURE__ */ React.createElement("strong", null, seconds))), /* @__PURE__ */ React.createElement("div", { className: "lesson-countdown__actions" }, /* @__PURE__ */ React.createElement(
-      "button",
-      {
-        type: "button",
-        className: "lesson-action",
-        onClick: () => {
-          setSeconds(total);
-          setRunning(true);
-        }
-      },
-      "Avvia 30 secondi"
-    ), /* @__PURE__ */ React.createElement(
-      "button",
-      {
-        type: "button",
-        className: "lesson-action lesson-action--secondary",
-        onClick: () => {
-          setRunning(false);
-          setSeconds(total);
-        }
-      },
-      "Reimposta"
-    ))))
-  );
-}
-function ExplorationSection() {
+function ListeningPanel() {
   const [activeListening, setActiveListening] = useState(lesson.listeningSamples[0].id);
   const [selectedGroup, setSelectedGroup] = useState(lesson.listeningSamples[0].expectedGroup);
   const activeSample = lesson.listeningSamples.find((item) => item.id === activeListening) || lesson.listeningSamples[0];
@@ -415,112 +356,47 @@ function ExplorationSection() {
     setSelectedGroup(activeSample.expectedGroup);
   }, [activeSample.expectedGroup]);
   return /* @__PURE__ */ React.createElement(
-    LessonSection,
+    Panel,
     {
-      id: "esplorazione",
-      label: "Esplorazione",
-      title: "Il ritmo nasce da gesti, passi, ripetizioni e accenti.",
-      intro: "Prima della scrittura musicale, il gruppo organizzava il tempo ascoltando il corpo, il lavoro, il cammino e il ritorno degli accenti.",
-      tone: "white"
+      kicker: "Ascolto",
+      title: activeSample.title,
+      meta: [
+        { label: "Focus", value: activeSample.focus },
+        { label: "Prova", value: activeSample.action }
+      ]
     },
-    /* @__PURE__ */ React.createElement("div", { className: "lesson-split" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-split__copy lesson-prose" }, /* @__PURE__ */ React.createElement("p", null, lesson.contextText), /* @__PURE__ */ React.createElement("ul", { className: "lesson-bullets" }, lesson.observationPrompts.map((item) => /* @__PURE__ */ React.createElement("li", { key: item }, item)))), /* @__PURE__ */ React.createElement(
-      ActivityPanel,
+    /* @__PURE__ */ React.createElement(
+      PhaseTabs,
       {
-        title: "Ascolto guidato",
-        duration: "8 minuti",
-        materials: "voce, corpo, banco o immaginazione ritmica",
-        output: "riconoscere il battito comune"
+        items: lesson.listeningSamples.map((sample) => ({ id: sample.id, label: sample.label })),
+        selected: activeListening,
+        onSelect: setActiveListening,
+        ariaLabel: "Situazioni di ascolto"
+      }
+    ),
+    /* @__PURE__ */ React.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-stack" }, /* @__PURE__ */ React.createElement("p", { className: "lesson-body-text" }, activeSample.description), /* @__PURE__ */ React.createElement(PromptList, { title: "Domande guida", items: lesson.exploration.questions })), /* @__PURE__ */ React.createElement("div", { className: "lesson-meter-panel" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-choice-row" }, [2, 3, 4].map((group) => /* @__PURE__ */ React.createElement(
+      "button",
+      {
+        key: group,
+        type: "button",
+        className: cn("lesson-choice", selectedGroup === group && "is-active"),
+        onClick: () => setSelectedGroup(group)
       },
-      /* @__PURE__ */ React.createElement("div", { className: "lesson-tab-row", role: "tablist", "aria-label": "Situazioni di ascolto" }, lesson.listeningSamples.map((sample) => /* @__PURE__ */ React.createElement(
-        "button",
-        {
-          key: sample.id,
-          type: "button",
-          role: "tab",
-          "aria-selected": sample.id === activeSample.id,
-          className: cn("lesson-tab", sample.id === activeSample.id && "is-active"),
-          onClick: () => setActiveListening(sample.id)
-        },
-        sample.label
-      ))),
-      /* @__PURE__ */ React.createElement("div", { className: "lesson-listening-panel" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-listening-panel__content" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-listening-panel__copy lesson-prose" }, /* @__PURE__ */ React.createElement("p", { className: "lesson-listening-panel__focus" }, activeSample.focus), /* @__PURE__ */ React.createElement("h3", null, activeSample.title), /* @__PURE__ */ React.createElement("p", null, activeSample.description), /* @__PURE__ */ React.createElement("p", null, /* @__PURE__ */ React.createElement("strong", null, "Prova:"), " ", activeSample.action), /* @__PURE__ */ React.createElement("ul", { className: "lesson-bullets" }, lesson.listeningQuestions.map((item) => /* @__PURE__ */ React.createElement("li", { key: item }, item)))), /* @__PURE__ */ React.createElement("div", { className: "lesson-listening-panel__media" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-listening-panel__group-row" }, [2, 3, 4].map((group) => /* @__PURE__ */ React.createElement(
-        "button",
-        {
-          key: group,
-          type: "button",
-          className: cn("lesson-choice", selectedGroup === group && "is-active"),
-          onClick: () => setSelectedGroup(group)
-        },
-        group,
-        " pulsazioni"
-      ))), /* @__PURE__ */ React.createElement("div", { className: "lesson-track-visual" }, buildGroupSequence(selectedGroup).map((beat, index) => /* @__PURE__ */ React.createElement(
-        "span",
-        {
-          key: `${selectedGroup}-${index}`,
-          className: cn("lesson-track-beat", beat === 1 && "lesson-track-beat--accent"),
-          style: getMeterTone(selectedGroup)
-        },
-        beat
-      ))), /* @__PURE__ */ React.createElement("p", { className: "lesson-listening-panel__note" }, "Osserva dove il numero ", /* @__PURE__ */ React.createElement("strong", null, "1"), " torna a riaprire il gruppo."))))
-    ))
-  );
-}
-function ConceptVisual({ type }) {
-  if (type === "pulse") {
-    return /* @__PURE__ */ React.createElement("div", { className: "lesson-dot-row" }, Array.from({ length: 4 }).map((_, index) => /* @__PURE__ */ React.createElement("span", { key: index, className: "lesson-dot" })));
-  }
-  if (type === "rhythm") {
-    return /* @__PURE__ */ React.createElement("div", { className: "lesson-dot-row" }, /* @__PURE__ */ React.createElement("span", { className: "lesson-dot" }), /* @__PURE__ */ React.createElement("span", { className: "lesson-dot lesson-dot--pause" }), /* @__PURE__ */ React.createElement("span", { className: "lesson-dot" }), /* @__PURE__ */ React.createElement("span", { className: "lesson-dot lesson-dot--accent" }));
-  }
-  if (type === "tempo") {
-    return /* @__PURE__ */ React.createElement("div", { className: "lesson-speed-row" }, /* @__PURE__ */ React.createElement("span", null, "Lenta"), /* @__PURE__ */ React.createElement("span", null, "Moderata"), /* @__PURE__ */ React.createElement("span", null, "Veloce"));
-  }
-  if (type === "accent") {
-    return /* @__PURE__ */ React.createElement("div", { className: "lesson-dot-row" }, /* @__PURE__ */ React.createElement("span", { className: "lesson-dot lesson-dot--accent" }), /* @__PURE__ */ React.createElement("span", { className: "lesson-dot" }), /* @__PURE__ */ React.createElement("span", { className: "lesson-dot" }), /* @__PURE__ */ React.createElement("span", { className: "lesson-dot" }));
-  }
-  return /* @__PURE__ */ React.createElement("div", { className: "lesson-meter-rows" }, [2, 3, 4].map((group) => /* @__PURE__ */ React.createElement("div", { key: group, className: "lesson-meter-row" }, buildCompactGroup(group).map((item, index) => /* @__PURE__ */ React.createElement(
-    "span",
-    {
-      key: `${group}-${index}`,
-      className: cn("lesson-meter-chip", item === 1 && "lesson-meter-chip--accent"),
-      style: getMeterTone(group)
-    },
-    item
-  )))));
-}
-function ConceptsSection() {
-  return /* @__PURE__ */ React.createElement(
-    LessonSection,
-    {
-      id: "comprensione-attiva",
-      label: "Comprensione attiva",
-      title: "Cinque parole ti aiutano a leggere quello che senti.",
-      intro: "Qui il lessico non resta astratto: ogni concetto ha un esempio concreto e un segno visivo semplice.",
-      width: "content"
-    },
-    /* @__PURE__ */ React.createElement("div", { className: "lesson-terms" }, lesson.conceptRows.map((item) => /* @__PURE__ */ React.createElement("article", { key: item.id, className: "lesson-term" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-term__name" }, /* @__PURE__ */ React.createElement("h3", null, item.title), /* @__PURE__ */ React.createElement("div", { className: "lesson-term__visual" }, /* @__PURE__ */ React.createElement(ConceptVisual, { type: item.visual }))), /* @__PURE__ */ React.createElement("div", { className: "lesson-term__body lesson-prose" }, /* @__PURE__ */ React.createElement("p", null, item.definition), /* @__PURE__ */ React.createElement("p", { className: "lesson-term__example" }, item.example)))))
-  );
-}
-function RielaborazioneSection() {
-  return /* @__PURE__ */ React.createElement(
-    LessonSection,
-    {
-      id: "rielaborazione",
-      label: "Rielaborazione",
-      title: "Tre definizioni da fissare nel quaderno.",
-      intro: "Scrivile in corsivo, poi prova a spiegare con parole tue in che cosa sono diverse.",
-      tone: "warm"
-    },
-    /* @__PURE__ */ React.createElement("div", { className: "lesson-split" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-split__copy lesson-prose" }, /* @__PURE__ */ React.createElement("p", null, "Quando il gruppo capisce dove torna il battito, puo distinguere meglio pulsazione, ritmo e tempo. Le tre definizioni ti aiutano a trasformare l'esperienza in lessico disciplinare."), /* @__PURE__ */ React.createElement("p", null, "Osserva anche come il metro organizza gli accenti in gruppi diversi: a due, a tre o a quattro."), /* @__PURE__ */ React.createElement("div", { className: "lesson-meter-board" }, [2, 3, 4].map((group) => /* @__PURE__ */ React.createElement("div", { key: group, className: "lesson-meter-board__row" }, /* @__PURE__ */ React.createElement("strong", null, "Gruppo da ", group), /* @__PURE__ */ React.createElement("div", { className: "lesson-track-visual" }, buildGroupSequence(group).map((beat, index) => /* @__PURE__ */ React.createElement(
+      group,
+      " pulsazioni"
+    ))), /* @__PURE__ */ React.createElement("div", { className: "lesson-meter-preview" }, buildGroupSequence(selectedGroup).map((beat, index) => /* @__PURE__ */ React.createElement(
       "span",
       {
-        key: `${group}-board-${index}`,
-        className: cn("lesson-track-beat", beat === 1 && "lesson-track-beat--accent"),
-        style: getMeterTone(group)
+        key: `${selectedGroup}-${index}`,
+        className: cn("lesson-meter-preview__beat", beat === 1 && "is-accent"),
+        style: getMeterTone(selectedGroup)
       },
       beat
-    ))))))), /* @__PURE__ */ React.createElement("div", { className: "lesson-copyboard" }, lesson.notebookDefinitions.map((item) => /* @__PURE__ */ React.createElement("article", { key: item.term, className: "lesson-copyboard__item" }, /* @__PURE__ */ React.createElement("p", { className: "lesson-copyboard__label" }, item.term), /* @__PURE__ */ React.createElement("blockquote", null, item.quote), /* @__PURE__ */ React.createElement("p", null, item.support)))))
+    ))), /* @__PURE__ */ React.createElement("p", { className: "lesson-note" }, "Osserva dove il numero ", /* @__PURE__ */ React.createElement("strong", null, "1"), " torna a riaprire il gruppo.")))
   );
+}
+function ExplorationSection() {
+  return /* @__PURE__ */ React.createElement(LessonSection, { id: "esplorazione", label: lesson.exploration.label, title: lesson.exploration.title, intro: lesson.exploration.intro, tone: "soft" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-stack" }, lesson.exploration.paragraphs.map((paragraph) => /* @__PURE__ */ React.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph))), /* @__PURE__ */ React.createElement(ListeningPanel, null)));
 }
 function PulseBoard() {
   const reducedMotion = usePrefersReducedMotion();
@@ -548,14 +424,12 @@ function PulseBoard() {
     " \xB7 ",
     item.bpm,
     " bpm"
-  ))), /* @__PURE__ */ React.createElement("div", { className: "lesson-pulse-beats" }, Array.from({ length: 4 }).map((_, index) => /* @__PURE__ */ React.createElement("div", { key: index, className: cn("lesson-pulse-beat", activeBeat === index && "is-live") }, /* @__PURE__ */ React.createElement("span", { className: "lesson-pulse-beat__number" }, index + 1), /* @__PURE__ */ React.createElement("small", null, index === 0 ? "riparte" : "continua")))), /* @__PURE__ */ React.createElement("div", { className: "lesson-steps" }, lesson.pulseSteps.map((step, index) => /* @__PURE__ */ React.createElement("div", { key: step, className: "lesson-steps__row" }, /* @__PURE__ */ React.createElement("span", { className: "lesson-step-index" }, index + 1), /* @__PURE__ */ React.createElement("p", null, step)))));
+  ))), /* @__PURE__ */ React.createElement("div", { className: "lesson-pulse-beats" }, Array.from({ length: 4 }).map((_, index) => /* @__PURE__ */ React.createElement("div", { key: index, className: cn("lesson-pulse-beat", activeBeat === index && "is-live") }, /* @__PURE__ */ React.createElement("span", { className: "lesson-pulse-beat__number" }, index + 1), /* @__PURE__ */ React.createElement("small", null, index === 0 ? "riparte" : "continua")))));
 }
 function RhythmSequencerBoard() {
   const [selectedState, setSelectedState] = useState(lesson.sequenceStates[0].id);
   const [sequence, setSequence] = useState(Array.from({ length: 8 }, () => "sound"));
-  const selectedMeta = lesson.sequenceStates.find((item) => item.id === selectedState) || lesson.sequenceStates[0];
-  const applyPreset = (preset) => setSequence([...preset]);
-  return /* @__PURE__ */ React.createElement("div", { className: "lesson-sequencer" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-choice-row" }, lesson.sequenceStates.map((item) => /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { className: "lesson-sequence" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-choice-row" }, lesson.sequenceStates.map((item) => /* @__PURE__ */ React.createElement(
     "button",
     {
       key: item.id,
@@ -564,142 +438,71 @@ function RhythmSequencerBoard() {
       onClick: () => setSelectedState(item.id)
     },
     item.label
-  ))), /* @__PURE__ */ React.createElement("div", { className: "lesson-sequencer-board", "aria-label": "Lavagna ritmica in due righe da quattro tempi" }, sequence.map((state, index) => /* @__PURE__ */ React.createElement(
-    "button",
-    {
-      key: `${state}-${index}`,
-      type: "button",
-      className: cn(
-        "lesson-sequencer-cell",
-        state === "accent" && "is-accent",
-        state === "pause" && "is-pause"
-      ),
-      onClick: () => setSequence((current) => {
-        const next = [...current];
-        next[index] = selectedMeta.id;
-        return next;
-      })
-    },
-    /* @__PURE__ */ React.createElement("span", { className: "lesson-sequencer-cell__kicker" }, "tempo ", index + 1),
-    /* @__PURE__ */ React.createElement("strong", null, lesson.sequenceStates.find((item) => item.id === state)?.symbol || "\u25CF"),
-    /* @__PURE__ */ React.createElement("small", null, lesson.sequenceStates.find((item) => item.id === state)?.label || "suono")
-  ))), /* @__PURE__ */ React.createElement("div", { className: "lesson-choice-row" }, /* @__PURE__ */ React.createElement("button", { type: "button", className: "lesson-action lesson-action--secondary", onClick: () => setSequence(Array.from({ length: 8 }, () => "pause")) }, "Reset"), /* @__PURE__ */ React.createElement("button", { type: "button", className: "lesson-action lesson-action--secondary", onClick: () => applyPreset(lesson.sequencePresets.simple) }, "Esempio semplice"), /* @__PURE__ */ React.createElement("button", { type: "button", className: "lesson-action lesson-action--secondary", onClick: () => applyPreset(lesson.sequencePresets.pauses) }, "Esempio con pause"), /* @__PURE__ */ React.createElement("button", { type: "button", className: "lesson-action lesson-action--secondary", onClick: () => applyPreset(lesson.sequencePresets.accents) }, "Esempio con accenti")), /* @__PURE__ */ React.createElement("p", { className: "lesson-sequencer__legend" }, "\u25CF = suono \xB7 \u25CB = pausa \xB7 \u25CF grande = accento"));
-}
-function ProductionSection() {
-  return /* @__PURE__ */ React.createElement(
-    LessonSection,
-    {
-      id: "produzione",
-      label: "Produzione",
-      title: "Prova il battito. Poi scrivi il ritmo.",
-      intro: "Prima mantieni una pulsazione comune. Poi costruisci una sequenza in due battute da quattro tempi.",
-      tone: "white"
-    },
-    /* @__PURE__ */ React.createElement(
-      ActivityPanel,
-      {
-        title: "Lavora sul battito comune",
-        duration: "15 minuti",
-        materials: "corpo, banco, voce, oggetti sonori",
-        output: "una sequenza leggibile dal gruppo"
-      },
-      /* @__PURE__ */ React.createElement("div", { className: "lesson-split lesson-split--equal" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-split__media" }, /* @__PURE__ */ React.createElement(PulseBoard, null)), /* @__PURE__ */ React.createElement("div", { className: "lesson-split__media" }, /* @__PURE__ */ React.createElement(RhythmSequencerBoard, null)))
-    )
-  );
-}
-function SharingSection() {
-  return /* @__PURE__ */ React.createElement(
-    LessonSection,
-    {
-      id: "condivisione",
-      label: "Condivisione",
-      title: lesson.sharingTask.title,
-      intro: lesson.sharingTask.intro,
-      width: "content"
-    },
-    /* @__PURE__ */ React.createElement(
-      ActivityPanel,
-      {
-        title: "Presenta la tua sequenza",
-        duration: lesson.sharingTask.duration,
-        materials: lesson.sharingTask.materials,
-        output: lesson.sharingTask.output
-      },
-      /* @__PURE__ */ React.createElement("div", { className: "lesson-inline-grid" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-prose" }, /* @__PURE__ */ React.createElement("h3", null, "Che cosa fai"), /* @__PURE__ */ React.createElement("div", { className: "lesson-steps" }, lesson.sharingTask.steps.map((step, index) => /* @__PURE__ */ React.createElement("div", { key: step, className: "lesson-steps__row" }, /* @__PURE__ */ React.createElement("span", { className: "lesson-step-index" }, index + 1), /* @__PURE__ */ React.createElement("p", null, step))))), /* @__PURE__ */ React.createElement("div", { className: "lesson-prose" }, /* @__PURE__ */ React.createElement("h3", null, "Come capisci se funziona"), /* @__PURE__ */ React.createElement("ul", { className: "lesson-bullets" }, lesson.sharingCriteria.map((item) => /* @__PURE__ */ React.createElement("li", { key: item }, item)))))
-    )
-  );
-}
-function QuizPanel() {
-  const [answers, setAnswers] = useState({});
-  return /* @__PURE__ */ React.createElement("div", { className: "lesson-quiz-panel" }, lesson.quizQuestions.map((question) => {
-    const selected = answers[question.id];
-    const selectedOption = question.options.find((option) => option.id === selected);
-    return /* @__PURE__ */ React.createElement("article", { key: question.id, className: "lesson-question-block" }, /* @__PURE__ */ React.createElement("h3", null, question.prompt), /* @__PURE__ */ React.createElement("div", { className: "lesson-option-list" }, question.options.map((option) => /* @__PURE__ */ React.createElement(
+  ))), /* @__PURE__ */ React.createElement("div", { className: "lesson-sequence__board", "aria-label": "Sequenza ritmica di otto tempi" }, sequence.map((state, index) => {
+    const item = lesson.sequenceStates.find((entry) => entry.id === state) || lesson.sequenceStates[0];
+    return /* @__PURE__ */ React.createElement(
       "button",
       {
-        key: option.id,
+        key: `${state}-${index}`,
         type: "button",
-        className: cn(
-          "lesson-option",
-          selected === option.id && option.correct && "is-correct",
-          selected === option.id && !option.correct && "is-wrong"
-        ),
-        onClick: () => setAnswers((current) => ({ ...current, [question.id]: option.id }))
+        className: cn("lesson-sequence__cell", state === "pause" && "is-pause", state === "accent" && "is-accent"),
+        onClick: () => setSequence((current) => {
+          const next = [...current];
+          next[index] = selectedState;
+          return next;
+        })
       },
-      option.label
-    ))), selectedOption ? /* @__PURE__ */ React.createElement("p", { className: "lesson-question-block__feedback" }, selectedOption.feedback) : null);
-  }));
+      /* @__PURE__ */ React.createElement("span", null, "tempo ", index + 1),
+      /* @__PURE__ */ React.createElement("strong", null, item.symbol),
+      /* @__PURE__ */ React.createElement("small", null, item.label.slice(0, 2).toUpperCase())
+    );
+  })), /* @__PURE__ */ React.createElement("div", { className: "lesson-choice-row" }, /* @__PURE__ */ React.createElement("button", { type: "button", className: "lesson-button lesson-button--ghost", onClick: () => setSequence([...lesson.sequencePresets.simple]) }, "Regolare"), /* @__PURE__ */ React.createElement("button", { type: "button", className: "lesson-button lesson-button--ghost", onClick: () => setSequence([...lesson.sequencePresets.pauses]) }, "Con pause"), /* @__PURE__ */ React.createElement("button", { type: "button", className: "lesson-button lesson-button--ghost", onClick: () => setSequence([...lesson.sequencePresets.accents]) }, "Con accenti")), /* @__PURE__ */ React.createElement("p", { className: "lesson-note" }, "\u25CF = suono \xB7 \u25CB = pausa \xB7 \u25C9 = accento"));
 }
-function EvaluationSection() {
+function ConceptBoard() {
+  return /* @__PURE__ */ React.createElement("div", { className: "lesson-term-list" }, /* @__PURE__ */ React.createElement("p", { className: "lesson-term-list__label" }, "Mappa rapida"), lesson.conceptRows.map((item) => /* @__PURE__ */ React.createElement("div", { key: item.term, className: "lesson-term-list__row" }, /* @__PURE__ */ React.createElement("strong", null, item.term), /* @__PURE__ */ React.createElement("p", null, item.text))));
+}
+function ActiveSection() {
+  return /* @__PURE__ */ React.createElement(LessonSection, { id: "comprensione-attiva", label: lesson.active.label, title: lesson.active.title, intro: lesson.active.intro }, /* @__PURE__ */ React.createElement(Panel, { kicker: "Prova pratica", title: lesson.active.cardTitle, meta: lesson.active.meta }, /* @__PURE__ */ React.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-stack" }, /* @__PURE__ */ React.createElement(StepList, { title: "Fai cosi", items: lesson.active.steps }), /* @__PURE__ */ React.createElement(PromptList, { title: "Osserva", items: lesson.active.observe }), /* @__PURE__ */ React.createElement(ResultCallout, { text: lesson.active.result })), /* @__PURE__ */ React.createElement(PulseBoard, null)), /* @__PURE__ */ React.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React.createElement(RhythmSequencerBoard, null), /* @__PURE__ */ React.createElement(ConceptBoard, null))));
+}
+function FollowupSection({ selected, onSelect }) {
+  const phase = lesson.followups[selected];
+  const tabs = Object.entries(lesson.followups).map(([id, item]) => ({ id, label: item.label }));
   return /* @__PURE__ */ React.createElement(
     LessonSection,
     {
-      id: "valutazione",
-      label: "Valutazione",
-      title: "Controlla che cosa hai capito.",
-      intro: "Rispondi alle domande chiave e poi prova a dirti dove ti senti piu sicuro e dove hai ancora bisogno del gruppo.",
-      tone: "warm"
+      id: "rielaborazione",
+      label: "Continua",
+      title: "Scegli la fase che ti serve adesso",
+      intro: "La parte attiva resta al centro. Le altre fasi restano leggere e sempre raggiungibili.",
+      tone: "soft"
     },
-    /* @__PURE__ */ React.createElement(ActivityPanel, { title: "Verifica leggera", duration: "10 minuti", output: "riconoscere pulsazione, ritmo, tempo e metro" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-inline-grid" }, /* @__PURE__ */ React.createElement(QuizPanel, null), /* @__PURE__ */ React.createElement("div", { className: "lesson-self-check" }, /* @__PURE__ */ React.createElement("h3", null, "Autovalutazione"), /* @__PURE__ */ React.createElement("div", { className: "lesson-self-check__rows" }, lesson.selfCheck.map((item) => /* @__PURE__ */ React.createElement("article", { key: item, className: "lesson-self-check__row" }, /* @__PURE__ */ React.createElement("p", null, item), /* @__PURE__ */ React.createElement("div", { className: "lesson-self-check__choices", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement("span", null, "ancora no"), /* @__PURE__ */ React.createElement("span", null, "abbastanza"), /* @__PURE__ */ React.createElement("span", null, "si"))))))))
+    /* @__PURE__ */ React.createElement("div", { className: "lesson-followup" }, /* @__PURE__ */ React.createElement(PhaseTabs, { items: tabs, selected, onSelect, ariaLabel: "Fasi successive della lezione" }), /* @__PURE__ */ React.createElement("div", { className: "lesson-followup__panel" }, selected === "chiusura" ? /* @__PURE__ */ React.createElement("div", { className: "lesson-closing" }, /* @__PURE__ */ React.createElement("p", { className: "lesson-closing__line" }, phase.line), /* @__PURE__ */ React.createElement("p", { className: "lesson-closing__bridge" }, phase.bridge)) : selected === "valutazione" ? /* @__PURE__ */ React.createElement(Panel, { kicker: phase.label, title: phase.title, meta: phase.meta }, /* @__PURE__ */ React.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React.createElement(QuizList, { questions: phase.quiz }), /* @__PURE__ */ React.createElement(SelfCheckList, { items: phase.selfCheck }))) : /* @__PURE__ */ React.createElement(Panel, { kicker: phase.label, title: phase.title, meta: phase.meta }, /* @__PURE__ */ React.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React.createElement(StepList, { title: "Fai cosi", items: phase.steps }), /* @__PURE__ */ React.createElement("div", { className: "lesson-stack" }, /* @__PURE__ */ React.createElement(PromptList, { title: "Osserva", items: phase.observe }), /* @__PURE__ */ React.createElement(ResultCallout, { text: phase.result }))))))
   );
-}
-function ClosingSection() {
-  return /* @__PURE__ */ React.createElement(
-    LessonSection,
-    {
-      id: "chiusura",
-      label: "Chiusura",
-      title: "Ricorda il centro del lavoro.",
-      intro: "Il gruppo funziona quando il battito comune resta leggibile anche mentre il ritmo cambia.",
-      width: "content"
-    },
-    /* @__PURE__ */ React.createElement("div", { className: "lesson-closing" }, /* @__PURE__ */ React.createElement("p", { className: "lesson-closing__line" }, lesson.closingLine), /* @__PURE__ */ React.createElement("p", { className: "lesson-closing__bridge" }, lesson.closingBridge))
-  );
-}
-function buildGroupSequence(groupSize) {
-  const sequence = [];
-  while (sequence.length < 8) {
-    for (let index = 1; index <= groupSize && sequence.length < 8; index += 1) {
-      sequence.push(index);
-    }
-  }
-  return sequence;
-}
-function buildCompactGroup(groupSize) {
-  return Array.from({ length: groupSize }, (_, index) => index + 1);
-}
-function getMeterTone(groupSize) {
-  if (groupSize === 2) {
-    return { "--tone-bg": "#edf4ec", "--tone-accent": "#6a994e", "--tone-text": "#2f5136" };
-  }
-  if (groupSize === 3) {
-    return { "--tone-bg": "#fff1e4", "--tone-accent": "#d9822b", "--tone-text": "#7a4c1d" };
-  }
-  return { "--tone-bg": "#eef3f8", "--tone-accent": "#3a7ca5", "--tone-text": "#274e67" };
 }
 function RitmoPulsazioneTempoLesson() {
-  const activeId = useActiveSection(lesson.flow.map((item) => item.id));
-  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page" }, /* @__PURE__ */ React.createElement(LessonHero, null), /* @__PURE__ */ React.createElement(LessonNav, { activeId }), /* @__PURE__ */ React.createElement(CountdownPanel, null), /* @__PURE__ */ React.createElement(ExplorationSection, null), /* @__PURE__ */ React.createElement(ConceptsSection, null), /* @__PURE__ */ React.createElement(RielaborazioneSection, null), /* @__PURE__ */ React.createElement(ProductionSection, null), /* @__PURE__ */ React.createElement(SharingSection, null), /* @__PURE__ */ React.createElement(EvaluationSection, null), /* @__PURE__ */ React.createElement(ClosingSection, null));
+  const activeId = useActiveSection(["apertura", "esplorazione", "comprensione-attiva", "rielaborazione"]);
+  const [selectedFollowup, setSelectedFollowup] = useState(lesson.followupDefault);
+  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page" }, /* @__PURE__ */ React.createElement(
+    LessonHero,
+    {
+      eyebrow: lesson.nucleus,
+      title: lesson.title,
+      question: lesson.question,
+      subtitle: lesson.subtitle,
+      meta: lesson.meta,
+      visual: /* @__PURE__ */ React.createElement(HeroVisual, null),
+      visualNote: lesson.heroNote,
+      breadcrumbs: lesson.breadcrumbs
+    }
+  ), /* @__PURE__ */ React.createElement(
+    LessonProgress,
+    {
+      items: lesson.progress,
+      activeId,
+      selectedFollowup,
+      onSelectFollowup: setSelectedFollowup
+    }
+  ), /* @__PURE__ */ React.createElement(OpeningSection, null), /* @__PURE__ */ React.createElement(ExplorationSection, null), /* @__PURE__ */ React.createElement(ActiveSection, null), /* @__PURE__ */ React.createElement(FollowupSection, { selected: selectedFollowup, onSelect: setSelectedFollowup }));
 }
 export {
   RitmoPulsazioneTempoLesson as default
