@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "https://esm.sh/react@18";
 import {
+  ActivityLayout,
+  LessonBottomBar,
   LessonHero,
   LessonProgress,
   LessonSection,
+  MetaStrip,
   Panel,
   PhaseTabs,
   PromptList,
@@ -25,6 +28,11 @@ const lesson = {
     { label: "Origini del suono", href: "../../index.html" },
     { label: "Ritmo, pulsazione e tempo" }
   ],
+  navigation: {
+    mapHref: "../../index.html",
+    previousHref: "../corpo-voce-gesto/index.html",
+    homeHref: "../../../../index.html"
+  },
   meta: [
     { label: "Durata", value: "2 ore" },
     { label: "Ti serve", value: "corpo, voce, banco" },
@@ -132,23 +140,28 @@ const lesson = {
   conceptRows: [
     {
       term: "Pulsazione",
-      text: "E il battito regolare che fa da riferimento al gruppo."
+      text: "E il battito regolare che fa da riferimento al gruppo.",
+      example: "TA TA TA TA"
     },
     {
       term: "Ritmo",
-      text: "E il disegno di suoni e pause che si appoggia alla pulsazione."
+      text: "E il disegno di suoni e pause che si appoggia alla pulsazione.",
+      example: "TA - TA TA"
     },
     {
       term: "Tempo",
-      text: "E la velocita con cui ritorna la pulsazione."
+      text: "E la velocita con cui ritorna la pulsazione.",
+      example: "LENTO / MEDIO / VELOCE"
     },
     {
       term: "Accento",
-      text: "E il punto che senti piu forte o piu evidente."
+      text: "E il punto che senti piu forte o piu evidente.",
+      example: "> ta ta"
     },
     {
       term: "Metro",
-      text: "E il modo regolare con cui gli accenti si organizzano in gruppi."
+      text: "E il modo regolare con cui gli accenti si organizzano in gruppi.",
+      example: "2 / 3 / 4"
     }
   ],
   pulseModes: [
@@ -330,73 +343,39 @@ function buildGroupSequence(groupSize) {
   }
   return sequence;
 }
-function buildCompactGroup(groupSize) {
-  return Array.from({ length: groupSize }, (_, index) => index + 1);
-}
 function getMeterTone(groupSize) {
   if (groupSize === 2) {
-    return { "--meter-bg": "#edf4ec", "--meter-accent": "#355e3b", "--meter-soft": "#dbe9dc" };
+    return { "--meter-bg": "#f0efe9", "--meter-accent": "#171717", "--meter-soft": "#e1dfd6" };
   }
   if (groupSize === 3) {
-    return { "--meter-bg": "#f6efe4", "--meter-accent": "#8a5b20", "--meter-soft": "#ecdfca" };
+    return { "--meter-bg": "#ebe9e1", "--meter-accent": "#2b2a27", "--meter-soft": "#ddd9cf" };
   }
-  return { "--meter-bg": "#edf2f6", "--meter-accent": "#355f7a", "--meter-soft": "#dbe4ea" };
-}
-function HeroVisual() {
-  return /* @__PURE__ */ React.createElement("div", { className: "lesson-rhythm-hero" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-rhythm-hero__row" }, /* @__PURE__ */ React.createElement("span", { className: "lesson-rhythm-hero__label" }, "pulsazione"), /* @__PURE__ */ React.createElement("div", { className: "lesson-dot-track" }, Array.from({ length: 4 }).map((_, index) => /* @__PURE__ */ React.createElement("span", { key: `pulse-${index}`, className: "lesson-dot-track__dot" })))), /* @__PURE__ */ React.createElement("div", { className: "lesson-rhythm-hero__row" }, /* @__PURE__ */ React.createElement("span", { className: "lesson-rhythm-hero__label" }, "ritmo"), /* @__PURE__ */ React.createElement("div", { className: "lesson-dot-track lesson-dot-track--rhythm" }, /* @__PURE__ */ React.createElement("span", { className: "lesson-dot-track__dot lesson-dot-track__dot--accent" }), /* @__PURE__ */ React.createElement("span", { className: "lesson-dot-track__dot lesson-dot-track__dot--pause" }), /* @__PURE__ */ React.createElement("span", { className: "lesson-dot-track__dot" }), /* @__PURE__ */ React.createElement("span", { className: "lesson-dot-track__dot lesson-dot-track__dot--wide" }))), /* @__PURE__ */ React.createElement("div", { className: "lesson-rhythm-hero__row lesson-rhythm-hero__row--stacked" }, /* @__PURE__ */ React.createElement("span", { className: "lesson-rhythm-hero__label" }, "metro"), /* @__PURE__ */ React.createElement("div", { className: "lesson-meter-stack" }, [2, 3, 4].map((groupSize) => /* @__PURE__ */ React.createElement("div", { key: groupSize, className: "lesson-meter-stack__row" }, buildCompactGroup(groupSize).map((item) => /* @__PURE__ */ React.createElement("span", { key: `${groupSize}-${item}`, className: cn("lesson-meter-chip", item === 1 && "is-accent"), style: getMeterTone(groupSize) }, item)))))));
+  return { "--meter-bg": "#f3f3f0", "--meter-accent": "#3a3b35", "--meter-soft": "#e5e5df" };
 }
 function OpeningSection() {
-  return /* @__PURE__ */ React.createElement(LessonSection, { id: "apertura", label: lesson.opening.label, title: lesson.opening.title, intro: lesson.opening.intro }, /* @__PURE__ */ React.createElement(Panel, { kicker: "Attivita", title: lesson.opening.cardTitle, meta: lesson.opening.meta }, /* @__PURE__ */ React.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-stack" }, /* @__PURE__ */ React.createElement(StepList, { title: "Fai cosi", items: lesson.opening.steps }), /* @__PURE__ */ React.createElement(PromptList, { title: "Osserva", items: lesson.opening.observe }), /* @__PURE__ */ React.createElement(ResultCallout, { text: lesson.opening.result })), /* @__PURE__ */ React.createElement(SimpleTimer, { total: 30, startLabel: "Avvia 30 secondi" }))));
-}
-function ListeningPanel() {
-  const [activeListening, setActiveListening] = useState(lesson.listeningSamples[0].id);
-  const [selectedGroup, setSelectedGroup] = useState(lesson.listeningSamples[0].expectedGroup);
-  const activeSample = lesson.listeningSamples.find((item) => item.id === activeListening) || lesson.listeningSamples[0];
-  useEffect(() => {
-    setSelectedGroup(activeSample.expectedGroup);
-  }, [activeSample.expectedGroup]);
-  return /* @__PURE__ */ React.createElement(
-    Panel,
+  return /* @__PURE__ */ React.createElement(LessonSection, { id: "apertura", title: lesson.opening.title, intro: lesson.opening.intro }, /* @__PURE__ */ React.createElement(Panel, { title: lesson.opening.cardTitle }, /* @__PURE__ */ React.createElement(
+    ActivityLayout,
     {
-      kicker: "Ascolto",
-      title: activeSample.title,
-      meta: [
-        { label: "Focus", value: activeSample.focus },
-        { label: "Prova", value: activeSample.action }
-      ]
+      steps: lesson.opening.steps,
+      observe: lesson.opening.observe,
+      result: lesson.opening.result,
+      right: /* @__PURE__ */ React.createElement(SimpleTimer, { total: 30, startLabel: "Avvia 30 secondi" })
+    }
+  )));
+}
+function ListeningGrid() {
+  return /* @__PURE__ */ React.createElement("div", { className: "lesson-card-grid lesson-card-grid--three" }, lesson.listeningSamples.map((sample) => /* @__PURE__ */ React.createElement("article", { key: sample.id, className: "lesson-meter-card" }, /* @__PURE__ */ React.createElement("p", { className: "lesson-mini-title" }, sample.focus), /* @__PURE__ */ React.createElement("strong", null, sample.title), /* @__PURE__ */ React.createElement("p", { className: "lesson-body-text" }, sample.description), /* @__PURE__ */ React.createElement("div", { className: "lesson-meter-preview" }, buildGroupSequence(sample.expectedGroup).map((beat, index) => /* @__PURE__ */ React.createElement(
+    "span",
+    {
+      key: `${sample.id}-${index}`,
+      className: cn("lesson-meter-preview__beat", beat === 1 && "is-accent"),
+      style: getMeterTone(sample.expectedGroup)
     },
-    /* @__PURE__ */ React.createElement(
-      PhaseTabs,
-      {
-        items: lesson.listeningSamples.map((sample) => ({ id: sample.id, label: sample.label })),
-        selected: activeListening,
-        onSelect: setActiveListening,
-        ariaLabel: "Situazioni di ascolto"
-      }
-    ),
-    /* @__PURE__ */ React.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-stack" }, /* @__PURE__ */ React.createElement("p", { className: "lesson-body-text" }, activeSample.description), /* @__PURE__ */ React.createElement(PromptList, { title: "Domande guida", items: lesson.exploration.questions })), /* @__PURE__ */ React.createElement("div", { className: "lesson-meter-panel" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-choice-row" }, [2, 3, 4].map((group) => /* @__PURE__ */ React.createElement(
-      "button",
-      {
-        key: group,
-        type: "button",
-        className: cn("lesson-choice", selectedGroup === group && "is-active"),
-        onClick: () => setSelectedGroup(group)
-      },
-      group,
-      " pulsazioni"
-    ))), /* @__PURE__ */ React.createElement("div", { className: "lesson-meter-preview" }, buildGroupSequence(selectedGroup).map((beat, index) => /* @__PURE__ */ React.createElement(
-      "span",
-      {
-        key: `${selectedGroup}-${index}`,
-        className: cn("lesson-meter-preview__beat", beat === 1 && "is-accent"),
-        style: getMeterTone(selectedGroup)
-      },
-      beat
-    ))), /* @__PURE__ */ React.createElement("p", { className: "lesson-note" }, "Osserva dove il numero ", /* @__PURE__ */ React.createElement("strong", null, "1"), " torna a riaprire il gruppo.")))
-  );
+    beat
+  ))), /* @__PURE__ */ React.createElement("p", { className: "lesson-meter-card__action" }, sample.action))));
 }
 function ExplorationSection() {
-  return /* @__PURE__ */ React.createElement(LessonSection, { id: "esplorazione", label: lesson.exploration.label, title: lesson.exploration.title, intro: lesson.exploration.intro, tone: "soft" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-stack" }, lesson.exploration.paragraphs.map((paragraph) => /* @__PURE__ */ React.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph))), /* @__PURE__ */ React.createElement(ListeningPanel, null)));
+  return /* @__PURE__ */ React.createElement(LessonSection, { id: "esplorazione", title: lesson.exploration.title, intro: lesson.exploration.intro, tone: "soft" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-stack" }, lesson.exploration.paragraphs.map((paragraph) => /* @__PURE__ */ React.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph))), /* @__PURE__ */ React.createElement(ListeningGrid, null), /* @__PURE__ */ React.createElement(Panel, { title: "Osserva" }, /* @__PURE__ */ React.createElement(PromptList, { items: lesson.exploration.questions })));
 }
 function PulseBoard() {
   const reducedMotion = usePrefersReducedMotion();
@@ -459,10 +438,18 @@ function RhythmSequencerBoard() {
   })), /* @__PURE__ */ React.createElement("div", { className: "lesson-choice-row" }, /* @__PURE__ */ React.createElement("button", { type: "button", className: "lesson-button lesson-button--ghost", onClick: () => setSequence([...lesson.sequencePresets.simple]) }, "Regolare"), /* @__PURE__ */ React.createElement("button", { type: "button", className: "lesson-button lesson-button--ghost", onClick: () => setSequence([...lesson.sequencePresets.pauses]) }, "Con pause"), /* @__PURE__ */ React.createElement("button", { type: "button", className: "lesson-button lesson-button--ghost", onClick: () => setSequence([...lesson.sequencePresets.accents]) }, "Con accenti")), /* @__PURE__ */ React.createElement("p", { className: "lesson-note" }, "\u25CF = suono \xB7 \u25CB = pausa \xB7 \u25C9 = accento"));
 }
 function ConceptBoard() {
-  return /* @__PURE__ */ React.createElement("div", { className: "lesson-term-list" }, /* @__PURE__ */ React.createElement("p", { className: "lesson-term-list__label" }, "Mappa rapida"), lesson.conceptRows.map((item) => /* @__PURE__ */ React.createElement("div", { key: item.term, className: "lesson-term-list__row" }, /* @__PURE__ */ React.createElement("strong", null, item.term), /* @__PURE__ */ React.createElement("p", null, item.text))));
+  return /* @__PURE__ */ React.createElement("div", { className: "lesson-term-list" }, lesson.conceptRows.map((item) => /* @__PURE__ */ React.createElement("div", { key: item.term, className: "lesson-term-list__row" }, /* @__PURE__ */ React.createElement("strong", null, item.term), /* @__PURE__ */ React.createElement("div", { className: "lesson-term-list__content" }, /* @__PURE__ */ React.createElement("p", null, item.text), /* @__PURE__ */ React.createElement("div", { className: "lesson-term-list__example" }, item.example)))));
 }
 function ActiveSection() {
-  return /* @__PURE__ */ React.createElement(LessonSection, { id: "comprensione-attiva", label: lesson.active.label, title: lesson.active.title, intro: lesson.active.intro }, /* @__PURE__ */ React.createElement(Panel, { kicker: "Prova pratica", title: lesson.active.cardTitle, meta: lesson.active.meta }, /* @__PURE__ */ React.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-stack" }, /* @__PURE__ */ React.createElement(StepList, { title: "Fai cosi", items: lesson.active.steps }), /* @__PURE__ */ React.createElement(PromptList, { title: "Osserva", items: lesson.active.observe }), /* @__PURE__ */ React.createElement(ResultCallout, { text: lesson.active.result })), /* @__PURE__ */ React.createElement(PulseBoard, null)), /* @__PURE__ */ React.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React.createElement(RhythmSequencerBoard, null), /* @__PURE__ */ React.createElement(ConceptBoard, null))));
+  return /* @__PURE__ */ React.createElement(LessonSection, { id: "comprensione-attiva", title: lesson.active.title, intro: lesson.active.intro }, /* @__PURE__ */ React.createElement(Panel, { title: lesson.active.cardTitle, meta: lesson.active.meta }, /* @__PURE__ */ React.createElement(
+    ActivityLayout,
+    {
+      steps: lesson.active.steps,
+      observe: lesson.active.observe,
+      result: lesson.active.result,
+      right: /* @__PURE__ */ React.createElement(PulseBoard, null)
+    }
+  )), /* @__PURE__ */ React.createElement("div", { className: "lesson-card-grid lesson-card-grid--two" }, /* @__PURE__ */ React.createElement(Panel, { title: "Pratica" }, /* @__PURE__ */ React.createElement(RhythmSequencerBoard, null)), /* @__PURE__ */ React.createElement(Panel, { title: "Mappa rapida" }, /* @__PURE__ */ React.createElement(ConceptBoard, null))), /* @__PURE__ */ React.createElement(Panel, { title: "Ascolto interno" }, /* @__PURE__ */ React.createElement(PromptList, { items: lesson.exploration.questions })));
 }
 function FollowupSection({ selected, onSelect }) {
   const phase = lesson.followups[selected];
@@ -482,19 +469,7 @@ function FollowupSection({ selected, onSelect }) {
 function RitmoPulsazioneTempoLesson() {
   const activeId = useActiveSection(["apertura", "esplorazione", "comprensione-attiva", "rielaborazione"]);
   const [selectedFollowup, setSelectedFollowup] = useState(lesson.followupDefault);
-  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page" }, /* @__PURE__ */ React.createElement(
-    LessonHero,
-    {
-      eyebrow: lesson.nucleus,
-      title: lesson.title,
-      question: lesson.question,
-      subtitle: lesson.subtitle,
-      meta: lesson.meta,
-      visual: /* @__PURE__ */ React.createElement(HeroVisual, null),
-      visualNote: lesson.heroNote,
-      breadcrumbs: lesson.breadcrumbs
-    }
-  ), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page" }, /* @__PURE__ */ React.createElement(LessonHero, { title: lesson.title, question: lesson.question, breadcrumbs: lesson.breadcrumbs }), /* @__PURE__ */ React.createElement(MetaStrip, { items: lesson.opening.meta }), /* @__PURE__ */ React.createElement(
     LessonProgress,
     {
       items: lesson.progress,
@@ -502,7 +477,14 @@ function RitmoPulsazioneTempoLesson() {
       selectedFollowup,
       onSelectFollowup: setSelectedFollowup
     }
-  ), /* @__PURE__ */ React.createElement(OpeningSection, null), /* @__PURE__ */ React.createElement(ExplorationSection, null), /* @__PURE__ */ React.createElement(ActiveSection, null), /* @__PURE__ */ React.createElement(FollowupSection, { selected: selectedFollowup, onSelect: setSelectedFollowup }));
+  ), /* @__PURE__ */ React.createElement(OpeningSection, null), /* @__PURE__ */ React.createElement(ExplorationSection, null), /* @__PURE__ */ React.createElement(ActiveSection, null), /* @__PURE__ */ React.createElement(FollowupSection, { selected: selectedFollowup, onSelect: setSelectedFollowup }), /* @__PURE__ */ React.createElement(
+    LessonBottomBar,
+    {
+      mapHref: lesson.navigation.mapHref,
+      previousHref: lesson.navigation.previousHref,
+      homeHref: lesson.navigation.homeHref
+    }
+  ));
 }
 export {
   RitmoPulsazioneTempoLesson as default

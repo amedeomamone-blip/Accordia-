@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "https://esm.sh/react@18";
 import {
+  ActivityLayout,
+  LessonBottomBar,
   LessonHero,
   LessonProgress,
   LessonSection,
+  MetaStrip,
   Panel,
   PhaseTabs,
   PromptList,
@@ -27,6 +30,11 @@ const lesson = {
     { label: "Origini del suono", href: "../../index.html" },
     { label: "Ritmo, pulsazione e tempo" },
   ],
+  navigation: {
+    mapHref: "../../index.html",
+    previousHref: "../corpo-voce-gesto/index.html",
+    homeHref: "../../../../index.html",
+  },
   meta: [
     { label: "Durata", value: "2 ore" },
     { label: "Ti serve", value: "corpo, voce, banco" },
@@ -137,22 +145,27 @@ const lesson = {
     {
       term: "Pulsazione",
       text: "E il battito regolare che fa da riferimento al gruppo.",
+      example: "TA TA TA TA",
     },
     {
       term: "Ritmo",
       text: "E il disegno di suoni e pause che si appoggia alla pulsazione.",
+      example: "TA - TA TA",
     },
     {
       term: "Tempo",
       text: "E la velocita con cui ritorna la pulsazione.",
+      example: "LENTO / MEDIO / VELOCE",
     },
     {
       term: "Accento",
       text: "E il punto che senti piu forte o piu evidente.",
+      example: "> ta ta",
     },
     {
       term: "Metro",
       text: "E il modo regolare con cui gli accenti si organizzano in gruppi.",
+      example: "2 / 3 / 4",
     },
   ],
   pulseModes: [
@@ -338,158 +351,73 @@ function buildGroupSequence(groupSize) {
   return sequence;
 }
 
-function buildCompactGroup(groupSize) {
-  return Array.from({ length: groupSize }, (_, index) => index + 1);
-}
-
 function getMeterTone(groupSize) {
   if (groupSize === 2) {
-    return { "--meter-bg": "#edf4ec", "--meter-accent": "#355e3b", "--meter-soft": "#dbe9dc" };
+    return { "--meter-bg": "#f0efe9", "--meter-accent": "#171717", "--meter-soft": "#e1dfd6" };
   }
 
   if (groupSize === 3) {
-    return { "--meter-bg": "#f6efe4", "--meter-accent": "#8a5b20", "--meter-soft": "#ecdfca" };
+    return { "--meter-bg": "#ebe9e1", "--meter-accent": "#2b2a27", "--meter-soft": "#ddd9cf" };
   }
 
-  return { "--meter-bg": "#edf2f6", "--meter-accent": "#355f7a", "--meter-soft": "#dbe4ea" };
-}
-
-function HeroVisual() {
-  return (
-    <div className="lesson-rhythm-hero">
-      <div className="lesson-rhythm-hero__row">
-        <span className="lesson-rhythm-hero__label">pulsazione</span>
-        <div className="lesson-dot-track">
-          {Array.from({ length: 4 }).map((_, index) => (
-            <span key={`pulse-${index}`} className="lesson-dot-track__dot" />
-          ))}
-        </div>
-      </div>
-
-      <div className="lesson-rhythm-hero__row">
-        <span className="lesson-rhythm-hero__label">ritmo</span>
-        <div className="lesson-dot-track lesson-dot-track--rhythm">
-          <span className="lesson-dot-track__dot lesson-dot-track__dot--accent" />
-          <span className="lesson-dot-track__dot lesson-dot-track__dot--pause" />
-          <span className="lesson-dot-track__dot" />
-          <span className="lesson-dot-track__dot lesson-dot-track__dot--wide" />
-        </div>
-      </div>
-
-      <div className="lesson-rhythm-hero__row lesson-rhythm-hero__row--stacked">
-        <span className="lesson-rhythm-hero__label">metro</span>
-        <div className="lesson-meter-stack">
-          {[2, 3, 4].map((groupSize) => (
-            <div key={groupSize} className="lesson-meter-stack__row">
-              {buildCompactGroup(groupSize).map((item) => (
-                <span key={`${groupSize}-${item}`} className={cn("lesson-meter-chip", item === 1 && "is-accent")} style={getMeterTone(groupSize)}>
-                  {item}
-                </span>
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  );
+  return { "--meter-bg": "#f3f3f0", "--meter-accent": "#3a3b35", "--meter-soft": "#e5e5df" };
 }
 
 function OpeningSection() {
   return (
-    <LessonSection id="apertura" label={lesson.opening.label} title={lesson.opening.title} intro={lesson.opening.intro}>
-      <Panel kicker="Attivita" title={lesson.opening.cardTitle} meta={lesson.opening.meta}>
-        <div className="lesson-grid lesson-grid--two">
-          <div className="lesson-stack">
-            <StepList title="Fai cosi" items={lesson.opening.steps} />
-            <PromptList title="Osserva" items={lesson.opening.observe} />
-            <ResultCallout text={lesson.opening.result} />
-          </div>
-          <SimpleTimer total={30} startLabel="Avvia 30 secondi" />
-        </div>
+    <LessonSection id="apertura" title={lesson.opening.title} intro={lesson.opening.intro}>
+      <Panel title={lesson.opening.cardTitle}>
+        <ActivityLayout
+          steps={lesson.opening.steps}
+          observe={lesson.opening.observe}
+          result={lesson.opening.result}
+          right={<SimpleTimer total={30} startLabel="Avvia 30 secondi" />}
+        />
       </Panel>
     </LessonSection>
   );
 }
 
-function ListeningPanel() {
-  const [activeListening, setActiveListening] = useState(lesson.listeningSamples[0].id);
-  const [selectedGroup, setSelectedGroup] = useState(lesson.listeningSamples[0].expectedGroup);
-  const activeSample = lesson.listeningSamples.find((item) => item.id === activeListening) || lesson.listeningSamples[0];
-
-  useEffect(() => {
-    setSelectedGroup(activeSample.expectedGroup);
-  }, [activeSample.expectedGroup]);
-
+function ListeningGrid() {
   return (
-    <Panel
-      kicker="Ascolto"
-      title={activeSample.title}
-      meta={[
-        { label: "Focus", value: activeSample.focus },
-        { label: "Prova", value: activeSample.action },
-      ]}
-    >
-      <PhaseTabs
-        items={lesson.listeningSamples.map((sample) => ({ id: sample.id, label: sample.label }))}
-        selected={activeListening}
-        onSelect={setActiveListening}
-        ariaLabel="Situazioni di ascolto"
-      />
-
-      <div className="lesson-grid lesson-grid--two">
-        <div className="lesson-stack">
-          <p className="lesson-body-text">{activeSample.description}</p>
-          <PromptList title="Domande guida" items={lesson.exploration.questions} />
-        </div>
-
-        <div className="lesson-meter-panel">
-          <div className="lesson-choice-row">
-            {[2, 3, 4].map((group) => (
-              <button
-                key={group}
-                type="button"
-                className={cn("lesson-choice", selectedGroup === group && "is-active")}
-                onClick={() => setSelectedGroup(group)}
-              >
-                {group} pulsazioni
-              </button>
-            ))}
-          </div>
-
+    <div className="lesson-card-grid lesson-card-grid--three">
+      {lesson.listeningSamples.map((sample) => (
+        <article key={sample.id} className="lesson-meter-card">
+          <p className="lesson-mini-title">{sample.focus}</p>
+          <strong>{sample.title}</strong>
+          <p className="lesson-body-text">{sample.description}</p>
           <div className="lesson-meter-preview">
-            {buildGroupSequence(selectedGroup).map((beat, index) => (
+            {buildGroupSequence(sample.expectedGroup).map((beat, index) => (
               <span
-                key={`${selectedGroup}-${index}`}
+                key={`${sample.id}-${index}`}
                 className={cn("lesson-meter-preview__beat", beat === 1 && "is-accent")}
-                style={getMeterTone(selectedGroup)}
+                style={getMeterTone(sample.expectedGroup)}
               >
                 {beat}
               </span>
             ))}
           </div>
-
-          <p className="lesson-note">
-            Osserva dove il numero <strong>1</strong> torna a riaprire il gruppo.
-          </p>
-        </div>
-      </div>
-    </Panel>
+          <p className="lesson-meter-card__action">{sample.action}</p>
+        </article>
+      ))}
+    </div>
   );
 }
 
 function ExplorationSection() {
   return (
-    <LessonSection id="esplorazione" label={lesson.exploration.label} title={lesson.exploration.title} intro={lesson.exploration.intro} tone="soft">
-      <div className="lesson-grid lesson-grid--two">
-        <div className="lesson-stack">
-          {lesson.exploration.paragraphs.map((paragraph) => (
-            <p key={paragraph} className="lesson-body-text">
-              {paragraph}
-            </p>
-          ))}
-        </div>
-        <ListeningPanel />
+    <LessonSection id="esplorazione" title={lesson.exploration.title} intro={lesson.exploration.intro} tone="soft">
+      <div className="lesson-stack">
+        {lesson.exploration.paragraphs.map((paragraph) => (
+          <p key={paragraph} className="lesson-body-text">
+            {paragraph}
+          </p>
+        ))}
       </div>
+      <ListeningGrid />
+      <Panel title="Osserva">
+        <PromptList items={lesson.exploration.questions} />
+      </Panel>
     </LessonSection>
   );
 }
@@ -603,11 +531,13 @@ function RhythmSequencerBoard() {
 function ConceptBoard() {
   return (
     <div className="lesson-term-list">
-      <p className="lesson-term-list__label">Mappa rapida</p>
       {lesson.conceptRows.map((item) => (
         <div key={item.term} className="lesson-term-list__row">
           <strong>{item.term}</strong>
-          <p>{item.text}</p>
+          <div className="lesson-term-list__content">
+            <p>{item.text}</p>
+            <div className="lesson-term-list__example">{item.example}</div>
+          </div>
         </div>
       ))}
     </div>
@@ -616,21 +546,25 @@ function ConceptBoard() {
 
 function ActiveSection() {
   return (
-    <LessonSection id="comprensione-attiva" label={lesson.active.label} title={lesson.active.title} intro={lesson.active.intro}>
-      <Panel kicker="Prova pratica" title={lesson.active.cardTitle} meta={lesson.active.meta}>
-        <div className="lesson-grid lesson-grid--two">
-          <div className="lesson-stack">
-            <StepList title="Fai cosi" items={lesson.active.steps} />
-            <PromptList title="Osserva" items={lesson.active.observe} />
-            <ResultCallout text={lesson.active.result} />
-          </div>
-          <PulseBoard />
-        </div>
-
-        <div className="lesson-grid lesson-grid--two">
+    <LessonSection id="comprensione-attiva" title={lesson.active.title} intro={lesson.active.intro}>
+      <Panel title={lesson.active.cardTitle} meta={lesson.active.meta}>
+        <ActivityLayout
+          steps={lesson.active.steps}
+          observe={lesson.active.observe}
+          result={lesson.active.result}
+          right={<PulseBoard />}
+        />
+      </Panel>
+      <div className="lesson-card-grid lesson-card-grid--two">
+        <Panel title="Pratica">
           <RhythmSequencerBoard />
+        </Panel>
+        <Panel title="Mappa rapida">
           <ConceptBoard />
-        </div>
+        </Panel>
+      </div>
+      <Panel title="Ascolto interno">
+        <PromptList items={lesson.exploration.questions} />
       </Panel>
     </LessonSection>
   );
@@ -687,16 +621,8 @@ export default function RitmoPulsazioneTempoLesson() {
 
   return (
     <div className="lesson-editorial-page">
-      <LessonHero
-        eyebrow={lesson.nucleus}
-        title={lesson.title}
-        question={lesson.question}
-        subtitle={lesson.subtitle}
-        meta={lesson.meta}
-        visual={<HeroVisual />}
-        visualNote={lesson.heroNote}
-        breadcrumbs={lesson.breadcrumbs}
-      />
+      <LessonHero title={lesson.title} question={lesson.question} breadcrumbs={lesson.breadcrumbs} />
+      <MetaStrip items={lesson.opening.meta} />
       <LessonProgress
         items={lesson.progress}
         activeId={activeId}
@@ -707,6 +633,11 @@ export default function RitmoPulsazioneTempoLesson() {
       <ExplorationSection />
       <ActiveSection />
       <FollowupSection selected={selectedFollowup} onSelect={setSelectedFollowup} />
+      <LessonBottomBar
+        mapHref={lesson.navigation.mapHref}
+        previousHref={lesson.navigation.previousHref}
+        homeHref={lesson.navigation.homeHref}
+      />
     </div>
   );
 }

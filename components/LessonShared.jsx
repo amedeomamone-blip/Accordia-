@@ -83,16 +83,32 @@ export function LessonBreadcrumb({ items }) {
   );
 }
 
+export function LessonHero({ title, question, breadcrumbs }) {
+  return (
+    <header className="lesson-hero">
+      <LessonBreadcrumb items={breadcrumbs} />
+      <div className="lesson-shell lesson-hero__copy">
+        <h1 className="lesson-hero__title">{title}</h1>
+        <p className="lesson-hero__question">{question}</p>
+      </div>
+    </header>
+  );
+}
+
 export function MetaStrip({ items }) {
   return (
-    <dl className="lesson-meta-strip">
-      {items.map((item) => (
-        <div key={`${item.label}-${item.value}`} className="lesson-meta-strip__item">
-          <dt>{item.label}</dt>
-          <dd>{item.value}</dd>
-        </div>
-      ))}
-    </dl>
+    <section className="lesson-meta-bar" aria-label="Dati tecnici">
+      <div className="lesson-shell">
+        <dl className="lesson-meta-bar__list">
+          {items.map((item) => (
+            <div key={`${item.label}-${item.value}`} className="lesson-meta-bar__item">
+              <dt>{item.label}</dt>
+              <dd>{item.value}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </section>
   );
 }
 
@@ -106,28 +122,6 @@ export function FactStrip({ items }) {
         </div>
       ))}
     </dl>
-  );
-}
-
-export function LessonHero({ eyebrow, title, question, subtitle, meta, visual, visualNote, breadcrumbs }) {
-  return (
-    <header className="lesson-hero">
-      <LessonBreadcrumb items={breadcrumbs} />
-      <div className="lesson-shell lesson-hero__grid">
-        <div className="lesson-hero__copy">
-          <p className="lesson-hero__eyebrow">{eyebrow}</p>
-          <h1 className="lesson-hero__title">{title}</h1>
-          <p className="lesson-hero__question">{question}</p>
-          <p className="lesson-hero__subtitle">{subtitle}</p>
-          <MetaStrip items={meta} />
-        </div>
-
-        <div className="lesson-hero__visual-wrap">
-          <div className="lesson-hero__visual">{visual}</div>
-          {visualNote ? <p className="lesson-hero__visual-note">{visualNote}</p> : null}
-        </div>
-      </div>
-    </header>
   );
 }
 
@@ -179,11 +173,13 @@ export function LessonSection({ id, label, title, intro, tone = "plain", childre
   return (
     <section id={id} className={cn("lesson-section", tone === "soft" && "lesson-section--soft")}>
       <div className="lesson-shell">
-        <header className="lesson-section__header">
-          <p className="lesson-section__label">{label}</p>
-          <h2 className="lesson-section__title">{title}</h2>
-          {intro ? <p className="lesson-section__intro">{intro}</p> : null}
-        </header>
+        {(label || title || intro) ? (
+          <header className="lesson-section__header">
+            {label ? <p className="lesson-section__label">{label}</p> : null}
+            {title ? <h2 className="lesson-section__title">{title}</h2> : null}
+            {intro ? <p className="lesson-section__intro">{intro}</p> : null}
+          </header>
+        ) : null}
         <div className="lesson-section__body">{children}</div>
       </div>
     </section>
@@ -193,13 +189,15 @@ export function LessonSection({ id, label, title, intro, tone = "plain", childre
 export function Panel({ kicker, title, meta, children, tone = "plain" }) {
   return (
     <section className={cn("lesson-panel", tone === "soft" && "lesson-panel--soft")}>
-      <div className="lesson-panel__header">
-        <div className="lesson-panel__heading">
-          {kicker ? <p className="lesson-panel__kicker">{kicker}</p> : null}
-          <h3 className="lesson-panel__title">{title}</h3>
+      {(kicker || title || meta?.length) ? (
+        <div className="lesson-panel__header">
+          <div className="lesson-panel__heading">
+            {kicker ? <p className="lesson-panel__kicker">{kicker}</p> : null}
+            {title ? <h3 className="lesson-panel__title">{title}</h3> : null}
+          </div>
+          {meta?.length ? <FactStrip items={meta} /> : null}
         </div>
-        {meta?.length ? <FactStrip items={meta} /> : null}
-      </div>
+      ) : null}
       {children}
     </section>
   );
@@ -208,7 +206,7 @@ export function Panel({ kicker, title, meta, children, tone = "plain" }) {
 export function StepList({ title, items }) {
   return (
     <div className="lesson-stack">
-      <h3 className="lesson-mini-title">{title}</h3>
+      {title ? <h3 className="lesson-mini-title">{title}</h3> : null}
       <ol className="lesson-step-list">
         {items.map((item, index) => (
           <li key={`${title}-${index}-${item}`} className="lesson-step-list__item">
@@ -224,7 +222,7 @@ export function StepList({ title, items }) {
 export function PromptList({ title, items }) {
   return (
     <div className="lesson-stack">
-      <h3 className="lesson-mini-title">{title}</h3>
+      {title ? <h3 className="lesson-mini-title">{title}</h3> : null}
       <ul className="lesson-prompt-list">
         {items.map((item) => (
           <li key={item}>{item}</li>
@@ -234,11 +232,24 @@ export function PromptList({ title, items }) {
   );
 }
 
-export function ResultCallout({ label = "Alla fine", text }) {
+export function ResultCallout({ label = "Alla fine", text, className }) {
   return (
-    <div className="lesson-result">
+    <div className={cn("lesson-result", className)}>
       <span>{label}</span>
       <strong>{text}</strong>
+    </div>
+  );
+}
+
+export function ActivityLayout({ steps, observe, result, right, stepsTitle = "Fai cosi", observeTitle = "Osserva" }) {
+  return (
+    <div className="lesson-activity">
+      <div className="lesson-activity__text">
+        <StepList title={stepsTitle} items={steps} />
+        <PromptList title={observeTitle} items={observe} />
+      </div>
+      <div className="lesson-activity__side">{right}</div>
+      <ResultCallout className="lesson-activity__result" text={result} />
     </div>
   );
 }
@@ -286,20 +297,20 @@ export function SimpleTimer({ total = 30, startLabel = "Avvia", resetLabel = "Re
   return (
     <div className="lesson-timer">
       <div className="lesson-timer__dial" aria-live="polite">
-        <svg viewBox="0 0 120 120" className="lesson-timer__ring" aria-hidden="true">
-          <circle cx="60" cy="60" r="52" pathLength="100" />
-          <circle cx="60" cy="60" r="52" pathLength="100" style={{ strokeDasharray: "100", strokeDashoffset: progress }} />
+        <svg viewBox="0 0 160 160" className="lesson-timer__ring" aria-hidden="true">
+          <circle cx="80" cy="80" r="68" pathLength="100" />
+          <circle cx="80" cy="80" r="68" pathLength="100" style={{ strokeDasharray: "100", strokeDashoffset: progress }} />
         </svg>
         <div className="lesson-timer__value">
-          <span>timer</span>
+          <span className="lesson-visually-hidden">Secondi rimasti</span>
           <strong>{seconds}</strong>
         </div>
       </div>
 
-      <div className="lesson-button-row">
+      <div className="lesson-timer__controls">
         <button
           type="button"
-          className="lesson-button"
+          className="lesson-text-button"
           onClick={() => {
             setSeconds(total);
             setRunning(true);
@@ -309,7 +320,7 @@ export function SimpleTimer({ total = 30, startLabel = "Avvia", resetLabel = "Re
         </button>
         <button
           type="button"
-          className="lesson-button lesson-button--ghost"
+          className="lesson-text-button lesson-text-button--muted"
           onClick={() => {
             setRunning(false);
             setSeconds(total);
@@ -375,5 +386,29 @@ export function SelfCheckList({ items }) {
         ))}
       </div>
     </div>
+  );
+}
+
+export function LessonBottomBar({ mapHref, previousHref, homeHref }) {
+  return (
+    <nav className="lesson-bottom-bar" aria-label="Navigazione finale">
+      <div className="lesson-shell lesson-bottom-bar__track">
+        <a href={mapHref} className="lesson-bottom-bar__item">
+          Torna alla mappa
+        </a>
+        {previousHref ? (
+          <a href={previousHref} className="lesson-bottom-bar__item">
+            Argomento precedente
+          </a>
+        ) : (
+          <span className="lesson-bottom-bar__item lesson-bottom-bar__item--disabled" aria-disabled="true">
+            Argomento precedente
+          </span>
+        )}
+        <a href={homeHref} className="lesson-bottom-bar__item">
+          Home
+        </a>
+      </div>
+    </nav>
   );
 }

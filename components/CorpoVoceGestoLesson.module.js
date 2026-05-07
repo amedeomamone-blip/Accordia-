@@ -1,8 +1,11 @@
 import React, { useState } from "https://esm.sh/react@18";
 import {
+  ActivityLayout,
+  LessonBottomBar,
   LessonHero,
   LessonProgress,
   LessonSection,
+  MetaStrip,
   Panel,
   PhaseTabs,
   PromptList,
@@ -41,6 +44,11 @@ const lesson = {
     { label: "Origini del suono", href: "../../index.html" },
     { label: "Corpo, voce e gesto" }
   ],
+  navigation: {
+    mapHref: "../../index.html",
+    previousHref: null,
+    homeHref: "../../../../index.html"
+  },
   meta: [
     { label: "Durata", value: "2 ore" },
     { label: "Ti serve", value: "corpo, voce, banco" },
@@ -280,17 +288,25 @@ const lesson = {
     }
   }
 };
-function HeroVisual() {
-  return /* @__PURE__ */ React.createElement("div", { className: "lesson-visual-grid" }, lesson.heroRows.map((row) => /* @__PURE__ */ React.createElement("div", { key: row.label, className: "lesson-visual-grid__row" }, /* @__PURE__ */ React.createElement("strong", null, row.label), /* @__PURE__ */ React.createElement("div", { className: "lesson-chip-row" }, row.items.map((item) => /* @__PURE__ */ React.createElement("span", { key: `${row.label}-${item}`, className: "lesson-chip" }, item))))));
+function SignalGrid() {
+  return /* @__PURE__ */ React.createElement("div", { className: "lesson-card-grid lesson-card-grid--four" }, lesson.heroRows.map((row) => /* @__PURE__ */ React.createElement("article", { key: row.label, className: "lesson-key-card" }, /* @__PURE__ */ React.createElement("strong", null, row.label), /* @__PURE__ */ React.createElement("div", { className: "lesson-chip-row" }, row.items.map((item) => /* @__PURE__ */ React.createElement("span", { key: `${row.label}-${item}`, className: "lesson-chip" }, item))))));
 }
 function OpeningSection() {
-  return /* @__PURE__ */ React.createElement(LessonSection, { id: "apertura", label: lesson.opening.label, title: lesson.opening.title, intro: lesson.opening.intro }, /* @__PURE__ */ React.createElement(Panel, { kicker: "Attivita", title: lesson.opening.cardTitle, meta: lesson.opening.meta }, /* @__PURE__ */ React.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-stack" }, /* @__PURE__ */ React.createElement(StepList, { title: "Fai cosi", items: lesson.opening.steps }), /* @__PURE__ */ React.createElement(PromptList, { title: "Osserva", items: lesson.opening.observe }), /* @__PURE__ */ React.createElement(ResultCallout, { text: lesson.opening.result })), /* @__PURE__ */ React.createElement(SimpleTimer, { total: 30, startLabel: "Avvia 30 secondi" }))));
+  return /* @__PURE__ */ React.createElement(LessonSection, { id: "apertura", title: lesson.opening.title, intro: lesson.opening.intro }, /* @__PURE__ */ React.createElement(Panel, { title: lesson.opening.cardTitle }, /* @__PURE__ */ React.createElement(
+    ActivityLayout,
+    {
+      steps: lesson.opening.steps,
+      observe: lesson.opening.observe,
+      result: lesson.opening.result,
+      right: /* @__PURE__ */ React.createElement(SimpleTimer, { total: 30, startLabel: "Avvia 30 secondi" })
+    }
+  )));
 }
 function EvidenceStrip() {
   return /* @__PURE__ */ React.createElement("div", { className: "lesson-evidence-strip" }, EVIDENCE_IMAGES.map((item) => /* @__PURE__ */ React.createElement("figure", { key: item.title, className: "lesson-evidence" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-evidence__media" }, /* @__PURE__ */ React.createElement("img", { src: item.src, alt: item.caption, loading: "lazy" })), /* @__PURE__ */ React.createElement("figcaption", { className: "lesson-evidence__copy" }, /* @__PURE__ */ React.createElement("strong", null, item.title), /* @__PURE__ */ React.createElement("p", null, item.caption)))));
 }
 function ExplorationSection() {
-  return /* @__PURE__ */ React.createElement(LessonSection, { id: "esplorazione", label: lesson.exploration.label, title: lesson.exploration.title, intro: lesson.exploration.intro, tone: "soft" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-stack" }, lesson.exploration.paragraphs.map((paragraph) => /* @__PURE__ */ React.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph)), /* @__PURE__ */ React.createElement(PromptList, { title: "Domande guida", items: lesson.exploration.questions })), /* @__PURE__ */ React.createElement("div", { className: "lesson-flow-card", "aria-label": "Schema del passaggio dal gesto alla forma" }, /* @__PURE__ */ React.createElement("p", { className: "lesson-flow-card__label" }, "Dal gesto alla forma"), /* @__PURE__ */ React.createElement("div", { className: "lesson-flow-card__steps" }, lesson.exploration.flow.map((item, index) => /* @__PURE__ */ React.createElement(React.Fragment, { key: item }, /* @__PURE__ */ React.createElement("div", { className: "lesson-flow-card__node" }, item), index < lesson.exploration.flow.length - 1 ? /* @__PURE__ */ React.createElement("span", { className: "lesson-flow-card__arrow" }, "\u2192") : null))))), /* @__PURE__ */ React.createElement(EvidenceStrip, null));
+  return /* @__PURE__ */ React.createElement(LessonSection, { id: "esplorazione", title: lesson.exploration.title, intro: lesson.exploration.intro, tone: "soft" }, /* @__PURE__ */ React.createElement(SignalGrid, null), /* @__PURE__ */ React.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-stack" }, lesson.exploration.paragraphs.map((paragraph) => /* @__PURE__ */ React.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph)), /* @__PURE__ */ React.createElement(PromptList, { title: "Osserva", items: lesson.exploration.questions })), /* @__PURE__ */ React.createElement("div", { className: "lesson-flow-card", "aria-label": "Schema del passaggio dal gesto alla forma" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-flow-card__steps" }, lesson.exploration.flow.map((item, index) => /* @__PURE__ */ React.createElement(React.Fragment, { key: item }, /* @__PURE__ */ React.createElement("div", { className: "lesson-flow-card__node" }, item), index < lesson.exploration.flow.length - 1 ? /* @__PURE__ */ React.createElement("span", { className: "lesson-flow-card__arrow" }, "\u2192") : null))))), /* @__PURE__ */ React.createElement(EvidenceStrip, null));
 }
 function SequenceBoard() {
   const [selectedSource, setSelectedSource] = useState(lesson.sourceOptions[0].id);
@@ -324,8 +340,19 @@ function SequenceBoard() {
     );
   })), /* @__PURE__ */ React.createElement("div", { className: "lesson-choice-row" }, /* @__PURE__ */ React.createElement("button", { type: "button", className: "lesson-button lesson-button--ghost", onClick: () => setSequence([...lesson.sequencePresets.simple]) }, "Base"), /* @__PURE__ */ React.createElement("button", { type: "button", className: "lesson-button lesson-button--ghost", onClick: () => setSequence([...lesson.sequencePresets.echo]) }, "Richiamo"), /* @__PURE__ */ React.createElement("button", { type: "button", className: "lesson-button lesson-button--ghost", onClick: () => setSequence([...lesson.sequencePresets.contrast]) }, "Contrasto")), /* @__PURE__ */ React.createElement("p", { className: "lesson-note" }, lesson.sourceOptions.map((item) => `${item.symbol} = ${item.label.toLowerCase()}`).join(" \xB7 ")));
 }
+function SourceLegend() {
+  return /* @__PURE__ */ React.createElement("div", { className: "lesson-symbol-grid", "aria-label": "Legenda rapida dei segni" }, lesson.sourceOptions.map((item) => /* @__PURE__ */ React.createElement("div", { key: item.id, className: "lesson-symbol-card" }, /* @__PURE__ */ React.createElement("strong", null, item.symbol), /* @__PURE__ */ React.createElement("span", null, item.label))));
+}
 function ActiveSection() {
-  return /* @__PURE__ */ React.createElement(LessonSection, { id: "comprensione-attiva", label: lesson.active.label, title: lesson.active.title, intro: lesson.active.intro }, /* @__PURE__ */ React.createElement(Panel, { kicker: "Prova pratica", title: lesson.active.cardTitle, meta: lesson.active.meta }, /* @__PURE__ */ React.createElement("div", { className: "lesson-grid lesson-grid--asym" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-stack" }, /* @__PURE__ */ React.createElement(StepList, { title: "Fai cosi", items: lesson.active.steps }), /* @__PURE__ */ React.createElement(PromptList, { title: "Osserva", items: lesson.active.observe }), /* @__PURE__ */ React.createElement(ResultCallout, { text: lesson.active.result })), /* @__PURE__ */ React.createElement(SequenceBoard, null))));
+  return /* @__PURE__ */ React.createElement(LessonSection, { id: "comprensione-attiva", title: lesson.active.title, intro: lesson.active.intro }, /* @__PURE__ */ React.createElement(Panel, { title: lesson.active.cardTitle, meta: lesson.active.meta }, /* @__PURE__ */ React.createElement(
+    ActivityLayout,
+    {
+      steps: lesson.active.steps,
+      observe: lesson.active.observe,
+      result: lesson.active.result,
+      right: /* @__PURE__ */ React.createElement(SequenceBoard, null)
+    }
+  )), /* @__PURE__ */ React.createElement(Panel, { title: "Segni rapidi" }, /* @__PURE__ */ React.createElement(SourceLegend, null)));
 }
 function FollowupSection({ selected, onSelect }) {
   const phase = lesson.followups[selected];
@@ -345,19 +372,7 @@ function FollowupSection({ selected, onSelect }) {
 function CorpoVoceGestoLesson() {
   const activeId = useActiveSection(["apertura", "esplorazione", "comprensione-attiva", "rielaborazione"]);
   const [selectedFollowup, setSelectedFollowup] = useState(lesson.followupDefault);
-  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page" }, /* @__PURE__ */ React.createElement(
-    LessonHero,
-    {
-      eyebrow: lesson.nucleus,
-      title: lesson.title,
-      question: lesson.question,
-      subtitle: lesson.subtitle,
-      meta: lesson.meta,
-      visual: /* @__PURE__ */ React.createElement(HeroVisual, null),
-      visualNote: lesson.heroNote,
-      breadcrumbs: lesson.breadcrumbs
-    }
-  ), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page" }, /* @__PURE__ */ React.createElement(LessonHero, { title: lesson.title, question: lesson.question, breadcrumbs: lesson.breadcrumbs }), /* @__PURE__ */ React.createElement(MetaStrip, { items: lesson.opening.meta }), /* @__PURE__ */ React.createElement(
     LessonProgress,
     {
       items: lesson.progress,
@@ -365,7 +380,14 @@ function CorpoVoceGestoLesson() {
       selectedFollowup,
       onSelectFollowup: setSelectedFollowup
     }
-  ), /* @__PURE__ */ React.createElement(OpeningSection, null), /* @__PURE__ */ React.createElement(ExplorationSection, null), /* @__PURE__ */ React.createElement(ActiveSection, null), /* @__PURE__ */ React.createElement(FollowupSection, { selected: selectedFollowup, onSelect: setSelectedFollowup }));
+  ), /* @__PURE__ */ React.createElement(OpeningSection, null), /* @__PURE__ */ React.createElement(ExplorationSection, null), /* @__PURE__ */ React.createElement(ActiveSection, null), /* @__PURE__ */ React.createElement(FollowupSection, { selected: selectedFollowup, onSelect: setSelectedFollowup }), /* @__PURE__ */ React.createElement(
+    LessonBottomBar,
+    {
+      mapHref: lesson.navigation.mapHref,
+      previousHref: lesson.navigation.previousHref,
+      homeHref: lesson.navigation.homeHref
+    }
+  ));
 }
 export {
   CorpoVoceGestoLesson as default

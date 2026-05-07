@@ -1,8 +1,11 @@
 import React, { useState } from "https://esm.sh/react@18";
 import {
+  ActivityLayout,
+  LessonBottomBar,
   LessonHero,
   LessonProgress,
   LessonSection,
+  MetaStrip,
   Panel,
   PhaseTabs,
   PromptList,
@@ -44,6 +47,11 @@ const lesson = {
     { label: "Origini del suono", href: "../../index.html" },
     { label: "Corpo, voce e gesto" },
   ],
+  navigation: {
+    mapHref: "../../index.html",
+    previousHref: null,
+    homeHref: "../../../../index.html",
+  },
   meta: [
     { label: "Durata", value: "2 ore" },
     { label: "Ti serve", value: "corpo, voce, banco" },
@@ -286,11 +294,11 @@ const lesson = {
   },
 };
 
-function HeroVisual() {
+function SignalGrid() {
   return (
-    <div className="lesson-visual-grid">
+    <div className="lesson-card-grid lesson-card-grid--four">
       {lesson.heroRows.map((row) => (
-        <div key={row.label} className="lesson-visual-grid__row">
+        <article key={row.label} className="lesson-key-card">
           <strong>{row.label}</strong>
           <div className="lesson-chip-row">
             {row.items.map((item) => (
@@ -299,7 +307,7 @@ function HeroVisual() {
               </span>
             ))}
           </div>
-        </div>
+        </article>
       ))}
     </div>
   );
@@ -307,16 +315,14 @@ function HeroVisual() {
 
 function OpeningSection() {
   return (
-    <LessonSection id="apertura" label={lesson.opening.label} title={lesson.opening.title} intro={lesson.opening.intro}>
-      <Panel kicker="Attivita" title={lesson.opening.cardTitle} meta={lesson.opening.meta}>
-        <div className="lesson-grid lesson-grid--two">
-          <div className="lesson-stack">
-            <StepList title="Fai cosi" items={lesson.opening.steps} />
-            <PromptList title="Osserva" items={lesson.opening.observe} />
-            <ResultCallout text={lesson.opening.result} />
-          </div>
-          <SimpleTimer total={30} startLabel="Avvia 30 secondi" />
-        </div>
+    <LessonSection id="apertura" title={lesson.opening.title} intro={lesson.opening.intro}>
+      <Panel title={lesson.opening.cardTitle}>
+        <ActivityLayout
+          steps={lesson.opening.steps}
+          observe={lesson.opening.observe}
+          result={lesson.opening.result}
+          right={<SimpleTimer total={30} startLabel="Avvia 30 secondi" />}
+        />
       </Panel>
     </LessonSection>
   );
@@ -342,7 +348,8 @@ function EvidenceStrip() {
 
 function ExplorationSection() {
   return (
-    <LessonSection id="esplorazione" label={lesson.exploration.label} title={lesson.exploration.title} intro={lesson.exploration.intro} tone="soft">
+    <LessonSection id="esplorazione" title={lesson.exploration.title} intro={lesson.exploration.intro} tone="soft">
+      <SignalGrid />
       <div className="lesson-grid lesson-grid--two">
         <div className="lesson-stack">
           {lesson.exploration.paragraphs.map((paragraph) => (
@@ -350,11 +357,10 @@ function ExplorationSection() {
               {paragraph}
             </p>
           ))}
-          <PromptList title="Domande guida" items={lesson.exploration.questions} />
+          <PromptList title="Osserva" items={lesson.exploration.questions} />
         </div>
 
         <div className="lesson-flow-card" aria-label="Schema del passaggio dal gesto alla forma">
-          <p className="lesson-flow-card__label">Dal gesto alla forma</p>
           <div className="lesson-flow-card__steps">
             {lesson.exploration.flow.map((item, index) => (
               <React.Fragment key={item}>
@@ -434,18 +440,32 @@ function SequenceBoard() {
   );
 }
 
+function SourceLegend() {
+  return (
+    <div className="lesson-symbol-grid" aria-label="Legenda rapida dei segni">
+      {lesson.sourceOptions.map((item) => (
+        <div key={item.id} className="lesson-symbol-card">
+          <strong>{item.symbol}</strong>
+          <span>{item.label}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function ActiveSection() {
   return (
-    <LessonSection id="comprensione-attiva" label={lesson.active.label} title={lesson.active.title} intro={lesson.active.intro}>
-      <Panel kicker="Prova pratica" title={lesson.active.cardTitle} meta={lesson.active.meta}>
-        <div className="lesson-grid lesson-grid--asym">
-          <div className="lesson-stack">
-            <StepList title="Fai cosi" items={lesson.active.steps} />
-            <PromptList title="Osserva" items={lesson.active.observe} />
-            <ResultCallout text={lesson.active.result} />
-          </div>
-          <SequenceBoard />
-        </div>
+    <LessonSection id="comprensione-attiva" title={lesson.active.title} intro={lesson.active.intro}>
+      <Panel title={lesson.active.cardTitle} meta={lesson.active.meta}>
+        <ActivityLayout
+          steps={lesson.active.steps}
+          observe={lesson.active.observe}
+          result={lesson.active.result}
+          right={<SequenceBoard />}
+        />
+      </Panel>
+      <Panel title="Segni rapidi">
+        <SourceLegend />
       </Panel>
     </LessonSection>
   );
@@ -502,16 +522,8 @@ export default function CorpoVoceGestoLesson() {
 
   return (
     <div className="lesson-editorial-page">
-      <LessonHero
-        eyebrow={lesson.nucleus}
-        title={lesson.title}
-        question={lesson.question}
-        subtitle={lesson.subtitle}
-        meta={lesson.meta}
-        visual={<HeroVisual />}
-        visualNote={lesson.heroNote}
-        breadcrumbs={lesson.breadcrumbs}
-      />
+      <LessonHero title={lesson.title} question={lesson.question} breadcrumbs={lesson.breadcrumbs} />
+      <MetaStrip items={lesson.opening.meta} />
       <LessonProgress
         items={lesson.progress}
         activeId={activeId}
@@ -522,6 +534,11 @@ export default function CorpoVoceGestoLesson() {
       <ExplorationSection />
       <ActiveSection />
       <FollowupSection selected={selectedFollowup} onSelect={setSelectedFollowup} />
+      <LessonBottomBar
+        mapHref={lesson.navigation.mapHref}
+        previousHref={lesson.navigation.previousHref}
+        homeHref={lesson.navigation.homeHref}
+      />
     </div>
   );
 }
