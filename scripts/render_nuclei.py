@@ -2175,12 +2175,56 @@ ORIGINI_TOPIC_MAP = {
         },
         {
             "number": "04",
+            "slug": "musica-comunicazione-funzioni-sociali",
+            "title": "Musica, comunicazione e funzioni sociali",
+            "subtitle": "Caccia, guerra, festa, coordinazione",
+            "label": "Funzioni",
+            "x": 56,
+            "y": 42,
+            "summary": "Il suono non serve solo al rito: orienta il gruppo, segnala, coordina e accompagna azioni pratiche e collettive.",
+            "phases": {
+                "scintilla": {
+                    "title": "Che cosa puo fare il suono per una comunita oltre a essere bello da ascoltare?",
+                    "body": "La domanda iniziale allarga il campo verso comunicazione, coordinazione, guerra, festa e lavoro condiviso.",
+                },
+                "rotta": {
+                    "title": "Funzioni pratiche del suono originario",
+                    "body": "Il contesto storico mostra che musica e suono aiutano a chiamare, organizzare, celebrare, intimidire, accompagnare e ricordare.",
+                },
+                "orecchio": {
+                    "title": "Ascoltare segnale, richiamo e suono collettivo",
+                    "body": "L'ascolto guidato mette in evidenza pattern semplici ma funzionali, pensati per essere riconosciuti subito dal gruppo.",
+                },
+                "grafo": {
+                    "title": "Comunicare, coordinare, celebrare",
+                    "body": "Organizza visivamente cio che hai compreso collegando ciascuna funzione sociale a gesti, strumenti e contesti d'uso.",
+                },
+                "cantiere": {
+                    "title": "Confrontare funzioni rituali e pratiche",
+                    "body": "Gli studenti ordinano esempi e situazioni per capire quando il suono comunica, coordina o rappresenta.",
+                },
+                "varco": {
+                    "title": "Preparare una guida alle funzioni del suono",
+                    "body": "Il compito chiede di spiegare a un pubblico esterno perche il suono originario abbia anche un forte valore pratico e sociale.",
+                },
+                "ribalta": {
+                    "title": "Restituire il tema in una guida espositiva",
+                    "body": "La restituzione finale puo essere una guida illustrata o un podcast breve con esempi di funzioni diverse.",
+                },
+                "specchio": {
+                    "title": "Valutare se sai distinguere gli usi del suono",
+                    "body": "La valutazione finale controlla se sai collegare ogni uso sociale a un contesto e a una intenzione precisa.",
+                },
+            },
+        },
+        {
+            "number": "05",
             "slug": "rito-magia-comunita",
             "title": "Rito, magia e comunita",
             "subtitle": "Il suono che unisce il gruppo",
             "label": "Funzioni",
-            "x": 56,
-            "y": 42,
+            "x": 72,
+            "y": 62,
             "summary": "Il suono diventa pratica collettiva quando aiuta la comunita a condividere credenze, passaggi e appartenenze.",
             "phases": {
                 "scintilla": {
@@ -2218,12 +2262,12 @@ ORIGINI_TOPIC_MAP = {
             },
         },
         {
-            "number": "05",
+            "number": "06",
             "slug": "materiali-sonori-primi-strumenti",
             "title": "Materiali sonori e primi strumenti",
             "subtitle": "Oggetti che diventano musica",
             "label": "Tecniche",
-            "x": 34,
+            "x": 45,
             "y": 82,
             "summary": "I primi strumenti nascono quando oggetti e materiali vengono riconosciuti come risorse sonore stabili e ripetibili.",
             "phases": {
@@ -2245,7 +2289,7 @@ ORIGINI_TOPIC_MAP = {
                 },
                 "cantiere": {
                     "title": "Classificare strumenti e materiali",
-                    "body": "Gli studenti costruiscono una tassonomia essenziale di strumenti primitivi per capire affinità e differenze.",
+                    "body": "Gli studenti costruiscono una tassonomia essenziale di strumenti primitivi per capire affinita e differenze.",
                 },
                 "varco": {
                     "title": "Realizzare una tavola sui primi strumenti",
@@ -2258,50 +2302,6 @@ ORIGINI_TOPIC_MAP = {
                 "specchio": {
                     "title": "Valutare lessico, classificazione e confronto",
                     "body": "La fase finale controlla se sai descrivere materiali, tecniche di produzione e funzione degli strumenti originari.",
-                },
-            },
-        },
-        {
-            "number": "06",
-            "slug": "musica-comunicazione-funzioni-sociali",
-            "title": "Musica, comunicazione e funzioni sociali",
-            "subtitle": "Caccia, guerra, festa, coordinazione",
-            "label": "Funzioni",
-            "x": 71,
-            "y": 62,
-            "summary": "Il suono non serve solo al rito: orienta il gruppo, segnala, coordina e accompagna azioni pratiche e collettive.",
-            "phases": {
-                "scintilla": {
-                    "title": "Che cosa puo fare il suono per una comunita oltre a essere bello da ascoltare?",
-                    "body": "La domanda iniziale allarga il campo verso comunicazione, coordinazione, guerra, festa e lavoro condiviso.",
-                },
-                "rotta": {
-                    "title": "Funzioni pratiche del suono originario",
-                    "body": "Il contesto storico mostra che musica e suono aiutano a chiamare, organizzare, celebrare, intimidire, accompagnare e ricordare.",
-                },
-                "orecchio": {
-                    "title": "Ascoltare segnale, richiamo e suono collettivo",
-                    "body": "L'ascolto guidato mette in evidenza pattern semplici ma funzionali, pensati per essere riconosciuti subito dal gruppo.",
-                },
-                "grafo": {
-                    "title": "Comunicare, coordinare, celebrare",
-                    "body": "Organizza visivamente cio che hai compreso collegando ciascuna funzione sociale a gesti, strumenti e contesti d'uso.",
-                },
-                "cantiere": {
-                    "title": "Confrontare funzioni rituali e pratiche",
-                    "body": "Gli studenti ordinano esempi e situazioni per capire quando il suono comunica, coordina o rappresenta.",
-                },
-                "varco": {
-                    "title": "Preparare una guida alle funzioni del suono",
-                    "body": "Il compito chiede di spiegare a un pubblico esterno perche il suono originario abbia anche un forte valore pratico e sociale.",
-                },
-                "ribalta": {
-                    "title": "Restituire il tema in una guida espositiva",
-                    "body": "La restituzione finale puo essere una guida illustrata o un podcast breve con esempi di funzioni diverse.",
-                },
-                "specchio": {
-                    "title": "Valutare se sai distinguere gli usi del suono",
-                    "body": "La valutazione finale controlla se sai collegare ogni uso sociale a un contesto e a una intenzione precisa.",
                 },
             },
         },
@@ -2352,13 +2352,13 @@ ORIGINI_TOPIC_MAP = {
     ],
     "connections": [
         {"from": "01", "to": "02", "kind": "main"},
-        {"from": "01", "to": "04", "kind": "secondary"},
-        {"from": "03", "to": "01", "kind": "secondary"},
-        {"from": "03", "to": "05", "kind": "main"},
-        {"from": "02", "to": "04", "kind": "main"},
-        {"from": "04", "to": "06", "kind": "main"},
-        {"from": "05", "to": "06", "kind": "secondary"},
-        {"from": "04", "to": "07", "kind": "secondary"},
+        {"from": "02", "to": "03", "kind": "main"},
+        {"from": "01", "to": "03", "kind": "secondary"},
+        {"from": "03", "to": "04", "kind": "main"},
+        {"from": "04", "to": "05", "kind": "main"},
+        {"from": "04", "to": "06", "kind": "secondary"},
+        {"from": "05", "to": "06", "kind": "main"},
+        {"from": "05", "to": "07", "kind": "secondary"},
         {"from": "06", "to": "07", "kind": "main"},
     ],
 }
