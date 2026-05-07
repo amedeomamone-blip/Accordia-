@@ -50,22 +50,11 @@ function useActiveSection(ids) {
   }, [ids]);
   return activeId;
 }
-function LessonBreadcrumb({ items, className }) {
-  return /* @__PURE__ */ React.createElement("nav", { className: cn("lesson-breadcrumb", className), "aria-label": "Percorso della pagina" }, items.map((item, index) => /* @__PURE__ */ React.createElement(React.Fragment, { key: `${item.label}-${index}` }, item.href ? /* @__PURE__ */ React.createElement("a", { href: item.href }, item.label) : /* @__PURE__ */ React.createElement("span", { "aria-current": "page" }, item.label), index < items.length - 1 ? /* @__PURE__ */ React.createElement("span", { className: "lesson-breadcrumb__separator" }, "/") : null)));
+function LessonBreadcrumb({ items }) {
+  return /* @__PURE__ */ React.createElement("nav", { className: "lesson-breadcrumb", "aria-label": "Percorso della pagina" }, items.map((item, index) => /* @__PURE__ */ React.createElement(React.Fragment, { key: `${item.label}-${index}` }, item.href ? /* @__PURE__ */ React.createElement("a", { href: item.href }, item.label) : /* @__PURE__ */ React.createElement("span", { "aria-current": "page" }, item.label), index < items.length - 1 ? /* @__PURE__ */ React.createElement("span", { className: "lesson-breadcrumb__separator" }, "/") : null)));
 }
-function LessonHero({
-  title,
-  question,
-  subtitle,
-  heroNote,
-  breadcrumbs,
-  heroWord,
-  heroPrelude,
-  heroEcho,
-  heroTags = []
-}) {
-  const marqueeWord = heroWord || title.split(/[\s,]+/)[0].toLowerCase();
-  return /* @__PURE__ */ React.createElement("header", { className: "lesson-hero" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-shell" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-hero__frame" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-hero__topline" }, /* @__PURE__ */ React.createElement(LessonBreadcrumb, { items: breadcrumbs, className: "lesson-hero__breadcrumb" }), heroTags.length ? /* @__PURE__ */ React.createElement("div", { className: "lesson-hero__tags", "aria-label": "Parole chiave della lezione" }, heroTags.map((tag) => /* @__PURE__ */ React.createElement("span", { key: tag, className: "lesson-hero__tag" }, tag))) : null), /* @__PURE__ */ React.createElement("div", { className: "lesson-hero__stage" }, /* @__PURE__ */ React.createElement("article", { className: "lesson-hero__panel lesson-hero__panel--title" }, /* @__PURE__ */ React.createElement("p", { className: "lesson-hero__eyebrow" }, "Lezione immersiva"), /* @__PURE__ */ React.createElement("h1", { className: "lesson-hero__title" }, title), subtitle ? /* @__PURE__ */ React.createElement("p", { className: "lesson-hero__intro" }, subtitle) : null), /* @__PURE__ */ React.createElement("article", { className: "lesson-hero__panel lesson-hero__panel--question" }, /* @__PURE__ */ React.createElement("p", { className: "lesson-hero__eyebrow" }, "Domanda guida"), /* @__PURE__ */ React.createElement("p", { className: "lesson-hero__question" }, question), heroNote ? /* @__PURE__ */ React.createElement("p", { className: "lesson-hero__note" }, heroNote) : null)), /* @__PURE__ */ React.createElement("div", { className: "lesson-hero__marquee", "aria-hidden": "true" }, heroPrelude || heroEcho ? /* @__PURE__ */ React.createElement("div", { className: "lesson-hero__marquee-line" }, /* @__PURE__ */ React.createElement("span", null, heroPrelude || "\xA0"), /* @__PURE__ */ React.createElement("span", null, heroEcho || "\xA0")) : null, /* @__PURE__ */ React.createElement("strong", { className: "lesson-hero__word" }, marqueeWord)))));
+function LessonHero({ title, question, breadcrumbs }) {
+  return /* @__PURE__ */ React.createElement("header", { className: "lesson-hero" }, /* @__PURE__ */ React.createElement(LessonBreadcrumb, { items: breadcrumbs }), /* @__PURE__ */ React.createElement("div", { className: "lesson-shell lesson-hero__copy" }, /* @__PURE__ */ React.createElement("h1", { className: "lesson-hero__title" }, title), /* @__PURE__ */ React.createElement("p", { className: "lesson-hero__question" }, question)));
 }
 function MetaStrip({ items }) {
   return /* @__PURE__ */ React.createElement("section", { className: "lesson-meta-bar", "aria-label": "Dati tecnici" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-shell" }, /* @__PURE__ */ React.createElement("dl", { className: "lesson-meta-bar__list" }, items.map((item) => /* @__PURE__ */ React.createElement("div", { key: `${item.label}-${item.value}`, className: "lesson-meta-bar__item" }, /* @__PURE__ */ React.createElement("dt", null, item.label), /* @__PURE__ */ React.createElement("dd", null, item.value))))));
