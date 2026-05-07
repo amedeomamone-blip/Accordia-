@@ -36,7 +36,7 @@ const lesson = {
   ],
   navigation: {
     mapHref: "../../index.html",
-    previousHref: "../corpo-voce-gesto/index.html",
+    previousHref: null,
     homeHref: "../../../../index.html",
   },
   meta: [

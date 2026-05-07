@@ -12,8 +12,14 @@ VERSIONED_ASSET_PATHS = [
     ROOT / "css" / "style.css",
     ROOT / "css" / "lesson-immersive.css",
     ROOT / "js" / "main.js",
-    ROOT / "components" / "CorpoVoceGestoLesson.module.js",
+    ROOT / "components" / "LessonShared.module.js",
+    ROOT / "components" / "OriginiTopicLessonTemplate.module.js",
     ROOT / "components" / "RitmoPulsazioneTempoLesson.module.js",
+    ROOT / "components" / "SuonoNellaPreistoriaLesson.module.js",
+    ROOT / "components" / "MusicaComunicazioneFunzioniSocialiLesson.module.js",
+    ROOT / "components" / "RitoMagiaComunitaLesson.module.js",
+    ROOT / "components" / "MaterialiSonoriPrimiStrumentiLesson.module.js",
+    ROOT / "components" / "DalleOriginiAlMondoAnticoLesson.module.js",
 ]
 ASSET_VERSION = str(
     int(
@@ -2362,6 +2368,339 @@ ORIGINI_TOPIC_MAP = {
         {"from": "06", "to": "07", "kind": "main"},
     ],
 }
+
+ORIGINI_TOPIC_MAP["intro"] = (
+    "Qui puoi muoverti tra sei temi chiave e collegarli tra loro. "
+    "Ogni tappa ti aiuta a capire come ritmo, tracce, funzioni sociali, rito e strumenti preparino il passaggio al mondo antico."
+)
+
+ORIGINI_TOPIC_MAP["nodes"] = [
+    {
+        "number": "01",
+        "slug": "ritmo-pulsazione-tempo",
+        "title": "Ritmo, pulsazione e tempo",
+        "subtitle": "Misurare il gesto collettivo",
+        "label": "Fondamenti",
+        "x": 26,
+        "y": 14,
+        "summary": "Il ritmo nasce dall'organizzazione del movimento e rende condivisibile il tempo del gruppo.",
+        "phases": {
+            "scintilla": {
+                "title": "Perche alcune ripetizioni ci fanno sentire subito un ordine?",
+                "body": "La domanda iniziale invita a riconoscere la differenza tra suoni sparsi, pulsazione regolare e ritmo organizzato.",
+            },
+            "rotta": {
+                "title": "Dal passo alla pulsazione comune",
+                "body": "Nelle societa delle origini il tempo musicale si lega al lavoro, al cammino, alla danza e alle azioni rituali ripetute.",
+            },
+            "orecchio": {
+                "title": "Ascoltare battito, ostinato e variazione",
+                "body": "L'ascolto guidato fa distinguere pulsazione di base, accenti, ripetizione e piccole variazioni ritmiche.",
+            },
+            "grafo": {
+                "title": "Tempo, accento, ripetizione",
+                "body": "Organizza visivamente cio che hai compreso collegando pulsazione, ritmo, ostinato e coordinazione del gruppo.",
+            },
+            "cantiere": {
+                "title": "Trasformare il battito in struttura",
+                "body": "Gli studenti costruiscono una sequenza ritmica semplice partendo da un battito comune e introducendo variazioni controllate.",
+            },
+            "varco": {
+                "title": "Creare una guida per leggere il ritmo originario",
+                "body": "Il compito chiede una scheda pratica che spieghi come il ritmo nasca da movimento, lavoro e gesto condiviso.",
+            },
+            "ribalta": {
+                "title": "Restituire il ritmo in forma performativa",
+                "body": "La restituzione puo essere una dimostrazione collettiva con pattern corporei e commento essenziale.",
+            },
+            "specchio": {
+                "title": "Verificare se sai leggere il tempo comune",
+                "body": "La valutazione controlla se distingui pulsazione, ritmo e accento e se sai applicarli in modo coerente.",
+            },
+        },
+        "lesson": {
+            "panel_only": True,
+            "immersive_preview": True,
+            "immersive_mount_id": "immersive-rhythm-lesson-root",
+            "immersive_data_key": "ritmo-pulsazione-tempo",
+            "immersive_stylesheet": "../../../../css/lesson-immersive.css",
+            "immersive_module": "../../../../components/RitmoPulsazioneTempoLesson.module.js",
+            "author": "Lezione di Amedeo Mamone",
+            "description": "Trovi un battito comune con il corpo, ascolti come tornano gli accenti e capisci che cosa cambia tra pulsazione, ritmo, tempo e metro.",
+        },
+    },
+    {
+        "number": "02",
+        "slug": "suono-nella-preistoria",
+        "title": "Suono nella preistoria",
+        "subtitle": "Ambiente, tracce, immaginazione controllata",
+        "label": "Contesto",
+        "x": 12,
+        "y": 68,
+        "summary": "Ricostruire il suono preistorico significa leggere ambiente, reperti e pratiche con prudenza storica.",
+        "phases": {
+            "scintilla": {
+                "title": "Come possiamo immaginare un suono di cui non esiste registrazione?",
+                "body": "La domanda iniziale spinge a distinguere fantasia libera, indizio archeologico e ricostruzione storica plausibile.",
+            },
+            "rotta": {
+                "title": "Paesaggi sonori prima della scrittura",
+                "body": "Il contesto storico mostra ambienti aperti, materiali naturali, comunita ristrette e un ascolto strettamente legato al territorio.",
+            },
+            "orecchio": {
+                "title": "Ascoltare ambiente, eco e materiali naturali",
+                "body": "L'ascolto guidato confronta suoni di pietra, legno, osso, vento e voce per capire come nasca il paesaggio sonoro originario.",
+            },
+            "grafo": {
+                "title": "Ambiente, tracce, reperti",
+                "body": "Organizza visivamente cio che hai compreso collegando luoghi, materiali, reperti e ipotesi di uso sonoro.",
+            },
+            "cantiere": {
+                "title": "Costruire una scheda di ricostruzione sonora",
+                "body": "Gli studenti raccolgono indizi e li trasformano in una scheda che distingua dati, ipotesi e funzioni possibili.",
+            },
+            "varco": {
+                "title": "Allestire una tavola sul paesaggio sonoro preistorico",
+                "body": "Il compito chiede di creare un pannello che spieghi con rigore che cosa possiamo sapere e che cosa possiamo solo dedurre.",
+            },
+            "ribalta": {
+                "title": "Presentare una ricostruzione ragionata",
+                "body": "La restituzione finale puo essere una tavola commentata con suoni, materiali e tracce archeologiche.",
+            },
+            "specchio": {
+                "title": "Valutare uso delle fonti e chiarezza storica",
+                "body": "La fase finale controlla se sai distinguere prova, indizio e interpretazione dentro il racconto delle origini.",
+            },
+        },
+        "lesson": {
+            "panel_only": True,
+            "immersive_preview": True,
+            "immersive_stylesheet": "../../../../css/lesson-immersive.css",
+            "immersive_module": "../../../../components/SuonoNellaPreistoriaLesson.module.js",
+            "author": "Lezione di Amedeo Mamone",
+            "description": "Leggi tracce, ambiente e reperti con prudenza storica, distingui dato e ipotesi e costruisci una ricostruzione sonora ragionata.",
+        },
+    },
+    {
+        "number": "03",
+        "slug": "musica-comunicazione-funzioni-sociali",
+        "title": "Musica, comunicazione e funzioni sociali",
+        "subtitle": "Caccia, guerra, festa, coordinazione",
+        "label": "Funzioni",
+        "x": 52,
+        "y": 40,
+        "summary": "Il suono non serve solo al rito: orienta il gruppo, segnala, coordina e accompagna azioni pratiche e collettive.",
+        "phases": {
+            "scintilla": {
+                "title": "Che cosa puo fare il suono per una comunita oltre a essere bello da ascoltare?",
+                "body": "La domanda iniziale allarga il campo verso comunicazione, coordinazione, guerra, festa e lavoro condiviso.",
+            },
+            "rotta": {
+                "title": "Funzioni pratiche del suono originario",
+                "body": "Il contesto storico mostra che musica e suono aiutano a chiamare, organizzare, celebrare, intimidire, accompagnare e ricordare.",
+            },
+            "orecchio": {
+                "title": "Ascoltare segnale, richiamo e suono collettivo",
+                "body": "L'ascolto guidato mette in evidenza pattern semplici ma funzionali, pensati per essere riconosciuti subito dal gruppo.",
+            },
+            "grafo": {
+                "title": "Comunicare, coordinare, celebrare",
+                "body": "Organizza visivamente cio che hai compreso collegando ciascuna funzione sociale a gesti, strumenti e contesti d'uso.",
+            },
+            "cantiere": {
+                "title": "Confrontare funzioni rituali e pratiche",
+                "body": "Gli studenti ordinano esempi e situazioni per capire quando il suono comunica, coordina o rappresenta.",
+            },
+            "varco": {
+                "title": "Preparare una guida alle funzioni del suono",
+                "body": "Il compito chiede di spiegare a un pubblico esterno perche il suono originario abbia anche un forte valore pratico e sociale.",
+            },
+            "ribalta": {
+                "title": "Restituire il tema in una guida espositiva",
+                "body": "La restituzione finale puo essere una guida illustrata o un podcast breve con esempi di funzioni diverse.",
+            },
+            "specchio": {
+                "title": "Valutare se sai distinguere gli usi del suono",
+                "body": "La valutazione finale controlla se sai collegare ogni uso sociale a un contesto e a una intenzione precisa.",
+            },
+        },
+        "lesson": {
+            "panel_only": True,
+            "immersive_preview": True,
+            "immersive_stylesheet": "../../../../css/lesson-immersive.css",
+            "immersive_module": "../../../../components/MusicaComunicazioneFunzioniSocialiLesson.module.js",
+            "author": "Lezione di Amedeo Mamone",
+            "description": "Riconosci che il suono chiama, coordina, celebra e aiuta il gruppo a condividere azioni, memoria e appartenenza.",
+        },
+    },
+    {
+        "number": "04",
+        "slug": "rito-magia-comunita",
+        "title": "Rito, magia e comunita",
+        "subtitle": "Il suono che unisce il gruppo",
+        "label": "Funzioni",
+        "x": 72,
+        "y": 62,
+        "summary": "Il suono diventa pratica collettiva quando aiuta la comunita a condividere credenze, passaggi e appartenenze.",
+        "phases": {
+            "scintilla": {
+                "title": "Perche il suono e quasi sempre presente nei momenti collettivi piu intensi?",
+                "body": "La domanda iniziale apre il nesso tra musica, rito, appartenenza e costruzione del gruppo.",
+            },
+            "rotta": {
+                "title": "Il suono come collante simbolico",
+                "body": "Nelle societa arcaiche il gesto sonoro accompagna passaggi, invocazioni, celebrazioni e momenti in cui la comunita si riconosce.",
+            },
+            "orecchio": {
+                "title": "Ascoltare ripetizione, trance, coralita",
+                "body": "L'ascolto guidato mette in evidenza ripetizione, intensita e partecipazione collettiva come indizi della funzione rituale.",
+            },
+            "grafo": {
+                "title": "Rito, gesto, credenza, gruppo",
+                "body": "Organizza visivamente cio che hai compreso collegando funzione simbolica, contesto sociale e ripetizione del suono.",
+            },
+            "cantiere": {
+                "title": "Distinguere rito, festa e comunicazione",
+                "body": "Gli studenti confrontano situazioni diverse per capire che cosa rende specificamente rituale una pratica sonora.",
+            },
+            "varco": {
+                "title": "Progettare una scheda sulle funzioni rituali del suono",
+                "body": "Il compito chiede di rendere leggibile come il suono costruisca comunita, memoria e identita.",
+            },
+            "ribalta": {
+                "title": "Restituire il tema in forma pubblica",
+                "body": "La restituzione puo essere un pannello o una presentazione breve che mostri esempi di funzione rituale e sociale.",
+            },
+            "specchio": {
+                "title": "Valutare collegamenti tra musica e societa",
+                "body": "La valutazione finale controlla se sai spiegare perche il suono abbia una funzione collettiva e non solo espressiva.",
+            },
+        },
+        "lesson": {
+            "panel_only": True,
+            "immersive_preview": True,
+            "immersive_stylesheet": "../../../../css/lesson-immersive.css",
+            "immersive_module": "../../../../components/RitoMagiaComunitaLesson.module.js",
+            "author": "Lezione di Amedeo Mamone",
+            "description": "Confronti rito, festa e segnale e capisci quando una pratica sonora diventa formula collettiva e simbolica.",
+        },
+    },
+    {
+        "number": "05",
+        "slug": "materiali-sonori-primi-strumenti",
+        "title": "Materiali sonori e primi strumenti",
+        "subtitle": "Oggetti che diventano musica",
+        "label": "Tecniche",
+        "x": 42,
+        "y": 82,
+        "summary": "I primi strumenti nascono quando oggetti e materiali vengono riconosciuti come risorse sonore stabili e ripetibili.",
+        "phases": {
+            "scintilla": {
+                "title": "Quando un oggetto smette di essere solo materia e diventa strumento?",
+                "body": "La domanda iniziale porta a osservare il passaggio da oggetto naturale a oggetto usato intenzionalmente per produrre suono.",
+            },
+            "rotta": {
+                "title": "Dal materiale al gesto tecnico",
+                "body": "Osso, pietra, legno, conchiglie e pelli permettono di costruire strumenti semplici ma gia specializzati per timbro e funzione.",
+            },
+            "orecchio": {
+                "title": "Ascoltare timbri poveri ma distinti",
+                "body": "L'ascolto guidato confronta percussione, scuotimento e soffio per capire come i materiali condizionino il risultato sonoro.",
+            },
+            "grafo": {
+                "title": "Materiale, gesto, timbro, funzione",
+                "body": "Organizza visivamente cio che hai compreso collegando famiglie di materiali, azione richiesta e suono prodotto.",
+            },
+            "cantiere": {
+                "title": "Classificare strumenti e materiali",
+                "body": "Gli studenti costruiscono una tassonomia essenziale di strumenti primitivi per capire affinita e differenze.",
+            },
+            "varco": {
+                "title": "Realizzare una tavola sui primi strumenti",
+                "body": "Il compito chiede una scheda illustrata che spieghi come nascano gli strumenti e quali funzioni possano assumere.",
+            },
+            "ribalta": {
+                "title": "Mostrare materiali e suoni",
+                "body": "La restituzione finale puo essere una piccola esposizione con immagini, classificazioni e dimostrazioni sonore.",
+            },
+            "specchio": {
+                "title": "Valutare lessico, classificazione e confronto",
+                "body": "La fase finale controlla se sai descrivere materiali, tecniche di produzione e funzione degli strumenti originari.",
+            },
+        },
+        "lesson": {
+            "panel_only": True,
+            "immersive_preview": True,
+            "immersive_stylesheet": "../../../../css/lesson-immersive.css",
+            "immersive_module": "../../../../components/MaterialiSonoriPrimiStrumentiLesson.module.js",
+            "author": "Lezione di Amedeo Mamone",
+            "description": "Colleghi materia, gesto, timbro e funzione per capire quando un oggetto sonoro diventa strumento.",
+        },
+    },
+    {
+        "number": "06",
+        "slug": "dalle-origini-al-mondo-antico",
+        "title": "Dalle origini al mondo antico",
+        "subtitle": "La soglia verso le prime civilta",
+        "label": "Passaggio",
+        "x": 82,
+        "y": 18,
+        "summary": "Le origini non sono un blocco chiuso: preparano l'ingresso nel mondo antico e nelle prime civilta storiche del suono.",
+        "phases": {
+            "scintilla": {
+                "title": "Quando le pratiche originarie diventano storia musicale riconoscibile?",
+                "body": "La domanda iniziale apre la soglia tra preistoria sonora e prime civilta in cui il suono lascia tracce piu stabili.",
+            },
+            "rotta": {
+                "title": "Dalla comunita arcaica alle prime civilta",
+                "body": "Il contesto storico mostra come rito, strumenti, funzioni sociali e memoria del suono preparino il passaggio al Mediterraneo antico.",
+            },
+            "orecchio": {
+                "title": "Ascoltare continuita e trasformazioni",
+                "body": "L'ascolto guidato mette a confronto pratiche elementari e forme piu organizzate, per cogliere cosa resta e cosa cambia.",
+            },
+            "grafo": {
+                "title": "Origini, transizioni, civilta",
+                "body": "Organizza visivamente cio che hai compreso collegando origini del suono, funzioni sociali, strumenti e approdo al mondo antico.",
+            },
+            "cantiere": {
+                "title": "Costruire la soglia del percorso",
+                "body": "Gli studenti elaborano una sintesi che faccia da ponte verso il nucleo successivo sulle civilta del Mediterraneo.",
+            },
+            "varco": {
+                "title": "Preparare una pagina-ponte per la timeline",
+                "body": "Il compito chiede di progettare una breve pagina introduttiva che spieghi il passaggio dalle origini al mondo storico.",
+            },
+            "ribalta": {
+                "title": "Restituire il passaggio alla classe",
+                "body": "La restituzione finale puo essere una pagina di timeline o una presentazione breve che introduca il nucleo seguente.",
+            },
+            "specchio": {
+                "title": "Valutare visione d'insieme e capacita di collegamento",
+                "body": "La fase finale controlla se sai leggere il nucleo non come blocco isolato, ma come apertura verso la storia successiva.",
+            },
+        },
+        "lesson": {
+            "panel_only": True,
+            "immersive_preview": True,
+            "immersive_stylesheet": "../../../../css/lesson-immersive.css",
+            "immersive_module": "../../../../components/DalleOriginiAlMondoAnticoLesson.module.js",
+            "author": "Lezione di Amedeo Mamone",
+            "description": "Tiri le fila del nucleo e costruisci il ponte tra origini del suono e prime civilta storiche del Mediterraneo.",
+        },
+    },
+]
+
+ORIGINI_TOPIC_MAP["connections"] = [
+    {"from": "01", "to": "02", "kind": "main"},
+    {"from": "01", "to": "03", "kind": "secondary"},
+    {"from": "02", "to": "03", "kind": "main"},
+    {"from": "03", "to": "04", "kind": "main"},
+    {"from": "03", "to": "05", "kind": "secondary"},
+    {"from": "04", "to": "05", "kind": "main"},
+    {"from": "04", "to": "06", "kind": "secondary"},
+    {"from": "05", "to": "06", "kind": "main"},
+]
 
 NUCLEI[0]["topic_map"] = ORIGINI_TOPIC_MAP
 
