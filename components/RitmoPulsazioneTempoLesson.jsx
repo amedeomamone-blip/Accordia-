@@ -25,6 +25,10 @@ const lesson = {
   question: "Che differenza c'e tra ritmo, pulsazione e tempo?",
   subtitle:
     "Prima trovi un battito comune. Poi capisci che il ritmo puo cambiare, mentre la pulsazione resta sotto e il tempo ne decide la velocita.",
+  heroWord: "ritmo",
+  heroPrelude: "Sotto il gruppo c'e un battito",
+  heroEcho: "che ritorna uguale",
+  heroTags: ["pulsazione", "accento", "metro", "tempo"],
   breadcrumbs: [
     { label: "Home", href: "../../../../index.html" },
     { label: "Origini del suono", href: "../../index.html" },
@@ -621,7 +625,17 @@ export default function RitmoPulsazioneTempoLesson() {
 
   return (
     <div className="lesson-editorial-page">
-      <LessonHero title={lesson.title} question={lesson.question} breadcrumbs={lesson.breadcrumbs} />
+      <LessonHero
+        title={lesson.title}
+        question={lesson.question}
+        subtitle={lesson.subtitle}
+        heroNote={lesson.heroNote}
+        breadcrumbs={lesson.breadcrumbs}
+        heroWord={lesson.heroWord}
+        heroPrelude={lesson.heroPrelude}
+        heroEcho={lesson.heroEcho}
+        heroTags={lesson.heroTags}
+      />
       <MetaStrip items={lesson.opening.meta} />
       <LessonProgress
         items={lesson.progress}

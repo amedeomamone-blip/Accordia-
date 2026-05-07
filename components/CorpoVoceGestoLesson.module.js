@@ -42,6 +42,10 @@ const lesson = {
   title: "Corpo, voce e gesto",
   question: "Come fa un gesto a diventare musica senza strumenti?",
   subtitle: "Ascolti, scegli, ripeti, fai una pausa e riparti. Cosi un gesto diventa una frase sonora che il gruppo riconosce subito.",
+  heroWord: "gesto",
+  heroPrelude: "La musica inizia da un",
+  heroEcho: "che il gruppo sa leggere",
+  heroTags: ["corpo", "voce", "pausa", "finale"],
   breadcrumbs: [
     { label: "Home", href: "../../../../index.html" },
     { label: "Origini del suono", href: "../../index.html" },
@@ -373,7 +377,20 @@ function FollowupSection({ selected, onSelect }) {
 function CorpoVoceGestoLesson() {
   const activeId = useActiveSection(["apertura", "esplorazione", "comprensione-attiva", "rielaborazione"]);
   const [selectedFollowup, setSelectedFollowup] = useState(lesson.followupDefault);
-  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page" }, /* @__PURE__ */ React.createElement(LessonHero, { title: lesson.title, question: lesson.question, breadcrumbs: lesson.breadcrumbs }), /* @__PURE__ */ React.createElement(MetaStrip, { items: lesson.opening.meta }), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page" }, /* @__PURE__ */ React.createElement(
+    LessonHero,
+    {
+      title: lesson.title,
+      question: lesson.question,
+      subtitle: lesson.subtitle,
+      heroNote: lesson.heroNote,
+      breadcrumbs: lesson.breadcrumbs,
+      heroWord: lesson.heroWord,
+      heroPrelude: lesson.heroPrelude,
+      heroEcho: lesson.heroEcho,
+      heroTags: lesson.heroTags
+    }
+  ), /* @__PURE__ */ React.createElement(MetaStrip, { items: lesson.opening.meta }), /* @__PURE__ */ React.createElement(
     LessonProgress,
     {
       items: lesson.progress,

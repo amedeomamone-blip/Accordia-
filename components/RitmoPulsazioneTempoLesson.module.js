@@ -23,6 +23,10 @@ const lesson = {
   title: "Ritmo, pulsazione e tempo",
   question: "Che differenza c'e tra ritmo, pulsazione e tempo?",
   subtitle: "Prima trovi un battito comune. Poi capisci che il ritmo puo cambiare, mentre la pulsazione resta sotto e il tempo ne decide la velocita.",
+  heroWord: "ritmo",
+  heroPrelude: "Sotto il gruppo c'e un battito",
+  heroEcho: "che ritorna uguale",
+  heroTags: ["pulsazione", "accento", "metro", "tempo"],
   breadcrumbs: [
     { label: "Home", href: "../../../../index.html" },
     { label: "Origini del suono", href: "../../index.html" },
@@ -469,7 +473,20 @@ function FollowupSection({ selected, onSelect }) {
 function RitmoPulsazioneTempoLesson() {
   const activeId = useActiveSection(["apertura", "esplorazione", "comprensione-attiva", "rielaborazione"]);
   const [selectedFollowup, setSelectedFollowup] = useState(lesson.followupDefault);
-  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page" }, /* @__PURE__ */ React.createElement(LessonHero, { title: lesson.title, question: lesson.question, breadcrumbs: lesson.breadcrumbs }), /* @__PURE__ */ React.createElement(MetaStrip, { items: lesson.opening.meta }), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page" }, /* @__PURE__ */ React.createElement(
+    LessonHero,
+    {
+      title: lesson.title,
+      question: lesson.question,
+      subtitle: lesson.subtitle,
+      heroNote: lesson.heroNote,
+      breadcrumbs: lesson.breadcrumbs,
+      heroWord: lesson.heroWord,
+      heroPrelude: lesson.heroPrelude,
+      heroEcho: lesson.heroEcho,
+      heroTags: lesson.heroTags
+    }
+  ), /* @__PURE__ */ React.createElement(MetaStrip, { items: lesson.opening.meta }), /* @__PURE__ */ React.createElement(
     LessonProgress,
     {
       items: lesson.progress,

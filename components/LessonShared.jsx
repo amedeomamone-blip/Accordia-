@@ -70,9 +70,9 @@ export function useActiveSection(ids) {
   return activeId;
 }
 
-export function LessonBreadcrumb({ items }) {
+export function LessonBreadcrumb({ items, className }) {
   return (
-    <nav className="lesson-breadcrumb" aria-label="Percorso della pagina">
+    <nav className={cn("lesson-breadcrumb", className)} aria-label="Percorso della pagina">
       {items.map((item, index) => (
         <React.Fragment key={`${item.label}-${index}`}>
           {item.href ? <a href={item.href}>{item.label}</a> : <span aria-current="page">{item.label}</span>}
@@ -83,13 +83,60 @@ export function LessonBreadcrumb({ items }) {
   );
 }
 
-export function LessonHero({ title, question, breadcrumbs }) {
+export function LessonHero({
+  title,
+  question,
+  subtitle,
+  heroNote,
+  breadcrumbs,
+  heroWord,
+  heroPrelude,
+  heroEcho,
+  heroTags = [],
+}) {
+  const marqueeWord = heroWord || title.split(/[\s,]+/)[0].toLowerCase();
+
   return (
     <header className="lesson-hero">
-      <LessonBreadcrumb items={breadcrumbs} />
-      <div className="lesson-shell lesson-hero__copy">
-        <h1 className="lesson-hero__title">{title}</h1>
-        <p className="lesson-hero__question">{question}</p>
+      <div className="lesson-shell">
+        <div className="lesson-hero__frame">
+          <div className="lesson-hero__topline">
+            <LessonBreadcrumb items={breadcrumbs} className="lesson-hero__breadcrumb" />
+            {heroTags.length ? (
+              <div className="lesson-hero__tags" aria-label="Parole chiave della lezione">
+                {heroTags.map((tag) => (
+                  <span key={tag} className="lesson-hero__tag">
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            ) : null}
+          </div>
+
+          <div className="lesson-hero__stage">
+            <article className="lesson-hero__panel lesson-hero__panel--title">
+              <p className="lesson-hero__eyebrow">Lezione immersiva</p>
+              <h1 className="lesson-hero__title">{title}</h1>
+              {subtitle ? <p className="lesson-hero__intro">{subtitle}</p> : null}
+            </article>
+
+            <article className="lesson-hero__panel lesson-hero__panel--question">
+              <p className="lesson-hero__eyebrow">Domanda guida</p>
+              <p className="lesson-hero__question">{question}</p>
+              {heroNote ? <p className="lesson-hero__note">{heroNote}</p> : null}
+            </article>
+          </div>
+
+          <div className="lesson-hero__marquee" aria-hidden="true">
+            {(heroPrelude || heroEcho) ? (
+              <div className="lesson-hero__marquee-line">
+                <span>{heroPrelude || "\u00a0"}</span>
+                <span>{heroEcho || "\u00a0"}</span>
+              </div>
+            ) : null}
+            <strong className="lesson-hero__word">{marqueeWord}</strong>
+          </div>
+        </div>
       </div>
     </header>
   );

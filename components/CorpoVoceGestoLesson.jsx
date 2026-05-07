@@ -45,6 +45,10 @@ const lesson = {
   question: "Come fa un gesto a diventare musica senza strumenti?",
   subtitle:
     "Ascolti, scegli, ripeti, fai una pausa e riparti. Cosi un gesto diventa una frase sonora che il gruppo riconosce subito.",
+  heroWord: "gesto",
+  heroPrelude: "La musica inizia da un",
+  heroEcho: "che il gruppo sa leggere",
+  heroTags: ["corpo", "voce", "pausa", "finale"],
   breadcrumbs: [
     { label: "Home", href: "../../../../index.html" },
     { label: "Origini del suono", href: "../../index.html" },
@@ -525,7 +529,17 @@ export default function CorpoVoceGestoLesson() {
 
   return (
     <div className="lesson-editorial-page">
-      <LessonHero title={lesson.title} question={lesson.question} breadcrumbs={lesson.breadcrumbs} />
+      <LessonHero
+        title={lesson.title}
+        question={lesson.question}
+        subtitle={lesson.subtitle}
+        heroNote={lesson.heroNote}
+        breadcrumbs={lesson.breadcrumbs}
+        heroWord={lesson.heroWord}
+        heroPrelude={lesson.heroPrelude}
+        heroEcho={lesson.heroEcho}
+        heroTags={lesson.heroTags}
+      />
       <MetaStrip items={lesson.opening.meta} />
       <LessonProgress
         items={lesson.progress}
