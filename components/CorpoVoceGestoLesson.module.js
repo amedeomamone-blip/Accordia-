@@ -17,21 +17,24 @@ import {
   cn,
   useActiveSection
 } from "./LessonShared.module.js";
-const EVIDENCE_IMAGES = [
+const EXPLORATION_PANELS = [
   {
-    src: "/assets/lesson/corpo-voce-gesto/lascaux-painting.jpg",
-    title: "Traccia del gesto",
-    caption: "Un gesto ripetuto lascia un segno. Quel segno puo aiutare il gruppo a ricordare."
+    title: "Suono scelto",
+    caption: "Prima individui un gesto o una sillaba che riesci a rifare bene.",
+    pattern: ["\u25CF", "\u25B2", "\u25C6"],
+    tone: "spread"
   },
   {
-    src: "/assets/lesson/corpo-voce-gesto/hands-clapping.jpg",
-    title: "Battito comune",
-    caption: "Mani e corpo aiutano a sentire quando tutti partono insieme."
+    title: "Suono ripetuto",
+    caption: "Quando torna uguale abbastanza volte, il gruppo comincia a riconoscerlo.",
+    pattern: ["\u25CF", "\u25CF", "\u25CF", "\u25CF"],
+    tone: "repeat"
   },
   {
-    src: "/assets/lesson/corpo-voce-gesto/divje-babe-flute.jpg",
-    title: "Prima degli strumenti complessi",
-    caption: "Anche quando appare uno strumento, corpo e voce restano il punto di partenza."
+    title: "Suono con forma",
+    caption: "Una pausa e un finale chiaro fanno capire dove la frase si apre e dove si chiude.",
+    pattern: ["\u25CF", "\u25CF", "\u2014", "\u25C6"],
+    tone: "shape"
   }
 ];
 const lesson = {
@@ -96,10 +99,10 @@ const lesson = {
   exploration: {
     label: "Esplorazione",
     title: "Corpo, voce e gesto lavorano insieme",
-    intro: "Il corpo e il primo laboratorio del suono. Quando ripeti un gesto con intenzione, quel gesto smette di essere casuale e diventa leggibile.",
+    intro: "Corpo, voce e gesto diventano musica quando scegli un suono, lo ripeti e gli dai una forma chiara.",
     paragraphs: [
-      "Una sillaba breve puo dare l'attacco. Un battito di mani puo tenere insieme il gruppo. Una pausa puo far sentire meglio la forma.",
-      "Non ti serve fare tanti suoni. Ti serve scegliere quelli giusti e metterli in ordine."
+      "Un gesto da solo resta isolato. Quando ritorna con regolarita, il gruppo lo riconosce e puo seguirlo.",
+      "La voce puo dare l'attacco. La pausa separa. Il finale chiude. Non servono tanti suoni: servono pochi segnali leggibili."
     ],
     questions: [
       "Quale gesto fa partire tutti nello stesso momento?",
@@ -107,12 +110,10 @@ const lesson = {
       "Che cosa cambia quando inserisci una pausa?"
     ],
     flow: [
-      "ascolta",
       "scegli",
       "ripeti",
-      "ferma",
-      "riprendi",
-      "ricorda"
+      "pausa",
+      "chiudi"
     ]
   },
   active: {
@@ -302,11 +303,11 @@ function OpeningSection() {
     }
   )));
 }
-function EvidenceStrip() {
-  return /* @__PURE__ */ React.createElement("div", { className: "lesson-evidence-strip" }, EVIDENCE_IMAGES.map((item) => /* @__PURE__ */ React.createElement("figure", { key: item.title, className: "lesson-evidence" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-evidence__media" }, /* @__PURE__ */ React.createElement("img", { src: item.src, alt: item.caption, loading: "lazy" })), /* @__PURE__ */ React.createElement("figcaption", { className: "lesson-evidence__copy" }, /* @__PURE__ */ React.createElement("strong", null, item.title), /* @__PURE__ */ React.createElement("p", null, item.caption)))));
+function MeaningStrip() {
+  return /* @__PURE__ */ React.createElement("div", { className: "lesson-meaning-strip" }, EXPLORATION_PANELS.map((item) => /* @__PURE__ */ React.createElement("article", { key: item.title, className: "lesson-meaning-card" }, /* @__PURE__ */ React.createElement("div", { className: cn("lesson-meaning-card__visual", `lesson-meaning-card__visual--${item.tone}`), "aria-hidden": "true" }, item.pattern.map((symbol, index) => /* @__PURE__ */ React.createElement("span", { key: `${item.title}-${symbol}-${index}` }, symbol))), /* @__PURE__ */ React.createElement("div", { className: "lesson-meaning-card__copy" }, /* @__PURE__ */ React.createElement("strong", null, item.title), /* @__PURE__ */ React.createElement("p", null, item.caption)))));
 }
 function ExplorationSection() {
-  return /* @__PURE__ */ React.createElement(LessonSection, { id: "esplorazione", title: lesson.exploration.title, intro: lesson.exploration.intro, tone: "soft" }, /* @__PURE__ */ React.createElement(SignalGrid, null), /* @__PURE__ */ React.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-stack" }, lesson.exploration.paragraphs.map((paragraph) => /* @__PURE__ */ React.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph)), /* @__PURE__ */ React.createElement(PromptList, { title: "Osserva", items: lesson.exploration.questions })), /* @__PURE__ */ React.createElement("div", { className: "lesson-flow-card", "aria-label": "Schema del passaggio dal gesto alla forma" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-flow-card__steps" }, lesson.exploration.flow.map((item, index) => /* @__PURE__ */ React.createElement(React.Fragment, { key: item }, /* @__PURE__ */ React.createElement("div", { className: "lesson-flow-card__node" }, item), index < lesson.exploration.flow.length - 1 ? /* @__PURE__ */ React.createElement("span", { className: "lesson-flow-card__arrow" }, "\u2192") : null))))), /* @__PURE__ */ React.createElement(EvidenceStrip, null));
+  return /* @__PURE__ */ React.createElement(LessonSection, { id: "esplorazione", title: lesson.exploration.title, intro: lesson.exploration.intro, tone: "soft" }, /* @__PURE__ */ React.createElement(SignalGrid, null), /* @__PURE__ */ React.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-stack" }, lesson.exploration.paragraphs.map((paragraph) => /* @__PURE__ */ React.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph)), /* @__PURE__ */ React.createElement(PromptList, { title: "Osserva", items: lesson.exploration.questions })), /* @__PURE__ */ React.createElement("div", { className: "lesson-flow-card", "aria-label": "Schema del passaggio dal gesto alla forma" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-flow-card__steps" }, lesson.exploration.flow.map((item, index) => /* @__PURE__ */ React.createElement(React.Fragment, { key: item }, /* @__PURE__ */ React.createElement("div", { className: "lesson-flow-card__node" }, item), index < lesson.exploration.flow.length - 1 ? /* @__PURE__ */ React.createElement("span", { className: "lesson-flow-card__arrow" }, "\u2192") : null))))), /* @__PURE__ */ React.createElement(MeaningStrip, null));
 }
 function SequenceBoard() {
   const [selectedSource, setSelectedSource] = useState(lesson.sourceOptions[0].id);

@@ -333,6 +333,7 @@
 .lesson-self-check__row p,
 .lesson-option,
 .lesson-evidence__copy p,
+.lesson-meaning-card__copy p,
 .lesson-term-list__content p,
 .lesson-closing__bridge,
 .lesson-meter-card__action {
@@ -672,6 +673,7 @@
 .lesson-key-card,
 .lesson-flow-card,
 .lesson-meter-card,
+.lesson-meaning-card,
 .lesson-sequence,
 .lesson-term-list,
 .lesson-pulse-stage,
@@ -683,7 +685,8 @@
 }
 
 .lesson-key-card,
-.lesson-meter-card {
+.lesson-meter-card,
+.lesson-meaning-card {
   display: grid;
   gap: 0.75rem;
   align-content: start;
@@ -733,7 +736,8 @@
   font-size: 0.96rem;
 }
 
-.lesson-evidence-strip {
+.lesson-evidence-strip,
+.lesson-meaning-strip {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
@@ -762,6 +766,58 @@
 .lesson-evidence__copy {
   display: grid;
   gap: 0.2rem;
+}
+
+.lesson-meaning-card {
+  padding: 0.95rem;
+  margin: 0;
+}
+
+.lesson-meaning-card__visual {
+  min-height: 9.5rem;
+  border-radius: 0.9rem;
+  background: var(--lesson-surface-soft);
+  display: grid;
+  place-items: center;
+  grid-auto-flow: column;
+  gap: 0.65rem;
+  padding: 1rem;
+}
+
+.lesson-meaning-card__visual span {
+  display: inline-grid;
+  place-items: center;
+  width: 2.8rem;
+  height: 2.8rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  color: var(--lesson-text);
+  font-size: 1.25rem;
+  font-weight: 780;
+  line-height: 1;
+}
+
+.lesson-meaning-card__visual--spread span:nth-child(2) {
+  transform: translateY(-0.8rem);
+}
+
+.lesson-meaning-card__visual--spread span:nth-child(3) {
+  transform: translateY(0.8rem);
+}
+
+.lesson-meaning-card__visual--repeat span {
+  background: var(--lesson-text);
+  color: #ffffff;
+}
+
+.lesson-meaning-card__visual--shape span:nth-child(3) {
+  width: 4rem;
+  border-radius: 999px;
+}
+
+.lesson-meaning-card__copy {
+  display: grid;
+  gap: 0.24rem;
 }
 
 .lesson-sequence {
@@ -1073,6 +1129,7 @@
 
   .lesson-card-grid--three,
   .lesson-evidence-strip,
+  .lesson-meaning-strip,
   .lesson-grid--two,
   .lesson-grid--asym,
   .lesson-card-grid--two,
@@ -1103,6 +1160,7 @@
   .lesson-key-card,
   .lesson-flow-card,
   .lesson-meter-card,
+  .lesson-meaning-card,
   .lesson-sequence,
   .lesson-term-list,
   .lesson-symbol-grid,

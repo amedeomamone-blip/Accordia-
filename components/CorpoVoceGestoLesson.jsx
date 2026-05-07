@@ -18,21 +18,24 @@ import {
   useActiveSection,
 } from "./LessonShared.module.js";
 
-const EVIDENCE_IMAGES = [
+const EXPLORATION_PANELS = [
   {
-    src: "/assets/lesson/corpo-voce-gesto/lascaux-painting.jpg",
-    title: "Traccia del gesto",
-    caption: "Un gesto ripetuto lascia un segno. Quel segno puo aiutare il gruppo a ricordare.",
+    title: "Suono scelto",
+    caption: "Prima individui un gesto o una sillaba che riesci a rifare bene.",
+    pattern: ["●", "▲", "◆"],
+    tone: "spread",
   },
   {
-    src: "/assets/lesson/corpo-voce-gesto/hands-clapping.jpg",
-    title: "Battito comune",
-    caption: "Mani e corpo aiutano a sentire quando tutti partono insieme.",
+    title: "Suono ripetuto",
+    caption: "Quando torna uguale abbastanza volte, il gruppo comincia a riconoscerlo.",
+    pattern: ["●", "●", "●", "●"],
+    tone: "repeat",
   },
   {
-    src: "/assets/lesson/corpo-voce-gesto/divje-babe-flute.jpg",
-    title: "Prima degli strumenti complessi",
-    caption: "Anche quando appare uno strumento, corpo e voce restano il punto di partenza.",
+    title: "Suono con forma",
+    caption: "Una pausa e un finale chiaro fanno capire dove la frase si apre e dove si chiude.",
+    pattern: ["●", "●", "—", "◆"],
+    tone: "shape",
   },
 ];
 
@@ -100,10 +103,10 @@ const lesson = {
     label: "Esplorazione",
     title: "Corpo, voce e gesto lavorano insieme",
     intro:
-      "Il corpo e il primo laboratorio del suono. Quando ripeti un gesto con intenzione, quel gesto smette di essere casuale e diventa leggibile.",
+      "Corpo, voce e gesto diventano musica quando scegli un suono, lo ripeti e gli dai una forma chiara.",
     paragraphs: [
-      "Una sillaba breve puo dare l'attacco. Un battito di mani puo tenere insieme il gruppo. Una pausa puo far sentire meglio la forma.",
-      "Non ti serve fare tanti suoni. Ti serve scegliere quelli giusti e metterli in ordine.",
+      "Un gesto da solo resta isolato. Quando ritorna con regolarita, il gruppo lo riconosce e puo seguirlo.",
+      "La voce puo dare l'attacco. La pausa separa. Il finale chiude. Non servono tanti suoni: servono pochi segnali leggibili.",
     ],
     questions: [
       "Quale gesto fa partire tutti nello stesso momento?",
@@ -111,12 +114,10 @@ const lesson = {
       "Che cosa cambia quando inserisci una pausa?",
     ],
     flow: [
-      "ascolta",
       "scegli",
       "ripeti",
-      "ferma",
-      "riprendi",
-      "ricorda",
+      "pausa",
+      "chiudi",
     ],
   },
   active: {
@@ -328,19 +329,21 @@ function OpeningSection() {
   );
 }
 
-function EvidenceStrip() {
+function MeaningStrip() {
   return (
-    <div className="lesson-evidence-strip">
-      {EVIDENCE_IMAGES.map((item) => (
-        <figure key={item.title} className="lesson-evidence">
-          <div className="lesson-evidence__media">
-            <img src={item.src} alt={item.caption} loading="lazy" />
+    <div className="lesson-meaning-strip">
+      {EXPLORATION_PANELS.map((item) => (
+        <article key={item.title} className="lesson-meaning-card">
+          <div className={cn("lesson-meaning-card__visual", `lesson-meaning-card__visual--${item.tone}`)} aria-hidden="true">
+            {item.pattern.map((symbol, index) => (
+              <span key={`${item.title}-${symbol}-${index}`}>{symbol}</span>
+            ))}
           </div>
-          <figcaption className="lesson-evidence__copy">
+          <div className="lesson-meaning-card__copy">
             <strong>{item.title}</strong>
             <p>{item.caption}</p>
-          </figcaption>
-        </figure>
+          </div>
+        </article>
       ))}
     </div>
   );
@@ -372,7 +375,7 @@ function ExplorationSection() {
         </div>
       </div>
 
-      <EvidenceStrip />
+      <MeaningStrip />
     </LessonSection>
   );
 }
