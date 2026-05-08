@@ -2,6 +2,7 @@ import React, { useState } from "https://esm.sh/react@18";
 import {
   ActivityLayout,
   LessonBottomBar,
+  ImageFigure,
   LessonHero,
   LessonProgress,
   LessonSection,
@@ -157,6 +158,10 @@ function VisualSpec({ spec, fallbackTotal = 30 }) {
     return <KeyCardGrid items={spec.items} columns={spec.columns || 2} />;
   }
 
+  if (spec.type === "image") {
+    return <ImageFigure image={spec} />;
+  }
+
   return null;
 }
 
@@ -171,6 +176,10 @@ function PanelContent({ panel }) {
 
   if (panel.kind === "timeline") {
     return <TimelineBoard items={panel.items} ariaLabel={panel.ariaLabel || panel.title || "Sequenza essenziale"} />;
+  }
+
+  if (panel.kind === "flow") {
+    return <FlowBoard items={panel.items} ariaLabel={panel.ariaLabel || panel.title || "Schema essenziale"} />;
   }
 
   if (panel.kind === "prompts") {
@@ -330,15 +339,18 @@ function FollowupSection({ lesson, selected, onSelect }) {
               </div>
             </Panel>
           ) : (
-            <Panel kicker={phase.label} title={phase.title} meta={phase.meta}>
-              <div className="lesson-grid lesson-grid--two">
-                <StepList title="Fai cosi" items={phase.steps} />
-                <div className="lesson-stack">
-                  <PromptList title="Osserva" items={phase.observe} />
-                  <ResultCallout text={phase.result} />
+            <div className="lesson-stack">
+              <Panel kicker={phase.label} title={phase.title} meta={phase.meta}>
+                <div className="lesson-grid lesson-grid--two">
+                  <StepList title={phase.stepsTitle || "Fai cosi"} items={phase.steps} />
+                  <div className="lesson-stack">
+                    <PromptList title={phase.observeTitle || "Osserva"} items={phase.observe} />
+                    <ResultCallout label={phase.resultLabel || "Alla fine"} text={phase.result} />
+                  </div>
                 </div>
-              </div>
-            </Panel>
+              </Panel>
+              <PanelCollection panels={phase.panels} />
+            </div>
           )}
         </div>
       </div>

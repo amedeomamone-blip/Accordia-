@@ -56,7 +56,7 @@ const lesson = {
   ],
   navigation: {
     mapHref: "../../index.html",
-    previousHref: null,
+    previousHref: "../ritmo-pulsazione-tempo/index.html",
     homeHref: "../../../../index.html",
   },
   meta: [
@@ -294,7 +294,7 @@ const lesson = {
       label: "Chiusura",
       title: "Porta via un'idea semplice",
       line: "Il corpo non sostituisce la musica. La fa iniziare quando il gruppo ascolta, sceglie e ripete insieme.",
-      bridge: "Nella prossima lezione scoprirai che sotto ogni ritmo c'e un battito comune che tiene insieme tutti.",
+      bridge: "Nella prossima lezione vedrai come alcuni materiali e alcuni oggetti diventano suoni riconoscibili e riusabili dal gruppo.",
     },
   },
 };
@@ -540,7 +540,7 @@ export default function CorpoVoceGestoLesson() {
         heroEcho={lesson.heroEcho}
         heroTags={lesson.heroTags}
       />
-      <MetaStrip items={lesson.opening.meta} />
+      <MetaStrip items={lesson.meta} />
       <LessonProgress
         items={lesson.progress}
         activeId={activeId}

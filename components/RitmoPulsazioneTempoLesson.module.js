@@ -223,7 +223,7 @@ var lesson = {
   ],
   navigation: {
     mapHref: "../../index.html",
-    previousHref: null,
+    previousHref: "../alle-origini-del-suono/index.html",
     homeHref: "../../../../index.html"
   },
   meta: [
@@ -525,7 +525,7 @@ var lesson = {
       label: "Chiusura",
       title: "Ricorda il centro del lavoro",
       line: "La pulsazione e il battito comune. Il ritmo e il disegno che si appoggia sopra. Il tempo decide quanto velocemente quel battito ritorna.",
-      bridge: "Nella prossima lezione vedrai come ritmo e ripetizione aiutano il gruppo a stare insieme."
+      bridge: "Nella prossima lezione userai corpo, voce e pausa per trasformare quel battito in una frase sonora leggibile dal gruppo."
     }
   }
 };

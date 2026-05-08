@@ -1,3 +1,4 @@
+// components/LessonShared.jsx
 import React, { useEffect, useState } from "https://esm.sh/react@18";
 function cn(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -55,6 +56,12 @@ function LessonBreadcrumb({ items }) {
 }
 function LessonHero({ title, question, breadcrumbs }) {
   return /* @__PURE__ */ React.createElement("header", { className: "lesson-hero" }, /* @__PURE__ */ React.createElement(LessonBreadcrumb, { items: breadcrumbs }), /* @__PURE__ */ React.createElement("div", { className: "lesson-shell lesson-hero__copy" }, /* @__PURE__ */ React.createElement("h1", { className: "lesson-hero__title" }, title), /* @__PURE__ */ React.createElement("p", { className: "lesson-hero__question" }, question)));
+}
+function ImageFigure({ image }) {
+  if (!image?.src) {
+    return null;
+  }
+  return /* @__PURE__ */ React.createElement("figure", { className: "lesson-figure" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-figure__media" }, /* @__PURE__ */ React.createElement("img", { src: image.src, alt: image.alt || image.title || "" })), image.label || image.title || image.caption || image.credit ? /* @__PURE__ */ React.createElement("figcaption", { className: "lesson-figure__body" }, image.label ? /* @__PURE__ */ React.createElement("p", { className: "lesson-mini-title" }, image.label) : null, image.title ? /* @__PURE__ */ React.createElement("strong", null, image.title) : null, image.caption ? /* @__PURE__ */ React.createElement("p", null, image.caption) : null, image.credit ? /* @__PURE__ */ React.createElement("span", { className: "lesson-figure__credit" }, image.credit) : null) : null);
 }
 function MetaStrip({ items }) {
   return /* @__PURE__ */ React.createElement("section", { className: "lesson-meta-bar", "aria-label": "Dati tecnici" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-shell" }, /* @__PURE__ */ React.createElement("dl", { className: "lesson-meta-bar__list" }, items.map((item) => /* @__PURE__ */ React.createElement("div", { key: `${item.label}-${item.value}`, className: "lesson-meta-bar__item" }, /* @__PURE__ */ React.createElement("dt", null, item.label), /* @__PURE__ */ React.createElement("dd", null, item.value))))));
@@ -198,6 +205,7 @@ function LessonBottomBar({ mapHref, previousHref, homeHref }) {
 export {
   ActivityLayout,
   FactStrip,
+  ImageFigure,
   LessonBottomBar,
   LessonBreadcrumb,
   LessonHero,

@@ -95,6 +95,28 @@ export function LessonHero({ title, question, breadcrumbs }) {
   );
 }
 
+export function ImageFigure({ image }) {
+  if (!image?.src) {
+    return null;
+  }
+
+  return (
+    <figure className="lesson-figure">
+      <div className="lesson-figure__media">
+        <img src={image.src} alt={image.alt || image.title || ""} />
+      </div>
+      {(image.label || image.title || image.caption || image.credit) ? (
+        <figcaption className="lesson-figure__body">
+          {image.label ? <p className="lesson-mini-title">{image.label}</p> : null}
+          {image.title ? <strong>{image.title}</strong> : null}
+          {image.caption ? <p>{image.caption}</p> : null}
+          {image.credit ? <span className="lesson-figure__credit">{image.credit}</span> : null}
+        </figcaption>
+      ) : null}
+    </figure>
+  );
+}
+
 export function MetaStrip({ items }) {
   return (
     <section className="lesson-meta-bar" aria-label="Dati tecnici">
