@@ -224,6 +224,9 @@ function TermBoard({ items }) {
 function FlowBoard({ items, ariaLabel }) {
   return /* @__PURE__ */ React2.createElement("div", { className: "lesson-flow-card", "aria-label": ariaLabel }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-flow-card__steps" }, items.map((item, index) => /* @__PURE__ */ React2.createElement(React2.Fragment, { key: item }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-flow-card__node" }, item), index < items.length - 1 ? /* @__PURE__ */ React2.createElement("span", { className: "lesson-flow-card__arrow" }, "\u2192") : null))));
 }
+function TimelineBoard({ items, ariaLabel }) {
+  return /* @__PURE__ */ React2.createElement("div", { className: "lesson-timeline-board", "aria-label": ariaLabel }, items.map((item, index) => /* @__PURE__ */ React2.createElement("div", { key: `${item.title}-${index}`, className: "lesson-timeline-board__row" }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-timeline-board__marker" }, /* @__PURE__ */ React2.createElement("span", null, item.label || String(index + 1).padStart(2, "0"))), /* @__PURE__ */ React2.createElement("div", { className: "lesson-timeline-board__content" }, /* @__PURE__ */ React2.createElement("strong", null, item.title), item.text ? /* @__PURE__ */ React2.createElement("p", null, item.text) : null, item.note ? /* @__PURE__ */ React2.createElement("div", { className: "lesson-term-list__example" }, item.note) : null))));
+}
 function EvidenceStrip({ items }) {
   return /* @__PURE__ */ React2.createElement("div", { className: "lesson-evidence-strip" }, items.map((item) => /* @__PURE__ */ React2.createElement("article", { key: item.title, className: "lesson-evidence" }, item.image ? /* @__PURE__ */ React2.createElement("div", { className: "lesson-evidence__media" }, /* @__PURE__ */ React2.createElement("img", { src: item.image.src, alt: item.image.alt })) : null, /* @__PURE__ */ React2.createElement("div", { className: "lesson-evidence__copy" }, item.label ? /* @__PURE__ */ React2.createElement("p", { className: "lesson-mini-title" }, item.label) : null, /* @__PURE__ */ React2.createElement("strong", null, item.title), /* @__PURE__ */ React2.createElement("p", null, item.body)))));
 }
@@ -240,6 +243,9 @@ function VisualSpec({ spec, fallbackTotal = 30 }) {
   if (spec.type === "flow") {
     return /* @__PURE__ */ React2.createElement(FlowBoard, { items: spec.items, ariaLabel: spec.ariaLabel || "Schema di lavoro" });
   }
+  if (spec.type === "timeline") {
+    return /* @__PURE__ */ React2.createElement(TimelineBoard, { items: spec.items, ariaLabel: spec.ariaLabel || "Sequenza essenziale" });
+  }
   if (spec.type === "terms") {
     return /* @__PURE__ */ React2.createElement(TermBoard, { items: spec.items });
   }
@@ -255,6 +261,9 @@ function PanelContent({ panel }) {
   if (panel.kind === "terms") {
     return /* @__PURE__ */ React2.createElement(TermBoard, { items: panel.items });
   }
+  if (panel.kind === "timeline") {
+    return /* @__PURE__ */ React2.createElement(TimelineBoard, { items: panel.items, ariaLabel: panel.ariaLabel || panel.title || "Sequenza essenziale" });
+  }
   if (panel.kind === "prompts") {
     return /* @__PURE__ */ React2.createElement(PromptList, { items: panel.items });
   }
@@ -262,6 +271,16 @@ function PanelContent({ panel }) {
     return /* @__PURE__ */ React2.createElement("div", { className: "lesson-stack" }, panel.paragraphs.map((paragraph) => /* @__PURE__ */ React2.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph)));
   }
   return null;
+}
+function PanelCollection({ panels }) {
+  if (!panels?.length) {
+    return null;
+  }
+  if (panels.length === 1) {
+    const panel = panels[0];
+    return /* @__PURE__ */ React2.createElement(Panel, { title: panel.title }, /* @__PURE__ */ React2.createElement(PanelContent, { panel }));
+  }
+  return /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-card-grid", panels.length === 2 ? "lesson-card-grid--two" : "lesson-card-grid--three") }, panels.map((panel) => /* @__PURE__ */ React2.createElement(Panel, { key: panel.title, title: panel.title }, /* @__PURE__ */ React2.createElement(PanelContent, { panel }))));
 }
 function OpeningSection({ lesson: lesson2 }) {
   return /* @__PURE__ */ React2.createElement(LessonSection, { id: "apertura", title: lesson2.opening.title, intro: lesson2.opening.intro }, /* @__PURE__ */ React2.createElement(Panel, { title: lesson2.opening.cardTitle, meta: lesson2.opening.meta }, /* @__PURE__ */ React2.createElement(
@@ -276,12 +295,13 @@ function OpeningSection({ lesson: lesson2 }) {
 }
 function ExplorationSection({ lesson: lesson2 }) {
   const exploration = lesson2.exploration;
-  return /* @__PURE__ */ React2.createElement(LessonSection, { id: "esplorazione", title: exploration.title, intro: exploration.intro, tone: "soft" }, exploration.cards?.length ? /* @__PURE__ */ React2.createElement(KeyCardGrid, { items: exploration.cards, columns: exploration.cardsColumns || 3 }) : null, /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-grid", exploration.flow?.length && "lesson-grid--two") }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-stack" }, exploration.paragraphs.map((paragraph) => /* @__PURE__ */ React2.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph)), exploration.questions?.length ? /* @__PURE__ */ React2.createElement(PromptList, { title: "Osserva", items: exploration.questions }) : null), exploration.flow?.length ? /* @__PURE__ */ React2.createElement(FlowBoard, { items: exploration.flow, ariaLabel: exploration.flowLabel || "Passaggi principali dell'argomento" }) : null), exploration.evidence?.length ? /* @__PURE__ */ React2.createElement(EvidenceStrip, { items: exploration.evidence }) : null, exploration.panels?.length ? /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-card-grid", exploration.panels.length === 2 ? "lesson-card-grid--two" : "lesson-card-grid--three") }, exploration.panels.map((panel) => /* @__PURE__ */ React2.createElement(Panel, { key: panel.title, title: panel.title }, /* @__PURE__ */ React2.createElement(PanelContent, { panel })))) : null);
+  const cards = exploration.cards?.length ? /* @__PURE__ */ React2.createElement(KeyCardGrid, { items: exploration.cards, columns: exploration.cardsColumns || 3 }) : null;
+  const side = exploration.side ? /* @__PURE__ */ React2.createElement(VisualSpec, { spec: exploration.side }) : exploration.flow?.length ? /* @__PURE__ */ React2.createElement(FlowBoard, { items: exploration.flow, ariaLabel: exploration.flowLabel || "Passaggi principali dell'argomento" }) : null;
+  const copy = /* @__PURE__ */ React2.createElement("div", { className: "lesson-stack" }, exploration.paragraphs.map((paragraph) => /* @__PURE__ */ React2.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph)), exploration.questions?.length ? /* @__PURE__ */ React2.createElement(PromptList, { title: exploration.questionsTitle || "Osserva", items: exploration.questions }) : null);
+  return /* @__PURE__ */ React2.createElement(LessonSection, { id: "esplorazione", title: exploration.title, intro: exploration.intro, tone: "soft" }, exploration.cardsPosition !== "after" ? cards : null, side ? /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-grid", exploration.layout === "essay-side" ? "lesson-grid--asym" : "lesson-grid--two") }, copy, side) : copy, exploration.cardsPosition === "after" ? cards : null, exploration.evidence?.length ? /* @__PURE__ */ React2.createElement(EvidenceStrip, { items: exploration.evidence }) : null, /* @__PURE__ */ React2.createElement(PanelCollection, { panels: exploration.panels }));
 }
 function ActiveSection({ lesson: lesson2 }) {
   const active = lesson2.active;
-  const hasPanels = active.panels?.length;
-  const panelClass = active.panels?.length === 2 ? "lesson-card-grid--two" : active.panels?.length === 4 ? "lesson-card-grid--four" : "lesson-card-grid--three";
   return /* @__PURE__ */ React2.createElement(LessonSection, { id: "comprensione-attiva", title: active.title, intro: active.intro }, /* @__PURE__ */ React2.createElement(Panel, { title: active.cardTitle, meta: active.meta }, /* @__PURE__ */ React2.createElement(
     ActivityLayout,
     {
@@ -290,7 +310,7 @@ function ActiveSection({ lesson: lesson2 }) {
       result: active.result,
       right: /* @__PURE__ */ React2.createElement(VisualSpec, { spec: active.side, fallbackTotal: active.timerTotal || 45 })
     }
-  )), hasPanels ? /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-card-grid", panelClass) }, active.panels.map((panel) => /* @__PURE__ */ React2.createElement(Panel, { key: panel.title, title: panel.title }, /* @__PURE__ */ React2.createElement(PanelContent, { panel })))) : null, active.prompts?.length ? /* @__PURE__ */ React2.createElement(Panel, { title: active.promptsTitle || "Ascolto interno" }, /* @__PURE__ */ React2.createElement(PromptList, { items: active.prompts })) : null);
+  )), /* @__PURE__ */ React2.createElement(PanelCollection, { panels: active.panels }), active.prompts?.length ? /* @__PURE__ */ React2.createElement(Panel, { title: active.promptsTitle || "Ascolto interno" }, /* @__PURE__ */ React2.createElement(PromptList, { items: active.prompts })) : null);
 }
 function FollowupSection({ lesson: lesson2, selected, onSelect }) {
   const phase = lesson2.followups[selected];
@@ -310,7 +330,7 @@ function FollowupSection({ lesson: lesson2, selected, onSelect }) {
 function OriginiTopicLesson({ lesson: lesson2 }) {
   const activeId = useActiveSection(["apertura", "esplorazione", "comprensione-attiva", "rielaborazione"]);
   const [selectedFollowup, setSelectedFollowup] = useState2(lesson2.followupDefault || "produzione");
-  return /* @__PURE__ */ React2.createElement("div", { className: "lesson-editorial-page" }, /* @__PURE__ */ React2.createElement(
+  return /* @__PURE__ */ React2.createElement("div", { className: "lesson-editorial-page", "data-lesson-model": lesson2.model?.id || "" }, /* @__PURE__ */ React2.createElement(
     LessonHero,
     {
       title: lesson2.title,
@@ -343,6 +363,12 @@ function OriginiTopicLesson({ lesson: lesson2 }) {
 
 // components/SuonoNellaPreistoriaLesson.jsx
 var lesson = {
+  model: {
+    id: "teorico-esplorativa",
+    label: "Lezione teorico-esplorativa",
+    theoryShare: 65,
+    practiceShare: 35
+  },
   title: "Suono nella preistoria",
   question: "Come possiamo immaginare un suono di cui non esiste registrazione?",
   subtitle: "Non abbiamo spartiti, audio o cronache dirette. Possiamo pero leggere ambiente, reperti, immagini e gesti ripetuti con prudenza storica.",
@@ -395,27 +421,37 @@ var lesson = {
   exploration: {
     title: "Paesaggio sonoro senza registrazioni",
     intro: "Le fonti storiche ricordano che la musica antica e originaria ci e arrivata soprattutto per tracce indirette: ambiente, immagini, reperti, oralita.",
-    cards: [
-      {
-        title: "Ambiente",
-        caption: "Vento, acqua, pietra, legno, eco e voce aiutano a immaginare come suonasse un territorio prima della scrittura.",
-        chips: ["grotta", "vento", "acqua", "eco"]
-      },
-      {
-        title: "Reperto",
-        caption: "Un oggetto forato, consumato o battuto puo suggerire un uso sonoro, ma non basta da solo a raccontare tutta la pratica.",
-        chips: ["osso", "conchiglia", "pietra", "usura"]
-      },
-      {
-        title: "Pratica",
-        caption: "Figure in movimento, gesti collettivi e rituali ci aiutano a collegare il suono a gruppo, danza, richiamo e memoria.",
-        chips: ["gesto", "gruppo", "danza", "memoria"]
-      }
-    ],
+    layout: "essay-side",
+    side: {
+      type: "timeline",
+      ariaLabel: "Tipi di traccia usati per ricostruire il suono preistorico",
+      items: [
+        {
+          label: "01",
+          title: "Ambiente",
+          text: "Eco, vento, acqua, pietra e spazi aperti o chiusi aiutano a capire come il paesaggio partecipasse all'ascolto.",
+          note: "luogo"
+        },
+        {
+          label: "02",
+          title: "Reperto",
+          text: "Oggetti forati, consumati o percossi suggeriscono usi possibili, ma non bastano da soli a chiudere l'interpretazione.",
+          note: "materia"
+        },
+        {
+          label: "03",
+          title: "Immagine o gesto",
+          text: "Scene in movimento e pratiche collettive aiutano a collegare il suono a danza, richiamo, rito e memoria del gruppo.",
+          note: "pratica"
+        }
+      ]
+    },
     paragraphs: [
       "Le fonti didattiche ricordano che della musica delle origini non abbiamo testimonianze scritte o registrazioni: possiamo lavorare solo su cio che resta e su cio che torna plausibile dentro un contesto.",
-      "Questo significa leggere con prudenza. Un reperto puo essere importante, ma va sempre collegato ad ambiente, funzione possibile e confronto con altre tracce."
+      "Questo significa leggere con prudenza. Un reperto puo essere importante, ma va sempre collegato ad ambiente, funzione possibile e confronto con altre tracce.",
+      "La ricostruzione storica non chiede di inventare liberamente: chiede di tenere distinti dato osservabile, indizio interpretativo e ipotesi plausibile."
     ],
+    questionsTitle: "Domande guida",
     questions: [
       "Che differenza c'e tra un dato osservabile e una ricostruzione plausibile?",
       "Perche l'ambiente conta quanto il reperto?",
@@ -445,29 +481,47 @@ var lesson = {
         title: "Ambiente che risponde",
         body: "Eco, pareti rocciose, acqua e vento aiutano a capire che il paesaggio stesso poteva partecipare all'esperienza sonora."
       }
+    ],
+    panels: [
+      {
+        title: "Lessico del metodo",
+        kind: "terms",
+        items: [
+          { term: "Dato", text: "Cio che puoi mostrare, documentare o descrivere direttamente.", example: "reperto / immagine" },
+          { term: "Indizio", text: "Cio che orienta la lettura ma non chiude ancora il significato.", example: "foro / usura / eco" },
+          { term: "Ipotesi", text: "Una ricostruzione plausibile fondata su piu tracce messe insieme.", example: "uso sonoro" }
+        ]
+      },
+      {
+        title: "Cautela storica",
+        kind: "text",
+        paragraphs: [
+          "Parlare di suono nella preistoria significa dichiarare sempre il grado di certezza di cio che stiamo dicendo. Questa trasparenza e parte del contenuto, non un dettaglio tecnico."
+        ]
+      }
     ]
   },
   active: {
-    title: "Costruisci una scheda di ricostruzione sonora",
-    intro: "Lavora come un piccolo laboratorio storico: raccogli indizi, separa i livelli di certezza e proponi una funzione possibile senza trasformare l'ipotesi in prova.",
-    cardTitle: "Metti ordine nelle tracce",
+    title: "Analizza una traccia e costruisci una scheda breve",
+    intro: "Qui l'attivita non chiede di produrre molto suono, ma di ragionare con metodo: scegli una traccia, separa i livelli di certezza e formula una ricostruzione breve ma fondata.",
+    cardTitle: "Leggi la fonte con metodo",
     meta: [
-      { label: "Durata", value: "15 minuti" },
+      { label: "Durata", value: "12 minuti" },
       { label: "Ti serve", value: "scheda, matita, immagini" },
-      { label: "Alla fine", value: "una ricostruzione ragionata" }
+      { label: "Alla fine", value: "una scheda analitica e leggibile" }
     ],
     steps: [
-      "Scegli un contesto: grotta, spazio aperto, gruppo in movimento, reperto.",
-      "Scrivi che cosa puoi osservare con certezza.",
-      "Aggiungi un'ipotesi di uso sonoro e una possibile funzione.",
-      "Controlla che ogni frase dica chiaramente se e dato, indizio o interpretazione."
+      "Scegli una sola traccia: immagine, ambiente o reperto.",
+      "Scrivi in una colonna cio che puoi osservare con certezza.",
+      "Scrivi in una seconda colonna quale uso sonoro ti sembra plausibile.",
+      "Chiudi con una frase che distingua apertamente dato, indizio e interpretazione."
     ],
     observe: [
-      "Hai separato quello che sai da quello che supponi?",
-      "L'ipotesi tiene conto del luogo e del materiale?",
-      "La funzione proposta e credibile per un gruppo umano delle origini?"
+      "Hai separato bene osservazione e ipotesi?",
+      "L'interpretazione tiene conto del luogo, del materiale e del gesto?",
+      "Stai dicendo dove finisce la prova e dove comincia la ricostruzione?"
     ],
-    result: "La tua scheda spiega il passato senza confondere prova e fantasia.",
+    result: "La tua scheda spiega il passato senza confondere fonte, indizio e fantasia.",
     side: {
       type: "terms",
       items: [
@@ -478,33 +532,34 @@ var lesson = {
     },
     panels: [
       {
-        title: "Mappa rapida",
-        kind: "terms",
+        title: "Gradi di certezza",
+        kind: "timeline",
         items: [
-          { term: "Oralita", text: "Molte pratiche sonore si trasmettono per imitazione e memoria, non per scrittura.", example: "si impara facendo" },
-          { term: "Contesto", text: "Luogo, gruppo e gesto contano quanto l'oggetto.", example: "grotta / raduno / spostamento" },
-          { term: "Prudenza", text: "Ogni ricostruzione storica deve dichiarare il proprio grado di certezza.", example: "dato / ipotesi" }
+          { label: "A", title: "Osservazione", text: "Descrivi il materiale, l'immagine o il contesto senza aggiungere ancora spiegazioni.", note: "certo" },
+          { label: "B", title: "Connessione", text: "Collega due o tre indizi che fanno pensare a un uso sonoro possibile.", note: "plausibile" },
+          { label: "C", title: "Interpretazione", text: "Formula una ricostruzione prudente, dichiarando il suo grado di incertezza.", note: "ipotetico" }
         ]
       },
       {
-        title: "Tracce da collegare",
-        kind: "cards",
-        columns: 2,
+        title: "Domande di controllo",
+        kind: "prompts",
         items: [
-          { title: "Pietra", caption: "Percussione, eco, superfici dure.", chips: ["colpo", "rimbalzo"] },
-          { title: "Osso", caption: "Oggetto lavorato, foro, soffio possibile.", chips: ["utensile", "suono"] },
-          { title: "Voce", caption: "Richiamo, imitazione, parola primitiva.", chips: ["gruppo", "memoria"] },
-          { title: "Spazio", caption: "Una grotta modifica ascolto e risonanza.", chips: ["eco", "risonanza"] }
+          "Hai scritto almeno un elemento osservabile prima dell'ipotesi?",
+          "La funzione proposta dipende davvero dalla traccia scelta?",
+          "La tua scheda dichiara con onesta il proprio margine di incertezza?"
         ]
       }
     ],
+    promptsTitle: "Controlla il metodo",
     prompts: [
       "Quale elemento della tua scheda e davvero certo?",
       "Dove comincia l'interpretazione?",
       "Che cosa ti impedisce di raccontare il passato con troppa sicurezza?"
     ]
   },
-  followupDefault: "produzione",
+  followupTitle: "Dopo l'esplorazione, stringi il metodo e rendi la scheda piu leggibile",
+  followupIntro: "Questa lezione resta soprattutto teorico-esplorativa: esplori una fonte, la analizzi e solo dopo la trasformi in tavola, confronto e restituzione sintetica.",
+  followupDefault: "rielaborazione",
   followups: {
     rielaborazione: {
       label: "Rielaborazione",

@@ -224,6 +224,9 @@ function TermBoard({ items }) {
 function FlowBoard({ items, ariaLabel }) {
   return /* @__PURE__ */ React2.createElement("div", { className: "lesson-flow-card", "aria-label": ariaLabel }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-flow-card__steps" }, items.map((item, index) => /* @__PURE__ */ React2.createElement(React2.Fragment, { key: item }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-flow-card__node" }, item), index < items.length - 1 ? /* @__PURE__ */ React2.createElement("span", { className: "lesson-flow-card__arrow" }, "\u2192") : null))));
 }
+function TimelineBoard({ items, ariaLabel }) {
+  return /* @__PURE__ */ React2.createElement("div", { className: "lesson-timeline-board", "aria-label": ariaLabel }, items.map((item, index) => /* @__PURE__ */ React2.createElement("div", { key: `${item.title}-${index}`, className: "lesson-timeline-board__row" }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-timeline-board__marker" }, /* @__PURE__ */ React2.createElement("span", null, item.label || String(index + 1).padStart(2, "0"))), /* @__PURE__ */ React2.createElement("div", { className: "lesson-timeline-board__content" }, /* @__PURE__ */ React2.createElement("strong", null, item.title), item.text ? /* @__PURE__ */ React2.createElement("p", null, item.text) : null, item.note ? /* @__PURE__ */ React2.createElement("div", { className: "lesson-term-list__example" }, item.note) : null))));
+}
 function EvidenceStrip({ items }) {
   return /* @__PURE__ */ React2.createElement("div", { className: "lesson-evidence-strip" }, items.map((item) => /* @__PURE__ */ React2.createElement("article", { key: item.title, className: "lesson-evidence" }, item.image ? /* @__PURE__ */ React2.createElement("div", { className: "lesson-evidence__media" }, /* @__PURE__ */ React2.createElement("img", { src: item.image.src, alt: item.image.alt })) : null, /* @__PURE__ */ React2.createElement("div", { className: "lesson-evidence__copy" }, item.label ? /* @__PURE__ */ React2.createElement("p", { className: "lesson-mini-title" }, item.label) : null, /* @__PURE__ */ React2.createElement("strong", null, item.title), /* @__PURE__ */ React2.createElement("p", null, item.body)))));
 }
@@ -240,6 +243,9 @@ function VisualSpec({ spec, fallbackTotal = 30 }) {
   if (spec.type === "flow") {
     return /* @__PURE__ */ React2.createElement(FlowBoard, { items: spec.items, ariaLabel: spec.ariaLabel || "Schema di lavoro" });
   }
+  if (spec.type === "timeline") {
+    return /* @__PURE__ */ React2.createElement(TimelineBoard, { items: spec.items, ariaLabel: spec.ariaLabel || "Sequenza essenziale" });
+  }
   if (spec.type === "terms") {
     return /* @__PURE__ */ React2.createElement(TermBoard, { items: spec.items });
   }
@@ -255,6 +261,9 @@ function PanelContent({ panel }) {
   if (panel.kind === "terms") {
     return /* @__PURE__ */ React2.createElement(TermBoard, { items: panel.items });
   }
+  if (panel.kind === "timeline") {
+    return /* @__PURE__ */ React2.createElement(TimelineBoard, { items: panel.items, ariaLabel: panel.ariaLabel || panel.title || "Sequenza essenziale" });
+  }
   if (panel.kind === "prompts") {
     return /* @__PURE__ */ React2.createElement(PromptList, { items: panel.items });
   }
@@ -262,6 +271,16 @@ function PanelContent({ panel }) {
     return /* @__PURE__ */ React2.createElement("div", { className: "lesson-stack" }, panel.paragraphs.map((paragraph) => /* @__PURE__ */ React2.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph)));
   }
   return null;
+}
+function PanelCollection({ panels }) {
+  if (!panels?.length) {
+    return null;
+  }
+  if (panels.length === 1) {
+    const panel = panels[0];
+    return /* @__PURE__ */ React2.createElement(Panel, { title: panel.title }, /* @__PURE__ */ React2.createElement(PanelContent, { panel }));
+  }
+  return /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-card-grid", panels.length === 2 ? "lesson-card-grid--two" : "lesson-card-grid--three") }, panels.map((panel) => /* @__PURE__ */ React2.createElement(Panel, { key: panel.title, title: panel.title }, /* @__PURE__ */ React2.createElement(PanelContent, { panel }))));
 }
 function OpeningSection({ lesson: lesson2 }) {
   return /* @__PURE__ */ React2.createElement(LessonSection, { id: "apertura", title: lesson2.opening.title, intro: lesson2.opening.intro }, /* @__PURE__ */ React2.createElement(Panel, { title: lesson2.opening.cardTitle, meta: lesson2.opening.meta }, /* @__PURE__ */ React2.createElement(
@@ -276,12 +295,13 @@ function OpeningSection({ lesson: lesson2 }) {
 }
 function ExplorationSection({ lesson: lesson2 }) {
   const exploration = lesson2.exploration;
-  return /* @__PURE__ */ React2.createElement(LessonSection, { id: "esplorazione", title: exploration.title, intro: exploration.intro, tone: "soft" }, exploration.cards?.length ? /* @__PURE__ */ React2.createElement(KeyCardGrid, { items: exploration.cards, columns: exploration.cardsColumns || 3 }) : null, /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-grid", exploration.flow?.length && "lesson-grid--two") }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-stack" }, exploration.paragraphs.map((paragraph) => /* @__PURE__ */ React2.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph)), exploration.questions?.length ? /* @__PURE__ */ React2.createElement(PromptList, { title: "Osserva", items: exploration.questions }) : null), exploration.flow?.length ? /* @__PURE__ */ React2.createElement(FlowBoard, { items: exploration.flow, ariaLabel: exploration.flowLabel || "Passaggi principali dell'argomento" }) : null), exploration.evidence?.length ? /* @__PURE__ */ React2.createElement(EvidenceStrip, { items: exploration.evidence }) : null, exploration.panels?.length ? /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-card-grid", exploration.panels.length === 2 ? "lesson-card-grid--two" : "lesson-card-grid--three") }, exploration.panels.map((panel) => /* @__PURE__ */ React2.createElement(Panel, { key: panel.title, title: panel.title }, /* @__PURE__ */ React2.createElement(PanelContent, { panel })))) : null);
+  const cards = exploration.cards?.length ? /* @__PURE__ */ React2.createElement(KeyCardGrid, { items: exploration.cards, columns: exploration.cardsColumns || 3 }) : null;
+  const side = exploration.side ? /* @__PURE__ */ React2.createElement(VisualSpec, { spec: exploration.side }) : exploration.flow?.length ? /* @__PURE__ */ React2.createElement(FlowBoard, { items: exploration.flow, ariaLabel: exploration.flowLabel || "Passaggi principali dell'argomento" }) : null;
+  const copy = /* @__PURE__ */ React2.createElement("div", { className: "lesson-stack" }, exploration.paragraphs.map((paragraph) => /* @__PURE__ */ React2.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph)), exploration.questions?.length ? /* @__PURE__ */ React2.createElement(PromptList, { title: exploration.questionsTitle || "Osserva", items: exploration.questions }) : null);
+  return /* @__PURE__ */ React2.createElement(LessonSection, { id: "esplorazione", title: exploration.title, intro: exploration.intro, tone: "soft" }, exploration.cardsPosition !== "after" ? cards : null, side ? /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-grid", exploration.layout === "essay-side" ? "lesson-grid--asym" : "lesson-grid--two") }, copy, side) : copy, exploration.cardsPosition === "after" ? cards : null, exploration.evidence?.length ? /* @__PURE__ */ React2.createElement(EvidenceStrip, { items: exploration.evidence }) : null, /* @__PURE__ */ React2.createElement(PanelCollection, { panels: exploration.panels }));
 }
 function ActiveSection({ lesson: lesson2 }) {
   const active = lesson2.active;
-  const hasPanels = active.panels?.length;
-  const panelClass = active.panels?.length === 2 ? "lesson-card-grid--two" : active.panels?.length === 4 ? "lesson-card-grid--four" : "lesson-card-grid--three";
   return /* @__PURE__ */ React2.createElement(LessonSection, { id: "comprensione-attiva", title: active.title, intro: active.intro }, /* @__PURE__ */ React2.createElement(Panel, { title: active.cardTitle, meta: active.meta }, /* @__PURE__ */ React2.createElement(
     ActivityLayout,
     {
@@ -290,7 +310,7 @@ function ActiveSection({ lesson: lesson2 }) {
       result: active.result,
       right: /* @__PURE__ */ React2.createElement(VisualSpec, { spec: active.side, fallbackTotal: active.timerTotal || 45 })
     }
-  )), hasPanels ? /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-card-grid", panelClass) }, active.panels.map((panel) => /* @__PURE__ */ React2.createElement(Panel, { key: panel.title, title: panel.title }, /* @__PURE__ */ React2.createElement(PanelContent, { panel })))) : null, active.prompts?.length ? /* @__PURE__ */ React2.createElement(Panel, { title: active.promptsTitle || "Ascolto interno" }, /* @__PURE__ */ React2.createElement(PromptList, { items: active.prompts })) : null);
+  )), /* @__PURE__ */ React2.createElement(PanelCollection, { panels: active.panels }), active.prompts?.length ? /* @__PURE__ */ React2.createElement(Panel, { title: active.promptsTitle || "Ascolto interno" }, /* @__PURE__ */ React2.createElement(PromptList, { items: active.prompts })) : null);
 }
 function FollowupSection({ lesson: lesson2, selected, onSelect }) {
   const phase = lesson2.followups[selected];
@@ -310,7 +330,7 @@ function FollowupSection({ lesson: lesson2, selected, onSelect }) {
 function OriginiTopicLesson({ lesson: lesson2 }) {
   const activeId = useActiveSection(["apertura", "esplorazione", "comprensione-attiva", "rielaborazione"]);
   const [selectedFollowup, setSelectedFollowup] = useState2(lesson2.followupDefault || "produzione");
-  return /* @__PURE__ */ React2.createElement("div", { className: "lesson-editorial-page" }, /* @__PURE__ */ React2.createElement(
+  return /* @__PURE__ */ React2.createElement("div", { className: "lesson-editorial-page", "data-lesson-model": lesson2.model?.id || "" }, /* @__PURE__ */ React2.createElement(
     LessonHero,
     {
       title: lesson2.title,
@@ -343,6 +363,12 @@ function OriginiTopicLesson({ lesson: lesson2 }) {
 
 // components/MaterialiSonoriPrimiStrumentiLesson.jsx
 var lesson = {
+  model: {
+    id: "teorico-laboratoriale",
+    label: "Lezione teorico-laboratoriale",
+    theoryShare: 45,
+    practiceShare: 55
+  },
   title: "Materiali sonori e primi strumenti",
   question: "Quando un oggetto diventa davvero strumento?",
   subtitle: "Un materiale comincia a diventare strumento quando non lo guardi piu solo come cosa, ma come risorsa sonora riconoscibile, ripetibile e adatta a una funzione.",
@@ -395,6 +421,17 @@ var lesson = {
   exploration: {
     title: "Dal materiale al gesto tecnico",
     intro: "Le ricostruzioni scolastiche sulle musiche antiche mostrano famiglie di strumenti diverse, ma tutte nascono da un principio semplice: scegliere un materiale e usarlo in modo controllato.",
+    layout: "essay-side",
+    cardsPosition: "after",
+    side: {
+      type: "terms",
+      items: [
+        { term: "Materiale", text: "Cio che vibra o risuona.", example: "pietra / osso / pelle" },
+        { term: "Gesto", text: "L'azione che attiva il materiale.", example: "battere / scuotere / soffiare" },
+        { term: "Timbro", text: "Il carattere del suono prodotto.", example: "secco / lungo / ruvido" },
+        { term: "Funzione", text: "Il motivo per cui il gruppo riusa quel suono.", example: "richiamo / ritmo" }
+      ]
+    },
     cards: [
       {
         title: "Percuotere",
@@ -414,8 +451,10 @@ var lesson = {
     ],
     paragraphs: [
       "Le fonti consultate ricordano strumenti a fiato, percussioni e corde gia presenti nel mondo antico: flauti, trombe, tamburi, arpe, cimbali. Questo non significa che all'inizio esistessero gia forme complesse, ma che la strada passa dalla scoperta delle proprieta sonore dei materiali.",
-      "Per parlare dei primi strumenti conviene quindi usare quattro parole insieme: materiale, gesto, timbro, funzione. Un oggetto diventa strumento quando il gruppo riconosce che puo produrre un suono ripetibile e utile in una situazione."
+      "Per parlare dei primi strumenti conviene quindi usare quattro parole insieme: materiale, gesto, timbro, funzione. Un oggetto diventa strumento quando il gruppo riconosce che puo produrre un suono ripetibile e utile in una situazione.",
+      "Qui la teoria deve servire subito all'azione: capire bene queste quattro parole ti permette poi di classificare, confrontare e progettare meglio."
     ],
+    questionsTitle: "Domande di passaggio",
     questions: [
       "Che differenza c'e tra oggetto sonoro e strumento?",
       "Il materiale conta piu del gesto o il gesto conta quanto il materiale?",
@@ -444,7 +483,7 @@ var lesson = {
   },
   active: {
     title: "Costruisci una tassonomia minima",
-    intro: "Prendi materiali, gesti e funzioni e prova a ordinarli in una piccola mappa: non una lista di nomi, ma un sistema per capire come nasce uno strumento.",
+    intro: "Qui il lavoro diventa piu operativo: prendi materiali, gesti e funzioni e ordina tutto in una tassonomia leggibile, come se stessi preparando una piccola tavola di laboratorio.",
     cardTitle: "Metti in relazione materia e gesto",
     meta: [
       { label: "Durata", value: "15 minuti" },
@@ -483,23 +522,25 @@ var lesson = {
         ]
       },
       {
-        title: "Esempi da confrontare",
-        kind: "cards",
-        columns: 2,
+        title: "Dal materiale allo strumento",
+        kind: "timeline",
         items: [
-          { title: "Pietre battute", caption: "Due superfici dure costruiscono un ritmo netto.", chips: ["percussione", "tempo"] },
-          { title: "Semi in contenitore", caption: "Lo scuotimento crea continuita e grana sonora.", chips: ["movimento", "energia"] },
-          { title: "Osso o canna forata", caption: "Il soffio permette un segnale piu lungo e direzionato.", chips: ["aria", "richiamo"] },
-          { title: "Pelle tesa", caption: "La membrana stabilizza il colpo e rende il battito piu leggibile.", chips: ["membrana", "gruppo"] }
+          { label: "01", title: "Scegli la materia", text: "Parti da cio che vibra, risuona o si tende piu facilmente.", note: "materiale" },
+          { label: "02", title: "Associa un gesto", text: "Battere, scuotere o soffiare cambiano radicalmente il risultato.", note: "azione" },
+          { label: "03", title: "Ascolta il timbro", text: "Il suono puo essere secco, continuo, granulare o risonante.", note: "timbro" },
+          { label: "04", title: "Dai una funzione", text: "Solo allora l'oggetto comincia a servire davvero al gruppo.", note: "uso" }
         ]
       }
     ],
+    promptsTitle: "Controlla la classificazione",
     prompts: [
       "Quale materiale ti sembra piu facile da trasformare in strumento?",
       "Quale funzione spiega meglio la conservazione di un oggetto sonoro?",
       "Perche uno stesso materiale puo dare risultati molto diversi?"
     ]
   },
+  followupTitle: "Dopo il concetto, porta la materia verso una classificazione operativa",
+  followupIntro: "Qui teoria e pratica restano intrecciate: chiarisci il lessico essenziale e poi lo usi per costruire tavola, confronto e verifica tecnica.",
   followupDefault: "produzione",
   followups: {
     rielaborazione: {

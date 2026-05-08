@@ -43,16 +43,41 @@ Accordia/
 9. Novecento delle rivoluzioni
 10. Musica contemporanea
 
-## Modello obbligatorio di ogni nucleo
+## Fasi delle lezioni immersive
 
-1. SCINTILLA
-2. ROTTA
-3. ORECCHIO
-4. GRAFO
-5. CANTIERE
-6. VARCO
-7. RIBALTA
-8. SPECCHIO
+Le lezioni immersive del nucleo `Origini del suono` usano sempre queste otto fasi:
+
+1. Apertura
+2. Esplorazione
+3. Comprensione attiva
+4. Rielaborazione
+5. Produzione
+6. Condivisione
+7. Valutazione
+8. Chiusura
+
+## Campi editoriali storici del renderer
+
+Nel dataset editoriale di `scripts/render_nuclei.py` sono ancora presenti anche i campi:
+
+1. Scintilla
+2. Rotta
+3. Orecchio
+4. Grafo
+5. Cantiere
+6. Varco
+7. Ribalta
+8. Specchio
+
+Questi campi servono alla struttura storica del renderer e alla descrizione dei nodi, ma non vanno usati per rinominare le fasi delle lezioni immersive.
+
+## Modelli interni delle lezioni immersive
+
+- lezione laboratoriale
+- lezione teorico-esplorativa
+- lezione storico-sociale / interpretativa
+- lezione teorico-laboratoriale
+- lezione di sintesi-transizione
 
 ## Principi editoriali
 

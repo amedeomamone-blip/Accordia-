@@ -224,6 +224,9 @@ function TermBoard({ items }) {
 function FlowBoard({ items, ariaLabel }) {
   return /* @__PURE__ */ React2.createElement("div", { className: "lesson-flow-card", "aria-label": ariaLabel }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-flow-card__steps" }, items.map((item, index) => /* @__PURE__ */ React2.createElement(React2.Fragment, { key: item }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-flow-card__node" }, item), index < items.length - 1 ? /* @__PURE__ */ React2.createElement("span", { className: "lesson-flow-card__arrow" }, "\u2192") : null))));
 }
+function TimelineBoard({ items, ariaLabel }) {
+  return /* @__PURE__ */ React2.createElement("div", { className: "lesson-timeline-board", "aria-label": ariaLabel }, items.map((item, index) => /* @__PURE__ */ React2.createElement("div", { key: `${item.title}-${index}`, className: "lesson-timeline-board__row" }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-timeline-board__marker" }, /* @__PURE__ */ React2.createElement("span", null, item.label || String(index + 1).padStart(2, "0"))), /* @__PURE__ */ React2.createElement("div", { className: "lesson-timeline-board__content" }, /* @__PURE__ */ React2.createElement("strong", null, item.title), item.text ? /* @__PURE__ */ React2.createElement("p", null, item.text) : null, item.note ? /* @__PURE__ */ React2.createElement("div", { className: "lesson-term-list__example" }, item.note) : null))));
+}
 function EvidenceStrip({ items }) {
   return /* @__PURE__ */ React2.createElement("div", { className: "lesson-evidence-strip" }, items.map((item) => /* @__PURE__ */ React2.createElement("article", { key: item.title, className: "lesson-evidence" }, item.image ? /* @__PURE__ */ React2.createElement("div", { className: "lesson-evidence__media" }, /* @__PURE__ */ React2.createElement("img", { src: item.image.src, alt: item.image.alt })) : null, /* @__PURE__ */ React2.createElement("div", { className: "lesson-evidence__copy" }, item.label ? /* @__PURE__ */ React2.createElement("p", { className: "lesson-mini-title" }, item.label) : null, /* @__PURE__ */ React2.createElement("strong", null, item.title), /* @__PURE__ */ React2.createElement("p", null, item.body)))));
 }
@@ -240,6 +243,9 @@ function VisualSpec({ spec, fallbackTotal = 30 }) {
   if (spec.type === "flow") {
     return /* @__PURE__ */ React2.createElement(FlowBoard, { items: spec.items, ariaLabel: spec.ariaLabel || "Schema di lavoro" });
   }
+  if (spec.type === "timeline") {
+    return /* @__PURE__ */ React2.createElement(TimelineBoard, { items: spec.items, ariaLabel: spec.ariaLabel || "Sequenza essenziale" });
+  }
   if (spec.type === "terms") {
     return /* @__PURE__ */ React2.createElement(TermBoard, { items: spec.items });
   }
@@ -255,6 +261,9 @@ function PanelContent({ panel }) {
   if (panel.kind === "terms") {
     return /* @__PURE__ */ React2.createElement(TermBoard, { items: panel.items });
   }
+  if (panel.kind === "timeline") {
+    return /* @__PURE__ */ React2.createElement(TimelineBoard, { items: panel.items, ariaLabel: panel.ariaLabel || panel.title || "Sequenza essenziale" });
+  }
   if (panel.kind === "prompts") {
     return /* @__PURE__ */ React2.createElement(PromptList, { items: panel.items });
   }
@@ -262,6 +271,16 @@ function PanelContent({ panel }) {
     return /* @__PURE__ */ React2.createElement("div", { className: "lesson-stack" }, panel.paragraphs.map((paragraph) => /* @__PURE__ */ React2.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph)));
   }
   return null;
+}
+function PanelCollection({ panels }) {
+  if (!panels?.length) {
+    return null;
+  }
+  if (panels.length === 1) {
+    const panel = panels[0];
+    return /* @__PURE__ */ React2.createElement(Panel, { title: panel.title }, /* @__PURE__ */ React2.createElement(PanelContent, { panel }));
+  }
+  return /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-card-grid", panels.length === 2 ? "lesson-card-grid--two" : "lesson-card-grid--three") }, panels.map((panel) => /* @__PURE__ */ React2.createElement(Panel, { key: panel.title, title: panel.title }, /* @__PURE__ */ React2.createElement(PanelContent, { panel }))));
 }
 function OpeningSection({ lesson: lesson2 }) {
   return /* @__PURE__ */ React2.createElement(LessonSection, { id: "apertura", title: lesson2.opening.title, intro: lesson2.opening.intro }, /* @__PURE__ */ React2.createElement(Panel, { title: lesson2.opening.cardTitle, meta: lesson2.opening.meta }, /* @__PURE__ */ React2.createElement(
@@ -276,12 +295,13 @@ function OpeningSection({ lesson: lesson2 }) {
 }
 function ExplorationSection({ lesson: lesson2 }) {
   const exploration = lesson2.exploration;
-  return /* @__PURE__ */ React2.createElement(LessonSection, { id: "esplorazione", title: exploration.title, intro: exploration.intro, tone: "soft" }, exploration.cards?.length ? /* @__PURE__ */ React2.createElement(KeyCardGrid, { items: exploration.cards, columns: exploration.cardsColumns || 3 }) : null, /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-grid", exploration.flow?.length && "lesson-grid--two") }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-stack" }, exploration.paragraphs.map((paragraph) => /* @__PURE__ */ React2.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph)), exploration.questions?.length ? /* @__PURE__ */ React2.createElement(PromptList, { title: "Osserva", items: exploration.questions }) : null), exploration.flow?.length ? /* @__PURE__ */ React2.createElement(FlowBoard, { items: exploration.flow, ariaLabel: exploration.flowLabel || "Passaggi principali dell'argomento" }) : null), exploration.evidence?.length ? /* @__PURE__ */ React2.createElement(EvidenceStrip, { items: exploration.evidence }) : null, exploration.panels?.length ? /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-card-grid", exploration.panels.length === 2 ? "lesson-card-grid--two" : "lesson-card-grid--three") }, exploration.panels.map((panel) => /* @__PURE__ */ React2.createElement(Panel, { key: panel.title, title: panel.title }, /* @__PURE__ */ React2.createElement(PanelContent, { panel })))) : null);
+  const cards = exploration.cards?.length ? /* @__PURE__ */ React2.createElement(KeyCardGrid, { items: exploration.cards, columns: exploration.cardsColumns || 3 }) : null;
+  const side = exploration.side ? /* @__PURE__ */ React2.createElement(VisualSpec, { spec: exploration.side }) : exploration.flow?.length ? /* @__PURE__ */ React2.createElement(FlowBoard, { items: exploration.flow, ariaLabel: exploration.flowLabel || "Passaggi principali dell'argomento" }) : null;
+  const copy = /* @__PURE__ */ React2.createElement("div", { className: "lesson-stack" }, exploration.paragraphs.map((paragraph) => /* @__PURE__ */ React2.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph)), exploration.questions?.length ? /* @__PURE__ */ React2.createElement(PromptList, { title: exploration.questionsTitle || "Osserva", items: exploration.questions }) : null);
+  return /* @__PURE__ */ React2.createElement(LessonSection, { id: "esplorazione", title: exploration.title, intro: exploration.intro, tone: "soft" }, exploration.cardsPosition !== "after" ? cards : null, side ? /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-grid", exploration.layout === "essay-side" ? "lesson-grid--asym" : "lesson-grid--two") }, copy, side) : copy, exploration.cardsPosition === "after" ? cards : null, exploration.evidence?.length ? /* @__PURE__ */ React2.createElement(EvidenceStrip, { items: exploration.evidence }) : null, /* @__PURE__ */ React2.createElement(PanelCollection, { panels: exploration.panels }));
 }
 function ActiveSection({ lesson: lesson2 }) {
   const active = lesson2.active;
-  const hasPanels = active.panels?.length;
-  const panelClass = active.panels?.length === 2 ? "lesson-card-grid--two" : active.panels?.length === 4 ? "lesson-card-grid--four" : "lesson-card-grid--three";
   return /* @__PURE__ */ React2.createElement(LessonSection, { id: "comprensione-attiva", title: active.title, intro: active.intro }, /* @__PURE__ */ React2.createElement(Panel, { title: active.cardTitle, meta: active.meta }, /* @__PURE__ */ React2.createElement(
     ActivityLayout,
     {
@@ -290,7 +310,7 @@ function ActiveSection({ lesson: lesson2 }) {
       result: active.result,
       right: /* @__PURE__ */ React2.createElement(VisualSpec, { spec: active.side, fallbackTotal: active.timerTotal || 45 })
     }
-  )), hasPanels ? /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-card-grid", panelClass) }, active.panels.map((panel) => /* @__PURE__ */ React2.createElement(Panel, { key: panel.title, title: panel.title }, /* @__PURE__ */ React2.createElement(PanelContent, { panel })))) : null, active.prompts?.length ? /* @__PURE__ */ React2.createElement(Panel, { title: active.promptsTitle || "Ascolto interno" }, /* @__PURE__ */ React2.createElement(PromptList, { items: active.prompts })) : null);
+  )), /* @__PURE__ */ React2.createElement(PanelCollection, { panels: active.panels }), active.prompts?.length ? /* @__PURE__ */ React2.createElement(Panel, { title: active.promptsTitle || "Ascolto interno" }, /* @__PURE__ */ React2.createElement(PromptList, { items: active.prompts })) : null);
 }
 function FollowupSection({ lesson: lesson2, selected, onSelect }) {
   const phase = lesson2.followups[selected];
@@ -310,7 +330,7 @@ function FollowupSection({ lesson: lesson2, selected, onSelect }) {
 function OriginiTopicLesson({ lesson: lesson2 }) {
   const activeId = useActiveSection(["apertura", "esplorazione", "comprensione-attiva", "rielaborazione"]);
   const [selectedFollowup, setSelectedFollowup] = useState2(lesson2.followupDefault || "produzione");
-  return /* @__PURE__ */ React2.createElement("div", { className: "lesson-editorial-page" }, /* @__PURE__ */ React2.createElement(
+  return /* @__PURE__ */ React2.createElement("div", { className: "lesson-editorial-page", "data-lesson-model": lesson2.model?.id || "" }, /* @__PURE__ */ React2.createElement(
     LessonHero,
     {
       title: lesson2.title,
@@ -343,6 +363,12 @@ function OriginiTopicLesson({ lesson: lesson2 }) {
 
 // components/DalleOriginiAlMondoAnticoLesson.jsx
 var lesson = {
+  model: {
+    id: "sintesi-transizione",
+    label: "Lezione di sintesi-transizione",
+    theoryShare: 70,
+    practiceShare: 30
+  },
   title: "Dalle origini al mondo antico",
   question: "Che cosa cambia quando il suono esce dalle origini e entra nella storia delle prime civilta?",
   subtitle: "Le pratiche elementari non scompaiono: si stabilizzano, si specializzano e lasciano tracce piu leggibili in strumenti, immagini, usi sociali e prime forme di scrittura.",
@@ -395,27 +421,43 @@ var lesson = {
   exploration: {
     title: "Che cosa resta, che cosa cambia",
     intro: "Le fonti consultate mostrano continuita forti: il suono resta legato a rito, guerra, banchetto, danza e comunita. Cambiano pero la specializzazione degli strumenti e la quantita di tracce disponibili.",
-    cards: [
-      {
-        title: "Continuita",
-        caption: "Corpo, voce, gesto collettivo e funzione sociale non spariscono: continuano a sostenere il suono anche nelle civilta antiche.",
-        chips: ["gruppo", "voce", "rito"]
-      },
-      {
-        title: "Specializzazione",
-        caption: "Gli strumenti si differenziano di piu e appaiono contesti d'uso piu definiti: cortei, teatro, guerra, banchetto, culto.",
-        chips: ["arpa", "flauto", "tromba"]
-      },
-      {
-        title: "Memoria storica",
-        caption: "Immagini, testi, teoria e prime scritture rendono il suono piu leggibile rispetto alla sola ricostruzione ipotetica delle origini.",
-        chips: ["immagini", "testi", "scrittura"]
-      }
-    ],
+    layout: "essay-side",
+    side: {
+      type: "timeline",
+      ariaLabel: "Sequenza di passaggio dalle origini al mondo antico",
+      items: [
+        {
+          label: "01",
+          title: "Origini sonore",
+          text: "Corpo, gruppo, ambiente e funzione pratica aprono il nucleo del suono organizzato.",
+          note: "inizio"
+        },
+        {
+          label: "02",
+          title: "Rito e funzione sociale",
+          text: "Il suono diventa memoria, appartenenza, coordinazione e gesto simbolico condiviso.",
+          note: "gruppo"
+        },
+        {
+          label: "03",
+          title: "Strumenti e tracce stabili",
+          text: "Materia, gesto tecnico e documenti rendono il paesaggio sonoro piu leggibile.",
+          note: "traccia"
+        },
+        {
+          label: "04",
+          title: "Mondo antico",
+          text: "Civilta, cerimonie, banchetti, guerra e prime scritture musicali ampliano la documentazione.",
+          note: "soglia"
+        }
+      ]
+    },
     paragraphs: [
       "La sintesi storica consultata ricorda che della musica delle origini non possediamo testimonianze dirette, mentre nel mondo antico compaiono raffigurazioni di strumenti, descrizioni di usi cerimoniali e, per i Greci, anche una delle scritture musicali piu antiche di cui abbiamo traccia.",
-      "Il passaggio, quindi, non cancella cio che hai studiato. Lo rende piu articolato: il suono continua a servire al gruppo, ma entra anche in contesti politici, religiosi, teatrali e celebrativi piu riconoscibili."
+      "Il passaggio, quindi, non cancella cio che hai studiato. Lo rende piu articolato: il suono continua a servire al gruppo, ma entra anche in contesti politici, religiosi, teatrali e celebrativi piu riconoscibili.",
+      "Questa lezione funziona come una soglia: non aggiunge un nuovo blocco isolato, ma rimette in ordine tutto il nucleo per preparare il capitolo successivo."
     ],
+    questionsTitle: "Domande di sintesi",
     questions: [
       "Quale elemento del nucleo resta piu stabile anche nel mondo antico?",
       "Che cosa rende il mondo antico piu documentabile della preistoria sonora?",
@@ -424,13 +466,12 @@ var lesson = {
     panels: [
       {
         title: "Snodi del passaggio",
-        kind: "cards",
-        columns: 2,
+        kind: "terms",
         items: [
-          { title: "Da oralita a tracce", caption: "Non solo memoria del gruppo, ma anche immagini e testi.", chips: ["documento", "fonte"] },
-          { title: "Da oggetto a strumento", caption: "Il gesto tecnico diventa piu riconoscibile e specializzato.", chips: ["uso", "famiglia"] },
-          { title: "Da comunita a civilta", caption: "Il suono entra in spazi politici, religiosi e spettacolari piu complessi.", chips: ["corteo", "teatro"] },
-          { title: "Da funzione a sistema", caption: "Richiamo, rito e festa restano, ma si organizzano in pratiche piu stabili.", chips: ["ordine", "ruolo"] }
+          { term: "Da oralita a tracce", text: "Non solo memoria del gruppo, ma anche immagini, testi e strumenti riconoscibili.", example: "fonte" },
+          { term: "Da oggetto a strumento", text: "Il gesto tecnico diventa piu definito e ripetibile.", example: "uso" },
+          { term: "Da comunita a civilta", text: "Il suono entra in spazi politici, religiosi e spettacolari piu complessi.", example: "contesto" },
+          { term: "Da funzione a sistema", text: "Richiamo, rito e festa restano, ma si organizzano in pratiche piu stabili.", example: "ordine" }
         ]
       },
       {
@@ -444,10 +485,10 @@ var lesson = {
   },
   active: {
     title: "Costruisci la pagina-ponte del nucleo",
-    intro: "Usa tutto quello che hai attraversato nel nucleo per creare una soglia chiara: che cosa ti porti dalle origini e che cosa anticipi del Mediterraneo antico?",
+    intro: "Qui l'attivita resta breve ma strutturante: usa tutto il nucleo per creare una soglia chiara, ordinata e leggibile verso il Mediterraneo antico.",
     cardTitle: "Collega origini e civilta",
     meta: [
-      { label: "Durata", value: "15 minuti" },
+      { label: "Durata", value: "10 minuti" },
       { label: "Ti serve", value: "scheda, timeline, parole chiave" },
       { label: "Alla fine", value: "una sintesi pronta per il nucleo successivo" }
     ],
@@ -464,11 +505,11 @@ var lesson = {
     ],
     result: "La tua pagina-ponte rende leggibile il passaggio dalle origini al mondo antico.",
     side: {
-      type: "terms",
+      type: "timeline",
       items: [
-        { term: "Continuita", text: "Cio che resta vivo passando da un contesto all'altro.", example: "gruppo / rito / gesto" },
-        { term: "Trasformazione", text: "Cio che si specializza o si documenta meglio.", example: "strumento / scrittura" },
-        { term: "Soglia", text: "Il punto in cui un tema cambia senza sparire.", example: "origini -> civilta" }
+        { label: "A", title: "Continuita", text: "Che cosa resta vivo passando da un contesto all'altro?", note: "gruppo / rito / gesto" },
+        { label: "B", title: "Trasformazione", text: "Che cosa si specializza o si documenta meglio entrando nel mondo antico?", note: "strumento / scrittura" },
+        { label: "C", title: "Soglia", text: "Quale frase permette di passare al nucleo successivo senza ricominciare da zero?", note: "origini -> civilta" }
       ]
     },
     panels: [
@@ -483,24 +524,26 @@ var lesson = {
         ]
       },
       {
-        title: "Casi di passaggio",
-        kind: "cards",
-        columns: 2,
+        title: "Timeline ponte",
+        kind: "timeline",
         items: [
-          { title: "Dal richiamo alla tromba", caption: "Una funzione antica si stabilizza in strumenti piu definiti.", chips: ["segnale", "fiato"] },
-          { title: "Dal gesto comune al coro", caption: "La partecipazione collettiva assume forme piu organizzate.", chips: ["voce", "insieme"] },
-          { title: "Dall'oggetto sonoro alla famiglia strumentale", caption: "La materia viene riconosciuta e specializzata.", chips: ["tecnica", "timbro"] },
-          { title: "Dalla ricostruzione alla fonte", caption: "L'ipotesi lascia piu spazio al documento storico.", chips: ["immagine", "testo"] }
+          { label: "1", title: "Ritmo e gesto comune", text: "Il battito condiviso resta sotto molte pratiche del mondo antico.", note: "continuita" },
+          { label: "2", title: "Funzioni sociali piu leggibili", text: "Segnale, celebrazione e rito entrano in contesti piu definiti.", note: "uso" },
+          { label: "3", title: "Strumenti piu specializzati", text: "Flauti, trombe, arpe e percussioni stabilizzano materia e funzione.", note: "strumento" },
+          { label: "4", title: "Prime scritture e teorie", text: "Il suono lascia tracce storiche piu solide e piu descrivibili.", note: "fonte" }
         ]
       }
     ],
+    promptsTitle: "Verifica la soglia",
     prompts: [
       "Quale lezione del nucleo ti sembra la piu utile per capire il passaggio?",
       "Quale parola useresti per spiegare il mondo antico senza ricominciare da zero?",
       "Che cosa resta umano e corporeo anche quando la musica diventa piu organizzata?"
     ]
   },
-  followupDefault: "produzione",
+  followupTitle: "Qui il lavoro serve a chiudere e aprire insieme",
+  followupIntro: "Questa lezione e soprattutto di sintesi e transizione: ordina il nucleo, prepara una timeline-ponte e rende piu forte la frase finale che introduce il Mediterraneo antico.",
+  followupDefault: "chiusura",
   followups: {
     rielaborazione: {
       label: "Rielaborazione",

@@ -2,6 +2,12 @@ import React from "https://esm.sh/react@18";
 import OriginiTopicLesson from "./OriginiTopicLessonTemplate.module.js";
 
 const lesson = {
+  model: {
+    id: "teorico-laboratoriale",
+    label: "Lezione teorico-laboratoriale",
+    theoryShare: 45,
+    practiceShare: 55,
+  },
   title: "Materiali sonori e primi strumenti",
   question: "Quando un oggetto diventa davvero strumento?",
   subtitle:
@@ -58,6 +64,17 @@ const lesson = {
     title: "Dal materiale al gesto tecnico",
     intro:
       "Le ricostruzioni scolastiche sulle musiche antiche mostrano famiglie di strumenti diverse, ma tutte nascono da un principio semplice: scegliere un materiale e usarlo in modo controllato.",
+    layout: "essay-side",
+    cardsPosition: "after",
+    side: {
+      type: "terms",
+      items: [
+        { term: "Materiale", text: "Cio che vibra o risuona.", example: "pietra / osso / pelle" },
+        { term: "Gesto", text: "L'azione che attiva il materiale.", example: "battere / scuotere / soffiare" },
+        { term: "Timbro", text: "Il carattere del suono prodotto.", example: "secco / lungo / ruvido" },
+        { term: "Funzione", text: "Il motivo per cui il gruppo riusa quel suono.", example: "richiamo / ritmo" },
+      ],
+    },
     cards: [
       {
         title: "Percuotere",
@@ -78,7 +95,9 @@ const lesson = {
     paragraphs: [
       "Le fonti consultate ricordano strumenti a fiato, percussioni e corde gia presenti nel mondo antico: flauti, trombe, tamburi, arpe, cimbali. Questo non significa che all'inizio esistessero gia forme complesse, ma che la strada passa dalla scoperta delle proprieta sonore dei materiali.",
       "Per parlare dei primi strumenti conviene quindi usare quattro parole insieme: materiale, gesto, timbro, funzione. Un oggetto diventa strumento quando il gruppo riconosce che puo produrre un suono ripetibile e utile in una situazione.",
+      "Qui la teoria deve servire subito all'azione: capire bene queste quattro parole ti permette poi di classificare, confrontare e progettare meglio.",
     ],
+    questionsTitle: "Domande di passaggio",
     questions: [
       "Che differenza c'e tra oggetto sonoro e strumento?",
       "Il materiale conta piu del gesto o il gesto conta quanto il materiale?",
@@ -108,7 +127,7 @@ const lesson = {
   active: {
     title: "Costruisci una tassonomia minima",
     intro:
-      "Prendi materiali, gesti e funzioni e prova a ordinarli in una piccola mappa: non una lista di nomi, ma un sistema per capire come nasce uno strumento.",
+      "Qui il lavoro diventa piu operativo: prendi materiali, gesti e funzioni e ordina tutto in una tassonomia leggibile, come se stessi preparando una piccola tavola di laboratorio.",
     cardTitle: "Metti in relazione materia e gesto",
     meta: [
       { label: "Durata", value: "15 minuti" },
@@ -147,23 +166,26 @@ const lesson = {
         ],
       },
       {
-        title: "Esempi da confrontare",
-        kind: "cards",
-        columns: 2,
+        title: "Dal materiale allo strumento",
+        kind: "timeline",
         items: [
-          { title: "Pietre battute", caption: "Due superfici dure costruiscono un ritmo netto.", chips: ["percussione", "tempo"] },
-          { title: "Semi in contenitore", caption: "Lo scuotimento crea continuita e grana sonora.", chips: ["movimento", "energia"] },
-          { title: "Osso o canna forata", caption: "Il soffio permette un segnale piu lungo e direzionato.", chips: ["aria", "richiamo"] },
-          { title: "Pelle tesa", caption: "La membrana stabilizza il colpo e rende il battito piu leggibile.", chips: ["membrana", "gruppo"] },
+          { label: "01", title: "Scegli la materia", text: "Parti da cio che vibra, risuona o si tende piu facilmente.", note: "materiale" },
+          { label: "02", title: "Associa un gesto", text: "Battere, scuotere o soffiare cambiano radicalmente il risultato.", note: "azione" },
+          { label: "03", title: "Ascolta il timbro", text: "Il suono puo essere secco, continuo, granulare o risonante.", note: "timbro" },
+          { label: "04", title: "Dai una funzione", text: "Solo allora l'oggetto comincia a servire davvero al gruppo.", note: "uso" },
         ],
       },
     ],
+    promptsTitle: "Controlla la classificazione",
     prompts: [
       "Quale materiale ti sembra piu facile da trasformare in strumento?",
       "Quale funzione spiega meglio la conservazione di un oggetto sonoro?",
       "Perche uno stesso materiale puo dare risultati molto diversi?",
     ],
   },
+  followupTitle: "Dopo il concetto, porta la materia verso una classificazione operativa",
+  followupIntro:
+    "Qui teoria e pratica restano intrecciate: chiarisci il lessico essenziale e poi lo usi per costruire tavola, confronto e verifica tecnica.",
   followupDefault: "produzione",
   followups: {
     rielaborazione: {

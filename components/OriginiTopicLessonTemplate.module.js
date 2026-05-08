@@ -37,6 +37,9 @@ function TermBoard({ items }) {
 function FlowBoard({ items, ariaLabel }) {
   return /* @__PURE__ */ React.createElement("div", { className: "lesson-flow-card", "aria-label": ariaLabel }, /* @__PURE__ */ React.createElement("div", { className: "lesson-flow-card__steps" }, items.map((item, index) => /* @__PURE__ */ React.createElement(React.Fragment, { key: item }, /* @__PURE__ */ React.createElement("div", { className: "lesson-flow-card__node" }, item), index < items.length - 1 ? /* @__PURE__ */ React.createElement("span", { className: "lesson-flow-card__arrow" }, "\u2192") : null))));
 }
+function TimelineBoard({ items, ariaLabel }) {
+  return /* @__PURE__ */ React.createElement("div", { className: "lesson-timeline-board", "aria-label": ariaLabel }, items.map((item, index) => /* @__PURE__ */ React.createElement("div", { key: `${item.title}-${index}`, className: "lesson-timeline-board__row" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-timeline-board__marker" }, /* @__PURE__ */ React.createElement("span", null, item.label || String(index + 1).padStart(2, "0"))), /* @__PURE__ */ React.createElement("div", { className: "lesson-timeline-board__content" }, /* @__PURE__ */ React.createElement("strong", null, item.title), item.text ? /* @__PURE__ */ React.createElement("p", null, item.text) : null, item.note ? /* @__PURE__ */ React.createElement("div", { className: "lesson-term-list__example" }, item.note) : null))));
+}
 function EvidenceStrip({ items }) {
   return /* @__PURE__ */ React.createElement("div", { className: "lesson-evidence-strip" }, items.map((item) => /* @__PURE__ */ React.createElement("article", { key: item.title, className: "lesson-evidence" }, item.image ? /* @__PURE__ */ React.createElement("div", { className: "lesson-evidence__media" }, /* @__PURE__ */ React.createElement("img", { src: item.image.src, alt: item.image.alt })) : null, /* @__PURE__ */ React.createElement("div", { className: "lesson-evidence__copy" }, item.label ? /* @__PURE__ */ React.createElement("p", { className: "lesson-mini-title" }, item.label) : null, /* @__PURE__ */ React.createElement("strong", null, item.title), /* @__PURE__ */ React.createElement("p", null, item.body)))));
 }
@@ -53,6 +56,9 @@ function VisualSpec({ spec, fallbackTotal = 30 }) {
   if (spec.type === "flow") {
     return /* @__PURE__ */ React.createElement(FlowBoard, { items: spec.items, ariaLabel: spec.ariaLabel || "Schema di lavoro" });
   }
+  if (spec.type === "timeline") {
+    return /* @__PURE__ */ React.createElement(TimelineBoard, { items: spec.items, ariaLabel: spec.ariaLabel || "Sequenza essenziale" });
+  }
   if (spec.type === "terms") {
     return /* @__PURE__ */ React.createElement(TermBoard, { items: spec.items });
   }
@@ -68,6 +74,9 @@ function PanelContent({ panel }) {
   if (panel.kind === "terms") {
     return /* @__PURE__ */ React.createElement(TermBoard, { items: panel.items });
   }
+  if (panel.kind === "timeline") {
+    return /* @__PURE__ */ React.createElement(TimelineBoard, { items: panel.items, ariaLabel: panel.ariaLabel || panel.title || "Sequenza essenziale" });
+  }
   if (panel.kind === "prompts") {
     return /* @__PURE__ */ React.createElement(PromptList, { items: panel.items });
   }
@@ -75,6 +84,16 @@ function PanelContent({ panel }) {
     return /* @__PURE__ */ React.createElement("div", { className: "lesson-stack" }, panel.paragraphs.map((paragraph) => /* @__PURE__ */ React.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph)));
   }
   return null;
+}
+function PanelCollection({ panels }) {
+  if (!panels?.length) {
+    return null;
+  }
+  if (panels.length === 1) {
+    const panel = panels[0];
+    return /* @__PURE__ */ React.createElement(Panel, { title: panel.title }, /* @__PURE__ */ React.createElement(PanelContent, { panel }));
+  }
+  return /* @__PURE__ */ React.createElement("div", { className: cn("lesson-card-grid", panels.length === 2 ? "lesson-card-grid--two" : "lesson-card-grid--three") }, panels.map((panel) => /* @__PURE__ */ React.createElement(Panel, { key: panel.title, title: panel.title }, /* @__PURE__ */ React.createElement(PanelContent, { panel }))));
 }
 function OpeningSection({ lesson }) {
   return /* @__PURE__ */ React.createElement(LessonSection, { id: "apertura", title: lesson.opening.title, intro: lesson.opening.intro }, /* @__PURE__ */ React.createElement(Panel, { title: lesson.opening.cardTitle, meta: lesson.opening.meta }, /* @__PURE__ */ React.createElement(
@@ -89,12 +108,13 @@ function OpeningSection({ lesson }) {
 }
 function ExplorationSection({ lesson }) {
   const exploration = lesson.exploration;
-  return /* @__PURE__ */ React.createElement(LessonSection, { id: "esplorazione", title: exploration.title, intro: exploration.intro, tone: "soft" }, exploration.cards?.length ? /* @__PURE__ */ React.createElement(KeyCardGrid, { items: exploration.cards, columns: exploration.cardsColumns || 3 }) : null, /* @__PURE__ */ React.createElement("div", { className: cn("lesson-grid", exploration.flow?.length && "lesson-grid--two") }, /* @__PURE__ */ React.createElement("div", { className: "lesson-stack" }, exploration.paragraphs.map((paragraph) => /* @__PURE__ */ React.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph)), exploration.questions?.length ? /* @__PURE__ */ React.createElement(PromptList, { title: "Osserva", items: exploration.questions }) : null), exploration.flow?.length ? /* @__PURE__ */ React.createElement(FlowBoard, { items: exploration.flow, ariaLabel: exploration.flowLabel || "Passaggi principali dell'argomento" }) : null), exploration.evidence?.length ? /* @__PURE__ */ React.createElement(EvidenceStrip, { items: exploration.evidence }) : null, exploration.panels?.length ? /* @__PURE__ */ React.createElement("div", { className: cn("lesson-card-grid", exploration.panels.length === 2 ? "lesson-card-grid--two" : "lesson-card-grid--three") }, exploration.panels.map((panel) => /* @__PURE__ */ React.createElement(Panel, { key: panel.title, title: panel.title }, /* @__PURE__ */ React.createElement(PanelContent, { panel })))) : null);
+  const cards = exploration.cards?.length ? /* @__PURE__ */ React.createElement(KeyCardGrid, { items: exploration.cards, columns: exploration.cardsColumns || 3 }) : null;
+  const side = exploration.side ? /* @__PURE__ */ React.createElement(VisualSpec, { spec: exploration.side }) : exploration.flow?.length ? /* @__PURE__ */ React.createElement(FlowBoard, { items: exploration.flow, ariaLabel: exploration.flowLabel || "Passaggi principali dell'argomento" }) : null;
+  const copy = /* @__PURE__ */ React.createElement("div", { className: "lesson-stack" }, exploration.paragraphs.map((paragraph) => /* @__PURE__ */ React.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph)), exploration.questions?.length ? /* @__PURE__ */ React.createElement(PromptList, { title: exploration.questionsTitle || "Osserva", items: exploration.questions }) : null);
+  return /* @__PURE__ */ React.createElement(LessonSection, { id: "esplorazione", title: exploration.title, intro: exploration.intro, tone: "soft" }, exploration.cardsPosition !== "after" ? cards : null, side ? /* @__PURE__ */ React.createElement("div", { className: cn("lesson-grid", exploration.layout === "essay-side" ? "lesson-grid--asym" : "lesson-grid--two") }, copy, side) : copy, exploration.cardsPosition === "after" ? cards : null, exploration.evidence?.length ? /* @__PURE__ */ React.createElement(EvidenceStrip, { items: exploration.evidence }) : null, /* @__PURE__ */ React.createElement(PanelCollection, { panels: exploration.panels }));
 }
 function ActiveSection({ lesson }) {
   const active = lesson.active;
-  const hasPanels = active.panels?.length;
-  const panelClass = active.panels?.length === 2 ? "lesson-card-grid--two" : active.panels?.length === 4 ? "lesson-card-grid--four" : "lesson-card-grid--three";
   return /* @__PURE__ */ React.createElement(LessonSection, { id: "comprensione-attiva", title: active.title, intro: active.intro }, /* @__PURE__ */ React.createElement(Panel, { title: active.cardTitle, meta: active.meta }, /* @__PURE__ */ React.createElement(
     ActivityLayout,
     {
@@ -103,7 +123,7 @@ function ActiveSection({ lesson }) {
       result: active.result,
       right: /* @__PURE__ */ React.createElement(VisualSpec, { spec: active.side, fallbackTotal: active.timerTotal || 45 })
     }
-  )), hasPanels ? /* @__PURE__ */ React.createElement("div", { className: cn("lesson-card-grid", panelClass) }, active.panels.map((panel) => /* @__PURE__ */ React.createElement(Panel, { key: panel.title, title: panel.title }, /* @__PURE__ */ React.createElement(PanelContent, { panel })))) : null, active.prompts?.length ? /* @__PURE__ */ React.createElement(Panel, { title: active.promptsTitle || "Ascolto interno" }, /* @__PURE__ */ React.createElement(PromptList, { items: active.prompts })) : null);
+  )), /* @__PURE__ */ React.createElement(PanelCollection, { panels: active.panels }), active.prompts?.length ? /* @__PURE__ */ React.createElement(Panel, { title: active.promptsTitle || "Ascolto interno" }, /* @__PURE__ */ React.createElement(PromptList, { items: active.prompts })) : null);
 }
 function FollowupSection({ lesson, selected, onSelect }) {
   const phase = lesson.followups[selected];
@@ -123,7 +143,7 @@ function FollowupSection({ lesson, selected, onSelect }) {
 function OriginiTopicLesson({ lesson }) {
   const activeId = useActiveSection(["apertura", "esplorazione", "comprensione-attiva", "rielaborazione"]);
   const [selectedFollowup, setSelectedFollowup] = useState(lesson.followupDefault || "produzione");
-  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page" }, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page", "data-lesson-model": lesson.model?.id || "" }, /* @__PURE__ */ React.createElement(
     LessonHero,
     {
       title: lesson.title,

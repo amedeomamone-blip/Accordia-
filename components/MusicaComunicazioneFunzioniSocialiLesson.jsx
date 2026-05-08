@@ -2,6 +2,12 @@ import React from "https://esm.sh/react@18";
 import OriginiTopicLesson from "./OriginiTopicLessonTemplate.module.js";
 
 const lesson = {
+  model: {
+    id: "storico-sociale",
+    label: "Lezione storico-sociale / interpretativa",
+    theoryShare: 50,
+    practiceShare: 50,
+  },
   title: "Musica, comunicazione e funzioni sociali",
   question: "Che cosa puo fare il suono per una comunita oltre a essere bello da ascoltare?",
   subtitle:
@@ -58,6 +64,13 @@ const lesson = {
     title: "Dal richiamo alla festa",
     intro:
       "Le fonti scolastiche sulle civilta antiche mostrano che il suono accompagna sia i momenti pratici sia quelli solenni: battaglia, banchetto, danza, cerimonia.",
+    layout: "essay-side",
+    cardsPosition: "after",
+    side: {
+      type: "flow",
+      items: ["segnala", "coordina", "celebra", "ricorda"],
+      ariaLabel: "Quattro funzioni sociali del suono",
+    },
     cards: [
       {
         title: "Richiamo",
@@ -78,7 +91,9 @@ const lesson = {
     paragraphs: [
       "Le fonti sul mondo antico ricordano strumenti usati come segnali in battaglia, canti e danze nei banchetti, cori e pratiche collettive nelle cerimonie. Questo allarga il concetto di musica: non solo ascolto, ma azione nel gruppo.",
       "Per questo conviene distinguere funzione pratica e funzione simbolica senza separarle troppo: spesso lo stesso suono chiama, coordina e insieme rafforza l'identita di una comunita.",
+      "La domanda giusta, quindi, non e soltanto che suono sentiamo, ma che cosa quel suono permette di fare a una comunita in una situazione concreta.",
     ],
+    questionsTitle: "Domande di lettura",
     questions: [
       "Quando un suono funziona come segnale?",
       "Quando invece serve a tenere insieme il gruppo nel tempo?",
@@ -86,13 +101,12 @@ const lesson = {
     ],
     panels: [
       {
-        title: "Casi da riconoscere",
-        kind: "cards",
-        columns: 3,
+        title: "Tre contesti da leggere",
+        kind: "timeline",
         items: [
-          { title: "Battaglia", caption: "Segnali a fiato per orientare i movimenti.", chips: ["rapido", "forte"] },
-          { title: "Banchetto", caption: "Musica e danza per accompagnare la socialita.", chips: ["piacere", "ritmo"] },
-          { title: "Coro", caption: "Voce comune per rafforzare memoria e partecipazione.", chips: ["insieme", "testo"] },
+          { label: "01", title: "Battaglia", text: "Segnali a fiato orientano i movimenti e rendono immediato il comando.", note: "segnale" },
+          { label: "02", title: "Banchetto", text: "Musica e danza accompagnano la socialita e costruiscono il clima del momento.", note: "festa" },
+          { label: "03", title: "Coro o cerimonia", text: "La voce comune rafforza memoria, solennita e riconoscimento reciproco.", note: "memoria" },
         ],
       },
       {
@@ -146,23 +160,26 @@ const lesson = {
         ],
       },
       {
-        title: "Situazioni da confrontare",
-        kind: "cards",
-        columns: 2,
+        title: "Confronto tra contesti",
+        kind: "timeline",
         items: [
-          { title: "Caccia o spostamento", caption: "Serve orientare e sincronizzare il gruppo.", chips: ["segnale", "azione"] },
-          { title: "Festa o banchetto", caption: "Serve creare clima, piacere e partecipazione.", chips: ["danza", "socialita"] },
-          { title: "Cerimonia", caption: "Serve solennizzare e rendere memorabile un passaggio.", chips: ["formula", "coro"] },
-          { title: "Vittoria", caption: "Serve annunciare, mostrare, ricordare.", chips: ["tromba", "celebrazione"] },
+          { label: "A", title: "Caccia o spostamento", text: "Il suono orienta e sincronizza il gruppo mentre l'azione e in corso.", note: "coordinazione" },
+          { label: "B", title: "Festa o banchetto", text: "Il suono crea partecipazione, piacere e riconoscimento reciproco.", note: "celebrazione" },
+          { label: "C", title: "Cerimonia", text: "Il suono rende piu memorabile e leggibile un momento condiviso.", note: "solennita" },
+          { label: "D", title: "Vittoria", text: "Il suono annuncia, mostra e conserva nella memoria un evento del gruppo.", note: "ricordo" },
         ],
       },
     ],
+    promptsTitle: "Interpreta i casi",
     prompts: [
       "Quale funzione pratica riconosci per prima?",
       "Quale uso del suono e piu vicino alla memoria del gruppo?",
       "Dove il confine tra pratica e simbolo diventa meno netto?",
     ],
   },
+  followupTitle: "Dopo il confronto, rendi le funzioni piu leggibili",
+  followupIntro:
+    "Qui teoria e attivita restano in equilibrio: osservi i contesti, li ordini e poi li trasformi in una guida, una restituzione orale e una verifica ragionata.",
   followupDefault: "produzione",
   followups: {
     rielaborazione: {

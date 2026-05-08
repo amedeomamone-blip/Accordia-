@@ -2,6 +2,12 @@ import React from "https://esm.sh/react@18";
 import OriginiTopicLesson from "./OriginiTopicLessonTemplate.module.js";
 
 const lesson = {
+  model: {
+    id: "storico-antropologica",
+    label: "Lezione storico-antropologica",
+    theoryShare: 60,
+    practiceShare: 40,
+  },
   title: "Rito, magia e comunita",
   question: "Che cosa rende rituale una pratica sonora?",
   subtitle:
@@ -58,27 +64,37 @@ const lesson = {
     title: "Il suono come collante simbolico",
     intro:
       "Le sintesi storiche consultate ricordano che per molti popoli antichi la musica aveva un carattere sacro o magico e accompagnava momenti in cui la comunita si raccoglieva.",
-    cards: [
-      {
-        title: "Invocazione",
-        caption: "La voce o il gesto sonoro possono servire a chiamare, pregare, chiedere protezione, dare forma a una presenza condivisa.",
-        chips: ["voce", "formula", "attesa"],
-      },
-      {
-        title: "Passaggio",
-        caption: "Nascita, guarigione, morte, inizio o fine di un'azione diventano piu leggibili quando il gruppo li accompagna con una sequenza sonora riconoscibile.",
-        chips: ["inizio", "fine", "soglia"],
-      },
-      {
-        title: "Appartenenza",
-        caption: "Cantare o battere insieme non comunica solo un ordine pratico: dice anche chi siamo e a quale gruppo sentiamo di appartenere.",
-        chips: ["gruppo", "identita", "memoria"],
-      },
-    ],
+    layout: "essay-side",
+    side: {
+      type: "timeline",
+      ariaLabel: "Tre indizi della funzione rituale del suono",
+      items: [
+        {
+          label: "01",
+          title: "Invocazione",
+          text: "La voce o il gesto sonoro possono chiamare, pregare o dare forma a una presenza condivisa.",
+          note: "formula",
+        },
+        {
+          label: "02",
+          title: "Passaggio",
+          text: "Nascita, guarigione, morte, inizio o fine di un'azione diventano piu leggibili con una sequenza riconoscibile.",
+          note: "soglia",
+        },
+        {
+          label: "03",
+          title: "Appartenenza",
+          text: "Cantare o battere insieme dice chi partecipa e quale memoria comune il gruppo sta riattivando.",
+          note: "identita",
+        },
+      ],
+    },
     paragraphs: [
       "Nelle fonti scolastiche sulla musica antica ricorre un'idea forte: il suono non e solo intrattenimento, ma una presenza vicina al sacro, alla cerimonia e ai momenti intensi della vita del gruppo.",
       "Per questo conviene distinguere il rituale dalla semplice festa. In una pratica rituale contano di piu la ripetizione, la formula, il ruolo del gruppo, la memoria condivisa e il legame con un passaggio riconosciuto.",
+      "Questa lezione, quindi, non chiede prima di tutto di fare, ma di interpretare: capire quali indizi trasformano un gesto collettivo in una pratica simbolica.",
     ],
+    questionsTitle: "Domande di interpretazione",
     questions: [
       "Quale indizio ti fa pensare che un suono sia rituale?",
       "Che differenza c'e tra ripetere per giocare e ripetere per dare forma a un momento collettivo?",
@@ -87,13 +103,12 @@ const lesson = {
     panels: [
       {
         title: "Indicatori del rituale",
-        kind: "cards",
-        columns: 2,
+        kind: "terms",
         items: [
-          { title: "Formula stabile", caption: "Parole, colpi o accenti tornano uguali.", chips: ["ritorno", "memoria"] },
-          { title: "Entrata comune", caption: "Il gruppo parte insieme e si riconosce subito.", chips: ["coralita", "sincronia"] },
-          { title: "Contesto marcato", caption: "Il suono accompagna una soglia o una cerimonia.", chips: ["passaggio", "solennita"] },
-          { title: "Valore simbolico", caption: "Il gesto non serve solo a fare, ma anche a significare.", chips: ["credenza", "identita"] },
+          { term: "Formula stabile", text: "Parole, colpi o accenti tornano quasi uguali e diventano riconoscibili.", example: "ritorno" },
+          { term: "Entrata comune", text: "Il gruppo parte insieme e si riconosce dentro un gesto collettivo.", example: "coralita" },
+          { term: "Contesto marcato", text: "Il suono accompagna una soglia o una cerimonia.", example: "passaggio" },
+          { term: "Valore simbolico", text: "Il gesto non serve solo a fare, ma anche a significare.", example: "credenza" },
         ],
       },
       {
@@ -108,10 +123,10 @@ const lesson = {
   active: {
     title: "Confronta rito, festa e segnale",
     intro:
-      "Prendi situazioni diverse e prova a capire che cosa cambia: quando il suono organizza, quando celebra, quando rende un passaggio simbolicamente condiviso.",
+      "Prendi situazioni diverse e prova a capire che cosa cambia: qui la comprensione attiva resta soprattutto analitica, perche devi motivare ogni scelta con un indizio preciso.",
     cardTitle: "Leggi la funzione del suono",
     meta: [
-      { label: "Durata", value: "15 minuti" },
+      { label: "Durata", value: "12 minuti" },
       { label: "Ti serve", value: "scheda, esempi, parole chiave" },
       { label: "Alla fine", value: "una distinzione piu precisa tra usi del suono" },
     ],
@@ -147,24 +162,27 @@ const lesson = {
         ],
       },
       {
-        title: "Situazioni da separare",
-        kind: "cards",
-        columns: 2,
+        title: "Criteri di distinzione",
+        kind: "timeline",
         items: [
-          { title: "Richiamo rapido", caption: "Serve a farsi capire subito dal gruppo.", chips: ["segnale", "azione"] },
-          { title: "Danza festiva", caption: "Serve a creare partecipazione e piacere condiviso.", chips: ["festa", "clima"] },
-          { title: "Cerimonia", caption: "Serve a rendere visibile un passaggio comune.", chips: ["rito", "soglia"] },
-          { title: "Invocazione corale", caption: "Serve a dare forma a una credenza o a una richiesta condivisa.", chips: ["voce", "formula"] },
+          { label: "A", title: "Segnale", text: "Conta l'immediatezza: il suono orienta un'azione rapida del gruppo.", note: "subito" },
+          { label: "B", title: "Festa", text: "Conta il clima condiviso: il suono costruisce partecipazione e piacere collettivo.", note: "clima" },
+          { label: "C", title: "Rito", text: "Conta il valore simbolico: il suono accompagna una soglia, una formula o una credenza.", note: "simbolo" },
+          { label: "D", title: "Appartenenza", text: "Conta il riconoscimento reciproco del gruppo dentro quel gesto.", note: "noi" },
         ],
       },
     ],
+    promptsTitle: "Argomenta la scelta",
     prompts: [
       "Quale elemento ti fa parlare di rito e non solo di festa?",
       "Che ruolo ha la ripetizione nel creare appartenenza?",
       "Perche il contesto conta quanto il suono stesso?",
     ],
   },
-  followupDefault: "produzione",
+  followupTitle: "Dopo la lettura, stringi il lessico e rendi piu chiara l'interpretazione",
+  followupIntro:
+    "Questa lezione resta piu teorica che laboratoriale: prima distingui e interpreti, poi trasformi la lettura in scheda, confronto e restituzione pubblica.",
+  followupDefault: "rielaborazione",
   followups: {
     rielaborazione: {
       label: "Rielaborazione",

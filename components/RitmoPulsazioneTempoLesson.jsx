@@ -21,6 +21,12 @@ import {
 
 const lesson = {
   nucleus: "Origini del suono",
+  model: {
+    id: "laboratoriale",
+    label: "Lezione laboratoriale",
+    theoryShare: 30,
+    practiceShare: 70,
+  },
   title: "Ritmo, pulsazione e tempo",
   question: "Che differenza c'e tra ritmo, pulsazione e tempo?",
   subtitle:
@@ -187,6 +193,9 @@ const lesson = {
     pauses: ["sound", "pause", "sound", "pause", "sound", "sound", "pause", "sound"],
     accents: ["accent", "sound", "sound", "sound", "accent", "sound", "sound", "sound"],
   },
+  followupTitle: "Dopo la prova, porta il battito verso una forma condivisa",
+  followupIntro:
+    "Qui il centro resta pratico: prima fissi il gesto, poi lo trasformi in produzione di gruppo, confronto e verifica rapida.",
   followupDefault: "produzione",
   followups: {
     rielaborazione: {
@@ -581,9 +590,9 @@ function FollowupSection({ selected, onSelect }) {
   return (
     <LessonSection
       id="rielaborazione"
-      label="Continua"
-      title="Scegli la fase che ti serve adesso"
-      intro="La parte attiva resta al centro. Le altre fasi restano leggere e sempre raggiungibili."
+      label={lesson.followupLabel || "Continua"}
+      title={lesson.followupTitle || "Scegli la fase che ti serve adesso"}
+      intro={lesson.followupIntro || "La parte attiva resta al centro. Le altre fasi restano leggere e sempre raggiungibili."}
       tone="soft"
     >
       <div className="lesson-followup">
@@ -624,7 +633,7 @@ export default function RitmoPulsazioneTempoLesson() {
   const [selectedFollowup, setSelectedFollowup] = useState(lesson.followupDefault);
 
   return (
-    <div className="lesson-editorial-page">
+    <div className="lesson-editorial-page" data-lesson-model={lesson.model.id}>
       <LessonHero
         title={lesson.title}
         question={lesson.question}

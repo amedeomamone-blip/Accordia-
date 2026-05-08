@@ -2,6 +2,12 @@ import React from "https://esm.sh/react@18";
 import OriginiTopicLesson from "./OriginiTopicLessonTemplate.module.js";
 
 const lesson = {
+  model: {
+    id: "teorico-esplorativa",
+    label: "Lezione teorico-esplorativa",
+    theoryShare: 65,
+    practiceShare: 35,
+  },
   title: "Suono nella preistoria",
   question: "Come possiamo immaginare un suono di cui non esiste registrazione?",
   subtitle:
@@ -58,27 +64,37 @@ const lesson = {
     title: "Paesaggio sonoro senza registrazioni",
     intro:
       "Le fonti storiche ricordano che la musica antica e originaria ci e arrivata soprattutto per tracce indirette: ambiente, immagini, reperti, oralita.",
-    cards: [
-      {
-        title: "Ambiente",
-        caption: "Vento, acqua, pietra, legno, eco e voce aiutano a immaginare come suonasse un territorio prima della scrittura.",
-        chips: ["grotta", "vento", "acqua", "eco"],
-      },
-      {
-        title: "Reperto",
-        caption: "Un oggetto forato, consumato o battuto puo suggerire un uso sonoro, ma non basta da solo a raccontare tutta la pratica.",
-        chips: ["osso", "conchiglia", "pietra", "usura"],
-      },
-      {
-        title: "Pratica",
-        caption: "Figure in movimento, gesti collettivi e rituali ci aiutano a collegare il suono a gruppo, danza, richiamo e memoria.",
-        chips: ["gesto", "gruppo", "danza", "memoria"],
-      },
-    ],
+    layout: "essay-side",
+    side: {
+      type: "timeline",
+      ariaLabel: "Tipi di traccia usati per ricostruire il suono preistorico",
+      items: [
+        {
+          label: "01",
+          title: "Ambiente",
+          text: "Eco, vento, acqua, pietra e spazi aperti o chiusi aiutano a capire come il paesaggio partecipasse all'ascolto.",
+          note: "luogo",
+        },
+        {
+          label: "02",
+          title: "Reperto",
+          text: "Oggetti forati, consumati o percossi suggeriscono usi possibili, ma non bastano da soli a chiudere l'interpretazione.",
+          note: "materia",
+        },
+        {
+          label: "03",
+          title: "Immagine o gesto",
+          text: "Scene in movimento e pratiche collettive aiutano a collegare il suono a danza, richiamo, rito e memoria del gruppo.",
+          note: "pratica",
+        },
+      ],
+    },
     paragraphs: [
       "Le fonti didattiche ricordano che della musica delle origini non abbiamo testimonianze scritte o registrazioni: possiamo lavorare solo su cio che resta e su cio che torna plausibile dentro un contesto.",
       "Questo significa leggere con prudenza. Un reperto puo essere importante, ma va sempre collegato ad ambiente, funzione possibile e confronto con altre tracce.",
+      "La ricostruzione storica non chiede di inventare liberamente: chiede di tenere distinti dato osservabile, indizio interpretativo e ipotesi plausibile.",
     ],
+    questionsTitle: "Domande guida",
     questions: [
       "Che differenza c'e tra un dato osservabile e una ricostruzione plausibile?",
       "Perche l'ambiente conta quanto il reperto?",
@@ -109,29 +125,47 @@ const lesson = {
         body: "Eco, pareti rocciose, acqua e vento aiutano a capire che il paesaggio stesso poteva partecipare all'esperienza sonora.",
       },
     ],
+    panels: [
+      {
+        title: "Lessico del metodo",
+        kind: "terms",
+        items: [
+          { term: "Dato", text: "Cio che puoi mostrare, documentare o descrivere direttamente.", example: "reperto / immagine" },
+          { term: "Indizio", text: "Cio che orienta la lettura ma non chiude ancora il significato.", example: "foro / usura / eco" },
+          { term: "Ipotesi", text: "Una ricostruzione plausibile fondata su piu tracce messe insieme.", example: "uso sonoro" },
+        ],
+      },
+      {
+        title: "Cautela storica",
+        kind: "text",
+        paragraphs: [
+          "Parlare di suono nella preistoria significa dichiarare sempre il grado di certezza di cio che stiamo dicendo. Questa trasparenza e parte del contenuto, non un dettaglio tecnico.",
+        ],
+      },
+    ],
   },
   active: {
-    title: "Costruisci una scheda di ricostruzione sonora",
+    title: "Analizza una traccia e costruisci una scheda breve",
     intro:
-      "Lavora come un piccolo laboratorio storico: raccogli indizi, separa i livelli di certezza e proponi una funzione possibile senza trasformare l'ipotesi in prova.",
-    cardTitle: "Metti ordine nelle tracce",
+      "Qui l'attivita non chiede di produrre molto suono, ma di ragionare con metodo: scegli una traccia, separa i livelli di certezza e formula una ricostruzione breve ma fondata.",
+    cardTitle: "Leggi la fonte con metodo",
     meta: [
-      { label: "Durata", value: "15 minuti" },
+      { label: "Durata", value: "12 minuti" },
       { label: "Ti serve", value: "scheda, matita, immagini" },
-      { label: "Alla fine", value: "una ricostruzione ragionata" },
+      { label: "Alla fine", value: "una scheda analitica e leggibile" },
     ],
     steps: [
-      "Scegli un contesto: grotta, spazio aperto, gruppo in movimento, reperto.",
-      "Scrivi che cosa puoi osservare con certezza.",
-      "Aggiungi un'ipotesi di uso sonoro e una possibile funzione.",
-      "Controlla che ogni frase dica chiaramente se e dato, indizio o interpretazione.",
+      "Scegli una sola traccia: immagine, ambiente o reperto.",
+      "Scrivi in una colonna cio che puoi osservare con certezza.",
+      "Scrivi in una seconda colonna quale uso sonoro ti sembra plausibile.",
+      "Chiudi con una frase che distingua apertamente dato, indizio e interpretazione.",
     ],
     observe: [
-      "Hai separato quello che sai da quello che supponi?",
-      "L'ipotesi tiene conto del luogo e del materiale?",
-      "La funzione proposta e credibile per un gruppo umano delle origini?",
+      "Hai separato bene osservazione e ipotesi?",
+      "L'interpretazione tiene conto del luogo, del materiale e del gesto?",
+      "Stai dicendo dove finisce la prova e dove comincia la ricostruzione?",
     ],
-    result: "La tua scheda spiega il passato senza confondere prova e fantasia.",
+    result: "La tua scheda spiega il passato senza confondere fonte, indizio e fantasia.",
     side: {
       type: "terms",
       items: [
@@ -142,33 +176,35 @@ const lesson = {
     },
     panels: [
       {
-        title: "Mappa rapida",
-        kind: "terms",
+        title: "Gradi di certezza",
+        kind: "timeline",
         items: [
-          { term: "Oralita", text: "Molte pratiche sonore si trasmettono per imitazione e memoria, non per scrittura.", example: "si impara facendo" },
-          { term: "Contesto", text: "Luogo, gruppo e gesto contano quanto l'oggetto.", example: "grotta / raduno / spostamento" },
-          { term: "Prudenza", text: "Ogni ricostruzione storica deve dichiarare il proprio grado di certezza.", example: "dato / ipotesi" },
+          { label: "A", title: "Osservazione", text: "Descrivi il materiale, l'immagine o il contesto senza aggiungere ancora spiegazioni.", note: "certo" },
+          { label: "B", title: "Connessione", text: "Collega due o tre indizi che fanno pensare a un uso sonoro possibile.", note: "plausibile" },
+          { label: "C", title: "Interpretazione", text: "Formula una ricostruzione prudente, dichiarando il suo grado di incertezza.", note: "ipotetico" },
         ],
       },
       {
-        title: "Tracce da collegare",
-        kind: "cards",
-        columns: 2,
+        title: "Domande di controllo",
+        kind: "prompts",
         items: [
-          { title: "Pietra", caption: "Percussione, eco, superfici dure.", chips: ["colpo", "rimbalzo"] },
-          { title: "Osso", caption: "Oggetto lavorato, foro, soffio possibile.", chips: ["utensile", "suono"] },
-          { title: "Voce", caption: "Richiamo, imitazione, parola primitiva.", chips: ["gruppo", "memoria"] },
-          { title: "Spazio", caption: "Una grotta modifica ascolto e risonanza.", chips: ["eco", "risonanza"] },
+          "Hai scritto almeno un elemento osservabile prima dell'ipotesi?",
+          "La funzione proposta dipende davvero dalla traccia scelta?",
+          "La tua scheda dichiara con onesta il proprio margine di incertezza?",
         ],
       },
     ],
+    promptsTitle: "Controlla il metodo",
     prompts: [
       "Quale elemento della tua scheda e davvero certo?",
       "Dove comincia l'interpretazione?",
       "Che cosa ti impedisce di raccontare il passato con troppa sicurezza?",
     ],
   },
-  followupDefault: "produzione",
+  followupTitle: "Dopo l'esplorazione, stringi il metodo e rendi la scheda piu leggibile",
+  followupIntro:
+    "Questa lezione resta soprattutto teorico-esplorativa: esplori una fonte, la analizzi e solo dopo la trasformi in tavola, confronto e restituzione sintetica.",
+  followupDefault: "rielaborazione",
   followups: {
     rielaborazione: {
       label: "Rielaborazione",

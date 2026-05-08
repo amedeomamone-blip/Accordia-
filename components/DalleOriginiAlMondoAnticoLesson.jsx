@@ -2,6 +2,12 @@ import React from "https://esm.sh/react@18";
 import OriginiTopicLesson from "./OriginiTopicLessonTemplate.module.js";
 
 const lesson = {
+  model: {
+    id: "sintesi-transizione",
+    label: "Lezione di sintesi-transizione",
+    theoryShare: 70,
+    practiceShare: 30,
+  },
   title: "Dalle origini al mondo antico",
   question: "Che cosa cambia quando il suono esce dalle origini e entra nella storia delle prime civilta?",
   subtitle:
@@ -58,27 +64,43 @@ const lesson = {
     title: "Che cosa resta, che cosa cambia",
     intro:
       "Le fonti consultate mostrano continuita forti: il suono resta legato a rito, guerra, banchetto, danza e comunita. Cambiano pero la specializzazione degli strumenti e la quantita di tracce disponibili.",
-    cards: [
-      {
-        title: "Continuita",
-        caption: "Corpo, voce, gesto collettivo e funzione sociale non spariscono: continuano a sostenere il suono anche nelle civilta antiche.",
-        chips: ["gruppo", "voce", "rito"],
-      },
-      {
-        title: "Specializzazione",
-        caption: "Gli strumenti si differenziano di piu e appaiono contesti d'uso piu definiti: cortei, teatro, guerra, banchetto, culto.",
-        chips: ["arpa", "flauto", "tromba"],
-      },
-      {
-        title: "Memoria storica",
-        caption: "Immagini, testi, teoria e prime scritture rendono il suono piu leggibile rispetto alla sola ricostruzione ipotetica delle origini.",
-        chips: ["immagini", "testi", "scrittura"],
-      },
-    ],
+    layout: "essay-side",
+    side: {
+      type: "timeline",
+      ariaLabel: "Sequenza di passaggio dalle origini al mondo antico",
+      items: [
+        {
+          label: "01",
+          title: "Origini sonore",
+          text: "Corpo, gruppo, ambiente e funzione pratica aprono il nucleo del suono organizzato.",
+          note: "inizio",
+        },
+        {
+          label: "02",
+          title: "Rito e funzione sociale",
+          text: "Il suono diventa memoria, appartenenza, coordinazione e gesto simbolico condiviso.",
+          note: "gruppo",
+        },
+        {
+          label: "03",
+          title: "Strumenti e tracce stabili",
+          text: "Materia, gesto tecnico e documenti rendono il paesaggio sonoro piu leggibile.",
+          note: "traccia",
+        },
+        {
+          label: "04",
+          title: "Mondo antico",
+          text: "Civilta, cerimonie, banchetti, guerra e prime scritture musicali ampliano la documentazione.",
+          note: "soglia",
+        },
+      ],
+    },
     paragraphs: [
       "La sintesi storica consultata ricorda che della musica delle origini non possediamo testimonianze dirette, mentre nel mondo antico compaiono raffigurazioni di strumenti, descrizioni di usi cerimoniali e, per i Greci, anche una delle scritture musicali piu antiche di cui abbiamo traccia.",
       "Il passaggio, quindi, non cancella cio che hai studiato. Lo rende piu articolato: il suono continua a servire al gruppo, ma entra anche in contesti politici, religiosi, teatrali e celebrativi piu riconoscibili.",
+      "Questa lezione funziona come una soglia: non aggiunge un nuovo blocco isolato, ma rimette in ordine tutto il nucleo per preparare il capitolo successivo.",
     ],
+    questionsTitle: "Domande di sintesi",
     questions: [
       "Quale elemento del nucleo resta piu stabile anche nel mondo antico?",
       "Che cosa rende il mondo antico piu documentabile della preistoria sonora?",
@@ -87,13 +109,12 @@ const lesson = {
     panels: [
       {
         title: "Snodi del passaggio",
-        kind: "cards",
-        columns: 2,
+        kind: "terms",
         items: [
-          { title: "Da oralita a tracce", caption: "Non solo memoria del gruppo, ma anche immagini e testi.", chips: ["documento", "fonte"] },
-          { title: "Da oggetto a strumento", caption: "Il gesto tecnico diventa piu riconoscibile e specializzato.", chips: ["uso", "famiglia"] },
-          { title: "Da comunita a civilta", caption: "Il suono entra in spazi politici, religiosi e spettacolari piu complessi.", chips: ["corteo", "teatro"] },
-          { title: "Da funzione a sistema", caption: "Richiamo, rito e festa restano, ma si organizzano in pratiche piu stabili.", chips: ["ordine", "ruolo"] },
+          { term: "Da oralita a tracce", text: "Non solo memoria del gruppo, ma anche immagini, testi e strumenti riconoscibili.", example: "fonte" },
+          { term: "Da oggetto a strumento", text: "Il gesto tecnico diventa piu definito e ripetibile.", example: "uso" },
+          { term: "Da comunita a civilta", text: "Il suono entra in spazi politici, religiosi e spettacolari piu complessi.", example: "contesto" },
+          { term: "Da funzione a sistema", text: "Richiamo, rito e festa restano, ma si organizzano in pratiche piu stabili.", example: "ordine" },
         ],
       },
       {
@@ -108,10 +129,10 @@ const lesson = {
   active: {
     title: "Costruisci la pagina-ponte del nucleo",
     intro:
-      "Usa tutto quello che hai attraversato nel nucleo per creare una soglia chiara: che cosa ti porti dalle origini e che cosa anticipi del Mediterraneo antico?",
+      "Qui l'attivita resta breve ma strutturante: usa tutto il nucleo per creare una soglia chiara, ordinata e leggibile verso il Mediterraneo antico.",
     cardTitle: "Collega origini e civilta",
     meta: [
-      { label: "Durata", value: "15 minuti" },
+      { label: "Durata", value: "10 minuti" },
       { label: "Ti serve", value: "scheda, timeline, parole chiave" },
       { label: "Alla fine", value: "una sintesi pronta per il nucleo successivo" },
     ],
@@ -128,11 +149,11 @@ const lesson = {
     ],
     result: "La tua pagina-ponte rende leggibile il passaggio dalle origini al mondo antico.",
     side: {
-      type: "terms",
+      type: "timeline",
       items: [
-        { term: "Continuita", text: "Cio che resta vivo passando da un contesto all'altro.", example: "gruppo / rito / gesto" },
-        { term: "Trasformazione", text: "Cio che si specializza o si documenta meglio.", example: "strumento / scrittura" },
-        { term: "Soglia", text: "Il punto in cui un tema cambia senza sparire.", example: "origini -> civilta" },
+        { label: "A", title: "Continuita", text: "Che cosa resta vivo passando da un contesto all'altro?", note: "gruppo / rito / gesto" },
+        { label: "B", title: "Trasformazione", text: "Che cosa si specializza o si documenta meglio entrando nel mondo antico?", note: "strumento / scrittura" },
+        { label: "C", title: "Soglia", text: "Quale frase permette di passare al nucleo successivo senza ricominciare da zero?", note: "origini -> civilta" },
       ],
     },
     panels: [
@@ -147,24 +168,27 @@ const lesson = {
         ],
       },
       {
-        title: "Casi di passaggio",
-        kind: "cards",
-        columns: 2,
+        title: "Timeline ponte",
+        kind: "timeline",
         items: [
-          { title: "Dal richiamo alla tromba", caption: "Una funzione antica si stabilizza in strumenti piu definiti.", chips: ["segnale", "fiato"] },
-          { title: "Dal gesto comune al coro", caption: "La partecipazione collettiva assume forme piu organizzate.", chips: ["voce", "insieme"] },
-          { title: "Dall'oggetto sonoro alla famiglia strumentale", caption: "La materia viene riconosciuta e specializzata.", chips: ["tecnica", "timbro"] },
-          { title: "Dalla ricostruzione alla fonte", caption: "L'ipotesi lascia piu spazio al documento storico.", chips: ["immagine", "testo"] },
+          { label: "1", title: "Ritmo e gesto comune", text: "Il battito condiviso resta sotto molte pratiche del mondo antico.", note: "continuita" },
+          { label: "2", title: "Funzioni sociali piu leggibili", text: "Segnale, celebrazione e rito entrano in contesti piu definiti.", note: "uso" },
+          { label: "3", title: "Strumenti piu specializzati", text: "Flauti, trombe, arpe e percussioni stabilizzano materia e funzione.", note: "strumento" },
+          { label: "4", title: "Prime scritture e teorie", text: "Il suono lascia tracce storiche piu solide e piu descrivibili.", note: "fonte" },
         ],
       },
     ],
+    promptsTitle: "Verifica la soglia",
     prompts: [
       "Quale lezione del nucleo ti sembra la piu utile per capire il passaggio?",
       "Quale parola useresti per spiegare il mondo antico senza ricominciare da zero?",
       "Che cosa resta umano e corporeo anche quando la musica diventa piu organizzata?",
     ],
   },
-  followupDefault: "produzione",
+  followupTitle: "Qui il lavoro serve a chiudere e aprire insieme",
+  followupIntro:
+    "Questa lezione e soprattutto di sintesi e transizione: ordina il nucleo, prepara una timeline-ponte e rende piu forte la frase finale che introduce il Mediterraneo antico.",
+  followupDefault: "chiusura",
   followups: {
     rielaborazione: {
       label: "Rielaborazione",

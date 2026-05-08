@@ -203,6 +203,12 @@ function LessonBottomBar({ mapHref, previousHref, homeHref }) {
 // components/RitmoPulsazioneTempoLesson.jsx
 var lesson = {
   nucleus: "Origini del suono",
+  model: {
+    id: "laboratoriale",
+    label: "Lezione laboratoriale",
+    theoryShare: 30,
+    practiceShare: 70
+  },
   title: "Ritmo, pulsazione e tempo",
   question: "Che differenza c'e tra ritmo, pulsazione e tempo?",
   subtitle: "Prima trovi un battito comune. Poi capisci che il ritmo puo cambiare, mentre la pulsazione resta sotto e il tempo ne decide la velocita.",
@@ -366,6 +372,8 @@ var lesson = {
     pauses: ["sound", "pause", "sound", "pause", "sound", "sound", "pause", "sound"],
     accents: ["accent", "sound", "sound", "sound", "accent", "sound", "sound", "sound"]
   },
+  followupTitle: "Dopo la prova, porta il battito verso una forma condivisa",
+  followupIntro: "Qui il centro resta pratico: prima fissi il gesto, poi lo trasformi in produzione di gruppo, confronto e verifica rapida.",
   followupDefault: "produzione",
   followups: {
     rielaborazione: {
@@ -645,9 +653,9 @@ function FollowupSection({ selected, onSelect }) {
     LessonSection,
     {
       id: "rielaborazione",
-      label: "Continua",
-      title: "Scegli la fase che ti serve adesso",
-      intro: "La parte attiva resta al centro. Le altre fasi restano leggere e sempre raggiungibili.",
+      label: lesson.followupLabel || "Continua",
+      title: lesson.followupTitle || "Scegli la fase che ti serve adesso",
+      intro: lesson.followupIntro || "La parte attiva resta al centro. Le altre fasi restano leggere e sempre raggiungibili.",
       tone: "soft"
     },
     /* @__PURE__ */ React2.createElement("div", { className: "lesson-followup" }, /* @__PURE__ */ React2.createElement(PhaseTabs, { items: tabs, selected, onSelect, ariaLabel: "Fasi successive della lezione" }), /* @__PURE__ */ React2.createElement("div", { className: "lesson-followup__panel" }, selected === "chiusura" ? /* @__PURE__ */ React2.createElement("div", { className: "lesson-closing" }, /* @__PURE__ */ React2.createElement("p", { className: "lesson-closing__line" }, phase.line), /* @__PURE__ */ React2.createElement("p", { className: "lesson-closing__bridge" }, phase.bridge)) : selected === "valutazione" ? /* @__PURE__ */ React2.createElement(Panel, { kicker: phase.label, title: phase.title, meta: phase.meta }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React2.createElement(QuizList, { questions: phase.quiz }), /* @__PURE__ */ React2.createElement(SelfCheckList, { items: phase.selfCheck }))) : /* @__PURE__ */ React2.createElement(Panel, { kicker: phase.label, title: phase.title, meta: phase.meta }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React2.createElement(StepList, { title: "Fai cosi", items: phase.steps }), /* @__PURE__ */ React2.createElement("div", { className: "lesson-stack" }, /* @__PURE__ */ React2.createElement(PromptList, { title: "Osserva", items: phase.observe }), /* @__PURE__ */ React2.createElement(ResultCallout, { text: phase.result }))))))
@@ -656,7 +664,7 @@ function FollowupSection({ selected, onSelect }) {
 function RitmoPulsazioneTempoLesson() {
   const activeId = useActiveSection(["apertura", "esplorazione", "comprensione-attiva", "rielaborazione"]);
   const [selectedFollowup, setSelectedFollowup] = useState2(lesson.followupDefault);
-  return /* @__PURE__ */ React2.createElement("div", { className: "lesson-editorial-page" }, /* @__PURE__ */ React2.createElement(
+  return /* @__PURE__ */ React2.createElement("div", { className: "lesson-editorial-page", "data-lesson-model": lesson.model.id }, /* @__PURE__ */ React2.createElement(
     LessonHero,
     {
       title: lesson.title,

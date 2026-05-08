@@ -224,6 +224,9 @@ function TermBoard({ items }) {
 function FlowBoard({ items, ariaLabel }) {
   return /* @__PURE__ */ React2.createElement("div", { className: "lesson-flow-card", "aria-label": ariaLabel }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-flow-card__steps" }, items.map((item, index) => /* @__PURE__ */ React2.createElement(React2.Fragment, { key: item }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-flow-card__node" }, item), index < items.length - 1 ? /* @__PURE__ */ React2.createElement("span", { className: "lesson-flow-card__arrow" }, "\u2192") : null))));
 }
+function TimelineBoard({ items, ariaLabel }) {
+  return /* @__PURE__ */ React2.createElement("div", { className: "lesson-timeline-board", "aria-label": ariaLabel }, items.map((item, index) => /* @__PURE__ */ React2.createElement("div", { key: `${item.title}-${index}`, className: "lesson-timeline-board__row" }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-timeline-board__marker" }, /* @__PURE__ */ React2.createElement("span", null, item.label || String(index + 1).padStart(2, "0"))), /* @__PURE__ */ React2.createElement("div", { className: "lesson-timeline-board__content" }, /* @__PURE__ */ React2.createElement("strong", null, item.title), item.text ? /* @__PURE__ */ React2.createElement("p", null, item.text) : null, item.note ? /* @__PURE__ */ React2.createElement("div", { className: "lesson-term-list__example" }, item.note) : null))));
+}
 function EvidenceStrip({ items }) {
   return /* @__PURE__ */ React2.createElement("div", { className: "lesson-evidence-strip" }, items.map((item) => /* @__PURE__ */ React2.createElement("article", { key: item.title, className: "lesson-evidence" }, item.image ? /* @__PURE__ */ React2.createElement("div", { className: "lesson-evidence__media" }, /* @__PURE__ */ React2.createElement("img", { src: item.image.src, alt: item.image.alt })) : null, /* @__PURE__ */ React2.createElement("div", { className: "lesson-evidence__copy" }, item.label ? /* @__PURE__ */ React2.createElement("p", { className: "lesson-mini-title" }, item.label) : null, /* @__PURE__ */ React2.createElement("strong", null, item.title), /* @__PURE__ */ React2.createElement("p", null, item.body)))));
 }
@@ -240,6 +243,9 @@ function VisualSpec({ spec, fallbackTotal = 30 }) {
   if (spec.type === "flow") {
     return /* @__PURE__ */ React2.createElement(FlowBoard, { items: spec.items, ariaLabel: spec.ariaLabel || "Schema di lavoro" });
   }
+  if (spec.type === "timeline") {
+    return /* @__PURE__ */ React2.createElement(TimelineBoard, { items: spec.items, ariaLabel: spec.ariaLabel || "Sequenza essenziale" });
+  }
   if (spec.type === "terms") {
     return /* @__PURE__ */ React2.createElement(TermBoard, { items: spec.items });
   }
@@ -255,6 +261,9 @@ function PanelContent({ panel }) {
   if (panel.kind === "terms") {
     return /* @__PURE__ */ React2.createElement(TermBoard, { items: panel.items });
   }
+  if (panel.kind === "timeline") {
+    return /* @__PURE__ */ React2.createElement(TimelineBoard, { items: panel.items, ariaLabel: panel.ariaLabel || panel.title || "Sequenza essenziale" });
+  }
   if (panel.kind === "prompts") {
     return /* @__PURE__ */ React2.createElement(PromptList, { items: panel.items });
   }
@@ -262,6 +271,16 @@ function PanelContent({ panel }) {
     return /* @__PURE__ */ React2.createElement("div", { className: "lesson-stack" }, panel.paragraphs.map((paragraph) => /* @__PURE__ */ React2.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph)));
   }
   return null;
+}
+function PanelCollection({ panels }) {
+  if (!panels?.length) {
+    return null;
+  }
+  if (panels.length === 1) {
+    const panel = panels[0];
+    return /* @__PURE__ */ React2.createElement(Panel, { title: panel.title }, /* @__PURE__ */ React2.createElement(PanelContent, { panel }));
+  }
+  return /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-card-grid", panels.length === 2 ? "lesson-card-grid--two" : "lesson-card-grid--three") }, panels.map((panel) => /* @__PURE__ */ React2.createElement(Panel, { key: panel.title, title: panel.title }, /* @__PURE__ */ React2.createElement(PanelContent, { panel }))));
 }
 function OpeningSection({ lesson: lesson2 }) {
   return /* @__PURE__ */ React2.createElement(LessonSection, { id: "apertura", title: lesson2.opening.title, intro: lesson2.opening.intro }, /* @__PURE__ */ React2.createElement(Panel, { title: lesson2.opening.cardTitle, meta: lesson2.opening.meta }, /* @__PURE__ */ React2.createElement(
@@ -276,12 +295,13 @@ function OpeningSection({ lesson: lesson2 }) {
 }
 function ExplorationSection({ lesson: lesson2 }) {
   const exploration = lesson2.exploration;
-  return /* @__PURE__ */ React2.createElement(LessonSection, { id: "esplorazione", title: exploration.title, intro: exploration.intro, tone: "soft" }, exploration.cards?.length ? /* @__PURE__ */ React2.createElement(KeyCardGrid, { items: exploration.cards, columns: exploration.cardsColumns || 3 }) : null, /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-grid", exploration.flow?.length && "lesson-grid--two") }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-stack" }, exploration.paragraphs.map((paragraph) => /* @__PURE__ */ React2.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph)), exploration.questions?.length ? /* @__PURE__ */ React2.createElement(PromptList, { title: "Osserva", items: exploration.questions }) : null), exploration.flow?.length ? /* @__PURE__ */ React2.createElement(FlowBoard, { items: exploration.flow, ariaLabel: exploration.flowLabel || "Passaggi principali dell'argomento" }) : null), exploration.evidence?.length ? /* @__PURE__ */ React2.createElement(EvidenceStrip, { items: exploration.evidence }) : null, exploration.panels?.length ? /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-card-grid", exploration.panels.length === 2 ? "lesson-card-grid--two" : "lesson-card-grid--three") }, exploration.panels.map((panel) => /* @__PURE__ */ React2.createElement(Panel, { key: panel.title, title: panel.title }, /* @__PURE__ */ React2.createElement(PanelContent, { panel })))) : null);
+  const cards = exploration.cards?.length ? /* @__PURE__ */ React2.createElement(KeyCardGrid, { items: exploration.cards, columns: exploration.cardsColumns || 3 }) : null;
+  const side = exploration.side ? /* @__PURE__ */ React2.createElement(VisualSpec, { spec: exploration.side }) : exploration.flow?.length ? /* @__PURE__ */ React2.createElement(FlowBoard, { items: exploration.flow, ariaLabel: exploration.flowLabel || "Passaggi principali dell'argomento" }) : null;
+  const copy = /* @__PURE__ */ React2.createElement("div", { className: "lesson-stack" }, exploration.paragraphs.map((paragraph) => /* @__PURE__ */ React2.createElement("p", { key: paragraph, className: "lesson-body-text" }, paragraph)), exploration.questions?.length ? /* @__PURE__ */ React2.createElement(PromptList, { title: exploration.questionsTitle || "Osserva", items: exploration.questions }) : null);
+  return /* @__PURE__ */ React2.createElement(LessonSection, { id: "esplorazione", title: exploration.title, intro: exploration.intro, tone: "soft" }, exploration.cardsPosition !== "after" ? cards : null, side ? /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-grid", exploration.layout === "essay-side" ? "lesson-grid--asym" : "lesson-grid--two") }, copy, side) : copy, exploration.cardsPosition === "after" ? cards : null, exploration.evidence?.length ? /* @__PURE__ */ React2.createElement(EvidenceStrip, { items: exploration.evidence }) : null, /* @__PURE__ */ React2.createElement(PanelCollection, { panels: exploration.panels }));
 }
 function ActiveSection({ lesson: lesson2 }) {
   const active = lesson2.active;
-  const hasPanels = active.panels?.length;
-  const panelClass = active.panels?.length === 2 ? "lesson-card-grid--two" : active.panels?.length === 4 ? "lesson-card-grid--four" : "lesson-card-grid--three";
   return /* @__PURE__ */ React2.createElement(LessonSection, { id: "comprensione-attiva", title: active.title, intro: active.intro }, /* @__PURE__ */ React2.createElement(Panel, { title: active.cardTitle, meta: active.meta }, /* @__PURE__ */ React2.createElement(
     ActivityLayout,
     {
@@ -290,7 +310,7 @@ function ActiveSection({ lesson: lesson2 }) {
       result: active.result,
       right: /* @__PURE__ */ React2.createElement(VisualSpec, { spec: active.side, fallbackTotal: active.timerTotal || 45 })
     }
-  )), hasPanels ? /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-card-grid", panelClass) }, active.panels.map((panel) => /* @__PURE__ */ React2.createElement(Panel, { key: panel.title, title: panel.title }, /* @__PURE__ */ React2.createElement(PanelContent, { panel })))) : null, active.prompts?.length ? /* @__PURE__ */ React2.createElement(Panel, { title: active.promptsTitle || "Ascolto interno" }, /* @__PURE__ */ React2.createElement(PromptList, { items: active.prompts })) : null);
+  )), /* @__PURE__ */ React2.createElement(PanelCollection, { panels: active.panels }), active.prompts?.length ? /* @__PURE__ */ React2.createElement(Panel, { title: active.promptsTitle || "Ascolto interno" }, /* @__PURE__ */ React2.createElement(PromptList, { items: active.prompts })) : null);
 }
 function FollowupSection({ lesson: lesson2, selected, onSelect }) {
   const phase = lesson2.followups[selected];
@@ -310,7 +330,7 @@ function FollowupSection({ lesson: lesson2, selected, onSelect }) {
 function OriginiTopicLesson({ lesson: lesson2 }) {
   const activeId = useActiveSection(["apertura", "esplorazione", "comprensione-attiva", "rielaborazione"]);
   const [selectedFollowup, setSelectedFollowup] = useState2(lesson2.followupDefault || "produzione");
-  return /* @__PURE__ */ React2.createElement("div", { className: "lesson-editorial-page" }, /* @__PURE__ */ React2.createElement(
+  return /* @__PURE__ */ React2.createElement("div", { className: "lesson-editorial-page", "data-lesson-model": lesson2.model?.id || "" }, /* @__PURE__ */ React2.createElement(
     LessonHero,
     {
       title: lesson2.title,
@@ -343,6 +363,12 @@ function OriginiTopicLesson({ lesson: lesson2 }) {
 
 // components/RitoMagiaComunitaLesson.jsx
 var lesson = {
+  model: {
+    id: "storico-antropologica",
+    label: "Lezione storico-antropologica",
+    theoryShare: 60,
+    practiceShare: 40
+  },
   title: "Rito, magia e comunita",
   question: "Che cosa rende rituale una pratica sonora?",
   subtitle: "Quando un suono ritorna come formula condivisa, il gruppo non ascolta soltanto: entra in un gesto comune, riconosce un passaggio e si sente parte di una stessa appartenenza.",
@@ -395,27 +421,37 @@ var lesson = {
   exploration: {
     title: "Il suono come collante simbolico",
     intro: "Le sintesi storiche consultate ricordano che per molti popoli antichi la musica aveva un carattere sacro o magico e accompagnava momenti in cui la comunita si raccoglieva.",
-    cards: [
-      {
-        title: "Invocazione",
-        caption: "La voce o il gesto sonoro possono servire a chiamare, pregare, chiedere protezione, dare forma a una presenza condivisa.",
-        chips: ["voce", "formula", "attesa"]
-      },
-      {
-        title: "Passaggio",
-        caption: "Nascita, guarigione, morte, inizio o fine di un'azione diventano piu leggibili quando il gruppo li accompagna con una sequenza sonora riconoscibile.",
-        chips: ["inizio", "fine", "soglia"]
-      },
-      {
-        title: "Appartenenza",
-        caption: "Cantare o battere insieme non comunica solo un ordine pratico: dice anche chi siamo e a quale gruppo sentiamo di appartenere.",
-        chips: ["gruppo", "identita", "memoria"]
-      }
-    ],
+    layout: "essay-side",
+    side: {
+      type: "timeline",
+      ariaLabel: "Tre indizi della funzione rituale del suono",
+      items: [
+        {
+          label: "01",
+          title: "Invocazione",
+          text: "La voce o il gesto sonoro possono chiamare, pregare o dare forma a una presenza condivisa.",
+          note: "formula"
+        },
+        {
+          label: "02",
+          title: "Passaggio",
+          text: "Nascita, guarigione, morte, inizio o fine di un'azione diventano piu leggibili con una sequenza riconoscibile.",
+          note: "soglia"
+        },
+        {
+          label: "03",
+          title: "Appartenenza",
+          text: "Cantare o battere insieme dice chi partecipa e quale memoria comune il gruppo sta riattivando.",
+          note: "identita"
+        }
+      ]
+    },
     paragraphs: [
       "Nelle fonti scolastiche sulla musica antica ricorre un'idea forte: il suono non e solo intrattenimento, ma una presenza vicina al sacro, alla cerimonia e ai momenti intensi della vita del gruppo.",
-      "Per questo conviene distinguere il rituale dalla semplice festa. In una pratica rituale contano di piu la ripetizione, la formula, il ruolo del gruppo, la memoria condivisa e il legame con un passaggio riconosciuto."
+      "Per questo conviene distinguere il rituale dalla semplice festa. In una pratica rituale contano di piu la ripetizione, la formula, il ruolo del gruppo, la memoria condivisa e il legame con un passaggio riconosciuto.",
+      "Questa lezione, quindi, non chiede prima di tutto di fare, ma di interpretare: capire quali indizi trasformano un gesto collettivo in una pratica simbolica."
     ],
+    questionsTitle: "Domande di interpretazione",
     questions: [
       "Quale indizio ti fa pensare che un suono sia rituale?",
       "Che differenza c'e tra ripetere per giocare e ripetere per dare forma a un momento collettivo?",
@@ -424,13 +460,12 @@ var lesson = {
     panels: [
       {
         title: "Indicatori del rituale",
-        kind: "cards",
-        columns: 2,
+        kind: "terms",
         items: [
-          { title: "Formula stabile", caption: "Parole, colpi o accenti tornano uguali.", chips: ["ritorno", "memoria"] },
-          { title: "Entrata comune", caption: "Il gruppo parte insieme e si riconosce subito.", chips: ["coralita", "sincronia"] },
-          { title: "Contesto marcato", caption: "Il suono accompagna una soglia o una cerimonia.", chips: ["passaggio", "solennita"] },
-          { title: "Valore simbolico", caption: "Il gesto non serve solo a fare, ma anche a significare.", chips: ["credenza", "identita"] }
+          { term: "Formula stabile", text: "Parole, colpi o accenti tornano quasi uguali e diventano riconoscibili.", example: "ritorno" },
+          { term: "Entrata comune", text: "Il gruppo parte insieme e si riconosce dentro un gesto collettivo.", example: "coralita" },
+          { term: "Contesto marcato", text: "Il suono accompagna una soglia o una cerimonia.", example: "passaggio" },
+          { term: "Valore simbolico", text: "Il gesto non serve solo a fare, ma anche a significare.", example: "credenza" }
         ]
       },
       {
@@ -444,10 +479,10 @@ var lesson = {
   },
   active: {
     title: "Confronta rito, festa e segnale",
-    intro: "Prendi situazioni diverse e prova a capire che cosa cambia: quando il suono organizza, quando celebra, quando rende un passaggio simbolicamente condiviso.",
+    intro: "Prendi situazioni diverse e prova a capire che cosa cambia: qui la comprensione attiva resta soprattutto analitica, perche devi motivare ogni scelta con un indizio preciso.",
     cardTitle: "Leggi la funzione del suono",
     meta: [
-      { label: "Durata", value: "15 minuti" },
+      { label: "Durata", value: "12 minuti" },
       { label: "Ti serve", value: "scheda, esempi, parole chiave" },
       { label: "Alla fine", value: "una distinzione piu precisa tra usi del suono" }
     ],
@@ -483,24 +518,26 @@ var lesson = {
         ]
       },
       {
-        title: "Situazioni da separare",
-        kind: "cards",
-        columns: 2,
+        title: "Criteri di distinzione",
+        kind: "timeline",
         items: [
-          { title: "Richiamo rapido", caption: "Serve a farsi capire subito dal gruppo.", chips: ["segnale", "azione"] },
-          { title: "Danza festiva", caption: "Serve a creare partecipazione e piacere condiviso.", chips: ["festa", "clima"] },
-          { title: "Cerimonia", caption: "Serve a rendere visibile un passaggio comune.", chips: ["rito", "soglia"] },
-          { title: "Invocazione corale", caption: "Serve a dare forma a una credenza o a una richiesta condivisa.", chips: ["voce", "formula"] }
+          { label: "A", title: "Segnale", text: "Conta l'immediatezza: il suono orienta un'azione rapida del gruppo.", note: "subito" },
+          { label: "B", title: "Festa", text: "Conta il clima condiviso: il suono costruisce partecipazione e piacere collettivo.", note: "clima" },
+          { label: "C", title: "Rito", text: "Conta il valore simbolico: il suono accompagna una soglia, una formula o una credenza.", note: "simbolo" },
+          { label: "D", title: "Appartenenza", text: "Conta il riconoscimento reciproco del gruppo dentro quel gesto.", note: "noi" }
         ]
       }
     ],
+    promptsTitle: "Argomenta la scelta",
     prompts: [
       "Quale elemento ti fa parlare di rito e non solo di festa?",
       "Che ruolo ha la ripetizione nel creare appartenenza?",
       "Perche il contesto conta quanto il suono stesso?"
     ]
   },
-  followupDefault: "produzione",
+  followupTitle: "Dopo la lettura, stringi il lessico e rendi piu chiara l'interpretazione",
+  followupIntro: "Questa lezione resta piu teorica che laboratoriale: prima distingui e interpreti, poi trasformi la lettura in scheda, confronto e restituzione pubblica.",
+  followupDefault: "rielaborazione",
   followups: {
     rielaborazione: {
       label: "Rielaborazione",

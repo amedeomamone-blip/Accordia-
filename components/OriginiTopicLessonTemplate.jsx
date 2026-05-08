@@ -91,6 +91,25 @@ function FlowBoard({ items, ariaLabel }) {
   );
 }
 
+function TimelineBoard({ items, ariaLabel }) {
+  return (
+    <div className="lesson-timeline-board" aria-label={ariaLabel}>
+      {items.map((item, index) => (
+        <div key={`${item.title}-${index}`} className="lesson-timeline-board__row">
+          <div className="lesson-timeline-board__marker">
+            <span>{item.label || String(index + 1).padStart(2, "0")}</span>
+          </div>
+          <div className="lesson-timeline-board__content">
+            <strong>{item.title}</strong>
+            {item.text ? <p>{item.text}</p> : null}
+            {item.note ? <div className="lesson-term-list__example">{item.note}</div> : null}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function EvidenceStrip({ items }) {
   return (
     <div className="lesson-evidence-strip">
@@ -126,6 +145,10 @@ function VisualSpec({ spec, fallbackTotal = 30 }) {
     return <FlowBoard items={spec.items} ariaLabel={spec.ariaLabel || "Schema di lavoro"} />;
   }
 
+  if (spec.type === "timeline") {
+    return <TimelineBoard items={spec.items} ariaLabel={spec.ariaLabel || "Sequenza essenziale"} />;
+  }
+
   if (spec.type === "terms") {
     return <TermBoard items={spec.items} />;
   }
@@ -144,6 +167,10 @@ function PanelContent({ panel }) {
 
   if (panel.kind === "terms") {
     return <TermBoard items={panel.items} />;
+  }
+
+  if (panel.kind === "timeline") {
+    return <TimelineBoard items={panel.items} ariaLabel={panel.ariaLabel || panel.title || "Sequenza essenziale"} />;
   }
 
   if (panel.kind === "prompts") {
@@ -165,6 +192,31 @@ function PanelContent({ panel }) {
   return null;
 }
 
+function PanelCollection({ panels }) {
+  if (!panels?.length) {
+    return null;
+  }
+
+  if (panels.length === 1) {
+    const panel = panels[0];
+    return (
+      <Panel title={panel.title}>
+        <PanelContent panel={panel} />
+      </Panel>
+    );
+  }
+
+  return (
+    <div className={cn("lesson-card-grid", panels.length === 2 ? "lesson-card-grid--two" : "lesson-card-grid--three")}>
+      {panels.map((panel) => (
+        <Panel key={panel.title} title={panel.title}>
+          <PanelContent panel={panel} />
+        </Panel>
+      ))}
+    </div>
+  );
+}
+
 function OpeningSection({ lesson }) {
   return (
     <LessonSection id="apertura" title={lesson.opening.title} intro={lesson.opening.intro}>
@@ -182,51 +234,50 @@ function OpeningSection({ lesson }) {
 
 function ExplorationSection({ lesson }) {
   const exploration = lesson.exploration;
+  const cards = exploration.cards?.length ? (
+    <KeyCardGrid items={exploration.cards} columns={exploration.cardsColumns || 3} />
+  ) : null;
+  const side = exploration.side
+    ? <VisualSpec spec={exploration.side} />
+    : exploration.flow?.length
+      ? <FlowBoard items={exploration.flow} ariaLabel={exploration.flowLabel || "Passaggi principali dell'argomento"} />
+      : null;
+  const copy = (
+    <div className="lesson-stack">
+      {exploration.paragraphs.map((paragraph) => (
+        <p key={paragraph} className="lesson-body-text">
+          {paragraph}
+        </p>
+      ))}
+      {exploration.questions?.length ? (
+        <PromptList title={exploration.questionsTitle || "Osserva"} items={exploration.questions} />
+      ) : null}
+    </div>
+  );
 
   return (
     <LessonSection id="esplorazione" title={exploration.title} intro={exploration.intro} tone="soft">
-      {exploration.cards?.length ? (
-        <KeyCardGrid items={exploration.cards} columns={exploration.cardsColumns || 3} />
-      ) : null}
+      {exploration.cardsPosition !== "after" ? cards : null}
 
-      <div className={cn("lesson-grid", exploration.flow?.length && "lesson-grid--two")}>
-        <div className="lesson-stack">
-          {exploration.paragraphs.map((paragraph) => (
-            <p key={paragraph} className="lesson-body-text">
-              {paragraph}
-            </p>
-          ))}
-          {exploration.questions?.length ? <PromptList title="Osserva" items={exploration.questions} /> : null}
+      {side ? (
+        <div className={cn("lesson-grid", exploration.layout === "essay-side" ? "lesson-grid--asym" : "lesson-grid--two")}>
+          {copy}
+          {side}
         </div>
+      ) : (
+        copy
+      )}
 
-        {exploration.flow?.length ? (
-          <FlowBoard items={exploration.flow} ariaLabel={exploration.flowLabel || "Passaggi principali dell'argomento"} />
-        ) : null}
-      </div>
+      {exploration.cardsPosition === "after" ? cards : null}
 
       {exploration.evidence?.length ? <EvidenceStrip items={exploration.evidence} /> : null}
-      {exploration.panels?.length ? (
-        <div className={cn("lesson-card-grid", exploration.panels.length === 2 ? "lesson-card-grid--two" : "lesson-card-grid--three")}>
-          {exploration.panels.map((panel) => (
-            <Panel key={panel.title} title={panel.title}>
-              <PanelContent panel={panel} />
-            </Panel>
-          ))}
-        </div>
-      ) : null}
+      <PanelCollection panels={exploration.panels} />
     </LessonSection>
   );
 }
 
 function ActiveSection({ lesson }) {
   const active = lesson.active;
-  const hasPanels = active.panels?.length;
-  const panelClass =
-    active.panels?.length === 2
-      ? "lesson-card-grid--two"
-      : active.panels?.length === 4
-        ? "lesson-card-grid--four"
-        : "lesson-card-grid--three";
 
   return (
     <LessonSection id="comprensione-attiva" title={active.title} intro={active.intro}>
@@ -239,15 +290,7 @@ function ActiveSection({ lesson }) {
         />
       </Panel>
 
-      {hasPanels ? (
-        <div className={cn("lesson-card-grid", panelClass)}>
-          {active.panels.map((panel) => (
-            <Panel key={panel.title} title={panel.title}>
-              <PanelContent panel={panel} />
-            </Panel>
-          ))}
-        </div>
-      ) : null}
+      <PanelCollection panels={active.panels} />
 
       {active.prompts?.length ? (
         <Panel title={active.promptsTitle || "Ascolto interno"}>
@@ -308,7 +351,7 @@ export default function OriginiTopicLesson({ lesson }) {
   const [selectedFollowup, setSelectedFollowup] = useState(lesson.followupDefault || "produzione");
 
   return (
-    <div className="lesson-editorial-page">
+    <div className="lesson-editorial-page" data-lesson-model={lesson.model?.id || ""}>
       <LessonHero
         title={lesson.title}
         question={lesson.question}
