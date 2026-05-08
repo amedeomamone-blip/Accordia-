@@ -3,38 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Corpo, voce e gesto: esperienza immersiva del nucleo Origini del suono per costruire una scena sonora riconoscibile.">
+    <meta name="description" content="Corpo, voce e gesto: lezione immersiva del nucleo Origini del suono, in tema chiaro e con navigazione completa tra le fasi.">
     <title>Corpo, voce e gesto | Origini del suono | Accordia</title>
     <!--
         Scelte progettuali:
-        1. La pagina e autosufficiente: tutto vive in questo file, senza fogli di stile o script esterni.
-        2. L'estetica punta a un minimalismo scuro e calibrato, con gerarchie larghe, vetro leggero e pochi accenti luminosi.
-        3. La struttura mantiene la lezione leggibile per il docente in aula: hero, timeline, sette fasi, mappa interattiva, partitura grafica, citazione finale.
-        4. Le animazioni sono quasi tutte basate su transform e opacity; e prevista una modalita di riduzione del movimento.
+        1. Una shell unica per tutte le lezioni immersive del nucleo, ispirata alla pagina speciale gia sviluppata ma riletta in tema chiaro.
+        2. Palette calda, accento del nucleo e pochi elementi forti: hero a pieno schermo, timeline di fase, pannelli in vetro leggero, grandi numeri di sfondo.
+        3. Contenuti e variazioni interne arrivano da un payload JSON, cosi ogni lezione mantiene la stessa grammatica grafica senza diventare monotona.
+        4. Mini timeline dei nuclei e topic rail restano nella pagina e vengono stilati localmente per non perdere la navigazione del sistema Accordia.
     -->
     <style>
         :root {
-            --bg: #000000;
-            --bg-soft: #0b0b0f;
-            --bg-elevated: rgba(255, 255, 255, 0.05);
-            --text: #f5f5f7;
-            --text-secondary: #a1a1a6;
-            --accent: #ffffff;
-            --accent-soft: rgba(255, 255, 255, 0.14);
-            --border: #333333;
-            --border-strong: rgba(255, 255, 255, 0.22);
-            --glass-bg: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --focus-border: rgba(255, 244, 220, 0.42);
-            --warm-line: rgba(255, 235, 199, 0.42);
-            --shadow: 0 24px 80px rgba(0, 0, 0, 0.48);
-            --shell: min(1180px, calc(100vw - 3rem));
+            --bg: #f7f2e9;
+            --bg-soft: #efe6d8;
+            --bg-deep: #e8dbc7;
+            --panel: rgba(255, 255, 255, 0.78);
+            --panel-strong: rgba(255, 255, 255, 0.92);
+            --text: #17120d;
+            --text-secondary: #6d655a;
+            --accent: #c06a1c;
+            --accent-soft: rgba(192, 106, 28, 0.1);
+            --accent-line: rgba(192, 106, 28, 0.24);
+            --accent-strong: rgba(192, 106, 28, 0.78);
+            --border: rgba(23, 18, 13, 0.12);
+            --border-strong: rgba(23, 18, 13, 0.2);
+            --shadow: 0 28px 80px rgba(97, 64, 24, 0.12);
+            --shadow-soft: 0 12px 36px rgba(97, 64, 24, 0.08);
+            --shell: min(1180px, calc(100vw - 2.4rem));
+            --header-height: 60px;
             --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif;
             --font-text: "SF Pro Text", -apple-system, BlinkMacSystemFont, sans-serif;
-            --header-height: 60px;
-            --chrome-offset: 168px;
-            --timeline-left: 32px;
-            --timeline-width: 32px;
             --duration-circumference: 314;
         }
 
@@ -49,13 +47,13 @@
         body {
             margin: 0;
             min-height: 100vh;
+            overflow-x: hidden;
             background:
-                radial-gradient(circle at top, rgba(255, 255, 255, 0.055), transparent 24%),
-                radial-gradient(circle at bottom right, rgba(255, 255, 255, 0.035), transparent 32%),
-                var(--bg);
+                radial-gradient(circle at top, rgba(192, 106, 28, 0.09), transparent 32%),
+                radial-gradient(circle at 80% 20%, rgba(192, 106, 28, 0.06), transparent 28%),
+                linear-gradient(180deg, #fbf7f1 0%, #f7f1e8 38%, #f2eadf 100%);
             color: var(--text);
             font-family: var(--font-text);
-            overflow-x: hidden;
         }
 
         body.reduce-motion *,
@@ -67,11 +65,14 @@
         }
 
         body.high-contrast {
-            --text-secondary: #d8d8de;
-            --border: #5c5c64;
-            --glass-bg: rgba(255, 255, 255, 0.06);
-            --glass-border: rgba(255, 255, 255, 0.18);
-            --accent-soft: rgba(255, 255, 255, 0.24);
+            --text: #0f0c08;
+            --text-secondary: #4b4337;
+            --panel: rgba(255, 255, 255, 0.92);
+            --panel-strong: rgba(255, 255, 255, 0.97);
+            --border: rgba(23, 18, 13, 0.22);
+            --border-strong: rgba(23, 18, 13, 0.32);
+            --accent-soft: rgba(192, 106, 28, 0.16);
+            --accent-line: rgba(192, 106, 28, 0.34);
         }
 
         body.large-type {
@@ -86,9 +87,34 @@
             content: "";
             position: fixed;
             inset: 0;
-            z-index: 45;
-            background: rgba(0, 0, 0, 0.72);
+            z-index: 46;
+            background: rgba(17, 13, 9, 0.3);
             backdrop-filter: blur(12px);
+        }
+
+        body.is-focus-mode .lesson-phase:not(.is-focused),
+        body.is-focus-mode .quote-section,
+        body.is-focus-mode .hero,
+        body.is-focus-mode .phase-rail,
+        body.is-focus-mode .nucleus-mini-timeline,
+        body.is-focus-mode .topic-rail,
+        body.is-focus-mode .site-footer {
+            opacity: 0.18;
+            filter: blur(6px);
+            pointer-events: none;
+        }
+
+        body.is-focus-mode .lesson-phase.is-focused {
+            position: relative;
+            z-index: 60;
+        }
+
+        body.is-focus-mode .lesson-phase.is-focused .phase-panel {
+            padding: 2rem;
+            border: 1px solid var(--accent-line);
+            border-radius: 2rem;
+            background: rgba(251, 247, 241, 0.96);
+            box-shadow: 0 30px 96px rgba(67, 42, 15, 0.16);
         }
 
         a {
@@ -100,20 +126,20 @@
             font: inherit;
         }
 
+        .shell {
+            width: var(--shell);
+            margin: 0 auto;
+        }
+
         .sr-only {
             position: absolute;
             width: 1px;
             height: 1px;
-            padding: 0;
             margin: -1px;
+            padding: 0;
             overflow: hidden;
             clip: rect(0, 0, 0, 0);
             border: 0;
-        }
-
-        .shell {
-            width: var(--shell);
-            margin: 0 auto;
         }
 
         .progress-line {
@@ -121,14 +147,14 @@
             inset: 0 0 auto;
             z-index: 90;
             height: 2px;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(23, 18, 13, 0.08);
         }
 
         .progress-line span {
             display: block;
             width: 0;
             height: 100%;
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0.38));
+            background: linear-gradient(90deg, rgba(192, 106, 28, 0.92), rgba(192, 106, 28, 0.34));
             transform-origin: left center;
         }
 
@@ -147,29 +173,29 @@
             width: var(--size);
             height: var(--size);
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.14);
-            opacity: 0.35;
-            filter: blur(0.4px);
+            background: rgba(192, 106, 28, 0.18);
+            opacity: 0.32;
             animation: particleFloat var(--duration) linear infinite;
             animation-delay: var(--delay);
+            filter: blur(0.3px);
         }
 
         @keyframes particleFloat {
             0% {
-                transform: translate3d(0, 0, 0) scale(0.9);
+                transform: translate3d(0, 0, 0) scale(0.92);
                 opacity: 0;
             }
 
-            12% {
-                opacity: 0.38;
+            15% {
+                opacity: 0.36;
             }
 
-            88% {
-                opacity: 0.24;
+            85% {
+                opacity: 0.2;
             }
 
             100% {
-                transform: translate3d(0, -70px, 0) scale(1.16);
+                transform: translate3d(0, -76px, 0) scale(1.14);
                 opacity: 0;
             }
         }
@@ -177,10 +203,10 @@
         .site-header {
             position: fixed;
             inset: 0 0 auto;
-            z-index: 70;
-            backdrop-filter: blur(22px);
-            background: rgba(0, 0, 0, 0.58);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            z-index: 72;
+            border-bottom: 1px solid rgba(23, 18, 13, 0.08);
+            background: rgba(249, 245, 239, 0.76);
+            backdrop-filter: blur(18px);
         }
 
         .site-header__inner {
@@ -188,16 +214,15 @@
             display: grid;
             grid-template-columns: auto minmax(0, 1fr) auto;
             align-items: center;
-            gap: 1.2rem;
+            gap: 1rem;
         }
 
         .brand-minimal {
             font-family: var(--font-display);
             font-size: 0.92rem;
-            font-weight: 500;
-            letter-spacing: 0.36em;
+            font-weight: 600;
+            letter-spacing: 0.3em;
             text-transform: uppercase;
-            color: var(--text);
             white-space: nowrap;
         }
 
@@ -205,11 +230,11 @@
             display: flex;
             align-items: center;
             flex-wrap: wrap;
-            gap: 0.45rem;
+            gap: 0.42rem;
             color: var(--text-secondary);
             font-size: 0.72rem;
-            font-weight: 600;
-            letter-spacing: 0.16em;
+            font-weight: 700;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
         }
 
@@ -227,16 +252,17 @@
         .accessibility-bar {
             display: inline-flex;
             align-items: center;
-            gap: 0.42rem;
-            padding: 0.35rem;
-            border: 1px solid var(--glass-border);
+            gap: 0.35rem;
+            padding: 0.3rem;
+            border: 1px solid rgba(23, 18, 13, 0.08);
             border-radius: 999px;
-            background: var(--glass-bg);
+            background: rgba(255, 255, 255, 0.58);
         }
 
         .accessibility-bar button {
-            width: 2.1rem;
-            height: 2.1rem;
+            min-width: 2.3rem;
+            height: 2.3rem;
+            padding: 0 0.58rem;
             border: 0;
             border-radius: 999px;
             background: transparent;
@@ -248,62 +274,62 @@
         .accessibility-bar button:hover,
         .accessibility-bar button:focus-visible,
         .accessibility-bar button[aria-pressed="true"] {
-            background: rgba(255, 255, 255, 0.08);
+            outline: none;
+            background: var(--accent-soft);
             color: var(--text);
             transform: translateY(-1px);
-            outline: none;
         }
 
         .phase-counter {
             display: inline-grid;
             place-items: center;
-            width: 3.35rem;
-            aspect-ratio: 1 / 1;
+            width: 3.4rem;
+            height: 3.4rem;
             border-radius: 999px;
-            border: 1px solid var(--glass-border);
-            background: var(--glass-bg);
+            border: 1px solid var(--accent-line);
+            background: rgba(255, 255, 255, 0.86);
+            box-shadow: var(--shadow-soft);
             text-align: center;
-            backdrop-filter: blur(18px);
         }
 
-        .phase-counter span {
-            display: block;
-            color: var(--text-secondary);
-            font-size: 0.56rem;
+        .phase-counter__value {
+            font-size: 0.82rem;
             font-weight: 700;
-            letter-spacing: 0.18em;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
         }
 
-        .phase-counter strong {
-            display: block;
-            margin-top: 0.1rem;
-            font-size: 0.96rem;
+        .phase-counter__label {
+            font-size: 0.56rem;
             font-weight: 700;
-            letter-spacing: -0.04em;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
         }
 
-        .top-rails {
-            position: fixed;
-            inset: var(--header-height) 0 auto;
-            z-index: 65;
-            display: grid;
-            gap: 0;
-            background: rgba(0, 0, 0, 0.46);
-            backdrop-filter: blur(20px);
+        .lesson-shell {
+            position: relative;
+            z-index: 1;
+            padding-bottom: 5rem;
         }
 
         .nucleus-mini-timeline,
         .topic-rail {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            position: relative;
+            z-index: 2;
+        }
+
+        .nucleus-mini-timeline {
+            padding-top: calc(var(--header-height) + 1rem);
         }
 
         .nucleus-mini-timeline__track,
         .topic-rail__track {
             display: flex;
-            gap: 0.55rem;
+            align-items: center;
+            gap: 0.65rem;
             overflow-x: auto;
-            padding: 0.7rem 0;
+            padding-bottom: 0.2rem;
             scrollbar-width: none;
         }
 
@@ -314,18 +340,16 @@
 
         .nucleus-mini-timeline__track a,
         .topic-rail__track a {
-            flex: 0 0 auto;
             display: inline-flex;
             align-items: center;
-            gap: 0.62rem;
-            min-height: 2.4rem;
-            padding: 0.55rem 0.72rem;
-            border: 1px solid rgba(255, 255, 255, 0.07);
+            gap: 0.7rem;
+            padding: 0.8rem 1rem;
+            border: 1px solid rgba(23, 18, 13, 0.08);
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.02);
-            color: var(--text-secondary);
-            transition: border-color 180ms ease, background 180ms ease, color 180ms ease, transform 180ms ease;
+            background: rgba(255, 255, 255, 0.72);
+            box-shadow: var(--shadow-soft);
             white-space: nowrap;
+            transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
         }
 
         .nucleus-mini-timeline__track a:hover,
@@ -334,462 +358,469 @@
         .topic-rail__track a:focus-visible,
         .nucleus-mini-timeline__track a.is-active,
         .topic-rail__track a.is-active {
-            color: var(--text);
-            border-color: rgba(255, 255, 255, 0.18);
-            background: rgba(255, 255, 255, 0.06);
-            transform: translateY(-1px);
             outline: none;
+            transform: translateY(-1px);
+            border-color: var(--accent-line);
+            background: rgba(255, 248, 240, 0.94);
         }
 
         .nucleus-mini-timeline__track a span,
         .topic-rail__track a span {
             display: inline-grid;
             place-items: center;
-            width: 1.7rem;
-            height: 1.7rem;
+            min-width: 1.85rem;
+            min-height: 1.85rem;
+            padding: 0 0.35rem;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.06);
-            color: var(--text);
-            font-size: 0.74rem;
+            background: rgba(192, 106, 28, 0.12);
+            color: var(--accent);
+            font-size: 0.78rem;
             font-weight: 700;
         }
 
         .nucleus-mini-timeline__track a strong,
         .topic-rail__track a strong {
-            font-size: 0.74rem;
+            font-size: 0.86rem;
             font-weight: 650;
-            letter-spacing: 0.04em;
+        }
+
+        .topic-rail {
+            padding-top: 0.85rem;
         }
 
         .topic-rail__eyebrow {
-            margin: 0;
-            padding-top: 0.58rem;
+            margin: 0 0 0.65rem;
             color: var(--text-secondary);
-            font-size: 0.64rem;
+            font-size: 0.72rem;
             font-weight: 700;
-            letter-spacing: 0.18em;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
         }
 
-        .lesson-shell {
-            position: relative;
-            z-index: 2;
-            padding-top: var(--chrome-offset);
-        }
-
-        .phase-timeline {
+        .phase-rail {
             position: fixed;
-            left: var(--timeline-left);
+            left: 1.2rem;
             top: 50%;
-            z-index: 55;
-            width: var(--timeline-width);
-            transform: translateY(-35%);
-        }
-
-        .phase-timeline__track {
-            position: relative;
+            z-index: 56;
+            transform: translateY(-50%);
+            width: 2rem;
             display: grid;
-            gap: 0.75rem;
             justify-items: center;
+            gap: 1rem;
         }
 
-        .phase-timeline__track::before {
-            content: "";
-            position: absolute;
-            top: 0.4rem;
-            bottom: 0.4rem;
-            left: 50%;
+        .phase-rail__line {
             width: 1px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04));
-            transform: translateX(-50%);
+            height: min(48vh, 420px);
+            background: linear-gradient(180deg, rgba(192, 106, 28, 0.08), rgba(192, 106, 28, 0.34), rgba(192, 106, 28, 0.08));
         }
 
-        .phase-dot {
+        .phase-rail__track {
+            display: grid;
+            gap: 0.82rem;
+        }
+
+        .phase-rail__button {
             position: relative;
-            width: 0.82rem;
-            height: 0.82rem;
-            border: 0;
+            width: 1.1rem;
+            height: 1.1rem;
+            border: 1px solid var(--accent-line);
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.16);
-            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.28);
+            background: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 0 0 rgba(192, 106, 28, 0);
             cursor: pointer;
-            transition: transform 180ms ease, background 180ms ease, box-shadow 180ms ease;
+            transition: transform 160ms ease, background 160ms ease, box-shadow 220ms ease;
         }
 
-        .phase-dot::after {
+        .phase-rail__button::after {
             content: attr(data-label);
             position: absolute;
-            left: calc(100% + 0.9rem);
+            left: calc(100% + 0.75rem);
             top: 50%;
             transform: translateY(-50%);
-            padding: 0.34rem 0.5rem;
-            border: 1px solid var(--glass-border);
+            padding: 0.45rem 0.7rem;
+            border: 1px solid rgba(23, 18, 13, 0.08);
             border-radius: 999px;
-            background: rgba(10, 10, 12, 0.92);
-            color: var(--text-secondary);
-            font-size: 0.68rem;
+            background: rgba(255, 255, 255, 0.9);
+            box-shadow: var(--shadow-soft);
+            color: var(--text);
+            font-size: 0.7rem;
             font-weight: 650;
-            letter-spacing: 0.08em;
-            text-transform: uppercase;
+            letter-spacing: 0.04em;
             white-space: nowrap;
             opacity: 0;
             pointer-events: none;
-            transition: opacity 160ms ease;
+            transition: opacity 160ms ease, transform 160ms ease;
         }
 
-        .phase-dot:hover::after,
-        .phase-dot:focus-visible::after {
+        .phase-rail__button:hover::after,
+        .phase-rail__button:focus-visible::after {
             opacity: 1;
+            transform: translateY(-50%) translateX(0.1rem);
         }
 
-        .phase-dot.is-active {
-            background: rgba(255, 255, 255, 0.92);
-            box-shadow:
-                0 0 0 0 rgba(255, 255, 255, 0.28),
-                0 0 22px rgba(255, 255, 255, 0.28);
-            animation: phasePulse 2.4s ease-in-out infinite;
+        .phase-rail__button:hover,
+        .phase-rail__button:focus-visible {
+            outline: none;
+            transform: scale(1.08);
         }
 
-        @keyframes phasePulse {
-            0%, 100% {
-                transform: scale(1);
-                box-shadow:
-                    0 0 0 0 rgba(255, 255, 255, 0.16),
-                    0 0 18px rgba(255, 255, 255, 0.22);
+        .phase-rail__button.is-active {
+            background: var(--accent);
+            box-shadow: 0 0 0 7px rgba(192, 106, 28, 0.16);
+            animation: pulseDot 1.8s ease-in-out infinite;
+        }
+
+        @keyframes pulseDot {
+            0%,
+            100% {
+                box-shadow: 0 0 0 0 rgba(192, 106, 28, 0.18);
             }
 
             50% {
-                transform: scale(1.18);
-                box-shadow:
-                    0 0 0 10px rgba(255, 255, 255, 0.03),
-                    0 0 28px rgba(255, 255, 255, 0.3);
+                box-shadow: 0 0 0 8px rgba(192, 106, 28, 0.12);
             }
         }
 
         .hero {
             position: relative;
-            min-height: calc(100vh - 2rem);
+            min-height: calc(100vh - var(--header-height));
             display: grid;
             align-items: center;
-            padding: 3rem 0 2rem;
+            padding: 4.5rem 0 2.25rem;
             overflow: hidden;
-        }
-
-        .hero::before,
-        .hero::after {
-            content: "";
-            position: absolute;
-            inset: auto auto -18vw -8vw;
-            width: 48vw;
-            aspect-ratio: 1 / 1;
-            border-radius: 999px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            opacity: 0.24;
-            animation: heroWave 16s ease-in-out infinite;
-        }
-
-        .hero::after {
-            inset: -12vw -10vw auto auto;
-            width: 38vw;
-            animation-duration: 19s;
-            animation-delay: -8s;
-        }
-
-        @keyframes heroWave {
-            0%, 100% {
-                transform: scale(0.92);
-                opacity: 0.18;
-            }
-
-            50% {
-                transform: scale(1.08);
-                opacity: 0.34;
-            }
         }
 
         .hero__rings {
             position: absolute;
-            inset: 50% auto auto 50%;
-            width: 56vw;
-            max-width: 720px;
-            aspect-ratio: 1 / 1;
-            transform: translate(-50%, -52%);
+            inset: 12% auto auto 50%;
+            width: min(72vw, 820px);
+            aspect-ratio: 1;
+            transform: translateX(-50%);
             pointer-events: none;
         }
 
-        .hero__rings span {
+        .hero__ring {
             position: absolute;
-            inset: 50%;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 999px;
-            transform: translate(-50%, -50%) scale(var(--scale));
-            animation: heroPulse 14s ease-in-out infinite;
-            animation-delay: var(--delay);
+            inset: 0;
+            border: 1px solid rgba(192, 106, 28, 0.1);
+            border-radius: 50%;
+            animation: heroPulse 18s ease-in-out infinite;
+        }
+
+        .hero__ring:nth-child(2) {
+            inset: 12%;
+            animation-delay: -4s;
+        }
+
+        .hero__ring:nth-child(3) {
+            inset: 24%;
+            animation-delay: -9s;
         }
 
         @keyframes heroPulse {
-            0%, 100% {
-                opacity: 0.2;
-                transform: translate(-50%, -50%) scale(var(--scale));
+            0%,
+            100% {
+                transform: scale(0.98);
+                opacity: 0.24;
             }
 
             50% {
-                opacity: 0.4;
-                transform: translate(-50%, -50%) scale(calc(var(--scale) * 1.03));
+                transform: scale(1.02);
+                opacity: 0.44;
             }
         }
 
         .hero__inner {
             position: relative;
-            z-index: 2;
+            z-index: 1;
             display: grid;
-            gap: 1.3rem;
             justify-items: center;
+            gap: 1.4rem;
             text-align: center;
         }
 
-        .hero__title {
+        .hero__eyebrow {
             margin: 0;
-            max-width: 12ch;
-            font-family: var(--font-display);
-            font-size: clamp(3.7rem, 9vw, 6.25rem);
-            font-weight: 760;
-            line-height: 0.9;
-            letter-spacing: -0.08em;
-            text-transform: uppercase;
-            text-wrap: balance;
-        }
-
-        .hero__subtitle {
-            margin: 0;
-            max-width: 28rem;
             color: var(--text-secondary);
-            font-size: clamp(1.15rem, 2.2vw, 1.5rem);
-            line-height: 1.5;
-        }
-
-        .hero__meta {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.75rem;
-            color: var(--text-secondary);
-            font-size: 0.86rem;
-            font-weight: 600;
-            letter-spacing: 0.06em;
-        }
-
-        .hero__meta span {
-            padding: 0.56rem 0.8rem;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(12px);
-        }
-
-        .hero__scroll {
-            display: inline-grid;
-            justify-items: center;
-            gap: 0.5rem;
-            margin-top: 0.8rem;
-            color: var(--text-secondary);
-            font-size: 0.72rem;
+            font-size: 0.78rem;
             font-weight: 700;
             letter-spacing: 0.18em;
             text-transform: uppercase;
         }
 
-        .hero__scroll span:last-child {
-            font-size: 1.1rem;
-            animation: arrowFloat 2.2s ease-in-out infinite;
+        .hero h1 {
+            margin: 0;
+            max-width: 13ch;
+            font-family: var(--font-display);
+            font-size: clamp(3.5rem, 9vw, 6.8rem);
+            line-height: 0.9;
+            letter-spacing: -0.06em;
         }
 
-        @keyframes arrowFloat {
-            0%, 100% { transform: translateY(0); opacity: 0.55; }
-            50% { transform: translateY(6px); opacity: 1; }
+        .hero__subtitle {
+            max-width: 28ch;
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: clamp(1.18rem, 2.4vw, 1.68rem);
+            line-height: 1.35;
         }
 
-        .reveal {
-            opacity: 0;
-            transform: translate3d(0, 42px, 0);
-            transition: opacity 700ms ease, transform 700ms ease;
+        .hero__meta {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.72rem;
         }
 
-        .reveal.is-visible {
-            opacity: 1;
-            transform: translate3d(0, 0, 0);
+        .hero__meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.76rem 1rem;
+            border: 1px solid rgba(23, 18, 13, 0.08);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.74);
+            box-shadow: var(--shadow-soft);
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
         }
 
-        .phase-section,
-        .quote-section {
+        .hero__meta span::before {
+            content: "";
+            width: 0.42rem;
+            height: 0.42rem;
+            border-radius: 50%;
+            background: rgba(192, 106, 28, 0.48);
+        }
+
+        .hero__scroll {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            margin-top: 0.7rem;
+            color: var(--text-secondary);
+            font-size: 0.76rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .hero__scroll::after {
+            content: "";
+            width: 0.65rem;
+            height: 0.65rem;
+            border-right: 1px solid rgba(23, 18, 13, 0.35);
+            border-bottom: 1px solid rgba(23, 18, 13, 0.35);
+            transform: rotate(45deg);
+            animation: scrollHint 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollHint {
+            0%,
+            100% {
+                transform: translateY(0) rotate(45deg);
+            }
+
+            50% {
+                transform: translateY(4px) rotate(45deg);
+            }
+        }
+
+        .lesson-phases {
+            width: var(--shell);
+            margin: 0 auto;
+        }
+
+        .lesson-phase {
             position: relative;
             min-height: 100vh;
-            padding: 6rem 0;
             display: grid;
             align-items: center;
-            isolation: isolate;
-        }
-
-        .phase-section.is-focused {
-            position: fixed;
-            inset: calc(var(--header-height) + 1rem) 1.4rem 1.4rem max(1.4rem, calc(var(--timeline-left) + 3rem));
-            z-index: 60;
-            min-height: auto;
-            padding: 2.2rem 0 2.8rem;
-            overflow: auto;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 1.6rem;
-            background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01)),
-                rgba(0, 0, 0, 0.92);
-            box-shadow: var(--shadow);
-        }
-
-        body.is-focus-mode .phase-section:not(.is-focused),
-        body.is-focus-mode .quote-section,
-        body.is-focus-mode .hero {
-            opacity: 0.12 !important;
-            pointer-events: none;
-            filter: blur(6px);
+            padding: 5.6rem 0 4rem;
+            scroll-margin-top: calc(var(--header-height) + 1rem);
         }
 
         .phase-ghost {
             position: absolute;
-            inset: 1.2rem auto auto 0;
-            width: 100%;
+            inset: 0 0 auto auto;
             font-family: var(--font-display);
-            font-size: clamp(8rem, 24vw, 18rem);
-            font-weight: 760;
-            letter-spacing: -0.1em;
-            line-height: 0.82;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.05);
+            font-size: clamp(7rem, 20vw, 16rem);
+            line-height: 0.84;
+            letter-spacing: -0.08em;
+            color: rgba(23, 18, 13, 0.04);
             pointer-events: none;
             user-select: none;
         }
 
-        .phase-shell {
+        .phase-panel {
             position: relative;
-            z-index: 2;
-            width: min(1120px, calc(100vw - 5rem));
-            margin: 0 auto;
+            z-index: 1;
             display: grid;
-            grid-template-columns: minmax(0, 1.16fr) minmax(280px, 0.84fr);
-            gap: clamp(1.8rem, 5vw, 4rem);
-            align-items: start;
+            gap: 1.4rem;
         }
 
-        .phase-copy {
+        .phase-panel__head {
             display: grid;
-            gap: 1.1rem;
+            grid-template-columns: minmax(0, 1fr) auto;
+            align-items: start;
+            gap: 1rem;
         }
 
         .phase-kicker {
-            margin: 0;
-            color: var(--text-secondary);
-            font-size: 0.74rem;
+            margin: 0 0 0.3rem;
+            color: var(--accent);
+            font-size: 0.78rem;
             font-weight: 700;
-            letter-spacing: 0.22em;
+            letter-spacing: 0.16em;
             text-transform: uppercase;
         }
 
         .phase-title {
             margin: 0;
-            max-width: 13ch;
+            max-width: 14ch;
             font-family: var(--font-display);
-            font-size: clamp(2.3rem, 5vw, 3.25rem);
-            font-weight: 760;
-            line-height: 0.96;
-            letter-spacing: -0.07em;
-            text-wrap: balance;
+            font-size: clamp(2.15rem, 4.6vw, 3.4rem);
+            line-height: 0.95;
+            letter-spacing: -0.04em;
         }
 
-        .phase-intro,
-        .phase-copy p,
-        .glass-card li,
-        .goal-card p,
-        .pair-card p,
-        .map-readout p,
-        .legend-item p,
-        .footer-nav a,
-        .criteria-card p,
-        .self-check li,
-        .quote-section p {
-            color: var(--text-secondary);
-            font-size: 1rem;
-            line-height: 1.8;
-        }
-
-        .phase-copy p,
-        .goal-card p,
-        .pair-card p,
-        .map-readout p,
-        .legend-item p,
-        .criteria-card p,
-        .quote-section p {
-            margin: 0;
-        }
-
-        .phase-meta-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.72rem;
-        }
-
-        .meta-badge,
-        .material-chip {
+        .duration-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.5rem;
-            min-height: 2.4rem;
-            padding: 0.58rem 0.82rem;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            gap: 0.42rem;
+            margin-top: 0.85rem;
+            padding: 0.52rem 0.82rem;
+            border: 1px solid rgba(23, 18, 13, 0.08);
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.025);
-            color: var(--text);
-            font-size: 0.82rem;
+            background: rgba(255, 255, 255, 0.74);
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+        }
+
+        .duration-ring {
+            position: relative;
+            width: 5.2rem;
+            aspect-ratio: 1;
+            display: grid;
+            place-items: center;
+        }
+
+        .duration-ring svg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            transform: rotate(-90deg);
+        }
+
+        .duration-ring circle {
+            fill: none;
+            stroke-width: 6;
+        }
+
+        .duration-ring__track {
+            stroke: rgba(23, 18, 13, 0.08);
+        }
+
+        .duration-ring__progress {
+            stroke: var(--accent);
+            stroke-linecap: round;
+            stroke-dasharray: var(--duration-circumference);
+            stroke-dashoffset: calc(var(--duration-circumference) - (var(--duration-circumference) * var(--progress)));
+        }
+
+        .duration-ring__label {
+            font-size: 0.86rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .phase-materials {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.56rem;
+        }
+
+        .phase-material {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.46rem;
+            padding: 0.56rem 0.84rem;
+            border: 1px solid rgba(23, 18, 13, 0.08);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.76);
+            color: var(--text-secondary);
+            font-size: 0.84rem;
             font-weight: 650;
         }
 
-        .material-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.72rem;
+        .phase-material::before {
+            content: "";
+            width: 0.36rem;
+            height: 0.36rem;
+            border-radius: 999px;
+            background: rgba(192, 106, 28, 0.48);
         }
 
-        .instruction-list {
-            counter-reset: lesson-step;
-            margin: 0;
-            padding: 0;
-            list-style: none;
+        .phase-body {
             display: grid;
-            gap: 0.95rem;
-        }
-
-        .instruction-list li {
-            position: relative;
-            display: grid;
-            grid-template-columns: 2.4rem minmax(0, 1fr);
-            gap: 0.9rem;
+            grid-template-columns: minmax(0, 1.12fr) minmax(18rem, 0.88fr);
+            gap: 1.5rem;
             align-items: start;
-            color: var(--text);
-            font-size: 1rem;
+        }
+
+        .phase-copy {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .phase-copy p {
+            margin: 0;
+            max-width: 41rem;
+            color: var(--text-secondary);
+            font-size: 1.02rem;
             line-height: 1.8;
         }
 
-        .instruction-list li::before {
-            counter-increment: lesson-step;
-            content: counter(lesson-step);
-            display: inline-grid;
+        .phase-steps {
+            display: grid;
+            gap: 0.82rem;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .phase-step {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 0.84rem;
+            align-items: start;
+        }
+
+        .phase-step__index {
+            width: 2rem;
+            height: 2rem;
+            display: grid;
             place-items: center;
-            width: 2.2rem;
-            height: 2.2rem;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid var(--accent-line);
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.03);
-            color: var(--text);
-            font-size: 0.84rem;
+            background: rgba(255, 255, 255, 0.84);
+            color: var(--accent);
+            font-size: 0.82rem;
             font-weight: 700;
+        }
+
+        .phase-step__text {
+            padding-top: 0.18rem;
+            color: var(--text);
+            font-size: 0.98rem;
+            line-height: 1.72;
         }
 
         .phase-side {
@@ -797,596 +828,476 @@
             gap: 1rem;
         }
 
-        .glass-card,
-        .goal-card,
+        .observe-box,
+        .result-box,
+        .note-box,
         .pair-card,
-        .map-readout,
-        .legend-panel,
-        .score-panel,
-        .criteria-card,
-        .focus-note {
-            border: 1px solid var(--glass-border);
-            border-radius: 1.2rem;
-            background: var(--glass-bg);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-            backdrop-filter: blur(20px);
+        .criterion {
+            border: 1px solid var(--border);
+            border-radius: 1.4rem;
+            background: var(--panel);
+            backdrop-filter: blur(16px);
+            box-shadow: var(--shadow-soft);
         }
 
-        .glass-card,
-        .goal-card,
-        .map-readout,
-        .legend-panel,
-        .criteria-card,
-        .focus-note {
-            padding: 1.15rem 1.2rem;
+        .observe-box,
+        .result-box,
+        .note-box {
+            padding: 1.2rem 1.3rem;
         }
 
-        .glass-card h3,
-        .goal-card strong,
-        .pair-card h3,
-        .map-readout h3,
-        .legend-panel h3,
-        .score-panel h3,
-        .criteria-card h3,
-        .focus-note strong {
-            margin: 0 0 0.72rem;
-            color: var(--text);
-            font-size: 0.9rem;
+        .observe-box h3,
+        .result-box h3,
+        .note-box h3 {
+            margin: 0 0 0.7rem;
+            font-size: 0.78rem;
             font-weight: 700;
-            letter-spacing: 0.14em;
+            letter-spacing: 0.16em;
             text-transform: uppercase;
+            color: var(--text-secondary);
         }
 
-        .glass-card ul,
-        .self-check {
-            margin: 0;
-            padding: 0;
-            list-style: none;
+        .observe-box ul,
+        .self-check ul {
             display: grid;
             gap: 0.72rem;
-        }
-
-        .glass-card li,
-        .self-check li {
-            position: relative;
+            margin: 0;
             padding-left: 1rem;
-        }
-
-        .glass-card li::before,
-        .self-check li::before {
-            content: "";
-            position: absolute;
-            left: 0;
-            top: 0.82rem;
-            width: 0.34rem;
-            height: 0.34rem;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.86);
-        }
-
-        .goal-card {
-            border-color: var(--focus-border);
-        }
-
-        .goal-card span {
-            display: block;
-            color: rgba(255, 244, 220, 0.82);
-            font-size: 0.72rem;
-            font-weight: 700;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-        }
-
-        .goal-card p {
-            margin-top: 0.48rem;
             color: var(--text);
         }
 
-        .duration-ring {
+        .observe-box li,
+        .self-check li {
+            line-height: 1.65;
+        }
+
+        .result-box {
+            border-color: var(--accent-line);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.9), rgba(255, 249, 241, 0.95));
+        }
+
+        .result-box p,
+        .note-box p {
+            margin: 0;
+            line-height: 1.72;
+        }
+
+        .pairs-grid,
+        .criteria-grid {
             display: grid;
-            justify-items: center;
-            gap: 0.85rem;
-            padding: 1.2rem;
-            border: 1px solid var(--glass-border);
-            border-radius: 1.35rem;
-            background: rgba(255, 255, 255, 0.02);
+            grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+            gap: 0.92rem;
         }
 
-        .duration-ring svg {
-            width: 156px;
-            height: 156px;
-            transform: rotate(-90deg);
+        .pairs-grid {
+            margin-top: 0.2rem;
         }
 
-        .duration-ring circle {
-            fill: none;
-            stroke-width: 10;
+        .pair-card,
+        .criterion {
+            padding: 1rem 1.05rem;
         }
 
-        .duration-ring circle:first-child {
-            stroke: rgba(255, 255, 255, 0.08);
+        .pair-card h3,
+        .criterion h3 {
+            margin: 0 0 0.35rem;
+            font-size: 1rem;
+            line-height: 1.2;
         }
 
-        .duration-ring circle:last-child {
-            stroke: rgba(255, 255, 255, 0.92);
-            stroke-linecap: round;
-            stroke-dasharray: var(--duration-circumference);
-            stroke-dashoffset: calc(var(--duration-circumference) * (1 - var(--progress)));
-        }
-
-        .duration-ring__label {
-            position: absolute;
-            inset: 0;
-            display: grid;
-            place-items: center;
-            text-align: center;
-        }
-
-        .duration-ring__label strong {
-            display: block;
-            font-family: var(--font-display);
-            font-size: 2rem;
-            font-weight: 760;
-            line-height: 1;
-            letter-spacing: -0.06em;
-        }
-
-        .duration-ring__label span {
-            display: block;
-            margin-top: 0.25rem;
+        .pair-card p,
+        .criterion p {
+            margin: 0;
             color: var(--text-secondary);
-            font-size: 0.74rem;
+            line-height: 1.65;
+        }
+
+        .criterion__kicker {
+            display: inline-block;
+            margin-bottom: 0.55rem;
+            color: var(--accent);
+            font-size: 0.72rem;
             font-weight: 700;
             letter-spacing: 0.14em;
             text-transform: uppercase;
         }
 
-        .duration-ring__frame {
-            position: relative;
-            width: 156px;
-            height: 156px;
+        .self-check {
+            padding: 1.2rem 1.3rem;
+            border: 1px solid var(--border);
+            border-radius: 1.4rem;
+            background: rgba(255, 255, 255, 0.72);
+            box-shadow: var(--shadow-soft);
         }
 
-        .pair-grid {
+        .self-check h3 {
+            margin: 0 0 0.7rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+        }
+
+        .map-block,
+        .score-block {
             display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
             gap: 1rem;
-            margin-top: 0.5rem;
+            margin-top: 0.1rem;
         }
 
-        .pair-card {
-            padding: 1.05rem 1.1rem;
+        .map-block__frame,
+        .score-block__frame {
             display: grid;
-            gap: 0.75rem;
+            grid-template-columns: minmax(0, 1.12fr) minmax(19rem, 0.88fr);
+            gap: 1rem;
+            padding: 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 1.9rem;
+            background: rgba(255, 255, 255, 0.76);
+            backdrop-filter: blur(16px);
+            box-shadow: var(--shadow);
         }
 
-        .pair-polarity {
-            color: var(--text);
-            font-size: 1.02rem;
-            font-weight: 680;
-            letter-spacing: 0.08em;
+        .map-block__intro p,
+        .score-block__intro p {
+            margin: 0;
+            color: var(--text-secondary);
+            line-height: 1.72;
         }
 
-        .pair-line {
-            height: 1px;
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.04));
-        }
-
-        .map-panel {
-            display: grid;
-            gap: 1.2rem;
+        .map-block__intro h3,
+        .score-block__intro h3 {
+            margin: 0 0 0.45rem;
+            font-family: var(--font-display);
+            font-size: clamp(1.55rem, 3vw, 2.2rem);
+            line-height: 0.98;
+            letter-spacing: -0.03em;
         }
 
         .map-stage {
             position: relative;
-            min-height: 580px;
-            border: 1px solid var(--glass-border);
-            border-radius: 1.55rem;
-            background:
-                radial-gradient(circle at center, rgba(255, 255, 255, 0.03), transparent 45%),
-                rgba(255, 255, 255, 0.02);
+            min-height: 28rem;
             overflow: hidden;
+            border-radius: 1.5rem;
+            border: 1px solid rgba(23, 18, 13, 0.06);
+            background:
+                radial-gradient(circle at center, rgba(192, 106, 28, 0.08), transparent 38%),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(244, 236, 224, 0.9));
         }
 
-        .map-stage__lines {
+        .map-stage svg {
             position: absolute;
             inset: 0;
             width: 100%;
             height: 100%;
         }
 
-        .map-stage__lines line {
-            stroke: rgba(255, 255, 255, 0.12);
-            stroke-width: 1;
+        .map-line {
+            stroke: rgba(23, 18, 13, 0.12);
+            stroke-width: 1.2;
+            fill: none;
+        }
+
+        .map-line--ring {
+            opacity: 0.4;
         }
 
         .map-node {
             position: absolute;
-            display: grid;
-            justify-items: center;
-            gap: 0.5rem;
-            width: 11.5rem;
-            padding: 1rem 0.95rem;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            left: var(--x);
+            top: var(--y);
+            transform: translate(-50%, -50%) translateY(18px);
+            width: min(11rem, 28vw);
+            padding: 0.88rem 0.9rem;
+            border: 1px solid rgba(23, 18, 13, 0.08);
             border-radius: 1.2rem;
-            background: rgba(255, 255, 255, 0.03);
-            text-align: center;
-            cursor: pointer;
+            background: rgba(255, 255, 255, 0.84);
+            box-shadow: var(--shadow-soft);
+            text-align: left;
             opacity: 0;
-            transform: translate3d(0, 18px, 0);
-            transition:
-                opacity 520ms ease,
-                transform 520ms ease,
-                border-color 180ms ease,
-                box-shadow 180ms ease,
-                background 180ms ease;
+            cursor: pointer;
+            transition: transform 220ms ease, opacity 220ms ease, border-color 180ms ease, box-shadow 180ms ease;
+            transition-delay: var(--delay, 0ms);
         }
 
-        .map-panel.is-visible .map-node {
+        .map-stage.is-awake .map-node {
             opacity: 1;
-            transform: translate3d(0, 0, 0);
+            transform: translate(-50%, -50%);
         }
-
-        .map-panel.is-visible .map-node:nth-child(2) { transition-delay: 0ms; }
-        .map-panel.is-visible .map-node:nth-child(3) { transition-delay: 110ms; }
-        .map-panel.is-visible .map-node:nth-child(4) { transition-delay: 220ms; }
-        .map-panel.is-visible .map-node:nth-child(5) { transition-delay: 330ms; }
-        .map-panel.is-visible .map-node:nth-child(6) { transition-delay: 440ms; }
-        .map-panel.is-visible .map-node:nth-child(7) { transition-delay: 550ms; }
 
         .map-node:hover,
         .map-node:focus-visible,
         .map-node.is-active {
             outline: none;
-            border-color: rgba(255, 255, 255, 0.22);
-            background: rgba(255, 255, 255, 0.07);
-            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.08), 0 0 32px rgba(255, 255, 255, 0.1);
+            border-color: var(--accent-line);
+            box-shadow: 0 12px 32px rgba(97, 64, 24, 0.14);
         }
 
-        .map-node--center {
-            width: 12.2rem;
-            background: rgba(255, 255, 255, 0.08);
-        }
-
-        .map-node__eyebrow {
+        .map-node small {
+            display: block;
+            margin-bottom: 0.35rem;
             color: var(--text-secondary);
             font-size: 0.68rem;
             font-weight: 700;
-            letter-spacing: 0.16em;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
         }
 
         .map-node strong {
             display: block;
-            font-size: 1.05rem;
-            font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: 0.02em;
+            font-size: 0.96rem;
+            line-height: 1.15;
         }
 
-        .map-node__tags {
+        .map-node--center {
+            left: 50%;
+            top: 50%;
+            width: min(14rem, 34vw);
+            border-color: var(--accent-line);
+            background: rgba(255, 250, 243, 0.96);
+        }
+
+        .map-details {
+            display: grid;
+            gap: 0.85rem;
+            align-content: start;
+            padding: 1.25rem;
+            border: 1px solid var(--accent-line);
+            border-radius: 1.5rem;
+            background: rgba(255, 250, 243, 0.94);
+        }
+
+        .map-details__eyebrow {
+            margin: 0;
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        .map-details__title {
+            margin: 0;
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            line-height: 0.98;
+            letter-spacing: -0.03em;
+        }
+
+        .map-details__body {
+            margin: 0;
+            color: var(--text-secondary);
+            line-height: 1.72;
+        }
+
+        .tag-list {
             display: flex;
             flex-wrap: wrap;
-            justify-content: center;
-            gap: 0.42rem;
+            gap: 0.5rem;
         }
 
-        .map-node__tags span,
-        .map-readout__tags span {
+        .tag-list span {
             display: inline-flex;
             align-items: center;
-            min-height: 1.9rem;
-            padding: 0.38rem 0.56rem;
+            padding: 0.46rem 0.72rem;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text);
-            font-size: 0.74rem;
+            background: rgba(192, 106, 28, 0.1);
+            color: var(--accent);
+            font-size: 0.78rem;
             font-weight: 650;
         }
 
-        .map-node--body { left: 8%; top: 16%; }
-        .map-node--voice { right: 8%; top: 16%; }
-        .map-node--gesture { right: 13%; bottom: 16%; }
-        .map-node--silence { left: 13%; bottom: 16%; }
-        .map-node--form { left: 50%; top: 4%; transform: translateX(-50%) translate3d(0, 18px, 0); }
-        .map-node--center { left: 50%; top: 50%; transform: translate(-50%, -50%) translate3d(0, 18px, 0); }
-
-        .map-panel.is-visible .map-node--form,
-        .map-panel.is-visible .map-node--center {
-            transform: translate(-50%, -50%) translate3d(0, 0, 0);
-        }
-
-        .map-panel.is-visible .map-node--form {
-            transform: translateX(-50%) translate3d(0, 0, 0);
-        }
-
-        .map-readout__tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.45rem;
-            margin-top: 0.8rem;
-        }
-
-        .phase-wide {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .score-layout {
-            display: grid;
-            grid-template-columns: minmax(0, 1.18fr) minmax(260px, 0.82fr);
-            gap: 1rem;
-            margin-top: 1.2rem;
-        }
-
-        .score-panel {
-            padding: 1.1rem 1.15rem 1.25rem;
-        }
-
         .score-canvas-wrap {
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 1rem;
-            background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01)),
-                #040406;
+            position: relative;
+            min-height: 17rem;
             overflow: hidden;
+            border: 1px solid rgba(23, 18, 13, 0.06);
+            border-radius: 1.5rem;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(244, 236, 224, 0.92));
         }
 
-        #scoreCanvas {
+        .score-canvas {
             display: block;
             width: 100%;
-            height: 320px;
+            height: 100%;
         }
 
-        .score-controls {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .ghost-button {
+        .score-trigger {
+            margin-top: 0.9rem;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            min-height: 2.6rem;
-            padding: 0.68rem 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.74rem 1rem;
+            border: 1px solid var(--accent-line);
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.03);
-            color: var(--text);
+            background: rgba(255, 250, 243, 0.96);
+            color: var(--accent);
+            font-weight: 700;
+            letter-spacing: 0.04em;
             cursor: pointer;
-            transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
+            transition: transform 160ms ease, background 160ms ease;
         }
 
-        .ghost-button:hover,
-        .ghost-button:focus-visible {
-            background: rgba(255, 255, 255, 0.08);
-            border-color: rgba(255, 255, 255, 0.18);
-            transform: translateY(-1px);
+        .score-trigger:hover,
+        .score-trigger:focus-visible {
             outline: none;
+            transform: translateY(-1px);
+            background: rgba(255, 244, 229, 0.98);
         }
 
-        .legend-panel {
+        .score-legend {
             display: grid;
-            gap: 0.95rem;
+            gap: 0.8rem;
+            align-content: start;
         }
 
         .legend-item {
             display: grid;
-            grid-template-columns: 3.2rem minmax(0, 1fr);
-            gap: 0.9rem;
+            grid-template-columns: auto 1fr;
+            gap: 0.75rem;
             align-items: start;
+            padding: 0.8rem 0.85rem;
+            border: 1px solid rgba(23, 18, 13, 0.08);
+            border-radius: 1.15rem;
+            background: rgba(255, 255, 255, 0.72);
         }
 
-        .legend-glyph {
-            min-height: 2.8rem;
+        .legend-mark {
+            width: 2.1rem;
+            height: 2.1rem;
             display: grid;
             place-items: center;
-            border-radius: 0.9rem;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .legend-glyph span {
-            display: inline-block;
-        }
-
-        .glyph-light {
-            width: 0.38rem;
-            height: 0.38rem;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.78);
+            background: rgba(192, 106, 28, 0.1);
         }
 
-        .glyph-intense {
-            width: 0.82rem;
-            height: 0.82rem;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.92);
+        .legend-item h4 {
+            margin: 0 0 0.18rem;
+            font-size: 0.95rem;
         }
 
-        .glyph-hit {
-            width: 0.16rem;
-            height: 1.2rem;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.9);
-        }
-
-        .glyph-gap {
-            width: 1.35rem;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.12);
-        }
-
-        .glyph-growth {
-            color: var(--text);
-            font-size: 1.15rem;
-            font-weight: 700;
-        }
-
-        .glyph-density {
-            display: flex;
-            gap: 0.14rem;
-        }
-
-        .glyph-density i {
-            display: inline-block;
-            width: 0.34rem;
-            height: 0.34rem;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.88);
-        }
-
-        .glyph-cut {
-            position: relative;
-            width: 1.4rem;
-            height: 1rem;
-        }
-
-        .glyph-cut::before,
-        .glyph-cut::after {
-            content: "";
-            position: absolute;
-            inset: 50% auto auto 50%;
-            width: 1.15rem;
-            height: 1px;
-            background: rgba(255, 255, 255, 0.82);
-            transform-origin: center;
-        }
-
-        .glyph-cut::before {
-            transform: translate(-50%, -50%) rotate(38deg);
-        }
-
-        .glyph-cut::after {
-            transform: translate(-50%, -50%) rotate(-38deg);
-        }
-
-        .criteria-grid {
-            display: grid;
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .criteria-card {
-            display: grid;
-            gap: 0.55rem;
-        }
-
-        .criteria-card span {
+        .legend-item p {
+            margin: 0;
             color: var(--text-secondary);
-            font-size: 0.7rem;
-            font-weight: 700;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
+            line-height: 1.6;
+            font-size: 0.92rem;
         }
 
-        .focus-note {
-            margin-top: 1rem;
+        .reveal {
+            opacity: 0;
+            transform: translateY(42px);
+            transition: opacity 540ms ease, transform 540ms ease;
+        }
+
+        .reveal.is-visible {
+            opacity: 1;
+            transform: none;
         }
 
         .quote-section {
+            min-height: 62vh;
+            display: grid;
+            place-items: center;
+            padding: 5rem 0 4rem;
             text-align: center;
         }
 
-        .quote-shell {
-            width: min(980px, calc(100vw - 3rem));
-            margin: 0 auto;
-            display: grid;
-            gap: 1.35rem;
-        }
-
-        .quote-mark {
-            color: rgba(255, 255, 255, 0.14);
-            font-size: 4rem;
-            line-height: 1;
-        }
-
-        .quote-text {
+        .quote-section blockquote {
             margin: 0;
+            max-width: 12ch;
             font-family: var(--font-display);
-            font-size: clamp(2.4rem, 6vw, 3.85rem);
+            font-size: clamp(2.2rem, 5vw, 4.6rem);
             font-style: italic;
-            font-weight: 680;
-            line-height: 1.16;
-            letter-spacing: -0.05em;
-            text-wrap: balance;
+            line-height: 1.08;
+            letter-spacing: -0.04em;
         }
 
-        .quote-signature {
+        .quote-section figcaption {
+            margin-top: 1rem;
             color: var(--text-secondary);
-            font-size: 0.86rem;
+            font-size: 0.84rem;
             font-weight: 700;
-            letter-spacing: 0.18em;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
         }
 
         .site-footer {
             position: relative;
-            z-index: 2;
-            padding: 1.4rem 0 2.4rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            z-index: 1;
+            border-top: 1px solid rgba(23, 18, 13, 0.08);
+            padding: 1.4rem 0 3rem;
         }
 
-        .footer-nav {
-            width: var(--shell);
-            margin: 0 auto;
+        .site-footer__links {
             display: flex;
-            flex-wrap: wrap;
-            gap: 1rem 1.6rem;
+            align-items: center;
             justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.9rem 1.2rem;
         }
 
-        .footer-nav a {
-            color: rgba(255, 255, 255, 0.42);
+        .site-footer__links a,
+        .site-footer__links span {
+            color: var(--text-secondary);
             font-size: 0.78rem;
             font-weight: 700;
-            letter-spacing: 0.18em;
+            letter-spacing: 0.14em;
             text-transform: uppercase;
-            transition: color 160ms ease;
         }
 
-        .footer-nav a:hover,
-        .footer-nav a:focus-visible {
-            color: var(--text);
+        .site-footer__links a:hover,
+        .site-footer__links a:focus-visible {
             outline: none;
+            color: var(--accent);
+        }
+
+        .site-footer__links .is-disabled {
+            opacity: 0.5;
+        }
+
+        .site-footer__meta {
+            margin: 0.9rem 0 0;
+            color: var(--text-secondary);
+            font-size: 0.84rem;
+            text-align: center;
         }
 
         @media (max-width: 1180px) {
-            :root {
-                --timeline-left: 18px;
+            .phase-rail {
+                left: 0.7rem;
             }
 
-            .phase-shell,
-            .score-layout,
-            .pair-grid,
-            .criteria-grid {
+            .hero h1 {
+                max-width: 11ch;
+            }
+        }
+
+        @media (max-width: 980px) {
+            .phase-body,
+            .map-block__frame,
+            .score-block__frame {
                 grid-template-columns: 1fr;
             }
 
-            .map-stage {
-                min-height: 700px;
+            .phase-panel__head {
+                grid-template-columns: 1fr;
+            }
+
+            .duration-ring {
+                width: 4.8rem;
             }
         }
 
         @media (max-width: 768px) {
             :root {
-                --shell: min(100vw - 1.35rem, 1180px);
-                --chrome-offset: 184px;
+                --shell: min(100vw - 1.5rem, 100%);
             }
 
             .site-header__inner {
                 grid-template-columns: 1fr;
                 justify-items: start;
-                gap: 0.7rem;
-                padding: 0.85rem 0;
-            }
-
-            .site-header {
-                padding-bottom: 0.2rem;
+                padding: 0.55rem 0;
             }
 
             .header-tools {
@@ -1394,79 +1305,67 @@
                 justify-content: space-between;
             }
 
-            .phase-timeline {
+            .nucleus-mini-timeline {
+                padding-top: calc(var(--header-height) + 3.8rem);
+            }
+
+            .phase-rail {
                 position: sticky;
-                top: var(--chrome-offset);
+                top: calc(var(--header-height) + 0.7rem);
                 left: auto;
-                width: auto;
                 transform: none;
-                padding: 0 0.7rem 0.8rem;
+                width: var(--shell);
+                margin: 0.8rem auto 0;
+                padding: 0.8rem 0.9rem;
+                grid-template-columns: 1fr;
+                justify-items: stretch;
+                border: 1px solid rgba(23, 18, 13, 0.08);
+                border-radius: 1.2rem;
+                background: rgba(255, 255, 255, 0.76);
+                backdrop-filter: blur(12px);
+                box-shadow: var(--shadow-soft);
             }
 
-            .phase-timeline__track {
-                grid-auto-flow: column;
-                justify-content: start;
-                overflow-x: auto;
-                padding: 0.3rem 0;
-            }
-
-            .phase-timeline__track::before {
-                top: 50%;
-                bottom: auto;
-                left: 0.5rem;
-                right: 0.5rem;
-                width: auto;
-                height: 1px;
-                transform: translateY(-50%);
-            }
-
-            .phase-dot::after {
+            .phase-rail__line {
                 display: none;
             }
 
-            .phase-shell {
-                width: min(100vw - 2rem, 1120px);
+            .phase-rail__track {
+                grid-auto-flow: column;
+                grid-auto-columns: 1fr;
+                justify-items: center;
             }
 
-            .phase-ghost {
-                font-size: 7rem;
-                inset: 1rem auto auto 0;
+            .phase-rail__button::after {
+                display: none;
             }
 
             .hero {
                 min-height: auto;
-                padding-top: 3.8rem;
-                padding-bottom: 4.5rem;
+                padding-top: 3.4rem;
             }
 
-            .map-stage {
-                min-height: 860px;
+            .lesson-phase {
+                min-height: auto;
+                padding: 4.6rem 0 3.4rem;
             }
 
             .map-node {
-                width: 9.5rem;
-            }
-
-            .map-node--body { left: 3%; top: 15%; }
-            .map-node--voice { right: 3%; top: 15%; }
-            .map-node--gesture { right: 8%; bottom: 14%; }
-            .map-node--silence { left: 8%; bottom: 14%; }
-            .map-node--form { top: 4%; }
-            .map-node--center { top: 50%; }
-
-            .phase-section.is-focused {
-                inset: calc(var(--chrome-offset) + 0.6rem) 0.8rem 0.8rem;
+                width: min(10rem, 38vw);
             }
         }
 
         @media (max-width: 480px) {
-            :root {
-                --shell: min(100vw - 1rem, 1180px);
-                --chrome-offset: 196px;
+            .hero h1 {
+                font-size: clamp(2.7rem, 14vw, 4rem);
+            }
+
+            .hero__subtitle {
+                font-size: 1.06rem;
             }
 
             .hero__meta {
-                gap: 0.5rem;
+                gap: 0.55rem;
             }
 
             .hero__meta span {
@@ -1474,49 +1373,42 @@
                 justify-content: center;
             }
 
-            .material-row,
-            .phase-meta-row {
-                gap: 0.5rem;
+            .phase-title {
+                max-width: none;
             }
 
-            .meta-badge,
-            .material-chip {
-                width: 100%;
-                justify-content: center;
+            .phase-ghost {
+                font-size: 6rem;
             }
 
             .map-stage {
-                min-height: 960px;
+                min-height: 24rem;
             }
 
             .map-node {
-                width: 8rem;
-                padding-inline: 0.7rem;
+                width: 9rem;
+                padding: 0.72rem 0.76rem;
             }
 
             .map-node strong {
-                font-size: 0.92rem;
+                font-size: 0.9rem;
             }
 
-            .map-node__tags span,
-            .map-readout__tags span {
-                font-size: 0.68rem;
-            }
-
-            .legend-item {
-                grid-template-columns: 2.7rem minmax(0, 1fr);
+            .duration-badge,
+            .phase-material {
+                font-size: 0.74rem;
             }
         }
     </style>
 </head>
-<body data-current-nucleus="origini-del-suono">
-    <div class="progress-line" aria-hidden="true"><span id="scrollProgress"></span></div>
+<body data-nav="timeline" data-current-nucleus="origini-del-suono">
+    <div class="progress-line" aria-hidden="true"><span id="progressBar"></span></div>
     <div class="sound-particles" id="soundParticles" aria-hidden="true"></div>
 
     <header class="site-header">
         <div class="shell site-header__inner">
-            <a class="brand-minimal" href="../../../../index.html">Accordia</a>
-            <nav class="breadcrumb" aria-label="Percorso della pagina">
+            <a class="brand-minimal" href="../../../../index.html">ACCORDIA</a>
+            <nav class="breadcrumb" aria-label="Percorso">
                 <a href="../../../../index.html">Home</a>
                 <span class="breadcrumb__sep">/</span>
                 <a href="../../index.html">Origini del suono</a>
@@ -1524,29 +1416,28 @@
                 <span aria-current="page">Corpo, voce e gesto</span>
             </nav>
             <div class="header-tools">
-                <div class="accessibility-bar" aria-label="Strumenti di accessibilita">
-                    <button type="button" id="motionToggle" aria-pressed="false" title="Riduci animazioni">~</button>
-                    <button type="button" id="contrastToggle" aria-pressed="false" title="Aumenta contrasto">◐</button>
-                    <button type="button" id="textToggle" aria-pressed="false" title="Aumenta testo">A+</button>
+                <div class="accessibility-bar" aria-label="Accessibilita">
+                    <button type="button" data-toggle="motion" aria-pressed="false" aria-label="Riduci animazioni">RM</button>
+                    <button type="button" data-toggle="contrast" aria-pressed="false" aria-label="Aumenta contrasto">HC</button>
+                    <button type="button" data-toggle="type" aria-pressed="false" aria-label="Aumenta dimensione testo">A+</button>
                 </div>
-                <div class="phase-counter" aria-live="polite" aria-atomic="true">
-                    <div>
-                        <span>fase</span>
-                        <strong id="phaseCounter">1/7</strong>
-                    </div>
+                <div class="phase-counter" aria-live="polite">
+                    <span class="phase-counter__value" id="phaseCounterValue">1/7</span>
+                    <span class="phase-counter__label" id="phaseCounterLabel">fase</span>
                 </div>
             </div>
         </div>
     </header>
 
-    <div class="top-rails">
-        
+    <main class="lesson-shell">
+
         <nav class="nucleus-mini-timeline" aria-label="Mini timeline dei nuclei">
             <div class="shell nucleus-mini-timeline__track">
                 <a href="../../../../nuclei/origini-del-suono/index.html" style="--mini-accent: #c06a1c;" data-nucleus-link="origini-del-suono" class="is-active" aria-current="page"><span>01</span><strong>Origini del suono</strong></a><a href="../../../../nuclei/civilta-del-mediterraneo/index.html" style="--mini-accent: #9b4d2f;" data-nucleus-link="civilta-del-mediterraneo"><span>02</span><strong>Civilta del Mediterraneo</strong></a><a href="../../../../nuclei/dalla-tarda-antichita-al-sacro/index.html" style="--mini-accent: #5b67d6;" data-nucleus-link="dalla-tarda-antichita-al-sacro"><span>03</span><strong>Dalla tarda antichita al sacro</strong></a><a href="../../../../nuclei/medioevo/index.html" style="--mini-accent: #1f7f90;" data-nucleus-link="medioevo"><span>04</span><strong>Medioevo</strong></a><a href="../../../../nuclei/rinascimento/index.html" style="--mini-accent: #768a2a;" data-nucleus-link="rinascimento"><span>05</span><strong>Rinascimento</strong></a><a href="../../../../nuclei/barocco/index.html" style="--mini-accent: #c14f40;" data-nucleus-link="barocco"><span>06</span><strong>Barocco</strong></a><a href="../../../../nuclei/classicismo/index.html" style="--mini-accent: #2f6fd6;" data-nucleus-link="classicismo"><span>07</span><strong>Classicismo</strong></a><a href="../../../../nuclei/romanticismo/index.html" style="--mini-accent: #a94d87;" data-nucleus-link="romanticismo"><span>08</span><strong>Romanticismo e secondo Ottocento</strong></a><a href="../../../../nuclei/novecento-delle-rivoluzioni/index.html" style="--mini-accent: #7057c9;" data-nucleus-link="novecento-delle-rivoluzioni"><span>09</span><strong>Novecento delle rivoluzioni</strong></a><a href="../../../../nuclei/musica-contemporanea/index.html" style="--mini-accent: #2f8c63;" data-nucleus-link="musica-contemporanea"><span>10</span><strong>Musica contemporanea e culture globali</strong></a>
             </div>
         </nav>
-        
+
+
         <nav class="topic-rail" aria-label="Argomenti del nucleo">
             <div class="shell">
                 <p class="topic-rail__eyebrow">Argomenti del nucleo</p>
@@ -1555,887 +1446,695 @@
                 </div>
             </div>
         </nav>
-    </div>
 
-    <aside class="phase-timeline" aria-label="Timeline delle fasi">
-        <div class="phase-timeline__track">
-            <button type="button" class="phase-dot is-active" data-target="apertura" data-label="Apertura" aria-label="Vai alla fase Apertura"></button>
-            <button type="button" class="phase-dot" data-target="esplorazione" data-label="Esplorazione" aria-label="Vai alla fase Esplorazione"></button>
-            <button type="button" class="phase-dot" data-target="comprensione" data-label="Comprensione attiva" aria-label="Vai alla fase Comprensione attiva"></button>
-            <button type="button" class="phase-dot" data-target="rielaborazione" data-label="Rielaborazione" aria-label="Vai alla fase Rielaborazione"></button>
-            <button type="button" class="phase-dot" data-target="produzione" data-label="Produzione" aria-label="Vai alla fase Produzione"></button>
-            <button type="button" class="phase-dot" data-target="condivisione" data-label="Condivisione" aria-label="Vai alla fase Condivisione"></button>
-            <button type="button" class="phase-dot" data-target="valutazione" data-label="Valutazione" aria-label="Vai alla fase Valutazione"></button>
-        </div>
-    </aside>
+        <aside class="phase-rail" aria-label="Fasi della lezione">
+            <div class="phase-rail__track" id="phaseRailTrack"></div>
+            <div class="phase-rail__line" aria-hidden="true"></div>
+        </aside>
 
-    <main class="lesson-shell">
-        <section class="hero reveal is-visible" id="hero" aria-labelledby="hero-title">
+        <section class="hero shell reveal is-visible">
             <div class="hero__rings" aria-hidden="true">
-                <span style="--scale: 0.34; --delay: -1s;"></span>
-                <span style="--scale: 0.52; --delay: -5s;"></span>
-                <span style="--scale: 0.72; --delay: -9s;"></span>
-                <span style="--scale: 0.92; --delay: -13s;"></span>
+                <span class="hero__ring"></span>
+                <span class="hero__ring"></span>
+                <span class="hero__ring"></span>
             </div>
-            <div class="hero__inner shell">
-                <h1 class="hero__title" id="hero-title">Corpo, voce e gesto</h1>
-                <p class="hero__subtitle">Costruire una scena sonora riconoscibile</p>
-                <div class="hero__meta" aria-label="Metadati della lezione">
-                    <span>⏱ 2 ore</span>
-                    <span>👤 corpo, voce</span>
-                    <span>📍 aula</span>
-                    <span>📄 foglio</span>
-                </div>
-                <a class="hero__scroll" href="#apertura">
-                    <span>Scorri</span>
-                    <span aria-hidden="true">↓</span>
-                </a>
+            <div class="hero__inner">
+                <p class="hero__eyebrow">Origini del suono · Argomento 03</p>
+                <h1>Corpo, voce e gesto</h1>
+                <p class="hero__subtitle">Costruire una scena sonora senza strumenti</p>
+                <div class="hero__meta" id="heroMeta"></div>
+                <a class="hero__scroll" href="#phaseRoot">Scorri nella lezione</a>
             </div>
         </section>
 
-        <section class="phase-section reveal" id="apertura" data-phase="1" role="region" aria-labelledby="apertura-title" tabindex="0">
-            <div class="phase-ghost" aria-hidden="true">01</div>
-            <div class="phase-shell">
-                <div class="phase-copy">
-                    <p class="phase-kicker">Fase 01 · Apertura</p>
-                    <h2 class="phase-title" id="apertura-title">Ascoltare quello che c'e gia</h2>
-                    <div class="phase-meta-row">
-                        <span class="meta-badge">⏱ 30 secondi</span>
-                    </div>
-                    <div class="material-row" aria-label="Materiali della fase">
-                        <span class="material-chip">◌ silenzio</span>
-                        <span class="material-chip">◌ attenzione</span>
-                    </div>
-                    <p class="phase-intro">Prima di cercare uno strumento, ascolta quello che hai gia: respiro, mani, piedi, voce, banco, sedia. Ogni suono puo restare casuale oppure diventare intenzionale. La differenza la fai tu.</p>
-                    <ol class="instruction-list" aria-label="Istruzioni per l'apertura">
-                        <li>Resta in silenzio per 30 secondi e ascolta il corpo e l'aula.</li>
-                        <li>Individua un suono secco che riesci a controllare bene.</li>
-                        <li>Individua un suono continuo e un suono leggero.</li>
-                        <li>Scegli il suono che senti piu preciso e piu facile da rifare.</li>
-                    </ol>
-                </div>
-                <aside class="phase-side">
-                    <div class="duration-ring" style="--progress: 0.09;">
-                        <div class="duration-ring__frame">
-                            <svg viewBox="0 0 120 120" aria-hidden="true">
-                                <circle cx="60" cy="60" r="50"></circle>
-                                <circle cx="60" cy="60" r="50"></circle>
-                            </svg>
-                            <div class="duration-ring__label">
-                                <div>
-                                    <strong>30s</strong>
-                                    <span>ascolto</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="glass-card">
-                        <h3>Osserva</h3>
-                        <ul>
-                            <li>Quale suono nasce chiaramente da una scelta e non da un movimento casuale?</li>
-                            <li>Quale puoi ripetere senza farlo diventare subito troppo forte?</li>
-                            <li>Che cosa cambia quando prepari il gesto prima di far partire il suono?</li>
-                        </ul>
-                    </div>
-                    <div class="goal-card">
-                        <span>Alla fine</span>
-                        <p>Riconosci che un suono corporeo puo essere scelto, controllato e ripetuto con intenzione.</p>
-                    </div>
-                </aside>
-            </div>
-        </section>
+        <div class="lesson-phases" id="phaseRoot"></div>
 
-        <section class="phase-section reveal" id="esplorazione" data-phase="2" role="region" aria-labelledby="esplorazione-title" tabindex="0">
-            <div class="phase-ghost" aria-hidden="true">02</div>
-            <div class="phase-shell">
-                <div class="phase-copy">
-                    <p class="phase-kicker">Fase 02 · Esplorazione</p>
-                    <h2 class="phase-title" id="esplorazione-title">Lo stesso suono cambia significato</h2>
-                    <div class="phase-meta-row">
-                        <span class="meta-badge">⏱ tempo guidato</span>
-                    </div>
-                    <div class="material-row" aria-label="Materiali della fase">
-                        <span class="material-chip">◌ corpo</span>
-                        <span class="material-chip">◌ voce</span>
-                        <span class="material-chip">◌ spazio</span>
-                    </div>
-                    <p>Prendi un solo suono e trasformalo. Non cambiare la sorgente: cambia il modo in cui lo fai nascere, il suo peso, la sua durata, il rapporto con il silenzio e la distanza nello spazio.</p>
-                    <ol class="instruction-list" aria-label="Istruzioni per l'esplorazione">
-                        <li>Scegli un suono e rifallo in modo ruvido o soffice.</li>
-                        <li>Passa da trattenuto a deciso senza cambiare il materiale sonoro.</li>
-                        <li>Allunga o accorcia il gesto per far sentire la durata come elemento espressivo.</li>
-                        <li>Prova lo stesso suono prima o dopo un silenzio e poi piu vicino o piu lontano.</li>
-                    </ol>
-                    <div class="pair-grid" aria-label="Dimensioni del suono">
-                        <article class="pair-card">
-                            <h3>Ruvito / soffice</h3>
-                            <div class="pair-line"></div>
-                            <p>Quanto il suono si impone nello spazio.</p>
-                        </article>
-                        <article class="pair-card">
-                            <h3>Trattenuto / deciso</h3>
-                            <div class="pair-line"></div>
-                            <p>Quanto resta aperto o quanto si chiude in fretta.</p>
-                        </article>
-                        <article class="pair-card">
-                            <h3>Breve / lungo</h3>
-                            <div class="pair-line"></div>
-                            <p>La durata come elemento espressivo.</p>
-                        </article>
-                        <article class="pair-card">
-                            <h3>Attesa</h3>
-                            <div class="pair-line"></div>
-                            <p>Lo spazio che prepara, sospende o fa risaltare cio che arriva.</p>
-                        </article>
-                        <article class="pair-card">
-                            <h3>Prima o dopo il silenzio</h3>
-                            <div class="pair-line"></div>
-                            <p>Un suono isolato dopo una pausa puo orientare tutta la scena.</p>
-                        </article>
-                        <article class="pair-card">
-                            <h3>Distanza</h3>
-                            <div class="pair-line"></div>
-                            <p>La distanza cambia il modo in cui immagini lo spazio e la presenza del suono.</p>
-                        </article>
-                    </div>
-                </div>
-                <aside class="phase-side">
-                    <div class="duration-ring" style="--progress: 0.42;">
-                        <div class="duration-ring__frame">
-                            <svg viewBox="0 0 120 120" aria-hidden="true">
-                                <circle cx="60" cy="60" r="50"></circle>
-                                <circle cx="60" cy="60" r="50"></circle>
-                            </svg>
-                            <div class="duration-ring__label">
-                                <div>
-                                    <strong>aperto</strong>
-                                    <span>tempo di prova</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="glass-card">
-                        <h3>Osserva</h3>
-                        <ul>
-                            <li>Quando il suono si impone davvero nello spazio?</li>
-                            <li>Che cosa senti quando la durata si allunga o si restringe?</li>
-                            <li>Il silenzio prepara il suono o lo isola?</li>
-                        </ul>
-                    </div>
-                    <div class="goal-card">
-                        <span>Alla fine</span>
-                        <p>Leggi come timbro, durata, distanza e silenzio cambiano il significato dello stesso materiale sonoro.</p>
-                    </div>
-                </aside>
-            </div>
-        </section>
-
-        <section class="phase-section reveal" id="comprensione" data-phase="3" role="region" aria-labelledby="comprensione-title" tabindex="0">
-            <div class="phase-ghost" aria-hidden="true">03</div>
-            <div class="phase-shell">
-                <div class="phase-copy">
-                    <p class="phase-kicker">Fase 03 · Comprensione attiva</p>
-                    <h2 class="phase-title" id="comprensione-title">Scena sonora</h2>
-                    <div class="phase-meta-row">
-                        <span class="meta-badge">⏱ tempo di relazione</span>
-                    </div>
-                    <div class="material-row" aria-label="Materiali della fase">
-                        <span class="material-chip">◌ corpo</span>
-                        <span class="material-chip">◌ voce</span>
-                        <span class="material-chip">◌ gruppo</span>
-                    </div>
-                    <p>Qui la lezione smette di essere solo prova e diventa organizzazione. Corpo, voce, gesto, silenzio e forma non stanno separati: diventano leggibili quando il gruppo li mette in relazione dentro una scena.</p>
-                    <ol class="instruction-list" aria-label="Istruzioni per la comprensione attiva">
-                        <li>Parti da una sorgente sonora: corpo o voce.</li>
-                        <li>Decidi il gesto che la produce: colpire, sfiorare, trascinare, fermare.</li>
-                        <li>Assegna una funzione al suono: aprire, accompagnare, interrompere o chiudere.</li>
-                        <li>Guarda la mappa e verifica come i materiali si incontrano nella forma condivisa.</li>
-                    </ol>
-                </div>
-                <aside class="phase-side">
-                    <div class="glass-card">
-                        <h3>Osserva</h3>
-                        <ul>
-                            <li>Quale nodo della mappa spiega meglio l'inizio della scena?</li>
-                            <li>Dove si sente il rapporto tra gesto e silenzio?</li>
-                            <li>Come il gruppo trasforma materiali sparsi in forma condivisa?</li>
-                        </ul>
-                    </div>
-                    <div class="goal-card">
-                        <span>Alla fine</span>
-                        <p>Vedi il corpo come materiale musicale organizzato dentro una scena sonora leggibile.</p>
-                    </div>
-                    <div class="focus-note">
-                        <strong>Richiamo storico</strong>
-                        <p>Prima della scrittura musicale, il suono era legato al corpo, al gesto, al rito, al lavoro e al gruppo: non ancora brano, ma azione sonora condivisa.</p>
-                    </div>
-                </aside>
-            </div>
-            <div class="phase-shell phase-wide map-panel reveal" id="mapPanel">
-                <div class="map-stage" role="group" aria-label="Mappa visiva della scena sonora">
-                    <svg class="map-stage__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
-                        <line x1="50" y1="50" x2="20" y2="24"></line>
-                        <line x1="50" y1="50" x2="80" y2="24"></line>
-                        <line x1="50" y1="50" x2="82" y2="78"></line>
-                        <line x1="50" y1="50" x2="18" y2="78"></line>
-                        <line x1="50" y1="50" x2="50" y2="12"></line>
-                    </svg>
-                    <button type="button" class="map-node map-node--form" data-node="forma" aria-describedby="mapReadout">
-                        <span class="map-node__eyebrow">Forma</span>
-                        <strong>FORMA</strong>
-                        <div class="map-node__tags"><span>inizio</span><span>sviluppo</span><span>tensione</span><span>chiusura</span></div>
-                    </button>
-                    <button type="button" class="map-node map-node--body" data-node="corpo" aria-describedby="mapReadout">
-                        <span class="map-node__eyebrow">Sorgente</span>
-                        <strong>CORPO</strong>
-                        <div class="map-node__tags"><span>mani</span><span>piedi</span><span>respiro</span><span>postura</span><span>respiro</span></div>
-                    </button>
-                    <button type="button" class="map-node map-node--voice" data-node="voce" aria-describedby="mapReadout">
-                        <span class="map-node__eyebrow">Materia</span>
-                        <strong>VOCE</strong>
-                        <div class="map-node__tags"><span>sussurro</span><span>sillaba</span><span>suono lungo</span></div>
-                    </button>
-                    <button type="button" class="map-node map-node--gesture" data-node="gesto" aria-describedby="mapReadout">
-                        <span class="map-node__eyebrow">Azione</span>
-                        <strong>GESTO</strong>
-                        <div class="map-node__tags"><span>colpire</span><span>sfiorare</span><span>trascinare</span><span>fermare</span></div>
-                    </button>
-                    <button type="button" class="map-node map-node--silence" data-node="silenzio" aria-describedby="mapReadout">
-                        <span class="map-node__eyebrow">Spazio</span>
-                        <strong>SILENZIO</strong>
-                        <div class="map-node__tags"><span>attesa</span><span>sospensione</span><span>distanza</span></div>
-                    </button>
-                    <button type="button" class="map-node map-node--center map-node is-active" data-node="gruppo" aria-describedby="mapReadout">
-                        <span class="map-node__eyebrow">Centro</span>
-                        <strong>GRUPPO</strong>
-                        <div class="map-node__tags"><span>entrata comune</span><span>ascolto reciproco</span></div>
-                    </button>
-                </div>
-                <div class="map-readout" id="mapReadout" aria-live="polite">
-                    <h3 id="mapReadoutTitle">GRUPPO</h3>
-                    <p id="mapReadoutBody">Il centro della scena sonora non e un singolo gesto: e il modo in cui gli ingressi si ascoltano, si aspettano e si riconoscono nello stesso spazio.</p>
-                    <div class="map-readout__tags" id="mapReadoutTags">
-                        <span>entrata comune</span>
-                        <span>ascolto reciproco</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="phase-section reveal" id="rielaborazione" data-phase="4" role="region" aria-labelledby="rielaborazione-title" tabindex="0">
-            <div class="phase-ghost" aria-hidden="true">04</div>
-            <div class="phase-shell">
-                <div class="phase-copy">
-                    <p class="phase-kicker">Fase 04 · Rielaborazione</p>
-                    <h2 class="phase-title" id="rielaborazione-title">Mettere in funzione i materiali</h2>
-                    <div class="phase-meta-row">
-                        <span class="meta-badge">⏱ 12 minuti</span>
-                    </div>
-                    <div class="material-row" aria-label="Materiali della fase">
-                        <span class="material-chip">◌ voce</span>
-                        <span class="material-chip">◌ corpo</span>
-                        <span class="material-chip">◌ ascolto reciproco</span>
-                    </div>
-                    <p>La rielaborazione non aggiunge altri materiali: chiarisce il ruolo di quelli che hai gia. Qui il suono smette di essere prova e comincia a organizzarsi per funzione.</p>
-                    <ol class="instruction-list" aria-label="Istruzioni per la rielaborazione">
-                        <li>Parti da una sorgente: corpo o voce.</li>
-                        <li>Decidi il gesto che produce il suono: colpire, sfiorare, trascinare, fermare.</li>
-                        <li>Assegna al suono una funzione: aprire, accompagnare, interrompere o chiudere.</li>
-                        <li>Metti i materiali in relazione finche la scena comincia a farsi immaginare.</li>
-                    </ol>
-                </div>
-                <aside class="phase-side">
-                    <div class="duration-ring" style="--progress: 0.68;">
-                        <div class="duration-ring__frame">
-                            <svg viewBox="0 0 120 120" aria-hidden="true">
-                                <circle cx="60" cy="60" r="50"></circle>
-                                <circle cx="60" cy="60" r="50"></circle>
-                            </svg>
-                            <div class="duration-ring__label">
-                                <div>
-                                    <strong>12'</strong>
-                                    <span>rielabora</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="glass-card">
-                        <h3>Domande guida</h3>
-                        <ul>
-                            <li>Un suono in questa scena apre, accompagna, interrompe o chiude?</li>
-                            <li>La voce sta nominando qualcosa oppure resta pura materia sonora?</li>
-                            <li>Il silenzio crea attesa, distanza o sospensione?</li>
-                        </ul>
-                    </div>
-                    <div class="goal-card">
-                        <span>Alla fine</span>
-                        <p>Colleghi materiali e funzioni e riconosci dove la scena comincia davvero a prendere forma.</p>
-                    </div>
-                </aside>
-            </div>
-        </section>
-
-        <section class="phase-section reveal" id="produzione" data-phase="5" role="region" aria-labelledby="produzione-title" tabindex="0">
-            <div class="phase-ghost" aria-hidden="true">05</div>
-            <div class="phase-shell">
-                <div class="phase-copy">
-                    <p class="phase-kicker">Fase 05 · Produzione</p>
-                    <h2 class="phase-title" id="produzione-title">Produrre la scena</h2>
-                    <div class="phase-meta-row">
-                        <span class="meta-badge">⏱ 15 minuti</span>
-                    </div>
-                    <div class="material-row" aria-label="Materiali della fase">
-                        <span class="material-chip">◌ corpo</span>
-                        <span class="material-chip">◌ voce</span>
-                        <span class="material-chip">◌ foglio</span>
-                    </div>
-                    <p>Adesso la scena deve funzionare davvero. Non basta l'idea: serve una forma controllata, un ordine degli ingressi, un punto di tensione e un uso del silenzio che non sia vuoto ma materia musicale.</p>
-                    <ol class="instruction-list" aria-label="Istruzioni per la produzione">
-                        <li>Provate una prima versione libera.</li>
-                        <li>Eliminate i suoni inutili e tenete solo quelli che fanno capire la scena.</li>
-                        <li>Stabilite l'ordine degli ingressi e il punto di massima tensione.</li>
-                        <li>Decidete dove entra il silenzio e come si sente la chiusura.</li>
-                        <li>Ripetete la scena due volte cercando stabilita.</li>
-                    </ol>
-                </div>
-                <aside class="phase-side">
-                    <div class="duration-ring" style="--progress: 0.88;">
-                        <div class="duration-ring__frame">
-                            <svg viewBox="0 0 120 120" aria-hidden="true">
-                                <circle cx="60" cy="60" r="50"></circle>
-                                <circle cx="60" cy="60" r="50"></circle>
-                            </svg>
-                            <div class="duration-ring__label">
-                                <div>
-                                    <strong>15'</strong>
-                                    <span>produci</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="glass-card">
-                        <h3>Osserva</h3>
-                        <ul>
-                            <li>Si capisce chi entra per primo?</li>
-                            <li>Il silenzio apre spazio o lascia solo vuoto?</li>
-                            <li>Il suono si e fermato o e scomparso?</li>
-                        </ul>
-                    </div>
-                    <div class="goal-card">
-                        <span>Alla fine</span>
-                        <p>Hai una scena sonora e una partitura grafica essenziale che rendono la forma riconoscibile.</p>
-                    </div>
-                    <div class="focus-note">
-                        <strong>Regola di lavoro</strong>
-                        <p>Non riempite tutto. Il silenzio e materiale musicale.</p>
-                    </div>
-                </aside>
-            </div>
-            <div class="phase-shell phase-wide">
-                <div class="score-layout">
-                    <div class="score-panel">
-                        <h3>Partitura grafica analogica</h3>
-                        <div class="score-canvas-wrap">
-                            <canvas id="scoreCanvas" aria-label="Esempio di partitura grafica analogica"></canvas>
-                        </div>
-                        <div class="score-controls">
-                            <p class="phase-intro">I simboli compaiono come se la scena fosse eseguita: leggerezza, intensita, colpi, vuoti, crescita, densita e interruzione.</p>
-                            <button type="button" class="ghost-button" id="playScore">Esegui esempio</button>
-                        </div>
-                    </div>
-                    <div class="legend-panel">
-                        <h3>Legenda</h3>
-                        <div class="legend-item">
-                            <div class="legend-glyph"><span class="glyph-light"></span></div>
-                            <div>
-                                <strong>Suono leggero</strong>
-                                <p>Un punto piccolo indica una presenza delicata, appena appoggiata.</p>
-                            </div>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-glyph"><span class="glyph-intense"></span></div>
-                            <div>
-                                <strong>Suono intenso</strong>
-                                <p>Un punto grande rende piu evidente un ingresso forte o vicino.</p>
-                            </div>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-glyph"><span class="glyph-hit"></span></div>
-                            <div>
-                                <strong>Colpo breve</strong>
-                                <p>Una linea verticale segna un gesto rapido, secco, essenziale.</p>
-                            </div>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-glyph"><span class="glyph-gap"></span></div>
-                            <div>
-                                <strong>Silenzio</strong>
-                                <p>Lo spazio vuoto vale come attesa, sospensione o distanza.</p>
-                            </div>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-glyph"><span class="glyph-growth">→</span></div>
-                            <div>
-                                <strong>Crescita</strong>
-                                <p>Una freccia racconta crescita, movimento o avvicinamento.</p>
-                            </div>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-glyph"><span class="glyph-density"><i></i><i></i><i></i><i></i></span></div>
-                            <div>
-                                <strong>Densita</strong>
-                                <p>L'accumulo di segni fa sentire massa, affollamento o pressione.</p>
-                            </div>
-                        </div>
-                        <div class="legend-item">
-                            <div class="legend-glyph"><span class="glyph-cut"></span></div>
-                            <div>
-                                <strong>Interruzione</strong>
-                                <p>Un taglio netto blocca o spezza improvvisamente la scena.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="phase-section reveal" id="condivisione" data-phase="6" role="region" aria-labelledby="condivisione-title" tabindex="0">
-            <div class="phase-ghost" aria-hidden="true">06</div>
-            <div class="phase-shell">
-                <div class="phase-copy">
-                    <p class="phase-kicker">Fase 06 · Condivisione</p>
-                    <h2 class="phase-title" id="condivisione-title">Ascolto cieco</h2>
-                    <div class="phase-meta-row">
-                        <span class="meta-badge">⏱ tempo di restituzione</span>
-                    </div>
-                    <div class="material-row" aria-label="Materiali della fase">
-                        <span class="material-chip">◌ gruppo</span>
-                        <span class="material-chip">◌ ascolto</span>
-                        <span class="material-chip">◌ appunti</span>
-                    </div>
-                    <p>La scena non viene spiegata prima: si ascolta. Solo dopo il gruppo rivela il titolo e confronta cio che voleva comunicare con cio che e arrivato davvero.</p>
-                    <ol class="instruction-list" aria-label="Istruzioni per la condivisione">
-                        <li>Un gruppo esegue la scena senza dire il titolo.</li>
-                        <li>Gli altri ascoltano in silenzio e scrivono una prima ipotesi.</li>
-                        <li>La classe prova a dire che ambiente o situazione ha immaginato.</li>
-                        <li>Solo dopo il gruppo rivela il titolo e confronta intenzione e risultato.</li>
-                    </ol>
-                </div>
-                <aside class="phase-side">
-                    <div class="glass-card">
-                        <h3>Osserva</h3>
-                        <ul>
-                            <li>Che ambiente avete immaginato?</li>
-                            <li>Quale suono vi ha orientato?</li>
-                            <li>Dove avete percepito un cambiamento?</li>
-                            <li>Il silenzio ha creato attesa o confusione?</li>
-                            <li>La scena aveva una chiusura chiara?</li>
-                        </ul>
-                    </div>
-                    <div class="goal-card">
-                        <span>Alla fine</span>
-                        <p>Confronti intenzione e ascolto e verifichi se la scena comunica davvero senza spiegazioni esterne.</p>
-                    </div>
-                </aside>
-            </div>
-        </section>
-
-        <section class="phase-section reveal" id="valutazione" data-phase="7" role="region" aria-labelledby="valutazione-title" tabindex="0">
-            <div class="phase-ghost" aria-hidden="true">07</div>
-            <div class="phase-shell">
-                <div class="phase-copy">
-                    <p class="phase-kicker">Fase 07 · Valutazione</p>
-                    <h2 class="phase-title" id="valutazione-title">Rendere riconoscibile una scelta</h2>
-                    <div class="phase-meta-row">
-                        <span class="meta-badge">⏱ tempo di verifica</span>
-                    </div>
-                    <div class="material-row" aria-label="Materiali della fase">
-                        <span class="material-chip">◌ voce</span>
-                        <span class="material-chip">◌ ascolto</span>
-                        <span class="material-chip">◌ partitura</span>
-                    </div>
-                    <p>La valutazione guarda cio che si puo osservare: controllo del suono, ascolto reciproco, uso del silenzio, forma, chiarezza espressiva e qualita della traccia grafica.</p>
-                    <div class="criteria-grid" aria-label="Criteri di valutazione">
-                        <article class="criteria-card">
-                            <span>Controllo</span>
-                            <h3>Suono corporeo</h3>
-                            <p>Il suono resta intenzionale, leggibile e coerente con la scena.</p>
-                        </article>
-                        <article class="criteria-card">
-                            <span>Ascolto</span>
-                            <h3>Reciproco</h3>
-                            <p>Entrate, soste e cambiamenti tengono conto degli altri.</p>
-                        </article>
-                        <article class="criteria-card">
-                            <span>Forma</span>
-                            <h3>Struttura</h3>
-                            <p>Inizio, sviluppo, tensione e chiusura si percepiscono chiaramente.</p>
-                        </article>
-                        <article class="criteria-card">
-                            <span>Segni</span>
-                            <h3>Partitura grafica</h3>
-                            <p>La traccia visiva aiuta a ricostruire l'esecuzione senza spiegazioni lunghe.</p>
-                        </article>
-                    </div>
-                </div>
-                <aside class="phase-side">
-                    <div class="glass-card">
-                        <h3>Autovalutazione</h3>
-                        <ul class="self-check">
-                            <li>Il mio suono era controllato?</li>
-                            <li>Sono entrato nel momento giusto?</li>
-                            <li>Ho ascoltato gli altri prima di aggiungere il mio suono?</li>
-                            <li>Il nostro silenzio aveva una funzione?</li>
-                            <li>La scena che volevamo costruire e arrivata agli ascoltatori?</li>
-                        </ul>
-                    </div>
-                    <div class="goal-card">
-                        <span>Alla fine</span>
-                        <p>Rendi visibile se la tua scena e chiara, controllata e davvero riconoscibile all'ascolto.</p>
-                    </div>
-                </aside>
-            </div>
-        </section>
-
-        <section class="quote-section reveal" id="citazione" aria-labelledby="quote-title">
-            <div class="quote-shell">
-                <span class="quote-mark" aria-hidden="true">“</span>
-                <blockquote class="quote-text" id="quote-title">La musica comincia quando un suono smette di essere casuale e diventa una scelta.</blockquote>
-                <p class="quote-signature">— Lezione Accordia</p>
-            </div>
+        <section class="quote-section shell reveal" id="quoteSection">
+            <figure>
+                <blockquote id="quoteText"></blockquote>
+                <figcaption>Lezione Accordia</figcaption>
+            </figure>
         </section>
     </main>
 
     <footer class="site-footer">
-        <nav class="footer-nav" aria-label="Navigazione finale">
-            <a href="../../index.html">Torna alla mappa</a>
-            <a href="../ritmo-pulsazione-tempo/index.html">Argomento precedente</a>
-            <a href="../../../../index.html">Home</a>
-        </nav>
+        <div class="shell">
+            <div class="site-footer__links">
+                <a href="../../index.html">Torna alla mappa</a>
+                <a href="../ritmo-pulsazione-tempo/index.html">Argomento precedente</a>
+                <a href="../../../../index.html">Home</a>
+            </div>
+            <p class="site-footer__meta">Origini del suono · Corpo, voce e gesto</p>
+        </div>
     </footer>
 
+    <script id="lesson-data" type="application/json">{"title": "Corpo, voce e gesto", "subtitle": "Costruire una scena sonora riconoscibile", "hero_meta": ["Durata · 2 ore", "Ti serve · corpo, voce, aula, foglio", "Obiettivo · costruire una scena sonora riconoscibile", "Focus · scelta, controllo, silenzio"], "quote": "La musica comincia quando un suono smette di essere casuale e diventa una scelta.", "phases": [{"id": "apertura", "label": "Apertura", "title": "Ascoltare quello che c'e gia", "duration": "30 secondi", "ring_progress": 0.09, "materials": ["silenzio", "attenzione"], "paragraphs": ["Prima di cercare uno strumento, ascolta quello che hai gia: respiro, mani, piedi, voce, banco, sedia. Ogni suono puo restare casuale oppure diventare intenzionale. La differenza la fai tu."], "steps": ["Resta in silenzio per 30 secondi e ascolta il corpo e l'aula.", "Individua un suono secco che riesci a controllare bene.", "Individua un suono continuo e un suono leggero.", "Scegli il suono che senti piu preciso e piu facile da rifare."], "observe_title": "Osserva", "observe": ["Quale suono nasce chiaramente da una scelta e non da un movimento casuale?", "Quale puoi ripetere senza farlo diventare subito troppo forte?", "Che cosa cambia quando prepari il gesto prima di far partire il suono?"], "result": "Riconosci che un suono corporeo puo essere scelto, controllato e ripetuto con intenzione."}, {"id": "esplorazione", "label": "Esplorazione", "title": "Lo stesso suono cambia significato", "duration": "tempo guidato", "ring_progress": 0.42, "materials": ["corpo", "voce", "spazio"], "paragraphs": ["Prendi un solo suono e trasformalo. Non cambiarne la sorgente: cambia il modo in cui lo fai nascere.", "Un passo non significa sempre camminare. Puo sembrare attesa, fuga, esitazione, minaccia, distanza. Il suono non racconta da solo: racconta quando lo trasformi.", "Scegli uno dei suoni trovati nell'apertura e provalo almeno in quattro modi diversi."], "steps": ["Lavora su vicino e lontano, lento e improvviso.", "Passa da fragile a deciso senza cambiare la sorgente sonora.", "Prova lo stesso suono prima o dopo un silenzio."], "observe_title": "Osserva", "observe": ["Che cosa cambia se fai lo stesso suono piu lentamente?", "Che cosa cambia se lo fai piu vicino o piu lontano?", "Che cosa cambia se lo fai dopo un silenzio?", "Il tuo suono sembra un gesto, un ambiente o un'emozione?"], "result": "Leggi come la stessa sorgente puo cambiare funzione espressiva.", "pairs": [{"title": "Ruvito / soffice", "text": "Quanto il suono si impone nello spazio."}, {"title": "Trattenuto / deciso", "text": "Quanto resta aperto o quanto si chiude in fretta."}, {"title": "Breve / lungo", "text": "La durata come elemento espressivo."}, {"title": "Attesa", "text": "Lo spazio che prepara, sospende o fa risaltare cio che arriva."}, {"title": "Prima o dopo il silenzio", "text": "Un suono isolato dopo una pausa puo orientare tutta la scena."}, {"title": "Distanza", "text": "La distanza cambia il modo in cui immagini lo spazio e la presenza del suono."}]}, {"id": "comprensione", "label": "Comprensione attiva", "title": "Scena sonora", "duration": "12 minuti", "ring_progress": 0.68, "materials": ["corpo", "voce", "gruppo"], "paragraphs": ["Quando piu suoni entrano nello stesso spazio, non basta produrli. Bisogna decidere che ruolo hanno.", "Un suono puo aprire, accompagnare, interrompere, creare tensione, chiudere. A quel punto non stai solo facendo rumore: stai costruendo una scena sonora."], "steps": ["Parti da una sorgente sonora: corpo o voce.", "Decidi il gesto che la produce: colpire, sfiorare, trascinare, fermare.", "Assegna una funzione al suono: aprire, accompagnare, interrompere o chiudere.", "Guarda la mappa e verifica come i materiali si incontrano nella forma condivisa."], "observe_title": "Domande guida", "observe": ["Un suono in questa scena apre, accompagna, interrompe o chiude?", "La voce sta nominando qualcosa oppure resta pura materia sonora?", "Il silenzio crea attesa, distanza o sospensione?"], "result": "Vedi il corpo come materiale musicale organizzato dentro una scena sonora leggibile.", "map": {"title": "Mappa SCENA SONORA", "center": {"eyebrow": "Centro", "title": "GRUPPO", "body": "Il centro della scena sonora non e un gesto isolato: e il punto in cui gli ingressi si ascoltano, si aspettano e si riconoscono nello stesso spazio.", "tags": ["entrata comune", "ascolto reciproco"]}, "nodes": [{"eyebrow": "Sorgente", "title": "CORPO", "body": "Mani, piedi, respiro e postura rendono il suono fisico e controllabile.", "tags": ["mani", "piedi", "respiro", "postura", "respiro"]}, {"eyebrow": "Materia", "title": "VOCE", "body": "La voce puo restare sussurro, sillaba o suono lungo senza diventare parola.", "tags": ["sussurro", "sillaba", "suono lungo"]}, {"eyebrow": "Azione", "title": "GESTO", "body": "Colpire, sfiorare, trascinare o fermare cambiano il carattere della scena.", "tags": ["colpire", "sfiorare", "trascinare", "fermare"]}, {"eyebrow": "Spazio", "title": "SILENZIO", "body": "Il silenzio crea attesa, sospensione o distanza e orienta cio che arriva dopo.", "tags": ["attesa", "sospensione", "distanza"]}, {"eyebrow": "Struttura", "title": "FORMA", "body": "La scena si riconosce quando il gruppo rende leggibili inizio, sviluppo, tensione e chiusura.", "tags": ["inizio", "sviluppo", "tensione", "chiusura"]}]}, "note": {"title": "Richiamo storico", "body": "Prima della scrittura musicale, il suono era legato al corpo, al gesto, al rito, al lavoro e al gruppo: non ancora brano, ma azione sonora condivisa."}}, {"id": "rielaborazione", "label": "Rielaborazione", "title": "Mettere in funzione i materiali", "duration": "12 minuti", "ring_progress": 0.68, "materials": ["voce", "corpo", "ascolto reciproco"], "paragraphs": ["La rielaborazione non aggiunge altri materiali: chiarisce il ruolo di quelli che hai gia. Qui il suono smette di essere prova e comincia a organizzarsi per funzione."], "steps": ["Parti da una sorgente: corpo o voce.", "Decidi il gesto che produce il suono: colpire, sfiorare, trascinare, fermare.", "Assegna a quel suono una funzione: aprire, accompagnare, interrompere o chiudere.", "Metti i materiali in relazione finche la scena comincia a farsi immaginare."], "observe_title": "Domande guida", "observe": ["Un suono in questa scena apre, accompagna, interrompe o chiude?", "La voce sta nominando qualcosa oppure resta pura materia sonora?", "Il silenzio crea attesa, distanza o sospensione?"], "result": "Colleghi materiali e funzioni e riconosci dove la scena comincia davvero a prendere forma."}, {"id": "produzione", "label": "Produzione", "title": "Produrre la scena", "duration": "15 minuti", "ring_progress": 0.88, "materials": ["corpo", "voce", "foglio"], "paragraphs": ["Adesso la scena deve funzionare davvero. Non basta l'idea: serve una forma controllata, un ordine degli ingressi, un punto di tensione e un uso del silenzio che non sia vuoto ma materia musicale."], "steps": ["Provate una prima versione libera.", "Eliminate i suoni inutili e tenete solo quelli che fanno capire la scena.", "Stabilite l'ordine degli ingressi e il punto di massima tensione.", "Decidete dove entra il silenzio e come si sente la chiusura.", "Ripetete la scena due volte cercando stabilita."], "observe_title": "Osserva", "observe": ["Si capisce chi entra per primo?", "Il silenzio apre spazio o lascia solo vuoto?", "Il suono si e fermato o e scomparso?"], "result": "Hai una scena sonora e una partitura grafica essenziale che rendono la forma riconoscibile.", "note": {"title": "Regola di lavoro", "body": "Non riempite tutto. Il silenzio e materiale musicale."}, "score": {"title": "Partitura grafica analogica", "intro": "I simboli compaiono come se la scena fosse eseguita: leggerezza, intensita, colpi, vuoti, crescita, densita e interruzione.", "symbols": [{"type": "light", "x": 84, "y": 118}, {"type": "intense", "x": 156, "y": 102}, {"type": "hit", "x": 228, "y": 126}, {"type": "gap", "x": 314, "y": 120}, {"type": "growth", "x": 408, "y": 102}, {"type": "density", "x": 522, "y": 124}, {"type": "cut", "x": 642, "y": 110}], "legend": [{"type": "light", "title": "Suono leggero", "text": "Un punto piccolo indica una presenza delicata, appena appoggiata."}, {"type": "intense", "title": "Suono intenso", "text": "Un punto grande rende piu evidente un ingresso forte o vicino."}, {"type": "hit", "title": "Colpo breve", "text": "Una linea verticale segna un gesto rapido, secco, essenziale."}, {"type": "gap", "title": "Silenzio", "text": "Lo spazio vuoto vale come attesa, sospensione o distanza."}, {"type": "growth", "title": "Crescita", "text": "Una freccia racconta crescita, movimento o avvicinamento."}, {"type": "density", "title": "Densita", "text": "L'accumulo di segni fa sentire massa, affollamento o pressione."}, {"type": "cut", "title": "Interruzione", "text": "Un taglio netto blocca o spezza improvvisamente la scena."}]}}, {"id": "condivisione", "label": "Condivisione", "title": "Ascolto cieco", "duration": "tempo di restituzione", "ring_progress": 0.52, "materials": ["gruppo", "ascolto", "appunti"], "paragraphs": ["La scena non viene spiegata prima: si ascolta. Solo dopo il gruppo rivela il titolo e confronta cio che voleva comunicare con cio che e arrivato davvero."], "steps": ["Un gruppo esegue la scena senza dire il titolo.", "Gli altri ascoltano in silenzio e scrivono una prima ipotesi.", "La classe prova a dire che ambiente o situazione ha immaginato.", "Solo dopo il gruppo rivela il titolo e confronta intenzione e risultato."], "observe_title": "Osserva", "observe": ["Che ambiente avete immaginato?", "Quale suono vi ha orientato?", "Dove avete percepito un cambiamento?", "Il silenzio ha creato attesa o confusione?", "La scena aveva una chiusura chiara?"], "result": "Confronti intenzione e ascolto e verifichi se la scena comunica davvero senza spiegazioni esterne."}, {"id": "valutazione", "label": "Valutazione", "title": "Rendere riconoscibile una scelta", "duration": "tempo di verifica", "ring_progress": 0.5, "materials": ["voce", "ascolto", "partitura"], "paragraphs": ["La valutazione guarda cio che si puo osservare: controllo del suono, ascolto reciproco, uso del silenzio, forma, chiarezza espressiva e qualita della traccia grafica."], "result": "Rendi visibile se la tua scena e chiara, controllata e davvero riconoscibile all'ascolto.", "criteria": [{"kicker": "Controllo", "title": "Suono corporeo", "text": "Il suono resta intenzionale, leggibile e coerente con la scena."}, {"kicker": "Ascolto", "title": "Reciproco", "text": "Entrate, soste e cambiamenti tengono conto degli altri."}, {"kicker": "Forma", "title": "Struttura", "text": "Inizio, sviluppo, tensione e chiusura si percepiscono chiaramente."}, {"kicker": "Segni", "title": "Partitura grafica", "text": "La traccia visiva aiuta a ricostruire l'esecuzione senza spiegazioni lunghe."}], "self_check": ["Il mio suono era controllato?", "Sono entrato nel momento giusto?", "Ho ascoltato gli altri prima di aggiungere il mio suono?", "Il nostro silenzio aveva una funzione?", "La scena che volevamo costruire e arrivata agli ascoltatori?"]}]}</script>
     <script>
-        const phaseSections = Array.from(document.querySelectorAll(".phase-section"));
-        const phaseDots = Array.from(document.querySelectorAll(".phase-dot"));
-        const phaseCounter = document.getElementById("phaseCounter");
-        const progressBar = document.getElementById("scrollProgress");
-        const motionToggle = document.getElementById("motionToggle");
-        const contrastToggle = document.getElementById("contrastToggle");
-        const textToggle = document.getElementById("textToggle");
-        const body = document.body;
-        const particleHost = document.getElementById("soundParticles");
-        const mapPanel = document.getElementById("mapPanel");
-        const mapNodes = Array.from(document.querySelectorAll(".map-node"));
-        const mapReadoutTitle = document.getElementById("mapReadoutTitle");
-        const mapReadoutBody = document.getElementById("mapReadoutBody");
-        const mapReadoutTags = document.getElementById("mapReadoutTags");
-        const scoreCanvas = document.getElementById("scoreCanvas");
-        const playScoreButton = document.getElementById("playScore");
+        (() => {
+            const lesson = JSON.parse(document.getElementById("lesson-data").textContent);
+            const heroMeta = document.getElementById("heroMeta");
+            const phaseRoot = document.getElementById("phaseRoot");
+            const phaseRailTrack = document.getElementById("phaseRailTrack");
+            const phaseCounterValue = document.getElementById("phaseCounterValue");
+            const phaseCounterLabel = document.getElementById("phaseCounterLabel");
+            const quoteText = document.getElementById("quoteText");
+            const progressBar = document.getElementById("progressBar");
+            const soundParticles = document.getElementById("soundParticles");
+            const store = window.localStorage;
+            const toggleButtons = document.querySelectorAll("[data-toggle]");
+            const state = {
+                focusedId: null,
+            };
 
-        const mapContent = {
-            gruppo: {
-                title: "GRUPPO",
-                body: "Il centro della scena sonora non e un gesto isolato: e il punto in cui gli ingressi si ascoltano, si aspettano e si riconoscono nello stesso spazio.",
-                tags: ["entrata comune", "ascolto reciproco"]
-            },
-            corpo: {
-                title: "CORPO",
-                body: "Mani, piedi, respiro e postura rendono il suono fisico, controllabile, ripetibile e visibile nello spazio.",
-                tags: ["mani", "piedi", "respiro", "postura", "respiro"]
-            },
-            voce: {
-                title: "VOCE",
-                body: "La voce non deve per forza nominare: puo restare sillaba, sussurro o suono lungo e funzionare come pura materia espressiva.",
-                tags: ["sussurro", "sillaba", "suono lungo"]
-            },
-            gesto: {
-                title: "GESTO",
-                body: "Il gesto decide come il suono nasce: colpire, sfiorare, trascinare o fermare cambiano il carattere della scena.",
-                tags: ["colpire", "sfiorare", "trascinare", "fermare"]
-            },
-            silenzio: {
-                title: "SILENZIO",
-                body: "Il silenzio non e assenza neutra: crea attesa, distanza o sospensione e orienta cio che arriva dopo.",
-                tags: ["attesa", "sospensione", "distanza"]
-            },
-            forma: {
-                title: "FORMA",
-                body: "Una scena sonora si riconosce quando il gruppo rende percepibili inizio, sviluppo, tensione e chiusura.",
-                tags: ["inizio", "sviluppo", "tensione", "chiusura"]
+            const entities = {
+                "&": "&amp;",
+                "<": "&lt;",
+                ">": "&gt;",
+                '"': "&quot;",
+                "'": "&#39;"
+            };
+
+            const mapPositions = [
+                { x: "50%", y: "12%", delay: "60ms" },
+                { x: "84%", y: "36%", delay: "120ms" },
+                { x: "70%", y: "80%", delay: "180ms" },
+                { x: "30%", y: "80%", delay: "240ms" },
+                { x: "16%", y: "36%", delay: "300ms" }
+            ];
+
+            function escapeHTML(value) {
+                return String(value ?? "").replace(/[&<>"']/g, (char) => entities[char]);
             }
-        };
 
-        const scoreSymbols = [
-            { type: "light", x: 84, y: 118 },
-            { type: "intense", x: 156, y: 102 },
-            { type: "hit", x: 228, y: 126 },
-            { type: "gap", x: 314, y: 120 },
-            { type: "growth", x: 408, y: 102 },
-            { type: "density", x: 522, y: 124 },
-            { type: "cut", x: 642, y: 110 }
-        ];
-
-        function populateParticles() {
-            const fragment = document.createDocumentFragment();
-            for (let index = 0; index < 18; index += 1) {
-                const dot = document.createElement("span");
-                dot.style.setProperty("--left", `${Math.random() * 100}%`);
-                dot.style.setProperty("--top", `${18 + Math.random() * 78}%`);
-                dot.style.setProperty("--size", `${1 + Math.random() * 3}px`);
-                dot.style.setProperty("--delay", `${Math.random() * -14}s`);
-                dot.style.setProperty("--duration", `${14 + Math.random() * 18}s`);
-                fragment.appendChild(dot);
+            function escapeAttr(value) {
+                return escapeHTML(value);
             }
-            particleHost.appendChild(fragment);
-        }
 
-        function updateScrollProgress() {
-            const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-            const ratio = scrollable > 0 ? window.scrollY / scrollable : 0;
-            progressBar.style.width = `${Math.min(Math.max(ratio, 0), 1) * 100}%`;
-        }
-
-        function setCurrentPhase(index) {
-            const safeIndex = Math.min(Math.max(index, 1), phaseSections.length);
-            phaseCounter.textContent = `${safeIndex}/7`;
-            phaseDots.forEach((dot, dotIndex) => {
-                dot.classList.toggle("is-active", dotIndex === safeIndex - 1);
-                dot.setAttribute("aria-current", dotIndex === safeIndex - 1 ? "step" : "false");
-            });
-        }
-
-        function activateMapNode(key) {
-            const item = mapContent[key];
-            if (!item) {
-                return;
-            }
-            mapNodes.forEach((node) => node.classList.toggle("is-active", node.dataset.node === key));
-            mapReadoutTitle.textContent = item.title;
-            mapReadoutBody.textContent = item.body;
-            mapReadoutTags.innerHTML = item.tags.map((tag) => `<span>${tag}</span>`).join("");
-        }
-
-        mapNodes.forEach((node) => {
-            const key = node.dataset.node;
-            node.addEventListener("mouseenter", () => activateMapNode(key));
-            node.addEventListener("focus", () => activateMapNode(key));
-            node.addEventListener("click", () => activateMapNode(key));
-        });
-
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach((entry) => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add("is-visible");
-                    if (entry.target === mapPanel) {
-                        mapPanel.classList.add("is-visible");
-                    }
+            function renderTags(tags = []) {
+                if (!tags.length) {
+                    return "";
                 }
-            });
-        }, { threshold: 0.18 });
-
-        document.querySelectorAll(".reveal").forEach((section) => revealObserver.observe(section));
-
-        const phaseObserver = new IntersectionObserver((entries) => {
-            const visible = entries
-                .filter((entry) => entry.isIntersecting)
-                .sort((first, second) => second.intersectionRatio - first.intersectionRatio);
-            if (!visible.length) {
-                return;
+                return '<div class="tag-list">' + tags.map((tag) => '<span>' + escapeHTML(tag) + '</span>').join("") + "</div>";
             }
-            const phase = Number(visible[0].target.dataset.phase || 1);
-            setCurrentPhase(phase);
-        }, {
-            threshold: [0.22, 0.42, 0.65],
-            rootMargin: "-25% 0px -38% 0px"
-        });
 
-        phaseSections.forEach((section) => phaseObserver.observe(section));
-
-        phaseDots.forEach((dot) => {
-            dot.addEventListener("click", () => {
-                const target = document.getElementById(dot.dataset.target);
-                if (target) {
-                    target.scrollIntoView({ behavior: body.classList.contains("reduce-motion") ? "auto" : "smooth", block: "start" });
+            function renderDurationRing(progress = 0.5, duration = "") {
+                const safeProgress = Math.max(0.08, Math.min(0.96, Number(progress || 0.5)));
+                let ringLabel = "fase";
+                if (duration.includes("minut")) {
+                    ringLabel = duration.split(" ")[0] + "m";
+                } else if (duration.includes("second")) {
+                    ringLabel = duration.split(" ")[0] + "s";
                 }
-            });
-        });
-
-        motionToggle.addEventListener("click", () => {
-            const pressed = motionToggle.getAttribute("aria-pressed") === "true";
-            motionToggle.setAttribute("aria-pressed", String(!pressed));
-            body.classList.toggle("reduce-motion", !pressed);
-        });
-
-        contrastToggle.addEventListener("click", () => {
-            const pressed = contrastToggle.getAttribute("aria-pressed") === "true";
-            contrastToggle.setAttribute("aria-pressed", String(!pressed));
-            body.classList.toggle("high-contrast", !pressed);
-        });
-
-        textToggle.addEventListener("click", () => {
-            const pressed = textToggle.getAttribute("aria-pressed") === "true";
-            textToggle.setAttribute("aria-pressed", String(!pressed));
-            body.classList.toggle("large-type", !pressed);
-            resizeScoreCanvas();
-        });
-
-        let focusedSection = null;
-
-        function clearFocusMode() {
-            if (focusedSection) {
-                focusedSection.classList.remove("is-focused");
+                return `
+                    <div class="duration-ring" style="--progress:${safeProgress};" aria-hidden="true">
+                        <svg viewBox="0 0 120 120" focusable="false">
+                            <circle class="duration-ring__track" cx="60" cy="60" r="50"></circle>
+                            <circle class="duration-ring__progress" cx="60" cy="60" r="50"></circle>
+                        </svg>
+                        <span class="duration-ring__label">${escapeHTML(ringLabel)}</span>
+                    </div>`;
             }
-            focusedSection = null;
-            body.classList.remove("is-focus-mode");
-        }
 
-        function toggleFocusMode(section) {
-            if (focusedSection === section) {
-                clearFocusMode();
-                return;
+            function renderMaterials(materials = []) {
+                if (!materials.length) {
+                    return "";
+                }
+                return '<div class="phase-materials">' + materials.map((item) => '<span class="phase-material">' + escapeHTML(item) + "</span>").join("") + "</div>";
             }
-            clearFocusMode();
-            focusedSection = section;
-            focusedSection.classList.add("is-focused");
-            body.classList.add("is-focus-mode");
-        }
 
-        phaseSections.forEach((section) => {
-            section.addEventListener("dblclick", () => toggleFocusMode(section));
-        });
-
-        document.addEventListener("keydown", (event) => {
-            if (event.key === "Escape") {
-                clearFocusMode();
+            function renderSteps(steps = []) {
+                if (!steps.length) {
+                    return "";
+                }
+                return '<ol class="phase-steps">' + steps.map((step, index) => `
+                    <li class="phase-step">
+                        <span class="phase-step__index">${index + 1}</span>
+                        <span class="phase-step__text">${escapeHTML(step)}</span>
+                    </li>`).join("") + "</ol>";
             }
-        });
 
-        let scoreAnimationFrame = null;
-        let activeSymbolIndex = -1;
+            function renderObserveBox(phase) {
+                if (!phase.observe || !phase.observe.length) {
+                    return "";
+                }
+                return `
+                    <section class="observe-box">
+                        <h3>${escapeHTML(phase.observe_title || "Osserva")}</h3>
+                        <ul>${phase.observe.map((item) => "<li>" + escapeHTML(item) + "</li>").join("")}</ul>
+                    </section>`;
+            }
 
-        function drawScore(activeIndex = -1) {
-            const context = scoreCanvas.getContext("2d");
-            const dpr = window.devicePixelRatio || 1;
-            const rect = scoreCanvas.getBoundingClientRect();
-            const width = rect.width;
-            const height = rect.height;
-            scoreCanvas.width = width * dpr;
-            scoreCanvas.height = height * dpr;
-            context.setTransform(dpr, 0, 0, dpr, 0, 0);
-            context.clearRect(0, 0, width, height);
+            function renderResultBox(phase) {
+                if (!phase.result) {
+                    return "";
+                }
+                return `
+                    <section class="result-box">
+                        <h3>Alla fine</h3>
+                        <p>${escapeHTML(phase.result)}</p>
+                    </section>`;
+            }
 
-            context.strokeStyle = "rgba(255,255,255,0.16)";
-            context.lineWidth = 1;
-            context.beginPath();
-            context.moveTo(40, height / 2);
-            context.lineTo(width - 40, height / 2);
-            context.stroke();
+            function renderNoteBox(note) {
+                if (!note) {
+                    return "";
+                }
+                return `
+                    <section class="note-box">
+                        <h3>${escapeHTML(note.title || "Nota")}</h3>
+                        <p>${escapeHTML(note.body || "")}</p>
+                    </section>`;
+            }
 
-            scoreSymbols.forEach((symbol, index) => {
-                const isActive = index === activeIndex;
-                const alpha = isActive ? 1 : 0.68;
-                const glow = isActive ? 18 : 0;
-                context.save();
-                context.globalAlpha = alpha;
-                context.shadowBlur = glow;
-                context.shadowColor = "rgba(255,255,255,0.85)";
-                context.strokeStyle = "rgba(255,255,255,0.92)";
-                context.fillStyle = "rgba(255,255,255,0.92)";
-                context.lineWidth = 2;
+            function renderPairs(phase) {
+                if (!phase.pairs || !phase.pairs.length) {
+                    return "";
+                }
+                return '<div class="pairs-grid">' + phase.pairs.map((item) => `
+                    <article class="pair-card">
+                        <h3>${escapeHTML(item.title)}</h3>
+                        <p>${escapeHTML(item.text)}</p>
+                    </article>`).join("") + "</div>";
+            }
 
-                if (symbol.type === "light") {
-                    context.beginPath();
-                    context.arc(symbol.x, symbol.y, 4, 0, Math.PI * 2);
-                    context.fill();
-                } else if (symbol.type === "intense") {
-                    context.beginPath();
-                    context.arc(symbol.x, symbol.y, 10, 0, Math.PI * 2);
-                    context.fill();
-                } else if (symbol.type === "hit") {
-                    context.beginPath();
-                    context.moveTo(symbol.x, symbol.y - 28);
-                    context.lineTo(symbol.x, symbol.y + 28);
-                    context.stroke();
-                } else if (symbol.type === "gap") {
-                    context.globalAlpha = 0.35;
-                    context.beginPath();
-                    context.moveTo(symbol.x - 22, symbol.y);
-                    context.lineTo(symbol.x + 22, symbol.y);
-                    context.stroke();
-                } else if (symbol.type === "growth") {
-                    context.beginPath();
-                    context.moveTo(symbol.x - 30, symbol.y + 14);
-                    context.lineTo(symbol.x + 18, symbol.y - 14);
-                    context.lineTo(symbol.x + 8, symbol.y - 14);
-                    context.moveTo(symbol.x + 18, symbol.y - 14);
-                    context.lineTo(symbol.x + 18, symbol.y - 4);
-                    context.stroke();
-                } else if (symbol.type === "density") {
-                    [-18, -8, 2, 12, 22].forEach((offset, cloudIndex) => {
-                        context.globalAlpha = 0.38 + cloudIndex * 0.11;
-                        context.beginPath();
-                        context.arc(symbol.x + offset, symbol.y + (cloudIndex % 2 === 0 ? -4 : 6), 4.4, 0, Math.PI * 2);
-                        context.fill();
+            function renderMap(phase, phaseIndex) {
+                const map = phase.map;
+                if (!map) {
+                    return "";
+                }
+                const ringPoints = mapPositions.map((position) => position.x.replace("%", "") + "," + position.y.replace("%", "")).join(" ");
+                const center = map.center;
+                return `
+                    <section class="map-block">
+                        <div class="map-block__intro">
+                            <h3>${escapeHTML(map.title)}</h3>
+                            <p>${escapeHTML(center.body)}</p>
+                        </div>
+                        <div class="map-block__frame" data-map-root>
+                            <div class="map-stage" data-map-stage>
+                                <svg viewBox="0 0 100 100" aria-hidden="true" focusable="false">
+                                    <polyline class="map-line map-line--ring" points="${ringPoints} ${mapPositions[0].x.replace("%", "")},${mapPositions[0].y.replace("%", "")}"></polyline>
+                                    ${map.nodes.map((_, index) => `<line class="map-line" x1="50" y1="50" x2="${mapPositions[index].x.replace("%", "")}" y2="${mapPositions[index].y.replace("%", "")}"></line>`).join("")}
+                                </svg>
+                                <article class="map-node map-node--center">
+                                    <small>${escapeHTML(center.eyebrow)}</small>
+                                    <strong>${escapeHTML(center.title)}</strong>
+                                </article>
+                                ${map.nodes.map((node, index) => `
+                                    <button
+                                        class="map-node"
+                                        type="button"
+                                        style="--x:${mapPositions[index].x}; --y:${mapPositions[index].y}; --delay:${mapPositions[index].delay};"
+                                        data-map-node
+                                        data-eyebrow="${escapeAttr(node.eyebrow)}"
+                                        data-title="${escapeAttr(node.title)}"
+                                        data-body="${escapeAttr(node.body)}"
+                                        data-tags="${escapeAttr((node.tags || []).join("||"))}">
+                                        <small>${escapeHTML(node.eyebrow)}</small>
+                                        <strong>${escapeHTML(node.title)}</strong>
+                                    </button>`).join("")}
+                            </div>
+                            <aside
+                                class="map-details"
+                                data-map-details
+                                data-default-eyebrow="${escapeAttr(center.eyebrow)}"
+                                data-default-title="${escapeAttr(center.title)}"
+                                data-default-body="${escapeAttr(center.body)}"
+                                data-default-tags="${escapeAttr((center.tags || []).join("||"))}">
+                                <p class="map-details__eyebrow">${escapeHTML(center.eyebrow)}</p>
+                                <h4 class="map-details__title">${escapeHTML(center.title)}</h4>
+                                <p class="map-details__body">${escapeHTML(center.body)}</p>
+                                ${renderTags(center.tags || [])}
+                            </aside>
+                        </div>
+                    </section>`;
+            }
+
+            function renderCriteria(phase) {
+                const hasCriteria = phase.criteria && phase.criteria.length;
+                const hasSelfCheck = phase.self_check && phase.self_check.length;
+                if (!hasCriteria && !hasSelfCheck) {
+                    return "";
+                }
+                return `
+                    <section class="criteria-wrap">
+                        ${hasCriteria ? '<div class="criteria-grid">' + phase.criteria.map((item) => `
+                            <article class="criterion">
+                                <span class="criterion__kicker">${escapeHTML(item.kicker || "")}</span>
+                                <h3>${escapeHTML(item.title)}</h3>
+                                <p>${escapeHTML(item.text)}</p>
+                            </article>`).join("") + "</div>" : ""}
+                        ${hasSelfCheck ? `<div class="self-check">
+                            <h3>Autocontrollo</h3>
+                            <ul>${phase.self_check.map((item) => "<li>" + escapeHTML(item) + "</li>").join("")}</ul>
+                        </div>` : ""}
+                    </section>`;
+            }
+
+            function renderLegendMark(type) {
+                const marks = {
+                    light: '<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="3" fill="currentColor"></circle></svg>',
+                    intense: '<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="9" cy="9" r="6" fill="currentColor"></circle></svg>',
+                    hit: '<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><line x1="9" y1="3" x2="9" y2="15" stroke="currentColor" stroke-width="2"></line></svg>',
+                    gap: '<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><line x1="4" y1="9" x2="14" y2="9" stroke="currentColor" stroke-width="1" stroke-dasharray="2 2"></line></svg>',
+                    growth: '<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M4 13 L12 5 M12 5 L12 9 M12 5 L8 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+                    density: '<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><circle cx="6" cy="7" r="2" fill="currentColor"></circle><circle cx="11" cy="10" r="2.4" fill="currentColor"></circle><circle cx="7" cy="12" r="1.6" fill="currentColor"></circle></svg>',
+                    cut: '<svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M6 4 L12 14 M12 4 L6 14" fill="none" stroke="currentColor" stroke-width="2"></path></svg>'
+                };
+                return marks[type] || marks.light;
+            }
+
+            function renderScore(phase) {
+                const score = phase.score;
+                if (!score) {
+                    return "";
+                }
+                return `
+                    <section class="score-block">
+                        <div class="score-block__intro">
+                            <h3>${escapeHTML(score.title)}</h3>
+                            <p>${escapeHTML(score.intro)}</p>
+                        </div>
+                        <div class="score-block__frame">
+                            <div>
+                                <div class="score-canvas-wrap">
+                                    <canvas
+                                        class="score-canvas"
+                                        data-score-symbols="${escapeAttr(encodeURIComponent(JSON.stringify(score.symbols || [])))}"
+                                        aria-label="${escapeAttr(score.title)}"></canvas>
+                                </div>
+                                <button class="score-trigger" type="button" data-score-trigger>Vedi esempio</button>
+                            </div>
+                            <div class="score-legend">
+                                ${(score.legend || []).map((item) => `
+                                    <article class="legend-item">
+                                        <span class="legend-mark">${renderLegendMark(item.type)}</span>
+                                        <div>
+                                            <h4>${escapeHTML(item.title)}</h4>
+                                            <p>${escapeHTML(item.text)}</p>
+                                        </div>
+                                    </article>`).join("")}
+                            </div>
+                        </div>
+                    </section>`;
+            }
+
+            function renderPhase(phase, index) {
+                const phaseId = "phase-" + phase.id;
+                return `
+                    <section class="lesson-phase reveal" id="${escapeAttr(phaseId)}" data-phase-index="${index + 1}" data-phase-label="${escapeAttr(phase.label)}" tabindex="0">
+                        <div class="phase-ghost">${String(index + 1).padStart(2, "0")}</div>
+                        <div class="phase-panel">
+                            <header class="phase-panel__head">
+                                <div>
+                                    <p class="phase-kicker">${escapeHTML(phase.label)}</p>
+                                    <h2 class="phase-title">${escapeHTML(phase.title)}</h2>
+                                    ${phase.duration ? '<span class="duration-badge">' + escapeHTML(phase.duration) + "</span>" : ""}
+                                </div>
+                                ${renderDurationRing(phase.ring_progress, phase.duration || phase.label)}
+                            </header>
+                            ${renderMaterials(phase.materials || [])}
+                            <div class="phase-body">
+                                <div class="phase-copy">
+                                    ${(phase.paragraphs || []).map((paragraph) => "<p>" + escapeHTML(paragraph) + "</p>").join("")}
+                                    ${renderSteps(phase.steps || [])}
+                                </div>
+                                <div class="phase-side">
+                                    ${renderObserveBox(phase)}
+                                    ${renderResultBox(phase)}
+                                    ${renderNoteBox(phase.note)}
+                                </div>
+                            </div>
+                            ${renderPairs(phase)}
+                            ${renderMap(phase, index)}
+                            ${renderScore(phase)}
+                            ${renderCriteria(phase)}
+                        </div>
+                    </section>`;
+            }
+
+            function updatePhaseCounter(index) {
+                const total = lesson.phases.length;
+                phaseCounterValue.textContent = (index + 1) + "/" + total;
+                phaseCounterLabel.textContent = "fase";
+                phaseCounterValue.parentElement.setAttribute("aria-label", "Fase " + (index + 1) + " di " + total + ": " + (lesson.phases[index] ? lesson.phases[index].label : ""));
+            }
+
+            function buildRail() {
+                phaseRailTrack.innerHTML = lesson.phases.map((phase, index) => `
+                    <button
+                        class="phase-rail__button ${index === 0 ? "is-active" : ""}"
+                        type="button"
+                        data-index="${index}"
+                        data-label="${escapeAttr(phase.label)}"
+                        aria-label="${escapeAttr(phase.label)}"></button>`).join("");
+
+                phaseRailTrack.querySelectorAll(".phase-rail__button").forEach((button) => {
+                    button.addEventListener("click", () => {
+                        const target = document.getElementById("phase-" + lesson.phases[Number(button.dataset.index)].id);
+                        if (target) {
+                            target.scrollIntoView({ behavior: document.body.classList.contains("reduce-motion") ? "auto" : "smooth", block: "start" });
+                        }
                     });
-                } else if (symbol.type === "cut") {
-                    context.beginPath();
-                    context.moveTo(symbol.x - 16, symbol.y - 18);
-                    context.lineTo(symbol.x + 16, symbol.y + 18);
-                    context.moveTo(symbol.x + 16, symbol.y - 18);
-                    context.lineTo(symbol.x - 16, symbol.y + 18);
-                    context.stroke();
+                });
+            }
+
+            function buildHero() {
+                heroMeta.innerHTML = (lesson.hero_meta || []).map((item) => "<span>" + escapeHTML(item) + "</span>").join("");
+                quoteText.textContent = lesson.quote || "";
+            }
+
+            function buildPhases() {
+                phaseRoot.innerHTML = lesson.phases.map(renderPhase).join("");
+            }
+
+            function updateMapDetails(details, eyebrow, title, body, tags) {
+                details.innerHTML = `
+                    <p class="map-details__eyebrow">${escapeHTML(eyebrow || "")}</p>
+                    <h4 class="map-details__title">${escapeHTML(title || "")}</h4>
+                    <p class="map-details__body">${escapeHTML(body || "")}</p>
+                    ${renderTags(tags ? tags.split("||").filter(Boolean) : [])}`;
+            }
+
+            function setupMaps() {
+                document.querySelectorAll("[data-map-root]").forEach((root) => {
+                    const stage = root.querySelector("[data-map-stage]");
+                    const details = root.querySelector("[data-map-details]");
+                    const buttons = root.querySelectorAll("[data-map-node]");
+                    const reset = () => {
+                        buttons.forEach((button) => button.classList.remove("is-active"));
+                        updateMapDetails(
+                            details,
+                            details.dataset.defaultEyebrow,
+                            details.dataset.defaultTitle,
+                            details.dataset.defaultBody,
+                            details.dataset.defaultTags
+                        );
+                    };
+
+                    buttons.forEach((button) => {
+                        const activate = () => {
+                            buttons.forEach((item) => item.classList.remove("is-active"));
+                            button.classList.add("is-active");
+                            updateMapDetails(details, button.dataset.eyebrow, button.dataset.title, button.dataset.body, button.dataset.tags);
+                        };
+                        button.addEventListener("mouseenter", activate);
+                        button.addEventListener("focus", activate);
+                        button.addEventListener("click", activate);
+                    });
+
+                    stage.addEventListener("mouseleave", reset);
+                    reset();
+                });
+            }
+
+            function drawSymbol(ctx, symbol, visible) {
+                if (!visible) {
+                    return;
+                }
+                const x = symbol.x;
+                const y = symbol.y;
+                ctx.save();
+                ctx.strokeStyle = "#c06a1c";
+                ctx.fillStyle = "#c06a1c";
+                ctx.lineWidth = 3;
+
+                switch (symbol.type) {
+                    case "light":
+                        ctx.globalAlpha = 0.55;
+                        ctx.beginPath();
+                        ctx.arc(x, y, 8, 0, Math.PI * 2);
+                        ctx.fill();
+                        break;
+                    case "intense":
+                        ctx.globalAlpha = 0.85;
+                        ctx.beginPath();
+                        ctx.arc(x, y, 15, 0, Math.PI * 2);
+                        ctx.fill();
+                        break;
+                    case "hit":
+                        ctx.beginPath();
+                        ctx.moveTo(x, y - 22);
+                        ctx.lineTo(x, y + 22);
+                        ctx.stroke();
+                        break;
+                    case "gap":
+                        ctx.globalAlpha = 0.38;
+                        ctx.beginPath();
+                        ctx.setLineDash([6, 8]);
+                        ctx.moveTo(x - 28, y);
+                        ctx.lineTo(x + 28, y);
+                        ctx.stroke();
+                        break;
+                    case "growth":
+                        ctx.beginPath();
+                        ctx.moveTo(x - 26, y + 18);
+                        ctx.lineTo(x + 18, y - 18);
+                        ctx.lineTo(x + 10, y - 18);
+                        ctx.moveTo(x + 18, y - 18);
+                        ctx.lineTo(x + 18, y - 10);
+                        ctx.stroke();
+                        break;
+                    case "density":
+                        [0, 10, -8, 16].forEach((offset, index) => {
+                            ctx.globalAlpha = 0.42 + (index * 0.12);
+                            ctx.beginPath();
+                            ctx.arc(x + offset, y + ((index % 2) ? -6 : 6), 7 + index, 0, Math.PI * 2);
+                            ctx.fill();
+                        });
+                        break;
+                    case "cut":
+                        ctx.beginPath();
+                        ctx.moveTo(x - 14, y - 18);
+                        ctx.lineTo(x + 14, y + 18);
+                        ctx.moveTo(x + 14, y - 18);
+                        ctx.lineTo(x - 14, y + 18);
+                        ctx.stroke();
+                        break;
                 }
 
-                context.restore();
-            });
-        }
-
-        function resizeScoreCanvas() {
-            drawScore(activeSymbolIndex);
-        }
-
-        function stopScoreAnimation() {
-            if (scoreAnimationFrame) {
-                cancelAnimationFrame(scoreAnimationFrame);
-                scoreAnimationFrame = null;
-            }
-        }
-
-        function playScore() {
-            stopScoreAnimation();
-            if (body.classList.contains("reduce-motion")) {
-                activeSymbolIndex = scoreSymbols.length - 1;
-                drawScore(activeSymbolIndex);
-                return;
+                ctx.restore();
             }
 
-            const start = performance.now();
-            const duration = 3600;
+            function drawScore(canvas, visibleCount = null) {
+                const symbols = JSON.parse(decodeURIComponent(canvas.dataset.scoreSymbols || "%5B%5D"));
+                const ratio = window.devicePixelRatio || 1;
+                const rect = canvas.getBoundingClientRect();
+                canvas.width = rect.width * ratio;
+                canvas.height = rect.height * ratio;
+                const ctx = canvas.getContext("2d");
+                ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+                ctx.clearRect(0, 0, rect.width, rect.height);
 
-            function tick(now) {
-                const elapsed = now - start;
-                const progress = Math.min(elapsed / duration, 1);
-                activeSymbolIndex = Math.min(scoreSymbols.length - 1, Math.floor(progress * scoreSymbols.length));
-                drawScore(activeSymbolIndex);
-                if (progress < 1) {
-                    scoreAnimationFrame = requestAnimationFrame(tick);
-                } else {
-                    scoreAnimationFrame = null;
+                ctx.strokeStyle = "rgba(23, 18, 13, 0.12)";
+                ctx.lineWidth = 1.5;
+                ctx.beginPath();
+                ctx.moveTo(42, rect.height / 2);
+                ctx.lineTo(rect.width - 42, rect.height / 2);
+                ctx.stroke();
+
+                ctx.setLineDash([3, 9]);
+                ctx.beginPath();
+                ctx.moveTo(42, rect.height * 0.24);
+                ctx.lineTo(rect.width - 42, rect.height * 0.24);
+                ctx.moveTo(42, rect.height * 0.76);
+                ctx.lineTo(rect.width - 42, rect.height * 0.76);
+                ctx.strokeStyle = "rgba(23, 18, 13, 0.08)";
+                ctx.stroke();
+                ctx.setLineDash([]);
+
+                const scaleX = rect.width / 720;
+                const scaleY = rect.height / 240;
+                symbols.forEach((symbol, index) => {
+                    drawSymbol(ctx, {
+                        type: symbol.type,
+                        x: symbol.x * scaleX,
+                        y: symbol.y * scaleY
+                    }, visibleCount === null || index < visibleCount);
+                });
+            }
+
+            function setupScores() {
+                document.querySelectorAll(".score-canvas").forEach((canvas) => {
+                    const render = () => drawScore(canvas);
+                    render();
+                    window.addEventListener("resize", render);
+                });
+
+                document.querySelectorAll("[data-score-trigger]").forEach((button) => {
+                    button.addEventListener("click", () => {
+                        const canvas = button.closest(".score-block__frame").querySelector(".score-canvas");
+                        const symbols = JSON.parse(decodeURIComponent(canvas.dataset.scoreSymbols || "%5B%5D"));
+                        if (document.body.classList.contains("reduce-motion")) {
+                            drawScore(canvas);
+                            return;
+                        }
+                        let visibleCount = 0;
+                        drawScore(canvas, 0);
+                        const step = () => {
+                            visibleCount += 1;
+                            drawScore(canvas, visibleCount);
+                            if (visibleCount < symbols.length) {
+                                window.setTimeout(step, 240);
+                            }
+                        };
+                        step();
+                    });
+                });
+            }
+
+            function setupReveal() {
+                const targets = document.querySelectorAll(".reveal");
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("is-visible");
+                            observer.unobserve(entry.target);
+                            const mapStage = entry.target.querySelector("[data-map-stage]");
+                            if (mapStage) {
+                                mapStage.classList.add("is-awake");
+                            }
+                        }
+                    });
+                }, { threshold: 0.16, rootMargin: "0px 0px -8% 0px" });
+
+                targets.forEach((target) => observer.observe(target));
+            }
+
+            function setupPhaseObserver() {
+                const sections = Array.from(document.querySelectorAll(".lesson-phase"));
+                const railButtons = Array.from(document.querySelectorAll(".phase-rail__button"));
+
+                const setActive = (index) => {
+                    railButtons.forEach((button, buttonIndex) => {
+                        button.classList.toggle("is-active", buttonIndex === index);
+                    });
+                    updatePhaseCounter(index);
+                };
+
+                setActive(0);
+
+                const observer = new IntersectionObserver((entries) => {
+                    const visible = entries
+                        .filter((entry) => entry.isIntersecting)
+                        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+                    if (!visible) {
+                        return;
+                    }
+                    const index = Number(visible.target.dataset.phaseIndex) - 1;
+                    setActive(index);
+                }, { threshold: [0.35, 0.55, 0.75], rootMargin: "-18% 0px -35% 0px" });
+
+                sections.forEach((section) => observer.observe(section));
+            }
+
+            function setupProgress() {
+                const update = () => {
+                    const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+                    const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
+                    progressBar.style.width = (progress * 100) + "%";
+                };
+                update();
+                window.addEventListener("scroll", update, { passive: true });
+                window.addEventListener("resize", update);
+            }
+
+            function setupParticles() {
+                const pieces = Array.from({ length: 22 }, (_, index) => {
+                    const left = (index * 4.4 + 3) % 100;
+                    const top = (index * 11 + 14) % 100;
+                    const size = 3 + (index % 4);
+                    const duration = 18 + (index % 7) * 2;
+                    const delay = -1 * index;
+                    return `<span style="--left:${left}%; --top:${top}%; --size:${size}px; --duration:${duration}s; --delay:${delay}s;"></span>`;
+                });
+                soundParticles.innerHTML = pieces.join("");
+            }
+
+            function exitFocusMode() {
+                document.body.classList.remove("is-focus-mode");
+                document.querySelectorAll(".lesson-phase").forEach((section) => section.classList.remove("is-focused"));
+                state.focusedId = null;
+            }
+
+            function setupFocusMode() {
+                document.querySelectorAll(".lesson-phase").forEach((section) => {
+                    section.addEventListener("dblclick", () => {
+                        const isSame = state.focusedId === section.id;
+                        if (isSame) {
+                            exitFocusMode();
+                            return;
+                        }
+                        state.focusedId = section.id;
+                        document.body.classList.add("is-focus-mode");
+                        document.querySelectorAll(".lesson-phase").forEach((item) => item.classList.toggle("is-focused", item === section));
+                    });
+                });
+
+                document.addEventListener("keydown", (event) => {
+                    if (event.key === "Escape") {
+                        exitFocusMode();
+                    }
+                });
+            }
+
+            function applyStoredAccessibility() {
+                if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+                    document.body.classList.add("reduce-motion");
                 }
+
+                ["motion", "contrast", "type"].forEach((key) => {
+                    const active = store.getItem("accordia-" + key) === "true";
+                    if (!active) {
+                        return;
+                    }
+                    if (key === "motion") {
+                        document.body.classList.add("reduce-motion");
+                    }
+                    if (key === "contrast") {
+                        document.body.classList.add("high-contrast");
+                    }
+                    if (key === "type") {
+                        document.body.classList.add("large-type");
+                    }
+                    const button = document.querySelector('[data-toggle="' + key + '"]');
+                    if (button) {
+                        button.setAttribute("aria-pressed", "true");
+                    }
+                });
             }
 
-            scoreAnimationFrame = requestAnimationFrame(tick);
-        }
+            function setupAccessibility() {
+                toggleButtons.forEach((button) => {
+                    button.addEventListener("click", () => {
+                        const key = button.dataset.toggle;
+                        const map = {
+                            motion: "reduce-motion",
+                            contrast: "high-contrast",
+                            type: "large-type"
+                        };
+                        const className = map[key];
+                        const next = !document.body.classList.contains(className);
+                        document.body.classList.toggle(className, next);
+                        button.setAttribute("aria-pressed", next ? "true" : "false");
+                        store.setItem("accordia-" + key, String(next));
+                    });
+                });
+            }
 
-        playScoreButton.addEventListener("click", playScore);
-        window.addEventListener("resize", resizeScoreCanvas, { passive: true });
-        window.addEventListener("scroll", updateScrollProgress, { passive: true });
-
-        populateParticles();
-        activateMapNode("gruppo");
-        updateScrollProgress();
-        resizeScoreCanvas();
-        setCurrentPhase(1);
+            buildHero();
+            buildRail();
+            buildPhases();
+            applyStoredAccessibility();
+            setupAccessibility();
+            setupMaps();
+            setupScores();
+            setupReveal();
+            setupPhaseObserver();
+            setupProgress();
+            setupParticles();
+            setupFocusMode();
+        })();
     </script>
 </body>
 </html>

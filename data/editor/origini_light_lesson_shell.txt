@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Ritmo, pulsazione e tempo: lezione immersiva del nucleo Origini del suono, in tema chiaro e con navigazione completa tra le fasi.">
-    <title>Ritmo, pulsazione e tempo | Origini del suono | Accordia</title>
+    <meta name="description" content="__META_DESCRIPTION__">
+    <title>__TITLE__ | __NUCLEUS_TITLE__ | Accordia</title>
     <!--
         Scelte progettuali:
         1. Una shell unica per tutte le lezioni immersive del nucleo, ispirata alla pagina speciale gia sviluppata ma riletta in tema chiaro.
@@ -21,7 +21,7 @@
             --panel-strong: rgba(255, 255, 255, 0.92);
             --text: #17120d;
             --text-secondary: #6d655a;
-            --accent: #c06a1c;
+            --accent: __ACCENT__;
             --accent-soft: rgba(192, 106, 28, 0.1);
             --accent-line: rgba(192, 106, 28, 0.24);
             --accent-strong: rgba(192, 106, 28, 0.78);
@@ -1407,13 +1407,13 @@
 
     <header class="site-header">
         <div class="shell site-header__inner">
-            <a class="brand-minimal" href="../../../../index.html">ACCORDIA</a>
+            <a class="brand-minimal" href="__HOME_LINK__">ACCORDIA</a>
             <nav class="breadcrumb" aria-label="Percorso">
-                <a href="../../../../index.html">Home</a>
+                <a href="__HOME_LINK__">Home</a>
                 <span class="breadcrumb__sep">/</span>
-                <a href="../../index.html">Origini del suono</a>
+                <a href="__NUCLEUS_LINK__">__NUCLEUS_TITLE__</a>
                 <span class="breadcrumb__sep">/</span>
-                <span aria-current="page">Ritmo, pulsazione e tempo</span>
+                <span aria-current="page">__TITLE__</span>
             </nav>
             <div class="header-tools">
                 <div class="accessibility-bar" aria-label="Accessibilita">
@@ -1430,22 +1430,9 @@
     </header>
 
     <main class="lesson-shell">
+__MINI_TIMELINE__
 
-        <nav class="nucleus-mini-timeline" aria-label="Mini timeline dei nuclei">
-            <div class="shell nucleus-mini-timeline__track">
-                <a href="../../../../nuclei/origini-del-suono/index.html" style="--mini-accent: #c06a1c;" data-nucleus-link="origini-del-suono" class="is-active" aria-current="page"><span>01</span><strong>Origini del suono</strong></a><a href="../../../../nuclei/civilta-del-mediterraneo/index.html" style="--mini-accent: #9b4d2f;" data-nucleus-link="civilta-del-mediterraneo"><span>02</span><strong>Civilta del Mediterraneo</strong></a><a href="../../../../nuclei/dalla-tarda-antichita-al-sacro/index.html" style="--mini-accent: #5b67d6;" data-nucleus-link="dalla-tarda-antichita-al-sacro"><span>03</span><strong>Dalla tarda antichita al sacro</strong></a><a href="../../../../nuclei/medioevo/index.html" style="--mini-accent: #1f7f90;" data-nucleus-link="medioevo"><span>04</span><strong>Medioevo</strong></a><a href="../../../../nuclei/rinascimento/index.html" style="--mini-accent: #768a2a;" data-nucleus-link="rinascimento"><span>05</span><strong>Rinascimento</strong></a><a href="../../../../nuclei/barocco/index.html" style="--mini-accent: #c14f40;" data-nucleus-link="barocco"><span>06</span><strong>Barocco</strong></a><a href="../../../../nuclei/classicismo/index.html" style="--mini-accent: #2f6fd6;" data-nucleus-link="classicismo"><span>07</span><strong>Classicismo</strong></a><a href="../../../../nuclei/romanticismo/index.html" style="--mini-accent: #a94d87;" data-nucleus-link="romanticismo"><span>08</span><strong>Romanticismo e secondo Ottocento</strong></a><a href="../../../../nuclei/novecento-delle-rivoluzioni/index.html" style="--mini-accent: #7057c9;" data-nucleus-link="novecento-delle-rivoluzioni"><span>09</span><strong>Novecento delle rivoluzioni</strong></a><a href="../../../../nuclei/musica-contemporanea/index.html" style="--mini-accent: #2f8c63;" data-nucleus-link="musica-contemporanea"><span>10</span><strong>Musica contemporanea e culture globali</strong></a>
-            </div>
-        </nav>
-
-
-        <nav class="topic-rail" aria-label="Argomenti del nucleo">
-            <div class="shell">
-                <p class="topic-rail__eyebrow">Argomenti del nucleo</p>
-                <div class="topic-rail__track" data-topic-rail-track>
-                    <a href="../alle-origini-del-suono/index.html" data-topic-rail-link><span>01</span><strong>Alle origini del suono</strong></a><a href="../ritmo-pulsazione-tempo/index.html" class="is-active" aria-current="page" data-topic-rail-link><span>02</span><strong>Ritmo, pulsazione e tempo</strong></a><a href="../corpo-voce-gesto/index.html" data-topic-rail-link><span>03</span><strong>Corpo, voce e gesto</strong></a><a href="../oggetti-che-suonano/index.html" data-topic-rail-link><span>04</span><strong>Oggetti che suonano</strong></a><a href="../suono-gruppo-e-rito/index.html" data-topic-rail-link><span>05</span><strong>Suono, gruppo e rito</strong></a>
-                </div>
-            </div>
-        </nav>
+__TOPIC_RAIL__
 
         <aside class="phase-rail" aria-label="Fasi della lezione">
             <div class="phase-rail__track" id="phaseRailTrack"></div>
@@ -1459,9 +1446,9 @@
                 <span class="hero__ring"></span>
             </div>
             <div class="hero__inner">
-                <p class="hero__eyebrow">Origini del suono · Argomento 02</p>
-                <h1>Ritmo, pulsazione e tempo</h1>
-                <p class="hero__subtitle">Misurare il gesto collettivo</p>
+                <p class="hero__eyebrow">Origini del suono · Argomento __TOPIC_NUMBER__</p>
+                <h1>__TITLE__</h1>
+                <p class="hero__subtitle">__SUBTITLE__</p>
                 <div class="hero__meta" id="heroMeta"></div>
                 <a class="hero__scroll" href="#phaseRoot">Scorri nella lezione</a>
             </div>
@@ -1480,15 +1467,15 @@
     <footer class="site-footer">
         <div class="shell">
             <div class="site-footer__links">
-                <a href="../../index.html">Torna alla mappa</a>
-                <a href="../alle-origini-del-suono/index.html">Argomento precedente</a>
-                <a href="../../../../index.html">Home</a>
+                <a href="__NUCLEUS_LINK__">Torna alla mappa</a>
+                __PREVIOUS_HTML__
+                <a href="__HOME_LINK__">Home</a>
             </div>
-            <p class="site-footer__meta">Origini del suono · Ritmo, pulsazione e tempo</p>
+            <p class="site-footer__meta">__NUCLEUS_TITLE__ · __TITLE__</p>
         </div>
     </footer>
 
-    <script id="lesson-data" type="application/json">{"title": "Ritmo, pulsazione e tempo", "subtitle": "Misurare il gesto collettivo", "hero_meta": ["Durata · 2 ore", "Ti serve · corpo, voce, banco", "Obiettivo · distinguere pulsazione, ritmo, tempo, accento e metro", "Focus · trovare un battito comune"], "quote": "La pulsazione e il battito comune. Il ritmo e il disegno che si appoggia sopra. Il tempo decide quanto velocemente quel battito ritorna.", "phases": [{"id": "apertura", "label": "Apertura", "title": "Trova il battito comune", "duration": "30 secondi", "ring_progress": 0.14, "materials": ["corpo", "banco", "spazio libero"], "paragraphs": ["All'inizio ognuno segue il proprio impulso. Poi il gruppo prova a entrare nello stesso battito.", "La prima conquista e sentire il centro comune sotto gesti diversi."], "steps": ["Cammina lentamente o batti le mani sul banco.", "Ascolta gli altri e cerca il battito che torna uguale per tutti.", "Resta su quel battito senza accelerare."], "observe_title": "Osserva", "observe": ["Che cosa resta uguale mentre i gesti cambiano?", "Dove senti il battito che ritorna sempre?", "Quando il gruppo accelera, cambia il ritmo o cambia il tempo?"], "result": "Riconosci il battito comune sotto i gesti del gruppo."}, {"id": "esplorazione", "label": "Esplorazione", "title": "Sotto il ritmo c'e un battito che ritorna", "duration": "tempo guidato", "ring_progress": 0.42, "materials": ["corpo", "voce", "ascolto"], "paragraphs": ["Cammino, danza, lavoro e gioco fanno sentire un ordine. Quel centro regolare si chiama pulsazione. Sopra quel centro il ritmo puo muoversi.", "Se la pulsazione resta stabile, il gruppo non si perde anche quando il ritmo cambia.", "Gli accenti aiutano a sentire se il battito si organizza a 2, a 3 o a 4."], "steps": ["Tieni un battito regolare con il corpo.", "Sposta gli accenti e ascolta come cambia la percezione del gruppo.", "Prova un ritmo diverso senza far sparire la pulsazione."], "observe_title": "Osserva", "observe": ["Dove senti il battito regolare?", "L'accento cade ogni 2, 3 o 4 pulsazioni?", "Il tempo resta uguale o cambia?"], "result": "Capisci che il ritmo si appoggia a un battito comune ma non coincide con lui.", "pairs": [{"title": "Pulsazione", "text": "Il battito regolare che fa da riferimento al gruppo."}, {"title": "Ritmo", "text": "Il disegno di suoni e pause che si appoggia alla pulsazione."}, {"title": "Tempo", "text": "La velocita con cui ritorna la pulsazione."}, {"title": "Accento", "text": "Il punto che senti piu forte o piu evidente."}, {"title": "Metro", "text": "Il modo regolare con cui gli accenti si organizzano in gruppi."}]}, {"id": "comprensione", "label": "Comprensione attiva", "title": "Tieni la pulsazione. Cambia il ritmo.", "duration": "15 minuti", "ring_progress": 0.86, "materials": ["corpo", "voce", "banco", "foglio"], "paragraphs": ["Prima mantieni il battito comune. Poi aggiungi pause, accenti e contrasti senza perdere il centro.", "La comprensione diventa reale quando il gruppo sa tenere insieme battito e variazione."], "steps": ["Scegli una pulsazione stabile.", "Decidi se l'accento torna a 2, a 3 o a 4.", "Aggiungi un ritmo diverso senza perdere la pulsazione.", "Rendi visibile la sequenza con segni semplici."], "observe_title": "Osserva", "observe": ["Il battito sotto resta stabile?", "Gli accenti fanno sentire il gruppo?", "Il ritmo cambia senza coprire la pulsazione?"], "result": "Sai distinguere il battito comune dal disegno ritmico.", "map": {"title": "Mappa del battito comune", "center": {"eyebrow": "Centro", "title": "Battito comune", "body": "La pulsazione e il punto di appoggio che permette al gruppo di restare insieme anche quando il ritmo cambia.", "tags": ["ritorno", "gruppo", "stabilita"]}, "nodes": [{"eyebrow": "Nodo", "title": "Pulsazione", "body": "Il battito regolare che sostiene il gruppo.", "tags": ["base", "centro"]}, {"eyebrow": "Nodo", "title": "Ritmo", "body": "Il disegno di suoni e silenzi che si muove sopra il battito.", "tags": ["disegno", "variazione"]}, {"eyebrow": "Nodo", "title": "Tempo", "body": "La velocita con cui quel battito ritorna.", "tags": ["lento", "veloce"]}, {"eyebrow": "Nodo", "title": "Accento", "body": "Il punto che orienta il gruppo dentro il ritorno regolare.", "tags": ["rilievo", "forza"]}, {"eyebrow": "Nodo", "title": "Metro", "body": "L'organizzazione degli accenti in gruppi regolari.", "tags": ["2", "3", "4"]}]}, "note": {"title": "Ricorda", "body": "Se la pulsazione resta stabile, il gruppo non si perde anche quando il ritmo cambia."}}, {"id": "rielaborazione", "label": "Rielaborazione", "title": "Fissa tre parole nel quaderno", "duration": "6 minuti", "ring_progress": 0.46, "materials": ["quaderno", "voce"], "paragraphs": ["Dopo la prova, serve una piccola messa a fuoco: poche parole, ma giuste."], "steps": ["Scrivi con parole tue che cos'e la pulsazione.", "Spiega come il ritmo si appoggia alla pulsazione.", "Aggiungi che cosa cambia quando il tempo diventa piu lento o piu veloce."], "observe_title": "Osserva", "observe": ["Le tre definizioni sono diverse tra loro?", "Riesci a fare un esempio per ogni parola?"], "result": "Le idee chiave diventano piu stabili nella memoria."}, {"id": "produzione", "label": "Produzione", "title": "Crea un pattern di gruppo", "duration": "12 minuti", "ring_progress": 0.72, "materials": ["corpo", "voce", "banco"], "paragraphs": ["Qui il battito deve diventare struttura condivisa: qualcuno tiene il centro, qualcuno muove il ritmo, il gruppo resta leggibile."], "steps": ["Scegli chi tiene la pulsazione stabile.", "Decidi se il metro torna a 2, a 3 o a 4.", "Aggiungi un ritmo che non faccia sparire il battito comune."], "observe_title": "Osserva", "observe": ["La pulsazione resta chiara dall'inizio alla fine?", "Il ritmo si distingue dal battito comune?"], "result": "Il gruppo costruisce una sequenza leggibile e condivisa.", "note": {"title": "Centro del lavoro", "body": "Prima si salva il battito comune. Poi si decide come far respirare il ritmo sopra di lui."}}, {"id": "condivisione", "label": "Condivisione", "title": "Fallo riconoscere a un altro gruppo", "duration": "8 minuti", "ring_progress": 0.56, "materials": ["sequenza preparata", "ascolto"], "paragraphs": ["La restituzione verifica se il metro e davvero leggibile senza una spiegazione lunga."], "steps": ["Fai ascoltare la sequenza senza spiegare tutto subito.", "Chiedi all'altro gruppo se sente 2, 3 o 4 pulsazioni.", "Correggi solo il punto che crea piu confusione."], "observe_title": "Osserva", "observe": ["L'altro gruppo riconosce la pulsazione?", "Gli accenti fanno capire il metro?"], "result": "Capisci se la tua sequenza comunica davvero."}, {"id": "valutazione", "label": "Valutazione", "title": "Controlla che cosa hai capito", "duration": "8 minuti", "ring_progress": 0.5, "materials": ["voce", "quaderno", "lessico"], "paragraphs": ["La valutazione controlla se sai distinguere parole vicine ma non equivalenti e se riesci a farle funzionare in una pratica di gruppo."], "result": "Distingui parole e gesti chiave senza confondere il centro del lavoro.", "criteria": [{"kicker": "Base", "title": "Pulsazione", "text": "Riconosci il battito regolare che sostiene il gruppo."}, {"kicker": "Disegno", "title": "Ritmo", "text": "Distingui il ritmo dalla pulsazione e ne osservi il disegno."}, {"kicker": "Velocita", "title": "Tempo", "text": "Sai dire quando il battito scorre lento, medio o veloce."}, {"kicker": "Struttura", "title": "Metro e accento", "text": "Riconosci come gli accenti organizzano il ritorno in gruppi regolari."}], "self_check": ["Riesci a distinguere pulsazione, ritmo, tempo, accento e metro?", "Riesci a riconoscere se il tempo e lento, medio o veloce?", "Riesci a tenere il battito comune mentre un compagno cambia ritmo?"]}]}</script>
+    <script id="lesson-data" type="application/json">__LESSON_PAYLOAD__</script>
     <script>
         (() => {
             const lesson = JSON.parse(document.getElementById("lesson-data").textContent);

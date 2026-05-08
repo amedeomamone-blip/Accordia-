@@ -49,7 +49,8 @@ JS_ASSET_RE = re.compile(r'src="(?P<path>[^"]*js/main\.js)(?:\?v=\d+)?"')
 EDITOR_DATA_DIR = ROOT / "data" / "editor"
 TIMELINE_PAGE_DATA_PATH = EDITOR_DATA_DIR / "timeline_page.json"
 NUCLEI_OVERRIDES_PATH = EDITOR_DATA_DIR / "nuclei_overrides.json"
-CORPO_VOCE_GESTO_TEMPLATE_PATH = EDITOR_DATA_DIR / "corpo_voce_gesto_single_file_template.txt"
+ORIGINI_LIGHT_TEMPLATE_PATH = EDITOR_DATA_DIR / "origini_light_lesson_shell.txt"
+ORIGINI_LIGHT_LESSONS_PATH = EDITOR_DATA_DIR / "origini_light_lessons.json"
 EDITOR_NUCLEUS_FIELDS = (
     "title",
     "nav_title",
@@ -2734,6 +2735,10 @@ def e(value: str) -> str:
     return escape(value, quote=True)
 
 
+def inline_json(value: object) -> str:
+    return json.dumps(value, ensure_ascii=False).replace("</", "<\\/")
+
+
 def page_href(path: str) -> str:
     if path.startswith(("#", "mailto:", "tel:", "http://", "https://", "javascript:", "data:")):
         return path
@@ -3720,8 +3725,10 @@ def render_lesson_references_section(topic: dict) -> str:
 
 
 def render_lesson_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str:
-    if topic.get("slug") == "corpo-voce-gesto":
-        return render_corpo_voce_gesto_single_file_page(nucleo, topic_index, topic)
+    if nucleo.get("slug") == "origini-del-suono":
+        light_page = render_origini_light_lesson_page(nucleo, topic_index, topic)
+        if light_page:
+            return light_page
 
     lesson = topic["lesson"]
     panel_only = bool(lesson.get("panel_only"))
@@ -3976,12 +3983,24 @@ def render_inline_html_template(path: Path, replacements: dict[str, str]) -> str
     return template
 
 
-def render_corpo_voce_gesto_single_file_page(nucleo: dict, topic_index: int, topic: dict) -> str:
+def load_origini_light_lessons() -> dict[str, dict]:
+    return json.loads(ORIGINI_LIGHT_LESSONS_PATH.read_text(encoding="utf-8"))
+
+
+def render_origini_light_lesson_page(nucleo: dict, topic_index: int, topic: dict) -> str | None:
+    lesson_payload = load_origini_light_lessons().get(topic["slug"])
+    if not lesson_payload:
+        return None
+
     topics = nucleo["topic_map"]["nodes"]
     prev_topic = topics[topic_index - 1] if topic_index > 0 else None
     home_link = "../../../../index.html"
     nucleus_link = page_href("../../")
-    previous_link = page_href("../" + prev_topic["slug"] + "/") if prev_topic else nucleus_link
+    previous_html = (
+        f'<a href="{e(page_href("../" + prev_topic["slug"] + "/"))}">Argomento precedente</a>'
+        if prev_topic
+        else '<span class="is-disabled">Argomento precedente</span>'
+    )
     mini_timeline = f"""
         <nav class="nucleus-mini-timeline" aria-label="Mini timeline dei nuclei">
             <div class="shell nucleus-mini-timeline__track">
@@ -3990,13 +4009,22 @@ def render_corpo_voce_gesto_single_file_page(nucleo: dict, topic_index: int, top
         </nav>"""
 
     return render_inline_html_template(
-        CORPO_VOCE_GESTO_TEMPLATE_PATH,
+        ORIGINI_LIGHT_TEMPLATE_PATH,
         {
+            "ACCENT": e(nucleo["accent"]),
             "HOME_LINK": e(home_link),
             "NUCLEUS_LINK": e(nucleus_link),
-            "PREVIOUS_LINK": e(previous_link),
+            "PREVIOUS_HTML": previous_html,
+            "TITLE": e(topic["title"]),
+            "SUBTITLE": e(topic["subtitle"]),
+            "TOPIC_NUMBER": e(topic["number"]),
+            "NUCLEUS_TITLE": e(nucleo["title"]),
+            "META_DESCRIPTION": e(
+                f"{topic['title']}: lezione immersiva del nucleo {nucleo['title']}, in tema chiaro e con navigazione completa tra le fasi."
+            ),
             "MINI_TIMELINE": mini_timeline,
             "TOPIC_RAIL": render_topic_rail(nucleo, topic["slug"]),
+            "LESSON_PAYLOAD": inline_json(lesson_payload),
         },
     )
 
