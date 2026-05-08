@@ -49,6 +49,7 @@ JS_ASSET_RE = re.compile(r'src="(?P<path>[^"]*js/main\.js)(?:\?v=\d+)?"')
 EDITOR_DATA_DIR = ROOT / "data" / "editor"
 TIMELINE_PAGE_DATA_PATH = EDITOR_DATA_DIR / "timeline_page.json"
 NUCLEI_OVERRIDES_PATH = EDITOR_DATA_DIR / "nuclei_overrides.json"
+CORPO_VOCE_GESTO_TEMPLATE_PATH = EDITOR_DATA_DIR / "corpo_voce_gesto_single_file_template.txt"
 EDITOR_NUCLEUS_FIELDS = (
     "title",
     "nav_title",
@@ -3719,6 +3720,9 @@ def render_lesson_references_section(topic: dict) -> str:
 
 
 def render_lesson_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str:
+    if topic.get("slug") == "corpo-voce-gesto":
+        return render_corpo_voce_gesto_single_file_page(nucleo, topic_index, topic)
+
     lesson = topic["lesson"]
     panel_only = bool(lesson.get("panel_only"))
     immersive_preview = bool(lesson.get("immersive_preview"))
@@ -3963,6 +3967,38 @@ def render_topic_rail(nucleo: dict, current_slug: str) -> str:
                 </div>
             </div>
         </nav>"""
+
+
+def render_inline_html_template(path: Path, replacements: dict[str, str]) -> str:
+    template = path.read_text(encoding="utf-8")
+    for key, value in replacements.items():
+        template = template.replace(f"__{key}__", value)
+    return template
+
+
+def render_corpo_voce_gesto_single_file_page(nucleo: dict, topic_index: int, topic: dict) -> str:
+    topics = nucleo["topic_map"]["nodes"]
+    prev_topic = topics[topic_index - 1] if topic_index > 0 else None
+    home_link = "../../../../index.html"
+    nucleus_link = page_href("../../")
+    previous_link = page_href("../" + prev_topic["slug"] + "/") if prev_topic else nucleus_link
+    mini_timeline = f"""
+        <nav class="nucleus-mini-timeline" aria-label="Mini timeline dei nuclei">
+            <div class="shell nucleus-mini-timeline__track">
+                {render_nucleus_mini_links(nucleo["slug"], "../../../../")}
+            </div>
+        </nav>"""
+
+    return render_inline_html_template(
+        CORPO_VOCE_GESTO_TEMPLATE_PATH,
+        {
+            "HOME_LINK": e(home_link),
+            "NUCLEUS_LINK": e(nucleus_link),
+            "PREVIOUS_LINK": e(previous_link),
+            "MINI_TIMELINE": mini_timeline,
+            "TOPIC_RAIL": render_topic_rail(nucleo, topic["slug"]),
+        },
+    )
 
 
 def render_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str:
