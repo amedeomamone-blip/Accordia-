@@ -83,13 +83,14 @@ export function LessonBreadcrumb({ items }) {
   );
 }
 
-export function LessonHero({ title, question, breadcrumbs }) {
+export function LessonHero({ title, question, breadcrumbs, heroGuide }) {
   return (
     <header className="lesson-hero">
       <LessonBreadcrumb items={breadcrumbs} />
       <div className="lesson-shell lesson-hero__copy">
         <h1 className="lesson-hero__title">{title}</h1>
         <p className="lesson-hero__question">{question}</p>
+        {heroGuide ? <p className="lesson-hero__guide">{heroGuide}</p> : null}
       </div>
     </header>
   );

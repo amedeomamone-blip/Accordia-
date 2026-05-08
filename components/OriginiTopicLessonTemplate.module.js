@@ -57,8 +57,8 @@ function useActiveSection(ids) {
 function LessonBreadcrumb({ items }) {
   return /* @__PURE__ */ React.createElement("nav", { className: "lesson-breadcrumb", "aria-label": "Percorso della pagina" }, items.map((item, index) => /* @__PURE__ */ React.createElement(React.Fragment, { key: `${item.label}-${index}` }, item.href ? /* @__PURE__ */ React.createElement("a", { href: item.href }, item.label) : /* @__PURE__ */ React.createElement("span", { "aria-current": "page" }, item.label), index < items.length - 1 ? /* @__PURE__ */ React.createElement("span", { className: "lesson-breadcrumb__separator" }, "/") : null)));
 }
-function LessonHero({ title, question, breadcrumbs }) {
-  return /* @__PURE__ */ React.createElement("header", { className: "lesson-hero" }, /* @__PURE__ */ React.createElement(LessonBreadcrumb, { items: breadcrumbs }), /* @__PURE__ */ React.createElement("div", { className: "lesson-shell lesson-hero__copy" }, /* @__PURE__ */ React.createElement("h1", { className: "lesson-hero__title" }, title), /* @__PURE__ */ React.createElement("p", { className: "lesson-hero__question" }, question)));
+function LessonHero({ title, question, breadcrumbs, heroGuide }) {
+  return /* @__PURE__ */ React.createElement("header", { className: "lesson-hero" }, /* @__PURE__ */ React.createElement(LessonBreadcrumb, { items: breadcrumbs }), /* @__PURE__ */ React.createElement("div", { className: "lesson-shell lesson-hero__copy" }, /* @__PURE__ */ React.createElement("h1", { className: "lesson-hero__title" }, title), /* @__PURE__ */ React.createElement("p", { className: "lesson-hero__question" }, question), heroGuide ? /* @__PURE__ */ React.createElement("p", { className: "lesson-hero__guide" }, heroGuide) : null));
 }
 function ImageFigure({ image }) {
   if (!image?.src) {
@@ -230,6 +230,12 @@ function FlowBoard({ items, ariaLabel }) {
 function TimelineBoard({ items, ariaLabel }) {
   return /* @__PURE__ */ React2.createElement("div", { className: "lesson-timeline-board", "aria-label": ariaLabel }, items.map((item, index) => /* @__PURE__ */ React2.createElement("div", { key: `${item.title}-${index}`, className: "lesson-timeline-board__row" }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-timeline-board__marker" }, /* @__PURE__ */ React2.createElement("span", null, item.label || String(index + 1).padStart(2, "0"))), /* @__PURE__ */ React2.createElement("div", { className: "lesson-timeline-board__content" }, /* @__PURE__ */ React2.createElement("strong", null, item.title), item.text ? /* @__PURE__ */ React2.createElement("p", null, item.text) : null, item.note ? /* @__PURE__ */ React2.createElement("div", { className: "lesson-term-list__example" }, item.note) : null))));
 }
+function ConceptMapBoard({ centerTitle, branches, ariaLabel }) {
+  return /* @__PURE__ */ React2.createElement("div", { className: "lesson-map-board", "aria-label": ariaLabel || centerTitle }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-map-board__center" }, centerTitle), /* @__PURE__ */ React2.createElement("div", { className: cn("lesson-card-grid", branches.length <= 4 ? "lesson-card-grid--two" : "lesson-card-grid--three") }, branches.map((branch) => /* @__PURE__ */ React2.createElement("article", { key: branch.title, className: "lesson-key-card" }, /* @__PURE__ */ React2.createElement("strong", null, branch.title), branch.text ? /* @__PURE__ */ React2.createElement("p", { className: "lesson-body-text" }, branch.text) : null, branch.items?.length ? /* @__PURE__ */ React2.createElement("div", { className: "lesson-chip-row" }, branch.items.map((item) => /* @__PURE__ */ React2.createElement("span", { key: `${branch.title}-${item}`, className: "lesson-chip" }, item))) : null))));
+}
+function GraphicScoreBoard({ items, ariaLabel }) {
+  return /* @__PURE__ */ React2.createElement("div", { className: "lesson-score-board", "aria-label": ariaLabel || "Legenda per partitura grafica" }, items.map((item) => /* @__PURE__ */ React2.createElement("div", { key: item.label, className: "lesson-score-board__row" }, /* @__PURE__ */ React2.createElement("strong", null, item.label), /* @__PURE__ */ React2.createElement("div", { className: "lesson-score-board__pattern", "aria-hidden": "true" }, item.pattern.map((token, index) => /* @__PURE__ */ React2.createElement("span", { key: `${item.label}-${token}-${index}`, className: cn("lesson-score-token", `lesson-score-token--${token}`) }, token === "arrow" ? "\u2192" : token === "cut" ? "|" : token === "gap" ? " " : ""))), /* @__PURE__ */ React2.createElement("p", null, item.text))));
+}
 function EvidenceStrip({ items }) {
   return /* @__PURE__ */ React2.createElement("div", { className: "lesson-evidence-strip" }, items.map((item) => /* @__PURE__ */ React2.createElement("article", { key: item.title, className: "lesson-evidence" }, item.image ? /* @__PURE__ */ React2.createElement("div", { className: "lesson-evidence__media" }, /* @__PURE__ */ React2.createElement("img", { src: item.image.src, alt: item.image.alt })) : null, /* @__PURE__ */ React2.createElement("div", { className: "lesson-evidence__copy" }, item.label ? /* @__PURE__ */ React2.createElement("p", { className: "lesson-mini-title" }, item.label) : null, /* @__PURE__ */ React2.createElement("strong", null, item.title), /* @__PURE__ */ React2.createElement("p", null, item.body)))));
 }
@@ -269,6 +275,12 @@ function PanelContent({ panel }) {
   }
   if (panel.kind === "timeline") {
     return /* @__PURE__ */ React2.createElement(TimelineBoard, { items: panel.items, ariaLabel: panel.ariaLabel || panel.title || "Sequenza essenziale" });
+  }
+  if (panel.kind === "map") {
+    return /* @__PURE__ */ React2.createElement(ConceptMapBoard, { centerTitle: panel.centerTitle, branches: panel.branches, ariaLabel: panel.ariaLabel || panel.title });
+  }
+  if (panel.kind === "score") {
+    return /* @__PURE__ */ React2.createElement(GraphicScoreBoard, { items: panel.items, ariaLabel: panel.ariaLabel || panel.title });
   }
   if (panel.kind === "flow") {
     return /* @__PURE__ */ React2.createElement(FlowBoard, { items: panel.items, ariaLabel: panel.ariaLabel || panel.title || "Schema essenziale" });
@@ -333,7 +345,7 @@ function FollowupSection({ lesson, selected, onSelect }) {
       intro: lesson.followupIntro || "La parte attiva resta al centro. Le altre fasi restano leggere e sempre raggiungibili.",
       tone: "soft"
     },
-    /* @__PURE__ */ React2.createElement("div", { className: "lesson-followup" }, /* @__PURE__ */ React2.createElement(PhaseTabs, { items: tabs, selected, onSelect, ariaLabel: "Fasi successive della lezione" }), /* @__PURE__ */ React2.createElement("div", { className: "lesson-followup__panel" }, selected === "chiusura" ? /* @__PURE__ */ React2.createElement("div", { className: "lesson-closing" }, /* @__PURE__ */ React2.createElement("p", { className: "lesson-closing__line" }, phase.line), /* @__PURE__ */ React2.createElement("p", { className: "lesson-closing__bridge" }, phase.bridge)) : selected === "valutazione" ? /* @__PURE__ */ React2.createElement(Panel, { kicker: phase.label, title: phase.title, meta: phase.meta }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React2.createElement(QuizList, { questions: phase.quiz }), /* @__PURE__ */ React2.createElement(SelfCheckList, { items: phase.selfCheck }))) : /* @__PURE__ */ React2.createElement("div", { className: "lesson-stack" }, /* @__PURE__ */ React2.createElement(Panel, { kicker: phase.label, title: phase.title, meta: phase.meta }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React2.createElement(StepList, { title: phase.stepsTitle || "Fai cosi", items: phase.steps }), /* @__PURE__ */ React2.createElement("div", { className: "lesson-stack" }, /* @__PURE__ */ React2.createElement(PromptList, { title: phase.observeTitle || "Osserva", items: phase.observe }), /* @__PURE__ */ React2.createElement(ResultCallout, { label: phase.resultLabel || "Alla fine", text: phase.result })))), /* @__PURE__ */ React2.createElement(PanelCollection, { panels: phase.panels }))))
+    /* @__PURE__ */ React2.createElement("div", { className: "lesson-followup" }, /* @__PURE__ */ React2.createElement(PhaseTabs, { items: tabs, selected, onSelect, ariaLabel: "Fasi successive della lezione" }), /* @__PURE__ */ React2.createElement("div", { className: "lesson-followup__panel" }, selected === "chiusura" ? /* @__PURE__ */ React2.createElement("div", { className: "lesson-closing" }, /* @__PURE__ */ React2.createElement("p", { className: "lesson-closing__line" }, phase.line), /* @__PURE__ */ React2.createElement("p", { className: "lesson-closing__bridge" }, phase.bridge)) : selected === "valutazione" ? /* @__PURE__ */ React2.createElement("div", { className: "lesson-stack" }, /* @__PURE__ */ React2.createElement(Panel, { kicker: phase.label, title: phase.title, meta: phase.meta }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React2.createElement(QuizList, { questions: phase.quiz }), /* @__PURE__ */ React2.createElement(SelfCheckList, { items: phase.selfCheck }))), /* @__PURE__ */ React2.createElement(PanelCollection, { panels: phase.panels })) : /* @__PURE__ */ React2.createElement("div", { className: "lesson-stack" }, /* @__PURE__ */ React2.createElement(Panel, { kicker: phase.label, title: phase.title, meta: phase.meta }, /* @__PURE__ */ React2.createElement("div", { className: "lesson-grid lesson-grid--two" }, /* @__PURE__ */ React2.createElement(StepList, { title: phase.stepsTitle || "Fai cosi", items: phase.steps }), /* @__PURE__ */ React2.createElement("div", { className: "lesson-stack" }, /* @__PURE__ */ React2.createElement(PromptList, { title: phase.observeTitle || "Osserva", items: phase.observe }), /* @__PURE__ */ React2.createElement(ResultCallout, { label: phase.resultLabel || "Alla fine", text: phase.result })))), /* @__PURE__ */ React2.createElement(PanelCollection, { panels: phase.panels }))))
   );
 }
 function OriginiTopicLesson({ lesson }) {
@@ -344,6 +356,7 @@ function OriginiTopicLesson({ lesson }) {
     {
       title: lesson.title,
       question: lesson.question,
+      heroGuide: lesson.heroGuide,
       subtitle: lesson.subtitle,
       heroNote: lesson.heroNote,
       breadcrumbs: lesson.breadcrumbs,

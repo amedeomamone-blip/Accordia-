@@ -111,6 +111,51 @@ function TimelineBoard({ items, ariaLabel }) {
   );
 }
 
+function ConceptMapBoard({ centerTitle, branches, ariaLabel }) {
+  return (
+    <div className="lesson-map-board" aria-label={ariaLabel || centerTitle}>
+      <div className="lesson-map-board__center">{centerTitle}</div>
+      <div className={cn("lesson-card-grid", branches.length <= 4 ? "lesson-card-grid--two" : "lesson-card-grid--three")}>
+        {branches.map((branch) => (
+          <article key={branch.title} className="lesson-key-card">
+            <strong>{branch.title}</strong>
+            {branch.text ? <p className="lesson-body-text">{branch.text}</p> : null}
+            {branch.items?.length ? (
+              <div className="lesson-chip-row">
+                {branch.items.map((item) => (
+                  <span key={`${branch.title}-${item}`} className="lesson-chip">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            ) : null}
+          </article>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function GraphicScoreBoard({ items, ariaLabel }) {
+  return (
+    <div className="lesson-score-board" aria-label={ariaLabel || "Legenda per partitura grafica"}>
+      {items.map((item) => (
+        <div key={item.label} className="lesson-score-board__row">
+          <strong>{item.label}</strong>
+          <div className="lesson-score-board__pattern" aria-hidden="true">
+            {item.pattern.map((token, index) => (
+              <span key={`${item.label}-${token}-${index}`} className={cn("lesson-score-token", `lesson-score-token--${token}`)}>
+                {token === "arrow" ? "→" : token === "cut" ? "|" : token === "gap" ? " " : ""}
+              </span>
+            ))}
+          </div>
+          <p>{item.text}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 function EvidenceStrip({ items }) {
   return (
     <div className="lesson-evidence-strip">
@@ -176,6 +221,14 @@ function PanelContent({ panel }) {
 
   if (panel.kind === "timeline") {
     return <TimelineBoard items={panel.items} ariaLabel={panel.ariaLabel || panel.title || "Sequenza essenziale"} />;
+  }
+
+  if (panel.kind === "map") {
+    return <ConceptMapBoard centerTitle={panel.centerTitle} branches={panel.branches} ariaLabel={panel.ariaLabel || panel.title} />;
+  }
+
+  if (panel.kind === "score") {
+    return <GraphicScoreBoard items={panel.items} ariaLabel={panel.ariaLabel || panel.title} />;
   }
 
   if (panel.kind === "flow") {
@@ -332,12 +385,15 @@ function FollowupSection({ lesson, selected, onSelect }) {
               <p className="lesson-closing__bridge">{phase.bridge}</p>
             </div>
           ) : selected === "valutazione" ? (
-            <Panel kicker={phase.label} title={phase.title} meta={phase.meta}>
-              <div className="lesson-grid lesson-grid--two">
-                <QuizList questions={phase.quiz} />
-                <SelfCheckList items={phase.selfCheck} />
-              </div>
-            </Panel>
+            <div className="lesson-stack">
+              <Panel kicker={phase.label} title={phase.title} meta={phase.meta}>
+                <div className="lesson-grid lesson-grid--two">
+                  <QuizList questions={phase.quiz} />
+                  <SelfCheckList items={phase.selfCheck} />
+                </div>
+              </Panel>
+              <PanelCollection panels={phase.panels} />
+            </div>
           ) : (
             <div className="lesson-stack">
               <Panel kicker={phase.label} title={phase.title} meta={phase.meta}>
@@ -367,6 +423,7 @@ export default function OriginiTopicLesson({ lesson }) {
       <LessonHero
         title={lesson.title}
         question={lesson.question}
+        heroGuide={lesson.heroGuide}
         subtitle={lesson.subtitle}
         heroNote={lesson.heroNote}
         breadcrumbs={lesson.breadcrumbs}
