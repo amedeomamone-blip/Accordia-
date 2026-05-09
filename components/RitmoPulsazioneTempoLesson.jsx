@@ -42,7 +42,7 @@ const lesson = {
   ],
   navigation: {
     mapHref: "../../index.html",
-    previousHref: "../alle-origini-del-suono/index.html",
+    previousHref: null,
     homeHref: "../../../../index.html",
   },
   meta: [

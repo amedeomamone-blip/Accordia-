@@ -14,11 +14,7 @@ VERSIONED_ASSET_PATHS = [
     ROOT / "js" / "main.js",
     ROOT / "components" / "LessonShared.module.js",
     ROOT / "components" / "OriginiTopicLessonTemplate.module.js",
-    ROOT / "components" / "AlleOriginiDelSuonoLesson.module.js",
     ROOT / "components" / "RitmoPulsazioneTempoLesson.module.js",
-    ROOT / "components" / "CorpoVoceGestoLesson.module.js",
-    ROOT / "components" / "OggettiCheSuonanoLesson.module.js",
-    ROOT / "components" / "SuonoGruppoRitoLesson.module.js",
     ROOT / "components" / "SuonoNellaPreistoriaLesson.module.js",
     ROOT / "components" / "MusicaComunicazioneFunzioniSocialiLesson.module.js",
     ROOT / "components" / "RitoMagiaComunitaLesson.module.js",
@@ -49,7 +45,6 @@ JS_ASSET_RE = re.compile(r'src="(?P<path>[^"]*js/main\.js)(?:\?v=\d+)?"')
 EDITOR_DATA_DIR = ROOT / "data" / "editor"
 TIMELINE_PAGE_DATA_PATH = EDITOR_DATA_DIR / "timeline_page.json"
 NUCLEI_OVERRIDES_PATH = EDITOR_DATA_DIR / "nuclei_overrides.json"
-CORPO_VOCE_GESTO_TEMPLATE_PATH = EDITOR_DATA_DIR / "corpo_voce_gesto_single_file_template.txt"
 EDITOR_NUCLEUS_FIELDS = (
     "title",
     "nav_title",
@@ -1404,13 +1399,13 @@ ORIGINI_TOPIC_MAP = {
     "nodes": [
         {
             "number": "01",
-            "slug": "corpo-voce-gesto",
-            "title": "Corpo, voce e gesto",
-            "subtitle": "Costruire una scena sonora senza strumenti",
-            "label": "Laboratorio",
+            "slug": "ritmo-pulsazione-tempo",
+            "title": "Ritmo, pulsazione e tempo",
+            "subtitle": "Misurare il gesto collettivo",
+            "label": "Fondamenti",
             "x": 12,
             "y": 22,
-            "summary": "Corpo, voce, gesto e silenzio diventano musica quando vengono scelti, controllati e organizzati in una scena sonora.",
+            "summary": "Il ritmo nasce dall'organizzazione del movimento e rende condivisibile il tempo del gruppo.",
             "phases": {
                 "scintilla": {
                     "title": "Ascoltare quello che c'e gia",
@@ -1449,9 +1444,9 @@ ORIGINI_TOPIC_MAP = {
                 "panel_only": True,
                 "immersive_preview": True,
                 "immersive_stylesheet": "../../../../css/lesson-immersive.css",
-                "immersive_module": "../../../../components/CorpoVoceGestoLesson.module.js",
+                "immersive_module": "../../../../components/RitmoPulsazioneTempoLesson.module.js",
                 "author": "Lezione di Amedeo Mamone",
-                "description": "Scegli suoni semplici, li trasformi con intenzione e costruisci una breve scena sonora senza strumenti.",
+                "description": "Trovi un battito comune con il corpo, ascolti come tornano gli accenti e capisci che cosa cambia tra pulsazione, ritmo, tempo e metro.",
                 "classroom": "Prima secondaria di primo grado",
                 "duration": "2 ore",
                 "spaces": "Aula musica, palestra, auditorium o aula con banchi spostabili",
@@ -2375,71 +2370,19 @@ ORIGINI_TOPIC_MAP = {
 }
 
 ORIGINI_TOPIC_MAP["intro"] = (
-    "Qui puoi muoverti tra cinque lezioni collegate tra loro. "
-    "Il nucleo parte da una cornice chiara sulle tracce del passato e poi entra in ritmo, corpo, oggetti sonori e vita del gruppo."
+    "Per il momento il percorso guidato del nucleo si concentra su una sola lezione. "
+    "Qui lavori su ritmo, pulsazione e tempo per fissare bene il primo snodo operativo delle origini del suono."
 )
 
 ORIGINI_TOPIC_MAP["nodes"] = [
     {
         "number": "01",
-        "slug": "alle-origini-del-suono",
-        "title": "Alle origini del suono",
-        "subtitle": "Tracce, indizi e domande iniziali",
-        "label": "Cornice",
-        "x": 14,
-        "y": 20,
-        "summary": "Non abbiamo registrazioni del passato remoto: partiamo da tracce, reperti, immagini e ipotesi fondate.",
-        "phases": {
-            "scintilla": {
-                "title": "Come facciamo a parlare delle origini del suono se nessuno le ha registrate?",
-                "body": "La domanda iniziale chiarisce che il nucleo parte da tracce, non da certezze assolute.",
-            },
-            "rotta": {
-                "title": "Il contesto prima dei documenti sonori",
-                "body": "Immagini, reperti, ambiente e scene collettive costruiscono la cornice storica e visiva del nucleo.",
-            },
-            "orecchio": {
-                "title": "Osservare corpo, ambiente e oggetti",
-                "body": "L'esplorazione guidata mette a fuoco che cosa possiamo osservare e che cosa possiamo solo ipotizzare.",
-            },
-            "grafo": {
-                "title": "Corpo, ritmo, ambiente, oggetti, gruppo",
-                "body": "La mappa finale organizza i cinque nodi concettuali che guideranno le lezioni successive.",
-            },
-            "cantiere": {
-                "title": "Distinguere dato, indizio e ipotesi",
-                "body": "Gli studenti imparano a leggere una fonte in modo semplice ma rigoroso.",
-            },
-            "varco": {
-                "title": "Costruire una scheda-ponte",
-                "body": "Il compito chiede di produrre una frase o una scheda che prepari il resto del nucleo.",
-            },
-            "ribalta": {
-                "title": "Condividere la mappa iniziale",
-                "body": "La restituzione finale rende visibili domande, parole chiave e collegamenti di partenza.",
-            },
-            "specchio": {
-                "title": "Verificare il metodo di lettura",
-                "body": "La chiusura controlla se sai distinguere osservazione, indizio e ipotesi.",
-            },
-        },
-        "lesson": {
-            "panel_only": True,
-            "immersive_preview": True,
-            "immersive_stylesheet": "../../../../css/lesson-immersive.css",
-            "immersive_module": "../../../../components/AlleOriginiDelSuonoLesson.module.js",
-            "author": "Lezione di Amedeo Mamone",
-            "description": "Leggi le tracce del passato remoto con prudenza e prepari le cinque idee guida del nucleo.",
-        },
-    },
-    {
-        "number": "02",
         "slug": "ritmo-pulsazione-tempo",
         "title": "Ritmo, pulsazione e tempo",
         "subtitle": "Misurare il gesto collettivo",
         "label": "Fondamenti",
         "x": 38,
-        "y": 14,
+        "y": 18,
         "summary": "Il ritmo nasce dall'organizzazione del movimento e rende condivisibile il tempo del gruppo.",
         "phases": {
             "scintilla": {
@@ -2486,173 +2429,9 @@ ORIGINI_TOPIC_MAP["nodes"] = [
             "description": "Trovi un battito comune con il corpo, ascolti come tornano gli accenti e capisci che cosa cambia tra pulsazione, ritmo, tempo e metro.",
         },
     },
-    {
-        "number": "03",
-        "slug": "corpo-voce-gesto",
-        "title": "Corpo, voce e gesto",
-        "subtitle": "Costruire una scena sonora senza strumenti",
-        "label": "Laboratorio",
-        "x": 18,
-        "y": 68,
-        "summary": "Corpo, voce, gesto e silenzio diventano musica quando costruiscono una scena sonora riconoscibile.",
-        "phases": {
-            "scintilla": {
-                "title": "Ascoltare quello che c'e gia",
-                "body": "Respiro, mani, piedi, voce e aula diventano materiali musicali solo quando vengono scelti e controllati.",
-            },
-            "rotta": {
-                "title": "Lo stesso suono cambia significato",
-                "body": "La stessa sorgente puo sembrare attesa, fuga, distanza o tensione se cambia gesto, intensita, durata e silenzio.",
-            },
-            "orecchio": {
-                "title": "Dalla sorgente alla scena",
-                "body": "Corpo, voce, gesto e silenzio vengono organizzati per capire che funzione assumono dentro una scena sonora.",
-            },
-            "grafo": {
-                "title": "Corpo, voce, gesto, silenzio, forma",
-                "body": "La mappa visiva mostra come materiali diversi costruiscano insieme una forma sonora leggibile.",
-            },
-            "cantiere": {
-                "title": "Progettare una scena sonora",
-                "body": "Il gruppo sceglie una situazione e decide sorgenti, tensione, silenzio, inizio e chiusura.",
-            },
-            "varco": {
-                "title": "Comporre senza strumenti",
-                "body": "La produzione rende stabile la scena e la fissa in una partitura grafica essenziale.",
-            },
-            "ribalta": {
-                "title": "Ascolto cieco",
-                "body": "Prima si ascolta la scena senza titolo, poi si verifica che cosa arriva davvero agli altri.",
-            },
-            "specchio": {
-                "title": "Rendere riconoscibile una scelta",
-                "body": "La valutazione controlla forma, ascolto reciproco, uso del silenzio e chiarezza espressiva.",
-            },
-        },
-        "lesson": {
-            "panel_only": True,
-            "immersive_preview": True,
-            "immersive_stylesheet": "../../../../css/lesson-immersive.css",
-            "immersive_module": "../../../../components/CorpoVoceGestoLesson.module.js",
-            "author": "Lezione di Amedeo Mamone",
-            "description": "Scegli suoni semplici, li trasformi con intenzione e costruisci una breve scena sonora senza strumenti.",
-        },
-    },
-    {
-        "number": "04",
-        "slug": "oggetti-che-suonano",
-        "title": "Oggetti che suonano",
-        "subtitle": "Materia, gesto, timbro, funzione",
-        "label": "Tecniche",
-        "x": 52,
-        "y": 74,
-        "summary": "Alcuni materiali diventano risorse sonore quando il gruppo impara a usarli con un gesto riconoscibile e ripetibile.",
-        "phases": {
-            "scintilla": {
-                "title": "Quando un oggetto smette di essere solo una cosa e comincia a diventare suono?",
-                "body": "La domanda iniziale porta a osservare il rapporto tra materia, gesto, timbro e funzione.",
-            },
-            "rotta": {
-                "title": "Dal materiale al suono riconoscibile",
-                "body": "Il contesto mostra che l'oggetto diventa importante quando il suo uso sonoro si stabilizza nel gruppo.",
-            },
-            "orecchio": {
-                "title": "Ascoltare colpi, scuotimenti e soffi",
-                "body": "L'ascolto guidato confronta gesti diversi per capire come i materiali cambino il risultato sonoro.",
-            },
-            "grafo": {
-                "title": "Materiale, gesto, timbro, funzione",
-                "body": "Organizza visivamente cio che hai compreso collegando le quattro parole chiave della lezione.",
-            },
-            "cantiere": {
-                "title": "Classificare quattro oggetti sonori",
-                "body": "Gli studenti costruiscono una classificazione minima e imparano a spiegarla con precisione.",
-            },
-            "varco": {
-                "title": "Preparare una tavola visiva",
-                "body": "Il compito chiede di disporre esempi, materiali e funzioni in una tavola chiara.",
-            },
-            "ribalta": {
-                "title": "Confrontare due classificazioni",
-                "body": "La restituzione finale mette a confronto criteri diversi e fa emergere la logica migliore.",
-            },
-            "specchio": {
-                "title": "Valutare il lessico tecnico essenziale",
-                "body": "La fase finale controlla se sai distinguere materiale, gesto, timbro e funzione.",
-            },
-        },
-        "lesson": {
-            "panel_only": True,
-            "immersive_preview": True,
-            "immersive_stylesheet": "../../../../css/lesson-immersive.css",
-            "immersive_module": "../../../../components/OggettiCheSuonanoLesson.module.js",
-            "author": "Lezione di Amedeo Mamone",
-            "description": "Colleghi materia, gesto, timbro e funzione per capire quando un oggetto sonoro comincia a contare davvero nel gruppo.",
-        },
-    },
-    {
-        "number": "05",
-        "slug": "suono-gruppo-e-rito",
-        "title": "Suono, gruppo e rito",
-        "subtitle": "Segnale, appartenenza, passaggio",
-        "label": "Funzioni",
-        "x": 80,
-        "y": 40,
-        "summary": "Il suono chiama, coordina, celebra e talvolta diventa rito quando il gruppo gli riconosce un valore simbolico stabile.",
-        "phases": {
-            "scintilla": {
-                "title": "Perche alcuni suoni fanno sentire un gruppo piu unito di altri?",
-                "body": "La domanda iniziale apre il rapporto tra segnale, festa, appartenenza e rito.",
-            },
-            "rotta": {
-                "title": "Il suono dentro la vita collettiva",
-                "body": "Il contesto mostra che il suono puo avere usi pratici e insieme diventare gesto simbolico condiviso.",
-            },
-            "orecchio": {
-                "title": "Ascoltare formula, richiamo e ripetizione",
-                "body": "L'ascolto guidato mette a confronto segnale, festa e rito a partire da indizi concreti.",
-            },
-            "grafo": {
-                "title": "Chiamare, tenere insieme, celebrare, ritualizzare",
-                "body": "Organizza visivamente cio che hai compreso collegando le diverse funzioni del suono nel gruppo.",
-            },
-            "cantiere": {
-                "title": "Confrontare tre situazioni sonore",
-                "body": "Gli studenti distinguono segnale, festa e rito motivando ogni scelta con indizi concreti.",
-            },
-            "varco": {
-                "title": "Preparare una mappa di sintesi",
-                "body": "Il compito chiede di trasformare il confronto in una mappa leggibile da altri.",
-            },
-            "ribalta": {
-                "title": "Condividere criteri e confini",
-                "body": "La restituzione finale mette a confronto i casi e chiarisce dove cambiano funzione e significato.",
-            },
-            "specchio": {
-                "title": "Valutare usi e significati del suono",
-                "body": "La fase finale controlla se sai distinguere uso pratico, partecipazione collettiva e valore rituale.",
-            },
-        },
-        "lesson": {
-            "panel_only": True,
-            "immersive_preview": True,
-            "immersive_stylesheet": "../../../../css/lesson-immersive.css",
-            "immersive_module": "../../../../components/SuonoGruppoRitoLesson.module.js",
-            "author": "Lezione di Amedeo Mamone",
-            "description": "Confronti segnale, festa e rito e capisci come il suono aiuti un gruppo a chiamare, celebrare, ricordare e riconoscersi.",
-        },
-    },
 ]
 
-ORIGINI_TOPIC_MAP["connections"] = [
-    {"from": "01", "to": "02", "kind": "main"},
-    {"from": "01", "to": "03", "kind": "secondary"},
-    {"from": "02", "to": "03", "kind": "main"},
-    {"from": "02", "to": "04", "kind": "secondary"},
-    {"from": "03", "to": "04", "kind": "main"},
-    {"from": "03", "to": "05", "kind": "secondary"},
-    {"from": "04", "to": "05", "kind": "main"},
-]
+ORIGINI_TOPIC_MAP["connections"] = []
 
 NUCLEI[0]["topic_map"] = ORIGINI_TOPIC_MAP
 
@@ -3359,6 +3138,11 @@ def render_floating_topic_map(topic_map: dict | None, class_name: str = "lesson-
     nodes = []
     for node in topic_map["nodes"]:
         related_titles = ", ".join(lookup[item]["title"] for item in relations[node["number"]])
+        related_markup = (
+            f'<span class="nucleus-topic-node__related">Si collega a: {e(related_titles)}</span>'
+            if related_titles
+            else ""
+        )
         nodes.append(
             f"""<div class="nucleus-topic-node" data-topic-node data-topic-number="{e(node['number'])}" tabindex="0" style="--node-x: {node['x']}; --node-y: {node['y']};">
                     <span class="nucleus-topic-node__number">{e(node['number'])}</span>
@@ -3367,7 +3151,7 @@ def render_floating_topic_map(topic_map: dict | None, class_name: str = "lesson-
                     <p>{e(node['subtitle'])}</p>
                     <small>{e(node['summary'])}</small>
                     <span class="nucleus-topic-node__cta">Parola chiave in rete</span>
-                    <span class="nucleus-topic-node__related">Si collega a: {e(related_titles)}</span>
+                    {related_markup}
                 </div>"""
         )
 
@@ -3720,9 +3504,6 @@ def render_lesson_references_section(topic: dict) -> str:
 
 
 def render_lesson_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str:
-    if topic.get("slug") == "corpo-voce-gesto":
-        return render_corpo_voce_gesto_single_file_page(nucleo, topic_index, topic)
-
     lesson = topic["lesson"]
     panel_only = bool(lesson.get("panel_only"))
     immersive_preview = bool(lesson.get("immersive_preview"))
@@ -3906,6 +3687,11 @@ def render_topic_map_section(nucleo: dict, show_intro: bool = True) -> str:
     nodes = []
     for node in topic_map["nodes"]:
         related_titles = ", ".join(lookup[item]["title"] for item in relations[node["number"]])
+        related_markup = (
+            f'<span class="nucleus-topic-node__related">Si collega a: {e(related_titles)}</span>'
+            if related_titles
+            else ""
+        )
         nodes.append(
             f"""<a class="nucleus-topic-node" data-topic-node data-topic-number="{e(node['number'])}" href="{e(page_href(f"argomenti/{node['slug']}/"))}" style="--node-x: {node['x']}; --node-y: {node['y']};">
                     <span class="nucleus-topic-node__number">{e(node['number'])}</span>
@@ -3914,7 +3700,7 @@ def render_topic_map_section(nucleo: dict, show_intro: bool = True) -> str:
                     <p>{e(node['subtitle'])}</p>
                     <small>{e(node['summary'])}</small>
                     <span class="nucleus-topic-node__cta">Apri l'argomento</span>
-                    <span class="nucleus-topic-node__related">Si collega a: {e(related_titles)}</span>
+                    {related_markup}
                 </a>"""
         )
 
@@ -3967,38 +3753,6 @@ def render_topic_rail(nucleo: dict, current_slug: str) -> str:
                 </div>
             </div>
         </nav>"""
-
-
-def render_inline_html_template(path: Path, replacements: dict[str, str]) -> str:
-    template = path.read_text(encoding="utf-8")
-    for key, value in replacements.items():
-        template = template.replace(f"__{key}__", value)
-    return template
-
-
-def render_corpo_voce_gesto_single_file_page(nucleo: dict, topic_index: int, topic: dict) -> str:
-    topics = nucleo["topic_map"]["nodes"]
-    prev_topic = topics[topic_index - 1] if topic_index > 0 else None
-    home_link = "../../../../index.html"
-    nucleus_link = page_href("../../")
-    previous_link = page_href("../" + prev_topic["slug"] + "/") if prev_topic else nucleus_link
-    mini_timeline = f"""
-        <nav class="nucleus-mini-timeline" aria-label="Mini timeline dei nuclei">
-            <div class="shell nucleus-mini-timeline__track">
-                {render_nucleus_mini_links(nucleo["slug"], "../../../../")}
-            </div>
-        </nav>"""
-
-    return render_inline_html_template(
-        CORPO_VOCE_GESTO_TEMPLATE_PATH,
-        {
-            "HOME_LINK": e(home_link),
-            "NUCLEUS_LINK": e(nucleus_link),
-            "PREVIOUS_LINK": e(previous_link),
-            "MINI_TIMELINE": mini_timeline,
-            "TOPIC_RAIL": render_topic_rail(nucleo, topic["slug"]),
-        },
-    )
 
 
 def render_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str:
