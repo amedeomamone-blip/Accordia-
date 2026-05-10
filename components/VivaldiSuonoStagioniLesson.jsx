@@ -368,7 +368,7 @@ export default function VivaldiSuonoStagioniLesson() {
 
   return (
     <div className="lesson-editorial-page vivaldi-lesson" data-lesson-model="editoriale">
-      <section className="vivaldi-context-block" id="contesto">
+      <section className="vivaldi-context-block" id="lezione" data-section="contesto">
         <div className="lesson-shell vivaldi-context-block__shell">
           <div className="vivaldi-context-head">
             <p className="vivaldi-context-head__eyebrow">

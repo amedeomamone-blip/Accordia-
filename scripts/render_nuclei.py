@@ -3108,7 +3108,7 @@ def build_editorial_nuclei() -> list[dict]:
 NUCLEI = build_editorial_nuclei()
 
 
-def customize_barocco_vivaldi_lesson() -> None:
+def customize_barocco_context_lesson() -> None:
     barocco = next((nucleo for nucleo in NUCLEI if nucleo["slug"] == "barocco"), None)
     if not barocco:
         return
@@ -3117,27 +3117,31 @@ def customize_barocco_vivaldi_lesson() -> None:
     if not topic_map:
         return
 
+    context_topic = next((node for node in topic_map["nodes"] if node["number"] == "01"), None)
     vivaldi_topic = next((node for node in topic_map["nodes"] if node["number"] == "07"), None)
-    if not vivaldi_topic:
-        return
 
-    vivaldi_topic["slug"] = "vivaldi-e-il-concerto"
-    vivaldi_topic["subtitle"] = "Il concerto solista tra ascolto guidato e mosaico sonoro-cromatico"
-    vivaldi_topic["cta"] = "Apri la lezione"
-    vivaldi_topic["lesson"] = {
-        "panel_only": True,
-        "immersive_preview": True,
-        "immersive_mount_id": "immersive-vivaldi-lesson-root",
-        "immersive_data_key": "vivaldi-il-suono-delle-stagioni",
-        "immersive_stylesheet": "../../../../css/lesson-immersive.css",
-        "immersive_module": "../../../../components/VivaldiSuonoStagioniLesson.module.js",
-        "author": "Lezione Accordia · Il Barocco",
-        "description": "Antonio Vivaldi porta il concerto solista verso un ascolto fatto di dialogo, contrasto e interpretazione visiva.",
-    }
+    if context_topic:
+        context_topic["cta"] = "Apri la lezione"
+        context_topic["lesson"] = {
+            "panel_only": True,
+            "immersive_preview": True,
+            "immersive_mount_id": "immersive-barocco-context-root",
+            "immersive_data_key": "barocco-in-coordinate",
+            "immersive_stylesheet": "../../../../css/lesson-immersive.css",
+            "immersive_module": "../../../../components/VivaldiSuonoStagioniLesson.module.js",
+            "author": "Lezione Accordia · Il Barocco",
+            "description": "Una sfera interattiva raccoglie le coordinate storiche e culturali del Barocco: movimento, contrasto, meraviglia, teatralita, energia, luce e ombra, gesto.",
+        }
+
+    if vivaldi_topic:
+        vivaldi_topic["slug"] = "vivaldi-e-il-concerto"
+        vivaldi_topic["subtitle"] = "Il concerto solista tra ascolto guidato e mosaico sonoro-cromatico"
+        vivaldi_topic.pop("lesson", None)
+
     barocco["chapter_map"] = [node["title"] for node in topic_map["nodes"]]
 
 
-customize_barocco_vivaldi_lesson()
+customize_barocco_context_lesson()
 
 
 def clone_data(value):

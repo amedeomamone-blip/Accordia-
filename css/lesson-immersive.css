@@ -1379,8 +1379,8 @@
   --vivaldi-ink: #141211;
   --vivaldi-muted: #5d564d;
   --vivaldi-soft: #7b7369;
-  --vivaldi-accent: #c14f40;
-  --vivaldi-accent-soft: #f1e3dc;
+  --vivaldi-accent: var(--nucleus-accent, #c14f40);
+  --vivaldi-accent-soft: color-mix(in srgb, var(--nucleus-accent, #c14f40) 14%, #ffffff);
   --vivaldi-gold: #d1a13d;
   color: var(--vivaldi-ink);
 }
@@ -2176,8 +2176,8 @@
   border: 1px solid rgba(57, 71, 78, 0.12);
   border-radius: 1.55rem;
   background:
-    radial-gradient(circle at 28% 24%, rgba(112, 168, 194, 0.16), transparent 18rem),
-    radial-gradient(circle at 72% 70%, rgba(214, 170, 84, 0.12), transparent 16rem),
+    radial-gradient(circle at 28% 24%, color-mix(in srgb, var(--vivaldi-accent) 14%, #ffffff), transparent 18rem),
+    radial-gradient(circle at 72% 70%, color-mix(in srgb, var(--vivaldi-gold) 14%, #ffffff), transparent 16rem),
     linear-gradient(rgba(57, 71, 78, 0.045) 1px, transparent 1px),
     linear-gradient(90deg, rgba(57, 71, 78, 0.045) 1px, transparent 1px),
     rgba(252, 253, 253, 0.98);
@@ -2191,8 +2191,8 @@
 
 .vivaldi-globe-stage__frame.is-dragging {
   cursor: grabbing;
-  border-color: rgba(95, 148, 173, 0.22);
-  box-shadow: inset 0 0 0 1px rgba(95, 148, 173, 0.06);
+  border-color: color-mix(in srgb, var(--vivaldi-accent) 20%, #d8dde2);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--vivaldi-accent) 10%, transparent);
 }
 
 .vivaldi-globe-stage__frame::before {
@@ -2204,8 +2204,8 @@
   border-radius: 50%;
   border: 1px solid rgba(57, 71, 78, 0.06);
   box-shadow:
-    0 0 0 3rem rgba(171, 205, 219, 0.12),
-    0 0 0 7rem rgba(220, 196, 143, 0.08);
+    0 0 0 3rem color-mix(in srgb, var(--vivaldi-accent) 10%, transparent),
+    0 0 0 7rem color-mix(in srgb, var(--vivaldi-gold) 8%, transparent);
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
@@ -2230,8 +2230,8 @@
   border-radius: 50%;
   border: 1px solid rgba(57, 71, 78, 0.11);
   background:
-    radial-gradient(circle at 34% 30%, rgba(112, 168, 194, 0.18), transparent 22%),
-    radial-gradient(circle at 66% 70%, rgba(214, 170, 84, 0.16), transparent 26%),
+    radial-gradient(circle at 34% 30%, color-mix(in srgb, var(--vivaldi-accent) 18%, #ffffff), transparent 22%),
+    radial-gradient(circle at 66% 70%, color-mix(in srgb, var(--vivaldi-gold) 16%, #ffffff), transparent 26%),
     radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.9), rgba(240, 245, 246, 0.72) 58%, rgba(214, 223, 227, 0.46) 100%);
   box-shadow:
     inset 0 0 0 1px rgba(255, 255, 255, 0.92),
@@ -2251,7 +2251,7 @@
 .vivaldi-globe__wireframe circle,
 .vivaldi-globe__wireframe ellipse {
   fill: none;
-  stroke: rgba(79, 116, 137, 0.22);
+  stroke: color-mix(in srgb, var(--vivaldi-accent) 22%, #8d847f);
   stroke-width: 1.3;
 }
 
@@ -2289,7 +2289,7 @@
 .vivaldi-globe-orbit--outer {
   width: clamp(31rem, 62vw, 46rem);
   height: clamp(17rem, 31vw, 24rem);
-  border-color: rgba(95, 148, 173, 0.22);
+  border-color: color-mix(in srgb, var(--vivaldi-accent) 22%, #d8dde2);
   transform: translate(-50%, -50%) rotate(-12deg);
   animation: vivaldi-orbit-drift 28s linear infinite;
 }
@@ -2363,21 +2363,21 @@
 .vivaldi-globe-hotspot.is-active,
 .vivaldi-globe-hotspot:hover,
 .vivaldi-globe-hotspot:focus-visible {
-  border-color: rgba(95, 148, 173, 0.28);
+  border-color: color-mix(in srgb, var(--vivaldi-accent) 24%, #d7dce2);
   box-shadow:
     0 14px 28px rgba(20, 18, 17, 0.07),
     inset 0 0 0 1px rgba(255, 255, 255, 0.92);
 }
 
 .vivaldi-globe-hotspot.is-active {
-  background: rgba(248, 252, 253, 0.96);
+  background: color-mix(in srgb, var(--vivaldi-accent) 5%, #ffffff);
 }
 
 .vivaldi-globe-hotspot.is-active .vivaldi-globe-hotspot__index,
 .vivaldi-globe-hotspot:hover .vivaldi-globe-hotspot__index,
 .vivaldi-globe-hotspot:focus-visible .vivaldi-globe-hotspot__index {
-  background: rgba(112, 168, 194, 0.14);
-  color: #5c8095;
+  background: color-mix(in srgb, var(--vivaldi-accent) 12%, #ffffff);
+  color: var(--vivaldi-accent);
 }
 
 .vivaldi-globe-hotspot.is-active .vivaldi-globe-hotspot__hint,
