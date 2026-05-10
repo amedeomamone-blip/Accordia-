@@ -5,6 +5,8 @@ import json
 from html import escape
 from pathlib import Path
 import re
+import shutil
+import unicodedata
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -42,6 +44,11 @@ STATIC_PAGES = [
 ]
 CSS_ASSET_RE = re.compile(r'href="(?P<path>[^"]*css/style\.css)(?:\?v=\d+)?"')
 JS_ASSET_RE = re.compile(r'src="(?P<path>[^"]*js/main\.js)(?:\?v=\d+)?"')
+SITE_NAV_RE = re.compile(r'<nav class="site-nav" aria-label="Navigazione principale">.*?</nav>', re.S)
+HOME_TIMELINE_TRACK_RE = re.compile(
+    r'<div class="home-timeline__track" aria-label="Timeline orizzontale di Accordia">.*?</div>',
+    re.S,
+)
 EDITOR_DATA_DIR = ROOT / "data" / "editor"
 TIMELINE_PAGE_DATA_PATH = EDITOR_DATA_DIR / "timeline_page.json"
 NUCLEI_OVERRIDES_PATH = EDITOR_DATA_DIR / "nuclei_overrides.json"
@@ -54,12 +61,12 @@ EDITOR_NUCLEUS_FIELDS = (
     "description",
 )
 DEFAULT_TIMELINE_PAGE_DATA = {
-    "meta_description": "La timeline di Accordia apre dieci nuclei storico-musicali completi, con mappe, lezioni, compiti di realta e verifiche.",
+    "meta_description": "La timeline di Accordia apre dieci nuclei storico-musicali completi, con lavagne delle lezioni, ascolti, compiti di realta e verifiche.",
     "page_title": "Nuclei | Accordia",
     "hero": {
         "eyebrow": "Nuclei Accordia",
         "title": "La Musica nel tempo",
-        "lead": "La timeline di Accordia organizza la storia della musica in dieci nuclei editoriali completi: ogni tappa ha hero, indice interno, mappe degli argomenti, contenuti da libro di testo, compito di realta e verifica.",
+        "lead": "La timeline di Accordia organizza la storia della musica in dieci nuclei editoriali completi: ogni tappa tiene insieme hero, indice interno, lavagna delle lezioni, contenuti da manuale, compito di realta e verifica.",
         "primary_cta_label": "Esplora i nuclei",
         "primary_cta_href": "#timeline-track",
         "secondary_cta_label": "Apri le lezioni",
@@ -68,7 +75,7 @@ DEFAULT_TIMELINE_PAGE_DATA = {
         "panel_items": [
             "hero con posizione nella timeline",
             "mini timeline sticky per muoversi tra i nuclei",
-            "mappa degli argomenti e lezioni collegate",
+            "lavagna delle lezioni con card collegate",
             "contenuti da manuale, compito e verifica",
         ],
     },
@@ -86,8 +93,8 @@ DEFAULT_TIMELINE_PAGE_DATA = {
         },
         {
             "eyebrow": "Percorso",
-            "title": "Mappe, lezioni e approfondimenti collegati.",
-            "body": "Ogni nucleo tiene insieme panorama storico, argomenti interni, percorsi guidati e accessi rapidi ai punti davvero utili in classe.",
+            "title": "Lavagne, lezioni e approfondimenti collegati.",
+            "body": "Ogni nucleo tiene insieme panorama storico, lezioni interne, percorsi guidati e accessi rapidi ai punti davvero utili in classe.",
         },
         {
             "eyebrow": "Didattica",
@@ -96,7 +103,7 @@ DEFAULT_TIMELINE_PAGE_DATA = {
         },
     ],
     "footer": {
-        "summary": "La timeline apre nuclei editoriali completi, collegati fra loro da una mini timeline sticky, mappe degli argomenti e lezioni guidate.",
+        "summary": "La timeline apre nuclei editoriali completi, collegati fra loro da una mini timeline sticky, lavagne delle lezioni e pagine di approfondimento.",
         "continue_label": "Continua",
         "project_label": "Progetto",
     },
@@ -2436,6 +2443,670 @@ ORIGINI_TOPIC_MAP["connections"] = []
 NUCLEI[0]["topic_map"] = ORIGINI_TOPIC_MAP
 
 
+CATEGORY_SUBTITLE_MAP = {
+    "Contesto": "Quadro storico e sociale",
+    "Caratteri": "Tratti da riconoscere",
+    "Forme": "Forme, generi e scrittura",
+    "Strumenti": "Strumenti e famiglie sonore",
+    "Autori": "Figure e riferimenti",
+    "Ascolto": "Ascolto guidato",
+    "Laboratorio": "Uso operativo in classe",
+    "Verifica": "Controllo finale",
+}
+
+TOPIC_LAYOUTS = {
+    8: [
+        (12, 18),
+        (33, 10),
+        (57, 18),
+        (82, 12),
+        (18, 48),
+        (45, 42),
+        (71, 54),
+        (85, 76),
+    ],
+    9: [
+        (12, 18),
+        (34, 10),
+        (58, 18),
+        (83, 12),
+        (20, 44),
+        (47, 38),
+        (74, 46),
+        (30, 74),
+        (62, 78),
+    ],
+    10: [
+        (11, 16),
+        (30, 10),
+        (52, 18),
+        (76, 10),
+        (88, 30),
+        (68, 50),
+        (44, 44),
+        (18, 54),
+        (28, 78),
+        (60, 80),
+    ],
+    12: [
+        (10, 16),
+        (28, 10),
+        (50, 18),
+        (74, 10),
+        (88, 28),
+        (18, 38),
+        (42, 44),
+        (66, 38),
+        (84, 54),
+        (16, 72),
+        (42, 80),
+        (70, 72),
+    ],
+}
+
+EDITORIAL_NUCLEI_BLUEPRINT = [
+    {
+        "number": "01",
+        "slug": "origini-e-civilta-antiche",
+        "title": "Origini e civilta antiche",
+        "nav_title": "Origini e civilta antiche",
+        "category": "Il suono diventa rito",
+        "period": "Dalle prime comunita alle civilta del mondo antico",
+        "accent": "#c06a1c",
+        "description": "Corpo, voce, gesto, strumenti primitivi e prime civilta: la musica nasce come esperienza condivisa.",
+        "hero_subtitle": "Dal corpo alla civilta, il suono prende forma come rito, memoria, festa e organizzazione sociale.",
+        "context_text": "Il nucleo riunisce le origini del suono e le prime civilta storiche in un unico quadro: prima la pratica corporea e rituale, poi l'ingresso della musica nelle societa organizzate dell'antichita.",
+        "functions_text": "La musica coordina il gruppo, accompagna il rito, sostiene la memoria, rappresenta il potere e costruisce partecipazione nelle comunita antiche.",
+        "forms_text": "Prevalgono formule vocali iterative, ritmi collettivi, canti rituali, salmi, pratiche teatrali e repertori legati a festa, guerra e celebrazione.",
+        "instruments_text": "Corpo, percussioni, flauti, sonagli, lira, cetra, arpa, tamburi e trombe mostrano il passaggio da oggetti sonori a strumenti riconoscibili.",
+        "connections": [
+            "archeologia del suono",
+            "rito e religione",
+            "teatro e festa",
+            "potere e cerimonia",
+            "oralita e memoria",
+        ],
+        "lexicon": ["rito", "oralita", "lira", "cetra", "aulos", "timbro"],
+        "authors": [
+            {
+                "name": "Tradizioni anonime",
+                "work": "canto, gesto, danza, percussione corporea",
+                "note": "Nelle origini il sapere musicale e collettivo e si trasmette per imitazione e memoria.",
+            },
+            {
+                "name": "Egitto e Mesopotamia",
+                "work": "musica cerimoniale, strumenti di corte, pratiche rituali",
+                "note": "Le prime civilta mostrano come il suono entri nella vita religiosa, politica e pubblica.",
+            },
+            {
+                "name": "Ebrei, Greci e Romani",
+                "work": "salmi, teatro, mito, musica pubblica",
+                "note": "Nel mondo antico la musica si lega a educazione, teatro, culto e identita civica.",
+            },
+        ],
+        "lessons": [
+            ("La musica prima della storia", "Contesto", "Suono, corpo, voce e gesto nelle prime comunita umane."),
+            ("Musica, rito e magia", "Caratteri", "Il suono come rito, comunicazione, danza, festa e memoria collettiva."),
+            ("I primi strumenti musicali", "Strumenti", "Oggetti sonori, percussioni, flauti, sonagli e materiali naturali."),
+            ("La musica nelle civilta antiche", "Contesto", "Musica e societa nelle prime civilta organizzate."),
+            ("Egitto e Mesopotamia", "Contesto", "Cerimonie, corte, guerra, strumenti e funzioni rituali della musica."),
+            ("Ebrei, Greci e Romani", "Contesto", "Salmi, teatro, mito, strumenti e musica pubblica nel mondo antico."),
+            ("Strumenti dell'antichita", "Strumenti", "Lira, cetra, arpa, flauti, trombe, tamburi e strumenti rituali."),
+            ("Ascoltare l'antico", "Ascolto", "Ricostruzioni sonore e confronto tra rito, teatro e celebrazione."),
+        ],
+    },
+    {
+        "number": "02",
+        "slug": "medioevo",
+        "title": "Il Medioevo",
+        "nav_title": "Il Medioevo",
+        "category": "Dal canto alla scrittura",
+        "period": "V - XIV secolo",
+        "accent": "#1f7f90",
+        "description": "Canto gregoriano, monasteri, trovatori, giullari, notazione e nascita della polifonia.",
+        "hero_subtitle": "Dalla liturgia alla corte, il Medioevo trasforma il suono in memoria scritta e in nuove forme di organizzazione musicale.",
+        "context_text": "Il Medioevo e il passaggio in cui il canto liturgico, la vita monastica, la cultura delle corti e la nascita delle citta costruiscono un nuovo ordine musicale europeo.",
+        "functions_text": "La musica sostiene liturgia e preghiera, educa la memoria, intrattiene la corte, accompagna la festa pubblica e apre la via alla scrittura musicale.",
+        "forms_text": "Canto gregoriano, organum, polifonia iniziale, repertorio profano cortese e forme dell'Ars antiqua e dell'Ars nova descrivono il cuore del nucleo.",
+        "instruments_text": "Viella, ghironda, ribeca, arpa, salterio, flauti, tamburi e organo accompagnano pratiche sacre e profane con timbri ancora fortemente legati al contesto.",
+        "connections": [
+            "chiesa e liturgia",
+            "monasteri e cattedrali",
+            "corti e piazze",
+            "oralita e notazione",
+            "nascita della polifonia",
+        ],
+        "lexicon": ["gregoriano", "neuma", "rigo", "monodia", "polifonia", "trovatore"],
+        "lessons": [
+            ("Il contesto medievale", "Contesto", "Chiesa, monasteri, castelli, citta e vita musicale nel Medioevo."),
+            ("Musica sacra e canto liturgico", "Caratteri", "La voce nella preghiera, nella liturgia e nella comunita religiosa."),
+            ("Il canto gregoriano", "Forme", "Monodia, latino, ritmo libero, stile sillabico e melismatico."),
+            ("La scrittura musicale", "Forme", "Neumi, rigo musicale, Guido d'Arezzo e nascita della notazione."),
+            ("Musica profana medievale", "Caratteri", "Castelli, piazze, feste, danze e canti non religiosi."),
+            ("Trovatori, trovieri e giullari", "Autori", "Poeti-musicisti, amor cortese, lingua volgare e repertori di corte."),
+            ("Gli strumenti medievali", "Strumenti", "Viella, ghironda, ribeca, arpa, salterio, flauti, tamburi e organo."),
+            ("La nascita della polifonia", "Forme", "Organum, Notre-Dame, contrappunto e prime melodie sovrapposte."),
+            ("Ars antiqua e Ars nova", "Forme", "Dal canto medievale alle nuove forme polifoniche del Trecento."),
+            ("Verifica: riconoscere il Medioevo", "Verifica", "Lessico, ascolti, strumenti, funzioni e forme della musica medievale."),
+        ],
+    },
+    {
+        "number": "03",
+        "slug": "rinascimento",
+        "title": "Il Rinascimento",
+        "nav_title": "Il Rinascimento",
+        "category": "L'uomo e la voce",
+        "period": "XV - XVI secolo",
+        "accent": "#768a2a",
+        "description": "Polifonia, madrigale, corti, stampa musicale e ideale umanistico di equilibrio.",
+        "hero_subtitle": "Equilibrio delle voci, centralita del testo e circolazione dei repertori definiscono la nuova idea musicale dell'eta umanistica.",
+        "context_text": "Nel Rinascimento la musica dialoga con umanesimo, corti, citta e stampa, e assume una nuova attenzione per l'equilibrio, la chiarezza del testo e la diffusione europea dei repertori.",
+        "functions_text": "La musica accompagna rito, corte, danza, celebrazione politica e sociabilita colta, mentre si rafforza il legame tra parola, forma e consapevolezza compositiva.",
+        "forms_text": "Polifonia sacra, messa, mottetto, madrigale e repertori di danza costruiscono un paesaggio in cui la voce resta il centro del discorso musicale.",
+        "instruments_text": "Liuto, viola da gamba, cromorno, cornetto, spinetta e organo sostengono una prassi sonora raffinata, spesso intrecciata alla musica vocale.",
+        "connections": [
+            "umanesimo e arti",
+            "corti e citta",
+            "polifonia europea",
+            "stampa musicale",
+            "parola e suono",
+        ],
+        "lexicon": ["imitazione", "madrigale", "mottetto", "polifonia", "liuto", "stampa"],
+        "lessons": [
+            ("Umanesimo e Rinascimento", "Contesto", "Nuova centralita dell'uomo, corti, citta e cultura musicale."),
+            ("La musica sacra rinascimentale", "Forme", "Messa, mottetto, polifonia vocale e chiarezza del testo."),
+            ("La polifonia", "Caratteri", "Intreccio delle voci, imitazione, equilibrio e proporzione sonora."),
+            ("Scuola fiamminga, romana e veneziana", "Autori", "I principali centri della polifonia europea rinascimentale."),
+            ("Il madrigale", "Forme", "Musica profana, poesia, espressivita e rapporto tra parola e suono."),
+            ("Musica, corte e danza", "Contesto", "Feste, intrattenimento, danze e funzione sociale della musica."),
+            ("Gli strumenti del Rinascimento", "Strumenti", "Liuto, viola da gamba, cromorno, cornetto, spinetta e organo."),
+            ("La stampa musicale", "Contesto", "Diffusione dei repertori e trasformazione della circolazione musicale."),
+            ("Verifica: riconoscere il Rinascimento", "Verifica", "Polifonia, madrigale, scuole, strumenti e funzioni della musica."),
+        ],
+    },
+    {
+        "number": "04",
+        "slug": "barocco",
+        "title": "Il Barocco",
+        "nav_title": "Il Barocco",
+        "category": "Teatro e meraviglia",
+        "period": "XVII - prima meta XVIII secolo",
+        "accent": "#c14f40",
+        "description": "Melodramma, basso continuo, concerto, oratorio e nuove forme di spettacolo sonoro.",
+        "hero_subtitle": "Contrasto, teatralita e potenza degli affetti guidano un'epoca in cui la musica entra nello spettacolo moderno.",
+        "context_text": "Il Barocco vive tra corte, chiesa e teatro: spazi diversi che chiedono una musica capace di rappresentare il potere, muovere gli affetti e sorprendere l'ascoltatore.",
+        "functions_text": "La musica barocca persuade, commuove, celebra, racconta e rende visibile lo spettacolo del potere e della fede.",
+        "forms_text": "Opera, recitar cantando, basso continuo, concerto grosso, concerto solista e oratorio sono le forme principali con cui si organizza il linguaggio barocco.",
+        "instruments_text": "Clavicembalo, archi, organo, fiati storici e orchestra barocca definiscono un suono fondato su contrasto, articolazione e continuo.",
+        "connections": [
+            "teatro musicale",
+            "corte e chiesa",
+            "basso continuo",
+            "concerto e virtuosisimo",
+            "circolazione europea degli autori",
+        ],
+        "lexicon": ["basso continuo", "melodramma", "oratorio", "concerto grosso", "affetti", "clavicembalo"],
+        "lessons": [
+            ("Il contesto barocco", "Contesto", "Grandiosita, contrasto, teatralita, corte, chiesa e spettacolo."),
+            ("Musica e meraviglia", "Caratteri", "Contrasti sonori, intensita, ornamenti, solennita e movimento."),
+            ("La nascita del melodramma", "Forme", "Camerata de' Bardi, recitar cantando, teatro musicale e opera."),
+            ("Il basso continuo", "Forme", "Fondamento armonico della musica barocca e ruolo del clavicembalo."),
+            ("Concerto grosso e concerto solista", "Forme", "Dialogo tra solisti e orchestra, concertino, tutti e strumento solista."),
+            ("L'oratorio e la musica sacra", "Forme", "Narrazione religiosa, coro, solisti e grandi forme vocali."),
+            ("Vivaldi e il concerto", "Autori", "Le quattro stagioni, concerto solista e musica descrittiva."),
+            ("Bach e il contrappunto", "Autori", "Scrittura rigorosa, musica sacra, concerti e profondita costruttiva."),
+            ("Handel e l'Europa musicale", "Autori", "Opera, oratorio, musica cerimoniale e grandi pubblici europei."),
+            ("Verifica: riconoscere il Barocco", "Verifica", "Melodramma, concerto, oratorio, strumenti e autori principali."),
+        ],
+    },
+    {
+        "number": "05",
+        "slug": "settecento-classicismo",
+        "title": "Settecento e Classicismo",
+        "nav_title": "Settecento e Classicismo",
+        "category": "Forma e chiarezza",
+        "period": "Seconda meta XVIII - primi anni XIX secolo",
+        "accent": "#2f6fd6",
+        "description": "Sinfonia, sonata, quartetto e concerto: il linguaggio musicale cerca equilibrio e proporzione.",
+        "hero_subtitle": "Ordine, misura e chiarezza formale costruiscono un linguaggio che sembra naturale proprio perche e rigoroso.",
+        "context_text": "Tra Illuminismo e cultura borghese il Settecento musicale costruisce un linguaggio chiaro, comunicativo e proporzionato, capace di aprirsi a nuovi pubblici e nuove sale.",
+        "functions_text": "La musica organizza l'ascolto pubblico, rende leggibile la forma, valorizza il dialogo strumentale e definisce un nuovo equilibrio tra espressione e architettura.",
+        "forms_text": "Forma-sonata, sinfonia, quartetto d'archi e concerto classico sono i modelli centrali attraverso cui leggere il nucleo.",
+        "instruments_text": "L'orchestra classica, il quartetto d'archi, il pianoforte nascente e gli strumenti a fiato in organici piu stabili ridefiniscono il paesaggio sonoro.",
+        "connections": [
+            "Illuminismo e pubblico borghese",
+            "Vienna e cultura europea",
+            "forma-sonata e sviluppo",
+            "musica da camera",
+            "transizione verso Beethoven",
+        ],
+        "lexicon": ["sonata", "sviluppo", "ripresa", "sinfonia", "quartetto", "equilibrio"],
+        "lessons": [
+            ("Illuminismo e cultura musicale", "Contesto", "Ragione, equilibrio, pubblico borghese e nuova chiarezza musicale."),
+            ("Lo stile classico", "Caratteri", "Ordine, simmetria, proporzione, semplicita e forma riconoscibile."),
+            ("La forma-sonata", "Forme", "Esposizione, sviluppo, ripresa e architettura del discorso musicale."),
+            ("La sinfonia", "Forme", "Orchestra classica, movimenti, equilibrio e ascolto pubblico."),
+            ("Il quartetto d'archi", "Forme", "Dialogo tra strumenti, musica da camera e scrittura raffinata."),
+            ("Il concerto classico", "Forme", "Solista e orchestra nel linguaggio equilibrato del Classicismo."),
+            ("Haydn", "Autori", "Sinfonia, quartetto e costruzione del linguaggio classico."),
+            ("Mozart", "Autori", "Opera, concerto, sinfonia e perfetto equilibrio espressivo."),
+            ("Beethoven", "Autori", "Tra Classicismo e Romanticismo, forma, energia e nuova espressivita."),
+            ("Verifica: riconoscere il Classicismo", "Verifica", "Illuminismo, forme classiche, autori e ascolti guidati."),
+        ],
+    },
+    {
+        "number": "06",
+        "slug": "ottocento",
+        "title": "L'Ottocento",
+        "nav_title": "L'Ottocento",
+        "category": "Emozione e identita",
+        "period": "XIX secolo",
+        "accent": "#a94d87",
+        "description": "Romanticismo, pianoforte, lied, virtuosismo, opera, grande orchestra e scuole nazionali.",
+        "hero_subtitle": "L'Ottocento mette insieme interiorita, teatro, virtuosisimo e identita dei popoli in un unico paesaggio musicale.",
+        "context_text": "Il secolo romantico allarga il campo dell'ascolto: salotto, teatro, concerto, pianoforte, grande orchestra e culture nazionali convivono in una stagione di forte espansione espressiva.",
+        "functions_text": "La musica racconta l'io, mette in scena passioni e conflitti, rappresenta nazioni, esalta l'interprete e amplia il potere narrativo dell'orchestra.",
+        "forms_text": "Lied, notturno, opera italiana, dramma musicale, poema sinfonico, balletto e forma breve per pianoforte guidano la lettura del secolo.",
+        "instruments_text": "Pianoforte, orchestra romantica, voce operistica e nuove possibilita tecniche definiscono il profilo timbrico dell'Ottocento.",
+        "connections": [
+            "romanticismo e interiorita",
+            "teatro musicale italiano",
+            "virtuosisimo e interprete",
+            "folklore e scuole nazionali",
+            "grande orchestra e racconto",
+        ],
+        "lexicon": ["lied", "virtuosisimo", "leitmotiv", "poema sinfonico", "verismo", "nazionalismo"],
+        "lessons": [
+            ("Il Romanticismo musicale", "Contesto", "Sentimento, immaginazione, natura, sogno e interiorita."),
+            ("La musica dell'io", "Caratteri", "Emozione personale, liberta espressiva e nuova idea di artista."),
+            ("Il pianoforte romantico", "Strumenti", "Notturno, preludio, studio, virtuosisimo e salotto borghese."),
+            ("Il lied e la forma breve", "Forme", "Voce, pianoforte, poesia e racconto intimo."),
+            ("Il virtuosismo", "Caratteri", "Paganini, Liszt e la figura dell'interprete straordinario."),
+            ("Chopin, Schubert, Schumann e Liszt", "Autori", "Pianoforte, lied, carattere poetico e scrittura romantica."),
+            ("L'opera italiana", "Forme", "Melodramma, aria, recitativo, coro, teatro e pubblico."),
+            ("Rossini, Verdi e Puccini", "Autori", "Dall'opera buffa al melodramma romantico e verista."),
+            ("Wagner e il dramma musicale", "Autori", "Leitmotiv, orchestra, mito e opera come arte totale."),
+            ("Le scuole nazionali", "Contesto", "Identita dei popoli, folklore, danze e tradizioni musicali nazionali."),
+            ("Poema sinfonico, balletto e grande orchestra", "Forme", "Orchestra romantica, musica descrittiva, danza e racconto sonoro."),
+            ("Verifica: riconoscere l'Ottocento", "Verifica", "Romanticismo, opera, scuole nazionali, strumenti e autori."),
+        ],
+    },
+    {
+        "number": "07",
+        "slug": "novecento",
+        "title": "Il Novecento",
+        "nav_title": "Il Novecento",
+        "category": "Rotture e nuovi linguaggi",
+        "period": "1900 - secondo dopoguerra",
+        "accent": "#7057c9",
+        "description": "Crisi della tonalita, avanguardie, rumore, tecnologia e nuovi modi di pensare la musica.",
+        "hero_subtitle": "Il secolo breve cambia le regole dell'ascolto e apre linguaggi che mettono in crisi la tradizione tonale e la forma eredita.",
+        "context_text": "Il Novecento musicale si muove tra guerre, citta, media, avanguardie e tecnologia, ridefinendo il rapporto fra suono, scrittura e ascolto.",
+        "functions_text": "La musica sperimenta, provoca, frammenta, astrarre il timbro, accoglie il rumore e usa la tecnologia come materiale compositivo.",
+        "forms_text": "Impressionismo, espressionismo, atonalita, dodecafonia, scritture grafiche e musica elettronica segnano le principali direttrici del nucleo.",
+        "instruments_text": "Orchestra rinnovata, percussioni, strumenti trattati come timbro puro, studio di registrazione e dispositivi elettronici allargano il campo del suono.",
+        "connections": [
+            "guerre e modernita",
+            "crisi della tonalita",
+            "timbro e ritmo",
+            "scritture nuove",
+            "tecnologia del suono",
+        ],
+        "lexicon": ["atonalita", "dodecafonia", "impressionismo", "rumore", "partitura grafica", "elettronica"],
+        "lessons": [
+            ("Il contesto del Novecento", "Contesto", "Crisi, guerre, modernita, citta, tecnologia e trasformazione dell'ascolto."),
+            ("La crisi della tonalita", "Caratteri", "Nuove armonie, dissonanza, instabilita e superamento delle regole."),
+            ("Impressionismo musicale", "Forme", "Timbro, colore, atmosfera, scale nuove e suggestione sonora."),
+            ("Espressionismo e atonalita", "Forme", "Tensione, frammentazione, inquietudine e linguaggio non tonale."),
+            ("Schonberg e la dodecafonia", "Autori", "Serie di dodici suoni e nuova organizzazione del materiale musicale."),
+            ("Stravinskij e il ritmo", "Autori", "Energia ritmica, danza, modernita e rottura della tradizione."),
+            ("Futurismo, rumore e macchina", "Caratteri", "Rumori, citta moderna, velocita e nuovi materiali sonori."),
+            ("Nuove scritture musicali", "Laboratorio", "Simboli non convenzionali, partiture grafiche e invenzione sonora."),
+            ("Musica elettronica e sperimentazione", "Forme", "Tecnologia, studio di registrazione, suono manipolato e ricerca."),
+            ("Verifica: riconoscere il Novecento", "Verifica", "Avanguardie, autori, linguaggi, ascolti e scritture nuove."),
+        ],
+    },
+    {
+        "number": "08",
+        "slug": "jazz",
+        "title": "Il jazz",
+        "nav_title": "Il jazz",
+        "category": "Ritmo e improvvisazione",
+        "period": "Dalle radici afroamericane al presente",
+        "accent": "#2f8c63",
+        "description": "Blues, swing, bebop e improvvisazione: una musica fondata su dialogo, ritmo e liberta.",
+        "hero_subtitle": "Il jazz nasce da memoria, ritmo e invenzione condivisa e costruisce un linguaggio fondato sull'ascolto reciproco.",
+        "context_text": "Il nucleo segue la storia del jazz dalle radici afroamericane fino alle principali trasformazioni del Novecento, mettendo al centro ritmo, improvvisazione e dialogo tra musicisti.",
+        "functions_text": "Il jazz e musica di comunita, resistenza, intrattenimento, danza, invenzione estemporanea e forte identita culturale.",
+        "forms_text": "Spiritual, gospel, blues, primo jazz di New Orleans, swing, bebop, standard e fusion disegnano le tappe principali del percorso.",
+        "instruments_text": "Voce, tromba, sax, clarinetto, contrabbasso, pianoforte, batteria e strumenti elettrici della fusion ridefiniscono il timbro jazzistico.",
+        "connections": [
+            "storia afroamericana",
+            "blues e call and response",
+            "danza e big band",
+            "improvvisazione",
+            "contaminazioni con il rock",
+        ],
+        "lexicon": ["swing", "blue notes", "standard", "improvvisazione", "bebop", "big band"],
+        "lessons": [
+            ("Le radici afroamericane", "Contesto", "Schiavitu, comunita, memoria, lavoro e nascita di un nuovo linguaggio."),
+            ("Spiritual, gospel e blues", "Forme", "Canto, call and response, blue notes e radici espressive del jazz."),
+            ("New Orleans e il primo jazz", "Contesto", "Bande, strumenti, collettivita e prime formazioni jazzistiche."),
+            ("Swing e big band", "Forme", "Ritmo, danza, arrangiamento e grandi orchestre jazz."),
+            ("Bebop e jazz moderno", "Forme", "Velocita, complessita armonica, improvvisazione e ascolto concentrato."),
+            ("Improvvisazione e standard", "Caratteri", "Tema, variazione istantanea, dialogo e liberta controllata."),
+            ("Jazz-rock e fusion", "Forme", "Incontro tra jazz, rock, strumenti elettrici e nuove sonorita."),
+            ("Protagonisti del jazz", "Autori", "Armstrong, Ellington, Parker, Davis, Coltrane e altri riferimenti essenziali."),
+            ("Verifica: riconoscere il jazz", "Verifica", "Ritmo sincopato, improvvisazione, strumenti, stili e ascolti."),
+        ],
+    },
+    {
+        "number": "09",
+        "slug": "musica-leggera",
+        "title": "La musica leggera",
+        "nav_title": "La musica leggera",
+        "category": "La canzone nei media",
+        "period": "Novecento - eta digitale",
+        "accent": "#d05f2d",
+        "description": "Radio, dischi, televisione e streaming trasformano la canzone in linguaggio globale.",
+        "hero_subtitle": "La canzone entra nei media e cambia scala: produzione, immagine e diffusione trasformano il modo di ascoltare e riconoscersi.",
+        "context_text": "Il nucleo segue la musica leggera come storia della canzone nei media: industria discografica, pubblico di massa, culture giovanili e piattaforme digitali.",
+        "functions_text": "La musica leggera intrattiene, racconta identita e generazioni, attraversa radio, cinema, televisione, festival, videoclip e streaming.",
+        "forms_text": "Forma-canzone, rock and roll, pop, cantautorato, musical e colonne sonore sono gli assi principali del nucleo.",
+        "instruments_text": "Voce amplificata, chitarra elettrica, sezione ritmica, sintetizzatori, studio di registrazione e produzione digitale determinano il paesaggio sonoro.",
+        "connections": [
+            "industria culturale",
+            "pubblico di massa",
+            "televisione e videoclip",
+            "cultura giovanile",
+            "streaming e playlist",
+        ],
+        "lexicon": ["strofa", "ritornello", "cantautore", "playlist", "hit", "produzione"],
+        "lessons": [
+            ("Che cos'e la musica leggera", "Contesto", "Canzone, pubblico di massa, intrattenimento e industria culturale."),
+            ("La canzone moderna", "Forme", "Strofa, ritornello, testo, melodia e comunicazione diretta."),
+            ("Industria discografica e media", "Contesto", "Disco, radio, televisione, festival, videoclip e streaming."),
+            ("Rock and roll e cultura giovanile", "Forme", "Ritmo, chitarra elettrica, energia e nascita di nuovi pubblici."),
+            ("Pop e musica commerciale", "Forme", "Linguaggi immediati, produzione, immagine e diffusione globale."),
+            ("Cantautorato e racconto sociale", "Forme", "Testo, identita, impegno, emozioni e narrazione della realta."),
+            ("Musical e colonne sonore", "Forme", "Teatro, cinema, immagine, scena e racconto musicale."),
+            ("La canzone nell'eta digitale", "Contesto", "Streaming, social, playlist e trasformazione del consumo musicale."),
+            ("Verifica: riconoscere la musica leggera", "Verifica", "Generi, media, forme della canzone e ascolti guidati."),
+        ],
+    },
+    {
+        "number": "10",
+        "slug": "musica-etnica",
+        "title": "La musica etnica",
+        "nav_title": "La musica etnica",
+        "category": "Culture e identita sonore",
+        "period": "Tradizioni di lunga durata e contemporaneita",
+        "accent": "#8b6b2e",
+        "description": "Strumenti, ritmi, canti, riti e tradizioni mostrano come la musica custodisca identita.",
+        "hero_subtitle": "Le musiche dei popoli raccontano rituali, oralita, strumenti e forme di appartenenza che attraversano tempi e luoghi diversi.",
+        "context_text": "Il nucleo propone una geografia musicale di Africa, Asia, America Latina, Europa e Mediterraneo, mettendo a fuoco oralita, funzioni sociali e identita culturali.",
+        "functions_text": "La musica etnica custodisce memoria, rito, festa, lavoro, danza, trasmissione orale e appartenenza di comunita spesso lontane dalla logica del repertorio scritto.",
+        "forms_text": "Tradizioni orali, repertori di danza, canti rituali, musiche popolari regionali e pratiche di contaminazione contemporanea guidano il percorso.",
+        "instruments_text": "Tamburi, corde, flauti, aerofoni rituali e strumenti costruiti con materiali locali rivelano il legame tra timbro, ambiente e funzione culturale.",
+        "connections": [
+            "oralita e memoria",
+            "rito e danza",
+            "strumenti del mondo",
+            "aree culturali",
+            "world music e contaminazioni",
+        ],
+        "lexicon": ["oralita", "poliritmia", "tradizione", "rito", "world music", "timbro"],
+        "lessons": [
+            ("Che cosa significa musica etnica", "Contesto", "Musiche dei popoli, tradizioni locali, comunita e identita culturale."),
+            ("Musica popolare e oralita", "Caratteri", "Trasmissione orale, memoria collettiva, funzioni sociali e rituali."),
+            ("Strumenti del mondo", "Strumenti", "Timbri, materiali e famiglie strumentali nelle diverse culture."),
+            ("Ritmo, danza e rito", "Caratteri", "Corpo, movimento, celebrazione e funzione comunitaria della musica."),
+            ("Musiche dell'Africa", "Contesto", "Poliritmia, percussioni, voce, danza e partecipazione collettiva."),
+            ("Musiche dell'Asia", "Contesto", "Scale, timbri, tradizioni rituali e strumenti caratteristici."),
+            ("Musiche dell'America Latina", "Contesto", "Ritmi, danze, contaminazioni e identita popolari."),
+            ("Musiche d'Europa e del Mediterraneo", "Contesto", "Tradizioni locali, strumenti popolari, danze e repertori orali."),
+            ("World music e contaminazioni", "Forme", "Incontro tra tradizioni, popular music e produzione contemporanea."),
+            ("Verifica: riconoscere la musica etnica", "Verifica", "Strumenti, funzioni, aree culturali, ascolti e confronti."),
+        ],
+    },
+]
+
+
+def slugify_text(value: str) -> str:
+    normalized = unicodedata.normalize("NFKD", value).encode("ascii", "ignore").decode("ascii")
+    collapsed = re.sub(r"[^a-zA-Z0-9]+", "-", normalized.lower()).strip("-")
+    return collapsed
+
+
+def get_topic_positions(count: int) -> list[tuple[int, int]]:
+    if count in TOPIC_LAYOUTS:
+        return TOPIC_LAYOUTS[count]
+    fallback = []
+    x_slots = [14, 34, 56, 78]
+    y_slots = [16, 38, 60, 82]
+    for index in range(count):
+        fallback.append((x_slots[index % len(x_slots)], y_slots[min(index // len(x_slots), len(y_slots) - 1)]))
+    return fallback
+
+
+def build_topic_phases(nucleo_title: str, lesson_title: str, category: str, summary: str) -> dict[str, dict]:
+    lesson_title_lower = lesson_title[:1].lower() + lesson_title[1:]
+    category_lower = category.lower()
+    return {
+        "scintilla": {
+            "title": f"Perche partire da {lesson_title_lower}?",
+            "body": f"La card apre una domanda semplice che attiva il lessico di {lesson_title_lower} e lo collega subito al quadro del nucleo.",
+        },
+        "rotta": {
+            "title": f"Collocare {lesson_title_lower} dentro {nucleo_title}",
+            "body": f"Qui la lezione viene situata nella timeline del nucleo, mettendo in evidenza periodo, funzioni e relazioni con gli altri snodi della lavagna.",
+        },
+        "orecchio": {
+            "title": "Riconoscere gli indizi essenziali",
+            "body": f"Gli indizi di ascolto e osservazione servono a trasformare la definizione in esperienza: {summary}",
+        },
+        "grafo": {
+            "title": "Leggere i collegamenti della lavagna",
+            "body": f"Il nodo mostra come la categoria {category_lower} dialoghi con contesto, forme, strumenti, autori, laboratorio e verifica.",
+        },
+        "cantiere": {
+            "title": "Usare la lezione come snodo operativo",
+            "body": "La classe puo ordinare parole chiave, esempi, confronti e collegamenti rapidi senza perdere il filo del capitolo.",
+        },
+        "varco": {
+            "title": "Trasformare il contenuto in una restituzione",
+            "body": f"Il passaggio operativo chiede una breve sintesi orale, scritta o visuale che fissi l'essenziale di {lesson_title_lower}.",
+        },
+        "ribalta": {
+            "title": "Restituire con chiarezza",
+            "body": "Titolo, lessico minimo, esempio e rapporto con il nucleo restano visibili e aiutano una restituzione breve ma precisa.",
+        },
+        "specchio": {
+            "title": "Controllare comprensione e lessico",
+            "body": f"La verifica controlla se sai collocare {lesson_title_lower} nella lavagna delle lezioni e descriverne funzione, caratteri o ascolti principali.",
+        },
+    }
+
+
+def build_topic_map(nucleo: dict, lessons: list[tuple[str, str, str]]) -> dict:
+    positions = get_topic_positions(len(lessons))
+    nodes = []
+    for index, (title, category, description) in enumerate(lessons, start=1):
+        x, y = positions[index - 1]
+        nodes.append(
+            {
+                "number": f"{index:02d}",
+                "slug": slugify_text(title),
+                "title": title,
+                "subtitle": CATEGORY_SUBTITLE_MAP.get(category, "Lezione del nucleo"),
+                "label": category,
+                "x": x,
+                "y": y,
+                "summary": description,
+                "phases": build_topic_phases(nucleo["title"], title, category, description),
+            }
+        )
+
+    connections = []
+    for index in range(len(nodes) - 1):
+        connections.append(
+            {
+                "from": nodes[index]["number"],
+                "to": nodes[index + 1]["number"],
+                "kind": "main",
+            }
+        )
+
+    return {
+        "eyebrow": "Lavagna delle lezioni",
+        "intro": f"La lavagna ordina le lezioni di {nucleo['title']} in una mappa didattica leggibile: contesto, caratteri, forme, strumenti, autori, ascolto, laboratorio e verifica restano tutti visibili.",
+        "index_label": "Lavagna delle lezioni",
+        "section_id": "lavagna",
+        "cta_label": "Apri la lezione",
+        "rail_label": "Lezioni del nucleo",
+        "item_label": "Lezione",
+        "nodes": nodes,
+        "connections": connections,
+    }
+
+
+def build_author_cards(entry: dict, topic_map: dict) -> list[dict]:
+    if entry.get("authors"):
+        return copy.deepcopy(entry["authors"])
+
+    lessons = topic_map["nodes"]
+    selected = [item for item in lessons if item["label"] == "Autori"][:3]
+    if not selected:
+        selected = [item for item in lessons if item["label"] in {"Contesto", "Forme", "Strumenti"}][:3]
+    return [
+        {
+            "name": item["title"],
+            "work": item["summary"],
+            "note": f"Snodo utile per orientarsi dentro {entry['title']}.",
+        }
+        for item in selected
+    ]
+
+
+def build_listening_cards(topic_map: dict) -> list[dict]:
+    lessons = topic_map["nodes"]
+    selected = [item for item in lessons if item["label"] == "Ascolto"][:1]
+    selected.extend(item for item in lessons if item["label"] in {"Forme", "Caratteri", "Strumenti"} and item not in selected)
+    selected = selected[:3]
+    return [
+        {
+            "title": f"Ascolto guidato: {item['title']}",
+            "focus": item["summary"],
+        }
+        for item in selected
+    ]
+
+
+def build_assignment(entry: dict) -> dict:
+    first_titles = [title for title, _, _ in entry["lessons"][:3]]
+    return {
+        "scenario": f"La classe prepara una lavagna didattica sul nucleo {entry['title']} per un pubblico di studenti che deve orientarsi rapidamente nel capitolo.",
+        "task": f"Seleziona i contenuti essenziali del nucleo, ordina le lezioni della lavagna e costruisci una spiegazione breve che colleghi contesto, caratteri, ascolti e lessico.",
+        "product": "una lavagna sintetica, una presentazione o una scheda espositiva leggibile",
+        "audience": "un'altra classe, un open day o un momento di restituzione interna",
+        "materials": "card della lavagna, quaderno, LIM, immagini, ascolti, mappe e lessico del nucleo",
+        "timing": "2 lezioni di preparazione e 1 lezione di restituzione",
+        "steps": [
+            f"seleziona tre snodi chiave tra {', '.join(first_titles)}",
+            "ordina i materiali in una sequenza chiara",
+            "aggiungi lessico minimo, esempio e collegamento storico",
+            "prepara una restituzione breve e leggibile",
+        ],
+        "assessment": [
+            "chiarezza dell'organizzazione",
+            "uso corretto del lessico",
+            "coerenza tra contesto, ascolto e forme",
+            "capacita di collegare le lezioni della lavagna",
+        ],
+    }
+
+
+def build_verification(entry: dict, topic_map: dict) -> dict:
+    first = topic_map["nodes"][0]["title"]
+    second = topic_map["nodes"][1]["title"] if len(topic_map["nodes"]) > 1 else topic_map["nodes"][0]["title"]
+    return {
+        "quick_check": [
+            f"colloca {entry['title']} nella timeline generale di Accordia",
+            f"riconosci il ruolo di {first} e {second} dentro la lavagna",
+            "usa due parole del lessico minimo in modo corretto",
+        ],
+        "comprehension": [
+            f"quali caratteri rendono riconoscibile {entry['title']}?",
+            "come si collegano contesto, forme e strumenti nel nucleo?",
+            "quali lezioni della lavagna useresti per spiegare il capitolo a un compagno?",
+        ],
+        "listening_test": f"Riconosci in un ascolto guidato indizi coerenti con {entry['title']}: timbri, funzioni, forme, pratiche o riferimenti storici.",
+        "rubric": [
+            "comprende la posizione storica del nucleo",
+            "usa con precisione il lessico essenziale",
+            "sa collegare le lezioni della lavagna",
+            "argomenta con esempi chiari e pertinenti",
+        ],
+        "self_eval": [
+            f"so collocare {entry['title']} nella timeline",
+            "so usare la lavagna delle lezioni per orientarmi nel capitolo",
+            "so collegare almeno tre snodi del nucleo con lessico corretto",
+        ],
+        "premium": "Spazio riservato a materiali premium futuri: ascolti guidati, schede stampabili e tracciati docente.",
+    }
+
+
+def build_editorial_nuclei() -> list[dict]:
+    nuclei = []
+    for entry in EDITORIAL_NUCLEI_BLUEPRINT:
+        topic_map = build_topic_map(entry, entry["lessons"])
+        lesson_titles = [title for title, _, _ in entry["lessons"]]
+        graph_seed = ", ".join(lesson_titles[:4])
+        nuclei.append(
+            {
+                "number": entry["number"],
+                "slug": entry["slug"],
+                "title": entry["title"],
+                "nav_title": entry["nav_title"],
+                "category": entry["category"],
+                "period": entry["period"],
+                "position": f"Nucleo {entry['number']} di 10 · linea principale del percorso",
+                "accent": entry["accent"],
+                "description": entry["description"],
+                "hero_subtitle": entry["hero_subtitle"],
+                "hero_note": f"Il nucleo ricompone {entry['title']} in un capitolo coerente con i manuali: panorama storico, lavagna delle lezioni, ascolti, lessico, attivita e verifica restano allineati nella stessa pagina.",
+                "chapter_map": lesson_titles,
+                "context_text": entry["context_text"],
+                "functions_text": entry["functions_text"],
+                "forms_text": entry["forms_text"],
+                "instruments_text": entry["instruments_text"],
+                "authors": build_author_cards(entry, topic_map),
+                "listenings": build_listening_cards(topic_map),
+                "connections": entry["connections"],
+                "lexicon": entry["lexicon"],
+                "summary_text": f"{entry['title']} tiene insieme quadro storico, lessico essenziale e una lavagna di lezioni che rende visibile il percorso didattico del nucleo.",
+                "activities": [
+                    "ordina le card della lavagna distinguendo contesto, forme, strumenti, autori e verifica",
+                    f"metti a confronto {lesson_titles[0]} e {lesson_titles[min(1, len(lesson_titles) - 1)]}",
+                    "prepara una sintesi con cinque parole chiave e due collegamenti storici",
+                    "usa mini timeline e lavagna per spiegare il percorso del nucleo a un compagno",
+                ],
+                "spark_question": f"In che modo {entry['title'].lower()} cambia il modo di fare, ascoltare e capire la musica?",
+                "rotta_text": f"La rotta colloca {entry['title']} nella timeline generale e mostra come la lavagna distribuisca il nucleo tra contesto, caratteri, forme, strumenti, autori e verifica.",
+                "orecchio_text": f"Gli ascolti guidati aiutano a riconoscere i tratti principali del nucleo e a trasformare definizioni e date in indizi sonori concreti.",
+                "grafo_text": f"La lavagna collega {graph_seed} e gli altri snodi del capitolo per rendere visibile l'ordine interno del percorso.",
+                "cantiere_text": "Nel cantiere la classe usa le card del nucleo per ordinare contenuti, lessico, ascolti e confronti in una sequenza chiara e riusabile.",
+                "assignment": build_assignment(entry),
+                "verification": build_verification(entry, topic_map),
+                "topic_map": topic_map,
+            }
+        )
+    return nuclei
+
+
+NUCLEI = build_editorial_nuclei()
+
+
 def clone_data(value):
     return copy.deepcopy(value)
 
@@ -2552,6 +3223,44 @@ def nav_dropdown(prefix: str, active_slug: str | None = None) -> str:
                 <a href="{e(page_href(f"{prefix}docente/"))}" data-nav-link="docenti">Docenti</a>
                 <a href="{e(page_href(f"{prefix}pages/risorse.html"))}" data-nav-link="strumenti">Strumenti</a>
             </nav>"""
+
+
+def build_static_prefix(path: Path) -> str:
+    relative = path.relative_to(ROOT)
+    depth = max(len(relative.parts) - 1, 0)
+    return "../" * depth
+
+
+def render_home_timeline_card(nucleo: dict) -> str:
+    return f"""
+                    <a class="home-era-card" href="{e(page_href('nuclei/' + nucleo['slug'] + '/'))}" style="--card-line: {e(nucleo['accent'])};" data-nucleus-link="{e(nucleo['slug'])}">
+                        <span class="home-era-card__number">{e(nucleo['number'])}</span>
+                        <span class="home-era-card__era">{e(nucleo['category'])}</span>
+                        <strong>{e(nucleo['title'])}</strong>
+                        <p>{e(nucleo['description'])}</p>
+                        <span class="home-era-card__cta">Apri il nucleo</span>
+                    </a>"""
+
+
+def sync_static_navigation() -> None:
+    for path in STATIC_PAGES:
+        prefix = build_static_prefix(path)
+        content = path.read_text(encoding="utf-8")
+        updated = SITE_NAV_RE.sub(nav_dropdown(prefix), content, count=1)
+        if updated != content:
+            path.write_text(updated, encoding="utf-8")
+
+
+def sync_home_timeline() -> None:
+    path = ROOT / "index.html"
+    content = path.read_text(encoding="utf-8")
+    cards = "".join(render_home_timeline_card(nucleo) for nucleo in get_nuclei())
+    replacement = f"""<div class="home-timeline__track" aria-label="Timeline orizzontale di Accordia">
+{cards}
+                </div>"""
+    updated = HOME_TIMELINE_TRACK_RE.sub(replacement, content, count=1)
+    if updated != content:
+        path.write_text(updated, encoding="utf-8")
 
 
 def find_nucleo(slug: str) -> dict:
@@ -3673,6 +4382,8 @@ def render_topic_map_section(nucleo: dict, show_intro: bool = True) -> str:
     topic_map = nucleo.get("topic_map")
     if not topic_map:
         return ""
+    section_id = topic_map.get("section_id", "mappa")
+    cta_label = topic_map.get("cta_label", "Apri l'argomento")
 
     relations, lookup = build_topic_relations(topic_map)
     lines = []
@@ -3699,7 +4410,7 @@ def render_topic_map_section(nucleo: dict, show_intro: bool = True) -> str:
                     <strong>{e(node['title'])}</strong>
                     <p>{e(node['subtitle'])}</p>
                     <small>{e(node['summary'])}</small>
-                    <span class="nucleus-topic-node__cta">Apri l'argomento</span>
+                    <span class="nucleus-topic-node__cta">{e(node.get('cta', cta_label))}</span>
                     {related_markup}
                 </a>"""
         )
@@ -3715,7 +4426,7 @@ def render_topic_map_section(nucleo: dict, show_intro: bool = True) -> str:
     )
 
     return f"""
-        <section class="nucleus-section nucleus-section--map" id="mappa">
+        <section class="nucleus-section nucleus-section--map" id="{e(section_id)}">
             <div class="shell">
                 {intro_block}
                 <div class="nucleus-topic-map" data-topic-map>
@@ -3734,6 +4445,7 @@ def render_topic_rail(nucleo: dict, current_slug: str) -> str:
     topic_map = nucleo.get("topic_map")
     if not topic_map:
         return ""
+    rail_label = topic_map.get("rail_label", "Argomenti del nucleo")
 
     items = []
     for node in topic_map["nodes"]:
@@ -3745,9 +4457,9 @@ def render_topic_rail(nucleo: dict, current_slug: str) -> str:
         )
 
     return f"""
-        <nav class="topic-rail" aria-label="Argomenti del nucleo">
+        <nav class="topic-rail" aria-label="{e(rail_label)}">
             <div class="shell">
-                <p class="topic-rail__eyebrow">Argomenti del nucleo</p>
+                <p class="topic-rail__eyebrow">{e(rail_label)}</p>
                 <div class="topic-rail__track" data-topic-rail-track>
                     {"".join(items)}
                 </div>
@@ -4078,6 +4790,7 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
     next_nucleo = nuclei[index + 1] if index < len(nuclei) - 1 else None
     topic_map = nucleo.get("topic_map")
     map_only_landing = nucleo.get("landing_mode") == "map-only"
+    topic_map_feature = topic_map.get("index_label", "mappa visiva interconnessa degli argomenti").lower() if topic_map else ""
     footer_prev = (
         f'<a href="{e(page_href("../" + prev_nucleo["slug"] + "/"))}">Nucleo precedente</a>'
         if prev_nucleo
@@ -4091,7 +4804,7 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
 
     index_links = []
     if topic_map:
-        index_links.append(("#mappa", "Mappa argomenti"))
+        index_links.append((f"#{topic_map.get('section_id', 'mappa')}", topic_map.get("index_label", "Mappa argomenti")))
     index_links.extend([
         ("#sintesi", "Sintesi"),
         ("#ascolti", "Ascolti"),
@@ -4151,7 +4864,7 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
                     <p>{e(nucleo['hero_note'])}</p>
                     <ul class="nucleus-bullet-list">
                         <li>indice interno per orientarsi rapidamente</li>
-                        {"<li>mappa visiva interconnessa degli argomenti</li>" if topic_map else ""}
+                        {f"<li>{e(topic_map_feature)}</li>" if topic_map else ""}
                         <li>snodi del nucleo ordinati in modo chiaro e leggibile</li>
                         <li>contenuti storici, ascolti, autori e lessico</li>
                         <li>compito di realta, verifica e materiali docente</li>
@@ -4167,7 +4880,7 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
             <div class="shell">
                 <div class="nucleus-section__intro">
                     <p class="eyebrow">Indice del nucleo</p>
-                    <p>La pagina si legge come un capitolo editoriale completo: prima la sintesi storica, poi ascolti, concetti, autori, attivita, compito di realta e verifica.</p>
+                    <p>La pagina si legge come un capitolo editoriale completo: prima la sintesi storica, poi la lavagna delle lezioni, quindi ascolti, concetti, autori, attivita, compito di realta e verifica.</p>
                 </div>
                 <nav class="nucleus-index" aria-label="Indice interno del nucleo">
                     {"".join(f'<a href="{e(href)}">{e(label)}</a>' for href, label in index_links)}
@@ -4456,6 +5169,8 @@ def write(path: Path, content: str) -> None:
 
 
 def refresh_static_page_assets() -> None:
+    sync_static_navigation()
+    sync_home_timeline()
     for path in STATIC_PAGES:
         content = path.read_text(encoding="utf-8")
         updated = CSS_ASSET_RE.sub(
@@ -4472,6 +5187,9 @@ def refresh_static_page_assets() -> None:
 
 def main() -> None:
     nuclei = get_nuclei()
+    nuclei_root = ROOT / "nuclei"
+    if nuclei_root.exists():
+        shutil.rmtree(nuclei_root)
     write(ROOT / "timeline" / "index.html", render_timeline_page())
     for index, nucleo in enumerate(nuclei):
         write(ROOT / "nuclei" / nucleo["slug"] / "index.html", render_nucleus_page(index, nucleo, nuclei))
