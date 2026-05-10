@@ -2066,6 +2066,226 @@
   outline-offset: 2px;
 }
 
+.vivaldi-lesson .lesson-shell {
+  width: min(calc(100% - 1.8rem), 94rem);
+}
+
+.vivaldi-context-block {
+  padding: clamp(2.8rem, 5.2vw, 5.8rem) 0 clamp(3.2rem, 6vw, 5.6rem);
+}
+
+.vivaldi-context-block__shell,
+.vivaldi-context-head,
+.vivaldi-coordinate-panel {
+  display: grid;
+  gap: 1rem;
+}
+
+.vivaldi-context-head {
+  max-width: 54rem;
+}
+
+.vivaldi-context-head__eyebrow,
+.vivaldi-coordinate-panel__label,
+.vivaldi-coordinate-card__index {
+  margin: 0;
+  color: var(--vivaldi-soft);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.vivaldi-context-head h1,
+.vivaldi-coordinate-panel h2 {
+  margin: 0;
+  color: var(--vivaldi-ink);
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+.vivaldi-context-head h1 {
+  max-width: 10ch;
+  font-size: clamp(3.4rem, 7.8vw, 6.5rem);
+  font-weight: 800;
+  line-height: 0.92;
+}
+
+.vivaldi-context-head__intro,
+.vivaldi-coordinate-panel p,
+.vivaldi-coordinate-panel__hint,
+.vivaldi-coordinate-card__accent {
+  margin: 0;
+  color: var(--vivaldi-muted);
+  font-size: 1.03rem;
+  line-height: 1.72;
+}
+
+.vivaldi-context-head__intro {
+  max-width: 58rem;
+  font-size: clamp(1.08rem, 1.6vw, 1.25rem);
+}
+
+.vivaldi-context-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.65fr) minmax(19rem, 24rem);
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.vivaldi-coordinate-map,
+.vivaldi-coordinate-panel {
+  position: relative;
+  border: 1px solid var(--vivaldi-line);
+  border-radius: 1.6rem;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: 0 30px 70px rgba(20, 18, 17, 0.08);
+}
+
+.vivaldi-coordinate-map {
+  min-height: 39rem;
+  padding: 1.3rem;
+  overflow: hidden;
+  perspective: 1800px;
+  transform-style: preserve-3d;
+  isolation: isolate;
+}
+
+.vivaldi-coordinate-map__grid {
+  position: absolute;
+  inset: 1.2rem;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(20, 18, 17, 0.05);
+  background-image:
+    linear-gradient(rgba(20, 18, 17, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(20, 18, 17, 0.045) 1px, transparent 1px);
+  background-size: 7rem 7rem;
+  transform: translateZ(-32px);
+}
+
+.vivaldi-coordinate-map__core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 9.4rem;
+  height: 9.4rem;
+  border: 1px solid rgba(20, 18, 17, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 24px 48px rgba(20, 18, 17, 0.07);
+  transform: translate3d(-50%, -50%, 18px);
+  z-index: 1;
+}
+
+.vivaldi-coordinate-map__core span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0 1rem;
+  color: var(--vivaldi-ink);
+  font-size: 1.05rem;
+  font-weight: 780;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.vivaldi-coordinate-card {
+  position: absolute;
+  left: var(--card-left);
+  top: var(--card-top);
+  width: min(var(--card-width), calc(100% - 2.4rem));
+  display: grid;
+  gap: 0.55rem;
+  padding: 1rem 1rem 1.05rem;
+  border: 1px solid rgba(20, 18, 17, 0.1);
+  border-radius: 1.35rem;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow:
+    0 22px 42px rgba(20, 18, 17, 0.09),
+    0 2px 0 rgba(255, 255, 255, 0.85) inset;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+  transform:
+    translate3d(0, 0, var(--card-depth))
+    rotateX(10deg)
+    rotateY(-8deg)
+    rotateZ(var(--card-rotate));
+  transform-style: preserve-3d;
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
+}
+
+.vivaldi-coordinate-card strong {
+  margin: 0;
+  color: var(--vivaldi-ink);
+  font-size: 1.22rem;
+  font-weight: 760;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+}
+
+.vivaldi-coordinate-card__accent {
+  font-size: 0.95rem;
+  color: var(--vivaldi-soft);
+}
+
+.vivaldi-coordinate-card.is-active {
+  z-index: 30;
+  border-color: rgba(20, 18, 17, 0.26);
+  background: #ffffff;
+  box-shadow:
+    0 34px 64px rgba(20, 18, 17, 0.13),
+    0 0 0 1px rgba(255, 255, 255, 0.92) inset;
+  transform:
+    translate3d(0, -0.45rem, calc(var(--card-depth) + 18px))
+    rotateX(4deg)
+    rotateY(-4deg)
+    rotateZ(var(--card-rotate))
+    scale(1.02);
+}
+
+.vivaldi-coordinate-card:hover,
+.vivaldi-coordinate-card:focus-visible {
+  z-index: 28;
+  border-color: rgba(20, 18, 17, 0.22);
+  transform:
+    translate3d(0, -0.3rem, calc(var(--card-depth) + 14px))
+    rotateX(6deg)
+    rotateY(-5deg)
+    rotateZ(var(--card-rotate))
+    scale(1.01);
+}
+
+.vivaldi-coordinate-card:focus-visible {
+  outline: 2px solid rgba(20, 18, 17, 0.24);
+  outline-offset: 4px;
+}
+
+.vivaldi-coordinate-panel {
+  align-content: start;
+  min-height: 39rem;
+  padding: 1.3rem;
+}
+
+.vivaldi-coordinate-panel h2 {
+  font-size: clamp(2rem, 3.4vw, 3rem);
+  font-weight: 780;
+  line-height: 0.98;
+}
+
+.vivaldi-coordinate-panel__hint {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(20, 18, 17, 0.08);
+}
+
 @media (max-width: 1080px) {
   .lesson-card-grid--four {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -2090,6 +2310,14 @@
   .vivaldi-season-grid,
   .vivaldi-legend-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .vivaldi-context-stage {
+    grid-template-columns: 1fr;
+  }
+
+  .vivaldi-coordinate-panel {
+    min-height: 0;
   }
 }
 
@@ -2231,5 +2459,48 @@
 
   .vivaldi-table tbody td {
     margin-top: 0.32rem;
+  }
+
+  .vivaldi-context-block {
+    padding-top: 2.3rem;
+  }
+
+  .vivaldi-lesson .lesson-shell {
+    width: min(calc(100% - 1rem), 94rem);
+  }
+
+  .vivaldi-context-head h1 {
+    max-width: 12ch;
+  }
+
+  .vivaldi-coordinate-map,
+  .vivaldi-coordinate-panel {
+    border-radius: 1.15rem;
+  }
+
+  .vivaldi-coordinate-map {
+    min-height: 0;
+    padding: 1rem;
+    display: grid;
+    gap: 0.9rem;
+  }
+
+  .vivaldi-coordinate-map__grid,
+  .vivaldi-coordinate-map__core {
+    display: none;
+  }
+
+  .vivaldi-coordinate-card {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    transform: none;
+  }
+
+  .vivaldi-coordinate-card.is-active,
+  .vivaldi-coordinate-card:hover,
+  .vivaldi-coordinate-card:focus-visible {
+    transform: translateY(-0.12rem);
   }
 }
