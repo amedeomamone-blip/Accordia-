@@ -12,17 +12,21 @@ Accordia/
 ├── docente/
 ├── metodo/
 ├── pages/
+├── components/
+├── data/
+│   └── editor/
 ├── nuclei/
-│   ├── origini-del-suono/
-│   ├── civilta-del-mediterraneo/
-│   ├── dalla-tarda-antichita-al-sacro/
+│   ├── origini-e-civilta-antiche/
 │   ├── medioevo/
 │   ├── rinascimento/
 │   ├── barocco/
-│   ├── classicismo/
-│   ├── romanticismo/
-│   ├── novecento-delle-rivoluzioni/
-│   └── musica-contemporanea/
+│   ├── settecento-classicismo/
+│   ├── ottocento/
+│   ├── novecento/
+│   ├── jazz/
+│   ├── musica-leggera/
+│   └── musica-etnica/
+├── scripts/
 ├── css/
 │   └── style.css
 ├── js/
@@ -30,31 +34,48 @@ Accordia/
 └── README.md
 ```
 
-## Timeline attuale
+## Timeline pubblica attuale
 
-1. Origini del suono
-2. Civilta del Mediterraneo
-3. Dalla tarda antichita al sacro
-4. Medioevo
-5. Rinascimento
-6. Barocco
-7. Classicismo
-8. Romanticismo
-9. Novecento delle rivoluzioni
-10. Musica contemporanea
+1. Origini e civilta antiche
+2. Il Medioevo
+3. Il Rinascimento
+4. Il Barocco
+5. Settecento e Classicismo
+6. L'Ottocento
+7. Il Novecento
+8. Il jazz
+9. La musica leggera
+10. La musica etnica
 
-## Fasi delle lezioni immersive
+## Architettura editoriale attuale
 
-Le lezioni immersive del nucleo `Origini del suono` usano sempre queste otto fasi:
+- `scripts/render_nuclei.py` e la sorgente principale per timeline, nuclei e pagine degli argomenti.
+- La timeline pubblica a 10 nuclei e costruita dal blueprint editoriale attuale e rifinita dagli override in `data/editor/nuclei_overrides.json`.
+- Nel renderer convivono ancora strutture storiche e sperimentali, utili come base dati o per i moduli immersivi interni: non vanno confuse con i nomi pubblici dei nuclei attuali.
+
+## Lezioni immersive e Flow
+
+Le lezioni immersive hanno due livelli distinti.
+
+Struttura interna a 8 punti:
+
+1. Domanda iniziale
+2. Contesto storico e culturale
+3. Osservazione guidata
+4. Ascolto guidato
+5. Spiegazione dei contenuti
+6. Attivita pratica
+7. Produzione degli studenti
+8. Verifica e conclusione
+
+Flow visibile in 4 movimenti:
 
 1. Apertura
 2. Esplorazione
 3. Comprensione attiva
 4. Rielaborazione
-5. Produzione
-6. Condivisione
-7. Valutazione
-8. Chiusura
+
+I componenti immersivi vivono in `components/` e oggi riguardano soprattutto l'area delle origini, mentre le pagine pubbliche dei nuclei restano generate dal renderer.
 
 ## Campi editoriali storici del renderer
 
@@ -104,4 +125,4 @@ GRAFO e un asse centrale del progetto: non e decorazione, ma traduzione visiva d
 - `scripts/render_nuclei.py` e la sorgente principale per timeline, nuclei e pagine degli argomenti.
 - `data/editor/timeline_page.json` contiene i testi e alcuni parametri visivi della timeline editoriale.
 - `data/editor/nuclei_overrides.json` contiene i campi editabili dei nuclei usati da timeline, nav e pagine generate.
-- `index.html`, `compiti/index.html`, `docente/index.html`, `metodo/index.html`, `pages/*.html`, `percorso/index.html` e `storia-musica/index.html` restano pagine manuali, ma il build aggiorna automaticamente il versioning di `css/style.css` e `js/main.js`.
+- `index.html`, `compiti/index.html`, `docente/index.html`, `metodo/index.html`, `pages/*.html`, `percorso/index.html` e `storia-musica/index.html` restano pagine manuali, ma il build sincronizza automaticamente navigazione e versioning di `css/style.css` e `js/main.js`.

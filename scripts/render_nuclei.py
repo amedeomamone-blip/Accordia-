@@ -44,7 +44,7 @@ STATIC_PAGES = [
 ]
 CSS_ASSET_RE = re.compile(r'href="(?P<path>[^"]*css/style\.css)(?:\?v=\d+)?"')
 JS_ASSET_RE = re.compile(r'src="(?P<path>[^"]*js/main\.js)(?:\?v=\d+)?"')
-SITE_NAV_RE = re.compile(r'<nav class="site-nav" aria-label="Navigazione principale">.*?</nav>', re.S)
+SITE_NAV_RE = re.compile(r'\n\s*<nav class="site-nav" aria-label="Navigazione principale">.*?</nav>', re.S)
 HOME_TIMELINE_TRACK_RE = re.compile(
     r'<div class="home-timeline__track" aria-label="Timeline orizzontale di Accordia">.*?</div>',
     re.S,
@@ -3208,21 +3208,22 @@ def nav_dropdown(prefix: str, active_slug: str | None = None) -> str:
         items.append(
             f'<a href="{e(page_href(prefix + "nuclei/" + nucleo["slug"] + "/"))}"{cls}{aria}>{e(nucleo["number"])} {e(nucleo["nav_title"])}</a>'
         )
-    return f"""
-            <nav class="site-nav" aria-label="Navigazione principale">
-                <div class="site-nav__dropdown">
-                    <button class="site-nav__trigger" type="button" data-nav-link="timeline" aria-haspopup="true" aria-expanded="false">
-                        <span>Nuclei</span>
-                        <span class="site-nav__caret" aria-hidden="true"></span>
-                    </button>
-                    <div class="site-nav__menu" aria-label="Elenco dei nuclei">
-                        {"".join(items)}
-                    </div>
-                </div>
-                <a href="{e(page_href(f"{prefix}compiti/"))}" data-nav-link="compiti">Compiti di realta</a>
-                <a href="{e(page_href(f"{prefix}docente/"))}" data-nav-link="docenti">Docenti</a>
-                <a href="{e(page_href(f"{prefix}pages/risorse.html"))}" data-nav-link="strumenti">Strumenti</a>
-            </nav>"""
+    return (
+        '            <nav class="site-nav" aria-label="Navigazione principale">\n'
+        '                <div class="site-nav__dropdown">\n'
+        '                    <button class="site-nav__trigger" type="button" data-nav-link="timeline" aria-haspopup="true" aria-expanded="false">\n'
+        '                        <span>Nuclei</span>\n'
+        '                        <span class="site-nav__caret" aria-hidden="true"></span>\n'
+        '                    </button>\n'
+        '                    <div class="site-nav__menu" aria-label="Elenco dei nuclei">\n'
+        f'                        {"".join(items)}\n'
+        '                    </div>\n'
+        '                </div>\n'
+        f'                <a href="{e(page_href(f"{prefix}compiti/"))}" data-nav-link="compiti">Compiti di realta</a>\n'
+        f'                <a href="{e(page_href(f"{prefix}docente/"))}" data-nav-link="docenti">Docenti</a>\n'
+        f'                <a href="{e(page_href(f"{prefix}pages/risorse.html"))}" data-nav-link="strumenti">Strumenti</a>\n'
+        '            </nav>'
+    )
 
 
 def build_static_prefix(path: Path) -> str:
@@ -3246,7 +3247,7 @@ def sync_static_navigation() -> None:
     for path in STATIC_PAGES:
         prefix = build_static_prefix(path)
         content = path.read_text(encoding="utf-8")
-        updated = SITE_NAV_RE.sub(nav_dropdown(prefix), content, count=1)
+        updated = SITE_NAV_RE.sub("\n" + nav_dropdown(prefix), content, count=1)
         if updated != content:
             path.write_text(updated, encoding="utf-8")
 

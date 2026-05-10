@@ -57,7 +57,18 @@ Ogni lezione mostra allo studente solo quattro movimenti:
 
 ### Applicazione attuale
 
-Accordia Flow e stato applicato alle due lezioni immersive attive:
+Accordia Flow oggi convive con due livelli del progetto:
 
-- `Corpo, voce e gesto`
+- la timeline pubblica a 10 nuclei, generata dal renderer editoriale
+- i moduli immersivi in `components/`, usati come laboratorio di interfaccia e contenuto
+
+I moduli immersivi gia presenti sono:
+
 - `Ritmo, pulsazione e tempo`
+- `Suono nella preistoria`
+- `Musica, comunicazione e funzioni sociali`
+- `Rito, magia e comunita`
+- `Materiali sonori e primi strumenti`
+- `Dalle origini al mondo antico`
+
+Non tutti questi moduli devono essere necessariamente esposti nella timeline pubblica corrente, ma il Flow resta il riferimento comune per la loro evoluzione.
