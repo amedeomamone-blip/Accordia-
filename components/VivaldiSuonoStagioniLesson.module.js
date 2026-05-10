@@ -3,60 +3,60 @@ const GLOBE_RADIUS = 226;
 const FULL_ROTATION = Math.PI * 2;
 const coordinates = [
   {
-    id: "movimento",
-    title: "Movimento",
-    hint: "apri",
-    latitude: 34,
-    longitude: -42,
-    copy: "Nel Barocco la musica sembra sempre in azione. Le melodie corrono, si inseguono, cambiano direzione e creano una forte sensazione di vitalita."
-  },
-  {
-    id: "contrasto",
-    title: "Contrasto",
-    hint: "apri",
-    latitude: -24,
-    longitude: 24,
-    copy: "Il Barocco ama gli opposti: forte e piano, solo e tutti, luce e ombra, tensione e riposo. Il contrasto rende la musica piu viva e drammatica."
-  },
-  {
     id: "meraviglia",
     title: "Meraviglia",
     hint: "apri",
-    latitude: 18,
-    longitude: 94,
-    copy: "L'arte barocca vuole stupire. La musica cerca effetti capaci di sorprendere chi ascolta, creando immagini, emozioni e colpi di scena."
+    latitude: 30,
+    longitude: -42,
+    copy: "Il Barocco vuole stupire, commuovere e creare effetti forti. Grandiosita, ornamenti, contrasti e cambi di intensita trasformano la musica in qualcosa di spettacolare."
   },
   {
     id: "teatralita",
     title: "Teatralita",
     hint: "apri",
+    latitude: -24,
+    longitude: 24,
+    copy: "Nel Barocco si afferma il melodramma: musica, recitazione e scena si fondono. Anche fuori dal teatro, la musica cerca entrate, risposte, tensioni, colpi di scena e gesti sonori evidenti."
+  },
+  {
+    id: "contrasto",
+    title: "Contrasto",
+    hint: "apri",
+    latitude: 18,
+    longitude: 94,
+    copy: "Il contrasto e una regola espressiva del Barocco. Piano e forte, timbri diversi, cambi improvvisi e scarti di intensita rendono l'ascolto piu vivo e drammatico."
+  },
+  {
+    id: "emozione",
+    title: "Emozione",
+    hint: "apri",
     latitude: -38,
     longitude: 152,
-    copy: "Anche quando non c'e un palcoscenico, la musica barocca spesso si comporta come una scena: entrate, risposte, gesti, dialoghi e tensioni."
+    copy: "La musica barocca vuole parlare al cuore. Timbri, tonalita e melodie dal carattere marcato cercano di suscitare sentimenti precisi in chi ascolta."
   },
   {
-    id: "energia",
-    title: "Energia",
+    id: "strumenti",
+    title: "Strumenti",
     hint: "apri",
-    latitude: 6,
+    latitude: 10,
     longitude: 210,
-    copy: "Il ritmo, la ripetizione e la spinta degli strumenti danno alla musica barocca una forza continua, chiara e riconoscibile."
+    copy: "Nel Barocco cresce il ruolo della musica strumentale. Gli archi acquistano grande importanza e strumenti come violino, clavicembalo e violoncello diventano centrali per colore ed espressivita."
   },
   {
-    id: "luce-ombra",
-    title: "Luce e ombra",
+    id: "nuove-forme",
+    title: "Nuove forme",
     hint: "apri",
-    latitude: 42,
-    longitude: 270,
-    copy: "Come nella pittura barocca, anche nella musica si alternano momenti luminosi e momenti piu scuri, sospesi o drammatici."
+    latitude: 40,
+    longitude: 274,
+    copy: "Nel Barocco si definiscono forme fondamentali come concerto grosso e concerto solista. Il concerto nasce in Italia, si diffonde in Europa e alterna movimenti lenti e veloci."
   },
   {
-    id: "gesto",
-    title: "Gesto",
+    id: "basso-continuo",
+    title: "Basso continuo",
     hint: "apri",
-    latitude: -12,
-    longitude: 330,
-    copy: "Il Barocco e fatto di gesti musicali evidenti: un attacco deciso, una corsa del violino, una risposta dell'orchestra, un cambio improvviso."
+    latitude: -14,
+    longitude: 332,
+    copy: "Il basso continuo sostiene il discorso musicale con una linea grave e accordi di accompagnamento. Clavicembalo e strumenti gravi creano una base stabile per il canto e per la melodia."
   }
 ];
 function deg(value) {
@@ -297,7 +297,7 @@ function VivaldiSuonoStagioniLesson() {
   }, [rotation.x, rotation.y]);
   const activeItem = projectedCoordinates.find((item) => item.id === activeId) ?? projectedCoordinates[0];
   const activeIndex = String(activeItem.order + 1).padStart(2, "0");
-  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page vivaldi-lesson", "data-lesson-model": "editoriale" }, /* @__PURE__ */ React.createElement("section", { className: "vivaldi-context-block", id: "lezione", "data-section": "contesto" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-shell vivaldi-context-block__shell" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-context-head" }, /* @__PURE__ */ React.createElement("p", { className: "vivaldi-context-head__eyebrow" }, "Il Barocco \xB7 Contesto storico-culturale"), /* @__PURE__ */ React.createElement("h1", null, "Il Barocco in coordinate"), /* @__PURE__ */ React.createElement("p", { className: "vivaldi-context-head__intro" }, "Il Barocco e un'epoca di movimento, contrasto e meraviglia. La musica non resta ferma: cerca l'effetto, il gesto, la tensione, la sorpresa. Prima di ascoltare Vivaldi, entriamo nelle coordinate che ci aiutano a capire il suo mondo sonoro.")), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-context-stage" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-stage" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-stage__topline" }, /* @__PURE__ */ React.createElement("p", null, "Coordinate del Barocco"), /* @__PURE__ */ React.createElement("span", null, "trascina il globo o seleziona una parola")), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page vivaldi-lesson", "data-lesson-model": "editoriale" }, /* @__PURE__ */ React.createElement("section", { className: "vivaldi-context-block", id: "lezione", "data-section": "contesto" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-shell vivaldi-context-block__shell" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-context-head" }, /* @__PURE__ */ React.createElement("p", { className: "vivaldi-context-head__eyebrow" }, "Il Barocco \xB7 Contesto storico-culturale"), /* @__PURE__ */ React.createElement("h1", null, "Il Barocco in coordinate"), /* @__PURE__ */ React.createElement("p", { className: "vivaldi-context-head__intro" }, "Il Barocco e lo stile della meraviglia: vuole stupire, commuovere e creare effetti forti. La musica cerca grandiosita, contrasti, teatralita e gesto. Prima di ascoltare Vivaldi, entriamo nella costellazione che mette a fuoco il suo mondo sonoro.")), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-context-stage" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-stage" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-stage__topline" }, /* @__PURE__ */ React.createElement("p", null, "Costellazione del Barocco"), /* @__PURE__ */ React.createElement("span", null, "trascina il globo o seleziona una parola")), /* @__PURE__ */ React.createElement(
     "div",
     {
       className: `vivaldi-globe-stage__frame${isDragging ? " is-dragging" : ""}`,
@@ -327,7 +327,7 @@ function VivaldiSuonoStagioniLesson() {
       className: "vivaldi-globe-detail-panel",
       "aria-live": "polite"
     },
-    /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-detail-panel__meta" }, /* @__PURE__ */ React.createElement("p", { className: "vivaldi-globe-popup__eyebrow" }, "Coordinata attiva"), /* @__PURE__ */ React.createElement("span", null, activeIndex, " / 07")),
+    /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-detail-panel__meta" }, /* @__PURE__ */ React.createElement("p", { className: "vivaldi-globe-popup__eyebrow" }, "Coordinata attiva"), /* @__PURE__ */ React.createElement("span", null, activeIndex, " / ", String(coordinates.length).padStart(2, "0"))),
     /* @__PURE__ */ React.createElement("h2", null, activeItem.title),
     /* @__PURE__ */ React.createElement("p", null, activeItem.copy)
   ))))));
