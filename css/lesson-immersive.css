@@ -1370,6 +1370,702 @@
   outline-offset: 2px;
 }
 
+.vivaldi-lesson {
+  --vivaldi-bg: #f7f4ed;
+  --vivaldi-surface: #fffdf8;
+  --vivaldi-surface-strong: #ffffff;
+  --vivaldi-line: rgba(20, 18, 17, 0.12);
+  --vivaldi-line-strong: rgba(20, 18, 17, 0.2);
+  --vivaldi-ink: #141211;
+  --vivaldi-muted: #5d564d;
+  --vivaldi-soft: #7b7369;
+  --vivaldi-accent: #c14f40;
+  --vivaldi-accent-soft: #f1e3dc;
+  --vivaldi-gold: #d1a13d;
+  color: var(--vivaldi-ink);
+}
+
+.vivaldi-lesson .lesson-shell {
+  width: min(calc(100% - 1.8rem), 86rem);
+}
+
+.vivaldi-hero {
+  padding: clamp(2rem, 5vw, 4.5rem) 0 1.6rem;
+}
+
+.vivaldi-hero__grid,
+.vivaldi-split {
+  display: grid;
+  gap: 1.4rem;
+}
+
+.vivaldi-hero__grid {
+  grid-template-columns: minmax(0, 1.35fr) minmax(18rem, 0.9fr);
+  align-items: start;
+}
+
+.vivaldi-hero__copy,
+.vivaldi-section-head,
+.vivaldi-copy,
+.vivaldi-composer-card,
+.vivaldi-goal,
+.vivaldi-movement,
+.vivaldi-season,
+.vivaldi-deliverable,
+.vivaldi-writing-guide {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.vivaldi-eyebrow,
+.vivaldi-section-label,
+.vivaldi-concerto-schema__eyebrow,
+.vivaldi-movement__label,
+.vivaldi-route__index {
+  margin: 0;
+  color: var(--vivaldi-soft);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.vivaldi-title,
+.vivaldi-section-head h2 {
+  margin: 0;
+  color: var(--vivaldi-ink);
+  letter-spacing: -0.05em;
+  text-wrap: balance;
+}
+
+.vivaldi-title {
+  max-width: 11ch;
+  font-size: clamp(3.8rem, 8vw, 7.2rem);
+  font-weight: 800;
+  line-height: 0.92;
+}
+
+.vivaldi-subtitle {
+  margin: 0;
+  max-width: 28rem;
+  color: var(--vivaldi-ink);
+  font-size: clamp(1.18rem, 2.5vw, 1.8rem);
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.vivaldi-opening {
+  margin: 0;
+  max-width: 56rem;
+  color: var(--vivaldi-muted);
+  font-size: clamp(1.08rem, 1.7vw, 1.28rem);
+  line-height: 1.72;
+}
+
+.vivaldi-hero__aside,
+.vivaldi-concerto-schema,
+.vivaldi-movement,
+.vivaldi-season,
+.vivaldi-media-frame,
+.vivaldi-deliverable,
+.vivaldi-legend-item,
+.vivaldi-mosaic-frame,
+.vivaldi-writing-guide,
+.vivaldi-route__link,
+.vivaldi-goal {
+  border: 1px solid var(--vivaldi-line);
+  border-radius: 1.25rem;
+  background: var(--vivaldi-surface-strong);
+}
+
+.vivaldi-hero__aside {
+  padding: 1.1rem;
+  gap: 1rem;
+}
+
+.vivaldi-hero__stamp {
+  display: inline-flex;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 2.1rem;
+  align-items: center;
+  padding: 0.5rem 0.78rem;
+  border-radius: 999px;
+  background: var(--vivaldi-accent-soft);
+  color: var(--vivaldi-ink);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.vivaldi-hero__note,
+.vivaldi-copy p,
+.vivaldi-composer-card p,
+.vivaldi-section-head p,
+.vivaldi-movement p,
+.vivaldi-season p,
+.vivaldi-deliverable p,
+.vivaldi-writing-guide p,
+.vivaldi-example-note,
+.vivaldi-support-note,
+.vivaldi-motion-note,
+.vivaldi-table td,
+.vivaldi-table th,
+.vivaldi-question-list li,
+.vivaldi-step-list li,
+.vivaldi-textarea-label {
+  margin: 0;
+  color: var(--vivaldi-muted);
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.vivaldi-goal-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-top: 1.2rem;
+}
+
+.vivaldi-goal {
+  padding: 1rem 1rem 1.05rem;
+}
+
+.vivaldi-goal p {
+  margin: 0;
+  color: var(--vivaldi-soft);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.vivaldi-goal strong,
+.vivaldi-deliverable h3,
+.vivaldi-composer-card h3,
+.vivaldi-season h3,
+.vivaldi-movement h3,
+.vivaldi-legend-item strong {
+  margin: 0;
+  color: var(--vivaldi-ink);
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.vivaldi-route {
+  border-top: 1px solid rgba(20, 18, 17, 0.08);
+  border-bottom: 1px solid rgba(20, 18, 17, 0.08);
+  background: rgba(255, 255, 255, 0.76);
+}
+
+.vivaldi-route__track {
+  display: flex;
+  gap: 0.55rem;
+  overflow-x: auto;
+  padding: 0.85rem 0;
+  scrollbar-width: none;
+}
+
+.vivaldi-route__track::-webkit-scrollbar {
+  display: none;
+}
+
+.vivaldi-route__link {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.58rem 0.82rem;
+  color: var(--vivaldi-soft);
+  text-decoration: none;
+}
+
+.vivaldi-route__link.is-active {
+  border-color: var(--vivaldi-line-strong);
+  color: var(--vivaldi-ink);
+}
+
+.vivaldi-route__index {
+  display: inline-grid;
+  place-items: center;
+  width: 1.7rem;
+  height: 1.7rem;
+  border-radius: 999px;
+  background: rgba(20, 18, 17, 0.05);
+  letter-spacing: 0.08em;
+}
+
+.vivaldi-block {
+  padding: clamp(2.4rem, 5vw, 4.1rem) 0;
+  scroll-margin-top: 8rem;
+}
+
+.vivaldi-block--surface {
+  background: rgba(255, 255, 255, 0.44);
+  border-top: 1px solid rgba(20, 18, 17, 0.06);
+  border-bottom: 1px solid rgba(20, 18, 17, 0.06);
+}
+
+.vivaldi-section-head {
+  max-width: 48rem;
+  margin-bottom: 1.25rem;
+}
+
+.vivaldi-section-head--compact {
+  margin-top: 1.45rem;
+  margin-bottom: 1rem;
+}
+
+.vivaldi-section-head h2 {
+  font-size: clamp(2rem, 4vw, 3.4rem);
+  font-weight: 760;
+  line-height: 0.98;
+}
+
+.vivaldi-split {
+  grid-template-columns: minmax(0, 1.06fr) minmax(18rem, 0.94fr);
+  align-items: start;
+}
+
+.vivaldi-keywords,
+.vivaldi-tag-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.vivaldi-keywords span,
+.vivaldi-tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.44rem 0.68rem;
+  border-radius: 999px;
+  background: var(--vivaldi-accent-soft);
+  color: var(--vivaldi-ink);
+  font-size: 0.88rem;
+  font-weight: 650;
+}
+
+.vivaldi-composer-card {
+  padding: 1.15rem;
+}
+
+.vivaldi-bullet-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.55rem;
+  color: var(--vivaldi-ink);
+}
+
+.vivaldi-bullet-list li {
+  line-height: 1.55;
+}
+
+.vivaldi-facts {
+  margin: 0;
+  display: grid;
+  gap: 0.72rem;
+}
+
+.vivaldi-facts__row {
+  display: grid;
+  grid-template-columns: minmax(7rem, 8rem) minmax(0, 1fr);
+  gap: 0.85rem;
+  padding-top: 0.72rem;
+  border-top: 1px solid rgba(20, 18, 17, 0.08);
+}
+
+.vivaldi-facts__row:first-child {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.vivaldi-facts dt {
+  color: var(--vivaldi-soft);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.vivaldi-facts dd {
+  margin: 0;
+  color: var(--vivaldi-ink);
+  font-size: 0.98rem;
+  font-weight: 650;
+  line-height: 1.45;
+}
+
+.vivaldi-concerto-schema {
+  display: grid;
+  gap: 0.95rem;
+  padding: 1.4rem;
+  margin-bottom: 1rem;
+}
+
+.vivaldi-concerto-schema__line,
+.vivaldi-concerto-schema__labels,
+.vivaldi-motion-band {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+  flex-wrap: wrap;
+}
+
+.vivaldi-concerto-schema__line {
+  justify-content: space-between;
+}
+
+.vivaldi-concerto-schema__word {
+  color: var(--vivaldi-ink);
+  font-size: clamp(2.8rem, 7vw, 5.9rem);
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.06em;
+}
+
+.vivaldi-concerto-schema__arrow {
+  color: var(--vivaldi-accent);
+  font-size: clamp(2.1rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.vivaldi-concerto-schema__labels {
+  justify-content: space-between;
+  color: var(--vivaldi-soft);
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.vivaldi-table-wrap {
+  overflow-x: auto;
+}
+
+.vivaldi-table {
+  width: 100%;
+  min-width: 38rem;
+  border-collapse: collapse;
+}
+
+.vivaldi-table thead th {
+  padding: 0 0 0.7rem;
+  border-bottom: 1px solid rgba(20, 18, 17, 0.12);
+  color: var(--vivaldi-soft);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+.vivaldi-table tbody th,
+.vivaldi-table tbody td {
+  padding: 0.95rem 0;
+  border-bottom: 1px solid rgba(20, 18, 17, 0.08);
+  text-align: left;
+  vertical-align: top;
+}
+
+.vivaldi-table tbody th {
+  width: 30%;
+  color: var(--vivaldi-ink);
+  font-weight: 700;
+}
+
+.vivaldi-movement-grid,
+.vivaldi-season-grid,
+.vivaldi-legend-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.vivaldi-movement-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.vivaldi-movement,
+.vivaldi-season {
+  padding: 1.05rem;
+}
+
+.vivaldi-movement h3,
+.vivaldi-season h3 {
+  font-size: 1.28rem;
+  letter-spacing: -0.03em;
+}
+
+.vivaldi-motion-band {
+  justify-content: center;
+  margin-top: 1.15rem;
+  padding: 1rem 1.15rem;
+  border-top: 1px solid rgba(20, 18, 17, 0.08);
+  border-bottom: 1px solid rgba(20, 18, 17, 0.08);
+  color: var(--vivaldi-ink);
+  font-size: clamp(1.2rem, 2vw, 1.7rem);
+  font-weight: 780;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.vivaldi-motion-band__arrow {
+  color: var(--vivaldi-accent);
+}
+
+.vivaldi-motion-note,
+.vivaldi-support-note {
+  text-align: center;
+}
+
+.vivaldi-season-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.vivaldi-media-frame {
+  overflow: hidden;
+  padding: 0.9rem;
+}
+
+.vivaldi-media-frame iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  display: block;
+  border: 0;
+  border-radius: 0.95rem;
+}
+
+.vivaldi-link-button {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 0.9rem;
+  min-height: 2.5rem;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--vivaldi-line-strong);
+  border-radius: 999px;
+  color: var(--vivaldi-ink);
+  font-size: 0.86rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.vivaldi-question-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem 1rem;
+}
+
+.vivaldi-question-list li,
+.vivaldi-step-list li {
+  break-inside: avoid;
+}
+
+.vivaldi-pull-quote {
+  margin-bottom: 1.2rem;
+  padding: 1.1rem 1.2rem;
+  border-top: 2px solid var(--vivaldi-accent);
+  border-bottom: 2px solid rgba(20, 18, 17, 0.08);
+  color: var(--vivaldi-ink);
+  font-size: clamp(1.42rem, 2.7vw, 2.25rem);
+  font-weight: 700;
+  line-height: 1.22;
+  letter-spacing: -0.03em;
+}
+
+.vivaldi-step-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.95rem;
+  counter-reset: vivaldi-step;
+}
+
+.vivaldi-step-list li {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2.2rem minmax(0, 1fr);
+  gap: 0.85rem;
+}
+
+.vivaldi-step-list li::before {
+  counter-increment: vivaldi-step;
+  content: counter(vivaldi-step, decimal-leading-zero);
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: rgba(20, 18, 17, 0.05);
+  color: var(--vivaldi-ink);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.vivaldi-deliverable {
+  padding: 1.15rem;
+}
+
+.vivaldi-legend-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.vivaldi-legend-item {
+  display: grid;
+  gap: 0.7rem;
+  align-content: start;
+  padding: 0.95rem;
+}
+
+.vivaldi-legend__swatch {
+  display: inline-block;
+  width: 3.3rem;
+  height: 3.3rem;
+  border-radius: 0.95rem;
+  border: 1px solid var(--vivaldi-line);
+}
+
+.vivaldi-legend__swatch.is-warm {
+  background: #efc260;
+}
+
+.vivaldi-legend__swatch.is-cold {
+  background: #b9d8ea;
+}
+
+.vivaldi-legend__swatch.is-dark {
+  background: #69758a;
+}
+
+.vivaldi-legend__swatch.is-light {
+  background: #f4ead0;
+}
+
+.vivaldi-legend__swatch--frame {
+  background: var(--vivaldi-surface);
+  overflow: hidden;
+}
+
+.vivaldi-legend__swatch--frame svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.vivaldi-legend__swatch--frame path,
+.vivaldi-legend__swatch--frame rect {
+  fill: var(--vivaldi-ink);
+  stroke: var(--vivaldi-ink);
+  stroke-width: 3.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.vivaldi-legend__swatch--frame path {
+  fill: none;
+}
+
+.vivaldi-mosaic-frame {
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.vivaldi-mosaic {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.vivaldi-mosaic__grid line {
+  stroke: rgba(20, 18, 17, 0.08);
+  stroke-width: 1.4;
+}
+
+.vivaldi-mosaic__lines path {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 10;
+}
+
+.vivaldi-mosaic__lines path:nth-of-type(1) {
+  stroke: rgba(126, 161, 83, 0.9);
+}
+
+.vivaldi-mosaic__lines path:nth-of-type(2) {
+  stroke: rgba(98, 156, 192, 0.7);
+}
+
+.vivaldi-mosaic__lines path:nth-of-type(3) {
+  stroke: rgba(218, 143, 57, 0.75);
+}
+
+.vivaldi-example-note {
+  max-width: 56rem;
+  margin-top: 1rem;
+  font-size: 1.02rem;
+}
+
+.vivaldi-textarea-label {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: var(--vivaldi-soft);
+  font-size: 0.76rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.vivaldi-textarea {
+  width: 100%;
+  min-height: 15rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid var(--vivaldi-line);
+  border-radius: 1.2rem;
+  background: var(--vivaldi-surface-strong);
+  color: var(--vivaldi-ink);
+  font: inherit;
+  line-height: 1.7;
+  resize: vertical;
+}
+
+.vivaldi-writing-guide {
+  padding: 1.15rem;
+}
+
+.vivaldi-tag {
+  background: rgba(20, 18, 17, 0.05);
+}
+
+.vivaldi-table--rubric {
+  min-width: 0;
+}
+
+.vivaldi-table--rubric tbody td {
+  width: 22%;
+  color: var(--vivaldi-ink);
+  font-weight: 700;
+}
+
+.vivaldi-link-button:hover,
+.vivaldi-link-button:focus-visible,
+.vivaldi-route__link:hover,
+.vivaldi-route__link:focus-visible,
+.vivaldi-textarea:focus-visible {
+  outline: 2px solid rgba(20, 18, 17, 0.22);
+  outline-offset: 2px;
+}
+
 @media (max-width: 1080px) {
   .lesson-card-grid--four {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1387,6 +2083,13 @@
 
   .lesson-activity {
     grid-template-columns: 1fr;
+  }
+
+  .vivaldi-goal-grid,
+  .vivaldi-movement-grid,
+  .vivaldi-season-grid,
+  .vivaldi-legend-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -1457,5 +2160,76 @@
 
   .lesson-timer__dial {
     width: 12rem;
+  }
+
+  .vivaldi-title {
+    max-width: 12ch;
+  }
+
+  .vivaldi-hero__grid,
+  .vivaldi-split,
+  .vivaldi-goal-grid,
+  .vivaldi-movement-grid,
+  .vivaldi-season-grid,
+  .vivaldi-legend-grid,
+  .vivaldi-question-list {
+    grid-template-columns: 1fr;
+  }
+
+  .vivaldi-facts__row,
+  .vivaldi-step-list li {
+    grid-template-columns: 1fr;
+  }
+
+  .vivaldi-concerto-schema,
+  .vivaldi-hero__aside,
+  .vivaldi-movement,
+  .vivaldi-season,
+  .vivaldi-media-frame,
+  .vivaldi-deliverable,
+  .vivaldi-legend-item,
+  .vivaldi-mosaic-frame,
+  .vivaldi-writing-guide,
+  .vivaldi-route__link,
+  .vivaldi-goal,
+  .vivaldi-textarea {
+    border-radius: 1rem;
+  }
+
+  .vivaldi-concerto-schema__line,
+  .vivaldi-concerto-schema__labels,
+  .vivaldi-motion-band {
+    justify-content: flex-start;
+  }
+
+  .vivaldi-table {
+    min-width: 0;
+  }
+
+  .vivaldi-table thead {
+    display: none;
+  }
+
+  .vivaldi-table tbody,
+  .vivaldi-table tr,
+  .vivaldi-table th,
+  .vivaldi-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .vivaldi-table tbody tr {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid rgba(20, 18, 17, 0.08);
+  }
+
+  .vivaldi-table tbody th,
+  .vivaldi-table tbody td {
+    padding: 0;
+    border-bottom: 0;
+  }
+
+  .vivaldi-table tbody td {
+    margin-top: 0.32rem;
   }
 }

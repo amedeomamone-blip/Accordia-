@@ -22,6 +22,7 @@ VERSIONED_ASSET_PATHS = [
     ROOT / "components" / "RitoMagiaComunitaLesson.module.js",
     ROOT / "components" / "MaterialiSonoriPrimiStrumentiLesson.module.js",
     ROOT / "components" / "DalleOriginiAlMondoAnticoLesson.module.js",
+    ROOT / "components" / "VivaldiSuonoStagioniLesson.module.js",
 ]
 ASSET_VERSION = str(
     int(
@@ -2653,7 +2654,7 @@ EDITORIAL_NUCLEI_BLUEPRINT = [
             ("Il basso continuo", "Forme", "Fondamento armonico della musica barocca e ruolo del clavicembalo."),
             ("Concerto grosso e concerto solista", "Forme", "Dialogo tra solisti e orchestra, concertino, tutti e strumento solista."),
             ("L'oratorio e la musica sacra", "Forme", "Narrazione religiosa, coro, solisti e grandi forme vocali."),
-            ("Vivaldi e il concerto", "Autori", "Le quattro stagioni, concerto solista e musica descrittiva."),
+            ("Vivaldi. Il suono delle stagioni", "Autori", "Il violino solista dialoga con l'orchestra e trasforma le stagioni in paesaggio sonoro."),
             ("Bach e il contrappunto", "Autori", "Scrittura rigorosa, musica sacra, concerti e profondita costruttiva."),
             ("Handel e l'Europa musicale", "Autori", "Opera, oratorio, musica cerimoniale e grandi pubblici europei."),
             ("Verifica: riconoscere il Barocco", "Verifica", "Melodramma, concerto, oratorio, strumenti e autori principali."),
@@ -3105,6 +3106,38 @@ def build_editorial_nuclei() -> list[dict]:
 
 
 NUCLEI = build_editorial_nuclei()
+
+
+def customize_barocco_vivaldi_lesson() -> None:
+    barocco = next((nucleo for nucleo in NUCLEI if nucleo["slug"] == "barocco"), None)
+    if not barocco:
+        return
+
+    topic_map = barocco.get("topic_map")
+    if not topic_map:
+        return
+
+    vivaldi_topic = next((node for node in topic_map["nodes"] if node["number"] == "07"), None)
+    if not vivaldi_topic:
+        return
+
+    vivaldi_topic["slug"] = "vivaldi-e-il-concerto"
+    vivaldi_topic["subtitle"] = "Il concerto solista tra ascolto guidato e mosaico sonoro-cromatico"
+    vivaldi_topic["cta"] = "Apri la lezione"
+    vivaldi_topic["lesson"] = {
+        "panel_only": True,
+        "immersive_preview": True,
+        "immersive_mount_id": "immersive-vivaldi-lesson-root",
+        "immersive_data_key": "vivaldi-il-suono-delle-stagioni",
+        "immersive_stylesheet": "../../../../css/lesson-immersive.css",
+        "immersive_module": "../../../../components/VivaldiSuonoStagioniLesson.module.js",
+        "author": "Lezione Accordia · Il Barocco",
+        "description": "Antonio Vivaldi porta il concerto solista verso un ascolto fatto di dialogo, contrasto e interpretazione visiva.",
+    }
+    barocco["chapter_map"] = [node["title"] for node in topic_map["nodes"]]
+
+
+customize_barocco_vivaldi_lesson()
 
 
 def clone_data(value):
