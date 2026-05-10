@@ -2246,7 +2246,7 @@
     inset 0 0 0 1px rgba(255, 255, 255, 0.94);
   background: rgba(255, 255, 255, 0.96);
   justify-content: flex-start;
-  width: 13.6rem;
+  width: 16.2rem;
   padding: 0 1rem 0 1.02rem;
 }
 
@@ -2286,6 +2286,7 @@
 .vivaldi-orbit-selector__copy {
   display: flex;
   align-items: center;
+  min-width: 0;
   max-width: 0;
   margin-left: 0;
   opacity: 0;
@@ -2296,16 +2297,17 @@
     margin-left 240ms ease,
     opacity 180ms ease,
     transform 240ms ease;
-  white-space: nowrap;
+  white-space: normal;
 }
 
 .vivaldi-orbit-selector__copy strong {
   display: block;
   color: var(--vivaldi-ink);
-  font-size: 0.96rem;
+  font-size: 0.92rem;
   font-weight: 700;
-  line-height: 1.1;
+  line-height: 1.16;
   letter-spacing: -0.01em;
+  text-wrap: balance;
   transition: color 180ms ease, opacity 180ms ease;
 }
 
@@ -2317,7 +2319,7 @@
 
 .vivaldi-orbit-selector__button:hover .vivaldi-orbit-selector__copy,
 .vivaldi-orbit-selector__button:focus-visible .vivaldi-orbit-selector__copy {
-  max-width: 10rem;
+  max-width: 12.9rem;
   margin-left: 0.82rem;
   opacity: 1;
   transform: translateX(0);
