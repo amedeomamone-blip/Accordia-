@@ -58,7 +58,7 @@ const orbitDefinitions = [
   {
     id: "stile-meraviglia",
     title: "Lo stile della meraviglia",
-    selectorLabel: "Contesto artistico culturale",
+    selectorLabel: "Contesto artistico",
     subtitle: "Come il Barocco colpisce lo sguardo e l'ascolto",
     shortLabel: "Meraviglia",
     color: "#c89263",
