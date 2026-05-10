@@ -9,7 +9,7 @@ const orbitDefinitions = [
     title: "Il secolo dei contrasti",
     subtitle: "Il mondo in cui nasce il Barocco",
     shortLabel: "Contrasti",
-    color: "#b45d4b",
+    color: "#b85f50",
     ringClass: "contrasti",
     focusRotation: { x: -8, y: 18 },
     summary:
@@ -59,7 +59,7 @@ const orbitDefinitions = [
     title: "Lo stile della meraviglia",
     subtitle: "Come il Barocco colpisce lo sguardo e l'ascolto",
     shortLabel: "Meraviglia",
-    color: "#c78a58",
+    color: "#c89263",
     ringClass: "meraviglia",
     focusRotation: { x: -4, y: 146 },
     summary:
@@ -109,7 +109,7 @@ const orbitDefinitions = [
     title: "La musica barocca",
     subtitle: "Il linguaggio musicale del Barocco",
     shortLabel: "Musica",
-    color: "#75667b",
+    color: "#866a78",
     ringClass: "musica",
     focusRotation: { x: 4, y: -14 },
     summary:
@@ -303,6 +303,7 @@ function OrbitSelector({ orbit, index, isActive, onSelect }) {
       type="button"
       className={`vivaldi-orbit-selector__button${isActive ? " is-active" : ""}`}
       style={{ "--orbit-color": orbit.color }}
+      onPointerDown={(event) => event.stopPropagation()}
       onClick={() => onSelect(orbit.id)}
       aria-pressed={isActive}
       aria-controls="vivaldi-globe-detail-panel"
@@ -312,7 +313,6 @@ function OrbitSelector({ orbit, index, isActive, onSelect }) {
       </span>
       <span className="vivaldi-orbit-selector__copy">
         <strong>{orbit.title}</strong>
-        <small>{orbit.subtitle}</small>
       </span>
     </button>
   );
@@ -341,7 +341,7 @@ function GlobeHotspot({ item, isOrbitActive, isKeywordActive, onSelect }) {
       className={`vivaldi-globe-hotspot${isOrbitActive ? " is-orbit-active" : " is-orbit-muted"}${isKeywordActive ? " is-keyword-active" : ""}`}
       style={{
         "--orbit-color": item.orbitColor,
-        left: `calc(50% + ${item.x}px)`,
+        left: `calc(var(--vivaldi-globe-center-x) + ${item.x}px)`,
         top: `calc(50% + ${item.y}px)`,
         opacity: item.displayOpacity,
         transform: `translate(-50%, -50%) scale(${item.displayScale})`,
@@ -626,6 +626,21 @@ export default function VivaldiSuonoStagioniLesson() {
                   onPointerUp={handlePointerUp}
                   onPointerCancel={handlePointerCancel}
                 >
+                  <div
+                    className="vivaldi-orbit-selector"
+                    aria-label="Orbite concettuali del Barocco"
+                  >
+                    {orbitDefinitions.map((orbit, index) => (
+                      <OrbitSelector
+                        key={orbit.id}
+                        orbit={orbit}
+                        index={index}
+                        isActive={orbit.id === activeOrbitId}
+                        onSelect={selectOrbit}
+                      />
+                    ))}
+                  </div>
+
                   {orbitDefinitions.map((orbit) => (
                     <div
                       key={orbit.id}
@@ -637,7 +652,6 @@ export default function VivaldiSuonoStagioniLesson() {
 
                   <div className="vivaldi-globe" aria-hidden="true">
                     <GlobeWireframe />
-                    <div className="vivaldi-globe__core-label">BAROCCO</div>
                   </div>
 
                   {projectedKeywords.map((item) => (
@@ -647,21 +661,6 @@ export default function VivaldiSuonoStagioniLesson() {
                       isOrbitActive={item.orbitId === activeOrbitId}
                       isKeywordActive={item.id === activeKeywordId}
                       onSelect={selectKeyword}
-                    />
-                  ))}
-                </div>
-
-                <div
-                  className="vivaldi-orbit-selector"
-                  aria-label="Orbite concettuali del Barocco"
-                >
-                  {orbitDefinitions.map((orbit, index) => (
-                    <OrbitSelector
-                      key={orbit.id}
-                      orbit={orbit}
-                      index={index}
-                      isActive={orbit.id === activeOrbitId}
-                      onSelect={selectOrbit}
                     />
                   ))}
                 </div>

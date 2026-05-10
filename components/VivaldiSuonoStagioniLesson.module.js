@@ -7,7 +7,7 @@ const orbitDefinitions = [
     title: "Il secolo dei contrasti",
     subtitle: "Il mondo in cui nasce il Barocco",
     shortLabel: "Contrasti",
-    color: "#b45d4b",
+    color: "#b85f50",
     ringClass: "contrasti",
     focusRotation: { x: -8, y: 18 },
     summary: "Il Barocco nasce in un Seicento instabile, attraversato da guerre, grandi trasformazioni e forti contrasti. E un'epoca in cui convivono ricchezza e poverta, fede e scienza, splendore e crisi. Per capire il Barocco bisogna partire da questo mondo teso e complesso.",
@@ -50,7 +50,7 @@ const orbitDefinitions = [
     title: "Lo stile della meraviglia",
     subtitle: "Come il Barocco colpisce lo sguardo e l'ascolto",
     shortLabel: "Meraviglia",
-    color: "#c78a58",
+    color: "#c89263",
     ringClass: "meraviglia",
     focusRotation: { x: -4, y: 146 },
     summary: "Il Barocco vuole stupire. Cerca movimento, grandezza, sorpresa, coinvolgimento emotivo. Non punta alla semplicita: preferisce effetti forti, teatralita, ornamenti e spettacolo.",
@@ -93,7 +93,7 @@ const orbitDefinitions = [
     title: "La musica barocca",
     subtitle: "Il linguaggio musicale del Barocco",
     shortLabel: "Musica",
-    color: "#75667b",
+    color: "#866a78",
     ringClass: "musica",
     focusRotation: { x: 4, y: -14 },
     summary: "Nel Barocco la musica cambia profondamente. Diventa piu teatrale, piu espressiva, piu capace di suscitare emozioni. Si affermano nuove idee e nuove pratiche musicali che rendono questo periodo fondamentale nella storia della musica.",
@@ -250,12 +250,13 @@ function OrbitSelector({ orbit, index, isActive, onSelect }) {
       type: "button",
       className: `vivaldi-orbit-selector__button${isActive ? " is-active" : ""}`,
       style: { "--orbit-color": orbit.color },
+      onPointerDown: (event) => event.stopPropagation(),
       onClick: () => onSelect(orbit.id),
       "aria-pressed": isActive,
       "aria-controls": "vivaldi-globe-detail-panel"
     },
     /* @__PURE__ */ React.createElement("span", { className: "vivaldi-orbit-selector__index" }, String(index + 1).padStart(2, "0")),
-    /* @__PURE__ */ React.createElement("span", { className: "vivaldi-orbit-selector__copy" }, /* @__PURE__ */ React.createElement("strong", null, orbit.title), /* @__PURE__ */ React.createElement("small", null, orbit.subtitle))
+    /* @__PURE__ */ React.createElement("span", { className: "vivaldi-orbit-selector__copy" }, /* @__PURE__ */ React.createElement("strong", null, orbit.title))
   );
 }
 function KeywordChip({ keyword, isActive, onSelect }) {
@@ -281,7 +282,7 @@ function GlobeHotspot({ item, isOrbitActive, isKeywordActive, onSelect }) {
       className: `vivaldi-globe-hotspot${isOrbitActive ? " is-orbit-active" : " is-orbit-muted"}${isKeywordActive ? " is-keyword-active" : ""}`,
       style: {
         "--orbit-color": item.orbitColor,
-        left: `calc(50% + ${item.x}px)`,
+        left: `calc(var(--vivaldi-globe-center-x) + ${item.x}px)`,
         top: `calc(50% + ${item.y}px)`,
         opacity: item.displayOpacity,
         transform: `translate(-50%, -50%) scale(${item.displayScale})`,
@@ -486,6 +487,23 @@ function VivaldiSuonoStagioniLesson() {
       onPointerUp: handlePointerUp,
       onPointerCancel: handlePointerCancel
     },
+    /* @__PURE__ */ React.createElement(
+      "div",
+      {
+        className: "vivaldi-orbit-selector",
+        "aria-label": "Orbite concettuali del Barocco"
+      },
+      orbitDefinitions.map((orbit, index) => /* @__PURE__ */ React.createElement(
+        OrbitSelector,
+        {
+          key: orbit.id,
+          orbit,
+          index,
+          isActive: orbit.id === activeOrbitId,
+          onSelect: selectOrbit
+        }
+      ))
+    ),
     orbitDefinitions.map((orbit) => /* @__PURE__ */ React.createElement(
       "div",
       {
@@ -495,7 +513,7 @@ function VivaldiSuonoStagioniLesson() {
         "aria-hidden": "true"
       }
     )),
-    /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement(GlobeWireframe, null), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe__core-label" }, "BAROCCO")),
+    /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement(GlobeWireframe, null)),
     projectedKeywords.map((item) => /* @__PURE__ */ React.createElement(
       GlobeHotspot,
       {
@@ -504,22 +522,6 @@ function VivaldiSuonoStagioniLesson() {
         isOrbitActive: item.orbitId === activeOrbitId,
         isKeywordActive: item.id === activeKeywordId,
         onSelect: selectKeyword
-      }
-    ))
-  ), /* @__PURE__ */ React.createElement(
-    "div",
-    {
-      className: "vivaldi-orbit-selector",
-      "aria-label": "Orbite concettuali del Barocco"
-    },
-    orbitDefinitions.map((orbit, index) => /* @__PURE__ */ React.createElement(
-      OrbitSelector,
-      {
-        key: orbit.id,
-        orbit,
-        index,
-        isActive: orbit.id === activeOrbitId,
-        onSelect: selectOrbit
       }
     ))
   )), /* @__PURE__ */ React.createElement(
