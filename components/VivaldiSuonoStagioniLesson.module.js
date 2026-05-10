@@ -255,8 +255,10 @@ function OrbitSelector({ orbit, index, isActive, onSelect }) {
       style: { "--orbit-color": orbit.color },
       onPointerDown: (event) => event.stopPropagation(),
       onClick: () => onSelect(orbit.id),
+      "aria-label": orbit.selectorLabel ?? orbit.title,
       "aria-pressed": isActive,
-      "aria-controls": "vivaldi-globe-detail-panel"
+      "aria-controls": "vivaldi-globe-detail-panel",
+      title: orbit.selectorLabel ?? orbit.title
     },
     /* @__PURE__ */ React.createElement("span", { className: "vivaldi-orbit-selector__index" }, String(index + 1).padStart(2, "0")),
     /* @__PURE__ */ React.createElement("span", { className: "vivaldi-orbit-selector__copy" }, /* @__PURE__ */ React.createElement("strong", null, orbit.selectorLabel ?? orbit.title))
