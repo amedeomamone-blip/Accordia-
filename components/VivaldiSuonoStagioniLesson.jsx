@@ -176,7 +176,11 @@ function GlobeHotspot({ item, index, isActive, onSelect }) {
         zIndex: isActive ? 60 : Math.round(10 + item.depth * 30),
       }}
       onClick={() => onSelect(item.id)}
-      onPointerEnter={() => onSelect(item.id)}
+      onPointerEnter={(event) => {
+        if (event.buttons === 0) {
+          onSelect(item.id);
+        }
+      }}
       onFocus={() => onSelect(item.id)}
       aria-pressed={isActive}
       aria-controls="vivaldi-globe-detail-panel"
@@ -198,64 +202,149 @@ export default function VivaldiSuonoStagioniLesson() {
   );
   const [rotation, setRotation] = React.useState(baseRotation);
   const [activeId, setActiveId] = React.useState(coordinates[0].id);
-  const pointerOffsetRef = React.useRef({ x: 0, y: 0 });
-  const spinRef = React.useRef(0);
+  const [isDragging, setIsDragging] = React.useState(false);
+  const rotationRef = React.useRef(baseRotation);
+  const velocityRef = React.useRef({ x: 0, y: 0 });
+  const dragRef = React.useRef({
+    active: false,
+    moved: false,
+    pointerId: null,
+    x: 0,
+    y: 0,
+  });
+  const suppressSelectionRef = React.useRef(false);
 
-  React.useEffect(() => {
-    if (prefersReducedMotion) {
-      setRotation(baseRotation);
-      return undefined;
+  const selectCoordinate = React.useCallback((id) => {
+    if (suppressSelectionRef.current) {
+      return;
     }
 
+    setActiveId(id);
+  }, []);
+
+  React.useEffect(() => {
     let animationFrame = 0;
-    let currentX = baseRotation.x;
-    let currentY = baseRotation.y;
 
     const animate = () => {
-      spinRef.current = (spinRef.current + 0.0021) % FULL_ROTATION;
-      currentX += (baseRotation.x + pointerOffsetRef.current.x - currentX) * 0.06;
-      currentY += (baseRotation.y + pointerOffsetRef.current.y - currentY) * 0.06;
+      if (!dragRef.current.active) {
+        const drift = prefersReducedMotion ? 0 : 0.00012;
+        const nextX = clamp(
+          rotationRef.current.x + velocityRef.current.x + (baseRotation.x - rotationRef.current.x) * 0.012,
+          deg(-34),
+          deg(34),
+        );
+        const nextY = (rotationRef.current.y + velocityRef.current.y + drift) % FULL_ROTATION;
 
-      setRotation({
-        x: currentX,
-        y: currentY + spinRef.current,
-      });
+        velocityRef.current = prefersReducedMotion
+          ? { x: 0, y: 0 }
+          : {
+              x: velocityRef.current.x * 0.94,
+              y: velocityRef.current.y * 0.965,
+            };
+
+        rotationRef.current = {
+          x: nextX,
+          y: nextY,
+        };
+
+        setRotation({ ...rotationRef.current });
+      }
 
       animationFrame = window.requestAnimationFrame(animate);
     };
 
+    rotationRef.current = baseRotation;
+    setRotation(baseRotation);
     animationFrame = window.requestAnimationFrame(animate);
 
     return () => window.cancelAnimationFrame(animationFrame);
   }, [baseRotation, prefersReducedMotion]);
 
-  const handlePointerMove = (event) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width - 0.5;
-    const y = (event.clientY - rect.top) / rect.height - 0.5;
-    const pointerX = clamp(-y * 0.4, -0.28, 0.28);
-    const pointerY = clamp(x * 0.58, -0.52, 0.52);
+  const stopDragging = React.useCallback((frameNode, pointerId) => {
+    if (frameNode && typeof frameNode.releasePointerCapture === "function") {
+      if (typeof frameNode.hasPointerCapture !== "function" || frameNode.hasPointerCapture(pointerId)) {
+        frameNode.releasePointerCapture(pointerId);
+      }
+    }
 
-    if (prefersReducedMotion) {
-      setRotation({
-        x: baseRotation.x + pointerX,
-        y: baseRotation.y + pointerY,
-      });
+    if (dragRef.current.moved) {
+      suppressSelectionRef.current = true;
+      window.setTimeout(() => {
+        suppressSelectionRef.current = false;
+      }, 120);
+    }
+
+    dragRef.current.active = false;
+    dragRef.current.pointerId = null;
+    dragRef.current.moved = false;
+    setIsDragging(false);
+  }, []);
+
+  const handlePointerDown = (event) => {
+    if (event.button !== 0) {
       return;
     }
 
-    pointerOffsetRef.current = {
-      x: pointerX,
-      y: pointerY,
+    dragRef.current = {
+      active: true,
+      moved: false,
+      pointerId: event.pointerId,
+      x: event.clientX,
+      y: event.clientY,
     };
+
+    velocityRef.current = { x: 0, y: 0 };
+    suppressSelectionRef.current = false;
+    setIsDragging(true);
+    event.currentTarget.setPointerCapture(event.pointerId);
   };
 
-  const handlePointerLeave = () => {
-    pointerOffsetRef.current = { x: 0, y: 0 };
-
-    if (prefersReducedMotion) {
-      setRotation(baseRotation);
+  const handlePointerMove = (event) => {
+    if (!dragRef.current.active || dragRef.current.pointerId !== event.pointerId) {
+      return;
     }
+
+    const deltaX = event.clientX - dragRef.current.x;
+    const deltaY = event.clientY - dragRef.current.y;
+
+    dragRef.current.x = event.clientX;
+    dragRef.current.y = event.clientY;
+
+    if (Math.abs(deltaX) + Math.abs(deltaY) > 0.4) {
+      dragRef.current.moved = true;
+    }
+
+    const nextRotation = {
+      x: clamp(rotationRef.current.x + deltaY * 0.0049, deg(-36), deg(36)),
+      y: (rotationRef.current.y + deltaX * 0.0074) % FULL_ROTATION,
+    };
+
+    rotationRef.current = nextRotation;
+    setRotation({ ...nextRotation });
+
+    if (!prefersReducedMotion) {
+      velocityRef.current = {
+        x: deltaY * 0.00072,
+        y: deltaX * 0.00104,
+      };
+    }
+  };
+
+  const handlePointerUp = (event) => {
+    if (!dragRef.current.active || dragRef.current.pointerId !== event.pointerId) {
+      return;
+    }
+
+    stopDragging(event.currentTarget, event.pointerId);
+  };
+
+  const handlePointerCancel = (event) => {
+    if (!dragRef.current.active || dragRef.current.pointerId !== event.pointerId) {
+      return;
+    }
+
+    velocityRef.current = { x: 0, y: 0 };
+    stopDragging(event.currentTarget, event.pointerId);
   };
 
   const projectedCoordinates = React.useMemo(() => {
@@ -298,13 +387,15 @@ export default function VivaldiSuonoStagioniLesson() {
             <div className="vivaldi-globe-stage">
               <div className="vivaldi-globe-stage__topline">
                 <p>Coordinate del Barocco</p>
-                <span>seleziona una parola</span>
+                <span>trascina il globo o seleziona una parola</span>
               </div>
 
               <div
-                className="vivaldi-globe-stage__frame"
+                className={`vivaldi-globe-stage__frame${isDragging ? " is-dragging" : ""}`}
+                onPointerDown={handlePointerDown}
                 onPointerMove={handlePointerMove}
-                onPointerLeave={handlePointerLeave}
+                onPointerUp={handlePointerUp}
+                onPointerCancel={handlePointerCancel}
               >
                 <div className="vivaldi-globe-orbit vivaldi-globe-orbit--outer" aria-hidden="true" />
                 <div className="vivaldi-globe-orbit vivaldi-globe-orbit--inner" aria-hidden="true" />
@@ -320,7 +411,7 @@ export default function VivaldiSuonoStagioniLesson() {
                     item={item}
                     index={item.order}
                     isActive={item.id === activeItem.id}
-                    onSelect={setActiveId}
+                    onSelect={selectCoordinate}
                   />
                 ))}
               </div>

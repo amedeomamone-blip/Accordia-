@@ -147,7 +147,11 @@ function GlobeHotspot({ item, index, isActive, onSelect }) {
         zIndex: isActive ? 60 : Math.round(10 + item.depth * 30)
       },
       onClick: () => onSelect(item.id),
-      onPointerEnter: () => onSelect(item.id),
+      onPointerEnter: (event) => {
+        if (event.buttons === 0) {
+          onSelect(item.id);
+        }
+      },
       onFocus: () => onSelect(item.id),
       "aria-pressed": isActive,
       "aria-controls": "vivaldi-globe-detail-panel"
@@ -165,52 +169,120 @@ function VivaldiSuonoStagioniLesson() {
   );
   const [rotation, setRotation] = React.useState(baseRotation);
   const [activeId, setActiveId] = React.useState(coordinates[0].id);
-  const pointerOffsetRef = React.useRef({ x: 0, y: 0 });
-  const spinRef = React.useRef(0);
-  React.useEffect(() => {
-    if (prefersReducedMotion) {
-      setRotation(baseRotation);
-      return void 0;
+  const [isDragging, setIsDragging] = React.useState(false);
+  const rotationRef = React.useRef(baseRotation);
+  const velocityRef = React.useRef({ x: 0, y: 0 });
+  const dragRef = React.useRef({
+    active: false,
+    moved: false,
+    pointerId: null,
+    x: 0,
+    y: 0
+  });
+  const suppressSelectionRef = React.useRef(false);
+  const selectCoordinate = React.useCallback((id) => {
+    if (suppressSelectionRef.current) {
+      return;
     }
+    setActiveId(id);
+  }, []);
+  React.useEffect(() => {
     let animationFrame = 0;
-    let currentX = baseRotation.x;
-    let currentY = baseRotation.y;
     const animate = () => {
-      spinRef.current = (spinRef.current + 21e-4) % FULL_ROTATION;
-      currentX += (baseRotation.x + pointerOffsetRef.current.x - currentX) * 0.06;
-      currentY += (baseRotation.y + pointerOffsetRef.current.y - currentY) * 0.06;
-      setRotation({
-        x: currentX,
-        y: currentY + spinRef.current
-      });
+      if (!dragRef.current.active) {
+        const drift = prefersReducedMotion ? 0 : 12e-5;
+        const nextX = clamp(
+          rotationRef.current.x + velocityRef.current.x + (baseRotation.x - rotationRef.current.x) * 0.012,
+          deg(-34),
+          deg(34)
+        );
+        const nextY = (rotationRef.current.y + velocityRef.current.y + drift) % FULL_ROTATION;
+        velocityRef.current = prefersReducedMotion ? { x: 0, y: 0 } : {
+          x: velocityRef.current.x * 0.94,
+          y: velocityRef.current.y * 0.965
+        };
+        rotationRef.current = {
+          x: nextX,
+          y: nextY
+        };
+        setRotation({ ...rotationRef.current });
+      }
       animationFrame = window.requestAnimationFrame(animate);
     };
+    rotationRef.current = baseRotation;
+    setRotation(baseRotation);
     animationFrame = window.requestAnimationFrame(animate);
     return () => window.cancelAnimationFrame(animationFrame);
   }, [baseRotation, prefersReducedMotion]);
-  const handlePointerMove = (event) => {
-    const rect = event.currentTarget.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width - 0.5;
-    const y = (event.clientY - rect.top) / rect.height - 0.5;
-    const pointerX = clamp(-y * 0.4, -0.28, 0.28);
-    const pointerY = clamp(x * 0.58, -0.52, 0.52);
-    if (prefersReducedMotion) {
-      setRotation({
-        x: baseRotation.x + pointerX,
-        y: baseRotation.y + pointerY
-      });
+  const stopDragging = React.useCallback((frameNode, pointerId) => {
+    if (frameNode && typeof frameNode.releasePointerCapture === "function") {
+      if (typeof frameNode.hasPointerCapture !== "function" || frameNode.hasPointerCapture(pointerId)) {
+        frameNode.releasePointerCapture(pointerId);
+      }
+    }
+    if (dragRef.current.moved) {
+      suppressSelectionRef.current = true;
+      window.setTimeout(() => {
+        suppressSelectionRef.current = false;
+      }, 120);
+    }
+    dragRef.current.active = false;
+    dragRef.current.pointerId = null;
+    dragRef.current.moved = false;
+    setIsDragging(false);
+  }, []);
+  const handlePointerDown = (event) => {
+    if (event.button !== 0) {
       return;
     }
-    pointerOffsetRef.current = {
-      x: pointerX,
-      y: pointerY
+    dragRef.current = {
+      active: true,
+      moved: false,
+      pointerId: event.pointerId,
+      x: event.clientX,
+      y: event.clientY
     };
+    velocityRef.current = { x: 0, y: 0 };
+    suppressSelectionRef.current = false;
+    setIsDragging(true);
+    event.currentTarget.setPointerCapture(event.pointerId);
   };
-  const handlePointerLeave = () => {
-    pointerOffsetRef.current = { x: 0, y: 0 };
-    if (prefersReducedMotion) {
-      setRotation(baseRotation);
+  const handlePointerMove = (event) => {
+    if (!dragRef.current.active || dragRef.current.pointerId !== event.pointerId) {
+      return;
     }
+    const deltaX = event.clientX - dragRef.current.x;
+    const deltaY = event.clientY - dragRef.current.y;
+    dragRef.current.x = event.clientX;
+    dragRef.current.y = event.clientY;
+    if (Math.abs(deltaX) + Math.abs(deltaY) > 0.4) {
+      dragRef.current.moved = true;
+    }
+    const nextRotation = {
+      x: clamp(rotationRef.current.x + deltaY * 49e-4, deg(-36), deg(36)),
+      y: (rotationRef.current.y + deltaX * 74e-4) % FULL_ROTATION
+    };
+    rotationRef.current = nextRotation;
+    setRotation({ ...nextRotation });
+    if (!prefersReducedMotion) {
+      velocityRef.current = {
+        x: deltaY * 72e-5,
+        y: deltaX * 104e-5
+      };
+    }
+  };
+  const handlePointerUp = (event) => {
+    if (!dragRef.current.active || dragRef.current.pointerId !== event.pointerId) {
+      return;
+    }
+    stopDragging(event.currentTarget, event.pointerId);
+  };
+  const handlePointerCancel = (event) => {
+    if (!dragRef.current.active || dragRef.current.pointerId !== event.pointerId) {
+      return;
+    }
+    velocityRef.current = { x: 0, y: 0 };
+    stopDragging(event.currentTarget, event.pointerId);
   };
   const projectedCoordinates = React.useMemo(() => {
     return coordinates.map((item, index) => ({
@@ -225,12 +297,14 @@ function VivaldiSuonoStagioniLesson() {
   }, [rotation.x, rotation.y]);
   const activeItem = projectedCoordinates.find((item) => item.id === activeId) ?? projectedCoordinates[0];
   const activeIndex = String(activeItem.order + 1).padStart(2, "0");
-  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page vivaldi-lesson", "data-lesson-model": "editoriale" }, /* @__PURE__ */ React.createElement("section", { className: "vivaldi-context-block", id: "contesto" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-shell vivaldi-context-block__shell" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-context-head" }, /* @__PURE__ */ React.createElement("p", { className: "vivaldi-context-head__eyebrow" }, "Il Barocco \xB7 Contesto storico-culturale"), /* @__PURE__ */ React.createElement("h1", null, "Il Barocco in coordinate"), /* @__PURE__ */ React.createElement("p", { className: "vivaldi-context-head__intro" }, "Il Barocco e un'epoca di movimento, contrasto e meraviglia. La musica non resta ferma: cerca l'effetto, il gesto, la tensione, la sorpresa. Prima di ascoltare Vivaldi, entriamo nelle coordinate che ci aiutano a capire il suo mondo sonoro.")), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-context-stage" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-stage" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-stage__topline" }, /* @__PURE__ */ React.createElement("p", null, "Coordinate del Barocco"), /* @__PURE__ */ React.createElement("span", null, "seleziona una parola")), /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page vivaldi-lesson", "data-lesson-model": "editoriale" }, /* @__PURE__ */ React.createElement("section", { className: "vivaldi-context-block", id: "contesto" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-shell vivaldi-context-block__shell" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-context-head" }, /* @__PURE__ */ React.createElement("p", { className: "vivaldi-context-head__eyebrow" }, "Il Barocco \xB7 Contesto storico-culturale"), /* @__PURE__ */ React.createElement("h1", null, "Il Barocco in coordinate"), /* @__PURE__ */ React.createElement("p", { className: "vivaldi-context-head__intro" }, "Il Barocco e un'epoca di movimento, contrasto e meraviglia. La musica non resta ferma: cerca l'effetto, il gesto, la tensione, la sorpresa. Prima di ascoltare Vivaldi, entriamo nelle coordinate che ci aiutano a capire il suo mondo sonoro.")), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-context-stage" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-stage" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-stage__topline" }, /* @__PURE__ */ React.createElement("p", null, "Coordinate del Barocco"), /* @__PURE__ */ React.createElement("span", null, "trascina il globo o seleziona una parola")), /* @__PURE__ */ React.createElement(
     "div",
     {
-      className: "vivaldi-globe-stage__frame",
+      className: `vivaldi-globe-stage__frame${isDragging ? " is-dragging" : ""}`,
+      onPointerDown: handlePointerDown,
       onPointerMove: handlePointerMove,
-      onPointerLeave: handlePointerLeave
+      onPointerUp: handlePointerUp,
+      onPointerCancel: handlePointerCancel
     },
     /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-orbit vivaldi-globe-orbit--outer", "aria-hidden": "true" }),
     /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-orbit vivaldi-globe-orbit--inner", "aria-hidden": "true" }),
@@ -242,7 +316,7 @@ function VivaldiSuonoStagioniLesson() {
         item,
         index: item.order,
         isActive: item.id === activeItem.id,
-        onSelect: setActiveId
+        onSelect: selectCoordinate
       }
     ))
   ), /* @__PURE__ */ React.createElement(
