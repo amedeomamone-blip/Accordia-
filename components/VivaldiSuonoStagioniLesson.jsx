@@ -276,11 +276,12 @@ function usePrefersReducedMotion() {
   return prefersReducedMotion;
 }
 
-function GlobeWireframe() {
+function GlobeWireframe({ style }) {
   return (
     <svg
       className="vivaldi-globe__wireframe"
       viewBox="0 0 520 520"
+      style={style}
       focusable="false"
       aria-hidden="true"
     >
@@ -590,6 +591,14 @@ export default function VivaldiSuonoStagioniLesson() {
       .sort((first, second) => first.depth - second.depth);
   }, [activeKeywordId, activeOrbitId, rotation.x, rotation.y]);
 
+  const wireframeStyle = React.useMemo(() => {
+    const tiltScale = 1 - Math.min(Math.abs(rotation.x) / deg(36), 1) * 0.12;
+
+    return {
+      transform: `rotate(${rotation.y * 0.92}rad) scaleY(${tiltScale}) translateY(${rotation.x * 14}px)`,
+    };
+  }, [rotation.x, rotation.y]);
+
   const activeKeyword =
     (activeKeywordId && keywordById.get(activeKeywordId)) || null;
   const activeOrbitKeywords = keywords.filter(
@@ -656,7 +665,7 @@ export default function VivaldiSuonoStagioniLesson() {
                   ))}
 
                   <div className="vivaldi-globe" aria-hidden="true">
-                    <GlobeWireframe />
+                    <GlobeWireframe style={wireframeStyle} />
                   </div>
 
                   {projectedKeywords.map((item) => (

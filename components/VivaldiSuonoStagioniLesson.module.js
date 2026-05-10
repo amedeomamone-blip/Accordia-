@@ -227,12 +227,13 @@ function usePrefersReducedMotion() {
   }, []);
   return prefersReducedMotion;
 }
-function GlobeWireframe() {
+function GlobeWireframe({ style }) {
   return /* @__PURE__ */ React.createElement(
     "svg",
     {
       className: "vivaldi-globe__wireframe",
       viewBox: "0 0 520 520",
+      style,
       focusable: "false",
       "aria-hidden": "true"
     },
@@ -475,6 +476,12 @@ function VivaldiSuonoStagioniLesson() {
       };
     }).sort((first, second) => first.depth - second.depth);
   }, [activeKeywordId, activeOrbitId, rotation.x, rotation.y]);
+  const wireframeStyle = React.useMemo(() => {
+    const tiltScale = 1 - Math.min(Math.abs(rotation.x) / deg(36), 1) * 0.12;
+    return {
+      transform: `rotate(${rotation.y * 0.92}rad) scaleY(${tiltScale}) translateY(${rotation.x * 14}px)`
+    };
+  }, [rotation.x, rotation.y]);
   const activeKeyword = activeKeywordId && keywordById.get(activeKeywordId) || null;
   const activeOrbitKeywords = keywords.filter(
     (keyword) => keyword.orbitId === activeOrbitId
@@ -518,7 +525,7 @@ function VivaldiSuonoStagioniLesson() {
         "aria-hidden": "true"
       }
     )),
-    /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement(GlobeWireframe, null)),
+    /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement(GlobeWireframe, { style: wireframeStyle })),
     projectedKeywords.map((item) => /* @__PURE__ */ React.createElement(
       GlobeHotspot,
       {
