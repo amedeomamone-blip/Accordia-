@@ -2,6 +2,8 @@ import React from "https://esm.sh/react@18";
 
 const GLOBE_RADIUS = 226;
 const FULL_ROTATION = Math.PI * 2;
+const GLOBE_VIEWBOX_CENTER = 260;
+const CURVE_SAMPLE_STEPS = 80;
 
 const orbitDefinitions = [
   {
@@ -244,6 +246,94 @@ function projectPoint(point, rotationY, rotationX) {
   };
 }
 
+function projectCurvePoints(points, rotationY, rotationX) {
+  const projected = points.map((point) =>
+    projectPoint(point, rotationY, rotationX),
+  );
+  const frontSegments = [];
+  const backSegments = [];
+
+  let currentVisibility = projected[0].z >= 0 ? "front" : "back";
+  let currentSegment = [projected[0]];
+
+  for (let index = 1; index < projected.length; index += 1) {
+    const previousPoint = projected[index - 1];
+    const nextPoint = projected[index];
+    const nextVisibility = nextPoint.z >= 0 ? "front" : "back";
+
+    if (nextVisibility === currentVisibility) {
+      currentSegment.push(nextPoint);
+      continue;
+    }
+
+    const divisor = previousPoint.z - nextPoint.z || 1;
+    const interpolation = previousPoint.z / divisor;
+    const crossingPoint = {
+      x: previousPoint.x + (nextPoint.x - previousPoint.x) * interpolation,
+      y: previousPoint.y + (nextPoint.y - previousPoint.y) * interpolation,
+      z: 0,
+    };
+
+    currentSegment.push(crossingPoint);
+
+    if (currentSegment.length > 1) {
+      (currentVisibility === "front" ? frontSegments : backSegments).push(
+        currentSegment,
+      );
+    }
+
+    currentVisibility = nextVisibility;
+    currentSegment = [crossingPoint, nextPoint];
+  }
+
+  if (currentSegment.length > 1) {
+    (currentVisibility === "front" ? frontSegments : backSegments).push(
+      currentSegment,
+    );
+  }
+
+  return {
+    back: backSegments.map(pointsToSvgPath),
+    front: frontSegments.map(pointsToSvgPath),
+  };
+}
+
+function pointsToSvgPath(points) {
+  return points
+    .map((point, index) => {
+      const x = GLOBE_VIEWBOX_CENTER + point.x;
+      const y = GLOBE_VIEWBOX_CENTER + point.y;
+
+      return `${index === 0 ? "M" : "L"} ${x.toFixed(2)} ${y.toFixed(2)}`;
+    })
+    .join(" ");
+}
+
+function sampleLatitudeCurve(latitude, steps = CURVE_SAMPLE_STEPS) {
+  return Array.from({ length: steps + 1 }, (_, index) =>
+    toCartesian(latitude, (index / steps) * 360, GLOBE_RADIUS),
+  );
+}
+
+function sampleMeridianCurve(longitude, steps = CURVE_SAMPLE_STEPS) {
+  return Array.from({ length: steps + 1 }, (_, index) =>
+    toCartesian(-90 + (index / steps) * 180, longitude, GLOBE_RADIUS),
+  );
+}
+
+const globeCurveDefinitions = [
+  { id: "lat-south", type: "latitude", value: -48 },
+  { id: "lat-mid-south", type: "latitude", value: -24 },
+  { id: "equator", type: "latitude", value: 0, axis: true },
+  { id: "lat-mid-north", type: "latitude", value: 24 },
+  { id: "lat-north", type: "latitude", value: 48 },
+  { id: "lon-west", type: "meridian", value: -72 },
+  { id: "lon-west-mid", type: "meridian", value: -34 },
+  { id: "prime-meridian", type: "meridian", value: 0, axis: true },
+  { id: "lon-east-mid", type: "meridian", value: 34 },
+  { id: "lon-east", type: "meridian", value: 72 },
+];
+
 function getOrbitRotation(orbit) {
   return {
     x: deg(orbit.focusRotation.x),
@@ -276,27 +366,47 @@ function usePrefersReducedMotion() {
   return prefersReducedMotion;
 }
 
-function GlobeWireframe({ style }) {
+function GlobeWireframe({ rotation }) {
+  const curves = React.useMemo(() => {
+    return globeCurveDefinitions.map((curve) => {
+      const samples =
+        curve.type === "latitude"
+          ? sampleLatitudeCurve(curve.value)
+          : sampleMeridianCurve(curve.value);
+
+      return {
+        ...curve,
+        ...projectCurvePoints(samples, rotation.y, rotation.x),
+      };
+    });
+  }, [rotation.x, rotation.y]);
+
   return (
     <svg
       className="vivaldi-globe__wireframe"
       viewBox="0 0 520 520"
-      style={style}
       focusable="false"
       aria-hidden="true"
     >
-      <circle cx="260" cy="260" r="206" />
-      <ellipse cx="260" cy="260" rx="206" ry="78" />
-      <ellipse cx="260" cy="260" rx="206" ry="140" />
-      <ellipse cx="260" cy="260" rx="206" ry="34" />
-      <ellipse cx="260" cy="260" rx="78" ry="206" />
-      <ellipse cx="260" cy="260" rx="138" ry="206" />
-      <g transform="rotate(38 260 260)">
-        <ellipse cx="260" cy="260" rx="108" ry="206" />
-      </g>
-      <g transform="rotate(-38 260 260)">
-        <ellipse cx="260" cy="260" rx="108" ry="206" />
-      </g>
+      <circle className="vivaldi-globe__rim" cx="260" cy="260" r="206" />
+      {curves.map((curve) =>
+        curve.back.map((path, index) => (
+          <path
+            key={`${curve.id}-back-${index}`}
+            className={`vivaldi-globe__curve${curve.axis ? " is-axis" : ""} is-back`}
+            d={path}
+          />
+        )),
+      )}
+      {curves.map((curve) =>
+        curve.front.map((path, index) => (
+          <path
+            key={`${curve.id}-front-${index}`}
+            className={`vivaldi-globe__curve${curve.axis ? " is-axis" : ""} is-front`}
+            d={path}
+          />
+        )),
+      )}
     </svg>
   );
 }
@@ -591,14 +701,6 @@ export default function VivaldiSuonoStagioniLesson() {
       .sort((first, second) => first.depth - second.depth);
   }, [activeKeywordId, activeOrbitId, rotation.x, rotation.y]);
 
-  const wireframeStyle = React.useMemo(() => {
-    const tiltScale = 1 - Math.min(Math.abs(rotation.x) / deg(36), 1) * 0.12;
-
-    return {
-      transform: `rotate(${rotation.y * 0.92}rad) scaleY(${tiltScale}) translateY(${rotation.x * 14}px)`,
-    };
-  }, [rotation.x, rotation.y]);
-
   const activeKeyword =
     (activeKeywordId && keywordById.get(activeKeywordId)) || null;
   const activeOrbitKeywords = keywords.filter(
@@ -665,7 +767,7 @@ export default function VivaldiSuonoStagioniLesson() {
                   ))}
 
                   <div className="vivaldi-globe" aria-hidden="true">
-                    <GlobeWireframe style={wireframeStyle} />
+                    <GlobeWireframe rotation={rotation} />
                   </div>
 
                   {projectedKeywords.map((item) => (
