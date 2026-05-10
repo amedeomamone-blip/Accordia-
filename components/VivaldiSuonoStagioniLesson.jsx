@@ -7,6 +7,7 @@ const orbitDefinitions = [
   {
     id: "secolo-contrasti",
     title: "Il secolo dei contrasti",
+    selectorLabel: "Contesto storico sociale",
     subtitle: "Il mondo in cui nasce il Barocco",
     shortLabel: "Contrasti",
     color: "#b85f50",
@@ -57,6 +58,7 @@ const orbitDefinitions = [
   {
     id: "stile-meraviglia",
     title: "Lo stile della meraviglia",
+    selectorLabel: "Contesto artistico culturale",
     subtitle: "Come il Barocco colpisce lo sguardo e l'ascolto",
     shortLabel: "Meraviglia",
     color: "#c89263",
@@ -107,6 +109,7 @@ const orbitDefinitions = [
   {
     id: "musica-barocca",
     title: "La musica barocca",
+    selectorLabel: "Contesto musicale",
     subtitle: "Il linguaggio musicale del Barocco",
     shortLabel: "Musica",
     color: "#866a78",
@@ -312,7 +315,7 @@ function OrbitSelector({ orbit, index, isActive, onSelect }) {
         {String(index + 1).padStart(2, "0")}
       </span>
       <span className="vivaldi-orbit-selector__copy">
-        <strong>{orbit.title}</strong>
+        <strong>{orbit.selectorLabel ?? orbit.title}</strong>
       </span>
     </button>
   );

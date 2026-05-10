@@ -5,6 +5,7 @@ const orbitDefinitions = [
   {
     id: "secolo-contrasti",
     title: "Il secolo dei contrasti",
+    selectorLabel: "Contesto storico sociale",
     subtitle: "Il mondo in cui nasce il Barocco",
     shortLabel: "Contrasti",
     color: "#b85f50",
@@ -48,6 +49,7 @@ const orbitDefinitions = [
   {
     id: "stile-meraviglia",
     title: "Lo stile della meraviglia",
+    selectorLabel: "Contesto artistico culturale",
     subtitle: "Come il Barocco colpisce lo sguardo e l'ascolto",
     shortLabel: "Meraviglia",
     color: "#c89263",
@@ -91,6 +93,7 @@ const orbitDefinitions = [
   {
     id: "musica-barocca",
     title: "La musica barocca",
+    selectorLabel: "Contesto musicale",
     subtitle: "Il linguaggio musicale del Barocco",
     shortLabel: "Musica",
     color: "#866a78",
@@ -256,7 +259,7 @@ function OrbitSelector({ orbit, index, isActive, onSelect }) {
       "aria-controls": "vivaldi-globe-detail-panel"
     },
     /* @__PURE__ */ React.createElement("span", { className: "vivaldi-orbit-selector__index" }, String(index + 1).padStart(2, "0")),
-    /* @__PURE__ */ React.createElement("span", { className: "vivaldi-orbit-selector__copy" }, /* @__PURE__ */ React.createElement("strong", null, orbit.title))
+    /* @__PURE__ */ React.createElement("span", { className: "vivaldi-orbit-selector__copy" }, /* @__PURE__ */ React.createElement("strong", null, orbit.selectorLabel ?? orbit.title))
   );
 }
 function KeywordChip({ keyword, isActive, onSelect }) {
