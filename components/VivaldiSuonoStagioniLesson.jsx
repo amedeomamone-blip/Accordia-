@@ -3,71 +3,180 @@ import React from "https://esm.sh/react@18";
 const GLOBE_RADIUS = 226;
 const FULL_ROTATION = Math.PI * 2;
 
-const coordinates = [
+const orbitDefinitions = [
   {
-    id: "meraviglia",
-    title: "Meraviglia",
-    hint: "apri",
-    latitude: 30,
-    longitude: -42,
-    copy:
-      "Il Barocco vuole stupire, commuovere e creare effetti forti. Grandiosita, ornamenti, contrasti e cambi di intensita trasformano la musica in qualcosa di spettacolare.",
+    id: "secolo-contrasti",
+    title: "Il secolo dei contrasti",
+    subtitle: "Il mondo in cui nasce il Barocco",
+    shortLabel: "Contrasti",
+    color: "#b45d4b",
+    ringClass: "contrasti",
+    focusRotation: { x: -8, y: 18 },
+    summary:
+      "Il Barocco nasce in un Seicento instabile, attraversato da guerre, grandi trasformazioni e forti contrasti. E un'epoca in cui convivono ricchezza e poverta, fede e scienza, splendore e crisi. Per capire il Barocco bisogna partire da questo mondo teso e complesso.",
+    mustKnow: [
+      "Il Seicento e un secolo di contrasti.",
+      "Le guerre e le tensioni religiose segnano profondamente l'Europa.",
+      "Con Galileo cambia il modo di osservare il mondo.",
+      "Potere politico e religioso influenzano la vita culturale.",
+      "Il Barocco nasce dentro un clima instabile ma molto creativo.",
+    ],
+    keywords: [
+      {
+        id: "contrasti",
+        title: "Contrasti",
+        latitude: 28,
+        longitude: -56,
+        copy:
+          "Il Seicento mette insieme elementi opposti: guerra e splendore, fede e ricerca, ricchezza delle corti e miseria del popolo. Il Barocco nasce dentro questa tensione e la trasforma in un linguaggio fatto di intensita, movimento e opposizioni forti.",
+        keyIdea:
+          "Il Barocco trasforma il contrasto in una forza espressiva.",
+      },
+      {
+        id: "potere",
+        title: "Potere",
+        latitude: 4,
+        longitude: -18,
+        copy:
+          "Il Barocco vive nelle corti, nelle chiese, nelle cerimonie e negli spazi della rappresentazione pubblica. Arte e musica non servono solo a intrattenere: mostrano grandezza, prestigio e autorita.",
+        keyIdea:
+          "Lo splendore barocco e anche un linguaggio politico e simbolico.",
+      },
+      {
+        id: "scienza",
+        title: "Scienza",
+        latitude: -22,
+        longitude: 18,
+        copy:
+          "Con Galileo e con la nuova ricerca scientifica si afferma un diverso modo di conoscere il mondo: osservare, misurare, verificare. Il Barocco vive quindi tra meraviglia e conoscenza, immaginazione e scoperta.",
+        keyIdea:
+          "Nel Seicento stupore e conoscenza crescono insieme.",
+      },
+    ],
   },
   {
-    id: "teatralita",
-    title: "Teatralita",
-    hint: "apri",
-    latitude: -24,
-    longitude: 24,
-    copy:
-      "Nel Barocco si afferma il melodramma: musica, recitazione e scena si fondono. Anche fuori dal teatro, la musica cerca entrate, risposte, tensioni, colpi di scena e gesti sonori evidenti.",
+    id: "stile-meraviglia",
+    title: "Lo stile della meraviglia",
+    subtitle: "Come il Barocco colpisce lo sguardo e l'ascolto",
+    shortLabel: "Meraviglia",
+    color: "#c78a58",
+    ringClass: "meraviglia",
+    focusRotation: { x: -4, y: 146 },
+    summary:
+      "Il Barocco vuole stupire. Cerca movimento, grandezza, sorpresa, coinvolgimento emotivo. Non punta alla semplicita: preferisce effetti forti, teatralita, ornamenti e spettacolo.",
+    mustKnow: [
+      "Il Barocco vuole meravigliare.",
+      "L'effetto visivo ed emotivo e centrale.",
+      "L'arte barocca e spettacolare.",
+      "Gli ornamenti hanno un ruolo importante.",
+      "Lo stupore e parte dell'esperienza artistica.",
+    ],
+    keywords: [
+      {
+        id: "meraviglia",
+        title: "Meraviglia",
+        latitude: 30,
+        longitude: 176,
+        copy:
+          "L'arte barocca vuole sorprendere chi guarda e chi ascolta. La meraviglia non e un dettaglio: e il cuore dell'esperienza barocca. L'opera deve colpire, attirare, lasciare un'impressione forte.",
+        keyIdea:
+          "Nel Barocco l'effetto di stupore e una scelta precisa, non un abbellimento.",
+      },
+      {
+        id: "spettacolo",
+        title: "Spettacolo",
+        latitude: 6,
+        longitude: 206,
+        copy:
+          "Nel Barocco tutto tende a diventare scena: feste, cerimonie, chiese, regge, teatri. Anche la musica partecipa a questa logica spettacolare e coinvolgente, fatta di gesti, spazi, immagini e rituali pubblici.",
+        keyIdea:
+          "Il Barocco mette arte e musica dentro una grande scena condivisa.",
+      },
+      {
+        id: "ornamento",
+        title: "Ornamento",
+        latitude: -22,
+        longitude: 236,
+        copy:
+          "L'ornamento e una caratteristica essenziale del gusto barocco. Nell'arte significa ricchezza visiva; nella musica significa abbellimenti, fioriture e passaggi brillanti che rendono il discorso piu espressivo.",
+        keyIdea:
+          "L'ornamento non copre il contenuto: lo rende piu intenso e riconoscibile.",
+      },
+    ],
   },
   {
-    id: "contrasto",
-    title: "Contrasto",
-    hint: "apri",
-    latitude: 18,
-    longitude: 94,
-    copy:
-      "Il contrasto e una regola espressiva del Barocco. Piano e forte, timbri diversi, cambi improvvisi e scarti di intensita rendono l'ascolto piu vivo e drammatico.",
-  },
-  {
-    id: "emozione",
-    title: "Emozione",
-    hint: "apri",
-    latitude: -38,
-    longitude: 152,
-    copy:
-      "La musica barocca vuole parlare al cuore. Timbri, tonalita e melodie dal carattere marcato cercano di suscitare sentimenti precisi in chi ascolta.",
-  },
-  {
-    id: "strumenti",
-    title: "Strumenti",
-    hint: "apri",
-    latitude: 10,
-    longitude: 210,
-    copy:
-      "Nel Barocco cresce il ruolo della musica strumentale. Gli archi acquistano grande importanza e strumenti come violino, clavicembalo e violoncello diventano centrali per colore ed espressivita.",
-  },
-  {
-    id: "nuove-forme",
-    title: "Nuove forme",
-    hint: "apri",
-    latitude: 40,
-    longitude: 274,
-    copy:
-      "Nel Barocco si definiscono forme fondamentali come concerto grosso e concerto solista. Il concerto nasce in Italia, si diffonde in Europa e alterna movimenti lenti e veloci.",
-  },
-  {
-    id: "basso-continuo",
-    title: "Basso continuo",
-    hint: "apri",
-    latitude: -14,
-    longitude: 332,
-    copy:
-      "Il basso continuo sostiene il discorso musicale con una linea grave e accordi di accompagnamento. Clavicembalo e strumenti gravi creano una base stabile per il canto e per la melodia.",
+    id: "musica-barocca",
+    title: "La musica barocca",
+    subtitle: "Il linguaggio musicale del Barocco",
+    shortLabel: "Musica",
+    color: "#75667b",
+    ringClass: "musica",
+    focusRotation: { x: 4, y: -14 },
+    summary:
+      "Nel Barocco la musica cambia profondamente. Diventa piu teatrale, piu espressiva, piu capace di suscitare emozioni. Si affermano nuove idee e nuove pratiche musicali che rendono questo periodo fondamentale nella storia della musica.",
+    mustKnow: [
+      "Nel Barocco la musica diventa piu teatrale.",
+      "Il basso continuo sostiene la struttura sonora.",
+      "La musica cerca emozioni riconoscibili.",
+      "Nascono forme e linguaggi nuovi.",
+      "Il Barocco musicale mette al centro espressivita e coinvolgimento.",
+    ],
+    keywords: [
+      {
+        id: "teatro",
+        title: "Teatro",
+        latitude: 28,
+        longitude: 286,
+        copy:
+          "Nel Barocco la musica si lega fortemente alla scena. Nasce il melodramma e la musica assume una logica teatrale fatta di entrate, risposte, tensioni e colpi di scena.",
+        keyIdea:
+          "La musica barocca non accompagna soltanto: mette in scena.",
+      },
+      {
+        id: "basso-continuo",
+        title: "Basso continuo",
+        latitude: 4,
+        longitude: 318,
+        copy:
+          "Il basso continuo e una base fondamentale della musica barocca. Una linea grave e gli accordi di accompagnamento sostengono il canto e la melodia, dando solidita alla struttura sonora.",
+        keyIdea:
+          "Il basso continuo regge il discorso musicale dall'interno.",
+      },
+      {
+        id: "affetti",
+        title: "Affetti",
+        latitude: -22,
+        longitude: 350,
+        copy:
+          "La musica barocca vuole suscitare emozioni precise. Gioia, dolore, tensione, solennita e agitazione vengono costruite attraverso melodia, ritmo, intensita e timbro.",
+        keyIdea:
+          "La musica barocca cerca emozioni riconoscibili e le organizza con chiarezza.",
+      },
+    ],
   },
 ];
+
+const keywords = orbitDefinitions
+  .flatMap((orbit, orbitIndex) =>
+    orbit.keywords.map((keyword, keywordIndex) => ({
+      ...keyword,
+      orbitId: orbit.id,
+      orbitIndex,
+      keywordIndex,
+      orbitTitle: orbit.title,
+      orbitSubtitle: orbit.subtitle,
+      orbitShortLabel: orbit.shortLabel,
+      orbitColor: orbit.color,
+      ringClass: orbit.ringClass,
+    })),
+  )
+  .map((keyword, globalOrder) => ({
+    ...keyword,
+    globalOrder,
+  }));
+
+const orbitById = new Map(orbitDefinitions.map((orbit) => [orbit.id, orbit]));
+const keywordById = new Map(keywords.map((keyword) => [keyword.id, keyword]));
 
 function deg(value) {
   return (value * Math.PI) / 180;
@@ -75,6 +184,24 @@ function deg(value) {
 
 function clamp(value, min, max) {
   return Math.min(max, Math.max(min, value));
+}
+
+function normalizeAngle(value) {
+  let nextValue = value % FULL_ROTATION;
+
+  if (nextValue > Math.PI) {
+    nextValue -= FULL_ROTATION;
+  }
+
+  if (nextValue < -Math.PI) {
+    nextValue += FULL_ROTATION;
+  }
+
+  return nextValue;
+}
+
+function shortestAngleDifference(from, to) {
+  return normalizeAngle(to - from);
 }
 
 function toCartesian(latitude, longitude, radius) {
@@ -111,6 +238,13 @@ function projectPoint(point, rotationY, rotationX) {
     depth,
     scale,
     opacity,
+  };
+}
+
+function getOrbitRotation(orbit) {
+  return {
+    x: deg(orbit.focusRotation.x),
+    y: normalizeAngle(deg(orbit.focusRotation.y)),
   };
 }
 
@@ -163,47 +297,87 @@ function GlobeWireframe() {
   );
 }
 
-function GlobeHotspot({ item, index, isActive, onSelect }) {
+function OrbitSelector({ orbit, index, isActive, onSelect }) {
   return (
     <button
       type="button"
-      className={`vivaldi-globe-hotspot${isActive ? " is-active" : ""}`}
-      style={{
-        left: `calc(50% + ${item.x}px)`,
-        top: `calc(50% + ${item.y}px)`,
-        opacity: item.opacity,
-        transform: `translate(-50%, -50%) scale(${item.scale})`,
-        zIndex: isActive ? 60 : Math.round(10 + item.depth * 30),
-      }}
-      onClick={() => onSelect(item.id)}
-      onPointerEnter={(event) => {
-        if (event.buttons === 0) {
-          onSelect(item.id);
-        }
-      }}
-      onFocus={() => onSelect(item.id)}
+      className={`vivaldi-orbit-selector__button${isActive ? " is-active" : ""}`}
+      style={{ "--orbit-color": orbit.color }}
+      onClick={() => onSelect(orbit.id)}
       aria-pressed={isActive}
       aria-controls="vivaldi-globe-detail-panel"
     >
-      <span className="vivaldi-globe-hotspot__index">
+      <span className="vivaldi-orbit-selector__index">
         {String(index + 1).padStart(2, "0")}
       </span>
+      <span className="vivaldi-orbit-selector__copy">
+        <strong>{orbit.title}</strong>
+        <small>{orbit.subtitle}</small>
+      </span>
+    </button>
+  );
+}
+
+function KeywordChip({ keyword, isActive, onSelect }) {
+  return (
+    <button
+      type="button"
+      className={`vivaldi-globe-keyword${isActive ? " is-active" : ""}`}
+      style={{ "--orbit-color": keyword.orbitColor }}
+      onClick={() => onSelect(keyword.id)}
+      aria-pressed={isActive}
+      aria-controls="vivaldi-globe-detail-panel"
+    >
+      <span>{String(keyword.globalOrder + 1).padStart(2, "0")}</span>
+      <strong>{keyword.title}</strong>
+    </button>
+  );
+}
+
+function GlobeHotspot({ item, isOrbitActive, isKeywordActive, onSelect }) {
+  return (
+    <button
+      type="button"
+      className={`vivaldi-globe-hotspot${isOrbitActive ? " is-orbit-active" : " is-orbit-muted"}${isKeywordActive ? " is-keyword-active" : ""}`}
+      style={{
+        "--orbit-color": item.orbitColor,
+        left: `calc(50% + ${item.x}px)`,
+        top: `calc(50% + ${item.y}px)`,
+        opacity: item.displayOpacity,
+        transform: `translate(-50%, -50%) scale(${item.displayScale})`,
+        zIndex: isKeywordActive
+          ? 80
+          : isOrbitActive
+            ? Math.round(24 + item.depth * 34)
+            : Math.round(10 + item.depth * 16),
+      }}
+      onClick={() => onSelect(item.id)}
+      onFocus={() => onSelect(item.id)}
+      aria-pressed={isKeywordActive}
+      aria-controls="vivaldi-globe-detail-panel"
+      aria-label={`${item.orbitTitle}: ${item.title}`}
+    >
+      <span className="vivaldi-globe-hotspot__index">
+        {String(item.globalOrder + 1).padStart(2, "0")}
+      </span>
       <strong>{item.title}</strong>
-      <span className="vivaldi-globe-hotspot__hint">{item.hint}</span>
+      <span className="vivaldi-globe-hotspot__hint">{item.orbitShortLabel}</span>
     </button>
   );
 }
 
 export default function VivaldiSuonoStagioniLesson() {
   const prefersReducedMotion = usePrefersReducedMotion();
-  const baseRotation = React.useMemo(
-    () => ({ x: deg(-14), y: deg(18) }),
+  const initialOrbit = orbitDefinitions[0];
+  const initialRotation = React.useMemo(
+    () => getOrbitRotation(initialOrbit),
     [],
   );
-  const [rotation, setRotation] = React.useState(baseRotation);
-  const [activeId, setActiveId] = React.useState(coordinates[0].id);
+  const [rotation, setRotation] = React.useState(initialRotation);
+  const [activeOrbitId, setActiveOrbitId] = React.useState(initialOrbit.id);
+  const [activeKeywordId, setActiveKeywordId] = React.useState(null);
   const [isDragging, setIsDragging] = React.useState(false);
-  const rotationRef = React.useRef(baseRotation);
+  const rotationRef = React.useRef(initialRotation);
   const velocityRef = React.useRef({ x: 0, y: 0 });
   const dragRef = React.useRef({
     active: false,
@@ -214,32 +388,71 @@ export default function VivaldiSuonoStagioniLesson() {
   });
   const suppressSelectionRef = React.useRef(false);
 
-  const selectCoordinate = React.useCallback((id) => {
+  const activeOrbit = orbitById.get(activeOrbitId) ?? initialOrbit;
+  const targetRotation = React.useMemo(
+    () => getOrbitRotation(activeOrbit),
+    [activeOrbit],
+  );
+
+  const selectOrbit = React.useCallback((orbitId) => {
     if (suppressSelectionRef.current) {
       return;
     }
 
-    setActiveId(id);
+    setActiveOrbitId(orbitId);
+    setActiveKeywordId(null);
   }, []);
+
+  const selectKeyword = React.useCallback((keywordId) => {
+    if (suppressSelectionRef.current) {
+      return;
+    }
+
+    const keyword = keywordById.get(keywordId);
+
+    if (!keyword) {
+      return;
+    }
+
+    setActiveOrbitId(keyword.orbitId);
+    setActiveKeywordId(keyword.id);
+  }, []);
+
+  React.useEffect(() => {
+    if (!prefersReducedMotion || isDragging) {
+      return;
+    }
+
+    rotationRef.current = { ...targetRotation };
+    velocityRef.current = { x: 0, y: 0 };
+    setRotation({ ...targetRotation });
+  }, [isDragging, prefersReducedMotion, targetRotation]);
 
   React.useEffect(() => {
     let animationFrame = 0;
 
     const animate = () => {
       if (!dragRef.current.active) {
-        const drift = prefersReducedMotion ? 0 : 0.00012;
+        const drift = prefersReducedMotion ? 0 : 0.00008;
         const nextX = clamp(
-          rotationRef.current.x + velocityRef.current.x + (baseRotation.x - rotationRef.current.x) * 0.012,
+          rotationRef.current.x +
+            velocityRef.current.x +
+            (targetRotation.x - rotationRef.current.x) * 0.042,
           deg(-34),
           deg(34),
         );
-        const nextY = (rotationRef.current.y + velocityRef.current.y + drift) % FULL_ROTATION;
+        const nextY = normalizeAngle(
+          rotationRef.current.y +
+            velocityRef.current.y +
+            shortestAngleDifference(rotationRef.current.y, targetRotation.y) * 0.04 +
+            drift,
+        );
 
         velocityRef.current = prefersReducedMotion
           ? { x: 0, y: 0 }
           : {
-              x: velocityRef.current.x * 0.94,
-              y: velocityRef.current.y * 0.965,
+              x: velocityRef.current.x * 0.93,
+              y: velocityRef.current.y * 0.95,
             };
 
         rotationRef.current = {
@@ -253,12 +466,9 @@ export default function VivaldiSuonoStagioniLesson() {
       animationFrame = window.requestAnimationFrame(animate);
     };
 
-    rotationRef.current = baseRotation;
-    setRotation(baseRotation);
     animationFrame = window.requestAnimationFrame(animate);
-
     return () => window.cancelAnimationFrame(animationFrame);
-  }, [baseRotation, prefersReducedMotion]);
+  }, [prefersReducedMotion, targetRotation]);
 
   const stopDragging = React.useCallback((frameNode, pointerId) => {
     if (frameNode && typeof frameNode.releasePointerCapture === "function") {
@@ -316,7 +526,7 @@ export default function VivaldiSuonoStagioniLesson() {
 
     const nextRotation = {
       x: clamp(rotationRef.current.x + deltaY * 0.0049, deg(-36), deg(36)),
-      y: (rotationRef.current.y + deltaX * 0.0074) % FULL_ROTATION,
+      y: normalizeAngle(rotationRef.current.y + deltaX * 0.0072),
     };
 
     rotationRef.current = nextRotation;
@@ -324,8 +534,8 @@ export default function VivaldiSuonoStagioniLesson() {
 
     if (!prefersReducedMotion) {
       velocityRef.current = {
-        x: deltaY * 0.00072,
-        y: deltaX * 0.00104,
+        x: deltaY * 0.0007,
+        y: deltaX * 0.001,
       };
     }
   };
@@ -347,24 +557,43 @@ export default function VivaldiSuonoStagioniLesson() {
     stopDragging(event.currentTarget, event.pointerId);
   };
 
-  const projectedCoordinates = React.useMemo(() => {
-    return coordinates
-      .map((item, index) => ({
-        ...item,
-        order: index,
-        ...projectPoint(
+  const projectedKeywords = React.useMemo(() => {
+    return keywords
+      .map((item) => {
+        const projectedPoint = projectPoint(
           toCartesian(item.latitude, item.longitude, GLOBE_RADIUS),
           rotation.y,
           rotation.x,
-        ),
-      }))
-      .sort((first, second) => first.depth - second.depth);
-  }, [rotation.x, rotation.y]);
+        );
+        const isOrbitActive = item.orbitId === activeOrbitId;
+        const isKeywordActive = item.id === activeKeywordId;
 
-  const activeItem =
-    projectedCoordinates.find((item) => item.id === activeId) ??
-    projectedCoordinates[0];
-  const activeIndex = String(activeItem.order + 1).padStart(2, "0");
+        return {
+          ...item,
+          ...projectedPoint,
+          displayScale:
+            projectedPoint.scale *
+            (isKeywordActive ? 1.15 : isOrbitActive ? 1.03 : 0.8),
+          displayOpacity: clamp(
+            projectedPoint.opacity * (isOrbitActive ? 0.98 : 0.34) +
+              (isKeywordActive ? 0.12 : 0),
+            isOrbitActive ? 0.48 : 0.15,
+            1,
+          ),
+        };
+      })
+      .sort((first, second) => first.depth - second.depth);
+  }, [activeKeywordId, activeOrbitId, rotation.x, rotation.y]);
+
+  const activeKeyword =
+    (activeKeywordId && keywordById.get(activeKeywordId)) || null;
+  const activeOrbitKeywords = keywords.filter(
+    (keyword) => keyword.orbitId === activeOrbitId,
+  );
+  const activeOrbitIndex = orbitDefinitions.findIndex(
+    (orbit) => orbit.id === activeOrbitId,
+  );
+  const panelMode = activeKeyword ? "keyword" : "orbit";
 
   return (
     <div className="lesson-editorial-page vivaldi-lesson" data-lesson-model="editoriale">
@@ -376,59 +605,138 @@ export default function VivaldiSuonoStagioniLesson() {
             </p>
             <h1>Il Barocco in coordinate</h1>
             <p className="vivaldi-context-head__intro">
-              Il Barocco e lo stile della meraviglia: vuole stupire, commuovere e
-              creare effetti forti. La musica cerca grandiosita, contrasti,
-              teatralita e gesto. Prima di ascoltare Vivaldi, entriamo nelle
-              coordinate che mettono a fuoco il suo mondo sonoro.
+              Il Barocco nasce in un secolo di contrasti. Guerre, scienza,
+              potere, spettacolo e musica convivono nello stesso spazio
+              culturale. Prima di ascoltare Vivaldi, esploriamo le coordinate
+              che aiutano a capire il suo mondo: storia, societa, arte e musica.
             </p>
           </div>
 
           <div className="vivaldi-context-stage">
             <div className="vivaldi-globe-stage">
               <div className="vivaldi-globe-stage__topline">
-                <span>trascina il globo o seleziona una parola</span>
+                <span>trascina il globo o seleziona un'orbita</span>
               </div>
 
-              <div
-                className={`vivaldi-globe-stage__frame${isDragging ? " is-dragging" : ""}`}
-                onPointerDown={handlePointerDown}
-                onPointerMove={handlePointerMove}
-                onPointerUp={handlePointerUp}
-                onPointerCancel={handlePointerCancel}
-              >
-                <div className="vivaldi-globe-orbit vivaldi-globe-orbit--outer" aria-hidden="true" />
-                <div className="vivaldi-globe-orbit vivaldi-globe-orbit--inner" aria-hidden="true" />
+              <div className="vivaldi-globe-scene">
+                <div
+                  className={`vivaldi-globe-stage__frame${isDragging ? " is-dragging" : ""}`}
+                  onPointerDown={handlePointerDown}
+                  onPointerMove={handlePointerMove}
+                  onPointerUp={handlePointerUp}
+                  onPointerCancel={handlePointerCancel}
+                >
+                  {orbitDefinitions.map((orbit) => (
+                    <div
+                      key={orbit.id}
+                      className={`vivaldi-globe-orbit vivaldi-globe-orbit--${orbit.ringClass}${orbit.id === activeOrbitId ? " is-active" : " is-muted"}`}
+                      style={{ "--orbit-color": orbit.color }}
+                      aria-hidden="true"
+                    />
+                  ))}
 
-                <div className="vivaldi-globe" aria-hidden="true">
-                  <GlobeWireframe />
-                  <div className="vivaldi-globe__core-label">BAROCCO</div>
+                  <div className="vivaldi-globe" aria-hidden="true">
+                    <GlobeWireframe />
+                    <div className="vivaldi-globe__core-label">BAROCCO</div>
+                  </div>
+
+                  {projectedKeywords.map((item) => (
+                    <GlobeHotspot
+                      key={item.id}
+                      item={item}
+                      isOrbitActive={item.orbitId === activeOrbitId}
+                      isKeywordActive={item.id === activeKeywordId}
+                      onSelect={selectKeyword}
+                    />
+                  ))}
                 </div>
 
-                {projectedCoordinates.map((item) => (
-                  <GlobeHotspot
-                    key={item.id}
-                    item={item}
-                    index={item.order}
-                    isActive={item.id === activeItem.id}
-                    onSelect={selectCoordinate}
-                  />
-                ))}
+                <div
+                  className="vivaldi-orbit-selector"
+                  aria-label="Orbite concettuali del Barocco"
+                >
+                  {orbitDefinitions.map((orbit, index) => (
+                    <OrbitSelector
+                      key={orbit.id}
+                      orbit={orbit}
+                      index={index}
+                      isActive={orbit.id === activeOrbitId}
+                      onSelect={selectOrbit}
+                    />
+                  ))}
+                </div>
               </div>
 
               <article
-                key={activeItem.id}
+                key={`${activeOrbitId}-${activeKeywordId ?? "overview"}`}
                 id="vivaldi-globe-detail-panel"
                 className="vivaldi-globe-detail-panel"
+                style={{ "--orbit-color": activeOrbit.color }}
                 aria-live="polite"
               >
                 <div className="vivaldi-globe-detail-panel__meta">
-                  <p className="vivaldi-globe-popup__eyebrow">Coordinata attiva</p>
+                  <p className="vivaldi-globe-popup__eyebrow">
+                    {panelMode === "keyword" ? "Parola chiave attiva" : "Orbita selezionata"}
+                  </p>
                   <span>
-                    {activeIndex} / {String(coordinates.length).padStart(2, "0")}
+                    {panelMode === "keyword"
+                      ? activeOrbit.title
+                      : `${String(activeOrbitIndex + 1).padStart(2, "0")} / ${String(orbitDefinitions.length).padStart(2, "0")}`}
                   </span>
                 </div>
-                <h2>{activeItem.title}</h2>
-                <p>{activeItem.copy}</p>
+
+                <h2>{panelMode === "keyword" ? activeKeyword.title : activeOrbit.title}</h2>
+                <p className="vivaldi-globe-detail-panel__subtitle">
+                  {panelMode === "keyword" ? activeOrbit.title : activeOrbit.subtitle}
+                </p>
+
+                {panelMode === "keyword" ? (
+                  <>
+                    <p>{activeKeyword.copy}</p>
+                    <div className="vivaldi-globe-detail-panel__keyline">
+                      <strong>Idea chiave</strong>
+                      <span>{activeKeyword.keyIdea}</span>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <p>{activeOrbit.summary}</p>
+                    <div className="vivaldi-globe-panel-block">
+                      <h3>Cosa devi sapere</h3>
+                      <ul className="vivaldi-globe-panel-list">
+                        {activeOrbit.mustKnow.map((item) => (
+                          <li key={item}>{item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </>
+                )}
+
+                <div className="vivaldi-globe-panel-block">
+                  <h3>Parole chiave</h3>
+                  <div className="vivaldi-globe-keyword-grid">
+                    <button
+                      type="button"
+                      className={`vivaldi-globe-keyword vivaldi-globe-keyword--summary${panelMode === "orbit" ? " is-active" : ""}`}
+                      style={{ "--orbit-color": activeOrbit.color }}
+                      onClick={() => selectOrbit(activeOrbit.id)}
+                      aria-pressed={panelMode === "orbit"}
+                      aria-controls="vivaldi-globe-detail-panel"
+                    >
+                      <span>00</span>
+                      <strong>Visione d'insieme</strong>
+                    </button>
+
+                    {activeOrbitKeywords.map((keyword) => (
+                      <KeywordChip
+                        key={keyword.id}
+                        keyword={keyword}
+                        isActive={keyword.id === activeKeywordId}
+                        onSelect={selectKeyword}
+                      />
+                    ))}
+                  </div>
+                </div>
               </article>
             </div>
           </div>
