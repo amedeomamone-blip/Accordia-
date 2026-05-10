@@ -378,15 +378,14 @@ export default function VivaldiSuonoStagioniLesson() {
             <p className="vivaldi-context-head__intro">
               Il Barocco e lo stile della meraviglia: vuole stupire, commuovere e
               creare effetti forti. La musica cerca grandiosita, contrasti,
-              teatralita e gesto. Prima di ascoltare Vivaldi, entriamo nella
-              costellazione che mette a fuoco il suo mondo sonoro.
+              teatralita e gesto. Prima di ascoltare Vivaldi, entriamo nelle
+              coordinate che mettono a fuoco il suo mondo sonoro.
             </p>
           </div>
 
           <div className="vivaldi-context-stage">
             <div className="vivaldi-globe-stage">
               <div className="vivaldi-globe-stage__topline">
-                <p>Costellazione del Barocco</p>
                 <span>trascina il globo o seleziona una parola</span>
               </div>
 
@@ -402,7 +401,7 @@ export default function VivaldiSuonoStagioniLesson() {
 
                 <div className="vivaldi-globe" aria-hidden="true">
                   <GlobeWireframe />
-                  <div className="vivaldi-globe__core-label">Barocco</div>
+                  <div className="vivaldi-globe__core-label">BAROCCO</div>
                 </div>
 
                 {projectedCoordinates.map((item) => (
