@@ -2075,8 +2075,7 @@
 }
 
 .vivaldi-context-block__shell,
-.vivaldi-context-head,
-.vivaldi-coordinate-panel {
+.vivaldi-context-head {
   display: grid;
   gap: 1rem;
 }
@@ -2086,8 +2085,8 @@
 }
 
 .vivaldi-context-head__eyebrow,
-.vivaldi-coordinate-panel__label,
-.vivaldi-coordinate-card__index {
+.vivaldi-globe-hotspot__index,
+.vivaldi-globe-popup__eyebrow {
   margin: 0;
   color: var(--vivaldi-soft);
   font-size: 0.76rem;
@@ -2097,7 +2096,7 @@
 }
 
 .vivaldi-context-head h1,
-.vivaldi-coordinate-panel h2 {
+.vivaldi-globe-popup h2 {
   margin: 0;
   color: var(--vivaldi-ink);
   letter-spacing: -0.05em;
@@ -2112,9 +2111,8 @@
 }
 
 .vivaldi-context-head__intro,
-.vivaldi-coordinate-panel p,
-.vivaldi-coordinate-panel__hint,
-.vivaldi-coordinate-card__accent {
+.vivaldi-globe-popup p,
+.vivaldi-globe-hotspot__hint {
   margin: 0;
   color: var(--vivaldi-muted);
   font-size: 1.03rem;
@@ -2127,163 +2125,256 @@
 }
 
 .vivaldi-context-stage {
-  display: grid;
-  grid-template-columns: minmax(0, 1.65fr) minmax(19rem, 24rem);
-  gap: 1.25rem;
-  align-items: stretch;
-}
-
-.vivaldi-coordinate-map,
-.vivaldi-coordinate-panel {
   position: relative;
+}
+
+.vivaldi-globe-stage {
+  position: relative;
+  min-height: 43rem;
   border: 1px solid var(--vivaldi-line);
-  border-radius: 1.6rem;
+  border-radius: 1.75rem;
   background: rgba(255, 255, 255, 0.84);
-  box-shadow: 0 30px 70px rgba(20, 18, 17, 0.08);
-}
-
-.vivaldi-coordinate-map {
-  min-height: 39rem;
-  padding: 1.3rem;
+  box-shadow: 0 36px 72px rgba(20, 18, 17, 0.08);
   overflow: hidden;
-  perspective: 1800px;
-  transform-style: preserve-3d;
-  isolation: isolate;
 }
 
-.vivaldi-coordinate-map__grid {
+.vivaldi-globe-stage__topline {
   position: absolute;
-  inset: 1.2rem;
-  border-radius: 1.25rem;
-  border: 1px solid rgba(20, 18, 17, 0.05);
-  background-image:
-    linear-gradient(rgba(20, 18, 17, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(20, 18, 17, 0.045) 1px, transparent 1px);
-  background-size: 7rem 7rem;
-  transform: translateZ(-32px);
-}
-
-.vivaldi-coordinate-map__core {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  display: grid;
-  place-items: center;
-  width: 9.4rem;
-  height: 9.4rem;
-  border: 1px solid rgba(20, 18, 17, 0.1);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 24px 48px rgba(20, 18, 17, 0.07);
-  transform: translate3d(-50%, -50%, 18px);
-  z-index: 1;
-}
-
-.vivaldi-coordinate-map__core span {
-  display: inline-flex;
+  top: 1.15rem;
+  left: 1.15rem;
+  right: 1.15rem;
+  z-index: 80;
+  display: flex;
   align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 0 1rem;
-  color: var(--vivaldi-ink);
-  font-size: 1.05rem;
-  font-weight: 780;
+  justify-content: space-between;
+  gap: 1rem;
+  pointer-events: none;
+}
+
+.vivaldi-globe-stage__topline p,
+.vivaldi-globe-stage__topline span {
+  margin: 0;
+  color: var(--vivaldi-soft);
+  font-size: 0.78rem;
+  font-weight: 700;
   letter-spacing: 0.16em;
   text-transform: uppercase;
 }
 
-.vivaldi-coordinate-card {
+.vivaldi-globe-stage__frame {
   position: absolute;
-  left: var(--card-left);
-  top: var(--card-top);
-  width: min(var(--card-width), calc(100% - 2.4rem));
-  display: grid;
-  gap: 0.55rem;
-  padding: 1rem 1rem 1.05rem;
-  border: 1px solid rgba(20, 18, 17, 0.1);
-  border-radius: 1.35rem;
-  background: rgba(255, 255, 255, 0.96);
+  inset: 0;
+  min-height: 43rem;
+  isolation: isolate;
+}
+
+.vivaldi-globe {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  width: clamp(21rem, 46vw, 33rem);
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(20, 18, 17, 0.08);
+  background: rgba(255, 255, 255, 0.54);
   box-shadow:
-    0 22px 42px rgba(20, 18, 17, 0.09),
-    0 2px 0 rgba(255, 255, 255, 0.85) inset;
+    inset 0 0 0 1px rgba(255, 255, 255, 0.86),
+    0 30px 60px rgba(20, 18, 17, 0.08);
+  z-index: 5;
+}
+
+.vivaldi-globe__wireframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+  animation: vivaldi-wireframe-spin 22s linear infinite;
+}
+
+.vivaldi-globe__wireframe circle,
+.vivaldi-globe__wireframe ellipse {
+  fill: none;
+  stroke: rgba(20, 18, 17, 0.14);
+  stroke-width: 1.5;
+}
+
+.vivaldi-globe__core-label {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 8rem;
+  min-height: 8rem;
+  padding: 1rem;
+  border: 1px solid rgba(20, 18, 17, 0.12);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--vivaldi-ink);
+  font-size: 0.96rem;
+  font-weight: 780;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  transform: translate(-50%, -50%);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.86),
+    0 20px 44px rgba(20, 18, 17, 0.08);
+}
+
+.vivaldi-globe-orbit {
+  position: absolute;
+  inset: 50% auto auto 50%;
+  border: 1px solid rgba(20, 18, 17, 0.08);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.vivaldi-globe-orbit--outer {
+  width: clamp(27rem, 58vw, 40rem);
+  height: clamp(15rem, 27vw, 19rem);
+  transform: translate(-50%, -50%) rotate(-12deg);
+  animation: vivaldi-orbit-drift 20s linear infinite;
+}
+
+.vivaldi-globe-orbit--inner {
+  width: clamp(16rem, 34vw, 24rem);
+  height: clamp(28rem, 56vw, 38rem);
+  transform: translate(-50%, -50%) rotate(18deg);
+  animation: vivaldi-orbit-drift-reverse 24s linear infinite;
+}
+
+.vivaldi-globe-hotspot {
+  position: absolute;
+  min-width: 8.3rem;
+  display: grid;
+  gap: 0.26rem;
+  padding: 0.78rem 0.9rem 0.82rem;
+  border: 1px solid rgba(20, 18, 17, 0.1);
+  border-radius: 1.05rem;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow:
+    0 20px 38px rgba(20, 18, 17, 0.11),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.86);
   color: inherit;
   text-align: left;
   cursor: pointer;
-  transform:
-    translate3d(0, 0, var(--card-depth))
-    rotateX(10deg)
-    rotateY(-8deg)
-    rotateZ(var(--card-rotate));
-  transform-style: preserve-3d;
   transition:
     transform 220ms ease,
     box-shadow 220ms ease,
     border-color 220ms ease,
-    background-color 220ms ease;
+    opacity 220ms ease;
 }
 
-.vivaldi-coordinate-card strong {
+.vivaldi-globe-hotspot strong {
   margin: 0;
   color: var(--vivaldi-ink);
-  font-size: 1.22rem;
+  font-size: 1.04rem;
   font-weight: 760;
-  line-height: 1.15;
+  line-height: 1.12;
   letter-spacing: -0.03em;
 }
 
-.vivaldi-coordinate-card__accent {
-  font-size: 0.95rem;
-  color: var(--vivaldi-soft);
+.vivaldi-globe-hotspot__hint {
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
 }
 
-.vivaldi-coordinate-card.is-active {
-  z-index: 30;
-  border-color: rgba(20, 18, 17, 0.26);
-  background: #ffffff;
+.vivaldi-globe-hotspot.is-active,
+.vivaldi-globe-hotspot:hover,
+.vivaldi-globe-hotspot:focus-visible {
+  border-color: rgba(20, 18, 17, 0.24);
   box-shadow:
-    0 34px 64px rgba(20, 18, 17, 0.13),
-    0 0 0 1px rgba(255, 255, 255, 0.92) inset;
-  transform:
-    translate3d(0, -0.45rem, calc(var(--card-depth) + 18px))
-    rotateX(4deg)
-    rotateY(-4deg)
-    rotateZ(var(--card-rotate))
-    scale(1.02);
+    0 28px 50px rgba(20, 18, 17, 0.14),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.92);
 }
 
-.vivaldi-coordinate-card:hover,
-.vivaldi-coordinate-card:focus-visible {
-  z-index: 28;
-  border-color: rgba(20, 18, 17, 0.22);
-  transform:
-    translate3d(0, -0.3rem, calc(var(--card-depth) + 14px))
-    rotateX(6deg)
-    rotateY(-5deg)
-    rotateZ(var(--card-rotate))
-    scale(1.01);
+.vivaldi-globe-hotspot.is-active {
+  background: rgba(255, 255, 255, 0.98);
 }
 
-.vivaldi-coordinate-card:focus-visible {
+.vivaldi-globe-hotspot:focus-visible {
   outline: 2px solid rgba(20, 18, 17, 0.24);
   outline-offset: 4px;
 }
 
-.vivaldi-coordinate-panel {
-  align-content: start;
-  min-height: 39rem;
-  padding: 1.3rem;
+.vivaldi-globe-popup {
+  position: absolute;
+  width: min(20rem, calc(100% - 2.2rem));
+  display: grid;
+  gap: 0.7rem;
+  padding: 1rem 1.05rem 1.08rem;
+  border: 1px solid rgba(20, 18, 17, 0.12);
+  border-radius: 1.2rem;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow:
+    0 26px 52px rgba(20, 18, 17, 0.14),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.92);
+  z-index: 70;
+  transition:
+    left 220ms ease,
+    top 220ms ease,
+    transform 220ms ease;
 }
 
-.vivaldi-coordinate-panel h2 {
-  font-size: clamp(2rem, 3.4vw, 3rem);
+.vivaldi-globe-popup.is-right {
+  transform: translate(0, -50%);
+}
+
+.vivaldi-globe-popup.is-left {
+  transform: translate(-100%, -50%);
+}
+
+.vivaldi-globe-popup::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 1rem;
+  height: 1px;
+  background: rgba(20, 18, 17, 0.16);
+}
+
+.vivaldi-globe-popup.is-right::before {
+  left: -1rem;
+}
+
+.vivaldi-globe-popup.is-left::before {
+  right: -1rem;
+}
+
+.vivaldi-globe-popup h2 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
   font-weight: 780;
   line-height: 0.98;
 }
 
-.vivaldi-coordinate-panel__hint {
-  margin-top: auto;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(20, 18, 17, 0.08);
+@keyframes vivaldi-wireframe-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes vivaldi-orbit-drift {
+  from {
+    transform: translate(-50%, -50%) rotate(-12deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(348deg);
+  }
+}
+
+@keyframes vivaldi-orbit-drift-reverse {
+  from {
+    transform: translate(-50%, -50%) rotate(18deg);
+  }
+
+  to {
+    transform: translate(-50%, -50%) rotate(-342deg);
+  }
 }
 
 @media (max-width: 1080px) {
@@ -2312,12 +2403,16 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .vivaldi-context-stage {
-    grid-template-columns: 1fr;
+  .vivaldi-globe-stage__frame {
+    min-height: 40rem;
   }
 
-  .vivaldi-coordinate-panel {
-    min-height: 0;
+  .vivaldi-globe-stage {
+    min-height: 40rem;
+  }
+
+  .vivaldi-globe-popup {
+    width: min(18rem, calc(100% - 2rem));
   }
 }
 
@@ -2473,34 +2568,72 @@
     max-width: 12ch;
   }
 
-  .vivaldi-coordinate-map,
-  .vivaldi-coordinate-panel {
+  .vivaldi-globe-stage {
+    min-height: 34rem;
     border-radius: 1.15rem;
   }
 
-  .vivaldi-coordinate-map {
-    min-height: 0;
-    padding: 1rem;
-    display: grid;
-    gap: 0.9rem;
-  }
-
-  .vivaldi-coordinate-map__grid,
-  .vivaldi-coordinate-map__core {
-    display: none;
-  }
-
-  .vivaldi-coordinate-card {
+  .vivaldi-globe-stage__topline {
     position: relative;
-    left: auto;
     top: auto;
-    width: 100%;
+    left: auto;
+    right: auto;
+    padding: 1rem 1rem 0;
+    align-items: start;
+    flex-direction: column;
+    pointer-events: auto;
+  }
+
+  .vivaldi-globe-stage__frame {
+    position: relative;
+    min-height: 34rem;
+  }
+
+  .vivaldi-globe {
+    width: min(80vw, 24rem);
+  }
+
+  .vivaldi-globe-orbit--outer {
+    width: min(92vw, 28rem);
+    height: min(44vw, 14rem);
+  }
+
+  .vivaldi-globe-orbit--inner {
+    width: min(58vw, 17rem);
+    height: min(84vw, 28rem);
+  }
+
+  .vivaldi-globe-hotspot {
+    min-width: 7.2rem;
+    padding: 0.72rem 0.8rem 0.78rem;
+  }
+
+  .vivaldi-globe-hotspot strong {
+    font-size: 0.96rem;
+  }
+
+  .vivaldi-globe-popup {
+    width: calc(100% - 2rem);
+  }
+
+  .vivaldi-globe-popup.is-right,
+  .vivaldi-globe-popup.is-left {
+    left: 1rem !important;
+    right: 1rem;
+    top: auto !important;
+    bottom: 1rem;
     transform: none;
   }
 
-  .vivaldi-coordinate-card.is-active,
-  .vivaldi-coordinate-card:hover,
-  .vivaldi-coordinate-card:focus-visible {
-    transform: translateY(-0.12rem);
+  .vivaldi-globe-popup::before {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .vivaldi-globe__wireframe,
+  .vivaldi-globe-orbit--outer,
+  .vivaldi-globe-orbit--inner {
+    animation: none;
   }
 }
