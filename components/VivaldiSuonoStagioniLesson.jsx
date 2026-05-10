@@ -1,6 +1,6 @@
 import React from "https://esm.sh/react@18";
 
-const GLOBE_RADIUS = 174;
+const GLOBE_RADIUS = 204;
 const FULL_ROTATION = Math.PI * 2;
 
 const coordinates = [
@@ -101,8 +101,8 @@ function projectPoint(point, rotationY, rotationX) {
   const zAfterX = zAfterY * cosX + point.y * sinX;
 
   const depth = (zAfterX + GLOBE_RADIUS) / (GLOBE_RADIUS * 2);
-  const scale = 0.72 + depth * 0.5;
-  const opacity = 0.34 + depth * 0.64;
+  const scale = 0.78 + depth * 0.46;
+  const opacity = 0.42 + depth * 0.5;
 
   return {
     x: xAfterY * 0.9,
@@ -176,9 +176,10 @@ function GlobeHotspot({ item, index, isActive, onSelect }) {
         zIndex: isActive ? 60 : Math.round(10 + item.depth * 30),
       }}
       onClick={() => onSelect(item.id)}
+      onPointerEnter={() => onSelect(item.id)}
       onFocus={() => onSelect(item.id)}
-      aria-expanded={isActive}
-      aria-controls="vivaldi-globe-popup"
+      aria-pressed={isActive}
+      aria-controls="vivaldi-globe-detail-panel"
     >
       <span className="vivaldi-globe-hotspot__index">
         {String(index + 1).padStart(2, "0")}
@@ -192,7 +193,7 @@ function GlobeHotspot({ item, index, isActive, onSelect }) {
 export default function VivaldiSuonoStagioniLesson() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const baseRotation = React.useMemo(
-    () => ({ x: deg(-16), y: deg(22) }),
+    () => ({ x: deg(-14), y: deg(18) }),
     [],
   );
   const [rotation, setRotation] = React.useState(baseRotation);
@@ -211,9 +212,9 @@ export default function VivaldiSuonoStagioniLesson() {
     let currentY = baseRotation.y;
 
     const animate = () => {
-      spinRef.current = (spinRef.current + 0.0034) % FULL_ROTATION;
-      currentX += (baseRotation.x + pointerOffsetRef.current.x - currentX) * 0.08;
-      currentY += (baseRotation.y + pointerOffsetRef.current.y - currentY) * 0.08;
+      spinRef.current = (spinRef.current + 0.0021) % FULL_ROTATION;
+      currentX += (baseRotation.x + pointerOffsetRef.current.x - currentX) * 0.06;
+      currentY += (baseRotation.y + pointerOffsetRef.current.y - currentY) * 0.06;
 
       setRotation({
         x: currentX,
@@ -232,8 +233,8 @@ export default function VivaldiSuonoStagioniLesson() {
     const rect = event.currentTarget.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width - 0.5;
     const y = (event.clientY - rect.top) / rect.height - 0.5;
-    const pointerX = clamp(-y * 0.52, -0.42, 0.42);
-    const pointerY = clamp(x * 0.85, -0.78, 0.78);
+    const pointerX = clamp(-y * 0.4, -0.28, 0.28);
+    const pointerY = clamp(x * 0.58, -0.52, 0.52);
 
     if (prefersReducedMotion) {
       setRotation({
@@ -274,16 +275,7 @@ export default function VivaldiSuonoStagioniLesson() {
   const activeItem =
     projectedCoordinates.find((item) => item.id === activeId) ??
     projectedCoordinates[0];
-
-  const popupSide = activeItem.x > 0 ? "left" : "right";
-  const popupStyle = {
-    left: `${clamp(
-      50 + (activeItem.x / GLOBE_RADIUS) * 33 + (popupSide === "right" ? 11 : -11),
-      15,
-      85,
-    )}%`,
-    top: `${clamp(50 + (activeItem.y / GLOBE_RADIUS) * 23, 18, 82)}%`,
-  };
+  const activeIndex = String(activeItem.order + 1).padStart(2, "0");
 
   return (
     <div className="lesson-editorial-page vivaldi-lesson" data-lesson-model="editoriale">
@@ -322,7 +314,7 @@ export default function VivaldiSuonoStagioniLesson() {
                   <div className="vivaldi-globe__core-label">Barocco</div>
                 </div>
 
-                {projectedCoordinates.map((item, index) => (
+                {projectedCoordinates.map((item) => (
                   <GlobeHotspot
                     key={item.id}
                     item={item}
@@ -331,18 +323,21 @@ export default function VivaldiSuonoStagioniLesson() {
                     onSelect={setActiveId}
                   />
                 ))}
-
-                <article
-                  id="vivaldi-globe-popup"
-                  className={`vivaldi-globe-popup is-${popupSide}`}
-                  style={popupStyle}
-                  aria-live="polite"
-                >
-                  <p className="vivaldi-globe-popup__eyebrow">Coordinata attiva</p>
-                  <h2>{activeItem.title}</h2>
-                  <p>{activeItem.copy}</p>
-                </article>
               </div>
+
+              <article
+                key={activeItem.id}
+                id="vivaldi-globe-detail-panel"
+                className="vivaldi-globe-detail-panel"
+                aria-live="polite"
+              >
+                <div className="vivaldi-globe-detail-panel__meta">
+                  <p className="vivaldi-globe-popup__eyebrow">Coordinata attiva</p>
+                  <span>{activeIndex} / 07</span>
+                </div>
+                <h2>{activeItem.title}</h2>
+                <p>{activeItem.copy}</p>
+              </article>
             </div>
           </div>
         </div>

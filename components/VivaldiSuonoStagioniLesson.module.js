@@ -1,5 +1,5 @@
 import React from "https://esm.sh/react@18";
-const GLOBE_RADIUS = 174;
+const GLOBE_RADIUS = 204;
 const FULL_ROTATION = Math.PI * 2;
 const coordinates = [
   {
@@ -85,8 +85,8 @@ function projectPoint(point, rotationY, rotationX) {
   const yAfterX = point.y * cosX - zAfterY * sinX;
   const zAfterX = zAfterY * cosX + point.y * sinX;
   const depth = (zAfterX + GLOBE_RADIUS) / (GLOBE_RADIUS * 2);
-  const scale = 0.72 + depth * 0.5;
-  const opacity = 0.34 + depth * 0.64;
+  const scale = 0.78 + depth * 0.46;
+  const opacity = 0.42 + depth * 0.5;
   return {
     x: xAfterY * 0.9,
     y: yAfterX * 0.9,
@@ -147,9 +147,10 @@ function GlobeHotspot({ item, index, isActive, onSelect }) {
         zIndex: isActive ? 60 : Math.round(10 + item.depth * 30)
       },
       onClick: () => onSelect(item.id),
+      onPointerEnter: () => onSelect(item.id),
       onFocus: () => onSelect(item.id),
-      "aria-expanded": isActive,
-      "aria-controls": "vivaldi-globe-popup"
+      "aria-pressed": isActive,
+      "aria-controls": "vivaldi-globe-detail-panel"
     },
     /* @__PURE__ */ React.createElement("span", { className: "vivaldi-globe-hotspot__index" }, String(index + 1).padStart(2, "0")),
     /* @__PURE__ */ React.createElement("strong", null, item.title),
@@ -159,7 +160,7 @@ function GlobeHotspot({ item, index, isActive, onSelect }) {
 function VivaldiSuonoStagioniLesson() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const baseRotation = React.useMemo(
-    () => ({ x: deg(-16), y: deg(22) }),
+    () => ({ x: deg(-14), y: deg(18) }),
     []
   );
   const [rotation, setRotation] = React.useState(baseRotation);
@@ -175,9 +176,9 @@ function VivaldiSuonoStagioniLesson() {
     let currentX = baseRotation.x;
     let currentY = baseRotation.y;
     const animate = () => {
-      spinRef.current = (spinRef.current + 34e-4) % FULL_ROTATION;
-      currentX += (baseRotation.x + pointerOffsetRef.current.x - currentX) * 0.08;
-      currentY += (baseRotation.y + pointerOffsetRef.current.y - currentY) * 0.08;
+      spinRef.current = (spinRef.current + 21e-4) % FULL_ROTATION;
+      currentX += (baseRotation.x + pointerOffsetRef.current.x - currentX) * 0.06;
+      currentY += (baseRotation.y + pointerOffsetRef.current.y - currentY) * 0.06;
       setRotation({
         x: currentX,
         y: currentY + spinRef.current
@@ -191,8 +192,8 @@ function VivaldiSuonoStagioniLesson() {
     const rect = event.currentTarget.getBoundingClientRect();
     const x = (event.clientX - rect.left) / rect.width - 0.5;
     const y = (event.clientY - rect.top) / rect.height - 0.5;
-    const pointerX = clamp(-y * 0.52, -0.42, 0.42);
-    const pointerY = clamp(x * 0.85, -0.78, 0.78);
+    const pointerX = clamp(-y * 0.4, -0.28, 0.28);
+    const pointerY = clamp(x * 0.58, -0.52, 0.52);
     if (prefersReducedMotion) {
       setRotation({
         x: baseRotation.x + pointerX,
@@ -223,15 +224,7 @@ function VivaldiSuonoStagioniLesson() {
     })).sort((first, second) => first.depth - second.depth);
   }, [rotation.x, rotation.y]);
   const activeItem = projectedCoordinates.find((item) => item.id === activeId) ?? projectedCoordinates[0];
-  const popupSide = activeItem.x > 0 ? "left" : "right";
-  const popupStyle = {
-    left: `${clamp(
-      50 + activeItem.x / GLOBE_RADIUS * 33 + (popupSide === "right" ? 11 : -11),
-      15,
-      85
-    )}%`,
-    top: `${clamp(50 + activeItem.y / GLOBE_RADIUS * 23, 18, 82)}%`
-  };
+  const activeIndex = String(activeItem.order + 1).padStart(2, "0");
   return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page vivaldi-lesson", "data-lesson-model": "editoriale" }, /* @__PURE__ */ React.createElement("section", { className: "vivaldi-context-block", id: "contesto" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-shell vivaldi-context-block__shell" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-context-head" }, /* @__PURE__ */ React.createElement("p", { className: "vivaldi-context-head__eyebrow" }, "Il Barocco \xB7 Contesto storico-culturale"), /* @__PURE__ */ React.createElement("h1", null, "Il Barocco in coordinate"), /* @__PURE__ */ React.createElement("p", { className: "vivaldi-context-head__intro" }, "Il Barocco e un'epoca di movimento, contrasto e meraviglia. La musica non resta ferma: cerca l'effetto, il gesto, la tensione, la sorpresa. Prima di ascoltare Vivaldi, entriamo nelle coordinate che ci aiutano a capire il suo mondo sonoro.")), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-context-stage" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-stage" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-stage__topline" }, /* @__PURE__ */ React.createElement("p", null, "Coordinate del Barocco"), /* @__PURE__ */ React.createElement("span", null, "seleziona una parola")), /* @__PURE__ */ React.createElement(
     "div",
     {
@@ -242,7 +235,7 @@ function VivaldiSuonoStagioniLesson() {
     /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-orbit vivaldi-globe-orbit--outer", "aria-hidden": "true" }),
     /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-orbit vivaldi-globe-orbit--inner", "aria-hidden": "true" }),
     /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement(GlobeWireframe, null), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe__core-label" }, "Barocco")),
-    projectedCoordinates.map((item, index) => /* @__PURE__ */ React.createElement(
+    projectedCoordinates.map((item) => /* @__PURE__ */ React.createElement(
       GlobeHotspot,
       {
         key: item.id,
@@ -251,19 +244,18 @@ function VivaldiSuonoStagioniLesson() {
         isActive: item.id === activeItem.id,
         onSelect: setActiveId
       }
-    )),
-    /* @__PURE__ */ React.createElement(
-      "article",
-      {
-        id: "vivaldi-globe-popup",
-        className: `vivaldi-globe-popup is-${popupSide}`,
-        style: popupStyle,
-        "aria-live": "polite"
-      },
-      /* @__PURE__ */ React.createElement("p", { className: "vivaldi-globe-popup__eyebrow" }, "Coordinata attiva"),
-      /* @__PURE__ */ React.createElement("h2", null, activeItem.title),
-      /* @__PURE__ */ React.createElement("p", null, activeItem.copy)
-    )
+    ))
+  ), /* @__PURE__ */ React.createElement(
+    "article",
+    {
+      key: activeItem.id,
+      id: "vivaldi-globe-detail-panel",
+      className: "vivaldi-globe-detail-panel",
+      "aria-live": "polite"
+    },
+    /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-detail-panel__meta" }, /* @__PURE__ */ React.createElement("p", { className: "vivaldi-globe-popup__eyebrow" }, "Coordinata attiva"), /* @__PURE__ */ React.createElement("span", null, activeIndex, " / 07")),
+    /* @__PURE__ */ React.createElement("h2", null, activeItem.title),
+    /* @__PURE__ */ React.createElement("p", null, activeItem.copy)
   ))))));
 }
 export {
