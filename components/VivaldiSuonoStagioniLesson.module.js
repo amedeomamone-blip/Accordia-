@@ -1,61 +1,61 @@
 import React from "https://esm.sh/react@18";
-const GLOBE_RADIUS = 204;
+const GLOBE_RADIUS = 226;
 const FULL_ROTATION = Math.PI * 2;
 const coordinates = [
   {
     id: "movimento",
     title: "Movimento",
     hint: "apri",
-    latitude: 28,
-    longitude: -28,
+    latitude: 34,
+    longitude: -42,
     copy: "Nel Barocco la musica sembra sempre in azione. Le melodie corrono, si inseguono, cambiano direzione e creano una forte sensazione di vitalita."
   },
   {
     id: "contrasto",
     title: "Contrasto",
     hint: "apri",
-    latitude: -18,
-    longitude: 18,
+    latitude: -24,
+    longitude: 24,
     copy: "Il Barocco ama gli opposti: forte e piano, solo e tutti, luce e ombra, tensione e riposo. Il contrasto rende la musica piu viva e drammatica."
   },
   {
     id: "meraviglia",
     title: "Meraviglia",
     hint: "apri",
-    latitude: 16,
-    longitude: 72,
+    latitude: 18,
+    longitude: 94,
     copy: "L'arte barocca vuole stupire. La musica cerca effetti capaci di sorprendere chi ascolta, creando immagini, emozioni e colpi di scena."
   },
   {
     id: "teatralita",
     title: "Teatralita",
     hint: "apri",
-    latitude: -32,
-    longitude: 128,
+    latitude: -38,
+    longitude: 152,
     copy: "Anche quando non c'e un palcoscenico, la musica barocca spesso si comporta come una scena: entrate, risposte, gesti, dialoghi e tensioni."
   },
   {
     id: "energia",
     title: "Energia",
     hint: "apri",
-    latitude: 10,
-    longitude: 188,
+    latitude: 6,
+    longitude: 210,
     copy: "Il ritmo, la ripetizione e la spinta degli strumenti danno alla musica barocca una forza continua, chiara e riconoscibile."
   },
   {
     id: "luce-ombra",
     title: "Luce e ombra",
     hint: "apri",
-    latitude: 36,
-    longitude: 246,
+    latitude: 42,
+    longitude: 270,
     copy: "Come nella pittura barocca, anche nella musica si alternano momenti luminosi e momenti piu scuri, sospesi o drammatici."
   },
   {
     id: "gesto",
     title: "Gesto",
     hint: "apri",
-    latitude: -8,
-    longitude: 306,
+    latitude: -12,
+    longitude: 330,
     copy: "Il Barocco e fatto di gesti musicali evidenti: un attacco deciso, una corsa del violino, una risposta dell'orchestra, un cambio improvviso."
   }
 ];
@@ -85,8 +85,8 @@ function projectPoint(point, rotationY, rotationX) {
   const yAfterX = point.y * cosX - zAfterY * sinX;
   const zAfterX = zAfterY * cosX + point.y * sinX;
   const depth = (zAfterX + GLOBE_RADIUS) / (GLOBE_RADIUS * 2);
-  const scale = 0.78 + depth * 0.46;
-  const opacity = 0.42 + depth * 0.5;
+  const scale = 0.74 + depth * 0.4;
+  const opacity = 0.44 + depth * 0.48;
   return {
     x: xAfterY * 0.9,
     y: yAfterX * 0.9,
