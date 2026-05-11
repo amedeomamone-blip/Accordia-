@@ -4416,7 +4416,12 @@ def render_lesson_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str
 """
 
 
-def render_topic_map_section(nucleo: dict, show_intro: bool = True) -> str:
+def render_topic_map_section(
+    nucleo: dict,
+    show_intro: bool = True,
+    intro_eyebrow: str | None = None,
+    intro_text: str | None = None,
+) -> str:
     topic_map = nucleo.get("topic_map")
     if not topic_map:
         return ""
@@ -4453,11 +4458,14 @@ def render_topic_map_section(nucleo: dict, show_intro: bool = True) -> str:
                 </a>"""
         )
 
+    eyebrow = intro_eyebrow or topic_map["eyebrow"]
+    text = intro_text or topic_map["intro"]
+
     intro_block = (
         f"""
                 <div class="nucleus-section__intro">
-                    <p class="eyebrow">{e(topic_map['eyebrow'])}</p>
-                    <p>{e(topic_map['intro'])}</p>
+                    <p class="eyebrow">{e(eyebrow)}</p>
+                    <p>{e(text)}</p>
                 </div>"""
         if show_intro
         else ""
@@ -4953,15 +4961,24 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
     )
 
     mini_timeline_markup = (
-        ""
-        if map_only_landing
-        else f"""
+        f"""
         <nav class="nucleus-mini-timeline" aria-label="Mini timeline dei nuclei">
             <div class="shell nucleus-mini-timeline__track">
                 {render_nucleus_mini_links(nucleo["slug"], "../../")}
             </div>
         </nav>
 """
+    )
+
+    map_section_markup = (
+        render_topic_map_section(
+            nucleo,
+            show_intro=True,
+            intro_eyebrow="Lavagna fluttuante",
+            intro_text="La lavagna fluttuante mostra in un colpo d'occhio i nodi del nucleo e i loro collegamenti. Ogni card apre una lezione.",
+        )
+        if map_only_landing
+        else render_topic_map_section(nucleo)
     )
 
     footer_html = (
@@ -5004,7 +5021,7 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
             </div>
         </section>
 
-{render_topic_map_section(nucleo)}
+{map_section_markup}
 
         <section class="nucleus-section" id="sintesi">
             <div class="shell">
@@ -5197,7 +5214,7 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
             </div>
         </section>"""
         if not map_only_landing
-        else render_topic_map_section(nucleo, show_intro=False)
+        else map_section_markup
     )
 
     return f"""<!DOCTYPE html>
