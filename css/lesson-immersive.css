@@ -2456,8 +2456,12 @@
   stroke-linejoin: round;
 }
 
-.vivaldi-globe__curve.is-uniform {
-  opacity: 0.94;
+.vivaldi-globe__curve.is-back {
+  opacity: 0.55;
+}
+
+.vivaldi-globe__curve.is-front {
+  opacity: 0.96;
 }
 
 .vivaldi-globe__curve.is-axis {

@@ -206,11 +206,47 @@ function projectPoint(point, rotationY, rotationX) {
     opacity
   };
 }
-function projectCurvePath(points, rotationY, rotationX) {
+function projectCurveSegments(points, rotationY, rotationX) {
   const projected = points.map(
     (point) => projectPoint(point, rotationY, rotationX)
   );
-  return pointsToSvgPath(projected);
+  const frontSegments = [];
+  const backSegments = [];
+  let currentVisibility = projected[0].z >= 0 ? "front" : "back";
+  let currentSegment = [projected[0]];
+  for (let index = 1; index < projected.length; index += 1) {
+    const previousPoint = projected[index - 1];
+    const nextPoint = projected[index];
+    const nextVisibility = nextPoint.z >= 0 ? "front" : "back";
+    if (nextVisibility === currentVisibility) {
+      currentSegment.push(nextPoint);
+      continue;
+    }
+    const divisor = previousPoint.z - nextPoint.z || 1;
+    const interpolation = previousPoint.z / divisor;
+    const crossingPoint = {
+      x: previousPoint.x + (nextPoint.x - previousPoint.x) * interpolation,
+      y: previousPoint.y + (nextPoint.y - previousPoint.y) * interpolation,
+      z: 0
+    };
+    currentSegment.push(crossingPoint);
+    if (currentSegment.length > 1) {
+      (currentVisibility === "front" ? frontSegments : backSegments).push(
+        currentSegment
+      );
+    }
+    currentVisibility = nextVisibility;
+    currentSegment = [crossingPoint, nextPoint];
+  }
+  if (currentSegment.length > 1) {
+    (currentVisibility === "front" ? frontSegments : backSegments).push(
+      currentSegment
+    );
+  }
+  return {
+    back: backSegments.map(pointsToSvgPath),
+    front: frontSegments.map(pointsToSvgPath)
+  };
 }
 function pointsToSvgPath(points) {
   return points.map((point, index) => {
@@ -386,7 +422,7 @@ function GlobeWireframe({ rotation }) {
       const samples = curve.type === "latitude" ? sampleLatitudeCurve(curve.value) : sampleMeridianCurve(curve.value);
       return {
         ...curve,
-        path: projectCurvePath(samples, rotation.y, rotation.x)
+        ...projectCurveSegments(samples, rotation.y, rotation.x)
       };
     });
   }, [rotation.x, rotation.y]);
@@ -399,14 +435,26 @@ function GlobeWireframe({ rotation }) {
       "aria-hidden": "true"
     },
     /* @__PURE__ */ React.createElement("circle", { className: "vivaldi-globe__rim", cx: "260", cy: "260", r: "206" }),
-    curves.map((curve) => /* @__PURE__ */ React.createElement(
-      "path",
-      {
-        key: curve.id,
-        className: `vivaldi-globe__curve${curve.axis ? " is-axis" : ""} is-uniform`,
-        d: curve.path
-      }
-    ))
+    curves.map(
+      (curve) => curve.back.map((path, index) => /* @__PURE__ */ React.createElement(
+        "path",
+        {
+          key: `${curve.id}-back-${index}`,
+          className: `vivaldi-globe__curve${curve.axis ? " is-axis" : ""} is-back`,
+          d: path
+        }
+      ))
+    ),
+    curves.map(
+      (curve) => curve.front.map((path, index) => /* @__PURE__ */ React.createElement(
+        "path",
+        {
+          key: `${curve.id}-front-${index}`,
+          className: `vivaldi-globe__curve${curve.axis ? " is-axis" : ""} is-front`,
+          d: path
+        }
+      ))
+    )
   );
 }
 function GlobeHotspot({ item, isActive, onSelect, suppressSelectionRef }) {
