@@ -264,24 +264,24 @@ function sampleMeridianCurve(longitude, steps = CURVE_SAMPLE_STEPS) {
   );
 }
 const globeCurveDefinitions = [
-  { id: "lat-far-south", type: "latitude", value: -68 },
-  { id: "lat-south-wide", type: "latitude", value: -51 },
-  { id: "lat-south", type: "latitude", value: -34 },
-  { id: "lat-mid-south", type: "latitude", value: -17 },
+  { id: "lat-far-south", type: "latitude", value: -80 },
+  { id: "lat-south-wide", type: "latitude", value: -60 },
+  { id: "lat-south", type: "latitude", value: -40 },
+  { id: "lat-mid-south", type: "latitude", value: -20 },
   { id: "equator", type: "latitude", value: 0, axis: true },
-  { id: "lat-mid-north", type: "latitude", value: 17 },
-  { id: "lat-north", type: "latitude", value: 34 },
-  { id: "lat-north-wide", type: "latitude", value: 51 },
-  { id: "lat-far-north", type: "latitude", value: 68 },
-  { id: "lon-far-west", type: "meridian", value: -84 },
-  { id: "lon-west-wide", type: "meridian", value: -63 },
-  { id: "lon-west", type: "meridian", value: -42 },
-  { id: "lon-west-mid", type: "meridian", value: -21 },
+  { id: "lat-mid-north", type: "latitude", value: 20 },
+  { id: "lat-north", type: "latitude", value: 40 },
+  { id: "lat-north-wide", type: "latitude", value: 60 },
+  { id: "lat-far-north", type: "latitude", value: 80 },
+  { id: "lon-far-west", type: "meridian", value: -80 },
+  { id: "lon-west-wide", type: "meridian", value: -60 },
+  { id: "lon-west", type: "meridian", value: -40 },
+  { id: "lon-west-mid", type: "meridian", value: -20 },
   { id: "prime-meridian", type: "meridian", value: 0, axis: true },
-  { id: "lon-east-mid", type: "meridian", value: 21 },
-  { id: "lon-east", type: "meridian", value: 42 },
-  { id: "lon-east-wide", type: "meridian", value: 63 },
-  { id: "lon-far-east", type: "meridian", value: 84 }
+  { id: "lon-east-mid", type: "meridian", value: 20 },
+  { id: "lon-east", type: "meridian", value: 40 },
+  { id: "lon-east-wide", type: "meridian", value: 60 },
+  { id: "lon-far-east", type: "meridian", value: 80 }
 ];
 const GLOBE_TILT_MIN = deg(-36);
 const GLOBE_TILT_MAX = deg(36);
@@ -290,8 +290,6 @@ const DRAG_YAW_SENSITIVITY = 7e-3;
 const INERTIA_DAMPING = 0.92;
 const INERTIA_MIN_SPEED = 8e-5;
 const INERTIA_MAX_SPEED = 0.07;
-const TARGET_SNAP_EASING = 0.12;
-const TARGET_SNAP_THRESHOLD = 45e-5;
 function getOrbitRotation(orbit) {
   return {
     x: deg(orbit.focusRotation.x),
@@ -302,7 +300,6 @@ function useGlobeRotation(targetRotation) {
   const [rotation, setRotation] = React.useState(() => ({ ...targetRotation }));
   const [isDragging, setIsDragging] = React.useState(false);
   const rotationRef = React.useRef({ ...targetRotation });
-  const targetRef = React.useRef({ ...targetRotation });
   const animationFrameRef = React.useRef(null);
   const velocityRef = React.useRef({ x: 0, y: 0 });
   const dragRef = React.useRef({
@@ -324,34 +321,6 @@ function useGlobeRotation(targetRotation) {
     rotationRef.current = nextRotation;
     setRotation({ ...nextRotation });
   }, []);
-  const startSettleAnimation = React.useCallback(() => {
-    stopAnimation();
-    const animate = () => {
-      const current = rotationRef.current;
-      const target = targetRef.current;
-      const deltaX = target.x - current.x;
-      const deltaY = normalizeAngle(target.y - current.y);
-      if (Math.abs(deltaX) + Math.abs(deltaY) < TARGET_SNAP_THRESHOLD) {
-        setRotationState({
-          x: clamp(target.x, GLOBE_TILT_MIN, GLOBE_TILT_MAX),
-          y: normalizeAngle(target.y)
-        });
-        velocityRef.current = { x: 0, y: 0 };
-        animationFrameRef.current = null;
-        return;
-      }
-      setRotationState({
-        x: clamp(
-          current.x + deltaX * TARGET_SNAP_EASING,
-          GLOBE_TILT_MIN,
-          GLOBE_TILT_MAX
-        ),
-        y: normalizeAngle(current.y + deltaY * TARGET_SNAP_EASING)
-      });
-      animationFrameRef.current = window.requestAnimationFrame(animate);
-    };
-    animationFrameRef.current = window.requestAnimationFrame(animate);
-  }, [setRotationState, stopAnimation]);
   const startInertiaAnimation = React.useCallback(() => {
     stopAnimation();
     const animate = () => {
@@ -366,7 +335,7 @@ function useGlobeRotation(targetRotation) {
       const nextY = normalizeAngle(rotationRef.current.y + currentVelocity.y);
       if (nextX < GLOBE_TILT_MIN || nextX > GLOBE_TILT_MAX) {
         nextX = clamp(nextX, GLOBE_TILT_MIN, GLOBE_TILT_MAX);
-        currentVelocity.x *= -0.35;
+        currentVelocity.x = 0;
       }
       currentVelocity.x *= INERTIA_DAMPING;
       currentVelocity.y *= INERTIA_DAMPING;
@@ -379,11 +348,15 @@ function useGlobeRotation(targetRotation) {
     animationFrameRef.current = window.requestAnimationFrame(animate);
   }, [setRotationState, stopAnimation]);
   React.useEffect(() => {
-    targetRef.current = { ...targetRotation };
     if (!isDragging) {
-      startSettleAnimation();
+      stopAnimation();
+      velocityRef.current = { x: 0, y: 0 };
+      setRotationState({
+        x: clamp(targetRotation.x, GLOBE_TILT_MIN, GLOBE_TILT_MAX),
+        y: normalizeAngle(targetRotation.y)
+      });
     }
-  }, [isDragging, startSettleAnimation, targetRotation]);
+  }, [isDragging, setRotationState, stopAnimation, targetRotation]);
   React.useEffect(() => {
     return () => {
       stopAnimation();
