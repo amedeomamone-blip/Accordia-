@@ -5,134 +5,136 @@ const GLOBE_VIEWBOX_CENTER = 260;
 const CURVE_SAMPLE_STEPS = 80;
 const orbitDefinitions = [
   {
-    id: "secolo-contrasti",
-    title: "Il secolo dei contrasti",
-    selectorLabel: "Contesto storico sociale",
-    subtitle: "Il mondo in cui nasce il Barocco",
-    shortLabel: "Contrasti",
-    color: "#b85f50",
-    ringClass: "contrasti",
-    focusRotation: { x: -8, y: 18 },
-    summary: "Il Barocco nasce in un Seicento instabile, attraversato da guerre, grandi trasformazioni e forti contrasti. E un'epoca in cui convivono ricchezza e poverta, fede e scienza, splendore e crisi. Per capire il Barocco bisogna partire da questo mondo teso e complesso.",
+    id: "contesto-storico-culturale",
+    title: "Contesto storico-culturale",
+    selectorLabel: "Contesto storico-culturale",
+    subtitle: "Politica, potere, scienza e rappresentazione nel Barocco",
+    shortLabel: "Storico",
+    color: "#b87363",
+    ringClass: "storico",
+    focusRotation: { x: -6, y: 22 },
+    summary: "Il Barocco prende forma in un'Europa attraversata da guerra, centralizzazione del potere e nuove scoperte. Le parole del globo mostrano come politica, corte e rivoluzione scientifica costruiscano l'orizzonte culturale del Seicento.",
     mustKnow: [
-      "Il Seicento e un secolo di contrasti.",
-      "Le guerre e le tensioni religiose segnano profondamente l'Europa.",
-      "Con Galileo cambia il modo di osservare il mondo.",
-      "Potere politico e religioso influenzano la vita culturale.",
-      "Il Barocco nasce dentro un clima instabile ma molto creativo."
+      "Il Seicento europeo e segnato da conflitti politici e religiosi.",
+      "Le monarchie assolute usano arti e cerimonie per consolidare il potere.",
+      "Versailles diventa il modello simbolico della corte barocca.",
+      "La rivoluzione scientifica cambia il modo di guardare il mondo."
     ],
     keywords: [
       {
-        id: "contrasti",
-        title: "Contrasti",
-        latitude: 28,
-        longitude: -56,
-        copy: "Il Seicento mette insieme elementi opposti: guerra e splendore, fede e ricerca, ricchezza delle corti e miseria del popolo. Il Barocco nasce dentro questa tensione e la trasforma in un linguaggio fatto di intensita, movimento e opposizioni forti.",
-        keyIdea: "Il Barocco trasforma il contrasto in una forza espressiva."
-      },
-      {
-        id: "potere",
-        title: "Potere",
-        latitude: 4,
-        longitude: -18,
-        copy: "Il Barocco vive nelle corti, nelle chiese, nelle cerimonie e negli spazi della rappresentazione pubblica. Arte e musica non servono solo a intrattenere: mostrano grandezza, prestigio e autorita.",
-        keyIdea: "Lo splendore barocco e anche un linguaggio politico e simbolico."
-      },
-      {
-        id: "scienza",
-        title: "Scienza",
-        latitude: -22,
-        longitude: 18,
-        copy: "Con Galileo e con la nuova ricerca scientifica si afferma un diverso modo di conoscere il mondo: osservare, misurare, verificare. Il Barocco vive quindi tra meraviglia e conoscenza, immaginazione e scoperta.",
-        keyIdea: "Nel Seicento stupore e conoscenza crescono insieme."
-      }
-    ]
-  },
-  {
-    id: "stile-meraviglia",
-    title: "Lo stile della meraviglia",
-    selectorLabel: "Contesto artistico",
-    subtitle: "Come il Barocco colpisce lo sguardo e l'ascolto",
-    shortLabel: "Meraviglia",
-    color: "#c89263",
-    ringClass: "meraviglia",
-    focusRotation: { x: -4, y: 146 },
-    summary: "Il Barocco vuole stupire. Cerca movimento, grandezza, sorpresa, coinvolgimento emotivo. Non punta alla semplicita: preferisce effetti forti, teatralita, ornamenti e spettacolo.",
-    mustKnow: [
-      "Il Barocco vuole meravigliare.",
-      "L'effetto visivo ed emotivo e centrale.",
-      "L'arte barocca e spettacolare.",
-      "Gli ornamenti hanno un ruolo importante.",
-      "Lo stupore e parte dell'esperienza artistica."
-    ],
-    keywords: [
-      {
-        id: "meraviglia",
-        title: "Meraviglia",
+        id: "guerra-trentanni",
+        title: "Guerra dei Trent'anni",
         latitude: 30,
-        longitude: 176,
-        copy: "L'arte barocca vuole sorprendere chi guarda e chi ascolta. La meraviglia non e un dettaglio: e il cuore dell'esperienza barocca. L'opera deve colpire, attirare, lasciare un'impressione forte.",
-        keyIdea: "Nel Barocco l'effetto di stupore e una scelta precisa, non un abbellimento."
+        longitude: -82,
+        copy: "Tra 1618 e 1648 il cuore dell'Europa e attraversato da una lunga guerra che intreccia religione, dinastie e controllo dei territori. Il clima di instabilita segna il modo in cui il Seicento pensa ordine, fede e rappresentazione del potere.",
+        keyIdea: "Il Barocco cresce in un continente segnato dalla crisi."
       },
       {
-        id: "spettacolo",
-        title: "Spettacolo",
-        latitude: 6,
-        longitude: 206,
-        copy: "Nel Barocco tutto tende a diventare scena: feste, cerimonie, chiese, regge, teatri. Anche la musica partecipa a questa logica spettacolare e coinvolgente, fatta di gesti, spazi, immagini e rituali pubblici.",
-        keyIdea: "Il Barocco mette arte e musica dentro una grande scena condivisa."
+        id: "monarchia-assoluta",
+        title: "Monarchia assoluta",
+        latitude: 10,
+        longitude: -36,
+        copy: "Nel Seicento molti sovrani concentrano l'autorita nelle mani della corona. La corte diventa il centro da cui si organizzano immagine pubblica, rituali e spettacoli.",
+        keyIdea: "Il potere si mostra anche attraverso forme, cerimonie e arti."
       },
       {
-        id: "ornamento",
-        title: "Ornamento",
-        latitude: -22,
-        longitude: 236,
-        copy: "L'ornamento e una caratteristica essenziale del gusto barocco. Nell'arte significa ricchezza visiva; nella musica significa abbellimenti, fioriture e passaggi brillanti che rendono il discorso piu espressivo.",
-        keyIdea: "L'ornamento non copre il contenuto: lo rende piu intenso e riconoscibile."
+        id: "luigi-xiv",
+        title: "Luigi XIV",
+        latitude: -14,
+        longitude: 4,
+        copy: "Luigi XIV trasforma il sovrano in una presenza scenica permanente. Il re Sole usa danza, musica, etichetta e architettura per rendere visibile la forza dello Stato.",
+        keyIdea: "Nel Barocco la politica parla anche il linguaggio dello spettacolo."
+      },
+      {
+        id: "versailles",
+        title: "Versailles",
+        latitude: 24,
+        longitude: 48,
+        copy: "Versailles non e solo una residenza: e un modello di spazio barocco, pensato per ordinare la corte e impressionare chi guarda. Ogni sala, festa e percorso comunica gerarchia e splendore.",
+        keyIdea: "La reggia diventa un dispositivo visivo del potere."
+      },
+      {
+        id: "rivoluzione-scientifica",
+        title: "Rivoluzione scientifica",
+        latitude: -28,
+        longitude: 58,
+        copy: "Tra Seicento e primo Settecento cambia il metodo con cui si studia la natura: osservare, misurare, verificare. Questa nuova mentalita convive con la meraviglia e spinge a ripensare il rapporto tra sapere e mondo.",
+        keyIdea: "Lo stupore barocco vive accanto a un sapere piu sperimentale."
+      },
+      {
+        id: "galileo-newton",
+        title: "Galileo e Newton",
+        latitude: 34,
+        longitude: 116,
+        copy: "Galileo e Newton danno forma a una nuova immagine dell'universo, fondata su leggi, esperimenti e matematica. Il loro lavoro ridefinisce l'idea di ordine proprio mentre le arti cercano movimento e complessita.",
+        keyIdea: "Nuove leggi del mondo cambiano anche l'orizzonte culturale del Barocco."
       }
     ]
   },
   {
-    id: "musica-barocca",
-    title: "La musica barocca",
+    id: "contesto-musicale",
+    title: "Contesto musicale",
     selectorLabel: "Contesto musicale",
-    subtitle: "Il linguaggio musicale del Barocco",
-    shortLabel: "Musica",
-    color: "#866a78",
+    subtitle: "Spazi, forme e linguaggi della musica barocca",
+    shortLabel: "Musicale",
+    color: "#70808f",
     ringClass: "musica",
     focusRotation: { x: 4, y: -14 },
-    summary: "Nel Barocco la musica cambia profondamente. Diventa piu teatrale, piu espressiva, piu capace di suscitare emozioni. Si affermano nuove idee e nuove pratiche musicali che rendono questo periodo fondamentale nella storia della musica.",
+    summary: "La musica barocca vive fra corte, cattedrale e teatro pubblico. In questi spazi nascono il melodramma, il concerto e una scrittura fondata sul contrasto di timbri, gruppi e funzioni.",
     mustKnow: [
-      "Nel Barocco la musica diventa piu teatrale.",
-      "Il basso continuo sostiene la struttura sonora.",
-      "La musica cerca emozioni riconoscibili.",
-      "Nascono forme e linguaggi nuovi.",
-      "Il Barocco musicale mette al centro espressivita e coinvolgimento."
+      "La musica barocca si sviluppa in ambienti sociali diversi ma comunicanti.",
+      "Il teatro pubblico allarga il pubblico e cambia la funzione dello spettacolo.",
+      "Melodramma e concerto sono forme decisive del periodo.",
+      "Il contrasto e uno dei motori espressivi del linguaggio barocco."
     ],
     keywords: [
       {
-        id: "teatro",
-        title: "Teatro",
-        latitude: 28,
-        longitude: 286,
-        copy: "Nel Barocco la musica si lega fortemente alla scena. Nasce il melodramma e la musica assume una logica teatrale fatta di entrate, risposte, tensioni e colpi di scena.",
-        keyIdea: "La musica barocca non accompagna soltanto: mette in scena."
+        id: "corte",
+        title: "Corte",
+        latitude: 30,
+        longitude: 250,
+        copy: "Alla corte la musica accompagna feste, balli, cerimonie e rappresentazioni del prestigio dinastico. Il musicista lavora spesso al servizio di un principe o di una famiglia potente.",
+        keyIdea: "La corte usa la musica come segno di ordine e magnificenza."
       },
       {
-        id: "basso-continuo",
-        title: "Basso continuo",
-        latitude: 4,
+        id: "cattedrale",
+        title: "Cattedrale",
+        latitude: 6,
+        longitude: 284,
+        copy: "Nelle cattedrali e nelle grandi chiese la musica sostiene il rito e amplia l'effetto dello spazio sacro. Cori, organi e disposizioni policorali trasformano il suono in architettura.",
+        keyIdea: "Il sacro barocco passa anche attraverso un ascolto solenne e teatrale."
+      },
+      {
+        id: "teatro-pubblico",
+        title: "Teatro pubblico",
+        latitude: -18,
         longitude: 318,
-        copy: "Il basso continuo e una base fondamentale della musica barocca. Una linea grave e gli accordi di accompagnamento sostengono il canto e la melodia, dando solidita alla struttura sonora.",
-        keyIdea: "Il basso continuo regge il discorso musicale dall'interno."
+        copy: "Con il teatro pubblico la musica esce dal solo ambito di corte e incontra una platea pagante. Cambiano produzione, pubblico e circolazione delle opere.",
+        keyIdea: "Il Barocco musicale diventa anche spettacolo urbano."
       },
       {
-        id: "affetti",
-        title: "Affetti",
-        latitude: -22,
+        id: "melodramma",
+        title: "Melodramma",
+        latitude: 22,
         longitude: 350,
-        copy: "La musica barocca vuole suscitare emozioni precise. Gioia, dolore, tensione, solennita e agitazione vengono costruite attraverso melodia, ritmo, intensita e timbro.",
-        keyIdea: "La musica barocca cerca emozioni riconoscibili e le organizza con chiarezza."
+        copy: "Il melodramma unisce parola, azione scenica e musica in una forma nuova. Nel Barocco diventa uno dei luoghi principali in cui emozione, racconto e gesto si fondono.",
+        keyIdea: "La musica barocca mette in scena gli affetti."
+      },
+      {
+        id: "concerto",
+        title: "Concerto",
+        latitude: -26,
+        longitude: 18,
+        copy: "Nel concerto si organizza un dialogo tra soli e insieme, tra vicino e lontano, tra pieno e vuoto sonoro. Questa logica del confronto diventa uno dei segni piu riconoscibili del periodo.",
+        keyIdea: "Il concerto rende udibile il principio barocco del dialogo."
+      },
+      {
+        id: "contrasto",
+        title: "Contrasto",
+        latitude: 4,
+        longitude: 56,
+        copy: "Forte e piano, solo e tutti, luce e ombra timbrica: il contrasto struttura molte scelte barocche. Non e un effetto decorativo, ma un modo per guidare attenzione ed emozione.",
+        keyIdea: "Il contrasto e una grammatica, non un semplice abbellimento."
       }
     ]
   }
@@ -145,14 +147,10 @@ const keywords = orbitDefinitions.flatMap(
     keywordIndex,
     orbitTitle: orbit.title,
     orbitSubtitle: orbit.subtitle,
-    orbitShortLabel: orbit.shortLabel,
     orbitColor: orbit.color,
     ringClass: orbit.ringClass
   }))
-).map((keyword, globalOrder) => ({
-  ...keyword,
-  globalOrder
-}));
+);
 const orbitById = new Map(orbitDefinitions.map((orbit) => [orbit.id, orbit]));
 const keywordById = new Map(keywords.map((keyword) => [keyword.id, keyword]));
 function deg(value) {
@@ -267,16 +265,20 @@ function sampleMeridianCurve(longitude, steps = CURVE_SAMPLE_STEPS) {
   );
 }
 const globeCurveDefinitions = [
-  { id: "lat-south", type: "latitude", value: -48 },
-  { id: "lat-mid-south", type: "latitude", value: -24 },
+  { id: "lat-far-south", type: "latitude", value: -60 },
+  { id: "lat-south", type: "latitude", value: -36 },
+  { id: "lat-mid-south", type: "latitude", value: -12 },
   { id: "equator", type: "latitude", value: 0, axis: true },
-  { id: "lat-mid-north", type: "latitude", value: 24 },
-  { id: "lat-north", type: "latitude", value: 48 },
-  { id: "lon-west", type: "meridian", value: -72 },
-  { id: "lon-west-mid", type: "meridian", value: -34 },
+  { id: "lat-mid-north", type: "latitude", value: 12 },
+  { id: "lat-north", type: "latitude", value: 36 },
+  { id: "lat-far-north", type: "latitude", value: 60 },
+  { id: "lon-far-west", type: "meridian", value: -90 },
+  { id: "lon-west", type: "meridian", value: -54 },
+  { id: "lon-west-mid", type: "meridian", value: -18 },
   { id: "prime-meridian", type: "meridian", value: 0, axis: true },
-  { id: "lon-east-mid", type: "meridian", value: 34 },
-  { id: "lon-east", type: "meridian", value: 72 }
+  { id: "lon-east-mid", type: "meridian", value: 18 },
+  { id: "lon-east", type: "meridian", value: 54 },
+  { id: "lon-far-east", type: "meridian", value: 90 }
 ];
 function getOrbitRotation(orbit) {
   return {
@@ -372,7 +374,6 @@ function KeywordChip({ keyword, isActive, onSelect }) {
       "aria-pressed": isActive,
       "aria-controls": "vivaldi-globe-detail-panel"
     },
-    /* @__PURE__ */ React.createElement("span", null, String(keyword.globalOrder + 1).padStart(2, "0")),
     /* @__PURE__ */ React.createElement("strong", null, keyword.title)
   );
 }
@@ -396,9 +397,7 @@ function GlobeHotspot({ item, isOrbitActive, isKeywordActive, onSelect }) {
       "aria-controls": "vivaldi-globe-detail-panel",
       "aria-label": `${item.orbitTitle}: ${item.title}`
     },
-    /* @__PURE__ */ React.createElement("span", { className: "vivaldi-globe-hotspot__index" }, String(item.globalOrder + 1).padStart(2, "0")),
-    /* @__PURE__ */ React.createElement("strong", null, item.title),
-    /* @__PURE__ */ React.createElement("span", { className: "vivaldi-globe-hotspot__hint" }, item.orbitShortLabel)
+    /* @__PURE__ */ React.createElement("strong", null, item.title)
   );
 }
 function VivaldiSuonoStagioniLesson() {
@@ -551,36 +550,33 @@ function VivaldiSuonoStagioniLesson() {
     velocityRef.current = { x: 0, y: 0 };
     stopDragging(event.currentTarget, event.pointerId);
   };
+  const activeOrbitKeywords = React.useMemo(
+    () => keywords.filter((keyword) => keyword.orbitId === activeOrbitId),
+    [activeOrbitId]
+  );
   const projectedKeywords = React.useMemo(() => {
-    return keywords.map((item) => {
+    return activeOrbitKeywords.map((item) => {
       const projectedPoint = projectPoint(
         toCartesian(item.latitude, item.longitude, GLOBE_RADIUS),
         rotation.y,
         rotation.x
       );
-      const isOrbitActive = item.orbitId === activeOrbitId;
       const isKeywordActive = item.id === activeKeywordId;
       return {
         ...item,
         ...projectedPoint,
-        displayScale: projectedPoint.scale * (isKeywordActive ? 1.15 : isOrbitActive ? 1.03 : 0.8),
+        displayScale: projectedPoint.scale * (isKeywordActive ? 1.14 : 0.98),
         displayOpacity: clamp(
-          projectedPoint.opacity * (isOrbitActive ? 0.98 : 0.34) + (isKeywordActive ? 0.12 : 0),
-          isOrbitActive ? 0.48 : 0.15,
+          projectedPoint.opacity + (isKeywordActive ? 0.08 : 0),
+          0.42,
           1
         )
       };
     }).sort((first, second) => first.depth - second.depth);
-  }, [activeKeywordId, activeOrbitId, rotation.x, rotation.y]);
+  }, [activeKeywordId, activeOrbitKeywords, rotation.x, rotation.y]);
   const activeKeyword = activeKeywordId && keywordById.get(activeKeywordId) || null;
-  const activeOrbitKeywords = keywords.filter(
-    (keyword) => keyword.orbitId === activeOrbitId
-  );
-  const activeOrbitIndex = orbitDefinitions.findIndex(
-    (orbit) => orbit.id === activeOrbitId
-  );
   const panelMode = activeKeyword ? "keyword" : "orbit";
-  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page vivaldi-lesson", "data-lesson-model": "editoriale" }, /* @__PURE__ */ React.createElement("section", { className: "vivaldi-context-block", id: "lezione", "data-section": "contesto" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-shell vivaldi-context-block__shell" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-context-head" }, /* @__PURE__ */ React.createElement("p", { className: "vivaldi-context-head__eyebrow" }, "Il Barocco \xB7 Contesto storico-culturale"), /* @__PURE__ */ React.createElement("h1", null, "Il Barocco in coordinate"), /* @__PURE__ */ React.createElement("p", { className: "vivaldi-context-head__intro" }, "Il Barocco nasce in un secolo di contrasti. Guerre, scienza, potere, spettacolo e musica convivono nello stesso spazio culturale. Prima di ascoltare Vivaldi, esploriamo le coordinate che aiutano a capire il suo mondo: storia, societa, arte e musica.")), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-context-stage" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-stage" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-stage__topline" }, /* @__PURE__ */ React.createElement("span", null, "trascina il globo o seleziona un'orbita")), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-scene" }, /* @__PURE__ */ React.createElement(
+  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page vivaldi-lesson", "data-lesson-model": "editoriale" }, /* @__PURE__ */ React.createElement("section", { className: "vivaldi-context-block", id: "lezione", "data-section": "contesto" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-shell vivaldi-context-block__shell" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-context-head" }, /* @__PURE__ */ React.createElement("p", { className: "vivaldi-context-head__eyebrow" }, "Il Barocco \xB7 Contesto storico-culturale"), /* @__PURE__ */ React.createElement("h1", null, "Il Barocco in coordinate"), /* @__PURE__ */ React.createElement("p", { className: "vivaldi-context-head__intro" }, "Due contesti guidano l'ingresso nel Barocco: il quadro storico-culturale e quello musicale. Scegli un tasto laterale, fai emergere le parole chiave sul globo e apri sotto la card di approfondimento.")), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-context-stage" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-stage" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-stage__topline" }, /* @__PURE__ */ React.createElement("span", null, "scegli un contesto e apri una parola chiave sul globo")), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-scene" }, /* @__PURE__ */ React.createElement(
     "div",
     {
       className: `vivaldi-globe-stage__frame${isDragging ? " is-dragging" : ""}`,
@@ -593,7 +589,7 @@ function VivaldiSuonoStagioniLesson() {
       "div",
       {
         className: "vivaldi-orbit-selector",
-        "aria-label": "Orbite concettuali del Barocco"
+        "aria-label": "Contesti del Barocco"
       },
       orbitDefinitions.map((orbit, index) => /* @__PURE__ */ React.createElement(
         OrbitSelector,
@@ -621,7 +617,7 @@ function VivaldiSuonoStagioniLesson() {
       {
         key: item.id,
         item,
-        isOrbitActive: item.orbitId === activeOrbitId,
+        isOrbitActive: true,
         isKeywordActive: item.id === activeKeywordId,
         onSelect: selectKeyword
       }
@@ -635,11 +631,11 @@ function VivaldiSuonoStagioniLesson() {
       style: { "--orbit-color": activeOrbit.color },
       "aria-live": "polite"
     },
-    /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-detail-panel__meta" }, /* @__PURE__ */ React.createElement("p", { className: "vivaldi-globe-popup__eyebrow" }, panelMode === "keyword" ? "Parola chiave attiva" : "Orbita selezionata"), /* @__PURE__ */ React.createElement("span", null, panelMode === "keyword" ? activeOrbit.title : `${String(activeOrbitIndex + 1).padStart(2, "0")} / ${String(orbitDefinitions.length).padStart(2, "0")}`)),
+    /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-detail-panel__meta" }, /* @__PURE__ */ React.createElement("p", { className: "vivaldi-globe-popup__eyebrow" }, panelMode === "keyword" ? "Approfondimento" : "Contesto attivo"), /* @__PURE__ */ React.createElement("span", null, activeOrbit.title)),
     /* @__PURE__ */ React.createElement("h2", null, panelMode === "keyword" ? activeKeyword.title : activeOrbit.title),
-    /* @__PURE__ */ React.createElement("p", { className: "vivaldi-globe-detail-panel__subtitle" }, panelMode === "keyword" ? activeOrbit.title : activeOrbit.subtitle),
-    panelMode === "keyword" ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("p", null, activeKeyword.copy), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-detail-panel__keyline" }, /* @__PURE__ */ React.createElement("strong", null, "Idea chiave"), /* @__PURE__ */ React.createElement("span", null, activeKeyword.keyIdea))) : /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("p", null, activeOrbit.summary), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-panel-block" }, /* @__PURE__ */ React.createElement("h3", null, "Cosa devi sapere"), /* @__PURE__ */ React.createElement("ul", { className: "vivaldi-globe-panel-list" }, activeOrbit.mustKnow.map((item) => /* @__PURE__ */ React.createElement("li", { key: item }, item))))),
-    /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-panel-block" }, /* @__PURE__ */ React.createElement("h3", null, "Parole chiave"), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-keyword-grid" }, /* @__PURE__ */ React.createElement(
+    /* @__PURE__ */ React.createElement("p", { className: "vivaldi-globe-detail-panel__subtitle" }, activeOrbit.subtitle),
+    panelMode === "keyword" ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("p", null, activeKeyword.copy), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-detail-panel__keyline" }, /* @__PURE__ */ React.createElement("strong", null, "Punto da fissare"), /* @__PURE__ */ React.createElement("span", null, activeKeyword.keyIdea))) : /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("p", null, activeOrbit.summary), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-panel-block" }, /* @__PURE__ */ React.createElement("h3", null, "Cosa devi sapere"), /* @__PURE__ */ React.createElement("ul", { className: "vivaldi-globe-panel-list" }, activeOrbit.mustKnow.map((item) => /* @__PURE__ */ React.createElement("li", { key: item }, item))))),
+    /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-panel-block" }, /* @__PURE__ */ React.createElement("h3", null, "Parole chiave sul globo"), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-keyword-grid" }, /* @__PURE__ */ React.createElement(
       "button",
       {
         type: "button",
@@ -649,8 +645,7 @@ function VivaldiSuonoStagioniLesson() {
         "aria-pressed": panelMode === "orbit",
         "aria-controls": "vivaldi-globe-detail-panel"
       },
-      /* @__PURE__ */ React.createElement("span", null, "00"),
-      /* @__PURE__ */ React.createElement("strong", null, "Visione d'insieme")
+      /* @__PURE__ */ React.createElement("strong", null, "Panoramica del contesto")
     ), activeOrbitKeywords.map((keyword) => /* @__PURE__ */ React.createElement(
       KeywordChip,
       {
