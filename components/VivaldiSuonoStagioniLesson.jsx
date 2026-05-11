@@ -25,8 +25,8 @@ const orbitDefinitions = [
       {
         id: "guerra-trentanni",
         title: "Guerra dei Trent'anni",
-        latitude: 34,
-        longitude: -76,
+        latitude: 54,
+        longitude: -126,
         copy:
           "Tra 1618 e 1648 il cuore dell'Europa e attraversato da una lunga guerra che intreccia religione, dinastie e controllo dei territori. Il clima di instabilita segna il modo in cui il Seicento pensa ordine, fede e rappresentazione del potere.",
         keyIdea:
@@ -35,8 +35,8 @@ const orbitDefinitions = [
       {
         id: "monarchia-assoluta",
         title: "Monarchia assoluta",
-        latitude: 6,
-        longitude: -28,
+        latitude: 8,
+        longitude: -62,
         copy:
           "Nel Seicento molti sovrani concentrano l'autorita nelle mani della corona. La corte diventa il centro da cui si organizzano immagine pubblica, rituali e spettacoli.",
         keyIdea:
@@ -45,8 +45,8 @@ const orbitDefinitions = [
       {
         id: "luigi-xiv",
         title: "Luigi XIV",
-        latitude: -24,
-        longitude: 20,
+        latitude: -22,
+        longitude: -16,
         copy:
           "Luigi XIV trasforma il sovrano in una presenza scenica permanente. Il re Sole usa danza, musica, etichetta e architettura per rendere visibile la forza dello Stato.",
         keyIdea:
@@ -55,8 +55,8 @@ const orbitDefinitions = [
       {
         id: "versailles",
         title: "Versailles",
-        latitude: 30,
-        longitude: 72,
+        latitude: -42,
+        longitude: 78,
         copy:
           "Versailles non e solo una residenza: e un modello di spazio barocco, pensato per ordinare la corte e impressionare chi guarda. Ogni sala, festa e percorso comunica gerarchia e splendore.",
         keyIdea:
@@ -65,8 +65,8 @@ const orbitDefinitions = [
       {
         id: "rivoluzione-scientifica",
         title: "Rivoluzione scientifica",
-        latitude: -8,
-        longitude: 118,
+        latitude: 0,
+        longitude: 136,
         copy:
           "Tra Seicento e primo Settecento cambia il metodo con cui si studia la natura: osservare, misurare, verificare. Questa nuova mentalita convive con la meraviglia e spinge a ripensare il rapporto tra sapere e mondo.",
         keyIdea:
@@ -75,8 +75,8 @@ const orbitDefinitions = [
       {
         id: "galileo-newton",
         title: "Galileo e Newton",
-        latitude: 22,
-        longitude: 164,
+        latitude: 30,
+        longitude: 126,
         copy:
           "Galileo e Newton danno forma a una nuova immagine dell'universo, fondata su leggi, esperimenti e matematica. Il loro lavoro ridefinisce l'idea di ordine proprio mentre le arti cercano movimento e complessita.",
         keyIdea:
@@ -103,8 +103,8 @@ const orbitDefinitions = [
       {
         id: "corte",
         title: "Corte",
-        latitude: 34,
-        longitude: -70,
+        latitude: 52,
+        longitude: -118,
         copy:
           "Alla corte la musica accompagna feste, balli, cerimonie e rappresentazioni del prestigio dinastico. Il musicista lavora spesso al servizio di un principe o di una famiglia potente.",
         keyIdea:
@@ -114,7 +114,7 @@ const orbitDefinitions = [
         id: "cattedrale",
         title: "Cattedrale",
         latitude: 8,
-        longitude: -22,
+        longitude: -58,
         copy:
           "Nelle cattedrali e nelle grandi chiese la musica sostiene il rito e amplia l'effetto dello spazio sacro. Cori, organi e disposizioni policorali trasformano il suono in architettura.",
         keyIdea:
@@ -123,8 +123,8 @@ const orbitDefinitions = [
       {
         id: "teatro-pubblico",
         title: "Teatro pubblico",
-        latitude: -24,
-        longitude: 26,
+        latitude: -28,
+        longitude: -6,
         copy:
           "Con il teatro pubblico la musica esce dal solo ambito di corte e incontra una platea pagante. Cambiano produzione, pubblico e circolazione delle opere.",
         keyIdea:
@@ -133,7 +133,7 @@ const orbitDefinitions = [
       {
         id: "melodramma",
         title: "Melodramma",
-        latitude: 28,
+        latitude: -40,
         longitude: 74,
         copy:
           "Il melodramma unisce parola, azione scenica e musica in una forma nuova. Nel Barocco diventa uno dei luoghi principali in cui emozione, racconto e gesto si fondono.",
@@ -143,8 +143,8 @@ const orbitDefinitions = [
       {
         id: "concerto",
         title: "Concerto",
-        latitude: -10,
-        longitude: 122,
+        latitude: -2,
+        longitude: 132,
         copy:
           "Nel concerto si organizza un dialogo tra soli e insieme, tra vicino e lontano, tra pieno e vuoto sonoro. Questa logica del confronto diventa uno dei segni piu riconoscibili del periodo.",
         keyIdea:
@@ -153,8 +153,8 @@ const orbitDefinitions = [
       {
         id: "contrasto",
         title: "Contrasto",
-        latitude: 20,
-        longitude: 168,
+        latitude: 30,
+        longitude: 176,
         copy:
           "Forte e piano, solo e tutti, luce e ombra timbrica: il contrasto struttura molte scelte barocche. Non e un effetto decorativo, ma un modo per guidare attenzione ed emozione.",
         keyIdea:
@@ -322,30 +322,42 @@ function sampleMeridianCurve(longitude, steps = CURVE_SAMPLE_STEPS) {
 
 const globeCurveDefinitions = [
   { id: "lat-far-south", type: "latitude", value: -72 },
-  { id: "lat-deep-south", type: "latitude", value: -56 },
-  { id: "lat-south", type: "latitude", value: -40 },
-  { id: "lat-mid-south", type: "latitude", value: -24 },
-  { id: "lat-inner-south", type: "latitude", value: -8 },
+  { id: "lat-deep-south", type: "latitude", value: -60 },
+  { id: "lat-south", type: "latitude", value: -48 },
+  { id: "lat-mid-south", type: "latitude", value: -36 },
+  { id: "lat-inner-south", type: "latitude", value: -24 },
+  { id: "lat-core-south", type: "latitude", value: -12 },
   { id: "equator", type: "latitude", value: 0, axis: true },
-  { id: "lat-inner-north", type: "latitude", value: 8 },
-  { id: "lat-mid-north", type: "latitude", value: 24 },
-  { id: "lat-north", type: "latitude", value: 40 },
-  { id: "lat-deep-north", type: "latitude", value: 56 },
+  { id: "lat-core-north", type: "latitude", value: 12 },
+  { id: "lat-inner-north", type: "latitude", value: 24 },
+  { id: "lat-mid-north", type: "latitude", value: 36 },
+  { id: "lat-north", type: "latitude", value: 48 },
+  { id: "lat-deep-north", type: "latitude", value: 60 },
   { id: "lat-far-north", type: "latitude", value: 72 },
-  { id: "lon-far-west", type: "meridian", value: -90 },
-  { id: "lon-west-wide", type: "meridian", value: -75 },
-  { id: "lon-west", type: "meridian", value: -60 },
-  { id: "lon-west-mid", type: "meridian", value: -45 },
-  { id: "lon-inner-west", type: "meridian", value: -30 },
-  { id: "lon-core-west", type: "meridian", value: -15 },
+  { id: "lon-far-west", type: "meridian", value: -96 },
+  { id: "lon-west-wide", type: "meridian", value: -80 },
+  { id: "lon-west", type: "meridian", value: -64 },
+  { id: "lon-west-mid", type: "meridian", value: -48 },
+  { id: "lon-inner-west", type: "meridian", value: -32 },
+  { id: "lon-core-west", type: "meridian", value: -16 },
   { id: "prime-meridian", type: "meridian", value: 0, axis: true },
-  { id: "lon-core-east", type: "meridian", value: 15 },
-  { id: "lon-inner-east", type: "meridian", value: 30 },
-  { id: "lon-east-mid", type: "meridian", value: 45 },
-  { id: "lon-east", type: "meridian", value: 60 },
-  { id: "lon-east-wide", type: "meridian", value: 75 },
-  { id: "lon-far-east", type: "meridian", value: 90 },
+  { id: "lon-core-east", type: "meridian", value: 16 },
+  { id: "lon-inner-east", type: "meridian", value: 32 },
+  { id: "lon-east-mid", type: "meridian", value: 48 },
+  { id: "lon-east", type: "meridian", value: 64 },
+  { id: "lon-east-wide", type: "meridian", value: 80 },
+  { id: "lon-far-east", type: "meridian", value: 96 },
 ];
+
+const GLOBE_TILT_MIN = deg(-36);
+const GLOBE_TILT_MAX = deg(36);
+const DRAG_PITCH_SENSITIVITY = 0.0048;
+const DRAG_YAW_SENSITIVITY = 0.007;
+const INERTIA_DAMPING = 0.92;
+const INERTIA_MIN_SPEED = 0.00008;
+const INERTIA_MAX_SPEED = 0.07;
+const TARGET_SNAP_EASING = 0.12;
+const TARGET_SNAP_THRESHOLD = 0.00045;
 
 function getOrbitRotation(orbit) {
   return {
@@ -355,63 +367,165 @@ function getOrbitRotation(orbit) {
 }
 
 function useGlobeRotation(targetRotation) {
-  const [rotation, setRotation] = React.useState(targetRotation);
+  const [rotation, setRotation] = React.useState(() => ({ ...targetRotation }));
   const [isDragging, setIsDragging] = React.useState(false);
-  const rotationRef = React.useRef(targetRotation);
+  const rotationRef = React.useRef({ ...targetRotation });
+  const targetRef = React.useRef({ ...targetRotation });
+  const animationFrameRef = React.useRef(null);
+  const velocityRef = React.useRef({ x: 0, y: 0 });
   const dragRef = React.useRef({
     active: false,
     moved: false,
     pointerId: null,
     x: 0,
     y: 0,
+    timestamp: 0,
   });
   const suppressSelectionRef = React.useRef(false);
 
-  React.useEffect(() => {
-    rotationRef.current = { ...targetRotation };
-    setRotation({ ...targetRotation });
-  }, [targetRotation]);
-
-  const stopDragging = React.useCallback((frameNode, pointerId) => {
-    if (frameNode && typeof frameNode.releasePointerCapture === "function") {
-      if (
-        typeof frameNode.hasPointerCapture !== "function" ||
-        frameNode.hasPointerCapture(pointerId)
-      ) {
-        frameNode.releasePointerCapture(pointerId);
-      }
+  const stopAnimation = React.useCallback(() => {
+    if (animationFrameRef.current !== null) {
+      window.cancelAnimationFrame(animationFrameRef.current);
+      animationFrameRef.current = null;
     }
-
-    if (dragRef.current.moved) {
-      suppressSelectionRef.current = true;
-      window.setTimeout(() => {
-        suppressSelectionRef.current = false;
-      }, 120);
-    }
-
-    dragRef.current.active = false;
-    dragRef.current.pointerId = null;
-    dragRef.current.moved = false;
-    setIsDragging(false);
   }, []);
 
-  const handlePointerDown = React.useCallback((event) => {
-    if (event.button !== 0) {
-      return;
-    }
+  const setRotationState = React.useCallback((nextRotation) => {
+    rotationRef.current = nextRotation;
+    setRotation({ ...nextRotation });
+  }, []);
 
-    dragRef.current = {
-      active: true,
-      moved: false,
-      pointerId: event.pointerId,
-      x: event.clientX,
-      y: event.clientY,
+  const startSettleAnimation = React.useCallback(() => {
+    stopAnimation();
+
+    const animate = () => {
+      const current = rotationRef.current;
+      const target = targetRef.current;
+      const deltaX = target.x - current.x;
+      const deltaY = normalizeAngle(target.y - current.y);
+
+      if (Math.abs(deltaX) + Math.abs(deltaY) < TARGET_SNAP_THRESHOLD) {
+        setRotationState({
+          x: clamp(target.x, GLOBE_TILT_MIN, GLOBE_TILT_MAX),
+          y: normalizeAngle(target.y),
+        });
+        velocityRef.current = { x: 0, y: 0 };
+        animationFrameRef.current = null;
+        return;
+      }
+
+      setRotationState({
+        x: clamp(
+          current.x + deltaX * TARGET_SNAP_EASING,
+          GLOBE_TILT_MIN,
+          GLOBE_TILT_MAX,
+        ),
+        y: normalizeAngle(current.y + deltaY * TARGET_SNAP_EASING),
+      });
+      animationFrameRef.current = window.requestAnimationFrame(animate);
     };
 
-    suppressSelectionRef.current = false;
-    setIsDragging(true);
-    event.currentTarget.setPointerCapture(event.pointerId);
-  }, []);
+    animationFrameRef.current = window.requestAnimationFrame(animate);
+  }, [setRotationState, stopAnimation]);
+
+  const startInertiaAnimation = React.useCallback(() => {
+    stopAnimation();
+
+    const animate = () => {
+      const currentVelocity = velocityRef.current;
+      const speed = Math.abs(currentVelocity.x) + Math.abs(currentVelocity.y);
+
+      if (speed < INERTIA_MIN_SPEED) {
+        velocityRef.current = { x: 0, y: 0 };
+        animationFrameRef.current = null;
+        return;
+      }
+
+      let nextX = rotationRef.current.x + currentVelocity.x;
+      const nextY = normalizeAngle(rotationRef.current.y + currentVelocity.y);
+
+      if (nextX < GLOBE_TILT_MIN || nextX > GLOBE_TILT_MAX) {
+        nextX = clamp(nextX, GLOBE_TILT_MIN, GLOBE_TILT_MAX);
+        currentVelocity.x *= -0.35;
+      }
+
+      currentVelocity.x *= INERTIA_DAMPING;
+      currentVelocity.y *= INERTIA_DAMPING;
+
+      setRotationState({
+        x: nextX,
+        y: nextY,
+      });
+      animationFrameRef.current = window.requestAnimationFrame(animate);
+    };
+
+    animationFrameRef.current = window.requestAnimationFrame(animate);
+  }, [setRotationState, stopAnimation]);
+
+  React.useEffect(() => {
+    targetRef.current = { ...targetRotation };
+
+    if (!isDragging) {
+      startSettleAnimation();
+    }
+  }, [isDragging, startSettleAnimation, targetRotation]);
+
+  React.useEffect(() => {
+    return () => {
+      stopAnimation();
+    };
+  }, [stopAnimation]);
+
+  const stopDragging = React.useCallback(
+    (frameNode, pointerId) => {
+      if (frameNode && typeof frameNode.releasePointerCapture === "function") {
+        if (
+          typeof frameNode.hasPointerCapture !== "function" ||
+          frameNode.hasPointerCapture(pointerId)
+        ) {
+          frameNode.releasePointerCapture(pointerId);
+        }
+      }
+
+      if (dragRef.current.moved) {
+        suppressSelectionRef.current = true;
+        window.setTimeout(() => {
+          suppressSelectionRef.current = false;
+        }, 140);
+      }
+
+      dragRef.current.active = false;
+      dragRef.current.pointerId = null;
+      dragRef.current.moved = false;
+      setIsDragging(false);
+      startInertiaAnimation();
+    },
+    [startInertiaAnimation],
+  );
+
+  const handlePointerDown = React.useCallback(
+    (event) => {
+      if (event.button !== 0) {
+        return;
+      }
+
+      stopAnimation();
+      velocityRef.current = { x: 0, y: 0 };
+      dragRef.current = {
+        active: true,
+        moved: false,
+        pointerId: event.pointerId,
+        x: event.clientX,
+        y: event.clientY,
+        timestamp: event.timeStamp || performance.now(),
+      };
+
+      suppressSelectionRef.current = false;
+      setIsDragging(true);
+      event.currentTarget.setPointerCapture(event.pointerId);
+    },
+    [stopAnimation],
+  );
 
   const handlePointerMove = React.useCallback(
     (event) => {
@@ -421,23 +535,33 @@ function useGlobeRotation(targetRotation) {
 
       const deltaX = event.clientX - dragRef.current.x;
       const deltaY = event.clientY - dragRef.current.y;
+      const elapsed = Math.max(
+        12,
+        (event.timeStamp || performance.now()) - dragRef.current.timestamp,
+      );
+      const frameFactor = 16.7 / elapsed;
+      const rotationDeltaX = deltaY * DRAG_PITCH_SENSITIVITY;
+      const rotationDeltaY = deltaX * DRAG_YAW_SENSITIVITY;
 
       dragRef.current.x = event.clientX;
       dragRef.current.y = event.clientY;
+      dragRef.current.timestamp = event.timeStamp || performance.now();
 
       if (Math.abs(deltaX) + Math.abs(deltaY) > 0.4) {
         dragRef.current.moved = true;
       }
 
-      const nextRotation = {
-        x: clamp(rotationRef.current.x + deltaY * 0.0049, deg(-36), deg(36)),
-        y: normalizeAngle(rotationRef.current.y + deltaX * 0.0072),
+      velocityRef.current = {
+        x: clamp(rotationDeltaX * frameFactor, -INERTIA_MAX_SPEED, INERTIA_MAX_SPEED),
+        y: clamp(rotationDeltaY * frameFactor, -INERTIA_MAX_SPEED, INERTIA_MAX_SPEED),
       };
 
-      rotationRef.current = nextRotation;
-      setRotation({ ...nextRotation });
+      setRotationState({
+        x: clamp(rotationRef.current.x + rotationDeltaX, GLOBE_TILT_MIN, GLOBE_TILT_MAX),
+        y: normalizeAngle(rotationRef.current.y + rotationDeltaY),
+      });
     },
-    [],
+    [setRotationState],
   );
 
   const handlePointerUp = React.useCallback(
@@ -527,8 +651,8 @@ function GlobeHotspot({ item, isActive, onSelect, suppressSelectionRef }) {
       className={`vivaldi-globe-hotspot${isActive ? " is-keyword-active" : ""}`}
       style={{
         "--orbit-color": item.orbitColor,
-        left: `calc(var(--vivaldi-globe-center-x) + ${item.x}px)`,
-        top: `calc(50% + ${item.y}px)`,
+        left: `calc(var(--vivaldi-globe-center-x) + ${item.spreadX}px)`,
+        top: `calc(50% + ${item.spreadY}px)`,
         opacity: item.displayOpacity,
         transform: `translate(-50%, -50%) scale(${item.displayScale})`,
         zIndex: isActive ? 80 : Math.round(28 + item.depth * 36),
@@ -576,15 +700,17 @@ function ContextSwitchButton({ orbit, index, isActive, onSelect }) {
       type="button"
       className={`vivaldi-globe-switch__button${isActive ? " is-active" : ""}`}
       style={{ "--orbit-color": orbit.color }}
+      title={orbit.title}
       onPointerDown={(event) => {
         event.stopPropagation();
       }}
       onClick={() => onSelect(orbit.id)}
       aria-pressed={isActive}
       aria-controls="vivaldi-globe-detail-panel"
+      aria-label={orbit.title}
     >
-      <span>{String(index + 1).padStart(2, "0")}</span>
-      <strong>{orbit.title}</strong>
+      <span className="vivaldi-globe-switch__index">{String(index + 1).padStart(2, "0")}</span>
+      <strong className="vivaldi-globe-switch__label">{orbit.title}</strong>
     </button>
   );
 }
@@ -615,10 +741,22 @@ export default function VivaldiSuonoStagioniLesson() {
           rotation.x,
         );
         const isKeywordActive = item.id === activeKeywordId;
+        const radialReferenceX =
+          Math.abs(projectedPoint.x) > 1
+            ? projectedPoint.x
+            : Math.cos(deg(item.longitude)) * 24;
+        const radialReferenceY =
+          Math.abs(projectedPoint.y) > 1
+            ? projectedPoint.y
+            : Math.sin(deg(item.latitude)) * 24;
+        const radialLength = Math.hypot(radialReferenceX, radialReferenceY) || 1;
+        const radialPush = 20 + (1 - projectedPoint.depth) * 20;
 
         return {
           ...item,
           ...projectedPoint,
+          spreadX: projectedPoint.x + (radialReferenceX / radialLength) * radialPush,
+          spreadY: projectedPoint.y + (radialReferenceY / radialLength) * radialPush,
           displayScale: projectedPoint.scale * (isKeywordActive ? 1.14 : 1.03),
           displayOpacity: clamp(
             projectedPoint.opacity + (isKeywordActive ? 0.08 : 0),
