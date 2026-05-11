@@ -321,9 +321,6 @@ const GLOBE_TILT_MIN = deg(-36);
 const GLOBE_TILT_MAX = deg(36);
 const DRAG_PITCH_SENSITIVITY = 0.0048;
 const DRAG_YAW_SENSITIVITY = 0.007;
-const INERTIA_DAMPING = 0.92;
-const INERTIA_MIN_SPEED = 0.00008;
-const INERTIA_MAX_SPEED = 0.07;
 
 function getOrbitRotation(orbit) {
   return {
@@ -336,80 +333,28 @@ function useGlobeRotation(targetRotation) {
   const [rotation, setRotation] = React.useState(() => ({ ...targetRotation }));
   const [isDragging, setIsDragging] = React.useState(false);
   const rotationRef = React.useRef({ ...targetRotation });
-  const animationFrameRef = React.useRef(null);
-  const velocityRef = React.useRef({ x: 0, y: 0 });
   const dragRef = React.useRef({
     active: false,
     moved: false,
     pointerId: null,
     x: 0,
     y: 0,
-    timestamp: 0,
   });
   const suppressSelectionRef = React.useRef(false);
-
-  const stopAnimation = React.useCallback(() => {
-    if (animationFrameRef.current !== null) {
-      window.cancelAnimationFrame(animationFrameRef.current);
-      animationFrameRef.current = null;
-    }
-  }, []);
 
   const setRotationState = React.useCallback((nextRotation) => {
     rotationRef.current = nextRotation;
     setRotation({ ...nextRotation });
   }, []);
 
-  const startInertiaAnimation = React.useCallback(() => {
-    stopAnimation();
-
-    const animate = () => {
-      const currentVelocity = velocityRef.current;
-      const speed = Math.abs(currentVelocity.x) + Math.abs(currentVelocity.y);
-
-      if (speed < INERTIA_MIN_SPEED) {
-        velocityRef.current = { x: 0, y: 0 };
-        animationFrameRef.current = null;
-        return;
-      }
-
-      let nextX = rotationRef.current.x + currentVelocity.x;
-      const nextY = normalizeAngle(rotationRef.current.y + currentVelocity.y);
-
-      if (nextX < GLOBE_TILT_MIN || nextX > GLOBE_TILT_MAX) {
-        nextX = clamp(nextX, GLOBE_TILT_MIN, GLOBE_TILT_MAX);
-        currentVelocity.x = 0;
-      }
-
-      currentVelocity.x *= INERTIA_DAMPING;
-      currentVelocity.y *= INERTIA_DAMPING;
-
-      setRotationState({
-        x: nextX,
-        y: nextY,
-      });
-      animationFrameRef.current = window.requestAnimationFrame(animate);
-    };
-
-    animationFrameRef.current = window.requestAnimationFrame(animate);
-  }, [setRotationState, stopAnimation]);
-
   React.useEffect(() => {
     if (!isDragging) {
-      stopAnimation();
-      velocityRef.current = { x: 0, y: 0 };
       setRotationState({
         x: clamp(targetRotation.x, GLOBE_TILT_MIN, GLOBE_TILT_MAX),
         y: normalizeAngle(targetRotation.y),
       });
     }
-  }, [isDragging, setRotationState, stopAnimation, targetRotation]);
-
-  React.useEffect(() => {
-    return () => {
-      stopAnimation();
-    };
-  }, [stopAnimation]);
+  }, [isDragging, setRotationState, targetRotation]);
 
   const stopDragging = React.useCallback(
     (frameNode, pointerId) => {
@@ -433,9 +378,8 @@ function useGlobeRotation(targetRotation) {
       dragRef.current.pointerId = null;
       dragRef.current.moved = false;
       setIsDragging(false);
-      startInertiaAnimation();
     },
-    [startInertiaAnimation],
+    [],
   );
 
   const handlePointerDown = React.useCallback(
@@ -444,22 +388,19 @@ function useGlobeRotation(targetRotation) {
         return;
       }
 
-      stopAnimation();
-      velocityRef.current = { x: 0, y: 0 };
       dragRef.current = {
         active: true,
         moved: false,
         pointerId: event.pointerId,
         x: event.clientX,
         y: event.clientY,
-        timestamp: event.timeStamp || performance.now(),
       };
 
       suppressSelectionRef.current = false;
       setIsDragging(true);
       event.currentTarget.setPointerCapture(event.pointerId);
     },
-    [stopAnimation],
+    [],
   );
 
   const handlePointerMove = React.useCallback(
@@ -470,26 +411,15 @@ function useGlobeRotation(targetRotation) {
 
       const deltaX = event.clientX - dragRef.current.x;
       const deltaY = event.clientY - dragRef.current.y;
-      const elapsed = Math.max(
-        12,
-        (event.timeStamp || performance.now()) - dragRef.current.timestamp,
-      );
-      const frameFactor = 16.7 / elapsed;
       const rotationDeltaX = deltaY * DRAG_PITCH_SENSITIVITY;
       const rotationDeltaY = deltaX * DRAG_YAW_SENSITIVITY;
 
       dragRef.current.x = event.clientX;
       dragRef.current.y = event.clientY;
-      dragRef.current.timestamp = event.timeStamp || performance.now();
 
       if (Math.abs(deltaX) + Math.abs(deltaY) > 0.4) {
         dragRef.current.moved = true;
       }
-
-      velocityRef.current = {
-        x: clamp(rotationDeltaX * frameFactor, -INERTIA_MAX_SPEED, INERTIA_MAX_SPEED),
-        y: clamp(rotationDeltaY * frameFactor, -INERTIA_MAX_SPEED, INERTIA_MAX_SPEED),
-      };
 
       setRotationState({
         x: clamp(rotationRef.current.x + rotationDeltaX, GLOBE_TILT_MIN, GLOBE_TILT_MAX),
