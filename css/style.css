@@ -1782,6 +1782,48 @@ body[data-nav="home"] .site-footer__label {
     min-height: clamp(39rem, 68vh, 53rem);
 }
 
+.nucleus-hero__period {
+    margin: 0;
+    color: #6b727b;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-hero__copy--landing-clean {
+    justify-items: center;
+    text-align: center;
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-hero__copy--landing-clean h1 {
+    max-width: none;
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-hero__copy--landing-clean .nucleus-hero__subtitle {
+    max-width: 46rem;
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-section__intro {
+    max-width: 52rem;
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-section--map .shell {
+    width: min(calc(100vw - 0.35rem), 1920px);
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-map {
+    min-height: clamp(24rem, 44vh, 31rem);
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-map__canvas {
+    min-height: clamp(20rem, 36vh, 26rem);
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node {
+    width: clamp(18rem, 22vw, 23rem);
+}
+
 .nucleus-hero__meta {
     display: flex;
     flex-wrap: wrap;

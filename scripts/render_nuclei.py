@@ -58,6 +58,7 @@ EDITOR_NUCLEUS_FIELDS = (
     "nav_title",
     "category",
     "period",
+    "landing_reference_period",
     "accent",
     "description",
 )
@@ -2632,6 +2633,7 @@ EDITORIAL_NUCLEI_BLUEPRINT = [
         "nav_title": "Il Barocco",
         "category": "Teatro e meraviglia",
         "period": "XVII - prima meta XVIII secolo",
+        "landing_reference_period": "Periodo di riferimento · 1600-1750",
         "accent": "#c14f40",
         "description": "Melodramma, basso continuo, concerto, oratorio e nuove forme di spettacolo sonoro.",
         "hero_subtitle": "Contrasto, teatralita e potenza degli affetti guidano un'epoca in cui la musica entra nello spettacolo moderno.",
@@ -3071,6 +3073,7 @@ def build_editorial_nuclei() -> list[dict]:
                 "nav_title": entry["nav_title"],
                 "category": entry["category"],
                 "period": entry["period"],
+                "landing_reference_period": entry.get("landing_reference_period"),
                 "position": f"Nucleo {entry['number']} di 10 · linea principale del percorso",
                 "accent": entry["accent"],
                 "description": entry["description"],
@@ -3121,7 +3124,20 @@ def customize_barocco_context_lesson() -> None:
     vivaldi_topic = next((node for node in topic_map["nodes"] if node["number"] == "07"), None)
 
     if context_topic:
+        context_topic["slug"] = "il-barocco-in-coordinate"
+        context_topic["title"] = "Il Barocco in coordinate"
+        context_topic["label"] = "Coordinate"
+        context_topic["subtitle"] = "Contesto storico, artistico e culturale"
+        context_topic["summary"] = "Una sfera interattiva raccoglie le coordinate storiche e culturali del Barocco."
+        context_topic["x"] = 50
+        context_topic["y"] = 50
         context_topic["cta"] = "Apri la lezione"
+        context_topic["phases"] = build_topic_phases(
+            barocco["title"],
+            context_topic["title"],
+            context_topic["label"],
+            context_topic["summary"],
+        )
         context_topic["lesson"] = {
             "panel_only": True,
             "immersive_preview": True,
@@ -3133,9 +3149,11 @@ def customize_barocco_context_lesson() -> None:
             "description": "Una sfera interattiva raccoglie le coordinate storiche e culturali del Barocco: movimento, contrasto, meraviglia, teatralita, energia, luce e ombra, gesto.",
         }
 
+        topic_map["nodes"] = [context_topic]
+        topic_map["connections"] = []
+        topic_map["rail_label"] = "Lezione del nucleo"
+
     if vivaldi_topic:
-        vivaldi_topic["slug"] = "vivaldi-e-il-concerto"
-        vivaldi_topic["subtitle"] = "Il concerto solista tra ascolto guidato e mosaico sonoro-cromatico"
         vivaldi_topic.pop("lesson", None)
 
     barocco["chapter_map"] = [node["title"] for node in topic_map["nodes"]]
@@ -3161,7 +3179,7 @@ def merge_dicts(base: dict, override: dict) -> dict:
 def default_nuclei_overrides() -> dict[str, dict]:
     payload = {}
     for nucleo in NUCLEI:
-        payload[nucleo["slug"]] = {field: nucleo[field] for field in EDITOR_NUCLEUS_FIELDS}
+        payload[nucleo["slug"]] = {field: nucleo[field] for field in EDITOR_NUCLEUS_FIELDS if field in nucleo}
     return payload
 
 
@@ -4837,6 +4855,7 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
     topic_map = nucleo.get("topic_map")
     map_only_landing = nucleo.get("landing_mode", "map-only") == "map-only"
     hero_subtitle = nucleo.get("hero_subtitle") or nucleo.get("description", "")
+    landing_reference_period = nucleo.get("landing_reference_period", "")
     page_description = (
         f"{nucleo['title']} in Accordia: titolo del nucleo e lavagna interattiva degli argomenti."
         if map_only_landing
@@ -4933,6 +4952,7 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
                 <div class="nucleus-hero__copy nucleus-hero__copy--landing-clean">
                     <h1>{e(nucleo['title'])}</h1>
                     <p class="nucleus-hero__subtitle">{e(hero_subtitle)}</p>
+                    {f'<p class="nucleus-hero__period">{e(landing_reference_period)}</p>' if landing_reference_period else ''}
                 </div>
             </div>
         </section>"""
