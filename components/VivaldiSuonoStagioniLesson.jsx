@@ -6,7 +6,7 @@ const GLOBE_VIEWBOX_CENTER = 260;
 const CURVE_SAMPLE_STEPS = 96;
 const WIREFRAME_PARALLEL_COUNT = 9;
 const WIREFRAME_MERIDIAN_COUNT = 9;
-const WIREFRAME_PARALLEL_LIMIT = 80;
+const WIREFRAME_PARALLEL_VISIBLE_RATIO = 0.84;
 const WIREFRAME_MERIDIAN_LIMIT = 80;
 
 const orbitDefinitions = [
@@ -16,7 +16,7 @@ const orbitDefinitions = [
     subtitle: "Politica, potere, scienza e rappresentazione nel Barocco",
     color: "#b48a79",
     ringClass: "storico",
-    focusRotation: { x: -6, y: 24 },
+    focusRotation: { x: 0, y: 24 },
     summary:
       "Il Barocco prende forma in un'Europa attraversata da guerra, centralizzazione del potere e nuove scoperte. Questo globo raccoglie le parole che fissano il quadro storico e culturale del Seicento.",
     mustKnow: [
@@ -94,7 +94,7 @@ const orbitDefinitions = [
     subtitle: "Spazi, forme e linguaggi della musica barocca",
     color: "#90a09c",
     ringClass: "musica",
-    focusRotation: { x: 6, y: -18 },
+    focusRotation: { x: 0, y: -18 },
     summary:
       "La musica barocca vive fra corte, cattedrale e teatro pubblico. Questo globo raccoglie gli spazi e le forme che rendono riconoscibile il linguaggio musicale del periodo.",
     mustKnow: [
@@ -283,7 +283,7 @@ function createUniformGlobeCurveDefinitions() {
   const curves = [];
   const parallelStep =
     WIREFRAME_PARALLEL_COUNT > 1
-      ? (WIREFRAME_PARALLEL_LIMIT * 2) / (WIREFRAME_PARALLEL_COUNT - 1)
+      ? (WIREFRAME_PARALLEL_VISIBLE_RATIO * 2) / (WIREFRAME_PARALLEL_COUNT - 1)
       : 0;
   const meridianStep =
     WIREFRAME_MERIDIAN_COUNT > 1
@@ -291,7 +291,8 @@ function createUniformGlobeCurveDefinitions() {
       : 0;
 
   for (let index = 0; index < WIREFRAME_PARALLEL_COUNT; index += 1) {
-    const value = -WIREFRAME_PARALLEL_LIMIT + parallelStep * index;
+    const projectedY = -WIREFRAME_PARALLEL_VISIBLE_RATIO + parallelStep * index;
+    const value = (Math.asin(clamp(projectedY, -1, 1)) * 180) / Math.PI;
     curves.push({
       id: `lat-${index}`,
       type: "latitude",

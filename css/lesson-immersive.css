@@ -2435,6 +2435,7 @@
   width: 100%;
   height: 100%;
   display: block;
+  shape-rendering: geometricPrecision;
 }
 
 .vivaldi-globe__rim,
@@ -2450,7 +2451,9 @@
 
 .vivaldi-globe__curve {
   stroke: color-mix(in srgb, var(--orbit-color) 33%, #bcc5cd);
-  stroke-width: 1.3;
+  stroke-width: 1.22;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 
 .vivaldi-globe__curve.is-uniform {
@@ -2458,7 +2461,7 @@
 }
 
 .vivaldi-globe__curve.is-axis {
-  stroke-width: 1.48;
+  stroke-width: 1.38;
 }
 
 .vivaldi-globe-orbit {
