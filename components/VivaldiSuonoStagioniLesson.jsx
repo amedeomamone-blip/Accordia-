@@ -325,13 +325,13 @@ function sampleMeridianCurve(longitude, steps = CURVE_SAMPLE_STEPS) {
 }
 
 const globeCurveDefinitions = [
-  { id: "lat-far-south", type: "latitude", value: -66 },
-  { id: "lat-south", type: "latitude", value: -40 },
-  { id: "lat-mid-south", type: "latitude", value: -16 },
+  { id: "lat-far-south", type: "latitude", value: -68 },
+  { id: "lat-south", type: "latitude", value: -44 },
+  { id: "lat-mid-south", type: "latitude", value: -20 },
   { id: "equator", type: "latitude", value: 0, axis: true },
-  { id: "lat-mid-north", type: "latitude", value: 16 },
-  { id: "lat-north", type: "latitude", value: 40 },
-  { id: "lat-far-north", type: "latitude", value: 66 },
+  { id: "lat-mid-north", type: "latitude", value: 20 },
+  { id: "lat-north", type: "latitude", value: 44 },
+  { id: "lat-far-north", type: "latitude", value: 68 },
   { id: "lon-far-west", type: "meridian", value: -90 },
   { id: "lon-west-wide", type: "meridian", value: -72 },
   { id: "lon-west", type: "meridian", value: -54 },
@@ -652,83 +652,19 @@ function KeywordChip({ keyword, isActive, onSelect }) {
   );
 }
 
-function GlobeFigure({
-  orbit,
-  isContextActive,
-  activeKeywordId,
-  onSelectOrbit,
-  onSelectKeyword,
-  prefersReducedMotion,
-}) {
-  const targetRotation = React.useMemo(() => getOrbitRotation(orbit), [orbit]);
-  const { rotation, isDragging, frameHandlers, suppressSelectionRef } =
-    useGlobeRotation(targetRotation, prefersReducedMotion);
-
-  const orbitKeywords = keywordsByOrbitId.get(orbit.id) ?? [];
-  const projectedKeywords = React.useMemo(() => {
-    return orbitKeywords
-      .map((item) => {
-        const projectedPoint = projectPoint(
-          toCartesian(item.latitude, item.longitude, GLOBE_RADIUS),
-          rotation.y,
-          rotation.x,
-        );
-        const isKeywordActive = item.id === activeKeywordId;
-
-        return {
-          ...item,
-          ...projectedPoint,
-          displayScale: projectedPoint.scale * (isKeywordActive ? 1.12 : 1.02),
-          displayOpacity: clamp(
-            projectedPoint.opacity + (isKeywordActive ? 0.1 : 0),
-            0.42,
-            1,
-          ),
-        };
-      })
-      .sort((first, second) => first.depth - second.depth);
-  }, [activeKeywordId, orbitKeywords, rotation.x, rotation.y]);
-
+function ContextSwitchButton({ orbit, index, isActive, onSelect }) {
   return (
-    <article
-      className={`vivaldi-globe-board${isContextActive ? " is-active" : ""}`}
+    <button
+      type="button"
+      className={`vivaldi-globe-switch__button${isActive ? " is-active" : ""}`}
       style={{ "--orbit-color": orbit.color }}
+      onClick={() => onSelect(orbit.id)}
+      aria-pressed={isActive}
+      aria-controls="vivaldi-globe-detail-panel"
     >
-      <button
-        type="button"
-        className={`vivaldi-globe-board__header${isContextActive ? " is-active" : ""}`}
-        onClick={() => onSelectOrbit(orbit.id)}
-        aria-pressed={isContextActive && activeKeywordId === null}
-        aria-controls="vivaldi-globe-detail-panel"
-      >
-        <span className="vivaldi-globe-board__eyebrow">{orbit.title}</span>
-        <strong>{orbit.subtitle}</strong>
-      </button>
-
-      <div
-        className={`vivaldi-globe-stage__frame vivaldi-globe-stage__frame--dual${isDragging ? " is-dragging" : ""}${isContextActive ? " is-active" : ""}`}
-        {...frameHandlers}
-      >
-        <div
-          className={`vivaldi-globe-orbit vivaldi-globe-orbit--${orbit.ringClass}${isContextActive ? " is-active" : ""}`}
-          aria-hidden="true"
-        />
-
-        <div className="vivaldi-globe" aria-hidden="true">
-          <GlobeWireframe rotation={rotation} />
-        </div>
-
-        {projectedKeywords.map((item) => (
-          <GlobeHotspot
-            key={item.id}
-            item={item}
-            isActive={item.id === activeKeywordId}
-            onSelect={onSelectKeyword}
-            suppressSelectionRef={suppressSelectionRef}
-          />
-        ))}
-      </div>
-    </article>
+      <span>{String(index + 1).padStart(2, "0")}</span>
+      <strong>{orbit.title}</strong>
+    </button>
   );
 }
 
@@ -743,6 +679,36 @@ export default function VivaldiSuonoStagioniLesson() {
   const activeKeyword =
     (activeKeywordId && keywordById.get(activeKeywordId)) || null;
   const panelMode = activeKeyword ? "keyword" : "orbit";
+  const targetRotation = React.useMemo(
+    () => getOrbitRotation(activeOrbit),
+    [activeOrbit],
+  );
+  const { rotation, isDragging, frameHandlers, suppressSelectionRef } =
+    useGlobeRotation(targetRotation, prefersReducedMotion);
+
+  const projectedKeywords = React.useMemo(() => {
+    return activeOrbitKeywords
+      .map((item) => {
+        const projectedPoint = projectPoint(
+          toCartesian(item.latitude, item.longitude, GLOBE_RADIUS),
+          rotation.y,
+          rotation.x,
+        );
+        const isKeywordActive = item.id === activeKeywordId;
+
+        return {
+          ...item,
+          ...projectedPoint,
+          displayScale: projectedPoint.scale * (isKeywordActive ? 1.14 : 1.03),
+          displayOpacity: clamp(
+            projectedPoint.opacity + (isKeywordActive ? 0.08 : 0),
+            0.42,
+            1,
+          ),
+        };
+      })
+      .sort((first, second) => first.depth - second.depth);
+  }, [activeKeywordId, activeOrbitKeywords, rotation.x, rotation.y]);
 
   const selectOrbit = React.useCallback((orbitId) => {
     setActiveOrbitId(orbitId);
@@ -770,28 +736,53 @@ export default function VivaldiSuonoStagioniLesson() {
             </p>
             <h1>Il Barocco in coordinate</h1>
             <p className="vivaldi-context-head__intro">
-              Due globi interattivi mettono in relazione il contesto
-              storico-culturale e quello musicale. Apri una parola chiave sulla
-              sfera e leggi l'approfondimento nella card condivisa qui sotto.
+              Un globo interattivo raccoglie due accessi al Barocco: il
+              contesto storico-culturale e quello musicale. Seleziona il
+              contesto, apri una parola chiave sulla sfera e leggi
+              l'approfondimento nella card qui sotto.
             </p>
           </div>
 
           <div className="vivaldi-context-stage">
-            <div className="vivaldi-globe-stage">
+            <div
+              className="vivaldi-globe-stage"
+              style={{ "--orbit-color": activeOrbit.color }}
+            >
               <div className="vivaldi-globe-stage__topline">
-                <span>trascina i globi o seleziona una parola chiave</span>
+                <span>trascina il globo o seleziona una parola chiave</span>
               </div>
 
-              <div className="vivaldi-globe-grid">
-                {orbitDefinitions.map((orbit) => (
-                  <GlobeFigure
+              <div
+                className="vivaldi-globe-switch"
+                role="tablist"
+                aria-label="Contesti del globo"
+              >
+                {orbitDefinitions.map((orbit, index) => (
+                  <ContextSwitchButton
                     key={orbit.id}
                     orbit={orbit}
-                    isContextActive={orbit.id === activeOrbitId}
-                    activeKeywordId={orbit.id === activeOrbitId ? activeKeywordId : null}
-                    onSelectOrbit={selectOrbit}
-                    onSelectKeyword={selectKeyword}
-                    prefersReducedMotion={prefersReducedMotion}
+                    index={index}
+                    isActive={orbit.id === activeOrbitId}
+                    onSelect={selectOrbit}
+                  />
+                ))}
+              </div>
+
+              <div
+                className={`vivaldi-globe-stage__frame${isDragging ? " is-dragging" : ""}`}
+                {...frameHandlers}
+              >
+                <div className="vivaldi-globe" aria-hidden="true">
+                  <GlobeWireframe rotation={rotation} />
+                </div>
+
+                {projectedKeywords.map((item) => (
+                  <GlobeHotspot
+                    key={item.id}
+                    item={item}
+                    isActive={item.id === activeKeywordId}
+                    onSelect={selectKeyword}
+                    suppressSelectionRef={suppressSelectionRef}
                   />
                 ))}
               </div>
@@ -805,7 +796,7 @@ export default function VivaldiSuonoStagioniLesson() {
               >
                 <div className="vivaldi-globe-detail-panel__meta">
                   <p className="vivaldi-globe-popup__eyebrow">
-                    {panelMode === "keyword" ? "Approfondimento attivo" : "Globo attivo"}
+                    {panelMode === "keyword" ? "Approfondimento attivo" : "Contesto attivo"}
                   </p>
                   <span>{activeOrbit.title}</span>
                 </div>

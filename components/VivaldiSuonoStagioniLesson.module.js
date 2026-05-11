@@ -267,13 +267,13 @@ function sampleMeridianCurve(longitude, steps = CURVE_SAMPLE_STEPS) {
   );
 }
 const globeCurveDefinitions = [
-  { id: "lat-far-south", type: "latitude", value: -66 },
-  { id: "lat-south", type: "latitude", value: -40 },
-  { id: "lat-mid-south", type: "latitude", value: -16 },
+  { id: "lat-far-south", type: "latitude", value: -68 },
+  { id: "lat-south", type: "latitude", value: -44 },
+  { id: "lat-mid-south", type: "latitude", value: -20 },
   { id: "equator", type: "latitude", value: 0, axis: true },
-  { id: "lat-mid-north", type: "latitude", value: 16 },
-  { id: "lat-north", type: "latitude", value: 40 },
-  { id: "lat-far-north", type: "latitude", value: 66 },
+  { id: "lat-mid-north", type: "latitude", value: 20 },
+  { id: "lat-north", type: "latitude", value: 44 },
+  { id: "lat-far-north", type: "latitude", value: 68 },
   { id: "lon-far-west", type: "meridian", value: -90 },
   { id: "lon-west-wide", type: "meridian", value: -72 },
   { id: "lon-west", type: "meridian", value: -54 },
@@ -540,80 +540,19 @@ function KeywordChip({ keyword, isActive, onSelect }) {
     /* @__PURE__ */ React.createElement("strong", null, keyword.title)
   );
 }
-function GlobeFigure({
-  orbit,
-  isContextActive,
-  activeKeywordId,
-  onSelectOrbit,
-  onSelectKeyword,
-  prefersReducedMotion
-}) {
-  const targetRotation = React.useMemo(() => getOrbitRotation(orbit), [orbit]);
-  const { rotation, isDragging, frameHandlers, suppressSelectionRef } = useGlobeRotation(targetRotation, prefersReducedMotion);
-  const orbitKeywords = keywordsByOrbitId.get(orbit.id) ?? [];
-  const projectedKeywords = React.useMemo(() => {
-    return orbitKeywords.map((item) => {
-      const projectedPoint = projectPoint(
-        toCartesian(item.latitude, item.longitude, GLOBE_RADIUS),
-        rotation.y,
-        rotation.x
-      );
-      const isKeywordActive = item.id === activeKeywordId;
-      return {
-        ...item,
-        ...projectedPoint,
-        displayScale: projectedPoint.scale * (isKeywordActive ? 1.12 : 1.02),
-        displayOpacity: clamp(
-          projectedPoint.opacity + (isKeywordActive ? 0.1 : 0),
-          0.42,
-          1
-        )
-      };
-    }).sort((first, second) => first.depth - second.depth);
-  }, [activeKeywordId, orbitKeywords, rotation.x, rotation.y]);
+function ContextSwitchButton({ orbit, index, isActive, onSelect }) {
   return /* @__PURE__ */ React.createElement(
-    "article",
+    "button",
     {
-      className: `vivaldi-globe-board${isContextActive ? " is-active" : ""}`,
-      style: { "--orbit-color": orbit.color }
+      type: "button",
+      className: `vivaldi-globe-switch__button${isActive ? " is-active" : ""}`,
+      style: { "--orbit-color": orbit.color },
+      onClick: () => onSelect(orbit.id),
+      "aria-pressed": isActive,
+      "aria-controls": "vivaldi-globe-detail-panel"
     },
-    /* @__PURE__ */ React.createElement(
-      "button",
-      {
-        type: "button",
-        className: `vivaldi-globe-board__header${isContextActive ? " is-active" : ""}`,
-        onClick: () => onSelectOrbit(orbit.id),
-        "aria-pressed": isContextActive && activeKeywordId === null,
-        "aria-controls": "vivaldi-globe-detail-panel"
-      },
-      /* @__PURE__ */ React.createElement("span", { className: "vivaldi-globe-board__eyebrow" }, orbit.title),
-      /* @__PURE__ */ React.createElement("strong", null, orbit.subtitle)
-    ),
-    /* @__PURE__ */ React.createElement(
-      "div",
-      {
-        className: `vivaldi-globe-stage__frame vivaldi-globe-stage__frame--dual${isDragging ? " is-dragging" : ""}${isContextActive ? " is-active" : ""}`,
-        ...frameHandlers
-      },
-      /* @__PURE__ */ React.createElement(
-        "div",
-        {
-          className: `vivaldi-globe-orbit vivaldi-globe-orbit--${orbit.ringClass}${isContextActive ? " is-active" : ""}`,
-          "aria-hidden": "true"
-        }
-      ),
-      /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement(GlobeWireframe, { rotation })),
-      projectedKeywords.map((item) => /* @__PURE__ */ React.createElement(
-        GlobeHotspot,
-        {
-          key: item.id,
-          item,
-          isActive: item.id === activeKeywordId,
-          onSelect: onSelectKeyword,
-          suppressSelectionRef
-        }
-      ))
-    )
+    /* @__PURE__ */ React.createElement("span", null, String(index + 1).padStart(2, "0")),
+    /* @__PURE__ */ React.createElement("strong", null, orbit.title)
   );
 }
 function VivaldiSuonoStagioniLesson() {
@@ -625,6 +564,31 @@ function VivaldiSuonoStagioniLesson() {
   const activeOrbitKeywords = keywordsByOrbitId.get(activeOrbitId) ?? [];
   const activeKeyword = activeKeywordId && keywordById.get(activeKeywordId) || null;
   const panelMode = activeKeyword ? "keyword" : "orbit";
+  const targetRotation = React.useMemo(
+    () => getOrbitRotation(activeOrbit),
+    [activeOrbit]
+  );
+  const { rotation, isDragging, frameHandlers, suppressSelectionRef } = useGlobeRotation(targetRotation, prefersReducedMotion);
+  const projectedKeywords = React.useMemo(() => {
+    return activeOrbitKeywords.map((item) => {
+      const projectedPoint = projectPoint(
+        toCartesian(item.latitude, item.longitude, GLOBE_RADIUS),
+        rotation.y,
+        rotation.x
+      );
+      const isKeywordActive = item.id === activeKeywordId;
+      return {
+        ...item,
+        ...projectedPoint,
+        displayScale: projectedPoint.scale * (isKeywordActive ? 1.14 : 1.03),
+        displayOpacity: clamp(
+          projectedPoint.opacity + (isKeywordActive ? 0.08 : 0),
+          0.42,
+          1
+        )
+      };
+    }).sort((first, second) => first.depth - second.depth);
+  }, [activeKeywordId, activeOrbitKeywords, rotation.x, rotation.y]);
   const selectOrbit = React.useCallback((orbitId) => {
     setActiveOrbitId(orbitId);
     setActiveKeywordId(null);
@@ -637,51 +601,84 @@ function VivaldiSuonoStagioniLesson() {
     setActiveOrbitId(keyword.orbitId);
     setActiveKeywordId(keyword.id);
   }, []);
-  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page vivaldi-lesson", "data-lesson-model": "editoriale" }, /* @__PURE__ */ React.createElement("section", { className: "vivaldi-context-block", id: "lezione", "data-section": "contesto" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-shell vivaldi-context-block__shell" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-context-head" }, /* @__PURE__ */ React.createElement("p", { className: "vivaldi-context-head__eyebrow" }, "Il Barocco \xB7 Contesto storico-culturale"), /* @__PURE__ */ React.createElement("h1", null, "Il Barocco in coordinate"), /* @__PURE__ */ React.createElement("p", { className: "vivaldi-context-head__intro" }, "Due globi interattivi mettono in relazione il contesto storico-culturale e quello musicale. Apri una parola chiave sulla sfera e leggi l'approfondimento nella card condivisa qui sotto.")), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-context-stage" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-stage" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-stage__topline" }, /* @__PURE__ */ React.createElement("span", null, "trascina i globi o seleziona una parola chiave")), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-grid" }, orbitDefinitions.map((orbit) => /* @__PURE__ */ React.createElement(
-    GlobeFigure,
+  return /* @__PURE__ */ React.createElement("div", { className: "lesson-editorial-page vivaldi-lesson", "data-lesson-model": "editoriale" }, /* @__PURE__ */ React.createElement("section", { className: "vivaldi-context-block", id: "lezione", "data-section": "contesto" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-shell vivaldi-context-block__shell" }, /* @__PURE__ */ React.createElement("div", { className: "vivaldi-context-head" }, /* @__PURE__ */ React.createElement("p", { className: "vivaldi-context-head__eyebrow" }, "Il Barocco \xB7 Contesto storico-culturale"), /* @__PURE__ */ React.createElement("h1", null, "Il Barocco in coordinate"), /* @__PURE__ */ React.createElement("p", { className: "vivaldi-context-head__intro" }, "Un globo interattivo raccoglie due accessi al Barocco: il contesto storico-culturale e quello musicale. Seleziona il contesto, apri una parola chiave sulla sfera e leggi l'approfondimento nella card qui sotto.")), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-context-stage" }, /* @__PURE__ */ React.createElement(
+    "div",
     {
-      key: orbit.id,
-      orbit,
-      isContextActive: orbit.id === activeOrbitId,
-      activeKeywordId: orbit.id === activeOrbitId ? activeKeywordId : null,
-      onSelectOrbit: selectOrbit,
-      onSelectKeyword: selectKeyword,
-      prefersReducedMotion
-    }
-  ))), /* @__PURE__ */ React.createElement(
-    "article",
-    {
-      key: `${activeOrbitId}-${activeKeywordId ?? "overview"}`,
-      id: "vivaldi-globe-detail-panel",
-      className: "vivaldi-globe-detail-panel",
-      style: { "--orbit-color": activeOrbit.color },
-      "aria-live": "polite"
+      className: "vivaldi-globe-stage",
+      style: { "--orbit-color": activeOrbit.color }
     },
-    /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-detail-panel__meta" }, /* @__PURE__ */ React.createElement("p", { className: "vivaldi-globe-popup__eyebrow" }, panelMode === "keyword" ? "Approfondimento attivo" : "Globo attivo"), /* @__PURE__ */ React.createElement("span", null, activeOrbit.title)),
-    /* @__PURE__ */ React.createElement("h2", null, panelMode === "keyword" ? activeKeyword.title : activeOrbit.title),
-    /* @__PURE__ */ React.createElement("p", { className: "vivaldi-globe-detail-panel__subtitle" }, activeOrbit.subtitle),
-    panelMode === "keyword" ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("p", null, activeKeyword.copy), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-detail-panel__keyline" }, /* @__PURE__ */ React.createElement("strong", null, "Punto da fissare"), /* @__PURE__ */ React.createElement("span", null, activeKeyword.keyIdea))) : /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("p", null, activeOrbit.summary), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-panel-block" }, /* @__PURE__ */ React.createElement("h3", null, "Cosa devi sapere"), /* @__PURE__ */ React.createElement("ul", { className: "vivaldi-globe-panel-list" }, activeOrbit.mustKnow.map((item) => /* @__PURE__ */ React.createElement("li", { key: item }, item))))),
-    /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-panel-block" }, /* @__PURE__ */ React.createElement("h3", null, "Parole chiave del globo"), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-keyword-grid" }, /* @__PURE__ */ React.createElement(
-      "button",
+    /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-stage__topline" }, /* @__PURE__ */ React.createElement("span", null, "trascina il globo o seleziona una parola chiave")),
+    /* @__PURE__ */ React.createElement(
+      "div",
       {
-        type: "button",
-        className: `vivaldi-globe-keyword vivaldi-globe-keyword--summary${panelMode === "orbit" ? " is-active" : ""}`,
-        style: { "--orbit-color": activeOrbit.color },
-        onClick: () => selectOrbit(activeOrbit.id),
-        "aria-pressed": panelMode === "orbit",
-        "aria-controls": "vivaldi-globe-detail-panel"
+        className: "vivaldi-globe-switch",
+        role: "tablist",
+        "aria-label": "Contesti del globo"
       },
-      /* @__PURE__ */ React.createElement("strong", null, "Panoramica del globo")
-    ), activeOrbitKeywords.map((keyword) => /* @__PURE__ */ React.createElement(
-      KeywordChip,
+      orbitDefinitions.map((orbit, index) => /* @__PURE__ */ React.createElement(
+        ContextSwitchButton,
+        {
+          key: orbit.id,
+          orbit,
+          index,
+          isActive: orbit.id === activeOrbitId,
+          onSelect: selectOrbit
+        }
+      ))
+    ),
+    /* @__PURE__ */ React.createElement(
+      "div",
       {
-        key: keyword.id,
-        keyword,
-        isActive: keyword.id === activeKeywordId,
-        onSelect: selectKeyword
-      }
-    ))))
-  ))))));
+        className: `vivaldi-globe-stage__frame${isDragging ? " is-dragging" : ""}`,
+        ...frameHandlers
+      },
+      /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe", "aria-hidden": "true" }, /* @__PURE__ */ React.createElement(GlobeWireframe, { rotation })),
+      projectedKeywords.map((item) => /* @__PURE__ */ React.createElement(
+        GlobeHotspot,
+        {
+          key: item.id,
+          item,
+          isActive: item.id === activeKeywordId,
+          onSelect: selectKeyword,
+          suppressSelectionRef
+        }
+      ))
+    ),
+    /* @__PURE__ */ React.createElement(
+      "article",
+      {
+        key: `${activeOrbitId}-${activeKeywordId ?? "overview"}`,
+        id: "vivaldi-globe-detail-panel",
+        className: "vivaldi-globe-detail-panel",
+        style: { "--orbit-color": activeOrbit.color },
+        "aria-live": "polite"
+      },
+      /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-detail-panel__meta" }, /* @__PURE__ */ React.createElement("p", { className: "vivaldi-globe-popup__eyebrow" }, panelMode === "keyword" ? "Approfondimento attivo" : "Contesto attivo"), /* @__PURE__ */ React.createElement("span", null, activeOrbit.title)),
+      /* @__PURE__ */ React.createElement("h2", null, panelMode === "keyword" ? activeKeyword.title : activeOrbit.title),
+      /* @__PURE__ */ React.createElement("p", { className: "vivaldi-globe-detail-panel__subtitle" }, activeOrbit.subtitle),
+      panelMode === "keyword" ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("p", null, activeKeyword.copy), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-detail-panel__keyline" }, /* @__PURE__ */ React.createElement("strong", null, "Punto da fissare"), /* @__PURE__ */ React.createElement("span", null, activeKeyword.keyIdea))) : /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("p", null, activeOrbit.summary), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-panel-block" }, /* @__PURE__ */ React.createElement("h3", null, "Cosa devi sapere"), /* @__PURE__ */ React.createElement("ul", { className: "vivaldi-globe-panel-list" }, activeOrbit.mustKnow.map((item) => /* @__PURE__ */ React.createElement("li", { key: item }, item))))),
+      /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-panel-block" }, /* @__PURE__ */ React.createElement("h3", null, "Parole chiave del globo"), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-keyword-grid" }, /* @__PURE__ */ React.createElement(
+        "button",
+        {
+          type: "button",
+          className: `vivaldi-globe-keyword vivaldi-globe-keyword--summary${panelMode === "orbit" ? " is-active" : ""}`,
+          style: { "--orbit-color": activeOrbit.color },
+          onClick: () => selectOrbit(activeOrbit.id),
+          "aria-pressed": panelMode === "orbit",
+          "aria-controls": "vivaldi-globe-detail-panel"
+        },
+        /* @__PURE__ */ React.createElement("strong", null, "Panoramica del globo")
+      ), activeOrbitKeywords.map((keyword) => /* @__PURE__ */ React.createElement(
+        KeywordChip,
+        {
+          key: keyword.id,
+          keyword,
+          isActive: keyword.id === activeKeywordId,
+          onSelect: selectKeyword
+        }
+      ))))
+    )
+  )))));
 }
 export {
   VivaldiSuonoStagioniLesson as default
