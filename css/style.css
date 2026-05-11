@@ -1746,8 +1746,9 @@ body[data-nav="home"] .site-footer__label {
 }
 
 .nucleus-page--map-only .nucleus-section__intro {
-    max-width: 46rem;
-    margin-bottom: 1rem;
+    max-width: 48rem;
+    margin: 0 auto 1rem;
+    text-align: center;
 }
 
 .nucleus-page--map-only .nucleus-section__intro p:last-child {
@@ -1762,7 +1763,7 @@ body[data-nav="home"] .site-footer__label {
 }
 
 .nucleus-page--map-only .nucleus-section--map .shell {
-    width: min(calc(100vw - 1.25rem), 1740px);
+    width: min(calc(100vw - 0.75rem), 1820px);
 }
 
 .nucleus-page--map-only .nucleus-topic-map {
@@ -1774,12 +1775,7 @@ body[data-nav="home"] .site-footer__label {
 }
 
 .nucleus-page--map-only .nucleus-topic-map::after {
-    content: "";
-    position: absolute;
-    inset: 0.95rem;
-    border: 1px solid rgba(24, 25, 27, 0.06);
-    border-radius: 1.35rem;
-    pointer-events: none;
+    content: none;
 }
 
 .nucleus-page--map-only .nucleus-topic-map__canvas {
