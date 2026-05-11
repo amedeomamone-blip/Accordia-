@@ -5,7 +5,8 @@ const FULL_ROTATION = Math.PI * 2;
 const GLOBE_VIEWBOX_CENTER = 260;
 const CURVE_SAMPLE_STEPS = 96;
 const WIREFRAME_PARALLEL_COUNT = 9;
-const WIREFRAME_MERIDIAN_COUNT = 9;
+// Vincolo grafico: il numero dei meridiani deve essere uguale a quello dei paralleli.
+const WIREFRAME_MERIDIAN_COUNT = WIREFRAME_PARALLEL_COUNT;
 const WIREFRAME_PARALLEL_VISIBLE_RATIO = 0.84;
 const WIREFRAME_MERIDIAN_LIMIT = 80;
 
