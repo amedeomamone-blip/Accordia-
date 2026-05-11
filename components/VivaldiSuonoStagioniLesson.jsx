@@ -3,7 +3,7 @@ import React from "https://esm.sh/react@18";
 const GLOBE_RADIUS = 226;
 const FULL_ROTATION = Math.PI * 2;
 const GLOBE_VIEWBOX_CENTER = 260;
-const CURVE_SAMPLE_STEPS = 80;
+const CURVE_SAMPLE_STEPS = 96;
 
 const orbitDefinitions = [
   {
@@ -208,10 +208,6 @@ function normalizeAngle(value) {
   return nextValue;
 }
 
-function shortestAngleDifference(from, to) {
-  return normalizeAngle(to - from);
-}
-
 function toCartesian(latitude, longitude, radius) {
   const lat = deg(latitude);
   const lon = deg(longitude);
@@ -325,23 +321,29 @@ function sampleMeridianCurve(longitude, steps = CURVE_SAMPLE_STEPS) {
 }
 
 const globeCurveDefinitions = [
-  { id: "lat-far-south", type: "latitude", value: -68 },
-  { id: "lat-south", type: "latitude", value: -44 },
-  { id: "lat-mid-south", type: "latitude", value: -20 },
+  { id: "lat-far-south", type: "latitude", value: -72 },
+  { id: "lat-deep-south", type: "latitude", value: -56 },
+  { id: "lat-south", type: "latitude", value: -40 },
+  { id: "lat-mid-south", type: "latitude", value: -24 },
+  { id: "lat-inner-south", type: "latitude", value: -8 },
   { id: "equator", type: "latitude", value: 0, axis: true },
-  { id: "lat-mid-north", type: "latitude", value: 20 },
-  { id: "lat-north", type: "latitude", value: 44 },
-  { id: "lat-far-north", type: "latitude", value: 68 },
+  { id: "lat-inner-north", type: "latitude", value: 8 },
+  { id: "lat-mid-north", type: "latitude", value: 24 },
+  { id: "lat-north", type: "latitude", value: 40 },
+  { id: "lat-deep-north", type: "latitude", value: 56 },
+  { id: "lat-far-north", type: "latitude", value: 72 },
   { id: "lon-far-west", type: "meridian", value: -90 },
-  { id: "lon-west-wide", type: "meridian", value: -72 },
-  { id: "lon-west", type: "meridian", value: -54 },
-  { id: "lon-west-mid", type: "meridian", value: -36 },
-  { id: "lon-inner-west", type: "meridian", value: -18 },
+  { id: "lon-west-wide", type: "meridian", value: -75 },
+  { id: "lon-west", type: "meridian", value: -60 },
+  { id: "lon-west-mid", type: "meridian", value: -45 },
+  { id: "lon-inner-west", type: "meridian", value: -30 },
+  { id: "lon-core-west", type: "meridian", value: -15 },
   { id: "prime-meridian", type: "meridian", value: 0, axis: true },
-  { id: "lon-inner-east", type: "meridian", value: 18 },
-  { id: "lon-east-mid", type: "meridian", value: 36 },
-  { id: "lon-east", type: "meridian", value: 54 },
-  { id: "lon-east-wide", type: "meridian", value: 72 },
+  { id: "lon-core-east", type: "meridian", value: 15 },
+  { id: "lon-inner-east", type: "meridian", value: 30 },
+  { id: "lon-east-mid", type: "meridian", value: 45 },
+  { id: "lon-east", type: "meridian", value: 60 },
+  { id: "lon-east-wide", type: "meridian", value: 75 },
   { id: "lon-far-east", type: "meridian", value: 90 },
 ];
 
@@ -352,36 +354,10 @@ function getOrbitRotation(orbit) {
   };
 }
 
-function usePrefersReducedMotion() {
-  const [prefersReducedMotion, setPrefersReducedMotion] = React.useState(false);
-
-  React.useEffect(() => {
-    if (typeof window === "undefined" || typeof window.matchMedia !== "function") {
-      return undefined;
-    }
-
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const updatePreference = () => setPrefersReducedMotion(mediaQuery.matches);
-
-    updatePreference();
-
-    if (typeof mediaQuery.addEventListener === "function") {
-      mediaQuery.addEventListener("change", updatePreference);
-      return () => mediaQuery.removeEventListener("change", updatePreference);
-    }
-
-    mediaQuery.addListener(updatePreference);
-    return () => mediaQuery.removeListener(updatePreference);
-  }, []);
-
-  return prefersReducedMotion;
-}
-
-function useGlobeRotation(targetRotation, prefersReducedMotion) {
+function useGlobeRotation(targetRotation) {
   const [rotation, setRotation] = React.useState(targetRotation);
   const [isDragging, setIsDragging] = React.useState(false);
   const rotationRef = React.useRef(targetRotation);
-  const velocityRef = React.useRef({ x: 0, y: 0 });
   const dragRef = React.useRef({
     active: false,
     moved: false,
@@ -395,58 +371,6 @@ function useGlobeRotation(targetRotation, prefersReducedMotion) {
     rotationRef.current = { ...targetRotation };
     setRotation({ ...targetRotation });
   }, [targetRotation]);
-
-  React.useEffect(() => {
-    if (!prefersReducedMotion || isDragging) {
-      return;
-    }
-
-    rotationRef.current = { ...targetRotation };
-    velocityRef.current = { x: 0, y: 0 };
-    setRotation({ ...targetRotation });
-  }, [isDragging, prefersReducedMotion, targetRotation]);
-
-  React.useEffect(() => {
-    let animationFrame = 0;
-
-    const animate = () => {
-      if (!dragRef.current.active) {
-        const drift = prefersReducedMotion ? 0 : 0.00005;
-        const nextX = clamp(
-          rotationRef.current.x +
-            velocityRef.current.x +
-            (targetRotation.x - rotationRef.current.x) * 0.028,
-          deg(-34),
-          deg(34),
-        );
-        const nextY = normalizeAngle(
-          rotationRef.current.y +
-            velocityRef.current.y +
-            shortestAngleDifference(rotationRef.current.y, targetRotation.y) * 0.03 +
-            drift,
-        );
-
-        velocityRef.current = prefersReducedMotion
-          ? { x: 0, y: 0 }
-          : {
-              x: velocityRef.current.x * 0.93,
-              y: velocityRef.current.y * 0.95,
-            };
-
-        rotationRef.current = {
-          x: nextX,
-          y: nextY,
-        };
-
-        setRotation({ ...rotationRef.current });
-      }
-
-      animationFrame = window.requestAnimationFrame(animate);
-    };
-
-    animationFrame = window.requestAnimationFrame(animate);
-    return () => window.cancelAnimationFrame(animationFrame);
-  }, [prefersReducedMotion, targetRotation]);
 
   const stopDragging = React.useCallback((frameNode, pointerId) => {
     if (frameNode && typeof frameNode.releasePointerCapture === "function") {
@@ -484,7 +408,6 @@ function useGlobeRotation(targetRotation, prefersReducedMotion) {
       y: event.clientY,
     };
 
-    velocityRef.current = { x: 0, y: 0 };
     suppressSelectionRef.current = false;
     setIsDragging(true);
     event.currentTarget.setPointerCapture(event.pointerId);
@@ -513,15 +436,8 @@ function useGlobeRotation(targetRotation, prefersReducedMotion) {
 
       rotationRef.current = nextRotation;
       setRotation({ ...nextRotation });
-
-      if (!prefersReducedMotion) {
-        velocityRef.current = {
-          x: deltaY * 0.0007,
-          y: deltaX * 0.001,
-        };
-      }
     },
-    [prefersReducedMotion],
+    [],
   );
 
   const handlePointerUp = React.useCallback(
@@ -541,7 +457,6 @@ function useGlobeRotation(targetRotation, prefersReducedMotion) {
         return;
       }
 
-      velocityRef.current = { x: 0, y: 0 };
       stopDragging(event.currentTarget, event.pointerId);
     },
     [stopDragging],
@@ -612,7 +527,7 @@ function GlobeHotspot({ item, isActive, onSelect, suppressSelectionRef }) {
       className={`vivaldi-globe-hotspot${isActive ? " is-keyword-active" : ""}`}
       style={{
         "--orbit-color": item.orbitColor,
-        left: `calc(50% + ${item.x}px)`,
+        left: `calc(var(--vivaldi-globe-center-x) + ${item.x}px)`,
         top: `calc(50% + ${item.y}px)`,
         opacity: item.displayOpacity,
         transform: `translate(-50%, -50%) scale(${item.displayScale})`,
@@ -622,6 +537,9 @@ function GlobeHotspot({ item, isActive, onSelect, suppressSelectionRef }) {
         if (!suppressSelectionRef.current) {
           onSelect(item.id);
         }
+      }}
+      onPointerDown={(event) => {
+        event.stopPropagation();
       }}
       onFocus={() => {
         if (!suppressSelectionRef.current) {
@@ -658,6 +576,9 @@ function ContextSwitchButton({ orbit, index, isActive, onSelect }) {
       type="button"
       className={`vivaldi-globe-switch__button${isActive ? " is-active" : ""}`}
       style={{ "--orbit-color": orbit.color }}
+      onPointerDown={(event) => {
+        event.stopPropagation();
+      }}
       onClick={() => onSelect(orbit.id)}
       aria-pressed={isActive}
       aria-controls="vivaldi-globe-detail-panel"
@@ -669,7 +590,6 @@ function ContextSwitchButton({ orbit, index, isActive, onSelect }) {
 }
 
 export default function VivaldiSuonoStagioniLesson() {
-  const prefersReducedMotion = usePrefersReducedMotion();
   const initialOrbit = orbitDefinitions[0];
   const [activeOrbitId, setActiveOrbitId] = React.useState(initialOrbit.id);
   const [activeKeywordId, setActiveKeywordId] = React.useState(null);
@@ -684,7 +604,7 @@ export default function VivaldiSuonoStagioniLesson() {
     [activeOrbit],
   );
   const { rotation, isDragging, frameHandlers, suppressSelectionRef } =
-    useGlobeRotation(targetRotation, prefersReducedMotion);
+    useGlobeRotation(targetRotation);
 
   const projectedKeywords = React.useMemo(() => {
     return activeOrbitKeywords
@@ -753,25 +673,25 @@ export default function VivaldiSuonoStagioniLesson() {
               </div>
 
               <div
-                className="vivaldi-globe-switch"
-                role="tablist"
-                aria-label="Contesti del globo"
-              >
-                {orbitDefinitions.map((orbit, index) => (
-                  <ContextSwitchButton
-                    key={orbit.id}
-                    orbit={orbit}
-                    index={index}
-                    isActive={orbit.id === activeOrbitId}
-                    onSelect={selectOrbit}
-                  />
-                ))}
-              </div>
-
-              <div
                 className={`vivaldi-globe-stage__frame${isDragging ? " is-dragging" : ""}`}
                 {...frameHandlers}
               >
+                <div
+                  className="vivaldi-globe-switch"
+                  role="tablist"
+                  aria-label="Contesti del globo"
+                >
+                  {orbitDefinitions.map((orbit, index) => (
+                    <ContextSwitchButton
+                      key={orbit.id}
+                      orbit={orbit}
+                      index={index}
+                      isActive={orbit.id === activeOrbitId}
+                      onSelect={selectOrbit}
+                    />
+                  ))}
+                </div>
+
                 <div className="vivaldi-globe" aria-hidden="true">
                   <GlobeWireframe rotation={rotation} />
                 </div>
