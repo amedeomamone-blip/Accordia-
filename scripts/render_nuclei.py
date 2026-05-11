@@ -6,6 +6,7 @@ from html import escape
 from pathlib import Path
 import re
 import shutil
+import time
 import unicodedata
 
 
@@ -24,14 +25,8 @@ VERSIONED_ASSET_PATHS = [
     ROOT / "components" / "DalleOriginiAlMondoAnticoLesson.module.js",
     ROOT / "components" / "VivaldiSuonoStagioniLesson.module.js",
 ]
-ASSET_VERSION = str(
-    int(
-        max(
-            path.stat().st_mtime
-            for path in VERSIONED_ASSET_PATHS
-        )
-    )
-)
+# Build-time cache busting: force a fresh asset version token for each render.
+ASSET_VERSION = str(int(time.time()))
 STATIC_PAGES = [
     ROOT / "index.html",
     ROOT / "compiti" / "index.html",
