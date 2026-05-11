@@ -1762,7 +1762,7 @@ body[data-nav="home"] .site-footer__label {
 }
 
 .nucleus-page--map-only .nucleus-section--map .shell {
-    width: min(calc(100vw - 2rem), 1660px);
+    width: min(calc(100vw - 1.25rem), 1740px);
 }
 
 .nucleus-page--map-only .nucleus-topic-map {
