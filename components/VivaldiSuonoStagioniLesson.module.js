@@ -3,6 +3,10 @@ const GLOBE_RADIUS = 226;
 const FULL_ROTATION = Math.PI * 2;
 const GLOBE_VIEWBOX_CENTER = 260;
 const CURVE_SAMPLE_STEPS = 96;
+const WIREFRAME_PARALLEL_COUNT = 9;
+const WIREFRAME_MERIDIAN_COUNT = 9;
+const WIREFRAME_PARALLEL_LIMIT = 80;
+const WIREFRAME_MERIDIAN_LIMIT = 80;
 const orbitDefinitions = [
   {
     id: "contesto-storico-culturale",
@@ -202,47 +206,11 @@ function projectPoint(point, rotationY, rotationX) {
     opacity
   };
 }
-function projectCurvePoints(points, rotationY, rotationX) {
+function projectCurvePath(points, rotationY, rotationX) {
   const projected = points.map(
     (point) => projectPoint(point, rotationY, rotationX)
   );
-  const frontSegments = [];
-  const backSegments = [];
-  let currentVisibility = projected[0].z >= 0 ? "front" : "back";
-  let currentSegment = [projected[0]];
-  for (let index = 1; index < projected.length; index += 1) {
-    const previousPoint = projected[index - 1];
-    const nextPoint = projected[index];
-    const nextVisibility = nextPoint.z >= 0 ? "front" : "back";
-    if (nextVisibility === currentVisibility) {
-      currentSegment.push(nextPoint);
-      continue;
-    }
-    const divisor = previousPoint.z - nextPoint.z || 1;
-    const interpolation = previousPoint.z / divisor;
-    const crossingPoint = {
-      x: previousPoint.x + (nextPoint.x - previousPoint.x) * interpolation,
-      y: previousPoint.y + (nextPoint.y - previousPoint.y) * interpolation,
-      z: 0
-    };
-    currentSegment.push(crossingPoint);
-    if (currentSegment.length > 1) {
-      (currentVisibility === "front" ? frontSegments : backSegments).push(
-        currentSegment
-      );
-    }
-    currentVisibility = nextVisibility;
-    currentSegment = [crossingPoint, nextPoint];
-  }
-  if (currentSegment.length > 1) {
-    (currentVisibility === "front" ? frontSegments : backSegments).push(
-      currentSegment
-    );
-  }
-  return {
-    back: backSegments.map(pointsToSvgPath),
-    front: frontSegments.map(pointsToSvgPath)
-  };
+  return pointsToSvgPath(projected);
 }
 function pointsToSvgPath(points) {
   return points.map((point, index) => {
@@ -263,26 +231,31 @@ function sampleMeridianCurve(longitude, steps = CURVE_SAMPLE_STEPS) {
     (_, index) => toCartesian(-90 + index / steps * 180, longitude, GLOBE_RADIUS)
   );
 }
-const globeCurveDefinitions = [
-  { id: "lat-far-south", type: "latitude", value: -80 },
-  { id: "lat-south-wide", type: "latitude", value: -60 },
-  { id: "lat-south", type: "latitude", value: -40 },
-  { id: "lat-mid-south", type: "latitude", value: -20 },
-  { id: "equator", type: "latitude", value: 0, axis: true },
-  { id: "lat-mid-north", type: "latitude", value: 20 },
-  { id: "lat-north", type: "latitude", value: 40 },
-  { id: "lat-north-wide", type: "latitude", value: 60 },
-  { id: "lat-far-north", type: "latitude", value: 80 },
-  { id: "lon-far-west", type: "meridian", value: -80 },
-  { id: "lon-west-wide", type: "meridian", value: -60 },
-  { id: "lon-west", type: "meridian", value: -40 },
-  { id: "lon-west-mid", type: "meridian", value: -20 },
-  { id: "prime-meridian", type: "meridian", value: 0, axis: true },
-  { id: "lon-east-mid", type: "meridian", value: 20 },
-  { id: "lon-east", type: "meridian", value: 40 },
-  { id: "lon-east-wide", type: "meridian", value: 60 },
-  { id: "lon-far-east", type: "meridian", value: 80 }
-];
+function createUniformGlobeCurveDefinitions() {
+  const curves = [];
+  const parallelStep = WIREFRAME_PARALLEL_COUNT > 1 ? WIREFRAME_PARALLEL_LIMIT * 2 / (WIREFRAME_PARALLEL_COUNT - 1) : 0;
+  const meridianStep = WIREFRAME_MERIDIAN_COUNT > 1 ? WIREFRAME_MERIDIAN_LIMIT * 2 / (WIREFRAME_MERIDIAN_COUNT - 1) : 0;
+  for (let index = 0; index < WIREFRAME_PARALLEL_COUNT; index += 1) {
+    const value = -WIREFRAME_PARALLEL_LIMIT + parallelStep * index;
+    curves.push({
+      id: `lat-${index}`,
+      type: "latitude",
+      value,
+      axis: Math.abs(value) < 1e-4
+    });
+  }
+  for (let index = 0; index < WIREFRAME_MERIDIAN_COUNT; index += 1) {
+    const value = -WIREFRAME_MERIDIAN_LIMIT + meridianStep * index;
+    curves.push({
+      id: `lon-${index}`,
+      type: "meridian",
+      value,
+      axis: Math.abs(value) < 1e-4
+    });
+  }
+  return curves;
+}
+const globeCurveDefinitions = createUniformGlobeCurveDefinitions();
 const GLOBE_TILT_MIN = deg(-36);
 const GLOBE_TILT_MAX = deg(36);
 const DRAG_PITCH_SENSITIVITY = 48e-4;
@@ -471,7 +444,7 @@ function GlobeWireframe({ rotation }) {
       const samples = curve.type === "latitude" ? sampleLatitudeCurve(curve.value) : sampleMeridianCurve(curve.value);
       return {
         ...curve,
-        ...projectCurvePoints(samples, rotation.y, rotation.x)
+        path: projectCurvePath(samples, rotation.y, rotation.x)
       };
     });
   }, [rotation.x, rotation.y]);
@@ -484,26 +457,14 @@ function GlobeWireframe({ rotation }) {
       "aria-hidden": "true"
     },
     /* @__PURE__ */ React.createElement("circle", { className: "vivaldi-globe__rim", cx: "260", cy: "260", r: "206" }),
-    curves.map(
-      (curve) => curve.back.map((path, index) => /* @__PURE__ */ React.createElement(
-        "path",
-        {
-          key: `${curve.id}-back-${index}`,
-          className: `vivaldi-globe__curve${curve.axis ? " is-axis" : ""} is-back`,
-          d: path
-        }
-      ))
-    ),
-    curves.map(
-      (curve) => curve.front.map((path, index) => /* @__PURE__ */ React.createElement(
-        "path",
-        {
-          key: `${curve.id}-front-${index}`,
-          className: `vivaldi-globe__curve${curve.axis ? " is-axis" : ""} is-front`,
-          d: path
-        }
-      ))
-    )
+    curves.map((curve) => /* @__PURE__ */ React.createElement(
+      "path",
+      {
+        key: curve.id,
+        className: `vivaldi-globe__curve${curve.axis ? " is-axis" : ""} is-uniform`,
+        d: curve.path
+      }
+    ))
   );
 }
 function GlobeHotspot({ item, isActive, onSelect, suppressSelectionRef }) {
