@@ -4827,7 +4827,13 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
     prev_nucleo = nuclei[index - 1] if index > 0 else None
     next_nucleo = nuclei[index + 1] if index < len(nuclei) - 1 else None
     topic_map = nucleo.get("topic_map")
-    map_only_landing = nucleo.get("landing_mode") == "map-only"
+    map_only_landing = nucleo.get("landing_mode", "map-only") == "map-only"
+    hero_subtitle = nucleo.get("hero_subtitle") or nucleo.get("description", "")
+    page_description = (
+        f"{nucleo['title']} in Accordia: titolo del nucleo e lavagna interattiva degli argomenti."
+        if map_only_landing
+        else f"{nucleo['title']} in Accordia: nucleo storico-musicale completo con contenuti da manuale, ascolti, compito di realta e verifica."
+    )
     topic_map_feature = topic_map.get("index_label", "mappa visiva interconnessa degli argomenti").lower() if topic_map else ""
     footer_prev = (
         f'<a href="{e(page_href("../" + prev_nucleo["slug"] + "/"))}">Nucleo precedente</a>'
@@ -4910,6 +4916,78 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
                 </aside>"""
         if not map_only_landing
         else ""
+    )
+
+    hero_markup = (
+        f"""
+        <section class="nucleus-hero nucleus-hero--landing-clean">
+            <div class="shell">
+                <div class="nucleus-hero__copy nucleus-hero__copy--landing-clean">
+                    <h1>{e(nucleo['title'])}</h1>
+                    <p class="nucleus-hero__subtitle">{e(hero_subtitle)}</p>
+                </div>
+            </div>
+        </section>"""
+        if map_only_landing
+        else f"""
+        <section class="nucleus-hero">
+            <div class="shell nucleus-hero__grid">
+                <div class="nucleus-hero__copy">
+                    <p class="eyebrow">Nucleo {e(nucleo['number'])} · {e(nucleo['category'])}</p>
+                    <h1>{e(nucleo['title'])}</h1>
+                    <p class="nucleus-hero__subtitle">{e(hero_subtitle)}</p>
+                    <p class="nucleus-hero__description">{e(nucleo['description'])}</p>
+                    <div class="nucleus-hero__meta">
+                        <span class="nucleus-chip">Periodo storico · {e(nucleo['period'])}</span>
+                        <span class="nucleus-chip">Posizione nella timeline · {e(nucleo['position'])}</span>
+                    </div>
+                    <div class="nucleus-hero__actions">
+                        <a class="button button--secondary" href="{e(page_href('../../timeline/'))}">Torna alla timeline</a>
+                        {link_button("Nucleo precedente" if prev_nucleo else "Inizio del percorso", f"../{prev_nucleo['slug']}/" if prev_nucleo else None, "button--secondary")}
+                        {link_button("Nucleo successivo" if next_nucleo else "Fine della timeline", f"../{next_nucleo['slug']}/" if next_nucleo else None, "button--primary")}
+                    </div>
+                </div>
+                {hero_panel}
+            </div>
+        </section>"""
+    )
+
+    mini_timeline_markup = (
+        ""
+        if map_only_landing
+        else f"""
+        <nav class="nucleus-mini-timeline" aria-label="Mini timeline dei nuclei">
+            <div class="shell nucleus-mini-timeline__track">
+                {render_nucleus_mini_links(nucleo["slug"], "../../")}
+            </div>
+        </nav>
+"""
+    )
+
+    footer_html = (
+        ""
+        if map_only_landing
+        else f"""
+    <footer class="site-footer">
+        <div class="shell site-footer__grid">
+            <div>
+                <strong>Accordia</strong>
+                <p>{e(nucleo['summary_text'])}</p>
+            </div>
+            <div>
+                <span class="site-footer__label">Navigazione del nucleo</span>
+                <a href="{e(page_href('../../timeline/'))}">Torna alla timeline</a>
+                {footer_prev}
+                {footer_next}
+            </div>
+            <div>
+                <span class="site-footer__label">Strumenti</span>
+                <a href="{e(page_href('../../compiti/'))}">Compiti di realta</a>
+                <a href="{e(page_href('../../pages/lezioni.html'))}">Lezioni guidate</a>
+            </div>
+        </div>
+    </footer>
+"""
     )
 
     content_sections = (
@@ -5127,7 +5205,7 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{e(nucleo['title'])} in Accordia: nucleo storico-musicale completo con contenuti da manuale, ascolti, compito di realta e verifica.">
+    <meta name="description" content="{e(page_description)}">
     <title>{e(nucleo['title'])} | Accordia</title>
     <link rel="stylesheet" href="{asset_url('../../css/style.css')}">
 </head>
@@ -5145,55 +5223,13 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
     </header>
 
     <main class="nucleus-page{' nucleus-page--map-only' if map_only_landing else ''}" style="--nucleus-accent: {e(nucleo['accent'])};">
-        <section class="nucleus-hero">
-            <div class="shell nucleus-hero__grid{' nucleus-hero__grid--solo' if map_only_landing else ''}">
-                <div class="nucleus-hero__copy">
-                    <p class="eyebrow">Nucleo {e(nucleo['number'])} · {e(nucleo['category'])}</p>
-                    <h1>{e(nucleo['title'])}</h1>
-                    <p class="nucleus-hero__subtitle">{e(nucleo['hero_subtitle'])}</p>
-                    <p class="nucleus-hero__description">{e(nucleo['description'])}</p>
-                    <div class="nucleus-hero__meta">
-                        <span class="nucleus-chip">Periodo storico · {e(nucleo['period'])}</span>
-                        <span class="nucleus-chip">Posizione nella timeline · {e(nucleo['position'])}</span>
-                    </div>
-                    <div class="nucleus-hero__actions">
-                        <a class="button button--secondary" href="{e(page_href('../../timeline/'))}">Torna alla timeline</a>
-                        {link_button("Nucleo precedente" if prev_nucleo else "Inizio del percorso", f"../{prev_nucleo['slug']}/" if prev_nucleo else None, "button--secondary")}
-                        {link_button("Nucleo successivo" if next_nucleo else "Fine della timeline", f"../{next_nucleo['slug']}/" if next_nucleo else None, "button--primary")}
-                    </div>
-                </div>
-                {hero_panel}
-            </div>
-        </section>
+{hero_markup}
 
-        <nav class="nucleus-mini-timeline" aria-label="Mini timeline dei nuclei">
-            <div class="shell nucleus-mini-timeline__track">
-                {render_nucleus_mini_links(nucleo["slug"], "../../")}
-            </div>
-        </nav>
-
+{mini_timeline_markup}
 {content_sections}
     </main>
 
-    <footer class="site-footer">
-        <div class="shell site-footer__grid">
-            <div>
-                <strong>Accordia</strong>
-                <p>{e(nucleo['summary_text'])}</p>
-            </div>
-            <div>
-                <span class="site-footer__label">Navigazione del nucleo</span>
-                <a href="{e(page_href('../../timeline/'))}">Torna alla timeline</a>
-                {footer_prev}
-                {footer_next}
-            </div>
-            <div>
-                <span class="site-footer__label">Strumenti</span>
-                <a href="{e(page_href('../../compiti/'))}">Compiti di realta</a>
-                <a href="{e(page_href('../../pages/lezioni.html'))}">Lezioni guidate</a>
-            </div>
-        </div>
-    </footer>
+{footer_html}
 
     <script src="{asset_url('../../js/main.js')}"></script>
 </body>

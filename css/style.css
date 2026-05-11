@@ -1727,17 +1727,27 @@ body[data-nav="home"] .site-footer__label {
 }
 
 .nucleus-page--map-only .nucleus-hero {
-    padding-bottom: 2.2rem;
+    padding: 5.4rem 0 1.4rem;
 }
 
-.nucleus-page--map-only .nucleus-hero__copy h1,
-.nucleus-page--map-only .nucleus-hero__subtitle,
-.nucleus-page--map-only .nucleus-hero__description {
-    max-width: 68rem;
+.nucleus-page--map-only .nucleus-hero__copy--landing-clean {
+    display: grid;
+    gap: 1rem;
+}
+
+.nucleus-page--map-only .nucleus-hero__copy--landing-clean h1 {
+    max-width: 12ch;
+    margin-top: 0;
+}
+
+.nucleus-page--map-only .nucleus-hero__copy--landing-clean .nucleus-hero__subtitle {
+    max-width: 54rem;
+    margin-top: 0;
 }
 
 .nucleus-page--map-only .nucleus-section--map {
-    padding-top: 1.2rem;
+    padding-top: 0;
+    padding-bottom: 4rem;
 }
 
 .nucleus-hero__meta {
