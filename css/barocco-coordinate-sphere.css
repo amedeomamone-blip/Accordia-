@@ -1,0 +1,383 @@
+.barocco-coordinate-lesson {
+  padding-bottom: clamp(3rem, 5vw, 4.5rem);
+  color: var(--lesson-text);
+}
+
+.barocco-coordinate-section {
+  padding: clamp(2rem, 4vw, 3.5rem) 0 clamp(3rem, 5vw, 4.5rem);
+}
+
+.barocco-coordinate-shell {
+  display: grid;
+  gap: clamp(1.35rem, 3vw, 2.2rem);
+}
+
+.barocco-coordinate-head {
+  display: grid;
+  gap: 0.72rem;
+  max-width: 50rem;
+}
+
+.barocco-coordinate-head__eyebrow,
+.barocco-globe-panel__eyebrow {
+  margin: 0;
+  color: #7b584f;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.barocco-coordinate-head h1 {
+  margin: 0;
+  color: var(--lesson-text);
+  font-size: clamp(3rem, 6vw, 5.35rem);
+  font-weight: 790;
+  line-height: 0.92;
+  letter-spacing: -0.065em;
+  text-wrap: balance;
+}
+
+.barocco-coordinate-head__intro {
+  max-width: 42rem;
+  margin: 0;
+  color: var(--lesson-muted);
+  font-size: 1rem;
+  font-weight: 650;
+  line-height: 1.66;
+}
+
+.barocco-coordinate-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.32fr) minmax(20rem, 0.88fr);
+  gap: clamp(1rem, 2vw, 1.5rem);
+  align-items: stretch;
+}
+
+.barocco-globe-column {
+  display: grid;
+  gap: 0.95rem;
+  min-width: 0;
+}
+
+.barocco-globe-switch {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.72rem;
+}
+
+.barocco-globe-switch__button {
+  appearance: none;
+  width: 100%;
+  display: grid;
+  gap: 0.28rem;
+  min-height: 5.2rem;
+  padding: 0.95rem 1rem;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  border-radius: 1.15rem;
+  background: rgba(255, 255, 255, 0.94);
+  color: var(--lesson-text);
+  text-align: left;
+  cursor: pointer;
+  box-shadow: 0 12px 24px rgba(15, 23, 42, 0.04);
+  transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease;
+}
+
+.barocco-globe-switch__button strong {
+  color: #18191b;
+  font-size: 0.95rem;
+  font-weight: 780;
+  line-height: 1.15;
+}
+
+.barocco-globe-switch__button span {
+  color: var(--lesson-soft);
+  font-size: 0.82rem;
+  font-weight: 650;
+  line-height: 1.35;
+}
+
+.barocco-globe-switch__button:hover,
+.barocco-globe-switch__button:focus-visible,
+.barocco-globe-switch__button.is-active {
+  transform: translateY(-2px);
+  border-color: rgba(193, 79, 64, 0.34);
+  background: rgba(255, 252, 249, 0.98);
+  box-shadow: 0 18px 34px rgba(193, 79, 64, 0.10);
+  outline: none;
+}
+
+.barocco-globe-frame {
+  position: relative;
+  min-height: clamp(34rem, 62vw, 45rem);
+  border: 1px solid rgba(17, 17, 17, 0.11);
+  border-radius: 2rem;
+  background:
+    linear-gradient(to right, rgba(54, 48, 41, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(54, 48, 41, 0.045) 1px, transparent 1px),
+    rgba(255, 255, 255, 0.75);
+  background-size: 4.75rem 4.75rem, 4.75rem 4.75rem, auto;
+  box-shadow: 0 22px 48px rgba(50, 44, 38, 0.08);
+  overflow: hidden;
+  touch-action: none;
+  cursor: grab;
+}
+
+.barocco-globe-frame:active {
+  cursor: grabbing;
+}
+
+.barocco-globe-hint {
+  position: absolute;
+  top: 1.3rem;
+  left: 50%;
+  z-index: 20;
+  margin: 0;
+  transform: translateX(-50%);
+  color: rgba(61, 56, 50, 0.44);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.barocco-globe-ambient-ring,
+.barocco-globe-ambient-ring::before {
+  position: absolute;
+  content: "";
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.barocco-globe-ambient-ring {
+  inset: 10%;
+  z-index: 1;
+  border: 1px solid rgba(193, 79, 64, 0.10);
+}
+
+.barocco-globe-ambient-ring::before {
+  inset: 9%;
+  border: 1px solid rgba(193, 79, 64, 0.045);
+}
+
+.barocco-globe-canvas,
+.barocco-globe-labels {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.barocco-globe-canvas {
+  z-index: 2;
+  display: block;
+}
+
+.barocco-globe-labels {
+  z-index: 3;
+  pointer-events: none;
+}
+
+.barocco-globe-label {
+  position: absolute;
+  min-width: 8rem;
+  max-width: 13.5rem;
+  display: grid;
+  gap: 0.2rem;
+  padding: 0.7rem 0.9rem 0.76rem;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(81, 73, 64, 0.12);
+  border-radius: 1.08rem;
+  background: rgba(255, 253, 249, 0.84);
+  color: rgba(57, 52, 47, 0.96);
+  box-shadow: 0 12px 34px rgba(50, 44, 38, 0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  text-align: center;
+  cursor: pointer;
+  pointer-events: auto;
+  transition: opacity 220ms ease, transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+}
+
+.barocco-globe-label small {
+  color: rgba(67, 61, 55, 0.52);
+  font-size: 0.66rem;
+  font-weight: 760;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+}
+
+.barocco-globe-label strong {
+  color: rgba(57, 52, 47, 0.98);
+  font-size: clamp(0.82rem, 1.2vw, 0.98rem);
+  font-weight: 790;
+  letter-spacing: -0.025em;
+  line-height: 1.08;
+}
+
+.barocco-globe-label:hover,
+.barocco-globe-label:focus-visible,
+.barocco-globe-label.is-active {
+  transform: translate(-50%, -50%) scale(1.045);
+  border-color: rgba(193, 79, 64, 0.32);
+  background: rgba(255, 254, 251, 0.97);
+  box-shadow: 0 18px 44px rgba(193, 79, 64, 0.13);
+  outline: none;
+}
+
+.barocco-globe-label.is-back {
+  opacity: 0.26;
+}
+
+.barocco-globe-label.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.barocco-globe-panel {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 0.9rem;
+  padding: clamp(1.2rem, 2vw, 1.5rem);
+  border: 1px solid rgba(17, 17, 17, 0.11);
+  border-radius: 1.75rem;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 22px 48px rgba(50, 44, 38, 0.08);
+}
+
+.barocco-globe-panel h2 {
+  margin: 0;
+  color: #18191b;
+  font-size: clamp(1.55rem, 2.4vw, 2.35rem);
+  font-weight: 780;
+  letter-spacing: -0.045em;
+  line-height: 0.98;
+}
+
+.barocco-globe-panel__subtitle {
+  margin: 0;
+  color: #7b584f;
+  font-size: 0.92rem;
+  font-weight: 740;
+  line-height: 1.45;
+}
+
+.barocco-globe-panel__copy {
+  margin: 0;
+  color: var(--lesson-muted);
+  font-size: 1rem;
+  line-height: 1.68;
+}
+
+.barocco-globe-panel__keyline,
+.barocco-globe-panel__mustknow {
+  display: grid;
+  gap: 0.45rem;
+  padding: 0.92rem 1rem;
+  border: 1px solid rgba(193, 79, 64, 0.16);
+  border-radius: 1rem;
+  background: rgba(255, 248, 245, 0.88);
+}
+
+.barocco-globe-panel__keyline strong,
+.barocco-globe-panel__mustknow strong {
+  color: #8f4338;
+  font-size: 0.72rem;
+  font-weight: 820;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.barocco-globe-panel__keyline span {
+  color: #403a36;
+  font-size: 0.97rem;
+  font-weight: 680;
+  line-height: 1.52;
+}
+
+.barocco-globe-panel__mustknow ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.46rem;
+  color: #403a36;
+  font-size: 0.95rem;
+  font-weight: 620;
+  line-height: 1.52;
+}
+
+.barocco-globe-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.52rem;
+  padding-top: 0.1rem;
+}
+
+.barocco-globe-chip {
+  appearance: none;
+  padding: 0.62rem 0.78rem;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  border-radius: 999px;
+  background: #ffffff;
+  color: #403a36;
+  font-size: 0.82rem;
+  font-weight: 730;
+  cursor: pointer;
+  transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease, color 180ms ease;
+}
+
+.barocco-globe-chip:hover,
+.barocco-globe-chip:focus-visible,
+.barocco-globe-chip.is-active {
+  transform: translateY(-1px);
+  border-color: rgba(193, 79, 64, 0.34);
+  background: rgba(255, 248, 245, 0.98);
+  color: #8f4338;
+  outline: none;
+}
+
+@media (max-width: 1080px) {
+  .barocco-coordinate-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .barocco-globe-panel {
+    order: 2;
+  }
+}
+
+@media (max-width: 760px) {
+  .barocco-coordinate-head h1 {
+    font-size: clamp(2.6rem, 11vw, 4rem);
+  }
+
+  .barocco-globe-switch {
+    grid-template-columns: 1fr;
+  }
+
+  .barocco-globe-frame {
+    min-height: 31rem;
+    border-radius: 1.5rem;
+  }
+
+  .barocco-globe-hint {
+    top: 1rem;
+    width: calc(100% - 2rem);
+    white-space: normal;
+    text-align: center;
+    line-height: 1.35;
+  }
+
+  .barocco-globe-label {
+    min-width: 6.8rem;
+    max-width: 10.5rem;
+    padding: 0.58rem 0.7rem 0.62rem;
+  }
+
+  .barocco-globe-panel {
+    border-radius: 1.35rem;
+  }
+}
