@@ -32,6 +32,11 @@
   display: grid;
   place-items: center;
   pointer-events: none;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
 }
 
 .vivaldi-globe__canvas {
