@@ -9,6 +9,7 @@
 
     <link rel="stylesheet" href="../../../../css/lesson-immersive.css?v=1778534665">
     <link rel="stylesheet" href="../../../../css/barocco-sphere-canvas.css?v=1778542871">
+    <link rel="stylesheet" href="../../../../css/barocco-timeline.css?v=1778544871">
 </head>
 <body data-nav="timeline" data-current-nucleus="barocco">
     <header class="site-header">
@@ -41,6 +42,7 @@
         </nav>
 
         <section class="lesson-mount" id="lezione">
+            <div id="barocco-timeline-root" data-barocco-timeline></div>
             <div id="immersive-barocco-context-root" data-immersive-lesson="barocco-in-coordinate"></div>
             <noscript>
                 <section class="lesson-noscript">
@@ -78,11 +80,17 @@
     <script type="module">
         import React from "https://esm.sh/react@18";
         import { createRoot } from "https://esm.sh/react-dom@18/client";
+        import BaroccoTimeline from "../../../../components/BaroccoTimeline.module.js?v=1778544871";
         import ImmersiveLesson from "../../../../components/BaroccoCoordinateSphereLegacyFrame.module.js?v=1778534665";
 
-        const mountNode = document.getElementById("immersive-barocco-context-root");
-        if (mountNode) {
-            createRoot(mountNode).render(React.createElement(ImmersiveLesson));
+        const timelineMountNode = document.getElementById("barocco-timeline-root");
+        if (timelineMountNode) {
+            createRoot(timelineMountNode).render(React.createElement(BaroccoTimeline));
+        }
+
+        const globeMountNode = document.getElementById("immersive-barocco-context-root");
+        if (globeMountNode) {
+            createRoot(globeMountNode).render(React.createElement(ImmersiveLesson));
         }
     </script>
 </body>
