@@ -95,9 +95,9 @@
 }
 
 .barocco-timeline__stage {
-  --timeline-axis-y: 53%;
+  --timeline-axis-y: 52%;
   position: relative;
-  min-height: 32rem;
+  min-height: 27.5rem;
   margin-top: 1rem;
   overflow: hidden;
   border: 1px solid rgba(17, 17, 17, 0.10);
@@ -105,7 +105,7 @@
   background:
     linear-gradient(rgba(193, 79, 64, 0.026) 1px, transparent 1px),
     linear-gradient(90deg, rgba(193, 79, 64, 0.026) 1px, transparent 1px),
-    radial-gradient(circle at 50% 44%, rgba(193, 79, 64, 0.08), transparent 24rem),
+    radial-gradient(circle at 50% 46%, rgba(193, 79, 64, 0.08), transparent 21rem),
     rgba(255, 255, 255, 0.92);
   background-size: 4.25rem 4.25rem, 4.25rem 4.25rem, auto, auto;
 }
@@ -144,9 +144,9 @@
   border-radius: 50%;
 }
 
-.barocco-timeline__rings span:nth-child(1) { width: min(21rem, 45vw); opacity: 0.85; }
-.barocco-timeline__rings span:nth-child(2) { width: min(16rem, 35vw); opacity: 0.56; }
-.barocco-timeline__rings span:nth-child(3) { width: min(11rem, 25vw); opacity: 0.32; }
+.barocco-timeline__rings span:nth-child(1) { width: min(19rem, 42vw); opacity: 0.85; }
+.barocco-timeline__rings span:nth-child(2) { width: min(14.5rem, 32vw); opacity: 0.56; }
+.barocco-timeline__rings span:nth-child(3) { width: min(10rem, 22vw); opacity: 0.32; }
 
 .barocco-timeline__nodes {
   position: absolute;
@@ -273,7 +273,7 @@
 
 .barocco-timeline__controls {
   position: absolute;
-  bottom: 1rem;
+  bottom: 2.2rem;
   left: 50%;
   display: flex;
   align-items: center;
@@ -397,7 +397,7 @@
   }
 
   .barocco-timeline__stage {
-    min-height: 35rem;
+    min-height: 31rem;
   }
 
   .barocco-timeline-card {
@@ -417,12 +417,16 @@
   }
 
   .barocco-timeline__stage {
-    min-height: 33rem;
+    min-height: 30rem;
   }
 
   .barocco-timeline__rings span:nth-child(1) { width: 17rem; }
   .barocco-timeline__rings span:nth-child(2) { width: 13rem; }
   .barocco-timeline__rings span:nth-child(3) { width: 9rem; }
+
+  .barocco-timeline__controls {
+    bottom: 1.45rem;
+  }
 
   .barocco-timeline__controls button.is-primary {
     min-width: 7.7rem;
