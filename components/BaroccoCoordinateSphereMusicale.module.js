@@ -291,31 +291,45 @@ function drawAnchors(ctx, metrics, rotation, keywords, activeKeywordId, time) {
     const isActive = keyword.id === activeKeywordId;
 
     if (isActive) {
-      const pulse = 0.55 + 0.45 * Math.sin(time * 0.08);
-      const glowRadius = 15 + pulse * 5;
-      const glowAlpha = rotated.z >= 0 ? 0.16 + pulse * 0.10 : 0.08 + pulse * 0.05;
+      const pulse = 0.5 + 0.5 * Math.sin(time * 0.092);
+      const innerPulse = 0.5 + 0.5 * Math.sin(time * 0.092 + 1.35);
+      const outerGlowRadius = 22 + pulse * 12;
+      const middleGlowRadius = 15 + innerPulse * 7;
+      const glowAlpha = rotated.z >= 0 ? 0.28 + pulse * 0.22 : 0.16 + pulse * 0.12;
+      const middleGlowAlpha = rotated.z >= 0 ? 0.24 + innerPulse * 0.18 : 0.12 + innerPulse * 0.10;
 
       ctx.beginPath();
-      ctx.arc(projected.x, projected.y, glowRadius, 0, Math.PI * 2);
+      ctx.arc(projected.x, projected.y, outerGlowRadius, 0, Math.PI * 2);
       ctx.fillStyle = `rgba(193, 79, 64, ${glowAlpha})`;
       ctx.fill();
 
       ctx.beginPath();
-      ctx.arc(projected.x, projected.y, 11 + pulse * 2.2, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(193, 79, 64, ${0.42 + pulse * 0.24})`;
-      ctx.lineWidth = 1.4;
+      ctx.arc(projected.x, projected.y, middleGlowRadius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255, 164, 145, ${middleGlowAlpha})`;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(projected.x, projected.y, 14 + pulse * 4, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(193, 79, 64, ${0.66 + pulse * 0.24})`;
+      ctx.lineWidth = 1.9;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.arc(projected.x, projected.y, 19 + innerPulse * 7, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(255, 185, 170, ${0.36 + innerPulse * 0.24})`;
+      ctx.lineWidth = 1.3;
       ctx.stroke();
     }
 
     ctx.beginPath();
-    ctx.arc(projected.x, projected.y, isActive ? 5.7 : 4.2, 0, Math.PI * 2);
+    ctx.arc(projected.x, projected.y, isActive ? 6.8 : 4.2, 0, Math.PI * 2);
     ctx.fillStyle = `rgba(193, 79, 64, ${isActive ? 1 : alpha})`;
     ctx.fill();
 
     ctx.beginPath();
-    ctx.arc(projected.x, projected.y, isActive ? 11.8 : 9, 0, Math.PI * 2);
-    ctx.strokeStyle = `rgba(193, 79, 64, ${isActive ? 0.56 : ringAlpha})`;
-    ctx.lineWidth = isActive ? 1.3 : 1;
+    ctx.arc(projected.x, projected.y, isActive ? 13.8 : 9, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(193, 79, 64, ${isActive ? 0.76 : ringAlpha})`;
+    ctx.lineWidth = isActive ? 1.7 : 1;
     ctx.stroke();
   });
 }
