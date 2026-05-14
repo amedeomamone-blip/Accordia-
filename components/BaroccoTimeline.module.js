@@ -1,5 +1,4 @@
 import React from "https://esm.sh/react@18";
-import { ORFEO_TIMELINE_IMAGE } from "./BaroccoTimelineOrfeoAsset.module.js";
 
 const h = React.createElement;
 
@@ -11,10 +10,7 @@ const timelineItems = [
     subtitle: "Claudio Monteverdi",
     category: "Musica",
     description: "Va in scena a Mantova L’Orfeo di Claudio Monteverdi, una delle prime grandi opere della storia della musica.",
-    insight: "Monteverdi unisce parola, scena e suono con una forza espressiva nuova. L’opera diventa racconto teatrale in musica, non semplice accompagnamento del testo.",
-    image: ORFEO_TIMELINE_IMAGE,
-    imageAlt: "Illustrazione ad acquarello e fil di ferro dorato ispirata a L’Orfeo di Claudio Monteverdi.",
-    imageCaption: "L’Orfeo · Claudio Monteverdi"
+    insight: "Monteverdi unisce parola, scena e suono con una forza espressiva nuova. L’opera diventa racconto teatrale in musica, non semplice accompagnamento del testo."
   },
   {
     id: "1618-guerra-trentanni",
@@ -207,34 +203,6 @@ function iconPlay(isPlaying) {
       );
 }
 
-function TimelineDetail({ activeItem }) {
-  return h(
-    "article",
-    { className: `barocco-timeline-detail${activeItem.image ? " has-image" : ""}`, "aria-live": "polite" },
-    activeItem.image
-      ? h(
-          "figure",
-          { className: "barocco-timeline-detail__visual" },
-          h("img", { src: activeItem.image, alt: activeItem.imageAlt || "", loading: "eager" }),
-          activeItem.imageCaption ? h("figcaption", null, activeItem.imageCaption) : null
-        )
-      : null,
-    h(
-      "div",
-      { className: "barocco-timeline-detail__content" },
-      h("div", { className: "barocco-timeline-detail__header" },
-        h("span", null, activeItem.year),
-        h("h3", null, activeItem.title),
-        h("p", null, activeItem.subtitle)
-      ),
-      h("div", { className: "barocco-timeline-detail__grid" },
-        h("section", null, h("strong", null, "Descrizione"), h("p", null, activeItem.description)),
-        h("section", null, h("strong", null, "Approfondimento"), h("p", null, activeItem.insight))
-      )
-    )
-  );
-}
-
 function BaroccoTimeline() {
   const itemCount = timelineItems.length;
   const [activeIndex, setActiveIndex] = React.useState(0);
@@ -360,7 +328,19 @@ function BaroccoTimeline() {
         h("button", { type: "button", onClick: goNext, "aria-label": "Evento successivo" }, iconArrow("right"))
       )
     ),
-    h(TimelineDetail, { activeItem })
+    h(
+      "article",
+      { className: "barocco-timeline-detail", "aria-live": "polite" },
+      h("div", { className: "barocco-timeline-detail__header" },
+        h("span", null, activeItem.year),
+        h("h3", null, activeItem.title),
+        h("p", null, activeItem.subtitle)
+      ),
+      h("div", { className: "barocco-timeline-detail__grid" },
+        h("section", null, h("strong", null, "Descrizione"), h("p", null, activeItem.description)),
+        h("section", null, h("strong", null, "Approfondimento"), h("p", null, activeItem.insight))
+      )
+    )
   );
 }
 
