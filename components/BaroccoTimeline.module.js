@@ -15,7 +15,7 @@ const timelineItems = [
       src: "../../../../assets/barocco-orfeo-originale.png?v=20260514b",
       alt: "Illustrazione verticale di un giovane musicista con lira, architetture classiche e figure in ombra sullo sfondo.",
       position: "center center",
-      caption: "Immagine di riferimento per L’Orfeo."
+      caption: "TAVOLA ILLUSTRATA"
     }
   },
   {
@@ -215,6 +215,7 @@ function BaroccoTimeline() {
   const [isPlaying, setIsPlaying] = React.useState(false);
   const [viewportMode, setViewportMode] = React.useState(getViewportMode);
   const activeItem = timelineItems[activeIndex];
+  const activeNarrative = `${activeItem.description} ${activeItem.insight}`;
   const layout = layoutPresets[viewportMode];
 
   React.useEffect(() => {
@@ -347,7 +348,6 @@ function BaroccoTimeline() {
           ? h(
               "figure",
               { className: "barocco-timeline-detail__visual" },
-              h("span", { className: "barocco-timeline-detail__visual-kicker" }, "Tavola illustrata"),
               h(
                 "div",
                 { className: "barocco-timeline-detail__visual-frame" },
@@ -363,12 +363,10 @@ function BaroccoTimeline() {
             )
           : null,
         h(
-          "div",
-          { className: "barocco-timeline-detail__content" },
-          h("div", { className: "barocco-timeline-detail__grid" },
-            h("section", null, h("strong", null, "Descrizione"), h("p", null, activeItem.description)),
-            h("section", null, h("strong", null, "Approfondimento"), h("p", null, activeItem.insight))
-          )
+          "section",
+          { className: "barocco-timeline-detail__copy" },
+          h("strong", null, "Approfondimento"),
+          h("p", null, activeNarrative)
         )
       )
     )
