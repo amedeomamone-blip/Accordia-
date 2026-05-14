@@ -117,11 +117,6 @@
   }
 }
 
-.vivaldi-globe-switch,
-.vivaldi-globe-switch__button {
-  display: none !important;
-}
-
 @media (max-width: 680px) {
   .topic-page--lesson .site-header__inner {
     padding: 0.58rem 0;
