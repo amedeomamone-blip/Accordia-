@@ -1,0 +1,428 @@
+.barocco-timeline {
+  width: min(calc(100% - 1.6rem), 72rem);
+  margin: clamp(1.4rem, 3vw, 2rem) auto clamp(1.5rem, 3vw, 2.2rem);
+  padding: clamp(1rem, 2vw, 1.35rem);
+  border: 1px solid var(--lesson-border);
+  border-radius: 1.45rem;
+  background:
+    radial-gradient(circle at 50% -24%, rgba(193, 79, 64, 0.11), transparent 38%),
+    rgba(255, 255, 255, 0.96);
+  box-shadow: 0 1rem 3rem rgba(17, 17, 17, 0.055);
+}
+
+.barocco-timeline__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 1.2rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+}
+
+.barocco-timeline__eyebrow {
+  margin: 0 0 0.35rem;
+  color: var(--lesson-soft);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.barocco-timeline h2,
+.barocco-timeline h3 {
+  margin: 0;
+  color: var(--lesson-text);
+  letter-spacing: -0.055em;
+}
+
+.barocco-timeline h2 {
+  font-size: clamp(2.45rem, 5vw, 4.45rem);
+  font-weight: 790;
+  line-height: 0.92;
+}
+
+.barocco-timeline__intro {
+  margin: 0.7rem 0 0;
+  max-width: 39rem;
+  color: var(--lesson-muted);
+  font-size: 1rem;
+  font-weight: 620;
+  line-height: 1.58;
+}
+
+.barocco-timeline__progress {
+  flex: 0 0 min(15rem, 100%);
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.92rem 1rem;
+  border: 1px solid rgba(17, 17, 17, 0.10);
+  border-radius: 1.1rem;
+  background: rgba(245, 244, 239, 0.92);
+}
+
+.barocco-timeline__progress span,
+.barocco-timeline__progress strong {
+  display: inline-flex;
+  color: var(--lesson-soft);
+  font-size: 0.68rem;
+  font-weight: 760;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.barocco-timeline__progress strong {
+  justify-self: end;
+  margin-top: -1.1rem;
+  color: var(--lesson-text);
+}
+
+.barocco-timeline__progress i {
+  position: relative;
+  display: block;
+  height: 0.36rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(193, 79, 64, 0.14);
+}
+
+.barocco-timeline__progress b {
+  position: absolute;
+  inset: 0 auto 0 0;
+  display: block;
+  border-radius: inherit;
+  background: linear-gradient(90deg, rgba(193, 79, 64, 0.82), #c14f40);
+  transition: width 420ms ease;
+}
+
+.barocco-timeline__stage {
+  position: relative;
+  min-height: 32rem;
+  margin-top: 1rem;
+  overflow: hidden;
+  border: 1px solid rgba(17, 17, 17, 0.10);
+  border-radius: 1.3rem;
+  background:
+    linear-gradient(rgba(193, 79, 64, 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(193, 79, 64, 0.026) 1px, transparent 1px),
+    radial-gradient(circle at 50% 44%, rgba(193, 79, 64, 0.08), transparent 24rem),
+    rgba(255, 255, 255, 0.92);
+  background-size: 4.25rem 4.25rem, 4.25rem 4.25rem, auto, auto;
+}
+
+.barocco-timeline__signal {
+  position: absolute;
+  top: 53%;
+  left: 9%;
+  right: 9%;
+  height: 2px;
+  transform: translateY(-50%);
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(193, 79, 64, 0.22) 12%, #c14f40 50%, rgba(193, 79, 64, 0.22) 88%, transparent);
+}
+
+.barocco-timeline__scan {
+  position: absolute;
+  top: calc(53% - 1rem);
+  left: 8%;
+  width: 14rem;
+  height: 2rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, transparent, rgba(193, 79, 64, 0.17), transparent);
+  filter: blur(0.8rem);
+  animation: barocco-timeline-scan 8.2s ease-in-out infinite;
+}
+
+.barocco-timeline__rings span {
+  position: absolute;
+  top: 53%;
+  left: 50%;
+  display: block;
+  aspect-ratio: 1;
+  transform: translate(-50%, -50%);
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: 50%;
+}
+
+.barocco-timeline__rings span:nth-child(1) { width: min(21rem, 45vw); opacity: 0.85; }
+.barocco-timeline__rings span:nth-child(2) { width: min(16rem, 35vw); opacity: 0.56; }
+.barocco-timeline__rings span:nth-child(3) { width: min(11rem, 25vw); opacity: 0.32; }
+
+.barocco-timeline__nodes {
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  width: 0;
+  height: 0;
+}
+
+.barocco-timeline-card {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 14.25rem;
+  height: 12.75rem;
+  padding: 1rem;
+  display: grid;
+  grid-template-rows: auto minmax(2.75rem, auto) auto 1fr;
+  gap: 0.55rem;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  border-radius: 1.38rem;
+  background: rgba(255, 255, 255, 0.36);
+  color: var(--lesson-text);
+  box-shadow: 0 0.75rem 1.9rem rgba(17, 17, 17, 0.032);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  text-align: left;
+  cursor: pointer;
+  transform-origin: center;
+  transition:
+    opacity 420ms ease,
+    transform 620ms cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 280ms ease,
+    background-color 280ms ease,
+    box-shadow 280ms ease;
+}
+
+.barocco-timeline-card:hover,
+.barocco-timeline-card:focus-visible {
+  border-color: rgba(193, 79, 64, 0.42);
+  outline: none;
+}
+
+.barocco-timeline-card.is-active {
+  border-color: #c14f40;
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow:
+    0 1.5rem 3.7rem rgba(17, 17, 17, 0.13),
+    0 0 0 1px rgba(193, 79, 64, 0.12),
+    0 0 3.2rem rgba(193, 79, 64, 0.18);
+}
+
+.barocco-timeline-card__year,
+.barocco-timeline-card__category {
+  width: fit-content;
+  color: #c14f40;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.barocco-timeline-card__title {
+  display: block;
+  min-height: 2.75rem;
+  color: var(--lesson-text);
+  font-size: 1.08rem;
+  font-weight: 760;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+
+.barocco-timeline-card__category {
+  padding: 0.34rem 0.52rem;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: 999px;
+  background: rgba(245, 244, 239, 0.92);
+  color: var(--lesson-soft);
+  letter-spacing: 0.15em;
+}
+
+.barocco-timeline-card__subtitle {
+  display: block;
+  align-self: end;
+  padding-top: 0.65rem;
+  border-top: 1px solid rgba(17, 17, 17, 0.08);
+  color: var(--lesson-muted);
+  font-size: 0.88rem;
+  font-style: normal;
+  font-weight: 620;
+  line-height: 1.35;
+}
+
+.barocco-timeline-card__stem,
+.barocco-timeline-card__dot {
+  position: absolute;
+  left: 50%;
+  display: block;
+  transform: translateX(-50%);
+}
+
+.barocco-timeline-card__stem {
+  top: 100%;
+  width: 1px;
+  height: 2rem;
+  background: rgba(193, 79, 64, 0.45);
+}
+
+.barocco-timeline-card__dot {
+  top: calc(100% + 1.92rem);
+  width: 0.78rem;
+  height: 0.78rem;
+  border: 2px solid rgba(193, 79, 64, 0.62);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.barocco-timeline-card.is-active .barocco-timeline-card__dot {
+  border-color: #c14f40;
+  background: #c14f40;
+  box-shadow: 0 0 1.2rem rgba(193, 79, 64, 0.28);
+}
+
+.barocco-timeline__controls {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  display: flex;
+  align-items: center;
+  gap: 0.46rem;
+  transform: translateX(-50%);
+  padding: 0.45rem;
+  border: 1px solid rgba(17, 17, 17, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.94);
+  box-shadow: 0 0.9rem 2rem rgba(17, 17, 17, 0.07);
+}
+
+.barocco-timeline__controls button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.45rem;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  padding: 0 0.85rem;
+  border: 1px solid rgba(17, 17, 17, 0.10);
+  border-radius: 999px;
+  background: rgba(245, 244, 239, 0.94);
+  color: var(--lesson-text);
+  font: inherit;
+  font-size: 0.92rem;
+  font-weight: 720;
+  cursor: pointer;
+}
+
+.barocco-timeline__controls button svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.barocco-timeline__controls button.is-primary {
+  min-width: 9.25rem;
+  border-color: #c14f40;
+  background: #c14f40;
+  color: #fff8f3;
+  box-shadow: 0 0.8rem 1.8rem rgba(193, 79, 64, 0.18);
+}
+
+.barocco-timeline-detail {
+  margin-top: 1rem;
+  padding: 1rem;
+  display: grid;
+  gap: 0.95rem;
+  border: 1px solid rgba(17, 17, 17, 0.10);
+  border-radius: 1.25rem;
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.barocco-timeline-detail__header {
+  display: grid;
+  gap: 0.42rem;
+}
+
+.barocco-timeline-detail__header span,
+.barocco-timeline-detail__grid strong {
+  color: #c14f40;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.barocco-timeline-detail__header h3 {
+  font-size: clamp(1.6rem, 3vw, 2.45rem);
+  font-weight: 770;
+  line-height: 0.98;
+}
+
+.barocco-timeline-detail__header p {
+  margin: 0;
+  color: var(--lesson-muted);
+  font-size: 0.96rem;
+  font-weight: 680;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.barocco-timeline-detail__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+
+.barocco-timeline-detail__grid section {
+  min-height: 8.25rem;
+  padding: 0.92rem;
+  display: grid;
+  align-content: start;
+  gap: 0.62rem;
+  border: 1px solid rgba(17, 17, 17, 0.09);
+  border-radius: 1rem;
+  background: rgba(245, 244, 239, 0.82);
+}
+
+.barocco-timeline-detail__grid p {
+  margin: 0;
+  color: var(--lesson-muted);
+  font-size: 0.98rem;
+  font-weight: 590;
+  line-height: 1.58;
+}
+
+@keyframes barocco-timeline-scan {
+  0%, 100% { left: 7%; opacity: 0.38; }
+  50% { left: calc(93% - 14rem); opacity: 0.92; }
+}
+
+@media (max-width: 54rem) {
+  .barocco-timeline__head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .barocco-timeline__progress {
+    flex-basis: auto;
+  }
+
+  .barocco-timeline__stage {
+    min-height: 35rem;
+  }
+
+  .barocco-timeline-card {
+    width: 13.25rem;
+    height: 12.5rem;
+  }
+
+  .barocco-timeline-detail__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 40rem) {
+  .barocco-timeline {
+    width: min(calc(100% - 1rem), 72rem);
+    padding: 0.86rem;
+  }
+
+  .barocco-timeline__stage {
+    min-height: 33rem;
+  }
+
+  .barocco-timeline__rings span:nth-child(1) { width: 17rem; }
+  .barocco-timeline__rings span:nth-child(2) { width: 13rem; }
+  .barocco-timeline__rings span:nth-child(3) { width: 9rem; }
+
+  .barocco-timeline__controls button.is-primary {
+    min-width: 7.7rem;
+  }
+}
