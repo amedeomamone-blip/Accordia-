@@ -345,18 +345,7 @@
 
 .barocco-timeline-detail__visual {
   margin: 0;
-  display: grid;
-  gap: 0.82rem;
-}
-
-.barocco-timeline-detail__visual figcaption {
-  margin: 0;
-  color: var(--lesson-soft);
-  font-size: 0.72rem;
-  font-weight: 820;
-  letter-spacing: 0.2em;
-  line-height: 1.4;
-  text-transform: uppercase;
+  min-height: 100%;
 }
 
 .barocco-timeline-detail__header {
@@ -400,24 +389,37 @@
 }
 
 .barocco-timeline-detail__visual-frame {
+  position: relative;
   padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 0.82rem;
+  overflow: hidden;
+  border-radius: 1rem;
   background: transparent;
   min-height: 31rem;
 }
 
 .barocco-timeline-detail__visual-frame img {
-  width: min(100%, 31rem);
+  width: 100%;
   height: auto;
-  max-height: 38rem;
   display: block;
   object-fit: contain;
-  margin: 0 auto;
-  border-radius: 0.82rem;
-  box-shadow: 0 1rem 2.3rem rgba(17, 17, 17, 0.08);
+}
+
+.barocco-timeline-detail__visual-frame figcaption {
+  position: absolute;
+  right: 1rem;
+  bottom: 0.95rem;
+  left: 1rem;
+  margin: 0;
+  color: rgba(255, 255, 255, 0.96);
+  font-size: 0.72rem;
+  font-weight: 820;
+  letter-spacing: 0.2em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  text-shadow: 0 0.22rem 0.9rem rgba(17, 17, 17, 0.45);
 }
 
 .barocco-timeline-detail__copy p {
@@ -462,8 +464,7 @@
   }
 
   .barocco-timeline-detail__visual-frame img {
-    width: min(100%, 22rem);
-    max-height: 24rem;
+    width: 100%;
   }
 }
 
@@ -478,8 +479,7 @@
   }
 
   .barocco-timeline-detail__visual-frame img {
-    width: min(100%, 16rem);
-    max-height: 18rem;
+    width: 100%;
   }
 
   .barocco-timeline__stage {

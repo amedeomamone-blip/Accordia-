@@ -357,9 +357,9 @@ function BaroccoTimeline() {
                   loading: "eager",
                   decoding: "async",
                   style: { objectPosition: activeItem.visual.position || "center" }
-                })
-              ),
-              h("figcaption", null, activeItem.visual.caption || activeItem.visual.alt)
+                }),
+                h("figcaption", null, activeItem.visual.caption || activeItem.visual.alt)
+              )
             )
           : null,
         h(
