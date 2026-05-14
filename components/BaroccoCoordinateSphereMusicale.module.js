@@ -281,21 +281,41 @@ function drawDots(ctx, metrics, rotation, time) {
   });
 }
 
-function drawAnchors(ctx, metrics, rotation, keywords) {
+function drawAnchors(ctx, metrics, rotation, keywords, activeKeywordId, time) {
   keywords.forEach((keyword) => {
     const rotated = rotatePoint(sphericalPoint(keyword.latitude, keyword.longitude), rotation.x, rotation.y);
     if (rotated.z < -0.68) return;
     const projected = projectPoint(rotated, metrics);
     const alpha = rotated.z >= 0 ? 0.95 : 0.36;
     const ringAlpha = rotated.z >= 0 ? 0.28 : 0.10;
+    const isActive = keyword.id === activeKeywordId;
+
+    if (isActive) {
+      const pulse = 0.55 + 0.45 * Math.sin(time * 0.08);
+      const glowRadius = 15 + pulse * 5;
+      const glowAlpha = rotated.z >= 0 ? 0.16 + pulse * 0.10 : 0.08 + pulse * 0.05;
+
+      ctx.beginPath();
+      ctx.arc(projected.x, projected.y, glowRadius, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(193, 79, 64, ${glowAlpha})`;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(projected.x, projected.y, 11 + pulse * 2.2, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(193, 79, 64, ${0.42 + pulse * 0.24})`;
+      ctx.lineWidth = 1.4;
+      ctx.stroke();
+    }
+
     ctx.beginPath();
-    ctx.arc(projected.x, projected.y, 4.2, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(193, 79, 64, ${alpha})`;
+    ctx.arc(projected.x, projected.y, isActive ? 5.7 : 4.2, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(193, 79, 64, ${isActive ? 1 : alpha})`;
     ctx.fill();
+
     ctx.beginPath();
-    ctx.arc(projected.x, projected.y, 9, 0, Math.PI * 2);
-    ctx.strokeStyle = `rgba(193, 79, 64, ${ringAlpha})`;
-    ctx.lineWidth = 1;
+    ctx.arc(projected.x, projected.y, isActive ? 11.8 : 9, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(193, 79, 64, ${isActive ? 0.56 : ringAlpha})`;
+    ctx.lineWidth = isActive ? 1.3 : 1;
     ctx.stroke();
   });
 }
@@ -340,20 +360,6 @@ function GlobeHotspot({ item, isActive, onSelect }) {
   );
 }
 
-function KeywordChip({ keyword, isActive, onSelect }) {
-  return h(
-    "button",
-    {
-      type: "button",
-      className: `barocco-musical-globe__chip${isActive ? " is-active" : ""}`,
-      onClick: () => onSelect(keyword.id),
-      "aria-pressed": isActive,
-      "aria-controls": "barocco-musical-globe-detail"
-    },
-    keyword.title
-  );
-}
-
 export default function BaroccoCoordinateSphereMusicale() {
   const initialKeyword = musicalOrbit.keywords[0];
   const [activeKeywordId, setActiveKeywordId] = React.useState(initialKeyword.id);
@@ -386,7 +392,7 @@ export default function BaroccoCoordinateSphereMusicale() {
         height,
         cx: width / 2,
         cy: height / 2,
-        radius: Math.min(width, height) * 0.305,
+        radius: Math.min(width, height) * 0.385,
         dpr
       };
       metricsRef.current = metrics;
@@ -427,7 +433,7 @@ export default function BaroccoCoordinateSphereMusicale() {
       drawSphereEnvelope(ctx, metrics);
       drawGrid(ctx, metrics, rotation);
       drawDots(ctx, metrics, rotation, timeRef.current);
-      drawAnchors(ctx, metrics, rotation, musicalOrbit.keywords);
+      drawAnchors(ctx, metrics, rotation, musicalOrbit.keywords, activeKeywordId, timeRef.current);
       setHotspots(buildHotspots(metrics, rotation, musicalOrbit.keywords));
       animationRef.current = window.requestAnimationFrame(render);
     };
@@ -436,7 +442,7 @@ export default function BaroccoCoordinateSphereMusicale() {
     return () => {
       if (animationRef.current) window.cancelAnimationFrame(animationRef.current);
     };
-  }, []);
+  }, [activeKeywordId]);
 
   const onPointerDown = React.useCallback((event) => {
     const frame = frameRef.current;
@@ -492,16 +498,6 @@ export default function BaroccoCoordinateSphereMusicale() {
             onSelect: setActiveKeywordId
           }))
         )
-      ),
-      h(
-        "div",
-        { className: "barocco-musical-globe__chips", role: "list", "aria-label": "Parole chiave del globo" },
-        musicalOrbit.keywords.map((keyword) => h(KeywordChip, {
-          key: keyword.id,
-          keyword,
-          isActive: keyword.id === activeKeywordId,
-          onSelect: setActiveKeywordId
-        }))
       )
     ),
     h(
