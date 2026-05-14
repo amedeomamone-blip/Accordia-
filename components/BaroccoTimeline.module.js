@@ -14,7 +14,7 @@ const timelineItems = [
     visual: {
       src: "../../../../assets/barocco-orfeo-card.svg?v=20260514a",
       alt: "Illustrazione in stile acquerello di un giovane musicista con lira, architetture classiche e figure in ombra.",
-      position: "center 30%"
+      position: "center 22%"
     }
   },
   {
@@ -355,8 +355,6 @@ function BaroccoTimeline() {
         h("p", null, activeItem.subtitle)
       ),
       h("div", { className: "barocco-timeline-detail__grid" },
-        h("section", null, h("strong", null, "Descrizione"), h("p", null, activeItem.description)),
-        h("section", null, h("strong", null, "Approfondimento"), h("p", null, activeItem.insight)),
         activeItem.visual
           ? h(
               "section",
@@ -368,13 +366,15 @@ function BaroccoTimeline() {
                 h("img", {
                   src: activeItem.visual.src,
                   alt: activeItem.visual.alt,
-                  loading: "lazy",
+                  loading: "eager",
                   decoding: "async",
                   style: { objectPosition: activeItem.visual.position || "center" }
                 })
               )
             )
-          : null
+          : null,
+        h("section", null, h("strong", null, "Descrizione"), h("p", null, activeItem.description)),
+        h("section", null, h("strong", null, "Approfondimento"), h("p", null, activeItem.insight))
       )
     )
   );

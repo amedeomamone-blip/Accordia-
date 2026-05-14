@@ -9,9 +9,6 @@ const ACTIVE_LABEL_OFFSET = 42;
 const musicalOrbit = {
   id: "barocco-musicale",
   title: "Coordinate musicali del Barocco",
-  subtitle: "Spazi, forme e protagonisti della vita musicale barocca",
-  summary:
-    "Il globo raccoglie sette parole chiave per leggere la musica barocca: i luoghi della produzione, le forme teatrali e strumentali, il ruolo degli esecutori e delle orchestre.",
   keywords: [
     {
       id: "mecenatismo",
@@ -374,8 +371,7 @@ function GlobeHotspot({ item, isActive, onSelect }) {
       },
       onPointerDown: (event) => event.stopPropagation(),
       onClick: () => onSelect(item.id),
-      "aria-pressed": isActive,
-      "aria-controls": "barocco-musical-globe-detail"
+      "aria-pressed": isActive
     },
     h("strong", null, item.title)
   );
@@ -395,8 +391,6 @@ export default function BaroccoCoordinateSphereMusicale() {
   const metricsRef = React.useRef({ width: 0, height: 0, cx: 0, cy: 0, radius: 0, dpr: 1 });
   const timeRef = React.useRef(0);
   const animationRef = React.useRef(null);
-
-  const activeKeyword = musicalOrbit.keywords.find((keyword) => keyword.id === activeKeywordId) || initialKeyword;
 
   React.useEffect(() => {
     const frame = frameRef.current;
@@ -521,14 +515,6 @@ export default function BaroccoCoordinateSphereMusicale() {
           }))
         )
       )
-    ),
-    h(
-      "article",
-      { id: "barocco-musical-globe-detail", className: "barocco-musical-globe__detail", "aria-live": "polite" },
-      h("span", { className: "barocco-musical-globe__detail-kicker" }, "Parola chiave"),
-      h("h3", null, activeKeyword.title),
-      h("p", null, activeKeyword.copy),
-      h("strong", null, activeKeyword.keyIdea)
     )
   );
 }

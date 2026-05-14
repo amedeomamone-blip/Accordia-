@@ -203,8 +203,8 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(180deg, rgba(255, 248, 236, 0.18) 0%, rgba(255, 248, 236, 0.08) 28%, rgba(255, 248, 236, 0.78) 66%, rgba(255, 248, 236, 0.94) 100%),
-    linear-gradient(90deg, rgba(255, 248, 236, 0.48) 0%, rgba(255, 248, 236, 0.12) 40%, rgba(26, 38, 58, 0.28) 100%);
+    linear-gradient(180deg, rgba(255, 248, 236, 0.08) 0%, rgba(255, 248, 236, 0.02) 24%, rgba(255, 248, 236, 0.56) 64%, rgba(255, 248, 236, 0.82) 100%),
+    linear-gradient(90deg, rgba(255, 248, 236, 0.24) 0%, rgba(255, 248, 236, 0.02) 38%, rgba(26, 38, 58, 0.22) 100%);
 }
 
 .barocco-timeline-card__visual img {
@@ -212,8 +212,8 @@
   height: 100%;
   display: block;
   object-fit: cover;
-  filter: saturate(0.96) contrast(1.04);
-  transform: scale(1.02);
+  filter: saturate(1.02) contrast(1.08);
+  transform: scale(1.04);
 }
 
 .barocco-timeline-card:hover,
@@ -232,8 +232,8 @@
 
 .barocco-timeline-card.is-active .barocco-timeline-card__visual::after {
   background:
-    linear-gradient(180deg, rgba(255, 248, 236, 0.08) 0%, rgba(255, 248, 236, 0.04) 24%, rgba(255, 248, 236, 0.68) 64%, rgba(255, 248, 236, 0.88) 100%),
-    linear-gradient(90deg, rgba(255, 248, 236, 0.28) 0%, rgba(255, 248, 236, 0.04) 36%, rgba(26, 38, 58, 0.24) 100%);
+    linear-gradient(180deg, rgba(255, 248, 236, 0.03) 0%, rgba(255, 248, 236, 0.01) 22%, rgba(255, 248, 236, 0.44) 62%, rgba(255, 248, 236, 0.74) 100%),
+    linear-gradient(90deg, rgba(255, 248, 236, 0.14) 0%, rgba(255, 248, 236, 0.01) 34%, rgba(26, 38, 58, 0.18) 100%);
 }
 
 .barocco-timeline-card__year,
@@ -470,6 +470,7 @@
   overflow: hidden;
   border-radius: 0.82rem;
   border: 1px solid rgba(17, 17, 17, 0.08);
+  min-height: 28rem;
   background:
     radial-gradient(circle at 28% 26%, rgba(255, 248, 236, 0.92), transparent 38%),
     rgba(255, 252, 246, 0.94);
@@ -477,9 +478,9 @@
 
 .barocco-timeline-detail__visual-frame img {
   width: 100%;
-  max-height: 30rem;
+  height: 28rem;
   display: block;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .barocco-timeline-detail__grid p {
@@ -526,12 +527,28 @@
   .barocco-timeline-detail__grid {
     grid-template-columns: 1fr;
   }
+
+  .barocco-timeline-detail__visual-frame {
+    min-height: 24rem;
+  }
+
+  .barocco-timeline-detail__visual-frame img {
+    height: 24rem;
+  }
 }
 
 @media (max-width: 40rem) {
   .barocco-timeline {
     width: min(calc(100% - 1rem), 72rem);
     padding: 0.86rem;
+  }
+
+  .barocco-timeline-detail__visual-frame {
+    min-height: 18rem;
+  }
+
+  .barocco-timeline-detail__visual-frame img {
+    height: 18rem;
   }
 
   .barocco-timeline__stage {
