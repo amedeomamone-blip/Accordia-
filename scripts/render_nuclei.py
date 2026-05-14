@@ -3122,8 +3122,8 @@ def customize_barocco_context_lesson() -> None:
         context_topic["slug"] = "il-barocco-in-coordinate"
         context_topic["title"] = "Il Barocco in coordinate"
         context_topic["label"] = "Coordinate"
-        context_topic["subtitle"] = "Contesto storico, artistico e culturale"
-        context_topic["summary"] = "Una sfera interattiva raccoglie le coordinate storiche e culturali del Barocco."
+        context_topic["subtitle"] = "Parole chiave musicali del Barocco"
+        context_topic["summary"] = "Timeline e globo raccolgono solo le parole chiave musicali del Barocco."
         context_topic["x"] = 50
         context_topic["y"] = 50
         context_topic["cta"] = "Apri la lezione"
@@ -3138,10 +3138,38 @@ def customize_barocco_context_lesson() -> None:
             "immersive_preview": True,
             "immersive_mount_id": "immersive-barocco-context-root",
             "immersive_data_key": "barocco-in-coordinate",
-            "immersive_stylesheet": "../../../../css/lesson-immersive.css",
-            "immersive_module": "../../../../components/VivaldiSuonoStagioniLesson.module.js",
+            "immersive_stylesheets": [
+                "../../../../css/lesson-immersive.css",
+                "../../../../css/barocco-sphere-canvas.css",
+                "../../../../css/barocco-timeline.css",
+                "../../../../css/barocco-coordinate-responsive.css",
+                "../../../../css/barocco-musical-globe.css",
+            ],
+            "immersive_mounts": [
+                {
+                    "mount_id": "barocco-timeline-root",
+                    "data_attr": "data-barocco-timeline",
+                },
+                {
+                    "mount_id": "immersive-barocco-context-root",
+                    "data_attr": "data-immersive-lesson",
+                    "data_value": "barocco-in-coordinate",
+                },
+            ],
+            "immersive_modules": [
+                {
+                    "module": "../../../../components/BaroccoTimeline.module.js",
+                    "mount_id": "barocco-timeline-root",
+                    "symbol": "BaroccoTimeline",
+                },
+                {
+                    "module": "../../../../components/BaroccoCoordinateSphereMusicale.module.js",
+                    "mount_id": "immersive-barocco-context-root",
+                    "symbol": "ImmersiveLesson",
+                },
+            ],
             "author": "Lezione Accordia · Il Barocco",
-            "description": "Una sfera interattiva raccoglie le coordinate storiche e culturali del Barocco: movimento, contrasto, meraviglia, teatralita, energia, luce e ombra, gesto.",
+            "description": "Timeline e globo raccolgono solo le parole chiave musicali del Barocco: mecenatismo, corti e cattedrali, teatri pubblici, melodramma, concerto grosso, concerto solista, orchestra da camera.",
         }
 
         topic_map["nodes"] = [context_topic]
@@ -4089,6 +4117,33 @@ def render_lesson_phase_explorer(topic: dict) -> str:
 
 def render_immersive_lesson_mount(topic: dict) -> str:
     lesson = topic["lesson"]
+    mounts = lesson.get("immersive_mounts")
+    if mounts:
+        mount_nodes = []
+        for mount in mounts:
+            mount_id = mount.get("mount_id", "immersive-lesson-root")
+            data_attr = str(mount.get("data_attr", "")).strip()
+            data_value = mount.get("data_value")
+            extra_attr = ""
+            if data_attr:
+                extra_attr = (
+                    f' {e(data_attr)}="{e(str(data_value))}"'
+                    if data_value is not None
+                    else f" {e(data_attr)}"
+                )
+            mount_nodes.append(f'<div id="{e(mount_id)}"{extra_attr}></div>')
+        mounts_markup = "\n            ".join(mount_nodes)
+        return f"""
+        <section class="lesson-mount" id="lezione">
+            {mounts_markup}
+            <noscript>
+                <section class="lesson-noscript">
+                    <h2>JavaScript richiesto</h2>
+                    <p>Questa versione della lezione usa componenti interattivi. Attiva JavaScript per visualizzarla.</p>
+                </section>
+            </noscript>
+        </section>"""
+
     mount_id = lesson.get("immersive_mount_id", "immersive-lesson-root")
     data_key = lesson.get("immersive_data_key", topic["slug"])
     return f"""
@@ -4104,6 +4159,10 @@ def render_immersive_lesson_mount(topic: dict) -> str:
 
 
 def render_immersive_lesson_stylesheet(lesson: dict) -> str:
+    stylesheets = lesson.get("immersive_stylesheets")
+    if stylesheets:
+        return "".join(f'\n    <link rel="stylesheet" href="{asset_url(path)}">' for path in stylesheets)
+
     stylesheet = lesson.get("immersive_stylesheet")
     if not stylesheet:
         return ""
@@ -4112,6 +4171,36 @@ def render_immersive_lesson_stylesheet(lesson: dict) -> str:
 
 def render_immersive_lesson_script(topic: dict) -> str:
     lesson = topic["lesson"]
+    modules = lesson.get("immersive_modules")
+    if modules:
+        imports = []
+        mounts = []
+        for index, entry in enumerate(modules):
+            module_path = entry.get("module")
+            if not module_path:
+                continue
+            symbol = entry.get("symbol") or f"ImmersiveLesson{index}"
+            mount_id = entry.get("mount_id", lesson.get("immersive_mount_id", "immersive-lesson-root"))
+            imports.append(f'        import {symbol} from "{asset_url(module_path)}";')
+            mounts.append(
+                f"""
+        const mountNode{index} = document.getElementById("{e(mount_id)}");
+        if (mountNode{index}) {{
+            createRoot(mountNode{index}).render(React.createElement({symbol}));
+        }}"""
+            )
+
+        if not imports:
+            return ""
+
+        return f"""
+    <script type="module">
+        import React from "https://esm.sh/react@18";
+        import {{ createRoot }} from "https://esm.sh/react-dom@18/client";
+{chr(10).join(imports)}
+{chr(10).join(mounts)}
+    </script>"""
+
     module_path = lesson.get("immersive_module")
     if not module_path:
         return ""

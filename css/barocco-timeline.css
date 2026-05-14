@@ -173,6 +173,7 @@
   -webkit-backdrop-filter: blur(10px);
   text-align: left;
   cursor: pointer;
+  overflow: hidden;
   transform-origin: center;
   transition:
     opacity 420ms ease,
@@ -180,6 +181,39 @@
     border-color 280ms ease,
     background-color 280ms ease,
     box-shadow 280ms ease;
+}
+
+.barocco-timeline-card > *:not(.barocco-timeline-card__visual) {
+  position: relative;
+  z-index: 1;
+}
+
+.barocco-timeline-card--with-visual {
+  background: rgba(255, 252, 246, 0.74);
+}
+
+.barocco-timeline-card__visual {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.barocco-timeline-card__visual::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 248, 236, 0.18) 0%, rgba(255, 248, 236, 0.08) 28%, rgba(255, 248, 236, 0.78) 66%, rgba(255, 248, 236, 0.94) 100%),
+    linear-gradient(90deg, rgba(255, 248, 236, 0.48) 0%, rgba(255, 248, 236, 0.12) 40%, rgba(26, 38, 58, 0.28) 100%);
+}
+
+.barocco-timeline-card__visual img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  filter: saturate(0.96) contrast(1.04);
+  transform: scale(1.02);
 }
 
 .barocco-timeline-card:hover,
@@ -194,6 +228,12 @@
   box-shadow:
     0 1.5rem 3.7rem rgba(17, 17, 17, 0.13),
     0 0 0 1px rgba(193, 79, 64, 0.12);
+}
+
+.barocco-timeline-card.is-active .barocco-timeline-card__visual::after {
+  background:
+    linear-gradient(180deg, rgba(255, 248, 236, 0.08) 0%, rgba(255, 248, 236, 0.04) 24%, rgba(255, 248, 236, 0.68) 64%, rgba(255, 248, 236, 0.88) 100%),
+    linear-gradient(90deg, rgba(255, 248, 236, 0.28) 0%, rgba(255, 248, 236, 0.04) 36%, rgba(26, 38, 58, 0.24) 100%);
 }
 
 .barocco-timeline-card__year,
@@ -420,6 +460,26 @@
   border: 1px solid rgba(17, 17, 17, 0.09);
   border-radius: 1rem;
   background: rgba(245, 244, 239, 0.82);
+}
+
+.barocco-timeline-detail__visual {
+  grid-column: 1 / -1;
+}
+
+.barocco-timeline-detail__visual-frame {
+  overflow: hidden;
+  border-radius: 0.82rem;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  background:
+    radial-gradient(circle at 28% 26%, rgba(255, 248, 236, 0.92), transparent 38%),
+    rgba(255, 252, 246, 0.94);
+}
+
+.barocco-timeline-detail__visual-frame img {
+  width: 100%;
+  max-height: 30rem;
+  display: block;
+  object-fit: cover;
 }
 
 .barocco-timeline-detail__grid p {

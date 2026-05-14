@@ -10,7 +10,12 @@ const timelineItems = [
     subtitle: "Claudio Monteverdi",
     category: "Musica",
     description: "Va in scena a Mantova L’Orfeo di Claudio Monteverdi, una delle prime grandi opere della storia della musica.",
-    insight: "Monteverdi unisce parola, scena e suono con una forza espressiva nuova. L’opera diventa racconto teatrale in musica, non semplice accompagnamento del testo."
+    insight: "Monteverdi unisce parola, scena e suono con una forza espressiva nuova. L’opera diventa racconto teatrale in musica, non semplice accompagnamento del testo.",
+    visual: {
+      src: "../../../../assets/barocco-orfeo-card.svg?v=20260514a",
+      alt: "Illustrazione in stile acquerello di un giovane musicista con lira, architetture classiche e figure in ombra.",
+      position: "center 30%"
+    }
   },
   {
     id: "1618-guerra-trentanni",
@@ -300,7 +305,7 @@ function BaroccoTimeline() {
             {
               key: node.id,
               type: "button",
-              className: `barocco-timeline-card${isActive ? " is-active" : ""}${node.hidden ? " is-hidden" : ""}`,
+              className: `barocco-timeline-card${node.visual ? " barocco-timeline-card--with-visual" : ""}${isActive ? " is-active" : ""}${node.hidden ? " is-hidden" : ""}`,
               onClick: () => selectItem(index),
               "aria-current": isActive ? "true" : undefined,
               "aria-label": `${node.year} — ${node.title}`,
@@ -311,6 +316,19 @@ function BaroccoTimeline() {
                 pointerEvents: node.hidden ? "none" : "auto"
               }
             },
+            node.visual
+              ? h(
+                  "span",
+                  { className: "barocco-timeline-card__visual", "aria-hidden": "true" },
+                  h("img", {
+                    src: node.visual.src,
+                    alt: "",
+                    loading: "lazy",
+                    decoding: "async",
+                    style: { objectPosition: node.visual.position || "center" }
+                  })
+                )
+              : null,
             h("span", { className: "barocco-timeline-card__year" }, node.year),
             h("strong", { className: "barocco-timeline-card__title" }, node.title),
             h("small", { className: "barocco-timeline-card__category" }, node.category),
@@ -338,7 +356,25 @@ function BaroccoTimeline() {
       ),
       h("div", { className: "barocco-timeline-detail__grid" },
         h("section", null, h("strong", null, "Descrizione"), h("p", null, activeItem.description)),
-        h("section", null, h("strong", null, "Approfondimento"), h("p", null, activeItem.insight))
+        h("section", null, h("strong", null, "Approfondimento"), h("p", null, activeItem.insight)),
+        activeItem.visual
+          ? h(
+              "section",
+              { className: "barocco-timeline-detail__visual" },
+              h("strong", null, "Immagine"),
+              h(
+                "div",
+                { className: "barocco-timeline-detail__visual-frame" },
+                h("img", {
+                  src: activeItem.visual.src,
+                  alt: activeItem.visual.alt,
+                  loading: "lazy",
+                  decoding: "async",
+                  style: { objectPosition: activeItem.visual.position || "center" }
+                })
+              )
+            )
+          : null
       )
     )
   );
