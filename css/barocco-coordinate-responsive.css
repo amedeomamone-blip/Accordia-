@@ -115,6 +115,11 @@
   .barocco-timeline-card.is-hidden {
     visibility: hidden;
   }
+
+  .vivaldi-globe-switch,
+  .vivaldi-globe-switch__button {
+    display: none !important;
+  }
 }
 
 @media (max-width: 680px) {
