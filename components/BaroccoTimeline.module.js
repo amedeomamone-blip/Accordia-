@@ -187,15 +187,13 @@ function BaroccoTimeline() {
     return timelineItems.map((item, index) => {
       const offset = circularOffset(index, activeIndex, itemCount);
       const distance = Math.abs(offset);
-      const direction = offset === 0 ? 0 : offset > 0 ? 1 : -1;
-      const riseFall = distance === 0 ? -34 : distance === 1 ? 38 * direction : distance === 2 ? -26 * direction : 18 * direction;
       return {
         ...item,
         offset,
-        x: offset * 186,
-        y: riseFall,
-        scale: offset === 0 ? 1 : distance === 1 ? 0.94 : 0.9,
-        opacity: distance > 3 ? 0 : offset === 0 ? 1 : distance === 1 ? 0.42 : 0.2,
+        x: offset * 150,
+        y: distance * 42,
+        scale: offset === 0 ? 1 : 0.82,
+        opacity: distance > 2 ? 0.12 : offset === 0 ? 1 : 0.42,
         zIndex: 40 - distance
       };
     });
