@@ -14,7 +14,8 @@ const timelineItems = [
     visual: {
       src: "../../../../assets/barocco-orfeo-card.svg?v=20260514a",
       alt: "Illustrazione in stile acquerello di un giovane musicista con lira, architetture classiche e figure in ombra.",
-      position: "center 22%"
+      position: "center center",
+      caption: "L’Orfeo tra mito, scena e architettura barocca."
     }
   },
   {
@@ -305,7 +306,7 @@ function BaroccoTimeline() {
             {
               key: node.id,
               type: "button",
-              className: `barocco-timeline-card${node.visual ? " barocco-timeline-card--with-visual" : ""}${isActive ? " is-active" : ""}${node.hidden ? " is-hidden" : ""}`,
+              className: `barocco-timeline-card${node.visual ? " barocco-timeline-card--featured" : ""}${isActive ? " is-active" : ""}${node.hidden ? " is-hidden" : ""}`,
               onClick: () => selectItem(index),
               "aria-current": isActive ? "true" : undefined,
               "aria-label": `${node.year} — ${node.title}`,
@@ -316,19 +317,6 @@ function BaroccoTimeline() {
                 pointerEvents: node.hidden ? "none" : "auto"
               }
             },
-            node.visual
-              ? h(
-                  "span",
-                  { className: "barocco-timeline-card__visual", "aria-hidden": "true" },
-                  h("img", {
-                    src: node.visual.src,
-                    alt: "",
-                    loading: "lazy",
-                    decoding: "async",
-                    style: { objectPosition: node.visual.position || "center" }
-                  })
-                )
-              : null,
             h("span", { className: "barocco-timeline-card__year" }, node.year),
             h("strong", { className: "barocco-timeline-card__title" }, node.title),
             h("small", { className: "barocco-timeline-card__category" }, node.category),
@@ -348,18 +336,18 @@ function BaroccoTimeline() {
     ),
     h(
       "article",
-      { className: "barocco-timeline-detail", "aria-live": "polite" },
+      { className: `barocco-timeline-detail${activeItem.visual ? " has-image" : ""}`, "aria-live": "polite" },
       h("div", { className: "barocco-timeline-detail__header" },
         h("span", null, activeItem.year),
         h("h3", null, activeItem.title),
         h("p", null, activeItem.subtitle)
       ),
-      h("div", { className: "barocco-timeline-detail__grid" },
+      h("div", { className: "barocco-timeline-detail__body" },
         activeItem.visual
           ? h(
-              "section",
+              "figure",
               { className: "barocco-timeline-detail__visual" },
-              h("strong", null, "Immagine"),
+              h("span", { className: "barocco-timeline-detail__visual-kicker" }, "Tavola illustrata"),
               h(
                 "div",
                 { className: "barocco-timeline-detail__visual-frame" },
@@ -370,11 +358,18 @@ function BaroccoTimeline() {
                   decoding: "async",
                   style: { objectPosition: activeItem.visual.position || "center" }
                 })
-              )
+              ),
+              h("figcaption", null, activeItem.visual.caption || activeItem.visual.alt)
             )
           : null,
-        h("section", null, h("strong", null, "Descrizione"), h("p", null, activeItem.description)),
-        h("section", null, h("strong", null, "Approfondimento"), h("p", null, activeItem.insight))
+        h(
+          "div",
+          { className: "barocco-timeline-detail__content" },
+          h("div", { className: "barocco-timeline-detail__grid" },
+            h("section", null, h("strong", null, "Descrizione"), h("p", null, activeItem.description)),
+            h("section", null, h("strong", null, "Approfondimento"), h("p", null, activeItem.insight))
+          )
+        )
       )
     )
   );
