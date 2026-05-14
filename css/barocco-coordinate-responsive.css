@@ -1,0 +1,292 @@
+@media (max-width: 1180px) {
+  .topic-page--lesson .site-header__inner {
+    padding: 0.68rem 0;
+  }
+
+  .topic-page--lesson .nucleus-mini-timeline {
+    padding: 0.38rem 0;
+  }
+
+  .topic-page--lesson .nucleus-mini-timeline__track {
+    width: min(calc(100vw - 0.9rem), 72rem);
+    gap: 0.34rem;
+    grid-auto-columns: minmax(5.1rem, auto);
+  }
+
+  .topic-page--lesson .nucleus-mini-timeline__track a {
+    padding: 0.56rem 0.62rem 0.48rem;
+    border-radius: 0.84rem;
+  }
+
+  .topic-page--lesson .topic-rail {
+    padding: 0.28rem 0 0.06rem;
+  }
+
+  .topic-page--lesson .topic-rail__eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+  }
+
+  .topic-page--lesson .topic-rail__track {
+    padding: 0.08rem 0 0.14rem;
+  }
+
+  .topic-page--lesson .topic-rail__track a {
+    width: 2.72rem;
+    min-height: 2.72rem;
+  }
+
+  .topic-page--lesson .topic-rail__track a span {
+    width: 2.32rem;
+    height: 2.32rem;
+  }
+
+  .lesson-mount {
+    min-height: auto;
+  }
+
+  .barocco-timeline {
+    width: min(calc(100% - 0.9rem), 72rem);
+    margin: 1rem auto 1.25rem;
+    padding: 0.95rem;
+  }
+
+  .barocco-timeline__head {
+    gap: 0.9rem;
+  }
+
+  .barocco-timeline__progress {
+    flex-basis: 12.5rem;
+    padding: 0.78rem 0.86rem;
+  }
+
+  .barocco-timeline--tablet .barocco-timeline__stage {
+    --timeline-axis-y: 59%;
+    min-height: 25.75rem;
+  }
+
+  .barocco-timeline--tablet .barocco-timeline__nodes {
+    top: calc(var(--timeline-axis-y) - 7.7rem);
+  }
+
+  .barocco-timeline--tablet .barocco-timeline-card {
+    width: 13.25rem;
+    height: 11.85rem;
+    padding: 0.88rem;
+  }
+
+  .barocco-timeline--tablet .barocco-timeline-card__stem {
+    height: 1.6rem;
+  }
+
+  .barocco-timeline--tablet .barocco-timeline-card__dot {
+    top: calc(100% + 1.52rem);
+  }
+
+  .barocco-timeline--tablet .barocco-timeline__rings span:nth-child(1) {
+    width: min(17rem, 42vw);
+  }
+
+  .barocco-timeline--tablet .barocco-timeline__rings span:nth-child(2) {
+    width: min(13rem, 33vw);
+  }
+
+  .barocco-timeline--tablet .barocco-timeline__rings span:nth-child(3) {
+    width: min(9rem, 24vw);
+  }
+
+  .barocco-timeline--tablet .barocco-timeline__controls {
+    bottom: 1.12rem;
+    padding: 0.32rem;
+    gap: 0.34rem;
+  }
+
+  .barocco-timeline--tablet .barocco-timeline__controls button {
+    min-width: 2.28rem;
+    height: 2.28rem;
+    padding-inline: 0.66rem;
+    font-size: 0.8rem;
+  }
+
+  .barocco-timeline--tablet .barocco-timeline__controls button.is-primary {
+    min-width: 7.6rem;
+  }
+
+  .barocco-timeline-card.is-hidden {
+    visibility: hidden;
+  }
+}
+
+@media (max-width: 680px) {
+  .topic-page--lesson .site-header__inner {
+    padding: 0.58rem 0;
+  }
+
+  .topic-page--lesson .brand {
+    gap: 0.58rem;
+  }
+
+  .topic-page--lesson .brand__mark {
+    width: 1.95rem;
+    height: 1.95rem;
+  }
+
+  .topic-page--lesson .brand__mark::after {
+    width: 0.84rem;
+    height: 0.84rem;
+  }
+
+  .topic-page--lesson .brand__text strong {
+    font-size: 0.82rem;
+    letter-spacing: 0.14em;
+  }
+
+  .topic-page--lesson .nucleus-mini-timeline__track {
+    width: min(calc(100vw - 0.7rem), 72rem);
+    grid-auto-columns: minmax(4.75rem, auto);
+  }
+
+  .topic-page--lesson .nucleus-mini-timeline__track a {
+    padding: 0.52rem 0.56rem 0.44rem;
+  }
+
+  .topic-page--lesson .topic-rail__track a {
+    width: 2.54rem;
+    min-height: 2.54rem;
+  }
+
+  .topic-page--lesson .topic-rail__track a span {
+    width: 2.16rem;
+    height: 2.16rem;
+  }
+
+  .barocco-timeline {
+    width: min(calc(100% - 0.7rem), 72rem);
+    margin: 0.84rem auto 1rem;
+    padding: 0.72rem;
+    border-radius: 1.18rem;
+  }
+
+  .barocco-timeline__head {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.78rem;
+    padding-bottom: 0.82rem;
+  }
+
+  .barocco-timeline h2 {
+    font-size: clamp(2rem, 12vw, 3rem);
+  }
+
+  .barocco-timeline__intro {
+    margin-top: 0.54rem;
+    font-size: 0.92rem;
+    line-height: 1.48;
+  }
+
+  .barocco-timeline__progress {
+    width: 100%;
+    flex-basis: auto;
+    padding: 0.7rem 0.78rem;
+  }
+
+  .barocco-timeline--mobile .barocco-timeline__stage {
+    --timeline-axis-y: 60%;
+    min-height: 24.75rem;
+    border-radius: 1.08rem;
+  }
+
+  .barocco-timeline--mobile .barocco-timeline__nodes {
+    top: calc(var(--timeline-axis-y) - 6.95rem);
+  }
+
+  .barocco-timeline--mobile .barocco-timeline-card {
+    width: 11.85rem;
+    height: 10.9rem;
+    padding: 0.78rem;
+    gap: 0.42rem;
+    border-radius: 1.1rem;
+  }
+
+  .barocco-timeline--mobile .barocco-timeline-card__year,
+  .barocco-timeline--mobile .barocco-timeline-card__category {
+    font-size: 0.62rem;
+  }
+
+  .barocco-timeline--mobile .barocco-timeline-card__title {
+    min-height: 2.2rem;
+    font-size: 0.96rem;
+  }
+
+  .barocco-timeline--mobile .barocco-timeline-card__subtitle {
+    font-size: 0.78rem;
+    line-height: 1.28;
+  }
+
+  .barocco-timeline--mobile .barocco-timeline-card__stem {
+    height: 1.42rem;
+  }
+
+  .barocco-timeline--mobile .barocco-timeline-card__dot {
+    top: calc(100% + 1.34rem);
+    width: 0.68rem;
+    height: 0.68rem;
+  }
+
+  .barocco-timeline--mobile .barocco-timeline__rings span:nth-child(1) {
+    width: 15.5rem;
+  }
+
+  .barocco-timeline--mobile .barocco-timeline__rings span:nth-child(2) {
+    width: 11.8rem;
+  }
+
+  .barocco-timeline--mobile .barocco-timeline__rings span:nth-child(3) {
+    width: 8.3rem;
+  }
+
+  .barocco-timeline--mobile .barocco-timeline__controls {
+    width: calc(100% - 1rem);
+    bottom: 0.92rem;
+    justify-content: center;
+    gap: 0.28rem;
+    padding: 0.28rem;
+  }
+
+  .barocco-timeline--mobile .barocco-timeline__controls button {
+    min-width: 2.12rem;
+    height: 2.12rem;
+    padding-inline: 0.56rem;
+    font-size: 0.76rem;
+  }
+
+  .barocco-timeline--mobile .barocco-timeline__controls button.is-primary {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .barocco-timeline-detail {
+    margin-top: 0.82rem;
+    padding: 0.78rem;
+    border-radius: 1rem;
+  }
+
+  .barocco-timeline-detail__header h3 {
+    font-size: clamp(1.4rem, 8vw, 2rem);
+  }
+
+  .barocco-timeline-detail__header p {
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+  }
+
+  .barocco-timeline-detail__grid {
+    grid-template-columns: 1fr;
+    gap: 0.68rem;
+  }
+
+  .barocco-timeline-detail__grid section {
+    min-height: auto;
+    padding: 0.78rem;
+  }
+}
