@@ -4,6 +4,7 @@ const h = React.createElement;
 const DEG = Math.PI / 180;
 const AUTO_SPIN = 0.00115;
 const ROTATION_LIMIT = 1.08;
+const ACTIVE_LABEL_OFFSET = 42;
 
 const musicalOrbit = {
   id: "barocco-musicale",
@@ -338,10 +339,16 @@ function buildHotspots(metrics, rotation, keywords) {
   return keywords.map((keyword) => {
     const rotated = rotatePoint(sphericalPoint(keyword.latitude, keyword.longitude), rotation.x, rotation.y);
     const projected = projectPoint(rotated, metrics, 1.085);
+    const radialX = projected.x - metrics.cx;
+    const radialY = projected.y - metrics.cy;
+    const radialLength = Math.max(Math.hypot(radialX, radialY), 1);
+
     return {
       ...keyword,
       x: projected.x,
       y: projected.y,
+      activeOffsetX: (radialX / radialLength) * ACTIVE_LABEL_OFFSET,
+      activeOffsetY: (radialY / radialLength) * ACTIVE_LABEL_OFFSET,
       depth: rotated.z,
       hidden: rotated.z < -0.72,
       back: rotated.z < -0.18,
@@ -359,8 +366,8 @@ function GlobeHotspot({ item, isActive, onSelect }) {
       type: "button",
       className: `barocco-musical-globe__hotspot${isActive ? " is-active" : ""}${item.back ? " is-back" : ""}${item.hidden ? " is-hidden" : ""}`,
       style: {
-        left: `${item.x}px`,
-        top: `${item.y}px`,
+        left: `${item.x + (isActive ? item.activeOffsetX : 0)}px`,
+        top: `${item.y + (isActive ? item.activeOffsetY : 0)}px`,
         opacity: item.displayOpacity,
         transform: `translate(-50%, -50%) scale(${item.displayScale})`,
         zIndex: isActive ? 80 : item.zIndex
@@ -476,7 +483,7 @@ export default function BaroccoCoordinateSphereMusicale() {
     rotationRef.current.targetX = clamp(rotationRef.current.targetX - dy * 0.0042, -ROTATION_LIMIT, ROTATION_LIMIT);
   }, []);
 
-  const stopDragging = React.useCallback((event) => {
+  const stopDragging = React.useCallback(() => {
     const frame = frameRef.current;
     if (frame && pointerRef.current.pointerId !== null) frame.releasePointerCapture?.(pointerRef.current.pointerId);
     pointerRef.current = { pointerId: null, x: 0, y: 0 };
@@ -490,6 +497,7 @@ export default function BaroccoCoordinateSphereMusicale() {
     h(
       "div",
       { className: "barocco-musical-globe__shell" },
+      h("h2", { className: "barocco-musical-globe__title" }, "La Musica Barocca in Coordinate"),
       h("p", { className: "barocco-musical-globe__eyebrow" }, "Trascina il globo o seleziona una parola chiave"),
       h(
         "div",
