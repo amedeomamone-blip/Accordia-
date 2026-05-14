@@ -113,6 +113,33 @@ const timelineItems = [
   }
 ];
 
+const layoutPresets = {
+  desktop: {
+    stepX: 150,
+    stepY: 42,
+    sideScale: 0.82,
+    sideOpacity: 0.42,
+    farOpacity: 0.12,
+    maxDistance: 2
+  },
+  tablet: {
+    stepX: 126,
+    stepY: 34,
+    sideScale: 0.86,
+    sideOpacity: 0.34,
+    farOpacity: 0.08,
+    maxDistance: 2
+  },
+  mobile: {
+    stepX: 96,
+    stepY: 28,
+    sideScale: 0.88,
+    sideOpacity: 0.24,
+    farOpacity: 0,
+    maxDistance: 1
+  }
+};
+
 function wrapIndex(index, length) {
   if (length <= 0) return 0;
   return ((index % length) + length) % length;
@@ -122,6 +149,13 @@ function circularOffset(index, activeIndex, length) {
   const direct = index - activeIndex;
   const wrapped = direct > 0 ? direct - length : direct + length;
   return Math.abs(direct) <= Math.abs(wrapped) ? direct : wrapped;
+}
+
+function getViewportMode() {
+  if (typeof window === "undefined") return "desktop";
+  if (window.innerWidth <= 680) return "mobile";
+  if (window.innerWidth <= 1180) return "tablet";
+  return "desktop";
 }
 
 function iconArrow(direction) {
@@ -173,7 +207,19 @@ function BaroccoTimeline() {
   const itemCount = timelineItems.length;
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [isPlaying, setIsPlaying] = React.useState(false);
+  const [viewportMode, setViewportMode] = React.useState(getViewportMode);
   const activeItem = timelineItems[activeIndex];
+  const layout = layoutPresets[viewportMode];
+
+  React.useEffect(() => {
+    const handleResize = () => setViewportMode(getViewportMode());
+    window.addEventListener("resize", handleResize, { passive: true });
+    window.addEventListener("orientationchange", handleResize, { passive: true });
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("orientationchange", handleResize);
+    };
+  }, []);
 
   React.useEffect(() => {
     if (!isPlaying || itemCount <= 1) return undefined;
@@ -187,17 +233,19 @@ function BaroccoTimeline() {
     return timelineItems.map((item, index) => {
       const offset = circularOffset(index, activeIndex, itemCount);
       const distance = Math.abs(offset);
+      const isBeyondLimit = distance > layout.maxDistance;
       return {
         ...item,
         offset,
-        x: offset * 150,
-        y: distance * 42,
-        scale: offset === 0 ? 1 : 0.82,
-        opacity: distance > 2 ? 0.12 : offset === 0 ? 1 : 0.42,
-        zIndex: 40 - distance
+        x: offset * layout.stepX,
+        y: distance * layout.stepY,
+        scale: offset === 0 ? 1 : layout.sideScale,
+        opacity: offset === 0 ? 1 : isBeyondLimit ? layout.farOpacity : layout.sideOpacity,
+        zIndex: 40 - distance,
+        hidden: isBeyondLimit && layout.farOpacity === 0
       };
     });
-  }, [activeIndex, itemCount]);
+  }, [activeIndex, itemCount, layout]);
 
   const goPrev = React.useCallback(() => {
     setIsPlaying(false);
@@ -216,7 +264,10 @@ function BaroccoTimeline() {
 
   return h(
     "section",
-    { className: "barocco-timeline", "aria-labelledby": "barocco-timeline-title" },
+    {
+      className: `barocco-timeline barocco-timeline--${viewportMode}`,
+      "aria-labelledby": "barocco-timeline-title"
+    },
     h(
       "div",
       { className: "barocco-timeline__head" },
@@ -249,7 +300,7 @@ function BaroccoTimeline() {
             {
               key: node.id,
               type: "button",
-              className: `barocco-timeline-card${isActive ? " is-active" : ""}`,
+              className: `barocco-timeline-card${isActive ? " is-active" : ""}${node.hidden ? " is-hidden" : ""}`,
               onClick: () => selectItem(index),
               "aria-current": isActive ? "true" : undefined,
               "aria-label": `${node.year} — ${node.title}`,
@@ -257,7 +308,7 @@ function BaroccoTimeline() {
                 transform: `translate3d(${node.x}px, ${node.y}px, 0) scale(${node.scale})`,
                 opacity: node.opacity,
                 zIndex: node.zIndex,
-                pointerEvents: node.opacity === 0 ? "none" : "auto"
+                pointerEvents: node.hidden ? "none" : "auto"
               }
             },
             h("span", { className: "barocco-timeline-card__year" }, node.year),
