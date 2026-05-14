@@ -95,6 +95,7 @@
 }
 
 .barocco-timeline__stage {
+  --timeline-axis-y: 53%;
   position: relative;
   min-height: 32rem;
   margin-top: 1rem;
@@ -111,7 +112,7 @@
 
 .barocco-timeline__signal {
   position: absolute;
-  top: 53%;
+  top: var(--timeline-axis-y);
   left: 9%;
   right: 9%;
   height: 2px;
@@ -122,7 +123,7 @@
 
 .barocco-timeline__scan {
   position: absolute;
-  top: calc(53% - 1rem);
+  top: calc(var(--timeline-axis-y) - 1rem);
   left: 8%;
   width: 14rem;
   height: 2rem;
@@ -134,7 +135,7 @@
 
 .barocco-timeline__rings span {
   position: absolute;
-  top: 53%;
+  top: var(--timeline-axis-y);
   left: 50%;
   display: block;
   aspect-ratio: 1;
@@ -149,7 +150,7 @@
 
 .barocco-timeline__nodes {
   position: absolute;
-  top: 38%;
+  top: calc(var(--timeline-axis-y) - 8.685rem);
   left: 50%;
   width: 0;
   height: 0;
@@ -159,6 +160,7 @@
   position: absolute;
   top: 0;
   left: 0;
+  translate: -50% -50%;
   width: 14.25rem;
   height: 12.75rem;
   padding: 1rem;
