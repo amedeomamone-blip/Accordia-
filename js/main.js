@@ -230,22 +230,6 @@ document.addEventListener('DOMContentLoaded', () => {
         syncMiniTimelines();
     }
 
-    const lessonRailHoverMedia = window.matchMedia('(hover: hover) and (pointer: fine)');
-    const lessonRails = [...document.querySelectorAll('.topic-page--lesson .nucleus-mini-timeline, .topic-page--lesson .topic-rail')];
-
-    if (lessonRails.length) {
-        const syncLessonRails = () => {
-            const shouldHide = desktopMiniTimelineMedia.matches && lessonRailHoverMedia.matches;
-            lessonRails.forEach((rail) => {
-                rail.classList.toggle('is-hover-hidden', shouldHide);
-            });
-        };
-
-        bindMediaChange(desktopMiniTimelineMedia, syncLessonRails);
-        bindMediaChange(lessonRailHoverMedia, syncLessonRails);
-        syncLessonRails();
-    }
-
     const topicMapInteractiveMedia = window.matchMedia('(min-width: 901px)');
     const topicMapAnimatedMedia = window.matchMedia('(min-width: 901px)');
     const topicMapAnyHoverMedia = window.matchMedia('(any-hover: hover)');
