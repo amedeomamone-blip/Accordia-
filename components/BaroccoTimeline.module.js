@@ -14,9 +14,11 @@ const timelineItems = [
     visual: {
       src: "../../../../assets/barocco-orfeo-originale.png?v=20260514b",
       alt: "Illustrazione verticale di un giovane musicista con lira, architetture classiche e figure in ombra sullo sfondo.",
-      position: "center top",
-      shiftY: "-10%",
-      scale: 1.06
+      position: "center 18%",
+      figurePosition: "left top",
+      figureShiftY: "-14%",
+      figureScale: 1.08,
+      layeredFigure: true
     }
   },
   {
@@ -343,19 +345,41 @@ function BaroccoTimeline() {
         ? h(
             "figure",
             { className: "barocco-timeline-detail__hero" },
-            h("img", {
-              className: "barocco-timeline-detail__hero-image",
-              src: activeItem.visual.src,
-              alt: activeItem.visual.alt,
-              loading: "eager",
-              decoding: "async",
-              style: {
-                objectPosition: activeItem.visual.position || "center",
-                transform: activeItem.visual.shiftY
-                  ? `translateY(${activeItem.visual.shiftY}) scale(${activeItem.visual.scale || 1})`
-                  : undefined
-              }
-            }),
+            activeItem.visual.layeredFigure
+              ? [
+                  h("img", {
+                    key: "cover",
+                    className: "barocco-timeline-detail__hero-image barocco-timeline-detail__hero-image--cover",
+                    src: activeItem.visual.src,
+                    alt: "",
+                    "aria-hidden": "true",
+                    loading: "eager",
+                    decoding: "async",
+                    style: { objectPosition: activeItem.visual.position || "center" }
+                  }),
+                  h("img", {
+                    key: "figure",
+                    className: "barocco-timeline-detail__hero-figure",
+                    src: activeItem.visual.src,
+                    alt: activeItem.visual.alt,
+                    loading: "eager",
+                    decoding: "async",
+                    style: {
+                      objectPosition: activeItem.visual.figurePosition || "left top",
+                      transform: activeItem.visual.figureShiftY
+                        ? `translateY(${activeItem.visual.figureShiftY}) scale(${activeItem.visual.figureScale || 1})`
+                        : undefined
+                    }
+                  })
+                ]
+              : h("img", {
+                  className: "barocco-timeline-detail__hero-image",
+                  src: activeItem.visual.src,
+                  alt: activeItem.visual.alt,
+                  loading: "eager",
+                  decoding: "async",
+                  style: { objectPosition: activeItem.visual.position || "center" }
+                }),
             h("div", { className: "barocco-timeline-detail__hero-wash", "aria-hidden": "true" }),
             h(
               "div",
