@@ -108,29 +108,27 @@
   color: var(--lesson-soft);
 }
 
-@media (min-width: 901px) {
-  .topic-page--lesson {
-    --lesson-fixed-rails-offset: calc((var(--topic-rail-top) - var(--nucleus-rail-top)) + 4rem);
-    padding-top: var(--lesson-fixed-rails-offset);
-  }
+.topic-page--lesson {
+  --lesson-fixed-rails-offset: calc((var(--topic-rail-top) - var(--nucleus-rail-top)) + 4rem);
+  padding-top: var(--lesson-fixed-rails-offset);
+}
 
-  .topic-page--lesson .nucleus-mini-timeline,
-  .topic-page--lesson .topic-rail {
-    position: fixed;
-    left: 0;
-    right: 0;
-    width: 100%;
-  }
+.topic-page--lesson .nucleus-mini-timeline,
+.topic-page--lesson .topic-rail {
+  position: fixed;
+  left: 0;
+  right: 0;
+  width: 100%;
+}
 
-  .topic-page--lesson .nucleus-mini-timeline {
-    top: var(--nucleus-rail-top);
-    z-index: 44;
-  }
+.topic-page--lesson .nucleus-mini-timeline {
+  top: var(--nucleus-rail-top);
+  z-index: 44;
+}
 
-  .topic-page--lesson .topic-rail {
-    top: var(--topic-rail-top);
-    z-index: 43;
-  }
+.topic-page--lesson .topic-rail {
+  top: var(--topic-rail-top);
+  z-index: 43;
 }
 
 .lesson-mount {
@@ -334,7 +332,7 @@
 
 .lesson-section {
   padding: clamp(2rem, 4vw, 3rem) 0;
-  scroll-margin-top: 7.8rem;
+  scroll-margin-top: calc(var(--lesson-fixed-rails-offset, 0px) + 2.6rem);
 }
 
 .lesson-section--soft {
