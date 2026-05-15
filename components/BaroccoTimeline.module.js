@@ -362,7 +362,6 @@ function BaroccoTimeline() {
                 h(
                   "section",
                   { className: "barocco-timeline-detail__copy barocco-timeline-detail__copy--overlay" },
-                  h("strong", null, "Approfondimento"),
                   h("p", null, activeNarrative)
                 )
               )
