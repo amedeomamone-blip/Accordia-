@@ -451,6 +451,13 @@
   overflow: hidden;
 }
 
+.barocco-timeline-detail__hero--figure-focus {
+  background:
+    radial-gradient(circle at 18% 22%, rgba(247, 232, 200, 0.88), rgba(247, 232, 200, 0) 24rem),
+    linear-gradient(110deg, rgba(161, 132, 94, 0.28) 0%, rgba(29, 36, 48, 0.22) 52%, rgba(16, 19, 26, 0.52) 100%),
+    #1d2430;
+}
+
 .barocco-timeline-detail__hero-image {
   position: absolute;
   inset: 0;
@@ -460,12 +467,7 @@
   object-fit: cover;
 }
 
-.barocco-timeline-detail__hero-image--cover {
-  filter: saturate(0.94) brightness(0.84);
-  transform: scale(1.02);
-}
-
-.barocco-timeline-detail__hero-figure {
+.barocco-timeline-detail__hero-image--figure {
   position: absolute;
   left: 0;
   top: 0;
