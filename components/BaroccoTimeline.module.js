@@ -14,7 +14,8 @@ const timelineItems = [
     visual: {
       src: "../../../../assets/barocco-orfeo-originale.png?v=20260514b",
       alt: "Illustrazione verticale di un giovane musicista con lira, architetture classiche e figure in ombra sullo sfondo.",
-      position: "center -12%"
+      position: "center top",
+      shiftY: "-16%"
     }
   },
   {
@@ -347,7 +348,10 @@ function BaroccoTimeline() {
               alt: activeItem.visual.alt,
               loading: "eager",
               decoding: "async",
-              style: { objectPosition: activeItem.visual.position || "center" }
+              style: {
+                objectPosition: activeItem.visual.position || "center",
+                transform: activeItem.visual.shiftY ? `translateY(${activeItem.visual.shiftY}) scale(1.02)` : undefined
+              }
             }),
             h("div", { className: "barocco-timeline-detail__hero-wash", "aria-hidden": "true" }),
             h(
