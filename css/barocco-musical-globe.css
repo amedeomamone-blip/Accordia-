@@ -1,6 +1,14 @@
 .barocco-musical-globe {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
   width: min(calc(100% - 1.6rem), 72rem);
   margin: 0 auto 1.4rem;
+  padding: clamp(1rem, 2vw, 1.35rem);
+  border: 1px solid var(--lesson-border);
+  border-radius: 1.45rem;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 1rem 3rem rgba(17, 17, 17, 0.055);
   display: grid;
   gap: 1rem;
 }
@@ -14,7 +22,13 @@
 }
 
 .barocco-musical-globe__shell {
-  padding: clamp(0.95rem, 2vw, 1.25rem);
+  display: grid;
+  gap: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .barocco-musical-globe__title {
@@ -171,16 +185,13 @@
 @media (max-width: 680px) {
   .barocco-musical-globe {
     width: min(calc(100% - 0.7rem), 72rem);
+    padding: 0.75rem;
+    border-radius: 1.15rem;
     gap: 0.82rem;
   }
 
-  .barocco-musical-globe__shell,
   .barocco-musical-globe__detail {
     border-radius: 1.15rem;
-  }
-
-  .barocco-musical-globe__shell {
-    padding: 0.75rem;
   }
 
   .barocco-musical-globe__title {

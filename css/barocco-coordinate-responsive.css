@@ -208,12 +208,9 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
 
   .barocco-musical-globe {
     margin: 0 auto 0.96rem;
-    gap: 0.82rem;
-  }
-
-  .barocco-musical-globe__shell {
     padding: 0.82rem 0.94rem;
     border-radius: 1.25rem;
+    gap: 0.82rem;
   }
 
   .barocco-musical-globe__title {
