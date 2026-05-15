@@ -107,6 +107,51 @@
   color: var(--lesson-soft);
 }
 
+@media (hover: hover) and (pointer: fine) and (min-width: 901px) {
+  .topic-page--lesson {
+    --lesson-rail-peek: 0.45rem;
+  }
+
+  .topic-page--lesson .nucleus-mini-timeline,
+  .topic-page--lesson .topic-rail {
+    position: fixed;
+    left: 0;
+    right: 0;
+    width: 100%;
+  }
+
+  .topic-page--lesson .nucleus-mini-timeline {
+    top: var(--nucleus-rail-top);
+    z-index: 44;
+  }
+
+  .topic-page--lesson .topic-rail {
+    top: var(--topic-rail-top);
+    z-index: 43;
+  }
+
+  .topic-page--lesson .nucleus-mini-timeline.is-hover-hidden,
+  .topic-page--lesson .topic-rail.is-hover-hidden {
+    opacity: 0.02;
+    box-shadow: none;
+  }
+
+  .topic-page--lesson .nucleus-mini-timeline.is-hover-hidden:not(:hover):not(:focus-within),
+  .topic-page--lesson .topic-rail.is-hover-hidden:not(:hover):not(:focus-within) {
+    transform: translateY(calc(-100% + var(--lesson-rail-peek)));
+  }
+
+  .topic-page--lesson .nucleus-mini-timeline.is-hover-hidden:hover,
+  .topic-page--lesson .nucleus-mini-timeline.is-hover-hidden:focus-within,
+  .topic-page--lesson .topic-rail.is-hover-hidden:hover,
+  .topic-page--lesson .topic-rail.is-hover-hidden:focus-within,
+  .topic-page--lesson .nucleus-mini-timeline.is-hover-hidden:hover + .topic-rail.is-hover-hidden,
+  .topic-page--lesson .nucleus-mini-timeline.is-hover-hidden:focus-within + .topic-rail.is-hover-hidden {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 .lesson-mount {
   min-height: 50vh;
 }

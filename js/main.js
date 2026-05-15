@@ -234,27 +234,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const lessonRails = [...document.querySelectorAll('.topic-page--lesson .nucleus-mini-timeline, .topic-page--lesson .topic-rail')];
 
     if (lessonRails.length) {
-        let lessonRailFrame = 0;
-
         const syncLessonRails = () => {
-            const shouldHide = desktopMiniTimelineMedia.matches && lessonRailHoverMedia.matches && window.scrollY > 24;
+            const shouldHide = desktopMiniTimelineMedia.matches && lessonRailHoverMedia.matches;
             lessonRails.forEach((rail) => {
                 rail.classList.toggle('is-hover-hidden', shouldHide);
             });
         };
 
-        const scheduleLessonRailSync = () => {
-            if (lessonRailFrame) cancelAnimationFrame(lessonRailFrame);
-            lessonRailFrame = requestAnimationFrame(() => {
-                lessonRailFrame = 0;
-                syncLessonRails();
-            });
-        };
-
-        bindMediaChange(desktopMiniTimelineMedia, scheduleLessonRailSync);
-        bindMediaChange(lessonRailHoverMedia, scheduleLessonRailSync);
-        window.addEventListener('scroll', scheduleLessonRailSync, { passive: true });
-        scheduleLessonRailSync();
+        bindMediaChange(desktopMiniTimelineMedia, syncLessonRails);
+        bindMediaChange(lessonRailHoverMedia, syncLessonRails);
+        syncLessonRails();
     }
 
     const topicMapInteractiveMedia = window.matchMedia('(min-width: 901px)');
