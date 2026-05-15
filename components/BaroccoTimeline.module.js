@@ -337,38 +337,54 @@ function BaroccoTimeline() {
     ),
     h(
       "article",
-      { className: `barocco-timeline-detail${activeItem.visual ? " has-image" : ""}`, "aria-live": "polite" },
-      h("div", { className: "barocco-timeline-detail__header" },
-        h("span", null, activeItem.year),
-        h("h3", null, activeItem.title),
-        h("p", null, activeItem.subtitle)
-      ),
-      h("div", { className: "barocco-timeline-detail__body" },
-        activeItem.visual
-          ? h(
-              "figure",
-              { className: "barocco-timeline-detail__visual" },
+      { className: `barocco-timeline-detail${activeItem.visual ? " barocco-timeline-detail--immersive" : ""}`, "aria-live": "polite" },
+      activeItem.visual
+        ? h(
+            "figure",
+            { className: "barocco-timeline-detail__hero" },
+            h("img", {
+              className: "barocco-timeline-detail__hero-image",
+              src: activeItem.visual.src,
+              alt: activeItem.visual.alt,
+              loading: "eager",
+              decoding: "async",
+              style: { objectPosition: activeItem.visual.position || "center" }
+            }),
+            h("div", { className: "barocco-timeline-detail__hero-wash", "aria-hidden": "true" }),
+            h(
+              "div",
+              { className: "barocco-timeline-detail__hero-grid" },
               h(
                 "div",
-                { className: "barocco-timeline-detail__visual-frame" },
-                h("img", {
-                  src: activeItem.visual.src,
-                  alt: activeItem.visual.alt,
-                  loading: "eager",
-                  decoding: "async",
-                  style: { objectPosition: activeItem.visual.position || "center" }
-                }),
-                h("figcaption", null, activeItem.visual.caption || activeItem.visual.alt)
+                { className: "barocco-timeline-detail__hero-copy" },
+                h("span", null, activeItem.year),
+                h("h3", null, activeItem.title),
+                h("p", { className: "barocco-timeline-detail__hero-subtitle" }, activeItem.subtitle),
+                h(
+                  "section",
+                  { className: "barocco-timeline-detail__copy barocco-timeline-detail__copy--overlay" },
+                  h("strong", null, "Approfondimento"),
+                  h("p", null, activeNarrative)
+                ),
+                h("figcaption", { className: "barocco-timeline-detail__hero-caption" }, activeItem.visual.caption || activeItem.visual.alt)
               )
             )
-          : null,
-        h(
-          "section",
-          { className: "barocco-timeline-detail__copy" },
-          h("strong", null, "Approfondimento"),
-          h("p", null, activeNarrative)
-        )
-      )
+          )
+        : [
+            h("div", { className: "barocco-timeline-detail__header", key: "header" },
+              h("span", null, activeItem.year),
+              h("h3", null, activeItem.title),
+              h("p", null, activeItem.subtitle)
+            ),
+            h("div", { className: "barocco-timeline-detail__body", key: "body" },
+              h(
+                "section",
+                { className: "barocco-timeline-detail__copy" },
+                h("strong", null, "Approfondimento"),
+                h("p", null, activeNarrative)
+              )
+            )
+          ]
     )
   );
 }
