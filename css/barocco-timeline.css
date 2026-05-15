@@ -486,10 +486,18 @@
 
 .barocco-timeline-detail__hero-copy > span,
 .barocco-timeline-detail__copy--overlay strong {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 0.28rem 0.56rem;
+  border: 1px solid rgba(255, 243, 232, 0.16);
+  border-radius: 999px;
+  background: rgba(255, 248, 241, 0.1);
   color: #e9b8a5;
-  font-size: 0.72rem;
+  font-size: 0.74rem;
   font-weight: 800;
   letter-spacing: 0.22em;
+  text-shadow: 0 0.08rem 0.8rem rgba(16, 11, 9, 0.2);
   text-transform: uppercase;
 }
 
@@ -501,16 +509,18 @@
   font-weight: 790;
   line-height: 0.9;
   letter-spacing: -0.06em;
+  text-shadow: 0 0.18rem 1.3rem rgba(17, 12, 10, 0.2);
   text-wrap: balance;
 }
 
 .barocco-timeline-detail__hero-subtitle {
   margin: 0;
-  color: rgba(255, 246, 236, 0.86);
-  font-size: 0.92rem;
-  font-weight: 720;
+  color: rgba(255, 249, 242, 0.96);
+  font-size: 1rem;
+  font-weight: 760;
   letter-spacing: 0.12em;
   line-height: 1.35;
+  text-shadow: 0 0.12rem 1rem rgba(16, 11, 9, 0.18);
   text-transform: uppercase;
 }
 
@@ -582,12 +592,19 @@
     gap: 0.56rem;
   }
 
+  .barocco-timeline-detail__hero-copy > span,
+  .barocco-timeline-detail__copy--overlay strong {
+    padding: 0.24rem 0.46rem;
+    font-size: 0.66rem;
+    letter-spacing: 0.18em;
+  }
+
   .barocco-timeline-detail__hero-copy h3 {
     font-size: clamp(2rem, 8vw, 3rem);
   }
 
   .barocco-timeline-detail__hero-subtitle {
-    font-size: 0.82rem;
+    font-size: 0.84rem;
   }
 
   .barocco-timeline-detail__copy--overlay {
@@ -644,14 +661,14 @@
   }
 
   .barocco-timeline-detail__hero-copy > span,
-  .barocco-timeline-detail__copy--overlay strong,
-  .barocco-timeline-detail__hero-caption {
-    font-size: 0.64rem;
+  .barocco-timeline-detail__copy--overlay strong {
+    padding: 0.22rem 0.42rem;
+    font-size: 0.62rem;
     letter-spacing: 0.16em;
   }
 
   .barocco-timeline-detail__hero-subtitle {
-    font-size: 0.74rem;
+    font-size: 0.78rem;
     letter-spacing: 0.1em;
   }
 
