@@ -458,7 +458,7 @@
   height: 100%;
   display: block;
   object-fit: cover;
-  transform-origin: left top;
+  transform-origin: center top;
   z-index: 1;
 }
 

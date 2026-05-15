@@ -15,8 +15,8 @@ const timelineItems = [
       src: "../../../../assets/barocco-orfeo-originale.png?v=20260514b",
       alt: "Illustrazione verticale di un giovane musicista con lira, architetture classiche e figure in ombra sullo sfondo.",
       position: "24% top",
-      shiftY: "-6%",
-      scale: 1.03
+      shiftY: "-20%",
+      scale: 1.26
     }
   },
   {
