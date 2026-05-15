@@ -464,8 +464,8 @@
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(90deg, rgba(29, 23, 19, 0.62) 0%, rgba(41, 30, 24, 0.52) 32%, rgba(74, 52, 38, 0.18) 60%, rgba(18, 17, 21, 0.28) 100%),
-    linear-gradient(180deg, rgba(193, 79, 64, 0.08) 0%, rgba(15, 15, 17, 0.24) 100%);
+    linear-gradient(90deg, rgba(36, 28, 22, 0.46) 0%, rgba(48, 35, 27, 0.38) 32%, rgba(91, 66, 47, 0.12) 60%, rgba(22, 20, 24, 0.18) 100%),
+    linear-gradient(180deg, rgba(193, 79, 64, 0.05) 0%, rgba(18, 18, 20, 0.16) 100%);
 }
 
 .barocco-timeline-detail__hero-grid {
@@ -485,8 +485,7 @@
 }
 
 .barocco-timeline-detail__hero-copy > span,
-.barocco-timeline-detail__copy--overlay strong,
-.barocco-timeline-detail__hero-caption {
+.barocco-timeline-detail__copy--overlay strong {
   color: #e9b8a5;
   font-size: 0.72rem;
   font-weight: 800;
@@ -519,11 +518,11 @@
   width: min(100%, 29rem);
   margin-top: 0.3rem;
   padding: 1rem 1.05rem 1.08rem;
-  border-color: rgba(255, 244, 232, 0.18);
-  background: linear-gradient(180deg, rgba(55, 39, 30, 0.22), rgba(22, 19, 21, 0.28));
-  box-shadow: 0 1rem 2.3rem rgba(25, 17, 12, 0.14);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  border-color: rgba(255, 244, 232, 0.14);
+  background: linear-gradient(180deg, rgba(70, 50, 37, 0.14), rgba(28, 24, 23, 0.18));
+  box-shadow: 0 0.9rem 2rem rgba(25, 17, 12, 0.1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .barocco-timeline-detail__copy--overlay p {
@@ -531,12 +530,6 @@
   font-size: clamp(1rem, 1.55vw, 1.14rem);
   font-weight: 560;
   line-height: 1.62;
-}
-
-.barocco-timeline-detail__hero-caption {
-  margin-top: 0.15rem;
-  color: rgba(255, 243, 232, 0.68);
-  letter-spacing: 0.18em;
 }
 
 @keyframes barocco-timeline-scan {
