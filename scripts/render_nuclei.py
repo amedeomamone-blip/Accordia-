@@ -3133,10 +3133,10 @@ def customize_barocco_context_lesson() -> None:
 
     if context_topic:
         context_topic["slug"] = "il-barocco-in-coordinate"
-        context_topic["title"] = "Il Barocco in coordinate"
-        context_topic["label"] = "Coordinate"
-        context_topic["subtitle"] = "Parole chiave musicali del Barocco"
-        context_topic["summary"] = "Timeline e globo raccolgono solo le parole chiave musicali del Barocco."
+        context_topic["title"] = "Introduzione al Barocco"
+        context_topic["label"] = "Lezione"
+        context_topic["subtitle"] = "Timeline e parole chiave musicali"
+        context_topic["summary"] = "Lezione introduttiva con timeline e parole chiave musicali del Barocco."
         context_topic["x"] = 50
         context_topic["y"] = 50
         context_topic["cta"] = "Apri la lezione"
@@ -3185,7 +3185,7 @@ def customize_barocco_context_lesson() -> None:
                 },
             ],
             "author": "Lezione Accordia · Il Barocco",
-            "description": "Timeline e globo raccolgono solo le parole chiave musicali del Barocco: mecenatismo, corti e cattedrali, teatri pubblici, melodramma, concerto grosso, concerto solista, orchestra da camera.",
+            "description": "Introduzione al Barocco con timeline e parole chiave musicali: mecenatismo, corti e cattedrali, teatri pubblici, melodramma, concerto grosso, concerto solista, orchestra da camera.",
         }
 
         topic_map["nodes"] = [context_topic]

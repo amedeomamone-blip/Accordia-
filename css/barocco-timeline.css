@@ -39,9 +39,9 @@
 }
 
 .barocco-timeline h2 {
-  font-size: clamp(2.45rem, 5vw, 4.45rem);
-  font-weight: 790;
-  line-height: 0.92;
+  font-size: clamp(1.7rem, 3vw, 2.45rem);
+  font-weight: 760;
+  line-height: 0.98;
 }
 
 .barocco-timeline__intro {

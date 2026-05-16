@@ -36,9 +36,9 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
 .immersive-lesson-intro__title {
   margin: 0;
   color: var(--lesson-text);
-  font-size: clamp(2rem, 5vw, 3.25rem);
+  font-size: clamp(2.4rem, 5.6vw, 4.1rem);
   font-weight: 790;
-  line-height: 0.94;
+  line-height: 0.9;
   letter-spacing: -0.06em;
   text-wrap: balance;
 }
@@ -56,11 +56,11 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
 
 .immersive-lesson-intro__summary {
   margin: 0.58rem 0 0;
-  max-width: 44rem;
+  max-width: none;
   color: var(--lesson-muted);
-  font-size: 1rem;
-  font-weight: 600;
-  line-height: 1.55;
+  font-size: clamp(1rem, 1.55vw, 1.14rem);
+  font-weight: 560;
+  line-height: 1.62;
 }
 
 @media (min-width: 1181px) and (min-aspect-ratio: 16/10) and (max-height: 1200px) {
@@ -131,7 +131,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
   }
 
   .immersive-lesson-intro__title {
-    font-size: clamp(1.9rem, 3vw, 2.9rem);
+    font-size: clamp(2.15rem, 3.4vw, 3.2rem);
   }
 
   .immersive-lesson-intro__subtitle {
@@ -141,8 +141,8 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
 
   .immersive-lesson-intro__summary {
     margin-top: 0.44rem;
-    font-size: 0.92rem;
-    line-height: 1.46;
+    font-size: clamp(0.98rem, 1.35vw, 1.08rem);
+    line-height: 1.58;
   }
 
   .barocco-timeline {
@@ -157,7 +157,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
   }
 
   .barocco-timeline h2 {
-    font-size: clamp(2.15rem, 3.3vw, 3.35rem);
+    font-size: clamp(1.62rem, 2.4vw, 2.2rem);
   }
 
   .barocco-timeline__intro {
@@ -327,7 +327,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
 
   .barocco-musical-globe__title {
     margin-bottom: 0.38rem;
-    font-size: clamp(1.9rem, 3vw, 3rem);
+    font-size: clamp(1.58rem, 2.3vw, 2.12rem);
   }
 
   .barocco-musical-globe__eyebrow {
@@ -581,7 +581,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
   }
 
   .immersive-lesson-intro__title {
-    font-size: clamp(1.72rem, 9vw, 2.4rem);
+    font-size: clamp(2rem, 9.2vw, 2.8rem);
   }
 
   .immersive-lesson-intro__subtitle {
@@ -591,8 +591,8 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
 
   .immersive-lesson-intro__summary {
     margin-top: 0.48rem;
-    font-size: 0.92rem;
-    line-height: 1.48;
+    font-size: 1rem;
+    line-height: 1.6;
   }
 
   .barocco-timeline__head {
@@ -603,7 +603,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
   }
 
   .barocco-timeline h2 {
-    font-size: clamp(2rem, 12vw, 3rem);
+    font-size: clamp(1.56rem, 7vw, 2rem);
   }
 
   .barocco-timeline__intro {
@@ -766,7 +766,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
 
 @media (max-width: 420px) {
   .immersive-lesson-intro__title {
-    font-size: clamp(1.56rem, 9.4vw, 2.08rem);
+    font-size: clamp(1.86rem, 9.4vw, 2.36rem);
   }
 
   .immersive-lesson-intro__subtitle {
