@@ -522,7 +522,7 @@ export default function BaroccoCoordinateSphereMusicale() {
     h(
       "div",
       { className: "barocco-musical-globe__shell" },
-      h("h2", { className: "barocco-musical-globe__title" }, "La Musica Barocca in Coordinate"),
+      h("h2", { className: "barocco-musical-globe__title" }, "Parole Chiave"),
       h("p", { className: "barocco-musical-globe__eyebrow" }, "Trascina il globo o seleziona una parola chiave"),
       h(
         "div",

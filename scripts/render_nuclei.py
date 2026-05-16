@@ -3138,6 +3138,7 @@ def customize_barocco_context_lesson() -> None:
             "immersive_preview": True,
             "immersive_mount_id": "immersive-barocco-context-root",
             "immersive_data_key": "barocco-in-coordinate",
+            "immersive_intro_title": "Introduzione al barocco",
             "immersive_stylesheets": [
                 "../../../../css/lesson-immersive.css",
                 "../../../../css/barocco-sphere-canvas.css",
@@ -4117,6 +4118,17 @@ def render_lesson_phase_explorer(topic: dict) -> str:
 
 def render_immersive_lesson_mount(topic: dict) -> str:
     lesson = topic["lesson"]
+    intro_title = str(lesson.get("immersive_intro_title", "")).strip()
+    intro_eyebrow = str(lesson.get("immersive_intro_eyebrow", "")).strip()
+    intro_text = str(lesson.get("immersive_intro_text", "")).strip()
+    intro_markup = ""
+    if intro_title or intro_text:
+        intro_markup = f"""
+            <header class="immersive-lesson-intro">
+                {f'<p class="immersive-lesson-intro__eyebrow">{e(intro_eyebrow)}</p>' if intro_eyebrow else ""}
+                {f'<h1 class="immersive-lesson-intro__title">{e(intro_title)}</h1>' if intro_title else ""}
+                {f'<p class="immersive-lesson-intro__summary">{e(intro_text)}</p>' if intro_text else ""}
+            </header>"""
     mounts = lesson.get("immersive_mounts")
     if mounts:
         mount_nodes = []
@@ -4135,6 +4147,7 @@ def render_immersive_lesson_mount(topic: dict) -> str:
         mounts_markup = "\n            ".join(mount_nodes)
         return f"""
         <section class="lesson-mount" id="lezione">
+            {intro_markup}
             {mounts_markup}
             <noscript>
                 <section class="lesson-noscript">
@@ -4148,6 +4161,7 @@ def render_immersive_lesson_mount(topic: dict) -> str:
     data_key = lesson.get("immersive_data_key", topic["slug"])
     return f"""
         <section class="lesson-mount" id="lezione">
+            {intro_markup}
             <div id="{e(mount_id)}" data-immersive-lesson="{e(data_key)}"></div>
             <noscript>
                 <section class="lesson-noscript">
