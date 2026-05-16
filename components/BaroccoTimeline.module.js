@@ -156,7 +156,15 @@ const timelineItems = [
     subtitle: "Antonio Vivaldi",
     category: "Musica",
     description: "Vengono pubblicati i quattro celebri concerti di Vivaldi, tra le pagine più riconoscibili del repertorio barocco.",
-    insight: "La musica suggerisce immagini precise: il canto degli uccelli, il temporale, il gelo, la quiete dei paesaggi stagionali."
+    insight: "La musica suggerisce immagini precise: il canto degli uccelli, il temporale, il gelo, la quiete dei paesaggi stagionali.",
+    visual: {
+      src: "../../../../assets/barocco-quattro-stagioni-originale.png?v=20260516a",
+      alt: "Antonio Vivaldi al violino al centro della scena, circondato da immagini simboliche delle quattro stagioni tra fiori, tempesta, vendemmia e paesaggi invernali.",
+      position: "60% 45%",
+      scale: 1.12,
+      origin: "center center",
+      copySide: "left"
+    }
   },
   {
     id: "1760-rivoluzione-industriale",
