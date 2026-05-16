@@ -468,7 +468,8 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
 
   .barocco-timeline--tablet .barocco-timeline__stage {
     --timeline-axis-y: 59%;
-    min-height: 25.75rem;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
   }
 
   .barocco-timeline--tablet .barocco-timeline__nodes {
@@ -619,77 +620,79 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
   }
 
   .barocco-timeline--mobile .barocco-timeline__stage {
-    --timeline-axis-y: 57%;
-    min-height: clamp(21.5rem, 78vw, 23.5rem);
+    --timeline-axis-y: 62%;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
     border-radius: 1.08rem;
     background-size: 3.5rem 3.5rem, 3.5rem 3.5rem, auto;
   }
 
   .barocco-timeline--mobile .barocco-timeline__nodes {
-    top: calc(var(--timeline-axis-y) - 6.55rem);
+    top: calc(var(--timeline-axis-y) - 3.15rem);
   }
 
   .barocco-timeline--mobile .barocco-timeline-card {
-    width: min(11.1rem, calc(100vw - 4.2rem));
-    height: 10.2rem;
-    padding: 0.72rem;
-    gap: 0.38rem;
-    border-radius: 1.1rem;
+    width: min(8.35rem, calc(100vw - 5.7rem));
+    height: 7.1rem;
+    padding: 0.52rem;
+    gap: 0.28rem;
+    border-radius: 0.92rem;
   }
 
   .barocco-timeline--mobile .barocco-timeline-card__year,
   .barocco-timeline--mobile .barocco-timeline-card__category {
-    font-size: 0.62rem;
+    font-size: 0.54rem;
+    letter-spacing: 0.16em;
   }
 
   .barocco-timeline--mobile .barocco-timeline-card__title {
-    min-height: 2.05rem;
-    font-size: 0.92rem;
+    min-height: 1.48rem;
+    font-size: 0.78rem;
   }
 
   .barocco-timeline--mobile .barocco-timeline-card__subtitle {
-    padding-top: 0.58rem;
-    font-size: 0.74rem;
-    line-height: 1.24;
+    padding-top: 0.42rem;
+    font-size: 0.62rem;
+    line-height: 1.16;
   }
 
   .barocco-timeline--mobile .barocco-timeline-card__stem {
-    height: 1.26rem;
+    height: 0.86rem;
   }
 
   .barocco-timeline--mobile .barocco-timeline-card__dot {
-    top: calc(100% + 1.18rem);
-    width: 0.68rem;
-    height: 0.68rem;
+    top: calc(100% + 0.76rem);
+    width: 0.58rem;
+    height: 0.58rem;
   }
 
   .barocco-timeline--mobile .barocco-timeline__rings span:nth-child(1) {
-    width: 15.5rem;
+    width: 12.8rem;
   }
 
   .barocco-timeline--mobile .barocco-timeline__rings span:nth-child(2) {
-    width: 11.8rem;
+    width: 9.6rem;
   }
 
   .barocco-timeline--mobile .barocco-timeline__rings span:nth-child(3) {
-    width: 8.3rem;
+    width: 6.8rem;
   }
 
   .barocco-timeline--mobile .barocco-timeline__controls {
-    width: calc(100% - 1rem);
-    bottom: 0.72rem;
+    width: calc(100% - 0.72rem);
+    bottom: 0.46rem;
     justify-content: center;
-    gap: 0.28rem;
-    padding: 0.28rem;
+    gap: 0.22rem;
+    padding: 0.22rem;
     background: rgba(255, 255, 255, 0.96);
     box-shadow: 0 0.65rem 1.6rem rgba(17, 17, 17, 0.08);
   }
 
   .barocco-timeline--mobile .barocco-timeline__controls button {
-    min-width: 2.12rem;
-    height: 2.12rem;
-    padding-inline: 0.56rem;
-    font-size: 0.76rem;
+    min-width: 1.92rem;
+    height: 1.92rem;
+    padding-inline: 0.48rem;
+    font-size: 0.68rem;
   }
 
   .barocco-timeline--mobile .barocco-timeline__controls button.is-primary {
@@ -708,40 +711,46 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
   }
 
   .barocco-timeline-detail__hero {
-    min-height: 19.25rem;
-    aspect-ratio: 4 / 5;
+    min-height: 0;
+    aspect-ratio: 16 / 9;
   }
 
   .barocco-timeline-detail__hero-grid {
-    align-items: end;
-    padding: 0.88rem;
+    align-items: stretch;
+    padding: 0.64rem;
   }
 
   .barocco-timeline-detail__hero-copy {
-    width: 100%;
-    gap: 0.46rem;
+    width: min(100%, 10.1rem);
+    gap: 0.28rem;
+  }
+
+  .barocco-timeline-detail__hero-copy > span,
+  .barocco-timeline-detail__copy--overlay strong {
+    font-size: 0.48rem;
+    letter-spacing: 0.16em;
   }
 
   .barocco-timeline-detail__hero-copy h3 {
-    max-width: 11ch;
-    font-size: clamp(1.7rem, 8vw, 2.35rem);
+    max-width: 8.5ch;
+    font-size: clamp(1.02rem, 4.7vw, 1.46rem);
   }
 
   .barocco-timeline-detail__hero-subtitle {
-    font-size: 0.76rem;
-    letter-spacing: 0.08em;
+    font-size: 0.52rem;
+    letter-spacing: 0.07em;
   }
 
   .barocco-timeline-detail__copy--overlay {
-    width: 100%;
-    margin-top: 0.2rem;
-    padding: 0.74rem 0.78rem 0.82rem;
-    border-radius: 0.92rem;
+    width: min(100%, 10.2rem);
+    margin-top: 0.08rem;
+    padding: 0.46rem 0.5rem 0.5rem;
+    border-radius: 0.68rem;
   }
 
   .barocco-timeline-detail__copy--overlay p {
-    font-size: 0.9rem;
-    line-height: 1.46;
+    font-size: 0.64rem;
+    line-height: 1.24;
   }
 
   .barocco-timeline-detail__header h3 {
@@ -762,6 +771,85 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
     min-height: auto;
     padding: 0.78rem;
   }
+  .barocco-musical-globe__stage {
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+    border-radius: 1.08rem;
+  }
+
+  .barocco-musical-globe__hotspot {
+    min-height: 1.9rem;
+    max-width: 7.75rem;
+    padding: 0.3rem 0.44rem 0.34rem;
+    gap: 0.1rem;
+    border-radius: 0.78rem;
+  }
+
+  .barocco-musical-globe__hotspot-copy small {
+    font-size: 0.42rem;
+    letter-spacing: 0.16em;
+  }
+
+  .barocco-musical-globe__hotspot-copy strong {
+    font-size: 0.68rem;
+    line-height: 1.02;
+  }
+
+  .barocco-musical-globe__detail-frame {
+    min-height: 0;
+    aspect-ratio: 16 / 9;
+  }
+
+  .barocco-musical-globe__detail-grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(6.8rem, 0.9fr);
+    gap: 0.42rem;
+    padding: 0.56rem;
+  }
+
+  .barocco-musical-globe__detail-hero-copy {
+    width: 100%;
+    gap: 0.26rem;
+  }
+
+  .barocco-musical-globe__detail-kicker,
+  .barocco-musical-globe__detail-note strong {
+    font-size: 0.46rem;
+    letter-spacing: 0.16em;
+  }
+
+  .barocco-musical-globe__detail h3 {
+    max-width: 8.5ch;
+    font-size: clamp(0.98rem, 4.8vw, 1.36rem);
+  }
+
+  .barocco-musical-globe__detail-subtitle {
+    font-size: 0.52rem;
+    letter-spacing: 0.06em;
+  }
+
+  .barocco-musical-globe__detail-overlay {
+    width: 100%;
+    padding: 0.44rem 0.48rem 0.48rem;
+    border-radius: 0.7rem;
+  }
+
+  .barocco-musical-globe__detail-side {
+    grid-template-columns: 1fr;
+    gap: 0.44rem;
+    align-content: stretch;
+  }
+
+  .barocco-musical-globe__detail-note {
+    padding: 0.46rem;
+    gap: 0.18rem;
+    border-radius: 0.7rem;
+  }
+
+  .barocco-musical-globe__detail-overlay p,
+  .barocco-musical-globe__detail-note p {
+    font-size: 0.62rem;
+    line-height: 1.22;
+  }
 }
 
 @media (max-width: 420px) {
@@ -774,21 +862,21 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
   }
 
   .barocco-timeline--mobile .barocco-timeline__stage {
-    min-height: 20.75rem;
+    min-height: 0;
   }
 
   .barocco-timeline--mobile .barocco-timeline-card {
-    width: min(10.55rem, calc(100vw - 3.4rem));
-    height: 9.7rem;
-    padding: 0.66rem;
+    width: min(7.65rem, calc(100vw - 4.2rem));
+    height: 6.55rem;
+    padding: 0.46rem;
   }
 
   .barocco-timeline--mobile .barocco-timeline-card__title {
-    font-size: 0.88rem;
+    font-size: 0.72rem;
   }
 
   .barocco-timeline--mobile .barocco-timeline-card__subtitle {
-    font-size: 0.7rem;
+    font-size: 0.58rem;
   }
 
   .barocco-timeline--mobile .barocco-timeline__controls button.is-primary span {
@@ -796,6 +884,47 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
   }
 
   .barocco-timeline-detail__hero {
-    min-height: 17.5rem;
+    min-height: 0;
+  }
+
+  .barocco-timeline-detail__hero-copy {
+    width: min(100%, 9rem);
+  }
+
+  .barocco-timeline-detail__hero-copy h3 {
+    font-size: clamp(0.94rem, 5vw, 1.22rem);
+  }
+
+  .barocco-timeline-detail__copy--overlay {
+    width: min(100%, 9.1rem);
+  }
+
+  .barocco-timeline-detail__copy--overlay p {
+    font-size: 0.6rem;
+  }
+
+  .barocco-musical-globe__hotspot {
+    max-width: 6.8rem;
+    padding: 0.28rem 0.38rem 0.3rem;
+  }
+
+  .barocco-musical-globe__hotspot-copy strong {
+    font-size: 0.62rem;
+  }
+
+  .barocco-musical-globe__detail-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(5.9rem, 0.92fr);
+    gap: 0.42rem;
+    padding: 0.56rem;
+  }
+
+  .barocco-musical-globe__detail h3 {
+    font-size: clamp(0.9rem, 4.8vw, 1.14rem);
+  }
+
+  .barocco-musical-globe__detail-overlay p,
+  .barocco-musical-globe__detail-note p {
+    font-size: 0.58rem;
+    line-height: 1.18;
   }
 }

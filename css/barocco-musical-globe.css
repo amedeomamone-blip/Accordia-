@@ -1,4 +1,5 @@
 .barocco-musical-globe {
+  --barocco-uniform-ratio: 16 / 9;
   --barocco-section-gutter: 1.6rem;
   position: relative;
   z-index: 0;
@@ -64,7 +65,8 @@
   position: relative;
   width: 100%;
   box-sizing: border-box;
-  min-height: 42rem;
+  min-height: 0;
+  aspect-ratio: var(--barocco-uniform-ratio);
   overflow: hidden;
   border: 1px solid rgba(193, 79, 64, 0.22);
   border-radius: 1.45rem;
@@ -248,7 +250,8 @@
 
 .barocco-musical-globe__detail-frame {
   position: relative;
-  min-height: 26rem;
+  min-height: 0;
+  aspect-ratio: var(--barocco-uniform-ratio);
   overflow: hidden;
   background:
     radial-gradient(circle at 18% 18%, rgba(255, 218, 183, 0.92) 0%, rgba(255, 218, 183, 0) 28%),
@@ -411,7 +414,7 @@
   }
 
   .barocco-musical-globe__stage {
-    min-height: 34rem;
+    min-height: 0;
   }
 
   .barocco-musical-globe__detail-grid {
@@ -462,8 +465,8 @@
   }
 
   .barocco-musical-globe__stage {
-    min-height: clamp(19rem, 82vw, 24rem);
-    aspect-ratio: 1 / 1;
+    min-height: 0;
+    aspect-ratio: var(--barocco-uniform-ratio);
     border-radius: 1.15rem;
   }
 
