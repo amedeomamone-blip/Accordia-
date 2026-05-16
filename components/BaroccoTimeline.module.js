@@ -81,15 +81,6 @@ const timelineItems = [
     }
   },
   {
-    id: "1661-accademia-danza",
-    year: "1661",
-    title: "Académie Royale de Danse",
-    subtitle: "Arte e corte",
-    category: "Arte",
-    description: "Luigi XIV fonda l’Académie Royale de Danse, istituzione fondamentale per la codificazione della danza di corte.",
-    insight: "La danza entra nel sistema delle arti controllate e valorizzate dalla monarchia. Musica, gesto e rappresentazione diventano strumenti di prestigio politico."
-  },
-  {
     id: "1682-pietro-grande",
     year: "1682",
     title: "Pietro il Grande diventa zar",
@@ -319,7 +310,7 @@ function BaroccoTimeline() {
       h("div", null,
         h("p", { className: "barocco-timeline__eyebrow" }, "Asse cronologico"),
         h("h2", { id: "barocco-timeline-title" }, "Timeline"),
-        h("p", { className: "barocco-timeline__intro" }, "Eventi storici, culturali e musicali per attraversare il Barocco lungo un’unica traiettoria visiva.")
+        h("p", { className: "barocco-timeline__intro" }, "Eventi di storia e musica per attraversare il Barocco lungo un’unica traiettoria visiva.")
       ),
       h(
         "div",
