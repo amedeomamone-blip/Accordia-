@@ -13,7 +13,7 @@ const musicalOrbit = {
     {
       id: "mecenatismo",
       title: "Mecenatismo",
-      kicker: "Sistema",
+      kicker: "FUNZIONI",
       subtitle: "Potere, committenza e prestigio",
       latitude: 24,
       longitude: -126,
@@ -24,7 +24,7 @@ const musicalOrbit = {
     {
       id: "corti-cattedrali",
       title: "Corti e cattedrali",
-      kicker: "Spazi",
+      kicker: "LUOGHI",
       subtitle: "I luoghi che danno forma al suono",
       latitude: 8,
       longitude: -58,
@@ -35,7 +35,7 @@ const musicalOrbit = {
     {
       id: "teatri-pubblici",
       title: "Teatri pubblici",
-      kicker: "Pubblico",
+      kicker: "LUOGHI",
       subtitle: "Lo spettacolo esce dalla corte",
       latitude: -28,
       longitude: -6,
@@ -46,7 +46,7 @@ const musicalOrbit = {
     {
       id: "melodramma",
       title: "Melodramma",
-      kicker: "Forma",
+      kicker: "FORME",
       subtitle: "Parola, scena e musica insieme",
       latitude: -40,
       longitude: 74,
@@ -57,7 +57,7 @@ const musicalOrbit = {
     {
       id: "concerto-grosso",
       title: "Concerto grosso",
-      kicker: "Struttura",
+      kicker: "FORME",
       subtitle: "Dialogo fra gruppi sonori",
       latitude: -2,
       longitude: 132,
@@ -68,7 +68,7 @@ const musicalOrbit = {
     {
       id: "concerto-solista",
       title: "Concerto solista",
-      kicker: "Protagonista",
+      kicker: "FORME",
       subtitle: "Un interprete davanti all’orchestra",
       latitude: 30,
       longitude: 176,
@@ -79,7 +79,7 @@ const musicalOrbit = {
     {
       id: "orchestra-camera",
       title: "Orchestra da camera",
-      kicker: "Ensemble",
+      kicker: "FORME",
       subtitle: "Organici più stabili e riconoscibili",
       latitude: 38,
       longitude: 118,
@@ -87,10 +87,7 @@ const musicalOrbit = {
       insight: "L’ensemble acquista identità e rende più chiari equilibri, colori e gerarchie della scrittura strumentale.",
       keyIdea: "L’organico strumentale si organizza con maggiore stabilità."
     }
-  ].map((keyword, index) => ({
-    ...keyword,
-    sequence: index + 1
-  }))
+  ]
 };
 
 function clamp(value, min, max) {
@@ -314,43 +311,25 @@ function drawAnchors(ctx, metrics, rotation, keywords, activeKeywordId, time) {
 
     if (isActive) {
       const pulse = 0.5 + 0.5 * Math.sin(time * 0.092);
-      const innerPulse = 0.5 + 0.5 * Math.sin(time * 0.092 + 1.35);
-      const outerGlowRadius = 22 + pulse * 12;
-      const middleGlowRadius = 15 + innerPulse * 7;
-      const glowAlpha = rotated.z >= 0 ? 0.28 + pulse * 0.22 : 0.16 + pulse * 0.12;
-      const middleGlowAlpha = rotated.z >= 0 ? 0.24 + innerPulse * 0.18 : 0.12 + innerPulse * 0.10;
-
       ctx.beginPath();
-      ctx.arc(projected.x, projected.y, outerGlowRadius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(193, 79, 64, ${glowAlpha})`;
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.arc(projected.x, projected.y, middleGlowRadius, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(255, 164, 145, ${middleGlowAlpha})`;
-      ctx.fill();
-
-      ctx.beginPath();
-      ctx.arc(projected.x, projected.y, 14 + pulse * 4, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(193, 79, 64, ${0.66 + pulse * 0.24})`;
-      ctx.lineWidth = 1.9;
-      ctx.stroke();
-
-      ctx.beginPath();
-      ctx.arc(projected.x, projected.y, 19 + innerPulse * 7, 0, Math.PI * 2);
-      ctx.strokeStyle = `rgba(255, 185, 170, ${0.36 + innerPulse * 0.24})`;
-      ctx.lineWidth = 1.3;
+      ctx.arc(projected.x, projected.y, 11.5 + pulse * 2.3, 0, Math.PI * 2);
+      ctx.strokeStyle = `rgba(184, 151, 108, ${0.42 + pulse * 0.18})`;
+      ctx.lineWidth = 1.45;
       ctx.stroke();
     }
 
     ctx.beginPath();
     ctx.arc(projected.x, projected.y, isActive ? 6.8 : 4.2, 0, Math.PI * 2);
-    ctx.fillStyle = `rgba(193, 79, 64, ${isActive ? 1 : alpha})`;
+    ctx.fillStyle = isActive
+      ? "rgba(132, 95, 60, 0.98)"
+      : `rgba(168, 127, 81, ${alpha})`;
     ctx.fill();
 
     ctx.beginPath();
     ctx.arc(projected.x, projected.y, isActive ? 13.8 : 9, 0, Math.PI * 2);
-    ctx.strokeStyle = `rgba(193, 79, 64, ${isActive ? 0.76 : ringAlpha})`;
+    ctx.strokeStyle = isActive
+      ? "rgba(196, 168, 128, 0.76)"
+      : `rgba(176, 141, 103, ${ringAlpha})`;
     ctx.lineWidth = isActive ? 1.7 : 1;
     ctx.stroke();
   });
@@ -414,7 +393,6 @@ function GlobeHotspot({ item, isActive, onSelect }) {
       "aria-pressed": isActive,
       title: item.title
     },
-    h("span", { className: "barocco-musical-globe__hotspot-index", "aria-hidden": "true" }, String(item.sequence).padStart(2, "0")),
     h(
       "span",
       { className: "barocco-musical-globe__hotspot-copy" },
@@ -452,7 +430,6 @@ export default function BaroccoCoordinateSphereMusicale() {
   const timeRef = React.useRef(0);
   const animationRef = React.useRef(null);
   const activeKeyword = musicalOrbit.keywords.find((keyword) => keyword.id === activeKeywordId) || initialKeyword;
-  const activeKeywordIndex = musicalOrbit.keywords.findIndex((keyword) => keyword.id === activeKeyword.id);
 
   React.useEffect(() => {
     const frame = frameRef.current;
@@ -617,7 +594,7 @@ export default function BaroccoCoordinateSphereMusicale() {
             h(
               "p",
               { className: "barocco-musical-globe__detail-kicker" },
-              `Parola chiave ${String(activeKeywordIndex + 1).padStart(2, "0")}/${String(musicalOrbit.keywords.length).padStart(2, "0")}`
+              activeKeyword.kicker
             ),
             h("h3", null, activeKeyword.title),
             h("p", { className: "barocco-musical-globe__detail-subtitle" }, activeKeyword.subtitle),

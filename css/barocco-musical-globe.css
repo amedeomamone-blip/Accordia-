@@ -95,19 +95,19 @@
 .barocco-musical-globe__hotspot {
   position: absolute;
   appearance: none;
-  min-height: 3.05rem;
-  max-width: 17rem;
-  padding: 0.52rem 0.95rem 0.58rem 0.56rem;
+  min-height: 2.95rem;
+  max-width: 15rem;
+  padding: 0.58rem 0.92rem 0.62rem;
   display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   align-items: center;
-  gap: 0.72rem;
-  border: 1px solid rgba(193, 79, 64, 0.18);
+  gap: 0.18rem;
+  border: 1px solid rgba(140, 112, 84, 0.18);
   border-radius: 1.18rem;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(255, 246, 241, 0.96));
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.985), rgba(248, 243, 236, 0.98));
   box-shadow:
-    0 0.8rem 2rem rgba(17, 17, 17, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.76);
+    0 0.8rem 2rem rgba(17, 17, 17, 0.055),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   color: var(--lesson-text);
@@ -127,69 +127,43 @@
     transform 240ms ease;
 }
 
-.barocco-musical-globe__hotspot::before,
 .barocco-musical-globe__hotspot::after {
   content: "";
   position: absolute;
   pointer-events: none;
 }
 
-.barocco-musical-globe__hotspot::before {
-  inset: auto auto -1.7rem -0.9rem;
-  width: 5rem;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 177, 156, 0.42) 0%, rgba(255, 177, 156, 0) 72%);
-  opacity: 0.9;
-  transition: opacity 240ms ease, transform 240ms ease;
-}
-
 .barocco-musical-globe__hotspot::after {
   inset: 1px;
-  border: 1px solid rgba(255, 255, 255, 0.34);
+  border: 1px solid rgba(255, 255, 255, 0.42);
   border-radius: inherit;
   opacity: 0.72;
 }
 
-.barocco-musical-globe__hotspot-index,
 .barocco-musical-globe__hotspot-copy {
   position: relative;
   display: block;
   z-index: 1;
 }
 
-.barocco-musical-globe__hotspot-index {
-  width: 2.18rem;
-  aspect-ratio: 1;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(193, 79, 64, 0.14);
-  border-radius: 0.8rem;
-  background: linear-gradient(180deg, rgba(193, 79, 64, 0.14), rgba(193, 79, 64, 0.04));
-  color: #9e4336;
-  font-size: 0.68rem;
-  font-weight: 820;
-  letter-spacing: 0.16em;
-}
-
 .barocco-musical-globe__hotspot-copy {
   display: grid;
-  gap: 0.16rem;
+  gap: 0.22rem;
   min-width: 0;
 }
 
 .barocco-musical-globe__hotspot-copy small {
-  color: #9b5f55;
-  font-size: 0.58rem;
+  color: #b14c3e;
+  font-size: 0.62rem;
   font-weight: 820;
-  letter-spacing: 0.18em;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
 }
 
 .barocco-musical-globe__hotspot-copy strong {
   display: block;
   color: var(--lesson-text);
-  font-size: 0.93rem;
+  font-size: 0.95rem;
   font-weight: 780;
   letter-spacing: -0.03em;
   text-wrap: balance;
@@ -198,35 +172,19 @@
 .barocco-musical-globe__hotspot:hover,
 .barocco-musical-globe__hotspot:focus-visible,
 .barocco-musical-globe__hotspot.is-active {
-  border-color: #c14f40;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.995), rgba(255, 250, 247, 0.99));
+  border-color: rgba(177, 76, 62, 0.48);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(250, 246, 241, 0.99));
   box-shadow:
-    0 1rem 2.5rem rgba(193, 79, 64, 0.18),
+    0 0.95rem 2.1rem rgba(17, 17, 17, 0.07),
     inset 0 1px 0 rgba(255, 255, 255, 0.92);
   outline: none;
 }
 
 .barocco-musical-globe__hotspot.is-active {
   box-shadow:
-    0 1.15rem 2.8rem rgba(193, 79, 64, 0.2),
-    0 0 0 1px rgba(193, 79, 64, 0.12),
+    0 1rem 2.25rem rgba(17, 17, 17, 0.08),
+    0 0 0 1px rgba(177, 76, 62, 0.1),
     inset 0 1px 0 rgba(255, 255, 255, 0.94);
-}
-
-.barocco-musical-globe__hotspot:hover::before,
-.barocco-musical-globe__hotspot:focus-visible::before,
-.barocco-musical-globe__hotspot.is-active::before {
-  opacity: 1;
-  transform: scale(1.08);
-}
-
-.barocco-musical-globe__hotspot:hover .barocco-musical-globe__hotspot-index,
-.barocco-musical-globe__hotspot:focus-visible .barocco-musical-globe__hotspot-index,
-.barocco-musical-globe__hotspot.is-active .barocco-musical-globe__hotspot-index {
-  border-color: rgba(193, 79, 64, 0.26);
-  background: linear-gradient(180deg, #cf6755, #b44a3b);
-  color: #fff9f3;
-  box-shadow: 0 0.8rem 1.4rem rgba(193, 79, 64, 0.22);
 }
 
 .barocco-musical-globe__hotspot.is-back {
@@ -268,17 +226,17 @@
 
 .barocco-musical-globe__chip:hover,
 .barocco-musical-globe__chip:focus-visible {
-  border-color: rgba(193, 79, 64, 0.42);
+  border-color: rgba(177, 76, 62, 0.42);
   background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 0.7rem 1.8rem rgba(193, 79, 64, 0.08);
+  box-shadow: none;
   outline: none;
 }
 
 .barocco-musical-globe__chip.is-active {
-  border-color: #c14f40;
-  background: #c14f40;
-  color: #fff8f3;
-  box-shadow: 0 0.85rem 1.8rem rgba(193, 79, 64, 0.18);
+  border-color: #b14c3e;
+  background: rgba(255, 247, 242, 0.98);
+  color: #8f3c31;
+  box-shadow: none;
 }
 
 .barocco-musical-globe__detail {
@@ -360,11 +318,11 @@
 .barocco-musical-globe__detail-kicker {
   width: fit-content;
   margin: 0;
-  color: #fffdf8;
+  color: #f0b4a6;
   font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 0.22em;
-  text-shadow: 0 0.12rem 0.8rem rgba(10, 7, 6, 0.3);
+  text-shadow: none;
   text-transform: uppercase;
 }
 
@@ -513,7 +471,7 @@
     min-height: 2.22rem;
     max-width: 9.4rem;
     padding: 0.38rem 0.56rem;
-    gap: 0.44rem;
+    gap: 0.16rem;
     border-radius: 0.92rem;
     box-shadow:
       0 0.45rem 1.2rem rgba(17, 17, 17, 0.05),
@@ -530,13 +488,12 @@
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.98);
     box-shadow:
-      0 0 0 0.18rem rgba(193, 79, 64, 0.12),
+      0 0 0 0.18rem rgba(177, 76, 62, 0.1),
       0 0.3rem 0.8rem rgba(17, 17, 17, 0.05);
   }
 
   .barocco-musical-globe__hotspot:not(.is-active)::before,
   .barocco-musical-globe__hotspot:not(.is-active)::after,
-  .barocco-musical-globe__hotspot:not(.is-active) .barocco-musical-globe__hotspot-index,
   .barocco-musical-globe__hotspot:not(.is-active) .barocco-musical-globe__hotspot-copy {
     display: none;
   }
@@ -545,12 +502,6 @@
     max-width: 9.2rem;
     min-height: 2.26rem;
     padding: 0.42rem 0.58rem;
-  }
-
-  .barocco-musical-globe__hotspot.is-active .barocco-musical-globe__hotspot-index {
-    width: 1.48rem;
-    border-radius: 0.56rem;
-    font-size: 0.55rem;
   }
 
   .barocco-musical-globe__hotspot.is-active .barocco-musical-globe__hotspot-copy {
