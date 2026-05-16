@@ -3138,7 +3138,9 @@ def customize_barocco_context_lesson() -> None:
             "immersive_preview": True,
             "immersive_mount_id": "immersive-barocco-context-root",
             "immersive_data_key": "barocco-in-coordinate",
-            "immersive_intro_title": "Introduzione al barocco",
+            "immersive_intro_title": "Introduzione al Barocco",
+            "immersive_intro_subtitle": "Un'epoca di contrasti, invenzioni e nuove forme musicali",
+            "immersive_intro_text": "Tra Seicento e prima meta del Settecento, l'Europa attraversa trasformazioni profonde: guerre, nuove scoperte, corti sfarzose, grandi cambiamenti nel modo di pensare e di rappresentare il mondo. Anche la musica cambia volto. Nascono il melodramma, il concerto, l'oratorio; si affermano nuovi strumenti, nuove sonorita e un linguaggio capace di stupire, commuovere e creare forti contrasti.",
             "immersive_stylesheets": [
                 "../../../../css/lesson-immersive.css",
                 "../../../../css/barocco-sphere-canvas.css",
@@ -4119,14 +4121,16 @@ def render_lesson_phase_explorer(topic: dict) -> str:
 def render_immersive_lesson_mount(topic: dict) -> str:
     lesson = topic["lesson"]
     intro_title = str(lesson.get("immersive_intro_title", "")).strip()
+    intro_subtitle = str(lesson.get("immersive_intro_subtitle", "")).strip()
     intro_eyebrow = str(lesson.get("immersive_intro_eyebrow", "")).strip()
     intro_text = str(lesson.get("immersive_intro_text", "")).strip()
     intro_markup = ""
-    if intro_title or intro_text:
+    if intro_title or intro_subtitle or intro_text:
         intro_markup = f"""
             <header class="immersive-lesson-intro">
                 {f'<p class="immersive-lesson-intro__eyebrow">{e(intro_eyebrow)}</p>' if intro_eyebrow else ""}
                 {f'<h1 class="immersive-lesson-intro__title">{e(intro_title)}</h1>' if intro_title else ""}
+                {f'<p class="immersive-lesson-intro__subtitle">{e(intro_subtitle)}</p>' if intro_subtitle else ""}
                 {f'<p class="immersive-lesson-intro__summary">{e(intro_text)}</p>' if intro_text else ""}
             </header>"""
     mounts = lesson.get("immersive_mounts")
