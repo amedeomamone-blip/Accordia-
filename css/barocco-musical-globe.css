@@ -678,6 +678,10 @@
 }
 
 @media (min-width: 1181px) and (min-aspect-ratio: 16/10) and (max-height: 1200px) {
+  .barocco-musical-globe {
+    width: min(calc(100% - 1.1rem), 82rem);
+  }
+
   .immersive-lesson-intro__title {
     font-size: clamp(2.24rem, 3.4vw, 3.34rem);
   }
