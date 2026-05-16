@@ -480,6 +480,14 @@
   z-index: 3;
 }
 
+.barocco-timeline-detail__hero-grid--copy-left {
+  justify-items: start;
+}
+
+.barocco-timeline-detail__hero-grid--copy-right {
+  justify-items: end;
+}
+
 .barocco-timeline-detail__hero-copy {
   width: min(100%, 21.5rem);
   display: grid;

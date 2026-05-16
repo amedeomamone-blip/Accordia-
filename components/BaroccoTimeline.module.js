@@ -16,7 +16,8 @@ const timelineItems = [
       alt: "Illustrazione verticale di un giovane musicista con lira, architetture classiche e figure in ombra sullo sfondo.",
       position: "center top",
       shiftY: "-35%",
-      scale: 1.36
+      scale: 1.36,
+      origin: "center top"
     }
   },
   {
@@ -26,7 +27,15 @@ const timelineItems = [
     subtitle: "Europa in conflitto",
     category: "Storia",
     description: "Inizia una guerra lunga e devastante che coinvolge molte potenze europee e modifica gli equilibri del continente.",
-    insight: "Il conflitto termina nel 1648 con la Pace di Westfalia. L’Europa esce profondamente trasformata, sia sul piano politico sia su quello religioso."
+    insight: "Il conflitto termina nel 1648 con la Pace di Westfalia. L’Europa esce profondamente trasformata, sia sul piano politico sia su quello religioso.",
+    visual: {
+      src: "../../../../assets/barocco-guerra-trentanni-originale.png?v=20260516a",
+      alt: "Scena di battaglia della Guerra dei Trent'anni con cavaliere armato in primo piano sulla destra, fumo e citta in fiamme sullo sfondo.",
+      position: "84% 52%",
+      scale: 1.12,
+      origin: "center center",
+      copySide: "left"
+    }
   },
   {
     id: "1630-peste",
@@ -270,6 +279,18 @@ function BaroccoTimeline() {
     setActiveIndex(wrapIndex(index, itemCount));
   }, [itemCount]);
 
+  const heroTransform = React.useMemo(() => {
+    if (!activeItem.visual) return undefined;
+    const transforms = [];
+    if (activeItem.visual.shiftX || activeItem.visual.shiftY) {
+      transforms.push(`translate(${activeItem.visual.shiftX || "0"}, ${activeItem.visual.shiftY || "0"})`);
+    }
+    if (activeItem.visual.scale) {
+      transforms.push(`scale(${activeItem.visual.scale})`);
+    }
+    return transforms.length ? transforms.join(" ") : undefined;
+  }, [activeItem]);
+
   return h(
     "section",
     {
@@ -351,15 +372,16 @@ function BaroccoTimeline() {
               decoding: "async",
               style: {
                 objectPosition: activeItem.visual.position || "center",
-                transform: activeItem.visual.shiftY
-                  ? `translateY(${activeItem.visual.shiftY}) scale(${activeItem.visual.scale || 1})`
-                  : undefined
+                transformOrigin: activeItem.visual.origin || "center top",
+                transform: heroTransform
               }
             }),
             h("div", { className: "barocco-timeline-detail__hero-wash", "aria-hidden": "true" }),
             h(
               "div",
-              { className: "barocco-timeline-detail__hero-grid" },
+              {
+                className: `barocco-timeline-detail__hero-grid${activeItem.visual.copySide ? ` barocco-timeline-detail__hero-grid--copy-${activeItem.visual.copySide}` : ""}`
+              },
               h(
                 "div",
                 { className: "barocco-timeline-detail__hero-copy" },
