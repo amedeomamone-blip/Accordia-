@@ -173,7 +173,15 @@ const timelineItems = [
     subtitle: "Inizia in Inghilterra",
     category: "Storia",
     description: "In Gran Bretagna prende avvio un processo di trasformazione produttiva e tecnologica destinato a cambiare il mondo.",
-    insight: "L’evento appartiene a una fase successiva al Barocco, ma aiuta a percepire il passaggio verso una società moderna e meccanizzata."
+    insight: "L’evento appartiene a una fase successiva al Barocco, ma aiuta a percepire il passaggio verso una società moderna e meccanizzata.",
+    visual: {
+      src: "../../../../assets/barocco-rivoluzione-industriale-originale.png?v=20260516a",
+      alt: "Scene della prima rivoluzione industriale con locomotive a vapore, grandi macchine di fabbrica, lavoratori e progettisti lungo un canale urbano.",
+      position: "61% 48%",
+      scale: 1.11,
+      origin: "center center",
+      copySide: "left"
+    }
   }
 ];
 
