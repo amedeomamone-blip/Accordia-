@@ -521,9 +521,13 @@ export default function BaroccoCoordinateSphereMusicale() {
     { className: "barocco-musical-globe", "aria-label": "Globo musicale del Barocco" },
     h(
       "div",
-      { className: "barocco-musical-globe__shell" },
+      { className: "barocco-musical-globe__header" },
       h("h2", { className: "barocco-musical-globe__title" }, "Parole Chiave"),
-      h("p", { className: "barocco-musical-globe__eyebrow" }, "Trascina il globo o seleziona una parola chiave"),
+      h("p", { className: "barocco-musical-globe__eyebrow" }, "Trascina il globo o seleziona una parola chiave")
+    ),
+    h(
+      "div",
+      { className: "barocco-musical-globe__stage-card" },
       h(
         "div",
         {
@@ -545,29 +549,29 @@ export default function BaroccoCoordinateSphereMusicale() {
             onSelect: setActiveKeywordId
           }))
         )
-      ),
-      h(
-        "div",
-        {
-          className: "barocco-musical-globe__keyword-list",
-          role: "group",
-          "aria-label": "Parole chiave del globo musicale"
-        },
-        musicalOrbit.keywords.map((keyword) => h(KeywordChip, {
-          key: keyword.id,
-          keyword,
-          isActive: keyword.id === activeKeywordId,
-          onSelect: setActiveKeywordId
-        }))
-      ),
-      h(
-        "article",
-        { className: "barocco-musical-globe__detail", "aria-live": "polite" },
-        h("p", { className: "barocco-musical-globe__detail-kicker" }, "Parola chiave attiva"),
-        h("h3", null, activeKeyword.title),
-        h("p", null, activeKeyword.copy),
-        h("strong", null, activeKeyword.keyIdea)
       )
+    ),
+    h(
+      "div",
+      {
+        className: "barocco-musical-globe__keyword-list",
+        role: "group",
+        "aria-label": "Parole chiave del globo musicale"
+      },
+      musicalOrbit.keywords.map((keyword) => h(KeywordChip, {
+        key: keyword.id,
+        keyword,
+        isActive: keyword.id === activeKeywordId,
+        onSelect: setActiveKeywordId
+      }))
+    ),
+    h(
+      "article",
+      { className: "barocco-musical-globe__detail", "aria-live": "polite" },
+      h("p", { className: "barocco-musical-globe__detail-kicker" }, "Parola chiave attiva"),
+      h("h3", null, activeKeyword.title),
+      h("p", null, activeKeyword.copy),
+      h("strong", null, activeKeyword.keyIdea)
     )
   );
 }
