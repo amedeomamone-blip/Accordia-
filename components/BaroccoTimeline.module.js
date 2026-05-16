@@ -95,7 +95,15 @@ const timelineItems = [
     subtitle: "La Russia si trasforma",
     category: "Storia",
     description: "Pietro I avvia una stagione di riforme che modernizza lo Stato russo e rafforza il suo ruolo internazionale.",
-    insight: "La Russia guarda sempre più all’Europa occidentale, adottando modelli tecnici, militari e amministrativi innovativi."
+    insight: "La Russia guarda sempre più all’Europa occidentale, adottando modelli tecnici, militari e amministrativi innovativi.",
+    visual: {
+      src: "../../../../assets/barocco-pietro-grande-originale.png?v=20260516a",
+      alt: "Pietro il Grande in abiti cerimoniali al centro di una proclamazione pubblica, circondato da dignitari, vessilli e cupole russe.",
+      position: "42% 46%",
+      scale: 1.11,
+      origin: "center center",
+      copySide: "right"
+    }
   },
   {
     id: "1685-bach-handel",
