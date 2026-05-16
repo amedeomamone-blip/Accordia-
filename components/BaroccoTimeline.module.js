@@ -139,7 +139,15 @@ const timelineItems = [
     subtitle: "Si chiude un’epoca",
     category: "Storia",
     description: "La morte del Re Sole conclude uno dei regni più lunghi e influenti dell’età moderna.",
-    insight: "Il suo modello di potere aveva inciso profondamente su politica, architettura, teatro, danza e vita musicale di corte."
+    insight: "Il suo modello di potere aveva inciso profondamente su politica, architettura, teatro, danza e vita musicale di corte.",
+    visual: {
+      src: "../../../../assets/barocco-morte-luigi-xiv-originale.png?v=20260516a",
+      alt: "Luigi XIV disteso nel letto di morte in una camera regale, circondato da cortigiani e simboli del potere di Versailles.",
+      position: "37% 47%",
+      scale: 1.1,
+      origin: "center center",
+      copySide: "right"
+    }
   },
   {
     id: "1725-quattro-stagioni",
