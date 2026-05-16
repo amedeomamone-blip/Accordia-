@@ -70,7 +70,15 @@ const timelineItems = [
     subtitle: "Fine della Guerra dei Trent’anni",
     category: "Storia",
     description: "I trattati di Westfalia pongono fine al conflitto iniziato nel 1618 e ridisegnano l’assetto politico europeo.",
-    insight: "Si consolida il principio della sovranità degli Stati, elemento decisivo nella nascita della diplomazia moderna."
+    insight: "Si consolida il principio della sovranità degli Stati, elemento decisivo nella nascita della diplomazia moderna.",
+    visual: {
+      src: "../../../../assets/barocco-westfalia-originale.png?v=20260516a",
+      alt: "Delegati e dignitari attorno a un tavolo di trattativa, con documenti, candele e una città sullo sfondo dopo la fine della guerra.",
+      position: "58% 52%",
+      scale: 1.08,
+      origin: "center center",
+      copySide: "left"
+    }
   },
   {
     id: "1661-accademia-danza",
