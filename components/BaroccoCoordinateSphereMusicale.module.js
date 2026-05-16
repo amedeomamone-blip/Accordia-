@@ -13,60 +13,84 @@ const musicalOrbit = {
     {
       id: "mecenatismo",
       title: "Mecenatismo",
+      kicker: "Sistema",
+      subtitle: "Potere, committenza e prestigio",
       latitude: 24,
       longitude: -126,
-      copy: "Nobili e corti sostengono musicisti, compositori e maestri di cappella.",
-      keyIdea: "La produzione musicale dipende spesso dal sostegno delle élite."
+      copy: "Nobili e corti sostengono musicisti, compositori e maestri di cappella, finanziando celebrazioni, spettacoli e liturgie solenni.",
+      insight: "Il musicista barocco lavora spesso dentro una rete di incarichi, protezione e rappresentanza sociale.",
+      keyIdea: "Il sostegno economico delle élite orienta luoghi, repertori e occasioni d’ascolto."
     },
     {
       id: "corti-cattedrali",
       title: "Corti e cattedrali",
+      kicker: "Spazi",
+      subtitle: "I luoghi che danno forma al suono",
       latitude: 8,
       longitude: -58,
-      copy: "Palazzi nobiliari e luoghi sacri diventano centri della vita musicale.",
+      copy: "Palazzi nobiliari e luoghi sacri diventano centri della vita musicale, con organici, rituali e pubblici differenti.",
+      insight: "La musica accompagna cerimonie civili, feste di corte e liturgie, assumendo funzioni diverse ma complementari.",
       keyIdea: "La musica barocca cresce tra prestigio civile e solennità religiosa."
     },
     {
       id: "teatri-pubblici",
       title: "Teatri pubblici",
+      kicker: "Pubblico",
+      subtitle: "Lo spettacolo esce dalla corte",
       latitude: -28,
       longitude: -6,
-      copy: "Accanto ai teatri di corte nascono spazi aperti a un pubblico più ampio.",
-      keyIdea: "Lo spettacolo musicale si apre a nuovi spettatori."
+      copy: "Accanto ai teatri di corte nascono spazi aperti a un pubblico più ampio, dove si paga per assistere allo spettacolo.",
+      insight: "Con il pubblico pagante cambiano attese, ritmi della produzione e criteri di successo delle opere.",
+      keyIdea: "Lo spettacolo musicale si apre a nuovi spettatori e diventa anche fenomeno urbano."
     },
     {
       id: "melodramma",
       title: "Melodramma",
+      kicker: "Forma",
+      subtitle: "Parola, scena e musica insieme",
       latitude: -40,
       longitude: 74,
-      copy: "Grande forma vocale e teatrale tipica del Barocco.",
+      copy: "Il melodramma è la grande forma vocale e teatrale del Barocco: la vicenda prende vita attraverso canto, orchestra e scena.",
+      insight: "Recitazione, affetti e scrittura musicale concorrono a costruire il dramma e a guidare le emozioni dello spettatore.",
       keyIdea: "Musica, scena e parola si fondono in un unico racconto."
     },
     {
       id: "concerto-grosso",
       title: "Concerto grosso",
+      kicker: "Struttura",
+      subtitle: "Dialogo fra gruppi sonori",
       latitude: -2,
       longitude: 132,
-      copy: "Dialogo musicale tra un piccolo gruppo di solisti e l’intera orchestra.",
+      copy: "Nel concerto grosso un piccolo gruppo di strumenti dialoga con il resto dell’ensemble, alternando risposta e slancio.",
+      insight: "L’alternanza tra concertino e ripieno crea tensione, rilancio e contrasto, uno dei gusti tipici del Barocco.",
       keyIdea: "Il contrasto fra concertino e ripieno diventa architettura sonora."
     },
     {
       id: "concerto-solista",
       title: "Concerto solista",
+      kicker: "Protagonista",
+      subtitle: "Un interprete davanti all’orchestra",
       latitude: 30,
       longitude: 176,
-      copy: "Un singolo strumento protagonista si confronta con l’orchestra.",
+      copy: "Un singolo strumento protagonista si confronta con l’orchestra e assume il ruolo di voce principale del discorso musicale.",
+      insight: "La scrittura mette in evidenza tecnica, timbro e personalità dello strumento solista.",
       keyIdea: "Il solista emerge come centro espressivo dell’azione musicale."
     },
     {
       id: "orchestra-camera",
       title: "Orchestra da camera",
+      kicker: "Ensemble",
+      subtitle: "Organici più stabili e riconoscibili",
       latitude: 38,
       longitude: 118,
-      copy: "Le formazioni strumentali diventano più numerose e strutturate.",
+      copy: "Le formazioni strumentali diventano più numerose e strutturate, con ruoli più definiti fra le diverse parti.",
+      insight: "L’ensemble acquista identità e rende più chiari equilibri, colori e gerarchie della scrittura strumentale.",
       keyIdea: "L’organico strumentale si organizza con maggiore stabilità."
     }
-  ]
+  ].map((keyword, index) => ({
+    ...keyword,
+    sequence: index + 1
+  }))
 };
 
 function clamp(value, min, max) {
@@ -390,7 +414,13 @@ function GlobeHotspot({ item, isActive, onSelect }) {
       "aria-pressed": isActive,
       title: item.title
     },
-    h("strong", null, item.title)
+    h("span", { className: "barocco-musical-globe__hotspot-index", "aria-hidden": "true" }, String(item.sequence).padStart(2, "0")),
+    h(
+      "span",
+      { className: "barocco-musical-globe__hotspot-copy" },
+      h("small", null, item.kicker),
+      h("strong", null, item.title)
+    )
   );
 }
 
@@ -422,6 +452,7 @@ export default function BaroccoCoordinateSphereMusicale() {
   const timeRef = React.useRef(0);
   const animationRef = React.useRef(null);
   const activeKeyword = musicalOrbit.keywords.find((keyword) => keyword.id === activeKeywordId) || initialKeyword;
+  const activeKeywordIndex = musicalOrbit.keywords.findIndex((keyword) => keyword.id === activeKeyword.id);
 
   React.useEffect(() => {
     const frame = frameRef.current;
@@ -568,10 +599,52 @@ export default function BaroccoCoordinateSphereMusicale() {
     h(
       "article",
       { className: "barocco-musical-globe__detail", "aria-live": "polite" },
-      h("p", { className: "barocco-musical-globe__detail-kicker" }, "Parola chiave attiva"),
-      h("h3", null, activeKeyword.title),
-      h("p", null, activeKeyword.copy),
-      h("strong", null, activeKeyword.keyIdea)
+      h(
+        "div",
+        { className: "barocco-musical-globe__detail-frame" },
+        h("div", { className: "barocco-musical-globe__detail-aurora", "aria-hidden": "true" }),
+        h("div", { className: "barocco-musical-globe__detail-orbits", "aria-hidden": "true" },
+          h("span"),
+          h("span"),
+          h("span")
+        ),
+        h(
+          "div",
+          { className: "barocco-musical-globe__detail-grid" },
+          h(
+            "div",
+            { className: "barocco-musical-globe__detail-hero-copy" },
+            h(
+              "p",
+              { className: "barocco-musical-globe__detail-kicker" },
+              `Parola chiave ${String(activeKeywordIndex + 1).padStart(2, "0")}/${String(musicalOrbit.keywords.length).padStart(2, "0")}`
+            ),
+            h("h3", null, activeKeyword.title),
+            h("p", { className: "barocco-musical-globe__detail-subtitle" }, activeKeyword.subtitle),
+            h(
+              "section",
+              { className: "barocco-musical-globe__detail-overlay" },
+              h("p", null, activeKeyword.copy)
+            )
+          ),
+          h(
+            "div",
+            { className: "barocco-musical-globe__detail-side" },
+            h(
+              "section",
+              { className: "barocco-musical-globe__detail-note" },
+              h("strong", null, activeKeyword.kicker),
+              h("p", null, activeKeyword.insight)
+            ),
+            h(
+              "section",
+              { className: "barocco-musical-globe__detail-note" },
+              h("strong", null, "Idea chiave"),
+              h("p", null, activeKeyword.keyIdea)
+            )
+          )
+        )
+      )
     )
   );
 }

@@ -1,8 +1,10 @@
 .barocco-timeline {
+  --barocco-section-gutter: 1.6rem;
   position: relative;
   z-index: 0;
   isolation: isolate;
-  width: min(calc(100% - 1.6rem), 72rem);
+  box-sizing: border-box;
+  width: min(calc(100% - var(--barocco-section-gutter)), 72rem);
   margin: clamp(1.4rem, 3vw, 2rem) auto clamp(1.5rem, 3vw, 2.2rem);
   padding: clamp(1rem, 2vw, 1.35rem);
   border: 1px solid var(--lesson-border);
@@ -623,7 +625,7 @@
 
 @media (max-width: 40rem) {
   .barocco-timeline {
-    width: min(calc(100% - 1rem), 72rem);
+    --barocco-section-gutter: 1rem;
     padding: 0.86rem;
   }
 
