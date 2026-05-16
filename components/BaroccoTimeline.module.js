@@ -40,11 +40,19 @@ const timelineItems = [
   {
     id: "1630-peste",
     year: "1630",
-    title: "Peste in Europa",
+    title: "La peste in Europa",
     subtitle: "Crisi sociale e sanitaria",
     category: "Storia",
     description: "Una grave epidemia colpisce vaste aree europee, aggravando gli effetti di guerre, carestie e instabilità economica.",
-    insight: "La peste del Seicento segna città e campagne, riduce la popolazione e lascia una traccia profonda nella memoria collettiva."
+    insight: "La peste del Seicento segna città e campagne, riduce la popolazione e lascia una traccia profonda nella memoria collettiva.",
+    visual: {
+      src: "../../../../assets/barocco-peste-originale.png?v=20260516a",
+      alt: "Un medico della peste in primo piano osserva una scena urbana di malattia e assistenza, con i malati al centro e il carro dei corpi sullo sfondo.",
+      position: "36% 49%",
+      scale: 1.12,
+      origin: "center center",
+      copySide: "right"
+    }
   },
   {
     id: "1643-luigi-xiv",
@@ -96,7 +104,16 @@ const timelineItems = [
     subtitle: "Due protagonisti del Barocco",
     category: "Musica",
     description: "Nello stesso anno nascono Johann Sebastian Bach e Georg Friedrich Händel, due figure centrali della musica europea.",
-    insight: "Bach porta al vertice il contrappunto e la scrittura strumentale; Händel domina opera, oratorio e musica celebrativa."
+    insight: "Bach porta al vertice il contrappunto e la scrittura strumentale; Händel domina opera, oratorio e musica celebrativa.",
+    visual: {
+      src: "../../../../assets/barocco-bach-handel-originale.png?v=20260516a",
+      alt: "Johann Sebastian Bach all'organo e Georg Friedrich Händel in un interno teatrale, affiancati come due grandi protagonisti del Barocco musicale.",
+      position: "60% 49%",
+      shiftY: "-6%",
+      scale: 1.12,
+      origin: "center center",
+      copySide: "left"
+    }
   },
   {
     id: "1711-fortepiano",
