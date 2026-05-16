@@ -57,13 +57,23 @@ EDITOR_NUCLEUS_FIELDS = (
     "accent",
     "description",
 )
+PRIMARY_NUCLEI_SLUGS = (
+    "medioevo",
+    "rinascimento",
+    "barocco",
+    "settecento-classicismo",
+    "ottocento",
+    "novecento",
+)
+NUCLEI_WITH_FLOATING_BOARD = {"barocco"}
+PRIMARY_NUCLEI_COUNT = len(PRIMARY_NUCLEI_SLUGS)
 DEFAULT_TIMELINE_PAGE_DATA = {
-    "meta_description": "La timeline di Accordia apre dieci nuclei storico-musicali completi, con lavagne delle lezioni, ascolti, compiti di realta e verifiche.",
+    "meta_description": "La timeline di Accordia raccoglie sei nuclei storico-musicali, dal Medioevo al Novecento, con lezioni, ascolti, compiti di realta e verifiche.",
     "page_title": "Nuclei | Accordia",
     "hero": {
         "eyebrow": "Nuclei Accordia",
         "title": "La Musica nel tempo",
-        "lead": "La timeline di Accordia organizza la storia della musica in dieci nuclei editoriali completi: ogni tappa tiene insieme hero, indice interno, lavagna delle lezioni, contenuti da manuale, compito di realta e verifica.",
+        "lead": "La timeline di Accordia organizza la storia della musica in sei nuclei editoriali completi, dal Medioevo al Novecento: ogni tappa tiene insieme hero, indice interno, lezioni collegate, contenuti da manuale, compito di realta e verifica.",
         "primary_cta_label": "Esplora i nuclei",
         "primary_cta_href": "#timeline-track",
         "secondary_cta_label": "Apri le lezioni",
@@ -72,14 +82,14 @@ DEFAULT_TIMELINE_PAGE_DATA = {
         "panel_items": [
             "hero con posizione nella timeline",
             "mini timeline sticky per muoversi tra i nuclei",
-            "lavagna delle lezioni con card collegate",
+            "lezioni e approfondimenti collegati",
             "contenuti da manuale, compito e verifica",
         ],
     },
     "track": {
         "eyebrow": "Timeline a scorrimento",
-        "title": "Dieci nuclei storico-musicali da attraversare in ordine.",
-        "body": "Quando apri un nucleo entri in un capitolo costruito per la didattica: non un'anteprima, ma una pagina completa. Tornando qui, Accordia ripristina la posizione dell'ultima tappa visitata.",
+        "title": "Sei nuclei storico-musicali da attraversare in ordine.",
+        "body": "Quando apri un nucleo entri in un capitolo costruito per la didattica: non un'anteprima, ma una pagina completa con sintesi, lezioni, ascolti, lessico, compito e verifica. Tornando qui, Accordia ripristina la posizione dell'ultima tappa visitata.",
         "hint": "Scorri lateralmente o usa la mini timeline interna ai nuclei per continuare il percorso da dove eri arrivato.",
     },
     "framework_cards": [
@@ -90,7 +100,7 @@ DEFAULT_TIMELINE_PAGE_DATA = {
         },
         {
             "eyebrow": "Percorso",
-            "title": "Lavagne, lezioni e approfondimenti collegati.",
+            "title": "Lezioni e approfondimenti collegati.",
             "body": "Ogni nucleo tiene insieme panorama storico, lezioni interne, percorsi guidati e accessi rapidi ai punti davvero utili in classe.",
         },
         {
@@ -100,7 +110,7 @@ DEFAULT_TIMELINE_PAGE_DATA = {
         },
     ],
     "footer": {
-        "summary": "La timeline apre nuclei editoriali completi, collegati fra loro da una mini timeline sticky, lavagne delle lezioni e pagine di approfondimento.",
+        "summary": "La timeline apre sei nuclei editoriali completi, collegati fra loro da una mini timeline sticky e da pagine di approfondimento.",
         "continue_label": "Continua",
         "project_label": "Progetto",
     },
@@ -2897,14 +2907,14 @@ def build_topic_phases(nucleo_title: str, lesson_title: str, category: str, summ
         },
         "rotta": {
             "title": f"Collocare {lesson_title_lower} dentro {nucleo_title}",
-            "body": f"Qui la lezione viene situata nella timeline del nucleo, mettendo in evidenza periodo, funzioni e relazioni con gli altri snodi della lavagna.",
+            "body": f"Qui la lezione viene situata nella timeline del nucleo, mettendo in evidenza periodo, funzioni e relazioni con gli altri snodi del percorso.",
         },
         "orecchio": {
             "title": "Riconoscere gli indizi essenziali",
             "body": f"Gli indizi di ascolto e osservazione servono a trasformare la definizione in esperienza: {summary}",
         },
         "grafo": {
-            "title": "Leggere i collegamenti della lavagna",
+            "title": "Leggere i collegamenti del percorso",
             "body": f"Il nodo mostra come la categoria {category_lower} dialoghi con contesto, forme, strumenti, autori, laboratorio e verifica.",
         },
         "cantiere": {
@@ -2921,7 +2931,7 @@ def build_topic_phases(nucleo_title: str, lesson_title: str, category: str, summ
         },
         "specchio": {
             "title": "Controllare comprensione e lessico",
-            "body": f"La verifica controlla se sai collocare {lesson_title_lower} nella lavagna delle lezioni e descriverne funzione, caratteri o ascolti principali.",
+            "body": f"La verifica controlla se sai collocare {lesson_title_lower} nel percorso del nucleo e descriverne funzione, caratteri o ascolti principali.",
         },
     }
 
@@ -3003,11 +3013,11 @@ def build_listening_cards(topic_map: dict) -> list[dict]:
 def build_assignment(entry: dict) -> dict:
     first_titles = [title for title, _, _ in entry["lessons"][:3]]
     return {
-        "scenario": f"La classe prepara una lavagna didattica sul nucleo {entry['title']} per un pubblico di studenti che deve orientarsi rapidamente nel capitolo.",
-        "task": f"Seleziona i contenuti essenziali del nucleo, ordina le lezioni della lavagna e costruisci una spiegazione breve che colleghi contesto, caratteri, ascolti e lessico.",
-        "product": "una lavagna sintetica, una presentazione o una scheda espositiva leggibile",
+        "scenario": f"La classe prepara una sintesi didattica sul nucleo {entry['title']} per un pubblico di studenti che deve orientarsi rapidamente nel capitolo.",
+        "task": f"Seleziona i contenuti essenziali del nucleo, ordina le lezioni principali e costruisci una spiegazione breve che colleghi contesto, caratteri, ascolti e lessico.",
+        "product": "una sintesi visiva, una presentazione o una scheda espositiva leggibile",
         "audience": "un'altra classe, un open day o un momento di restituzione interna",
-        "materials": "card della lavagna, quaderno, LIM, immagini, ascolti, mappe e lessico del nucleo",
+        "materials": "quaderno, LIM, immagini, ascolti, mappe e lessico del nucleo",
         "timing": "2 lezioni di preparazione e 1 lezione di restituzione",
         "steps": [
             f"seleziona tre snodi chiave tra {', '.join(first_titles)}",
@@ -3019,7 +3029,7 @@ def build_assignment(entry: dict) -> dict:
             "chiarezza dell'organizzazione",
             "uso corretto del lessico",
             "coerenza tra contesto, ascolto e forme",
-            "capacita di collegare le lezioni della lavagna",
+            "capacita di collegare le lezioni del nucleo",
         ],
     }
 
@@ -3030,24 +3040,24 @@ def build_verification(entry: dict, topic_map: dict) -> dict:
     return {
         "quick_check": [
             f"colloca {entry['title']} nella timeline generale di Accordia",
-            f"riconosci il ruolo di {first} e {second} dentro la lavagna",
+            f"riconosci il ruolo di {first} e {second} dentro il percorso del nucleo",
             "usa due parole del lessico minimo in modo corretto",
         ],
         "comprehension": [
             f"quali caratteri rendono riconoscibile {entry['title']}?",
             "come si collegano contesto, forme e strumenti nel nucleo?",
-            "quali lezioni della lavagna useresti per spiegare il capitolo a un compagno?",
+            "quali lezioni del nucleo useresti per spiegare il capitolo a un compagno?",
         ],
         "listening_test": f"Riconosci in un ascolto guidato indizi coerenti con {entry['title']}: timbri, funzioni, forme, pratiche o riferimenti storici.",
         "rubric": [
             "comprende la posizione storica del nucleo",
             "usa con precisione il lessico essenziale",
-            "sa collegare le lezioni della lavagna",
+            "sa collegare le lezioni del nucleo",
             "argomenta con esempi chiari e pertinenti",
         ],
         "self_eval": [
             f"so collocare {entry['title']} nella timeline",
-            "so usare la lavagna delle lezioni per orientarmi nel capitolo",
+            "so usare le lezioni del nucleo per orientarmi nel capitolo",
             "so collegare almeno tre snodi del nucleo con lessico corretto",
         ],
         "premium": "Spazio riservato a materiali premium futuri: ascolti guidati, schede stampabili e tracciati docente.",
@@ -3056,24 +3066,27 @@ def build_verification(entry: dict, topic_map: dict) -> dict:
 
 def build_editorial_nuclei() -> list[dict]:
     nuclei = []
-    for entry in EDITORIAL_NUCLEI_BLUEPRINT:
+    active_entries = [entry for entry in EDITORIAL_NUCLEI_BLUEPRINT if entry["slug"] in PRIMARY_NUCLEI_SLUGS]
+    for index, entry in enumerate(active_entries, start=1):
+        number = f"{index:02d}"
         topic_map = build_topic_map(entry, entry["lessons"])
         lesson_titles = [title for title, _, _ in entry["lessons"]]
         graph_seed = ", ".join(lesson_titles[:4])
         nuclei.append(
             {
-                "number": entry["number"],
+                "number": number,
                 "slug": entry["slug"],
                 "title": entry["title"],
                 "nav_title": entry["nav_title"],
                 "category": entry["category"],
                 "period": entry["period"],
                 "landing_reference_period": entry.get("landing_reference_period"),
-                "position": f"Nucleo {entry['number']} di 10 · linea principale del percorso",
+                "landing_mode": "map-only" if entry["slug"] in NUCLEI_WITH_FLOATING_BOARD else "editorial",
+                "position": f"Nucleo {number} di {PRIMARY_NUCLEI_COUNT} · linea principale del percorso",
                 "accent": entry["accent"],
                 "description": entry["description"],
                 "hero_subtitle": entry["hero_subtitle"],
-                "hero_note": f"Il nucleo ricompone {entry['title']} in un capitolo coerente con i manuali: panorama storico, lavagna delle lezioni, ascolti, lessico, attivita e verifica restano allineati nella stessa pagina.",
+                "hero_note": f"Il nucleo ricompone {entry['title']} in un capitolo coerente con i manuali: quadro storico, lezioni, ascolti, lessico, attivita e verifica restano allineati nella stessa pagina.",
                 "chapter_map": lesson_titles,
                 "context_text": entry["context_text"],
                 "functions_text": entry["functions_text"],
@@ -3083,17 +3096,17 @@ def build_editorial_nuclei() -> list[dict]:
                 "listenings": build_listening_cards(topic_map),
                 "connections": entry["connections"],
                 "lexicon": entry["lexicon"],
-                "summary_text": f"{entry['title']} tiene insieme quadro storico, lessico essenziale e una lavagna di lezioni che rende visibile il percorso didattico del nucleo.",
+                "summary_text": f"{entry['title']} tiene insieme quadro storico, lessico essenziale, ascolti e lezioni chiave in un percorso didattico leggibile.",
                 "activities": [
-                    "ordina le card della lavagna distinguendo contesto, forme, strumenti, autori e verifica",
+                    "ordina i contenuti del nucleo distinguendo contesto, forme, strumenti, autori e verifica",
                     f"metti a confronto {lesson_titles[0]} e {lesson_titles[min(1, len(lesson_titles) - 1)]}",
                     "prepara una sintesi con cinque parole chiave e due collegamenti storici",
-                    "usa mini timeline e lavagna per spiegare il percorso del nucleo a un compagno",
+                    "usa mini timeline e lezioni per spiegare il percorso del nucleo a un compagno",
                 ],
                 "spark_question": f"In che modo {entry['title'].lower()} cambia il modo di fare, ascoltare e capire la musica?",
-                "rotta_text": f"La rotta colloca {entry['title']} nella timeline generale e mostra come la lavagna distribuisca il nucleo tra contesto, caratteri, forme, strumenti, autori e verifica.",
+                "rotta_text": f"La rotta colloca {entry['title']} nella timeline generale e mostra come il percorso distribuisca il nucleo tra contesto, caratteri, forme, strumenti, autori e verifica.",
                 "orecchio_text": f"Gli ascolti guidati aiutano a riconoscere i tratti principali del nucleo e a trasformare definizioni e date in indizi sonori concreti.",
-                "grafo_text": f"La lavagna collega {graph_seed} e gli altri snodi del capitolo per rendere visibile l'ordine interno del percorso.",
+                "grafo_text": f"Il percorso collega {graph_seed} e gli altri snodi del capitolo per rendere visibile l'ordine interno del nucleo.",
                 "cantiere_text": "Nel cantiere la classe usa le card del nucleo per ordinare contenuti, lessico, ascolti e confronti in una sequenza chiara e riusabile.",
                 "assignment": build_assignment(entry),
                 "verification": build_verification(entry, topic_map),
@@ -4955,15 +4968,16 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
     prev_nucleo = nuclei[index - 1] if index > 0 else None
     next_nucleo = nuclei[index + 1] if index < len(nuclei) - 1 else None
     topic_map = nucleo.get("topic_map")
-    map_only_landing = nucleo.get("landing_mode", "map-only") == "map-only"
+    show_topic_map = nucleo["slug"] in NUCLEI_WITH_FLOATING_BOARD and bool(topic_map)
+    map_only_landing = nucleo.get("landing_mode", "editorial") == "map-only"
     hero_subtitle = nucleo.get("hero_subtitle") or nucleo.get("description", "")
     landing_reference_period = nucleo.get("landing_reference_period", "")
     page_description = (
         f"{nucleo['title']} in Accordia: titolo del nucleo e lavagna interattiva degli argomenti."
-        if map_only_landing
+        if show_topic_map and map_only_landing
         else f"{nucleo['title']} in Accordia: nucleo storico-musicale completo con contenuti da manuale, ascolti, compito di realta e verifica."
     )
-    topic_map_feature = topic_map.get("index_label", "mappa visiva interconnessa degli argomenti").lower() if topic_map else ""
+    topic_map_feature = topic_map.get("index_label", "mappa visiva interconnessa degli argomenti").lower() if show_topic_map and topic_map else ""
     footer_prev = (
         f'<a href="{e(page_href("../" + prev_nucleo["slug"] + "/"))}">Nucleo precedente</a>'
         if prev_nucleo
@@ -4976,7 +4990,7 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
     )
 
     index_links = []
-    if topic_map:
+    if show_topic_map and topic_map:
         index_links.append((f"#{topic_map.get('section_id', 'mappa')}", topic_map.get("index_label", "Mappa argomenti")))
     index_links.extend([
         ("#sintesi", "Sintesi"),
@@ -5037,7 +5051,7 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
                     <p>{e(nucleo['hero_note'])}</p>
                     <ul class="nucleus-bullet-list">
                         <li>indice interno per orientarsi rapidamente</li>
-                        {f"<li>{e(topic_map_feature)}</li>" if topic_map else ""}
+                        {f"<li>{e(topic_map_feature)}</li>" if show_topic_map and topic_map_feature else ""}
                         <li>snodi del nucleo ordinati in modo chiaro e leggibile</li>
                         <li>contenuti storici, ascolti, autori e lessico</li>
                         <li>compito di realta, verifica e materiali docente</li>
@@ -5099,8 +5113,8 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
             intro_eyebrow="Lavagna fluttuante",
             intro_text="La lavagna fluttuante mostra in un colpo d'occhio i nodi del nucleo e i loro collegamenti. Ogni card apre una lezione.",
         )
-        if map_only_landing
-        else render_topic_map_section(nucleo)
+        if show_topic_map and map_only_landing
+        else render_topic_map_section(nucleo) if show_topic_map else ""
     )
 
     footer_html = (
@@ -5135,7 +5149,7 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
             <div class="shell">
                 <div class="nucleus-section__intro">
                     <p class="eyebrow">Indice del nucleo</p>
-                    <p>La pagina si legge come un capitolo editoriale completo: prima la sintesi storica, poi la lavagna delle lezioni, quindi ascolti, concetti, autori, attivita, compito di realta e verifica.</p>
+                    <p>{"La pagina si legge come un capitolo editoriale completo: prima la sintesi storica, poi la lavagna delle lezioni, quindi ascolti, concetti, autori, attivita, compito di realta e verifica." if show_topic_map else "La pagina si legge come un capitolo editoriale completo: sintesi storica, ascolti, concetti, autori, attivita, compito di realta e verifica restano ordinati in una sequenza chiara."}</p>
                 </div>
                 <nav class="nucleus-index" aria-label="Indice interno del nucleo">
                     {"".join(f'<a href="{e(href)}">{e(label)}</a>' for href, label in index_links)}
@@ -5149,7 +5163,7 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
             <div class="shell">
                 <div class="nucleus-section__intro">
                     <p class="eyebrow">Sintesi</p>
-                    <p>Qui i contenuti del manuale vengono rimontati in modo ordinato: contesto, funzioni, forme, strumenti e mappa del capitolo.</p>
+                    <p>{"Qui i contenuti del manuale vengono rimontati in modo ordinato: contesto, funzioni, forme, strumenti e mappa del capitolo." if show_topic_map else "Qui i contenuti del manuale vengono rimontati in modo ordinato: contesto, funzioni, forme e strumenti costruiscono la lettura essenziale del capitolo."}</p>
                 </div>
                 <div class="nucleus-card-grid">
                     {"".join(

@@ -1,10 +1,10 @@
 {
-  "meta_description": "La timeline di Accordia apre dieci nuclei storico-musicali completi, con lavagne delle lezioni, ascolti, compiti di realta e verifiche.",
+  "meta_description": "La timeline di Accordia raccoglie sei nuclei storico-musicali, dal Medioevo al Novecento, con lezioni, ascolti, compiti di realta e verifiche.",
   "page_title": "Nuclei | Accordia",
   "hero": {
     "eyebrow": "Nuclei Accordia",
     "title": "La Musica nel tempo",
-    "lead": "La timeline di Accordia organizza la storia della musica in dieci nuclei editoriali completi: ogni tappa tiene insieme hero, indice interno, lavagna delle lezioni, contenuti da manuale, compito di realta e verifica.",
+    "lead": "La timeline di Accordia organizza la storia della musica in sei nuclei editoriali completi, dal Medioevo al Novecento: ogni tappa tiene insieme hero, indice interno, lezioni collegate, contenuti da manuale, compito di realta e verifica.",
     "primary_cta_label": "Esplora i nuclei",
     "primary_cta_href": "#timeline-track",
     "secondary_cta_label": "Apri le lezioni",
@@ -13,14 +13,14 @@
     "panel_items": [
       "hero con posizione nella timeline",
       "mini timeline sticky per muoversi tra i nuclei",
-      "lavagna delle lezioni con card collegate",
+      "lezioni e approfondimenti collegati",
       "contenuti da manuale, compito e verifica"
     ]
   },
   "track": {
     "eyebrow": "Timeline a scorrimento",
-    "title": "Dieci nuclei storico-musicali da attraversare in ordine.",
-    "body": "Quando apri un nucleo entri in un capitolo costruito per la didattica: non un'anteprima, ma una pagina completa con lavagna delle lezioni, ascolti, lessico, compito e verifica.",
+    "title": "Sei nuclei storico-musicali da attraversare in ordine.",
+    "body": "Quando apri un nucleo entri in un capitolo costruito per la didattica: non un'anteprima, ma una pagina completa con sintesi, lezioni, ascolti, lessico, compito e verifica.",
     "hint": "Scorri lateralmente o usa la mini timeline interna ai nuclei per continuare il percorso da dove eri arrivato."
   },
   "framework_cards": [
@@ -31,7 +31,7 @@
     },
     {
       "eyebrow": "Percorso",
-      "title": "Lavagne, lezioni e approfondimenti collegati.",
+      "title": "Lezioni e approfondimenti collegati.",
       "body": "Ogni nucleo tiene insieme panorama storico, lezioni interne, percorsi guidati e accessi rapidi ai punti davvero utili in classe."
     },
     {
@@ -41,7 +41,7 @@
     }
   ],
   "footer": {
-    "summary": "La timeline apre nuclei editoriali completi, collegati fra loro da una mini timeline sticky, lavagne delle lezioni e pagine di approfondimento.",
+    "summary": "La timeline apre sei nuclei editoriali completi, collegati fra loro da una mini timeline sticky e da pagine di approfondimento.",
     "continue_label": "Continua",
     "project_label": "Progetto"
   },
