@@ -53,7 +53,15 @@ const timelineItems = [
     subtitle: "Il Re Sole",
     category: "Storia",
     description: "Luigi XIV sale al trono di Francia. Il suo regno diventerà il modello più celebre di monarchia assoluta.",
-    insight: "Versailles diventa il centro simbolico del potere monarchico e un riferimento europeo per arti, cerimoniale e spettacolo."
+    insight: "Versailles diventa il centro simbolico del potere monarchico e un riferimento europeo per arti, cerimoniale e spettacolo.",
+    visual: {
+      src: "../../../../assets/barocco-luigi-xiv-originale.png?v=20260516a",
+      alt: "Il giovane Luigi XIV in abiti regali su una scalinata cerimoniale, circondato da nobili e clero davanti a una grande architettura di corte.",
+      position: "40% 44%",
+      scale: 1.1,
+      origin: "center center",
+      copySide: "right"
+    }
   },
   {
     id: "1648-westfalia",
