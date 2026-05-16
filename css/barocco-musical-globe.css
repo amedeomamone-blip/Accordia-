@@ -6,8 +6,12 @@
   isolation: isolate;
   box-sizing: border-box;
   width: min(calc(100% - var(--barocco-section-gutter)), 72rem);
-  margin: 0 auto 1.4rem;
+  margin: clamp(1.4rem, 3vw, 2rem) auto clamp(1.5rem, 3vw, 2.2rem);
   padding: clamp(1rem, 2vw, 1.35rem);
+  border: 1px solid var(--lesson-border);
+  border-radius: 1.45rem;
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 1rem 3rem rgba(17, 17, 17, 0.055);
   display: grid;
   gap: 1rem;
 }
@@ -18,9 +22,7 @@
   justify-self: stretch;
 }
 
-.barocco-musical-globe__header,
 .barocco-musical-globe__stage-card,
-.barocco-musical-globe__keyword-list,
 .barocco-musical-globe__detail {
   border: 1px solid var(--lesson-border);
   border-radius: 1.45rem;
@@ -32,7 +34,11 @@
 .barocco-musical-globe__stage-card {
   display: grid;
   gap: 0;
-  padding: clamp(1rem, 2vw, 1.2rem);
+}
+
+.barocco-musical-globe__header {
+  padding: 0 0 1rem;
+  border-bottom: 1px solid rgba(17, 17, 17, 0.08);
 }
 
 .barocco-musical-globe__stage-card {
@@ -203,7 +209,9 @@
   flex-wrap: wrap;
   gap: 0.55rem;
   align-items: flex-start;
-  padding: 0.9rem;
+  padding: 0.15rem 0 0.05rem;
+  border-top: 1px solid rgba(17, 17, 17, 0.08);
+  border-bottom: 1px solid rgba(17, 17, 17, 0.08);
 }
 
 .barocco-musical-globe__chip {
@@ -438,10 +446,9 @@
     gap: 0.82rem;
   }
 
-  .barocco-musical-globe__header,
-  .barocco-musical-globe__keyword-list {
-    padding: 0.88rem;
-    border-radius: 1.15rem;
+  .barocco-musical-globe__header {
+    padding: 0 0 0.82rem;
+    border-radius: 0;
   }
 
   .barocco-musical-globe__stage-card {
@@ -524,10 +531,10 @@
     flex-wrap: nowrap;
     overflow-x: auto;
     align-items: stretch;
-    padding: 0.72rem;
+    padding: 0.72rem 0 0.1rem;
     padding-bottom: 0.1rem;
-    margin-inline: -0.02rem;
-    border-radius: 1.15rem;
+    margin-inline: 0;
+    border-radius: 0;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
   }
