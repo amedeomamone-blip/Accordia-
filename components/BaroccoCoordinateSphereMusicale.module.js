@@ -4,7 +4,7 @@ const h = React.createElement;
 const DEG = Math.PI / 180;
 const AUTO_SPIN = 0.00115;
 const ROTATION_LIMIT = 1.08;
-const ACTIVE_LABEL_OFFSET = 42;
+const ACTIVE_LABEL_MARGIN = 14;
 
 const musicalOrbit = {
   id: "barocco-musicale",
@@ -332,20 +332,35 @@ function drawAnchors(ctx, metrics, rotation, keywords, activeKeywordId, time) {
   });
 }
 
+function getActiveLabelPlacement(metrics, projected, radialX, radialY) {
+  const isCompactViewport = metrics.width <= 680;
+  const labelHalfWidth = isCompactViewport ? 68 : 94;
+  const labelHalfHeight = isCompactViewport ? 18 : 22;
+  const labelOffset = isCompactViewport ? 30 : 42;
+  const radialLength = Math.max(Math.hypot(radialX, radialY), 1);
+  const desiredX = projected.x + (radialX / radialLength) * labelOffset;
+  const desiredY = projected.y + (radialY / radialLength) * labelOffset;
+
+  return {
+    x: clamp(desiredX, labelHalfWidth + ACTIVE_LABEL_MARGIN, metrics.width - labelHalfWidth - ACTIVE_LABEL_MARGIN),
+    y: clamp(desiredY, labelHalfHeight + ACTIVE_LABEL_MARGIN, metrics.height - labelHalfHeight - ACTIVE_LABEL_MARGIN)
+  };
+}
+
 function buildHotspots(metrics, rotation, keywords) {
   return keywords.map((keyword) => {
     const rotated = rotatePoint(sphericalPoint(keyword.latitude, keyword.longitude), rotation.x, rotation.y);
     const projected = projectPoint(rotated, metrics, 1.085);
     const radialX = projected.x - metrics.cx;
     const radialY = projected.y - metrics.cy;
-    const radialLength = Math.max(Math.hypot(radialX, radialY), 1);
+    const labelPosition = getActiveLabelPlacement(metrics, projected, radialX, radialY);
 
     return {
       ...keyword,
       x: projected.x,
       y: projected.y,
-      activeOffsetX: (radialX / radialLength) * ACTIVE_LABEL_OFFSET,
-      activeOffsetY: (radialY / radialLength) * ACTIVE_LABEL_OFFSET,
+      activeOffsetX: labelPosition.x - projected.x,
+      activeOffsetY: labelPosition.y - projected.y,
       depth: rotated.z,
       hidden: rotated.z < -0.72,
       back: rotated.z < -0.18,
@@ -371,9 +386,24 @@ function GlobeHotspot({ item, isActive, onSelect }) {
       },
       onPointerDown: (event) => event.stopPropagation(),
       onClick: () => onSelect(item.id),
-      "aria-pressed": isActive
+      "aria-label": item.title,
+      "aria-pressed": isActive,
+      title: item.title
     },
     h("strong", null, item.title)
+  );
+}
+
+function KeywordChip({ keyword, isActive, onSelect }) {
+  return h(
+    "button",
+    {
+      type: "button",
+      className: `barocco-musical-globe__chip${isActive ? " is-active" : ""}`,
+      onClick: () => onSelect(keyword.id),
+      "aria-pressed": isActive
+    },
+    keyword.title
   );
 }
 
@@ -391,6 +421,7 @@ export default function BaroccoCoordinateSphereMusicale() {
   const metricsRef = React.useRef({ width: 0, height: 0, cx: 0, cy: 0, radius: 0, dpr: 1 });
   const timeRef = React.useRef(0);
   const animationRef = React.useRef(null);
+  const activeKeyword = musicalOrbit.keywords.find((keyword) => keyword.id === activeKeywordId) || initialKeyword;
 
   React.useEffect(() => {
     const frame = frameRef.current;
@@ -514,6 +545,28 @@ export default function BaroccoCoordinateSphereMusicale() {
             onSelect: setActiveKeywordId
           }))
         )
+      ),
+      h(
+        "div",
+        {
+          className: "barocco-musical-globe__keyword-list",
+          role: "group",
+          "aria-label": "Parole chiave del globo musicale"
+        },
+        musicalOrbit.keywords.map((keyword) => h(KeywordChip, {
+          key: keyword.id,
+          keyword,
+          isActive: keyword.id === activeKeywordId,
+          onSelect: setActiveKeywordId
+        }))
+      ),
+      h(
+        "article",
+        { className: "barocco-musical-globe__detail", "aria-live": "polite" },
+        h("p", { className: "barocco-musical-globe__detail-kicker" }, "Parola chiave attiva"),
+        h("h3", null, activeKeyword.title),
+        h("p", null, activeKeyword.copy),
+        h("strong", null, activeKeyword.keyIdea)
       )
     )
   );
