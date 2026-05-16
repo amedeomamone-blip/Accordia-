@@ -12,12 +12,12 @@ const timelineItems = [
     description: "Va in scena a Mantova L’Orfeo di Claudio Monteverdi, una delle prime grandi opere della storia della musica.",
     insight: "Monteverdi unisce parola, scena e suono con una forza espressiva nuova. L’opera diventa racconto teatrale in musica, non semplice accompagnamento del testo.",
     visual: {
-      src: "../../../../assets/barocco-orfeo-originale.png?v=20260514b",
-      alt: "Illustrazione verticale di un giovane musicista con lira, architetture classiche e figure in ombra sullo sfondo.",
-      position: "center top",
-      shiftY: "-35%",
-      scale: 1.36,
-      origin: "center top"
+      src: "../../../../assets/barocco-orfeo-16x9-originale.png?v=20260516a",
+      alt: "Orfeo con la lira in primo piano, illuminato da una luce dorata, con figure in ombra e architetture sullo sfondo.",
+      position: "38% 48%",
+      scale: 1.22,
+      origin: "center center",
+      copySide: "left"
     }
   },
   {
