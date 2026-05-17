@@ -110,14 +110,12 @@
   grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
   gap: 0.58rem;
-  border: 1px solid rgba(140, 112, 84, 0.18);
+  border: 1px solid rgba(17, 17, 17, 0.12);
   border-radius: 1.18rem;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.985), rgba(248, 243, 236, 0.98));
-  box-shadow:
-    0 0.8rem 2rem rgba(17, 17, 17, 0.055),
-    inset 0 1px 0 rgba(255, 255, 255, 0.82);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 0.75rem 1.9rem rgba(17, 17, 17, 0.045);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   color: var(--lesson-text);
   font: inherit;
   line-height: 1.08;
@@ -166,10 +164,10 @@
   place-items: center;
   width: 1.82rem;
   height: 1.82rem;
-  border: 1px solid rgba(177, 76, 62, 0.18);
+  border: 1px solid rgba(17, 17, 17, 0.08);
   border-radius: 0.72rem;
-  background: rgba(255, 255, 255, 0.82);
-  color: #9d463a;
+  background: rgba(245, 244, 239, 0.92);
+  color: #c14f40;
   font-size: 0.64rem;
   font-weight: 840;
   letter-spacing: 0.06em;
@@ -188,102 +186,60 @@
 .barocco-musical-globe__hotspot:hover,
 .barocco-musical-globe__hotspot:focus-visible,
 .barocco-musical-globe__hotspot.is-active {
-  border-color: rgba(177, 76, 62, 0.48);
-  background: linear-gradient(180deg, rgba(255, 255, 255, 1), rgba(250, 246, 241, 0.99));
-  box-shadow:
-    0 0.95rem 2.1rem rgba(17, 17, 17, 0.07),
-    inset 0 1px 0 rgba(255, 255, 255, 0.92);
+  border-color: rgba(17, 17, 17, 0.22);
+  background: rgba(255, 255, 255, 1);
+  box-shadow: 0 0.75rem 1.9rem rgba(17, 17, 17, 0.06);
   outline: none;
 }
 
 .barocco-musical-globe__hotspot.is-active {
   box-shadow:
-    0 1rem 2.25rem rgba(17, 17, 17, 0.08),
-    0 0 0 1px rgba(177, 76, 62, 0.12),
-    0 0 0 0.42rem rgba(220, 155, 76, 0.12),
-    0 0 2rem rgba(220, 155, 76, 0.34),
-    inset 0 1px 0 rgba(255, 255, 255, 0.94);
-  animation: barocco-globe-active-pulse 1800ms ease-in-out infinite;
+    0 1.5rem 3.7rem rgba(17, 17, 17, 0.13),
+    0 0 0 1px rgba(17, 17, 17, 0.06);
 }
 
 .barocco-musical-globe__hotspot.is-visited {
-  border-color: rgba(172, 112, 45, 0.24);
-  background: linear-gradient(180deg, rgba(255, 252, 245, 0.92), rgba(247, 235, 215, 0.84));
-  box-shadow:
-    0 0.55rem 1.25rem rgba(126, 84, 36, 0.07),
-    0 0 0 0.18rem rgba(220, 155, 76, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.82);
-  color: rgba(17, 17, 17, 0.62);
+  border-color: rgba(17, 17, 17, 0.16);
+  background: rgba(255, 255, 255, 0.96);
+  box-shadow: 0 0.75rem 1.9rem rgba(17, 17, 17, 0.055);
+  color: rgba(17, 17, 17, 0.68);
   cursor: pointer;
-  opacity: 0.62 !important;
-  filter: none;
+  opacity: 0.72 !important;
 }
 
 .barocco-musical-globe__hotspot.is-visited .barocco-musical-globe__hotspot-index {
-  border-color: rgba(172, 112, 45, 0.18);
-  background: rgba(255, 244, 220, 0.74);
-  color: #8f3c31;
+  border-color: rgba(17, 17, 17, 0.08);
+  background: rgba(245, 244, 239, 0.92);
+  color: #c14f40;
 }
 
 .barocco-musical-globe__hotspot.is-visited .barocco-musical-globe__hotspot-copy strong {
-  color: rgba(17, 17, 17, 0.64);
+  color: rgba(17, 17, 17, 0.68);
 }
 
 .barocco-musical-globe__hotspot.is-next {
-  border-color: rgba(205, 143, 54, 0.32);
-  background: linear-gradient(180deg, rgba(255, 253, 247, 0.98), rgba(251, 240, 221, 0.94));
-  box-shadow:
-    0 0.72rem 1.6rem rgba(126, 84, 36, 0.08),
-    0 0 0 0.25rem rgba(220, 155, 76, 0.08),
-    0 0 1.25rem rgba(220, 155, 76, 0.22),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
-  color: rgba(17, 17, 17, 0.78);
+  border-color: rgba(193, 79, 64, 0.34);
+  background: rgba(255, 255, 255, 0.99);
+  box-shadow: 0 0.9rem 2rem rgba(17, 17, 17, 0.07);
+  color: rgba(17, 17, 17, 0.8);
   cursor: pointer;
-  opacity: 0.78 !important;
-  filter: none;
-  animation: barocco-globe-next-pulse 2200ms ease-in-out infinite;
+  opacity: 0.84 !important;
 }
 
 .barocco-musical-globe__hotspot.is-next .barocco-musical-globe__hotspot-index {
-  border-color: rgba(201, 138, 45, 0.28);
-  background: rgba(255, 244, 220, 0.96);
-  color: #8f3c31;
-  box-shadow: 0 0 0.9rem rgba(220, 155, 76, 0.22);
+  border-color: rgba(193, 79, 64, 0.2);
+  background: rgba(255, 247, 242, 0.98);
+  color: #c14f40;
 }
 
 .barocco-musical-globe__hotspot.is-next .barocco-musical-globe__hotspot-copy strong {
-  color: rgba(17, 17, 17, 0.78);
+  color: rgba(17, 17, 17, 0.8);
 }
 
 .barocco-musical-globe__hotspot.is-active .barocco-musical-globe__hotspot-index {
-  border-color: rgba(201, 138, 45, 0.42);
-  background: linear-gradient(180deg, rgba(255, 247, 226, 1), rgba(255, 234, 186, 0.96));
-  color: #7f3b2e;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    0 0 1.35rem rgba(227, 169, 79, 0.32);
-}
-
-@keyframes barocco-globe-active-pulse {
-  0%,
-  100% {
-    filter: brightness(1);
-  }
-
-  50% {
-    filter: brightness(1.045);
-  }
-}
-
-@keyframes barocco-globe-next-pulse {
-  0%,
-  100% {
-    filter: brightness(1);
-  }
-
-  50% {
-    filter: brightness(1.055);
-  }
+  border-color: rgba(193, 79, 64, 0.24);
+  background: rgba(255, 247, 242, 0.98);
+  color: #c14f40;
 }
 
 .barocco-musical-globe__hotspot.is-back {
@@ -386,7 +342,7 @@
 
 .barocco-musical-globe__chip:hover,
 .barocco-musical-globe__chip:focus-visible {
-  border-color: rgba(177, 76, 62, 0.42);
+  border-color: rgba(17, 17, 17, 0.22);
   background: rgba(255, 255, 255, 0.98);
   box-shadow: none;
   outline: none;
@@ -395,15 +351,18 @@
 .barocco-musical-globe__chip.is-active {
   min-width: 0;
   padding-inline: 0.42rem 0.88rem;
-  border-color: rgba(177, 76, 62, 0.34);
-  background: rgba(255, 255, 255, 0.98);
-  color: #8f3c31;
-  box-shadow: none;
+  border-color: rgba(17, 17, 17, 0.2);
+  background: rgba(255, 255, 255, 1);
+  color: var(--lesson-text);
+  box-shadow:
+    0 0.62rem 1.4rem rgba(17, 17, 17, 0.06),
+    0 0 0 1px rgba(17, 17, 17, 0.04);
 }
 
 .barocco-musical-globe__chip.is-active .barocco-musical-globe__chip-number {
-  border-color: rgba(177, 76, 62, 0.22);
+  border-color: rgba(193, 79, 64, 0.2);
   background: rgba(255, 247, 242, 0.98);
+  color: #c14f40;
 }
 
 .barocco-musical-globe__chip.is-active .barocco-musical-globe__chip-text {
@@ -420,33 +379,31 @@
 }
 
 .barocco-musical-globe__chip.is-visited {
-  border-color: rgba(172, 112, 45, 0.16);
-  background: rgba(255, 250, 239, 0.68);
-  color: #8f3c31;
+  border-color: rgba(17, 17, 17, 0.14);
+  background: rgba(255, 255, 255, 0.86);
+  color: rgba(17, 17, 17, 0.68);
   cursor: pointer;
-  opacity: 0.6;
-  filter: none;
+  opacity: 0.72;
 }
 
 .barocco-musical-globe__chip.is-visited .barocco-musical-globe__chip-number {
-  border-color: rgba(172, 112, 45, 0.14);
-  background: rgba(255, 244, 220, 0.68);
-  color: #8f3c31;
+  border-color: rgba(17, 17, 17, 0.08);
+  background: rgba(245, 244, 239, 0.92);
+  color: #c14f40;
 }
 
 .barocco-musical-globe__chip.is-next {
-  border-color: rgba(205, 143, 54, 0.22);
-  background: rgba(255, 250, 239, 0.86);
-  color: #8f3c31;
+  border-color: rgba(193, 79, 64, 0.24);
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--lesson-text);
   cursor: pointer;
-  opacity: 0.72;
-  filter: none;
+  opacity: 0.86;
 }
 
 .barocco-musical-globe__chip.is-next .barocco-musical-globe__chip-number {
-  border-color: rgba(205, 143, 54, 0.18);
-  background: rgba(255, 244, 220, 0.88);
-  color: #8f3c31;
+  border-color: rgba(193, 79, 64, 0.18);
+  background: rgba(255, 247, 242, 0.98);
+  color: #c14f40;
 }
 
 .barocco-musical-globe__popup-shell {
@@ -919,10 +876,9 @@
     place-items: center;
     gap: 0;
     border-radius: 999px;
+    border-color: rgba(17, 17, 17, 0.12);
     background: rgba(255, 255, 255, 0.98);
-    box-shadow:
-      0 0 0 0.18rem rgba(177, 76, 62, 0.1),
-      0 0.3rem 0.8rem rgba(17, 17, 17, 0.05);
+    box-shadow: 0 0.3rem 0.8rem rgba(17, 17, 17, 0.05);
   }
 
   .barocco-musical-globe__hotspot:not(.is-active)::after,
