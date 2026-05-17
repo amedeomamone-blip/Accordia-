@@ -19,7 +19,13 @@ const musicalOrbit = {
       longitude: -20,
       copy: "Nel Barocco la musica profana diventa uno strumento di rappresentanza. Nelle corti europee accompagna feste, cerimonie, banchetti e spettacoli organizzati per mostrare ricchezza, ordine e grandezza. Principi e nobili sostengono musicisti, cantanti e compositori perché la musica contribuisce a rafforzare la loro immagine pubblica: più una corte appare raffinata e spettacolare, maggiore è il prestigio di chi la governa. La musica, quindi, non serve soltanto a intrattenere, ma anche a celebrare il potere.",
       insight: "Feste, cerimonie e spettacoli trasformano il suono in immagine pubblica del potere.",
-      keyIdea: "La musica profana partecipa alla costruzione del prestigio di corte."
+      keyIdea: "La musica profana partecipa alla costruzione del prestigio di corte.",
+      hasPopup: true,
+      popupCopy: [
+        "Nel Barocco la musica profana diventa uno strumento di rappresentanza. Nelle corti europee accompagna feste, cerimonie, banchetti e spettacoli organizzati per mostrare ricchezza, ordine e grandezza.",
+        "Principi e nobili sostengono musicisti, cantanti e compositori perché la musica contribuisce a rafforzare la loro immagine pubblica: più una corte appare raffinata e spettacolare, maggiore è il prestigio di chi la governa.",
+        "La musica, quindi, non serve soltanto a intrattenere, ma anche a celebrare il potere."
+      ]
     },
     {
       id: "coinvolgimento-fedeli",
@@ -459,9 +465,54 @@ function KeywordChip({ keyword, isActive, onSelect }) {
   );
 }
 
+function KeywordPopup({ keyword, onClose }) {
+  return h(
+    "div",
+    { className: "barocco-musical-globe__popup-shell", onClick: onClose },
+    h(
+      "article",
+      {
+        className: "barocco-musical-globe__popup",
+        role: "dialog",
+        "aria-modal": "true",
+        "aria-labelledby": "barocco-musical-globe-popup-title",
+        onClick: (event) => event.stopPropagation()
+      },
+      h(
+        "button",
+        {
+          type: "button",
+          className: "barocco-musical-globe__popup-close",
+          onClick: onClose,
+          "aria-label": "Chiudi approfondimento"
+        },
+        "×"
+      ),
+      h("div", { className: "barocco-musical-globe__popup-glow", "aria-hidden": "true" }),
+      h("div", { className: "barocco-musical-globe__popup-lines", "aria-hidden": "true" },
+        h("span"),
+        h("span")
+      ),
+      h(
+        "div",
+        { className: "barocco-musical-globe__popup-content" },
+        h("p", { className: "barocco-musical-globe__popup-number" }, String(keyword.sequence).padStart(2, "0")),
+        h("h3", { id: "barocco-musical-globe-popup-title" }, keyword.title),
+        h("p", { className: "barocco-musical-globe__popup-subtitle" }, keyword.subtitle),
+        h(
+          "div",
+          { className: "barocco-musical-globe__popup-copy" },
+          keyword.popupCopy.map((paragraph, index) => h("p", { key: index }, paragraph))
+        )
+      )
+    )
+  );
+}
+
 export default function BaroccoCoordinateSphereMusicale() {
   const initialKeyword = musicalOrbit.keywords[0];
   const [activeKeywordId, setActiveKeywordId] = React.useState(initialKeyword.id);
+  const [isPopupOpen, setIsPopupOpen] = React.useState(false);
   const [hotspots, setHotspots] = React.useState([]);
   const [isDragging, setIsDragging] = React.useState(false);
   const frameRef = React.useRef(null);
@@ -474,6 +525,7 @@ export default function BaroccoCoordinateSphereMusicale() {
   const timeRef = React.useRef(0);
   const animationRef = React.useRef(null);
   const activeKeyword = musicalOrbit.keywords.find((keyword) => keyword.id === activeKeywordId) || initialKeyword;
+  const popupKeyword = isPopupOpen && activeKeyword.hasPopup ? activeKeyword : null;
 
   React.useEffect(() => {
     const frame = frameRef.current;
@@ -568,6 +620,25 @@ export default function BaroccoCoordinateSphereMusicale() {
     setIsDragging(false);
   }, []);
 
+  const selectKeyword = React.useCallback((keywordId) => {
+    const selectedKeyword = musicalOrbit.keywords.find((keyword) => keyword.id === keywordId);
+    setActiveKeywordId(keywordId);
+    setIsPopupOpen(Boolean(selectedKeyword?.hasPopup));
+  }, []);
+
+  const closePopup = React.useCallback(() => {
+    setIsPopupOpen(false);
+  }, []);
+
+  React.useEffect(() => {
+    if (!isPopupOpen) return undefined;
+    const onKeyDown = (event) => {
+      if (event.key === "Escape") setIsPopupOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [isPopupOpen]);
+
   return h(
     "section",
     { className: "barocco-musical-globe", "aria-label": "Globo musicale del Barocco" },
@@ -598,7 +669,7 @@ export default function BaroccoCoordinateSphereMusicale() {
             key: item.id,
             item,
             isActive: item.id === activeKeywordId,
-            onSelect: setActiveKeywordId
+            onSelect: selectKeyword
           }))
         )
       )
@@ -614,58 +685,9 @@ export default function BaroccoCoordinateSphereMusicale() {
         key: keyword.id,
         keyword,
         isActive: keyword.id === activeKeywordId,
-        onSelect: setActiveKeywordId
+        onSelect: selectKeyword
       }))
     ),
-    h(
-      "article",
-      { className: "barocco-musical-globe__detail", "aria-live": "polite" },
-      h(
-        "div",
-        { className: "barocco-musical-globe__detail-frame" },
-        h("div", { className: "barocco-musical-globe__detail-aurora", "aria-hidden": "true" }),
-        h("div", { className: "barocco-musical-globe__detail-orbits", "aria-hidden": "true" },
-          h("span"),
-          h("span"),
-          h("span")
-        ),
-        h(
-          "div",
-          { className: "barocco-musical-globe__detail-grid" },
-          h(
-            "div",
-            { className: "barocco-musical-globe__detail-hero-copy" },
-            h(
-              "p",
-              { className: "barocco-musical-globe__detail-kicker" },
-              activeKeyword.kicker
-            ),
-            h("h3", null, activeKeyword.title),
-            h("p", { className: "barocco-musical-globe__detail-subtitle" }, activeKeyword.subtitle),
-            h(
-              "section",
-              { className: "barocco-musical-globe__detail-overlay" },
-              h("p", null, activeKeyword.copy)
-            )
-          ),
-          h(
-            "div",
-            { className: "barocco-musical-globe__detail-side" },
-            h(
-              "section",
-              { className: "barocco-musical-globe__detail-note" },
-              h("strong", null, activeKeyword.kicker),
-              h("p", null, activeKeyword.insight)
-            ),
-            h(
-              "section",
-              { className: "barocco-musical-globe__detail-note" },
-              h("strong", null, "Idea chiave"),
-              h("p", null, activeKeyword.keyIdea)
-            )
-          )
-        )
-      )
-    )
+    popupKeyword ? h(KeywordPopup, { keyword: popupKeyword, onClose: closePopup }) : null
   );
 }
