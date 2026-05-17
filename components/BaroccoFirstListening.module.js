@@ -143,14 +143,12 @@ function BaroccoFirstListening() {
     h(
       "div",
       { className: "barocco-listening__head" },
-      h("h2", { id: "barocco-listening-title" }, "Primo ascolto"),
+      h("h2", { id: "barocco-listening-title" }, "Les Sauvages · Jean-Philippe Rameau"),
+      h("p", { className: "barocco-listening__subtitle" }, "Primo ascolto"),
       h(
         "p",
         { className: "barocco-listening__intro" },
-        h("strong", null, "Les Sauvages"),
-        " di ",
-        h("strong", null, "Jean-Philippe Rameau"),
-        " è un brano breve, energico e costruito su un ritmo molto riconoscibile. Rappresenta bene il Barocco perché mette in evidenza movimento, ripetizione, contrasto e teatralità, trasformando poche idee musicali in una scena sonora vivace e ordinata."
+        "È un brano breve, energico e costruito su un ritmo molto riconoscibile. Rappresenta bene il Barocco perché mette in evidenza movimento, ripetizione, contrasto e teatralità, trasformando poche idee musicali in una scena sonora vivace e ordinata."
       )
     ),
     h(
