@@ -50,25 +50,21 @@
 }
 
 .barocco-musical-globe__title {
-  margin: 0;
+  margin: 0 0 0.55rem;
   color: var(--lesson-text);
   font-size: clamp(1.7rem, 3vw, 2.45rem);
   font-weight: 760;
-  line-height: 0.98;
-  letter-spacing: -0.055em;
+  line-height: 1;
+  letter-spacing: 0;
 }
 
 .barocco-musical-globe__eyebrow {
-  margin: 0.7rem 0 0;
-  max-width: none;
-  color: var(--lesson-muted);
-  font-size: 1rem;
-  font-style: italic;
-  font-weight: 620;
-  line-height: 1.58;
-  letter-spacing: 0;
-  text-transform: none;
-  text-wrap: pretty;
+  margin: 0 0 0.95rem;
+  color: var(--lesson-soft);
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
 }
 
 .barocco-musical-globe__stage {
@@ -181,11 +177,10 @@
 .barocco-musical-globe__hotspot-copy strong {
   display: block;
   color: rgba(17, 17, 17, 0.86);
-  font-size: 0.88rem;
-  font-weight: 620;
+  font-size: 0.95rem;
+  font-weight: 780;
   letter-spacing: 0;
-  line-height: 1.35;
-  text-wrap: pretty;
+  text-wrap: balance;
 }
 
 .barocco-musical-globe__hotspot:hover,
@@ -264,4 +259,1010 @@
 .barocco-musical-globe.is-popup-open .barocco-musical-globe__keyword-list {
   opacity: 0;
   pointer-events: none;
+  transform: translateY(0.35rem) scale(0.98);
+}
+
+.barocco-musical-globe__keyword-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+  align-items: center;
+  justify-content: center;
+  width: min(100%, 58rem);
+  margin: 0 auto;
+  padding: 0.58rem 0.68rem;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: 999px;
+  background: rgba(245, 244, 239, 0.72);
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
+}
+
+.barocco-musical-globe__chip {
+  appearance: none;
+  min-width: 2.34rem;
+  min-height: 2.34rem;
+  padding: 0.36rem 0.48rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.52rem;
+  border: 1px solid rgba(17, 17, 17, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--lesson-text);
+  font: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  line-height: 1.1;
+  cursor: pointer;
+  overflow: hidden;
+  transition:
+    border-color 220ms ease,
+    background-color 220ms ease,
+    color 220ms ease,
+    min-width 220ms ease,
+    padding 220ms ease,
+    box-shadow 220ms ease,
+    transform 220ms ease;
+}
+
+.barocco-musical-globe__chip-number {
+  display: grid;
+  place-items: center;
+  width: 1.46rem;
+  height: 1.46rem;
+  flex: 0 0 1.46rem;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: 999px;
+  background: rgba(245, 244, 239, 0.92);
+  color: #9d463a;
+  font-size: 0.64rem;
+  font-weight: 840;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+
+.barocco-musical-globe__chip-text {
+  display: block;
+  max-width: 0;
+  overflow: hidden;
+  color: inherit;
+  font-size: 0.84rem;
+  font-weight: 760;
+  letter-spacing: 0;
+  line-height: 1.1;
+  opacity: 0;
+  white-space: nowrap;
+  transition:
+    max-width 240ms ease,
+    opacity 180ms ease;
+}
+
+.barocco-musical-globe__chip:hover,
+.barocco-musical-globe__chip:focus-visible {
+  border-color: rgba(17, 17, 17, 0.22);
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow: none;
+  outline: none;
+}
+
+.barocco-musical-globe__chip.is-active {
+  min-width: 0;
+  padding-inline: 0.42rem 0.88rem;
+  border-color: rgba(17, 17, 17, 0.2);
+  background: rgba(255, 255, 255, 1);
+  color: var(--lesson-text);
+  box-shadow:
+    0 0.62rem 1.4rem rgba(17, 17, 17, 0.06),
+    0 0 0 1px rgba(17, 17, 17, 0.04);
+}
+
+.barocco-musical-globe__chip.is-active .barocco-musical-globe__chip-number {
+  border-color: rgba(193, 79, 64, 0.2);
+  background: rgba(255, 247, 242, 0.98);
+  color: #c14f40;
+}
+
+.barocco-musical-globe__chip.is-active .barocco-musical-globe__chip-text {
+  max-width: 15rem;
+  opacity: 1;
+}
+
+.barocco-musical-globe__chip:hover .barocco-musical-globe__chip-text,
+.barocco-musical-globe__chip:focus-visible .barocco-musical-globe__chip-text,
+.barocco-musical-globe__chip.is-next .barocco-musical-globe__chip-text,
+.barocco-musical-globe__chip.is-visited .barocco-musical-globe__chip-text {
+  max-width: 15rem;
+  opacity: 1;
+}
+
+.barocco-musical-globe__chip.is-visited {
+  border-color: rgba(17, 17, 17, 0.14);
+  background: rgba(255, 255, 255, 0.86);
+  color: rgba(17, 17, 17, 0.68);
+  cursor: pointer;
+  opacity: 0.72;
+}
+
+.barocco-musical-globe__chip.is-visited .barocco-musical-globe__chip-number {
+  border-color: rgba(17, 17, 17, 0.08);
+  background: rgba(245, 244, 239, 0.92);
+  color: #c14f40;
+}
+
+.barocco-musical-globe__chip.is-next {
+  border-color: rgba(193, 79, 64, 0.24);
+  background: rgba(255, 255, 255, 0.96);
+  color: var(--lesson-text);
+  cursor: pointer;
+  opacity: 0.86;
+}
+
+.barocco-musical-globe__chip.is-next .barocco-musical-globe__chip-number {
+  border-color: rgba(193, 79, 64, 0.18);
+  background: rgba(255, 247, 242, 0.98);
+  color: #c14f40;
+}
+
+.barocco-musical-globe__popup-shell {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  box-sizing: border-box;
+  padding: clamp(1rem, 3vw, 2.4rem);
+  display: grid;
+  place-items: center;
+  background:
+    radial-gradient(circle at 50% 48%, rgba(245, 222, 181, 0.26) 0%, rgba(245, 222, 181, 0) 42%),
+    rgba(18, 14, 11, 0.44);
+  backdrop-filter: blur(16px) saturate(1.08);
+  -webkit-backdrop-filter: blur(16px) saturate(1.08);
+  animation: barocco-popup-shell-in 260ms ease both;
+}
+
+.barocco-musical-globe__popup {
+  position: relative;
+  width: min(100%, 76rem);
+  min-height: min(82vh, 44rem);
+  max-height: calc(100vh - clamp(2rem, 6vw, 4.8rem));
+  box-sizing: border-box;
+  overflow: hidden;
+  display: grid;
+  align-items: stretch;
+  border: 1px solid rgba(255, 255, 255, 0.36);
+  border-radius: clamp(1.1rem, 2vw, 1.65rem);
+  background-image:
+    linear-gradient(90deg, rgba(255, 251, 241, 0.92) 0%, rgba(255, 251, 241, 0.72) 36%, rgba(255, 251, 241, 0.18) 58%, rgba(255, 251, 241, 0.02) 100%),
+    linear-gradient(180deg, rgba(37, 27, 18, 0.04), rgba(37, 27, 18, 0.1)),
+    var(--barocco-popup-image, url("../assets/barocco-celebrazione-potere-popup.png"));
+  background-position: center;
+  background-size: cover;
+  box-shadow:
+    0 1.8rem 5rem rgba(18, 12, 8, 0.28),
+    0 0 0 1px rgba(205, 157, 92, 0.16),
+    inset 0 1px 0 rgba(255, 255, 255, 0.52);
+  animation: barocco-popup-in 360ms cubic-bezier(0.2, 0.9, 0.24, 1) both;
+}
+
+.barocco-musical-globe__popup::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 16% 22%, rgba(255, 255, 255, 0.36), rgba(255, 255, 255, 0) 24%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(43, 30, 18, 0.1));
+  mix-blend-mode: soft-light;
+}
+
+.barocco-musical-globe__popup-close {
+  position: absolute;
+  top: 0.72rem;
+  right: 0.72rem;
+  z-index: 4;
+  width: 2rem;
+  height: 2rem;
+  display: grid;
+  place-items: center;
+  appearance: none;
+  border: 1px solid rgba(72, 52, 34, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(36, 27, 20, 0.28);
+  font: inherit;
+  font-size: 1.22rem;
+  font-weight: 420;
+  line-height: 1;
+  cursor: pointer;
+  opacity: 0.34;
+  transition:
+    opacity 180ms ease,
+    background-color 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.barocco-musical-globe__popup-close:hover,
+.barocco-musical-globe__popup-close:focus-visible {
+  background: rgba(255, 255, 255, 0.46);
+  color: rgba(36, 27, 20, 0.72);
+  opacity: 1;
+  outline: none;
+  transform: scale(1.04);
+}
+
+.barocco-musical-globe__popup-glow {
+  position: absolute;
+  left: 6%;
+  top: 7%;
+  width: 38%;
+  aspect-ratio: 1;
+  pointer-events: none;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(236, 181, 95, 0.38), rgba(236, 181, 95, 0) 62%);
+  filter: blur(6px);
+  animation: barocco-popup-glow 4.8s ease-in-out infinite;
+}
+
+.barocco-musical-globe__popup-lines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.barocco-musical-globe__popup-lines span {
+  position: absolute;
+  display: block;
+  width: 28rem;
+  aspect-ratio: 1;
+  border: 1px solid rgba(189, 129, 48, 0.28);
+  border-radius: 50%;
+  opacity: 0.58;
+}
+
+.barocco-musical-globe__popup-lines span:nth-child(1) {
+  left: -8rem;
+  top: -8rem;
+}
+
+.barocco-musical-globe__popup-lines span:nth-child(2) {
+  right: -9rem;
+  bottom: -10rem;
+}
+
+.barocco-musical-globe__popup-content {
+  position: relative;
+  z-index: 2;
+  width: min(43%, 34rem);
+  min-width: 24rem;
+  box-sizing: border-box;
+  margin: clamp(3rem, 5vw, 4.8rem) 0 clamp(1.25rem, 3vw, 2.2rem) clamp(1.35rem, 4vw, 3rem);
+  padding: clamp(1.05rem, 2.2vw, 1.55rem);
+  align-self: center;
+  display: grid;
+  gap: 0.72rem;
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  border-radius: 1.08rem;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0.17)),
+    rgba(255, 252, 244, 0.3);
+  box-shadow:
+    0 1rem 2.8rem rgba(66, 43, 21, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.74),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(24px) saturate(1.32);
+  -webkit-backdrop-filter: blur(24px) saturate(1.32);
+}
+
+.barocco-musical-globe__popup h3 {
+  margin: 0;
+  max-width: 10ch;
+  color: #17120f;
+  font-size: clamp(2rem, 4vw, 4.15rem);
+  font-weight: 800;
+  line-height: 0.95;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.barocco-musical-globe__popup-subtitle {
+  margin: 0;
+  color: #914235;
+  font-size: clamp(0.82rem, 1.2vw, 1rem);
+  font-weight: 820;
+  letter-spacing: 0.12em;
+  line-height: 1.25;
+  text-transform: uppercase;
+}
+
+.barocco-musical-globe__popup-copy {
+  display: grid;
+  gap: 0.68rem;
+}
+
+.barocco-musical-globe__popup-copy p {
+  margin: 0;
+  color: rgba(24, 18, 14, 0.88);
+  font-size: clamp(0.96rem, 1.25vw, 1.08rem);
+  font-weight: 560;
+  line-height: 1.58;
+}
+
+@keyframes barocco-popup-shell-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes barocco-popup-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem) scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes barocco-popup-glow {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+    opacity: 0.68;
+  }
+
+  50% {
+    transform: translate3d(1.2rem, 0.7rem, 0) scale(1.08);
+    opacity: 0.94;
+  }
+}
+
+.barocco-musical-globe__detail {
+  padding: 0;
+  overflow: hidden;
+  border-color: rgba(17, 17, 17, 0.08);
+  background: #efe6d8;
+}
+
+.barocco-musical-globe__detail-frame {
+  position: relative;
+  min-height: 0;
+  aspect-ratio: var(--barocco-uniform-ratio);
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(255, 218, 183, 0.92) 0%, rgba(255, 218, 183, 0) 28%),
+    radial-gradient(circle at 84% 18%, rgba(201, 92, 71, 0.24) 0%, rgba(201, 92, 71, 0) 24%),
+    linear-gradient(135deg, #241a16 0%, #5a4030 48%, #9b7650 100%);
+}
+
+.barocco-musical-globe__detail-aurora,
+.barocco-musical-globe__detail-orbits,
+.barocco-musical-globe__detail-grid {
+  position: absolute;
+  inset: 0;
+}
+
+.barocco-musical-globe__detail-aurora {
+  background:
+    linear-gradient(135deg, rgba(19, 14, 13, 0.08), rgba(19, 14, 13, 0.18)),
+    radial-gradient(circle at 74% 76%, rgba(255, 243, 222, 0.15) 0%, rgba(255, 243, 222, 0) 32%);
+}
+
+.barocco-musical-globe__detail-orbits span {
+  position: absolute;
+  display: block;
+  border: 1px solid rgba(255, 233, 214, 0.16);
+  border-radius: 50%;
+}
+
+.barocco-musical-globe__detail-orbits span:nth-child(1) {
+  top: -16%;
+  left: 56%;
+  width: 20rem;
+  aspect-ratio: 1;
+}
+
+.barocco-musical-globe__detail-orbits span:nth-child(2) {
+  right: -5%;
+  bottom: -22%;
+  width: 18rem;
+  aspect-ratio: 1;
+}
+
+.barocco-musical-globe__detail-orbits span:nth-child(3) {
+  top: 36%;
+  left: -7%;
+  width: 12rem;
+  aspect-ratio: 1;
+}
+
+.barocco-musical-globe__detail-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.18fr) minmax(18rem, 0.82fr);
+  gap: 1rem;
+  align-items: stretch;
+  padding: clamp(1.1rem, 2.2vw, 1.5rem);
+  z-index: 1;
+}
+
+.barocco-musical-globe__detail-hero-copy {
+  width: min(100%, 35rem);
+  display: grid;
+  align-content: start;
+  gap: 0.72rem;
+  color: #fff9f1;
+}
+
+.barocco-musical-globe__detail-kicker {
+  width: fit-content;
+  margin: 0;
+  color: #f0b4a6;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-shadow: none;
+  text-transform: uppercase;
+}
+
+.barocco-musical-globe__detail h3 {
+  margin: 0;
+  max-width: 9ch;
+  color: #fffdf8;
+  font-size: clamp(2.35rem, 4vw, 3.9rem);
+  font-weight: 790;
+  line-height: 0.9;
+  letter-spacing: 0;
+  text-shadow: 0 0.18rem 1.3rem rgba(17, 12, 10, 0.22);
+  text-wrap: balance;
+}
+
+.barocco-musical-globe__detail-subtitle {
+  margin: 0;
+  color: #fffaf4;
+  font-size: 0.96rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1.35;
+  text-shadow: 0 0.18rem 0.9rem rgba(10, 7, 6, 0.24);
+  text-transform: uppercase;
+}
+
+.barocco-musical-globe__detail-overlay {
+  width: min(100%, 21rem);
+  margin-top: 0.18rem;
+  padding: 1.02rem 1rem 1.08rem;
+  border: 1px solid rgba(255, 244, 232, 0.14);
+  border-radius: 1rem;
+  background: linear-gradient(180deg, rgba(70, 50, 37, 0.16), rgba(28, 24, 23, 0.2));
+  box-shadow: 0 0.95rem 2rem rgba(25, 17, 12, 0.11);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.barocco-musical-globe__detail-overlay p {
+  margin: 0;
+  color: rgba(255, 248, 241, 0.92);
+  font-size: clamp(1rem, 1.5vw, 1.12rem);
+  font-weight: 560;
+  line-height: 1.6;
+}
+
+.barocco-musical-globe__detail-side {
+  display: grid;
+  gap: 0.9rem;
+  align-content: end;
+}
+
+.barocco-musical-globe__detail-note {
+  padding: 1rem 1rem 1.08rem;
+  display: grid;
+  gap: 0.55rem;
+  border: 1px solid rgba(255, 244, 232, 0.14);
+  border-radius: 1rem;
+  background: linear-gradient(180deg, rgba(255, 253, 249, 0.16), rgba(255, 246, 239, 0.11));
+  box-shadow: 0 0.9rem 2rem rgba(18, 12, 10, 0.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.barocco-musical-globe__detail-note strong {
+  display: inline-block;
+  width: fit-content;
+  color: #fffdf8;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.barocco-musical-globe__detail-note p {
+  margin: 0;
+  color: rgba(255, 248, 241, 0.92);
+  font-size: 0.98rem;
+  font-weight: 580;
+  line-height: 1.58;
+}
+
+@media (max-width: 1180px) {
+  .barocco-musical-globe {
+    --barocco-section-gutter: 0.9rem;
+  }
+
+  .barocco-musical-globe__stage {
+    min-height: 0;
+  }
+
+  .barocco-musical-globe__detail-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .barocco-musical-globe__detail-hero-copy,
+  .barocco-musical-globe__detail-overlay {
+    width: 100%;
+  }
+
+  .barocco-musical-globe__detail-side {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-content: start;
+  }
+}
+
+@media (max-width: 680px) {
+  .barocco-musical-globe {
+    --barocco-section-gutter: 0.7rem;
+    gap: 0.82rem;
+  }
+
+  .barocco-musical-globe__header {
+    padding: 0 0 0.82rem;
+    border-radius: 0;
+  }
+
+  .barocco-musical-globe__stage-card {
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .barocco-musical-globe__detail {
+    border-radius: 1.15rem;
+  }
+
+  .barocco-musical-globe__title {
+    margin-bottom: 0.44rem;
+    font-size: clamp(1.45rem, 7vw, 2rem);
+  }
+
+  .barocco-musical-globe__eyebrow {
+    margin-bottom: 0.72rem;
+    font-size: 0.64rem;
+    letter-spacing: 0.18em;
+  }
+
+  .barocco-musical-globe__stage {
+    min-height: 0;
+    aspect-ratio: var(--barocco-uniform-ratio);
+    border-radius: 1.15rem;
+  }
+
+  .barocco-musical-globe__hotspot {
+    min-height: 2.22rem;
+    max-width: 9.4rem;
+    padding: 0.38rem 0.56rem 0.38rem 0.42rem;
+    gap: 0.38rem;
+    border-radius: 0.92rem;
+    box-shadow:
+      0 0.45rem 1.2rem rgba(17, 17, 17, 0.05),
+      inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  }
+
+  .barocco-musical-globe__hotspot:not(.is-active) {
+    width: 1.92rem;
+    min-width: 1.92rem;
+    max-width: none;
+    min-height: 1.92rem;
+    height: 1.92rem;
+    padding: 0;
+    grid-template-columns: 1fr;
+    place-items: center;
+    gap: 0;
+    border-radius: 999px;
+    border-color: rgba(17, 17, 17, 0.12);
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 0.3rem 0.8rem rgba(17, 17, 17, 0.05);
+  }
+
+  .barocco-musical-globe__hotspot:not(.is-active)::after,
+  .barocco-musical-globe__hotspot:not(.is-active) .barocco-musical-globe__hotspot-copy {
+    display: none;
+  }
+
+  .barocco-musical-globe__hotspot-index {
+    width: 1.42rem;
+    height: 1.42rem;
+    border-radius: 999px;
+    font-size: 0.52rem;
+  }
+
+  .barocco-musical-globe__hotspot.is-active {
+    max-width: 9.8rem;
+    min-height: 2.26rem;
+    padding: 0.42rem 0.58rem 0.42rem 0.42rem;
+  }
+
+  .barocco-musical-globe__hotspot.is-active .barocco-musical-globe__hotspot-copy strong {
+    font-size: 0.7rem;
+  }
+
+  .barocco-musical-globe__keyword-list {
+    flex-wrap: wrap;
+    overflow: visible;
+    align-items: center;
+    justify-content: center;
+    width: min(100%, 24rem);
+    padding: 0.46rem;
+    border-radius: 1.15rem;
+  }
+
+  .barocco-musical-globe__chip {
+    flex: 0 0 auto;
+    min-width: 2.08rem;
+    min-height: 2.08rem;
+    padding: 0.28rem 0.34rem;
+    font-size: 0.82rem;
+  }
+
+  .barocco-musical-globe__chip-number {
+    width: 1.34rem;
+    height: 1.34rem;
+    flex-basis: 1.34rem;
+    font-size: 0.56rem;
+  }
+
+  .barocco-musical-globe__chip.is-active {
+    padding-inline: 0.34rem 0.68rem;
+  }
+
+  .barocco-musical-globe__chip-text {
+    font-size: 0.78rem;
+  }
+
+  .barocco-musical-globe__chip.is-active .barocco-musical-globe__chip-text {
+    max-width: min(13rem, 58vw);
+  }
+
+  .barocco-musical-globe__popup-shell {
+    padding: 0.74rem;
+    place-items: end center;
+  }
+
+  .barocco-musical-globe__popup {
+    width: 100%;
+    min-height: min(84vh, 42rem);
+    max-height: calc(100vh - 1.48rem);
+    overflow-y: auto;
+    border-radius: 1.15rem;
+    background-image:
+      linear-gradient(180deg, rgba(255, 251, 241, 0.92) 0%, rgba(255, 251, 241, 0.78) 48%, rgba(255, 251, 241, 0.22) 100%),
+      var(--barocco-popup-image, url("../assets/barocco-celebrazione-potere-popup.png"));
+    background-position: center top;
+  }
+
+  .barocco-musical-globe__popup-close {
+    top: 0.56rem;
+    right: 0.56rem;
+    width: 1.8rem;
+    height: 1.8rem;
+    font-size: 1.04rem;
+  }
+
+  .barocco-musical-globe__popup-content {
+    width: calc(100% - 1.4rem);
+    min-width: 0;
+    margin: 3.1rem 0.7rem 0.85rem;
+    padding: 0.98rem;
+    align-self: end;
+    gap: 0.58rem;
+    border-radius: 0.95rem;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2)),
+      rgba(255, 252, 244, 0.32);
+  }
+
+  .barocco-musical-globe__popup h3 {
+    max-width: 11ch;
+    font-size: clamp(1.78rem, 9vw, 2.7rem);
+  }
+
+  .barocco-musical-globe__popup-subtitle {
+    font-size: 0.72rem;
+  }
+
+  .barocco-musical-globe__popup-copy {
+    gap: 0.55rem;
+  }
+
+  .barocco-musical-globe__popup-copy p {
+    font-size: 0.9rem;
+    line-height: 1.48;
+  }
+
+  .barocco-musical-globe__detail-frame {
+    min-height: 0;
+  }
+
+  .barocco-musical-globe__detail-grid {
+    gap: 0.74rem;
+    padding: 0.88rem;
+  }
+
+  .barocco-musical-globe__detail-hero-copy {
+    gap: 0.48rem;
+  }
+
+  .barocco-musical-globe__detail h3 {
+    max-width: 11ch;
+    font-size: clamp(1.7rem, 8vw, 2.35rem);
+  }
+
+  .barocco-musical-globe__detail-subtitle {
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
+  }
+
+  .barocco-musical-globe__detail-overlay {
+    width: 100%;
+    padding: 0.78rem 0.82rem 0.84rem;
+    border-radius: 0.92rem;
+  }
+
+  .barocco-musical-globe__detail-side {
+    grid-template-columns: 1fr;
+    gap: 0.72rem;
+  }
+
+  .barocco-musical-globe__detail-note {
+    padding: 0.82rem;
+    gap: 0.46rem;
+    border-radius: 0.92rem;
+  }
+
+  .barocco-musical-globe__detail-overlay p,
+  .barocco-musical-globe__detail-note p {
+    font-size: 0.9rem;
+    line-height: 1.46;
+  }
+}
+
+.barocco-musical-globe__title,
+.barocco-musical-globe__hotspot-copy strong,
+.barocco-musical-globe__detail h3,
+.immersive-lesson-intro__title,
+.immersive-lesson-intro__subtitle,
+.barocco-timeline h2,
+.barocco-timeline h3,
+.barocco-timeline-card__title,
+.barocco-timeline-detail__hero-copy h3 {
+  letter-spacing: 0;
+}
+
+.immersive-lesson-intro {
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, system-ui, sans-serif;
+}
+
+.immersive-lesson-intro__title {
+  font-size: clamp(2.6rem, 5.6vw, 4.3rem);
+  line-height: 1;
+}
+
+.immersive-lesson-intro__subtitle {
+  font-size: clamp(1.06rem, 2vw, 1.36rem);
+  line-height: 1.32;
+}
+
+.immersive-lesson-intro__summary {
+  font-size: clamp(1.06rem, 1.55vw, 1.18rem);
+  font-weight: 570;
+  line-height: 1.72;
+}
+
+.barocco-timeline h2 {
+  font-size: clamp(1.9rem, 3vw, 2.7rem);
+  line-height: 1.04;
+}
+
+.barocco-timeline-card__title {
+  font-size: 1.12rem;
+  line-height: 1.18;
+}
+
+.barocco-timeline-card__subtitle {
+  font-size: 0.92rem;
+  line-height: 1.42;
+}
+
+.barocco-timeline-detail__hero-copy h3 {
+  line-height: 0.98;
+}
+
+.barocco-timeline-detail__copy--overlay p {
+  font-size: clamp(1.04rem, 1.55vw, 1.16rem);
+  line-height: 1.68;
+}
+
+.barocco-musical-globe__title {
+  font-size: clamp(1.9rem, 3vw, 2.7rem);
+  line-height: 1.04;
+}
+
+.barocco-musical-globe__hotspot-copy strong {
+  font-size: 1rem;
+  line-height: 1.16;
+}
+
+.barocco-musical-globe__detail h3 {
+  font-size: clamp(2.45rem, 4vw, 4rem);
+  line-height: 0.98;
+}
+
+.barocco-musical-globe__detail-overlay p {
+  font-size: clamp(1.04rem, 1.5vw, 1.16rem);
+  line-height: 1.68;
+}
+
+.barocco-musical-globe__detail-note p {
+  font-size: 1rem;
+  line-height: 1.64;
+}
+
+@media (min-width: 1181px) and (min-aspect-ratio: 16/10) and (max-height: 1200px) {
+  .barocco-musical-globe {
+    width: min(calc(100% - 1.1rem), 82rem);
+  }
+
+  .immersive-lesson-intro__title {
+    font-size: clamp(2.24rem, 3.4vw, 3.34rem);
+  }
+
+  .immersive-lesson-intro__subtitle {
+    font-size: clamp(1.04rem, 1.5vw, 1.18rem);
+  }
+
+  .immersive-lesson-intro__summary {
+    font-size: clamp(1rem, 1.35vw, 1.12rem);
+    line-height: 1.64;
+  }
+
+  .barocco-timeline h2 {
+    font-size: clamp(1.72rem, 2.4vw, 2.32rem);
+  }
+
+  .barocco-timeline-card__title {
+    font-size: 1.02rem;
+  }
+
+  .barocco-timeline-card__subtitle {
+    font-size: 0.83rem;
+    line-height: 1.34;
+  }
+
+  .barocco-timeline-detail__copy--overlay p {
+    font-size: 0.95rem;
+    line-height: 1.56;
+  }
+
+  .barocco-musical-globe__title {
+    font-size: clamp(1.72rem, 2.3vw, 2.32rem);
+  }
+
+  .barocco-musical-globe__hotspot-copy strong {
+    font-size: 0.88rem;
+  }
+
+  .barocco-musical-globe__detail h3 {
+    font-size: clamp(2.08rem, 3vw, 3.08rem);
+  }
+
+  .barocco-musical-globe__detail-overlay p,
+  .barocco-musical-globe__detail-note p {
+    font-size: 0.95rem;
+    line-height: 1.56;
+  }
+}
+
+@media (max-width: 680px) {
+  .immersive-lesson-intro__title {
+    font-size: clamp(2.08rem, 9.2vw, 2.9rem);
+    line-height: 1;
+  }
+
+  .immersive-lesson-intro__subtitle {
+    font-size: 1rem;
+    line-height: 1.34;
+  }
+
+  .immersive-lesson-intro__summary {
+    font-size: 1.03rem;
+    line-height: 1.66;
+  }
+
+  .barocco-timeline--mobile .barocco-timeline-card__title {
+    font-size: 0.82rem;
+  }
+
+  .barocco-timeline--mobile .barocco-timeline-card__subtitle {
+    font-size: 0.66rem;
+    line-height: 1.22;
+  }
+
+  .barocco-timeline-detail__copy--overlay p {
+    font-size: 0.68rem;
+    line-height: 1.3;
+  }
+
+  .barocco-musical-globe__title {
+    font-size: clamp(1.58rem, 7vw, 2.12rem);
+  }
+
+  .barocco-musical-globe__hotspot-copy strong,
+  .barocco-musical-globe__hotspot.is-active .barocco-musical-globe__hotspot-copy strong {
+    font-size: 0.76rem;
+    line-height: 1.1;
+  }
+
+  .barocco-musical-globe__detail h3 {
+    font-size: clamp(1.8rem, 8vw, 2.5rem);
+  }
+
+  .barocco-musical-globe__detail-overlay p,
+  .barocco-musical-globe__detail-note p {
+    font-size: 0.94rem;
+    line-height: 1.52;
+  }
+}
+
+@media (max-width: 420px) {
+  .immersive-lesson-intro__title {
+    font-size: clamp(1.98rem, 9.4vw, 2.48rem);
+  }
+
+  .immersive-lesson-intro__subtitle {
+    font-size: 0.96rem;
+  }
+
+  .barocco-timeline--mobile .barocco-timeline-card__title {
+    font-size: 0.76rem;
+  }
+
+  .barocco-timeline--mobile .barocco-timeline-card__subtitle {
+    font-size: 0.62rem;
+  }
+
+  .barocco-timeline-detail__copy--overlay p {
+    font-size: 0.64rem;
+    line-height: 1.26;
+  }
+
+  .barocco-musical-globe__hotspot-copy strong {
+    font-size: 0.66rem;
+  }
+
+  .barocco-musical-globe__detail h3 {
+    font-size: clamp(1rem, 4.8vw, 1.24rem);
+  }
+
+  .barocco-musical-globe__detail-overlay p,
+  .barocco-musical-globe__detail-note p {
+    font-size: 0.64rem;
+    line-height: 1.26;
+  }
 }
