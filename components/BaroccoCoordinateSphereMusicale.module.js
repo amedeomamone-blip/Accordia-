@@ -52,7 +52,11 @@ const musicalOrbit = {
       longitude: -20,
       copy: "Accanto alle sale di corte nascono spazi aperti a un pubblico più ampio. Il teatro musicale esce progressivamente dall’ambiente aristocratico e diventa un’esperienza condivisa.",
       insight: "Il teatro musicale incontra un pubblico più largo e cambia la sua funzione sociale.",
-      keyIdea: "Lo spettacolo non resta solo aristocratico: diventa esperienza pubblica."
+      keyIdea: "Lo spettacolo non resta solo aristocratico: diventa esperienza pubblica.",
+      popupImage: "../../../../assets/barocco-teatri-pubblici-popup.png",
+      popupCopy: [
+        "Accanto alle sale di corte nascono spazi aperti a un pubblico più ampio. Il teatro musicale esce progressivamente dall’ambiente di corte e diventa un’esperienza condivisa."
+      ]
     },
     {
       id: "oratori",
