@@ -479,7 +479,7 @@
   background-image:
     linear-gradient(90deg, rgba(255, 251, 241, 0.92) 0%, rgba(255, 251, 241, 0.72) 36%, rgba(255, 251, 241, 0.18) 58%, rgba(255, 251, 241, 0.02) 100%),
     linear-gradient(180deg, rgba(37, 27, 18, 0.04), rgba(37, 27, 18, 0.1)),
-    url("../assets/barocco-celebrazione-potere-popup.png");
+    var(--barocco-popup-image, url("../assets/barocco-celebrazione-potere-popup.png"));
   background-position: center;
   background-size: cover;
   box-shadow:
@@ -997,7 +997,7 @@
     border-radius: 1.15rem;
     background-image:
       linear-gradient(180deg, rgba(255, 251, 241, 0.92) 0%, rgba(255, 251, 241, 0.78) 48%, rgba(255, 251, 241, 0.22) 100%),
-      url("../assets/barocco-celebrazione-potere-popup.png");
+      var(--barocco-popup-image, url("../assets/barocco-celebrazione-potere-popup.png"));
     background-position: center top;
   }
 
