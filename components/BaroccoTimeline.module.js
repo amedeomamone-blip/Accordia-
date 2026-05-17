@@ -132,7 +132,7 @@ const timelineItems = [
     description: "Cristofori mette a punto uno strumento capace di variare l’intensità del suono in base al tocco dell’esecutore.",
     insight: "Il fortepiano apre la strada al pianoforte moderno e introduce una nuova gamma di sfumature espressive rispetto al clavicembalo.",
     visual: {
-      src: "../../../../assets/barocco-fortepiano-originale.jpg?v=20260517a",
+      src: "../../../../assets/barocco-fortepiano-originale.png?v=20260517b",
       alt: "Bartolomeo Cristofori in bottega accanto al fortepiano aperto, con disegni tecnici, strumenti e una veduta di Firenze sullo sfondo.",
       position: "54% 52%",
       scale: 1.04,
