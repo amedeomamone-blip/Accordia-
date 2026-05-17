@@ -4,12 +4,12 @@
   isolation: isolate;
   box-sizing: border-box;
   width: min(calc(100% - 1.6rem), 72rem);
-  margin: clamp(1.4rem, 3vw, 2rem) auto 1rem;
-  padding: clamp(1rem, 2vw, 1.35rem);
+  margin: 1rem auto 0;
+  padding: 1.05rem 1.1rem 1rem;
   border: 1px solid var(--lesson-border);
-  border-radius: 1.45rem;
+  border-radius: 1.35rem;
   background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 1rem 3rem rgba(17, 17, 17, 0.055);
+  box-shadow: 0 1rem 2.8rem rgba(17, 17, 17, 0.045);
 }
 
 .barocco-listening__head {
@@ -35,14 +35,12 @@
   width: 100%;
   color: var(--lesson-muted);
   font-size: 1rem;
-  font-style: italic;
   font-weight: 620;
   line-height: 1.58;
 }
 
 .barocco-listening__intro strong {
   color: var(--lesson-text);
-  font-style: normal;
   font-weight: 760;
 }
 
