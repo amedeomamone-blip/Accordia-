@@ -132,9 +132,9 @@ const timelineItems = [
     description: "Cristofori mette a punto uno strumento capace di variare l’intensità del suono in base al tocco dell’esecutore.",
     insight: "Il fortepiano apre la strada al pianoforte moderno e introduce una nuova gamma di sfumature espressive rispetto al clavicembalo.",
     visual: {
-      src: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/Pianoforte_Cristofori_1720.jpg/960px-Pianoforte_Cristofori_1720.jpg",
-      alt: "Pianoforte costruito da Bartolomeo Cristofori a Firenze nel 1720, visto di tre quarti con tastiera e cassa in primo piano.",
-      position: "52% 52%",
+      src: "../../../../assets/barocco-fortepiano-originale.jpg?v=20260517a",
+      alt: "Bartolomeo Cristofori in bottega accanto al fortepiano aperto, con disegni tecnici, strumenti e una veduta di Firenze sullo sfondo.",
+      position: "54% 52%",
       scale: 1.04,
       origin: "center center",
       copySide: "left"
