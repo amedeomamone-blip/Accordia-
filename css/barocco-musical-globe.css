@@ -76,10 +76,7 @@
   overflow: hidden;
   border: 1px solid rgba(17, 17, 17, 0.1);
   border-radius: 1.45rem;
-  background:
-    radial-gradient(circle at 50% 48%, rgba(255, 244, 223, 0.64), rgba(255, 244, 223, 0) 45%),
-    radial-gradient(circle at 50% 50%, rgba(193, 79, 64, 0.055), rgba(193, 79, 64, 0) 68%),
-    #ffffff;
+  background: #ffffff;
   box-shadow: 0 1rem 3rem rgba(17, 17, 17, 0.045);
   cursor: grab;
   touch-action: pan-y pinch-zoom;
