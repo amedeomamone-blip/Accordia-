@@ -213,22 +213,28 @@ function drawCurve(ctx, points, color, lineWidth) {
 
 function buildConstellation() {
   const result = [];
-  const latitudes = [-74, -64, -54, -44, -34, -24, -14, -4, 6, 16, 26, 36, 46, 56, 66, 74];
-  const baseCounts = [10, 12, 15, 18, 22, 26, 30, 32, 33, 31, 28, 24, 20, 16, 12, 9];
+  const latitudes = [-78, -72, -66, -60, -54, -48, -42, -36, -30, -24, -18, -12, -6, 0, 6, 12, 18, 24, 30, 36, 42, 48, 54, 60, 66, 72, 78];
 
   latitudes.forEach((latitude, latIndex) => {
-    const count = baseCounts[latIndex];
-    const stagger = latIndex % 2 === 0 ? 0 : 6.5;
+    const latitudeWeight = Math.cos(latitude * DEG);
+    const count = Math.round(11 + latitudeWeight * 29);
+    const stagger = latIndex % 2 === 0 ? 0 : 180 / count;
     for (let index = 0; index < count; index += 1) {
-      const longitude = -180 + (360 / count) * index + stagger;
-      const seed = ((latIndex + 1) * 37 + (index + 1) * 19) % 97;
+      const seed = ((latIndex + 1) * 97 + (index + 1) * 53) % 211;
+      const microSeed = ((latIndex + 4) * 41 + (index + 3) * 67) % 157;
+      const latitudeJitter = ((microSeed % 15) - 7) * 0.18;
+      const longitudeJitter = (((seed * 7) % 17) - 8) * 0.34;
+      const longitude = -180 + (360 / count) * index + stagger + longitudeJitter;
       result.push({
-        latitude,
+        latitude: latitude + latitudeJitter,
         longitude,
-        shimmer: seed * 0.071,
-        baseVariance: 0.88 + (seed % 11) * 0.025,
-        paletteShift: ((seed % 13) - 6) / 6,
-        warmthShift: ((seed % 17) - 8) / 8
+        shimmer: seed * 0.093 + microSeed * 0.017,
+        baseVariance: 0.78 + (seed % 17) * 0.026,
+        paletteShift: ((seed % 19) - 9) / 9,
+        warmthShift: ((seed % 23) - 11) / 11,
+        twinkleSpeed: 0.022 + (microSeed % 17) * 0.0026,
+        flare: seed % 9 === 0 ? 1 : seed % 5 === 0 ? 0.58 : 0.18,
+        glint: seed % 13 === 0
       });
     }
   });
@@ -241,13 +247,13 @@ const constellation = buildConstellation();
 function drawSphereEnvelope(ctx, metrics) {
   ctx.beginPath();
   ctx.arc(metrics.cx, metrics.cy, metrics.radius * 1.02, 0, Math.PI * 2);
-  ctx.strokeStyle = "rgba(102, 102, 102, 0.12)";
+  ctx.strokeStyle = "rgba(193, 79, 64, 0.16)";
   ctx.lineWidth = 1;
   ctx.stroke();
 
   ctx.beginPath();
   ctx.arc(metrics.cx, metrics.cy, metrics.radius * 0.94, 0, Math.PI * 2);
-  ctx.strokeStyle = "rgba(102, 102, 102, 0.042)";
+  ctx.strokeStyle = "rgba(207, 141, 72, 0.07)";
   ctx.lineWidth = 1;
   ctx.stroke();
 }
@@ -265,8 +271,8 @@ function drawGrid(ctx, metrics, rotation) {
       const projected = projectPoint(rotated, metrics);
       (rotated.z >= 0 ? front : back).push(projected);
     }
-    drawCurve(ctx, back, "rgba(102, 102, 102, 0.046)", 0.92);
-    drawCurve(ctx, front, "rgba(102, 102, 102, 0.115)", 1.02);
+    drawCurve(ctx, back, "rgba(193, 79, 64, 0.038)", 0.92);
+    drawCurve(ctx, front, "rgba(193, 79, 64, 0.112)", 1.02);
   });
 
   meridians.forEach((longitude) => {
@@ -278,20 +284,23 @@ function drawGrid(ctx, metrics, rotation) {
       const projected = projectPoint(rotated, metrics);
       (rotated.z >= 0 ? front : back).push(projected);
     }
-    drawCurve(ctx, back, "rgba(102, 102, 102, 0.042)", 0.9);
-    drawCurve(ctx, front, "rgba(102, 102, 102, 0.108)", 1);
+    drawCurve(ctx, back, "rgba(207, 141, 72, 0.036)", 0.9);
+    drawCurve(ctx, front, "rgba(193, 79, 64, 0.104)", 1);
   });
 }
 
 function drawDots(ctx, metrics, rotation, time) {
-  const TERRACOTTA_DARK = [182, 58, 45];
-  const BAROQUE_CORE = [203, 78, 60];
-  const DEEP_CORAL = [214, 73, 58];
-  const SIGNAL_RED = [232, 93, 74];
-  const ACCENT_ROSE = [226, 136, 126];
-  const LIGHT_CORAL = [241, 152, 138];
-  const LIGHT_ROSE = [248, 186, 176];
-  const WARM_CLAY = [150, 112, 72];
+  const TERRACOTTA_DARK = [178, 48, 38];
+  const BAROQUE_CORE = [207, 67, 51];
+  const SIGNAL_RED = [238, 84, 64];
+  const CANDLE_GOLD = [238, 168, 72];
+  const STAR_GOLD = [255, 214, 128];
+  const LIGHT_CORAL = [255, 154, 132];
+  const LIGHT_ROSE = [255, 205, 190];
+  const SMOKE_BLUE = [92, 118, 138];
+
+  ctx.save();
+  ctx.globalCompositeOperation = "lighter";
 
   constellation.forEach((dot, index) => {
     const rotated = rotatePoint(sphericalPoint(dot.latitude, dot.longitude), rotation.x, rotation.y);
@@ -304,34 +313,37 @@ function drawDots(ctx, metrics, rotation, time) {
     const depthFactorRaw = clamp((rotated.z + 1) / 2, 0, 1);
     const depthFactor = Math.pow(depthFactorRaw, 1.24);
     const rotationalFlux = Math.sin(rotation.y * 2.8 + rotation.x * 1.9 + dot.longitude * DEG * 1.4 + dot.latitude * DEG * 0.9);
-    const breathing = Math.sin(time * 0.018 + dot.shimmer + index * 0.075);
-    const dynamicPulse = 0.92 + breathing * 0.045 + rotationalFlux * 0.04;
+    const breathing = Math.sin(time * dot.twinkleSpeed + dot.shimmer + index * 0.031);
+    const quickSpark = Math.pow(0.5 + 0.5 * Math.sin(time * (dot.twinkleSpeed * 2.9) + dot.shimmer * 1.73), 5.2);
+    const slowTide = 0.5 + 0.5 * Math.sin(time * 0.006 + dot.shimmer * 0.57 + rotation.y);
+    const dynamicPulse = 0.86 + breathing * 0.10 + rotationalFlux * 0.055 + quickSpark * dot.flare * 0.22;
 
-    let size = 0.44 + centerFactor * 2.74 + depthFactor * 1.08 + dot.baseVariance * 0.18;
+    let size = 0.32 + centerFactor * 2.24 + depthFactor * 0.88 + dot.baseVariance * 0.28;
+    size += quickSpark * dot.flare * (0.46 + centerFactor * 0.62);
     if (rotated.z < -0.45) size *= 0.76;
     else if (rotated.z < -0.15) size *= 0.88;
-    size = clamp(size, 0.42, 4.82);
+    size = clamp(size, 0.28, 4.4);
 
-    let alpha = 0.05 + centerFactor * 0.64 + depthFactor * 0.20;
+    let alpha = 0.035 + centerFactor * 0.56 + depthFactor * 0.24;
     if (rotated.z < -0.55) alpha *= 0.16;
     else if (rotated.z < -0.25) alpha *= 0.34;
     else if (rotated.z < 0.02) alpha *= 0.68;
-    alpha *= dynamicPulse;
-    alpha = clamp(alpha, 0.03, 0.88);
+    alpha *= dynamicPulse + slowTide * 0.08;
+    alpha = clamp(alpha, 0.025, 0.94);
 
-    const paletteMotion = clamp(0.5 + dot.paletteShift * 0.44 + rotationalFlux * 0.28 + breathing * 0.15, 0, 1);
-    const warmthMotion = clamp(0.5 + dot.warmthShift * 0.38 + breathing * 0.12 - rotationalFlux * 0.09, 0, 1);
-    const glowFactor = clamp(centerFactor * 0.74 + depthFactor * 0.25, 0, 1);
+    const paletteMotion = clamp(0.52 + dot.paletteShift * 0.34 + rotationalFlux * 0.24 + breathing * 0.18, 0, 1);
+    const warmthMotion = clamp(0.55 + dot.warmthShift * 0.32 + quickSpark * 0.35 - rotationalFlux * 0.08, 0, 1);
+    const glowFactor = clamp(centerFactor * 0.68 + depthFactor * 0.24 + quickSpark * dot.flare * 0.18, 0, 1);
 
     let color = mixColor(TERRACOTTA_DARK, BAROQUE_CORE, 0.44 + paletteMotion * 0.38);
-    color = mixColor(color, DEEP_CORAL, paletteMotion * 0.62);
     color = mixColor(color, SIGNAL_RED, paletteMotion * 0.82);
-    color = mixColor(color, WARM_CLAY, (1 - centerFactorRaw) * 0.22);
-    color = mixColor(color, ACCENT_ROSE, glowFactor * 0.62 + warmthMotion * 0.20);
-    color = mixColor(color, LIGHT_CORAL, glowFactor * 0.34);
-    color = mixColor(color, LIGHT_ROSE, glowFactor * 0.18);
+    color = mixColor(color, CANDLE_GOLD, warmthMotion * 0.34 + quickSpark * dot.flare * 0.18);
+    color = mixColor(color, SMOKE_BLUE, (1 - centerFactorRaw) * 0.14);
+    color = mixColor(color, LIGHT_CORAL, glowFactor * 0.36);
+    color = mixColor(color, LIGHT_ROSE, glowFactor * 0.18 + quickSpark * 0.11);
+    color = mixColor(color, STAR_GOLD, quickSpark * dot.flare * 0.18);
 
-    const shading = 0.94 + centerFactor * 0.04 + depthFactor * 0.04;
+    const shading = 0.96 + centerFactor * 0.05 + depthFactor * 0.05 + quickSpark * 0.04;
     const red = Math.round(Math.min(255, color[0] * shading));
     const green = Math.round(Math.min(255, color[1] * shading));
     const blue = Math.round(Math.min(255, color[2] * shading));
@@ -341,15 +353,30 @@ function drawDots(ctx, metrics, rotation, time) {
     ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
     ctx.fill();
 
-    const haloStrength = smoothstep(0.58, 0.94, centerFactorRaw) * smoothstep(0.04, 0.78, rotated.z);
+    const haloStrength = smoothstep(0.38, 0.94, centerFactorRaw) * smoothstep(-0.06, 0.78, rotated.z);
     if (haloStrength > 0.01) {
-      const haloAlpha = clamp(haloStrength * alpha * 0.10, 0, 0.08);
+      const haloAlpha = clamp(haloStrength * alpha * (0.12 + quickSpark * dot.flare * 0.22), 0, 0.16);
       ctx.beginPath();
-      ctx.arc(projected.x, projected.y, size * 2.1, 0, Math.PI * 2);
+      ctx.arc(projected.x, projected.y, size * (2.15 + quickSpark * 1.45), 0, Math.PI * 2);
       ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${haloAlpha})`;
       ctx.fill();
     }
+
+    if (dot.glint && rotated.z > -0.08 && quickSpark > 0.42) {
+      const glintAlpha = clamp((quickSpark - 0.42) * alpha * 0.42, 0, 0.18);
+      const glintSize = size * (2.4 + quickSpark * 1.4);
+      ctx.strokeStyle = `rgba(${red}, ${green}, ${blue}, ${glintAlpha})`;
+      ctx.lineWidth = 0.72;
+      ctx.beginPath();
+      ctx.moveTo(projected.x - glintSize, projected.y);
+      ctx.lineTo(projected.x + glintSize, projected.y);
+      ctx.moveTo(projected.x, projected.y - glintSize);
+      ctx.lineTo(projected.x, projected.y + glintSize);
+      ctx.stroke();
+    }
   });
+
+  ctx.restore();
 }
 
 function drawAnchors(ctx, metrics, rotation, keywords, activeKeywordId, time) {
