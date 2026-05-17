@@ -89,12 +89,13 @@ const orbitDefinitions = [
     ],
     keywords: [
       {
-        id: "corte",
-        title: "Corte",
+        id: "celebrazione-del-potere",
+        title: "Celebrazione del potere",
+        subtitle: "Musica e prestigio",
         latitude: 52,
         longitude: -118,
-        copy: "Alla corte la musica accompagna feste, balli, cerimonie e rappresentazioni del prestigio dinastico. Il musicista lavora spesso al servizio di un principe o di una famiglia potente.",
-        keyIdea: "La corte usa la musica come segno di ordine e magnificenza."
+        copy: "Nel Barocco la musica profana diventa uno strumento di rappresentanza. Nelle corti europee accompagna feste, cerimonie, banchetti e spettacoli organizzati per mostrare ricchezza, ordine e grandezza. Principi e nobili sostengono musicisti, cantanti e compositori perché la musica contribuisce a rafforzare la loro immagine pubblica: più una corte appare raffinata e spettacolare, maggiore è il prestigio di chi la governa. La musica, quindi, non serve soltanto a intrattenere, ma anche a celebrare il potere.",
+        keyIdea: "La musica di corte diventa immagine sonora del prestigio e dell'autorità."
       },
       {
         id: "cattedrale",
@@ -630,7 +631,7 @@ function VivaldiSuonoStagioniLesson() {
       },
       /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-detail-panel__meta" }, /* @__PURE__ */ React.createElement("p", { className: "vivaldi-globe-popup__eyebrow" }, panelMode === "keyword" ? "Approfondimento attivo" : "Contesto attivo"), /* @__PURE__ */ React.createElement("span", null, activeOrbit.title)),
       /* @__PURE__ */ React.createElement("h2", null, panelMode === "keyword" ? activeKeyword.title : activeOrbit.title),
-      /* @__PURE__ */ React.createElement("p", { className: "vivaldi-globe-detail-panel__subtitle" }, activeOrbit.subtitle),
+      /* @__PURE__ */ React.createElement("p", { className: "vivaldi-globe-detail-panel__subtitle" }, panelMode === "keyword" ? activeKeyword.subtitle ?? activeOrbit.subtitle : activeOrbit.subtitle),
       panelMode === "keyword" ? /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("p", null, activeKeyword.copy), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-detail-panel__keyline" }, /* @__PURE__ */ React.createElement("strong", null, "Punto da fissare"), /* @__PURE__ */ React.createElement("span", null, activeKeyword.keyIdea))) : /* @__PURE__ */ React.createElement(React.Fragment, null, /* @__PURE__ */ React.createElement("p", null, activeOrbit.summary), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-panel-block" }, /* @__PURE__ */ React.createElement("h3", null, "Cosa devi sapere"), /* @__PURE__ */ React.createElement("ul", { className: "vivaldi-globe-panel-list" }, activeOrbit.mustKnow.map((item) => /* @__PURE__ */ React.createElement("li", { key: item }, item))))),
       /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-panel-block" }, /* @__PURE__ */ React.createElement("h3", null, "Parole chiave del globo"), /* @__PURE__ */ React.createElement("div", { className: "vivaldi-globe-keyword-grid" }, /* @__PURE__ */ React.createElement(
         "button",
