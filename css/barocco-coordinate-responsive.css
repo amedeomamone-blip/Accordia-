@@ -181,7 +181,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
   .barocco-timeline__stage {
     --timeline-axis-y: 57%;
     min-height: auto;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 16 / 7.35;
   }
 
   .barocco-timeline__nodes {
@@ -469,7 +469,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
   .barocco-timeline--tablet .barocco-timeline__stage {
     --timeline-axis-y: 59%;
     min-height: 0;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 16 / 7.45;
   }
 
   .barocco-timeline--tablet .barocco-timeline__nodes {
@@ -622,7 +622,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
   .barocco-timeline--mobile .barocco-timeline__stage {
     --timeline-axis-y: 62%;
     min-height: 0;
-    aspect-ratio: 16 / 9;
+    aspect-ratio: 16 / 7.9;
     border-radius: 1.08rem;
     background-size: 3.5rem 3.5rem, 3.5rem 3.5rem, auto;
   }
