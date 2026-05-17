@@ -11,83 +11,119 @@ const musicalOrbit = {
   title: "Coordinate musicali del Barocco",
   keywords: [
     {
-      id: "mecenatismo",
-      title: "Mecenatismo",
+      id: "celebrazione-potere",
+      title: "Celebrazione del potere",
       kicker: "FUNZIONI",
-      subtitle: "Potere, committenza e prestigio",
+      subtitle: "Musica e prestigio",
       latitude: 24,
-      longitude: -126,
-      copy: "Nobili e corti sostengono musicisti, compositori e maestri di cappella, finanziando celebrazioni, spettacoli e liturgie solenni.",
-      insight: "Il musicista barocco lavora spesso dentro una rete di incarichi, protezione e rappresentanza sociale.",
-      keyIdea: "Il sostegno economico delle élite orienta luoghi, repertori e occasioni d’ascolto."
+      longitude: -20,
+      copy: "La musica profana diventa uno strumento di rappresentanza: nelle corti barocche accompagna feste, cerimonie e spettacoli, contribuendo a esaltare la grandezza dei nobili e dei sovrani.",
+      insight: "Feste, cerimonie e spettacoli trasformano il suono in immagine pubblica del potere.",
+      keyIdea: "La musica profana partecipa alla costruzione del prestigio di corte."
     },
     {
-      id: "corti-cattedrali",
-      title: "Corti e cattedrali",
-      kicker: "LUOGHI",
-      subtitle: "I luoghi che danno forma al suono",
-      latitude: 8,
-      longitude: -58,
-      copy: "Palazzi nobiliari e luoghi sacri diventano centri della vita musicale, con organici, rituali e pubblici differenti.",
-      insight: "La musica accompagna cerimonie civili, feste di corte e liturgie, assumendo funzioni diverse ma complementari.",
-      keyIdea: "La musica barocca cresce tra prestigio civile e solennità religiosa."
+      id: "coinvolgimento-fedeli",
+      title: "Coinvolgimento dei fedeli",
+      kicker: "SACRO",
+      subtitle: "Emozionare per convincere",
+      latitude: 40,
+      longitude: 42,
+      copy: "La musica sacra si arricchisce di nuove risorse sonore ed espressive per rendere il rito più intenso e partecipato, suscitando emozione e devozione.",
+      insight: "La forza del suono aiuta il rito a diventare più vivido e coinvolgente.",
+      keyIdea: "L’espressività musicale sostiene partecipazione, emozione e devozione."
     },
     {
       id: "teatri-pubblici",
       title: "Teatri pubblici",
       kicker: "LUOGHI",
-      subtitle: "Lo spettacolo esce dalla corte",
-      latitude: -28,
-      longitude: -6,
-      copy: "Accanto ai teatri di corte nascono spazi aperti a un pubblico più ampio, dove si paga per assistere allo spettacolo.",
-      insight: "Con il pubblico pagante cambiano attese, ritmi della produzione e criteri di successo delle opere.",
-      keyIdea: "Lo spettacolo musicale si apre a nuovi spettatori e diventa anche fenomeno urbano."
+      subtitle: "La musica si apre",
+      latitude: -30,
+      longitude: -20,
+      copy: "Accanto alle sale di corte nascono spazi aperti a un pubblico più ampio. Il teatro musicale esce progressivamente dall’ambiente aristocratico e diventa un’esperienza condivisa.",
+      insight: "Il teatro musicale incontra un pubblico più largo e cambia la sua funzione sociale.",
+      keyIdea: "Lo spettacolo non resta solo aristocratico: diventa esperienza pubblica."
+    },
+    {
+      id: "oratori",
+      title: "Oratori",
+      kicker: "SACRO",
+      subtitle: "Racconti sacri in musica",
+      latitude: -45,
+      longitude: 70,
+      copy: "Vicino agli ambienti religiosi si diffondono gli oratori: composizioni sacre narrative, eseguite senza rappresentazione scenica, spesso dedicate a episodi biblici.",
+      insight: "Il racconto sacro viene affidato alla musica senza bisogno di azione teatrale.",
+      keyIdea: "L’oratorio unisce narrazione religiosa e scrittura musicale."
+    },
+    {
+      id: "orchestra-barocca",
+      title: "Orchestra barocca",
+      kicker: "ORGANICO",
+      subtitle: "Nuovi colori sonori",
+      latitude: 4,
+      longitude: 82,
+      copy: "Si afferma un organico strumentale più ricco e riconoscibile, fondato sugli archi ma arricchito da fiati, percussioni e clavicembalo. Il colore sonoro diventa parte essenziale del linguaggio musicale.",
+      insight: "Gli strumenti vengono organizzati per creare impasti e colori più riconoscibili.",
+      keyIdea: "Il timbro diventa una risorsa centrale della musica barocca."
     },
     {
       id: "melodramma",
       title: "Melodramma",
       kicker: "FORME",
-      subtitle: "Parola, scena e musica insieme",
-      latitude: -40,
-      longitude: 74,
-      copy: "Il melodramma è la grande forma vocale e teatrale del Barocco: la vicenda prende vita attraverso canto, orchestra e scena.",
-      insight: "Recitazione, affetti e scrittura musicale concorrono a costruire il dramma e a guidare le emozioni dello spettatore.",
-      keyIdea: "Musica, scena e parola si fondono in un unico racconto."
-    },
-    {
-      id: "concerto-grosso",
-      title: "Concerto grosso",
-      kicker: "FORME",
-      subtitle: "Dialogo fra gruppi sonori",
-      latitude: -2,
-      longitude: 132,
-      copy: "Nel concerto grosso un piccolo gruppo di strumenti dialoga con il resto dell’ensemble, alternando risposta e slancio.",
-      insight: "L’alternanza tra concertino e ripieno crea tensione, rilancio e contrasto, uno dei gusti tipici del Barocco.",
-      keyIdea: "Il contrasto fra concertino e ripieno diventa architettura sonora."
+      subtitle: "Nasce l’opera",
+      latitude: 30,
+      longitude: 136,
+      copy: "È una delle grandi novità del Barocco: musica, parola e azione teatrale si uniscono per raccontare storie attraverso il canto e la scena.",
+      insight: "Il canto diventa azione teatrale e porta il racconto dentro la scena.",
+      keyIdea: "Musica, parola e teatro si fondono nell’opera."
     },
     {
       id: "concerto-solista",
       title: "Concerto solista",
       kicker: "FORME",
-      subtitle: "Un interprete davanti all’orchestra",
-      latitude: 30,
+      subtitle: "Uno strumento in primo piano",
+      latitude: -10,
       longitude: 176,
-      copy: "Un singolo strumento protagonista si confronta con l’orchestra e assume il ruolo di voce principale del discorso musicale.",
-      insight: "La scrittura mette in evidenza tecnica, timbro e personalità dello strumento solista.",
-      keyIdea: "Il solista emerge come centro espressivo dell’azione musicale."
+      copy: "Un singolo strumento dialoga e si contrappone all’orchestra, mettendo in luce virtuosismo, agilità e capacità espressive dell’esecutore.",
+      insight: "Il solista emerge come voce riconoscibile dentro il dialogo con l’orchestra.",
+      keyIdea: "Virtuosismo ed espressività diventano protagonisti."
     },
     {
-      id: "orchestra-camera",
-      title: "Orchestra da camera",
+      id: "concerto-grosso",
+      title: "Concerto grosso",
       kicker: "FORME",
-      subtitle: "Organici più stabili e riconoscibili",
-      latitude: 38,
-      longitude: 118,
-      copy: "Le formazioni strumentali diventano più numerose e strutturate, con ruoli più definiti fra le diverse parti.",
-      insight: "L’ensemble acquista identità e rende più chiari equilibri, colori e gerarchie della scrittura strumentale.",
-      keyIdea: "L’organico strumentale si organizza con maggiore stabilità."
+      subtitle: "Gruppo e orchestra",
+      latitude: -36,
+      longitude: 122,
+      copy: "Un piccolo gruppo di strumenti si alterna all’intera orchestra, creando giochi di contrasto tra masse sonore differenti.",
+      insight: "Il dialogo fra gruppo ristretto e orchestra costruisce movimento e varietà.",
+      keyIdea: "Il contrasto tra masse sonore diventa forma."
+    },
+    {
+      id: "contrasti-sonori",
+      title: "Contrasti sonori",
+      kicker: "LINGUAGGIO",
+      subtitle: "Piano, forte, sorpresa",
+      latitude: 48,
+      longitude: -118,
+      copy: "La musica barocca ricerca effetti di opposizione: piano e forte, solo e tutti, pieno e vuoto, rapido e disteso. Il contrasto diventa un principio costruttivo.",
+      insight: "Le opposizioni sonore guidano l’attenzione e danno energia alla forma.",
+      keyIdea: "Il contrasto non è solo effetto: organizza il discorso musicale."
+    },
+    {
+      id: "maggiore-espressivita",
+      title: "Maggiore espressività",
+      kicker: "ESPRESSIONE",
+      subtitle: "La musica si intensifica",
+      latitude: -65,
+      longitude: -130,
+      copy: "La musica barocca punta a comunicare emozioni con forza, attraverso melodie incisive, dinamiche marcate, alternanze sonore e una scrittura sempre più teatrale.",
+      insight: "Il linguaggio musicale cerca gesti più intensi e riconoscibili.",
+      keyIdea: "La scrittura barocca rende l’emozione più diretta e teatrale."
     }
-  ]
+  ].map((keyword, index) => ({
+    ...keyword,
+    sequence: index + 1
+  }))
 };
 
 function clamp(value, min, max) {
