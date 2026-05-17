@@ -2,6 +2,10 @@
    La Timeline resta invariata: questi override aumentano leggibilità e respiro
    di introduzione, primo ascolto, quiz e globo senza alterarne l'impianto. */
 
+body[data-current-nucleus="barocco"] * {
+  font-style: normal !important;
+}
+
 body[data-current-nucleus="barocco"] .immersive-lesson-intro__title,
 body[data-current-nucleus="barocco"] .barocco-listening h2,
 body[data-current-nucleus="barocco"] .barocco-musical-globe__title {
@@ -13,6 +17,7 @@ body[data-current-nucleus="barocco"] .barocco-musical-globe__title {
 }
 
 body[data-current-nucleus="barocco"] .immersive-lesson-intro__subtitle,
+body[data-current-nucleus="barocco"] .barocco-listening__subtitle,
 body[data-current-nucleus="barocco"] .barocco-musical-globe__eyebrow {
   width: 100%;
   max-width: none;
@@ -66,6 +71,7 @@ body[data-current-nucleus="barocco"] .barocco-listening-quiz__question {
   }
 
   body[data-current-nucleus="barocco"] .immersive-lesson-intro__subtitle,
+  body[data-current-nucleus="barocco"] .barocco-listening__subtitle,
   body[data-current-nucleus="barocco"] .barocco-musical-globe__eyebrow {
     font-size: 1rem;
     line-height: 1.54;
