@@ -17,7 +17,7 @@ const musicalOrbit = {
       subtitle: "Musica e prestigio",
       latitude: 24,
       longitude: -20,
-      copy: "La musica profana diventa uno strumento di rappresentanza: nelle corti barocche accompagna feste, cerimonie e spettacoli, contribuendo a esaltare la grandezza dei nobili e dei sovrani.",
+      copy: "Nel Barocco la musica profana diventa uno strumento di rappresentanza. Nelle corti europee accompagna feste, cerimonie, banchetti e spettacoli organizzati per mostrare ricchezza, ordine e grandezza. Principi e nobili sostengono musicisti, cantanti e compositori perché la musica contribuisce a rafforzare la loro immagine pubblica: più una corte appare raffinata e spettacolare, maggiore è il prestigio di chi la governa. La musica, quindi, non serve soltanto a intrattenere, ma anche a celebrare il potere.",
       insight: "Feste, cerimonie e spettacoli trasformano il suono in immagine pubblica del potere.",
       keyIdea: "La musica profana partecipa alla costruzione del prestigio di corte."
     },
