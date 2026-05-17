@@ -416,14 +416,15 @@ function buildHotspots(metrics, rotation, keywords) {
   }).sort((a, b) => a.depth - b.depth);
 }
 
-function GlobeHotspot({ item, isActive, isNext, onSelect }) {
-  const isSelectable = Boolean(item.hasPopup || isActive || isNext);
+function GlobeHotspot({ item, isActive, isNext, isVisited, onSelect }) {
+  const isSelectable = Boolean(isActive || isNext || isVisited);
+  const showVisited = isVisited && !isActive && !isNext;
 
   return h(
     "button",
     {
       type: "button",
-      className: `barocco-musical-globe__hotspot${isActive ? " is-active" : ""}${isNext ? " is-next" : ""}${isSelectable ? "" : " is-disabled"}${item.back ? " is-back" : ""}${item.hidden ? " is-hidden" : ""}`,
+      className: `barocco-musical-globe__hotspot${isActive ? " is-active" : ""}${isNext ? " is-next" : ""}${showVisited ? " is-visited" : ""}${isSelectable ? "" : " is-disabled"}${item.back ? " is-back" : ""}${item.hidden ? " is-hidden" : ""}`,
       style: {
         left: `${item.x + (isActive ? item.activeOffsetX : 0)}px`,
         top: `${item.y + (isActive ? item.activeOffsetY : 0)}px`,
@@ -453,15 +454,16 @@ function GlobeHotspot({ item, isActive, isNext, onSelect }) {
   );
 }
 
-function KeywordChip({ keyword, isActive, isNext, onSelect }) {
+function KeywordChip({ keyword, isActive, isNext, isVisited, onSelect }) {
   const keywordNumber = String(keyword.sequence).padStart(2, "0");
-  const isSelectable = Boolean(keyword.hasPopup || isActive || isNext);
+  const isSelectable = Boolean(isActive || isNext || isVisited);
+  const showVisited = isVisited && !isActive && !isNext;
 
   return h(
     "button",
     {
       type: "button",
-      className: `barocco-musical-globe__chip${isActive ? " is-active" : ""}${isNext ? " is-next" : ""}${isSelectable ? "" : " is-disabled"}`,
+      className: `barocco-musical-globe__chip${isActive ? " is-active" : ""}${isNext ? " is-next" : ""}${showVisited ? " is-visited" : ""}${isSelectable ? "" : " is-disabled"}`,
       onClick: isSelectable ? () => onSelect(keyword.id) : undefined,
       "aria-pressed": isActive,
       "aria-disabled": isSelectable ? undefined : "true",
@@ -521,6 +523,7 @@ export default function BaroccoCoordinateSphereMusicale() {
   const initialKeyword = musicalOrbit.keywords[0];
   const [activeKeywordId, setActiveKeywordId] = React.useState(initialKeyword.id);
   const [isPopupOpen, setIsPopupOpen] = React.useState(false);
+  const [visitedKeywordIds, setVisitedKeywordIds] = React.useState([]);
   const [hotspots, setHotspots] = React.useState([]);
   const [isDragging, setIsDragging] = React.useState(false);
   const frameRef = React.useRef(null);
@@ -634,14 +637,19 @@ export default function BaroccoCoordinateSphereMusicale() {
   const selectKeyword = React.useCallback((keywordId) => {
     const selectedKeyword = musicalOrbit.keywords.find((keyword) => keyword.id === keywordId);
     const canSelect = selectedKeyword && (
-      selectedKeyword.hasPopup ||
       selectedKeyword.id === activeKeywordId ||
-      selectedKeyword.id === nextKeywordId
+      selectedKeyword.id === nextKeywordId ||
+      visitedKeywordIds.includes(selectedKeyword.id)
     );
     if (!canSelect) return;
     setActiveKeywordId(keywordId);
+    if (selectedKeyword.hasPopup) {
+      setVisitedKeywordIds((currentIds) => (
+        currentIds.includes(keywordId) ? currentIds : [...currentIds, keywordId]
+      ));
+    }
     setIsPopupOpen(Boolean(selectedKeyword.hasPopup));
-  }, [activeKeywordId, nextKeywordId]);
+  }, [activeKeywordId, nextKeywordId, visitedKeywordIds]);
 
   const closePopup = React.useCallback(() => {
     setIsPopupOpen(false);
@@ -690,6 +698,7 @@ export default function BaroccoCoordinateSphereMusicale() {
             item,
             isActive: item.id === activeKeywordId,
             isNext: item.id === nextKeywordId,
+            isVisited: visitedKeywordIds.includes(item.id),
             onSelect: selectKeyword
           }))
         )
@@ -707,6 +716,7 @@ export default function BaroccoCoordinateSphereMusicale() {
         keyword,
         isActive: keyword.id === activeKeywordId,
         isNext: keyword.id === nextKeywordId,
+        isVisited: visitedKeywordIds.includes(keyword.id),
         onSelect: selectKeyword
       }))
     ),

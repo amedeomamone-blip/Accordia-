@@ -228,6 +228,29 @@
   color: rgba(17, 17, 17, 0.36);
 }
 
+.barocco-musical-globe__hotspot.is-visited {
+  border-color: rgba(172, 112, 45, 0.24);
+  background: linear-gradient(180deg, rgba(255, 252, 245, 0.92), rgba(247, 235, 215, 0.84));
+  box-shadow:
+    0 0.55rem 1.25rem rgba(126, 84, 36, 0.07),
+    0 0 0 0.18rem rgba(220, 155, 76, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  color: rgba(17, 17, 17, 0.62);
+  cursor: pointer;
+  opacity: 0.62 !important;
+  filter: none;
+}
+
+.barocco-musical-globe__hotspot.is-visited .barocco-musical-globe__hotspot-index {
+  border-color: rgba(172, 112, 45, 0.18);
+  background: rgba(255, 244, 220, 0.74);
+  color: #8f3c31;
+}
+
+.barocco-musical-globe__hotspot.is-visited .barocco-musical-globe__hotspot-copy strong {
+  color: rgba(17, 17, 17, 0.64);
+}
+
 .barocco-musical-globe__hotspot.is-next {
   border-color: rgba(205, 143, 54, 0.32);
   background: linear-gradient(180deg, rgba(255, 253, 247, 0.98), rgba(251, 240, 221, 0.94));
@@ -422,6 +445,21 @@
 .barocco-musical-globe__chip.is-disabled .barocco-musical-globe__chip-number {
   background: rgba(255, 255, 255, 0.36);
   color: rgba(17, 17, 17, 0.32);
+}
+
+.barocco-musical-globe__chip.is-visited {
+  border-color: rgba(172, 112, 45, 0.16);
+  background: rgba(255, 250, 239, 0.68);
+  color: #8f3c31;
+  cursor: pointer;
+  opacity: 0.6;
+  filter: none;
+}
+
+.barocco-musical-globe__chip.is-visited .barocco-musical-globe__chip-number {
+  border-color: rgba(172, 112, 45, 0.14);
+  background: rgba(255, 244, 220, 0.68);
+  color: #8f3c31;
 }
 
 .barocco-musical-globe__chip.is-next {
