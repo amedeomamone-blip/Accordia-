@@ -417,11 +417,13 @@ function buildHotspots(metrics, rotation, keywords) {
 }
 
 function GlobeHotspot({ item, isActive, onSelect }) {
+  const isSelectable = Boolean(item.hasPopup);
+
   return h(
     "button",
     {
       type: "button",
-      className: `barocco-musical-globe__hotspot${isActive ? " is-active" : ""}${item.back ? " is-back" : ""}${item.hidden ? " is-hidden" : ""}`,
+      className: `barocco-musical-globe__hotspot${isActive ? " is-active" : ""}${isSelectable ? "" : " is-disabled"}${item.back ? " is-back" : ""}${item.hidden ? " is-hidden" : ""}`,
       style: {
         left: `${item.x + (isActive ? item.activeOffsetX : 0)}px`,
         top: `${item.y + (isActive ? item.activeOffsetY : 0)}px`,
@@ -430,9 +432,12 @@ function GlobeHotspot({ item, isActive, onSelect }) {
         zIndex: isActive ? 80 : item.zIndex
       },
       onPointerDown: (event) => event.stopPropagation(),
-      onClick: () => onSelect(item.id),
+      onClick: isSelectable ? () => onSelect(item.id) : undefined,
       "aria-label": item.title,
       "aria-pressed": isActive,
+      "aria-disabled": isSelectable ? undefined : "true",
+      disabled: isSelectable ? undefined : true,
+      tabIndex: isSelectable ? undefined : -1,
       title: item.title
     },
     h(
@@ -450,14 +455,18 @@ function GlobeHotspot({ item, isActive, onSelect }) {
 
 function KeywordChip({ keyword, isActive, onSelect }) {
   const keywordNumber = String(keyword.sequence).padStart(2, "0");
+  const isSelectable = Boolean(keyword.hasPopup);
 
   return h(
     "button",
     {
       type: "button",
-      className: `barocco-musical-globe__chip${isActive ? " is-active" : ""}`,
-      onClick: () => onSelect(keyword.id),
+      className: `barocco-musical-globe__chip${isActive ? " is-active" : ""}${isSelectable ? "" : " is-disabled"}`,
+      onClick: isSelectable ? () => onSelect(keyword.id) : undefined,
       "aria-pressed": isActive,
+      "aria-disabled": isSelectable ? undefined : "true",
+      disabled: isSelectable ? undefined : true,
+      tabIndex: isSelectable ? undefined : -1,
       "aria-label": `${keywordNumber} ${keyword.title}`
     },
     h("span", { className: "barocco-musical-globe__chip-number", "aria-hidden": "true" }, keywordNumber),
@@ -496,7 +505,6 @@ function KeywordPopup({ keyword, onClose }) {
       h(
         "div",
         { className: "barocco-musical-globe__popup-content" },
-        h("p", { className: "barocco-musical-globe__popup-number" }, String(keyword.sequence).padStart(2, "0")),
         h("h3", { id: "barocco-musical-globe-popup-title" }, keyword.title),
         h("p", { className: "barocco-musical-globe__popup-subtitle" }, keyword.subtitle),
         h(
@@ -622,8 +630,9 @@ export default function BaroccoCoordinateSphereMusicale() {
 
   const selectKeyword = React.useCallback((keywordId) => {
     const selectedKeyword = musicalOrbit.keywords.find((keyword) => keyword.id === keywordId);
+    if (!selectedKeyword?.hasPopup) return;
     setActiveKeywordId(keywordId);
-    setIsPopupOpen(Boolean(selectedKeyword?.hasPopup));
+    setIsPopupOpen(true);
   }, []);
 
   const closePopup = React.useCallback(() => {
@@ -641,7 +650,10 @@ export default function BaroccoCoordinateSphereMusicale() {
 
   return h(
     "section",
-    { className: "barocco-musical-globe", "aria-label": "Globo musicale del Barocco" },
+    {
+      className: `barocco-musical-globe${isPopupOpen ? " is-popup-open" : ""}`,
+      "aria-label": "Globo musicale del Barocco"
+    },
     h(
       "div",
       { className: "barocco-musical-globe__header" },

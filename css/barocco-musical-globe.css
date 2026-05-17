@@ -206,6 +206,28 @@
   animation: barocco-globe-active-pulse 1800ms ease-in-out infinite;
 }
 
+.barocco-musical-globe__hotspot.is-disabled {
+  border-color: rgba(17, 17, 17, 0.08);
+  background: rgba(245, 244, 239, 0.58);
+  box-shadow: none;
+  color: rgba(17, 17, 17, 0.32);
+  cursor: default;
+  filter: grayscale(0.68) saturate(0.42);
+  opacity: 0.2 !important;
+  pointer-events: none;
+}
+
+.barocco-musical-globe__hotspot.is-disabled .barocco-musical-globe__hotspot-index {
+  border-color: rgba(17, 17, 17, 0.08);
+  background: rgba(255, 255, 255, 0.42);
+  color: rgba(17, 17, 17, 0.3);
+  box-shadow: none;
+}
+
+.barocco-musical-globe__hotspot.is-disabled .barocco-musical-globe__hotspot-copy strong {
+  color: rgba(17, 17, 17, 0.36);
+}
+
 .barocco-musical-globe__hotspot.is-active .barocco-musical-globe__hotspot-index {
   border-color: rgba(201, 138, 45, 0.42);
   background: linear-gradient(180deg, rgba(255, 247, 226, 1), rgba(255, 234, 186, 0.96));
@@ -235,6 +257,17 @@
   pointer-events: none;
 }
 
+.barocco-musical-globe.is-popup-open .barocco-musical-globe__hotspot:not(.is-active) {
+  opacity: 0 !important;
+  pointer-events: none;
+}
+
+.barocco-musical-globe.is-popup-open .barocco-musical-globe__keyword-list {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.35rem) scale(0.98);
+}
+
 .barocco-musical-globe__keyword-list {
   display: flex;
   flex-wrap: wrap;
@@ -247,6 +280,9 @@
   border: 1px solid rgba(17, 17, 17, 0.08);
   border-radius: 999px;
   background: rgba(245, 244, 239, 0.72);
+  transition:
+    opacity 220ms ease,
+    transform 220ms ease;
 }
 
 .barocco-musical-globe__chip {
@@ -337,6 +373,20 @@
   opacity: 1;
 }
 
+.barocco-musical-globe__chip.is-disabled {
+  border-color: rgba(17, 17, 17, 0.06);
+  background: rgba(245, 244, 239, 0.42);
+  color: rgba(17, 17, 17, 0.3);
+  cursor: default;
+  filter: grayscale(0.7) saturate(0.5);
+  opacity: 0.34;
+}
+
+.barocco-musical-globe__chip.is-disabled .barocco-musical-globe__chip-number {
+  background: rgba(255, 255, 255, 0.36);
+  color: rgba(17, 17, 17, 0.32);
+}
+
 .barocco-musical-globe__popup-shell {
   position: fixed;
   inset: 0;
@@ -346,10 +396,10 @@
   display: grid;
   place-items: center;
   background:
-    radial-gradient(circle at 50% 48%, rgba(245, 222, 181, 0.28) 0%, rgba(245, 222, 181, 0) 42%),
-    rgba(18, 14, 11, 0.32);
-  backdrop-filter: blur(10px) saturate(1.08);
-  -webkit-backdrop-filter: blur(10px) saturate(1.08);
+    radial-gradient(circle at 50% 48%, rgba(245, 222, 181, 0.26) 0%, rgba(245, 222, 181, 0) 42%),
+    rgba(18, 14, 11, 0.44);
+  backdrop-filter: blur(16px) saturate(1.08);
+  -webkit-backdrop-filter: blur(16px) saturate(1.08);
   animation: barocco-popup-shell-in 260ms ease both;
 }
 
@@ -391,7 +441,7 @@
 .barocco-musical-globe__popup-close {
   position: absolute;
   top: 0.72rem;
-  left: 0.72rem;
+  right: 0.72rem;
   z-index: 4;
   width: 2rem;
   height: 2rem;
@@ -475,28 +525,17 @@
   align-self: center;
   display: grid;
   gap: 0.72rem;
-  border: 1px solid rgba(111, 80, 45, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.34);
   border-radius: 1.08rem;
-  background: rgba(255, 252, 244, 0.74);
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.44), rgba(255, 255, 255, 0.17)),
+    rgba(255, 252, 244, 0.3);
   box-shadow:
-    0 1rem 2.8rem rgba(66, 43, 21, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.74);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-.barocco-musical-globe__popup-number {
-  width: fit-content;
-  margin: 0;
-  padding: 0.42rem 0.54rem;
-  border: 1px solid rgba(157, 83, 53, 0.18);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.54);
-  color: #9d463a;
-  font-size: 0.7rem;
-  font-weight: 840;
-  letter-spacing: 0.08em;
-  line-height: 1;
+    0 1rem 2.8rem rgba(66, 43, 21, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.74),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(24px) saturate(1.32);
+  -webkit-backdrop-filter: blur(24px) saturate(1.32);
 }
 
 .barocco-musical-globe__popup h3 {
@@ -902,7 +941,7 @@
 
   .barocco-musical-globe__popup-close {
     top: 0.56rem;
-    left: 0.56rem;
+    right: 0.56rem;
     width: 1.8rem;
     height: 1.8rem;
     font-size: 1.04rem;
@@ -916,7 +955,9 @@
     align-self: end;
     gap: 0.58rem;
     border-radius: 0.95rem;
-    background: rgba(255, 252, 244, 0.8);
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.2)),
+      rgba(255, 252, 244, 0.32);
   }
 
   .barocco-musical-globe__popup h3 {
