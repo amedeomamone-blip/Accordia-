@@ -47,7 +47,6 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
   max-width: none;
   color: var(--lesson-muted);
   font-size: 1rem;
-  font-style: italic;
   font-weight: 620;
   line-height: 1.58;
   letter-spacing: 0;
@@ -119,7 +118,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
   }
 
   .immersive-lesson-intro,
-  .barocco-first-listening,
+  .barocco-listening,
   .barocco-timeline,
   .barocco-musical-globe {
     width: min(calc(100% - 1.1rem), 82rem);
