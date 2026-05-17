@@ -1,12 +1,12 @@
 /* Rifinitura tipografica della pagina Barocco.
-   La Timeline resta invariata: questi override uniformano soltanto
-   introduzione, primo ascolto, quiz e globo alle sue proporzioni. */
+   La Timeline resta invariata: questi override aumentano leggibilità e respiro
+   di introduzione, primo ascolto, quiz e globo senza alterarne l'impianto. */
 
 body[data-current-nucleus="barocco"] .immersive-lesson-intro__title,
 body[data-current-nucleus="barocco"] .barocco-listening h2,
 body[data-current-nucleus="barocco"] .barocco-musical-globe__title {
   color: var(--lesson-text);
-  font-size: clamp(1.7rem, 3vw, 2.45rem);
+  font-size: clamp(1.92rem, 3.25vw, 2.72rem);
   font-weight: 760;
   line-height: 0.98;
   letter-spacing: -0.055em;
@@ -16,12 +16,12 @@ body[data-current-nucleus="barocco"] .immersive-lesson-intro__subtitle,
 body[data-current-nucleus="barocco"] .barocco-musical-globe__eyebrow {
   width: 100%;
   max-width: none;
-  margin-top: 0.7rem;
+  margin-top: 0.78rem;
   color: var(--lesson-muted);
-  font-size: 1rem;
+  font-size: 1.08rem;
   font-style: italic;
   font-weight: 620;
-  line-height: 1.58;
+  line-height: 1.62;
   letter-spacing: 0;
   text-transform: none;
   text-wrap: pretty;
@@ -29,12 +29,17 @@ body[data-current-nucleus="barocco"] .barocco-musical-globe__eyebrow {
 
 body[data-current-nucleus="barocco"] .immersive-lesson-intro__summary,
 body[data-current-nucleus="barocco"] .barocco-listening__intro,
-body[data-current-nucleus="barocco"] .barocco-listening-option__text,
 body[data-current-nucleus="barocco"] .barocco-listening-result p,
 body[data-current-nucleus="barocco"] .barocco-musical-globe__hotspot-copy strong {
-  font-size: 0.88rem;
+  font-size: 0.98rem;
   font-weight: 620;
-  line-height: 1.42;
+  line-height: 1.54;
+}
+
+body[data-current-nucleus="barocco"] .barocco-listening-option__text {
+  font-size: 0.98rem;
+  font-weight: 620;
+  line-height: 1.46;
 }
 
 body[data-current-nucleus="barocco"] .barocco-listening__intro {
@@ -48,10 +53,10 @@ body[data-current-nucleus="barocco"] .barocco-listening__intro strong {
 }
 
 body[data-current-nucleus="barocco"] .barocco-listening-quiz__question {
-  margin-bottom: 1.45rem;
-  font-size: 1.08rem;
+  margin-bottom: 1.55rem;
+  font-size: 1.22rem;
   font-weight: 760;
-  line-height: 1.12;
+  line-height: 1.18;
   letter-spacing: -0.035em;
 }
 
@@ -59,27 +64,31 @@ body[data-current-nucleus="barocco"] .barocco-listening-quiz__question {
   body[data-current-nucleus="barocco"] .immersive-lesson-intro__title,
   body[data-current-nucleus="barocco"] .barocco-listening h2,
   body[data-current-nucleus="barocco"] .barocco-musical-globe__title {
-    font-size: clamp(1.56rem, 7vw, 2rem);
+    font-size: clamp(1.72rem, 7.4vw, 2.18rem);
   }
 
   body[data-current-nucleus="barocco"] .immersive-lesson-intro__subtitle,
   body[data-current-nucleus="barocco"] .barocco-musical-globe__eyebrow {
-    font-size: 0.92rem;
-    line-height: 1.48;
+    font-size: 1rem;
+    line-height: 1.54;
   }
 
   body[data-current-nucleus="barocco"] .immersive-lesson-intro__summary,
   body[data-current-nucleus="barocco"] .barocco-listening__intro,
-  body[data-current-nucleus="barocco"] .barocco-listening-option__text,
   body[data-current-nucleus="barocco"] .barocco-listening-result p,
   body[data-current-nucleus="barocco"] .barocco-musical-globe__hotspot-copy strong {
-    font-size: 0.84rem;
-    line-height: 1.4;
+    font-size: 0.92rem;
+    line-height: 1.48;
+  }
+
+  body[data-current-nucleus="barocco"] .barocco-listening-option__text {
+    font-size: 0.92rem;
+    line-height: 1.46;
   }
 
   body[data-current-nucleus="barocco"] .barocco-listening-quiz__question {
-    margin-bottom: 1.22rem;
-    font-size: 1rem;
-    line-height: 1.18;
+    margin-bottom: 1.32rem;
+    font-size: 1.08rem;
+    line-height: 1.2;
   }
 }
