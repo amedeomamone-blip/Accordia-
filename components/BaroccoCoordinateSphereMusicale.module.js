@@ -5,6 +5,7 @@ const DEG = Math.PI / 180;
 const AUTO_SPIN = 0.00115;
 const ROTATION_LIMIT = 1.08;
 const ACTIVE_LABEL_MARGIN = 14;
+const popupAsset = (filename) => new URL(`../assets/${filename}`, import.meta.url).href;
 
 const musicalOrbit = {
   id: "barocco-musicale",
@@ -21,7 +22,7 @@ const musicalOrbit = {
       insight: "Feste, cerimonie e spettacoli trasformano il suono in immagine pubblica del potere.",
       keyIdea: "La musica profana partecipa alla costruzione del prestigio di corte.",
       hasPopup: true,
-      popupImage: "../../../../assets/barocco-celebrazione-potere-popup.png",
+      popupImage: popupAsset("barocco-celebrazione-potere-popup.png"),
       popupCopy: [
         "Nel Barocco la musica profana diventa uno strumento di rappresentanza. Nelle corti europee accompagna feste, cerimonie, banchetti e spettacoli organizzati per mostrare ricchezza, ordine e grandezza.",
         "Principi e nobili sostengono musicisti, cantanti e compositori perché la musica contribuisce a rafforzare la loro immagine pubblica: più una corte appare raffinata e spettacolare, maggiore è il prestigio di chi la governa.",
@@ -38,7 +39,7 @@ const musicalOrbit = {
       copy: "La musica sacra si arricchisce di nuove risorse sonore ed espressive per rendere il rito più intenso e partecipato, suscitando emozione e devozione.",
       insight: "La forza del suono aiuta il rito a diventare più vivido e coinvolgente.",
       keyIdea: "L’espressività musicale sostiene partecipazione, emozione e devozione.",
-      popupImage: "../../../../assets/barocco-coinvolgimento-fedeli-popup.png",
+      popupImage: popupAsset("barocco-coinvolgimento-fedeli-popup.png"),
       popupCopy: [
         "La musica sacra barocca cerca di coinvolgere i fedeli in modo più intenso. Voci, strumenti, contrasti sonori e melodie espressive rendono il rito più solenne e partecipato, trasformando l’ascolto in un’esperienza capace di suscitare emozione, raccoglimento e devozione."
       ]
@@ -53,7 +54,7 @@ const musicalOrbit = {
       copy: "Accanto alle sale di corte nascono spazi aperti a un pubblico più ampio. Il teatro musicale esce progressivamente dall’ambiente aristocratico e diventa un’esperienza condivisa.",
       insight: "Il teatro musicale incontra un pubblico più largo e cambia la sua funzione sociale.",
       keyIdea: "Lo spettacolo non resta solo aristocratico: diventa esperienza pubblica.",
-      popupImage: "../../../../assets/barocco-teatri-pubblici-popup.png",
+      popupImage: popupAsset("barocco-teatri-pubblici-popup.png"),
       popupCopy: [
         "Accanto alle sale di corte nascono spazi aperti a un pubblico più ampio. Il teatro musicale esce progressivamente dall’ambiente di corte e diventa un’esperienza condivisa."
       ]
