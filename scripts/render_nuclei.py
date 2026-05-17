@@ -3185,7 +3185,7 @@ def customize_barocco_context_lesson() -> None:
                 },
             ],
             "author": "Lezione Accordia · Il Barocco",
-            "description": "Introduzione al Barocco con timeline e parole chiave musicali: mecenatismo, corti e cattedrali, teatri pubblici, melodramma, concerto grosso, concerto solista, orchestra da camera.",
+            "description": "Introduzione al Barocco con timeline e dieci parole chiave musicali: celebrazione del potere, coinvolgimento dei fedeli, teatri pubblici, oratori, orchestra barocca, melodramma, concerto solista, concerto grosso, contrasti sonori, maggiore espressività.",
         }
 
         topic_map["nodes"] = [context_topic]

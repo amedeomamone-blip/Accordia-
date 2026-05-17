@@ -431,23 +431,31 @@ function GlobeHotspot({ item, isActive, onSelect }) {
     },
     h(
       "span",
+      { className: "barocco-musical-globe__hotspot-index", "aria-hidden": "true" },
+      String(item.sequence).padStart(2, "0")
+    ),
+    h(
+      "span",
       { className: "barocco-musical-globe__hotspot-copy" },
-      h("small", null, item.kicker),
       h("strong", null, item.title)
     )
   );
 }
 
 function KeywordChip({ keyword, isActive, onSelect }) {
+  const keywordNumber = String(keyword.sequence).padStart(2, "0");
+
   return h(
     "button",
     {
       type: "button",
       className: `barocco-musical-globe__chip${isActive ? " is-active" : ""}`,
       onClick: () => onSelect(keyword.id),
-      "aria-pressed": isActive
+      "aria-pressed": isActive,
+      "aria-label": `${keywordNumber} ${keyword.title}`
     },
-    keyword.title
+    h("span", { className: "barocco-musical-globe__chip-number", "aria-hidden": "true" }, keywordNumber),
+    h("strong", { className: "barocco-musical-globe__chip-text" }, keyword.title)
   );
 }
 
