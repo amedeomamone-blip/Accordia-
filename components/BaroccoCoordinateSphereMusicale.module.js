@@ -416,15 +416,19 @@ function buildHotspots(metrics, rotation, keywords) {
   }).sort((a, b) => a.depth - b.depth);
 }
 
+function getKeywordPopupCopy(keyword) {
+  if (Array.isArray(keyword.popupCopy) && keyword.popupCopy.length) return keyword.popupCopy;
+  return [keyword.copy, keyword.insight, keyword.keyIdea].filter(Boolean);
+}
+
 function GlobeHotspot({ item, isActive, isNext, isVisited, onSelect }) {
-  const isSelectable = Boolean(isActive || isNext || isVisited);
   const showVisited = isVisited && !isActive && !isNext;
 
   return h(
     "button",
     {
       type: "button",
-      className: `barocco-musical-globe__hotspot${isActive ? " is-active" : ""}${isNext ? " is-next" : ""}${showVisited ? " is-visited" : ""}${isSelectable ? "" : " is-disabled"}${item.back ? " is-back" : ""}${item.hidden ? " is-hidden" : ""}`,
+      className: `barocco-musical-globe__hotspot${isActive ? " is-active" : ""}${isNext ? " is-next" : ""}${showVisited ? " is-visited" : ""}${item.back ? " is-back" : ""}${item.hidden ? " is-hidden" : ""}`,
       style: {
         left: `${item.x + (isActive ? item.activeOffsetX : 0)}px`,
         top: `${item.y + (isActive ? item.activeOffsetY : 0)}px`,
@@ -433,12 +437,9 @@ function GlobeHotspot({ item, isActive, isNext, isVisited, onSelect }) {
         zIndex: isActive ? 80 : item.zIndex
       },
       onPointerDown: (event) => event.stopPropagation(),
-      onClick: isSelectable ? () => onSelect(item.id) : undefined,
+      onClick: () => onSelect(item.id),
       "aria-label": item.title,
       "aria-pressed": isActive,
-      "aria-disabled": isSelectable ? undefined : "true",
-      disabled: isSelectable ? undefined : true,
-      tabIndex: isSelectable ? undefined : -1,
       title: item.title
     },
     h(
@@ -456,19 +457,15 @@ function GlobeHotspot({ item, isActive, isNext, isVisited, onSelect }) {
 
 function KeywordChip({ keyword, isActive, isNext, isVisited, onSelect }) {
   const keywordNumber = String(keyword.sequence).padStart(2, "0");
-  const isSelectable = Boolean(isActive || isNext || isVisited);
   const showVisited = isVisited && !isActive && !isNext;
 
   return h(
     "button",
     {
       type: "button",
-      className: `barocco-musical-globe__chip${isActive ? " is-active" : ""}${isNext ? " is-next" : ""}${showVisited ? " is-visited" : ""}${isSelectable ? "" : " is-disabled"}`,
-      onClick: isSelectable ? () => onSelect(keyword.id) : undefined,
+      className: `barocco-musical-globe__chip${isActive ? " is-active" : ""}${isNext ? " is-next" : ""}${showVisited ? " is-visited" : ""}`,
+      onClick: () => onSelect(keyword.id),
       "aria-pressed": isActive,
-      "aria-disabled": isSelectable ? undefined : "true",
-      disabled: isSelectable ? undefined : true,
-      tabIndex: isSelectable ? undefined : -1,
       "aria-label": `${keywordNumber} ${keyword.title}`
     },
     h("span", { className: "barocco-musical-globe__chip-number", "aria-hidden": "true" }, keywordNumber),
@@ -512,7 +509,7 @@ function KeywordPopup({ keyword, onClose }) {
         h(
           "div",
           { className: "barocco-musical-globe__popup-copy" },
-          keyword.popupCopy.map((paragraph, index) => h("p", { key: index }, paragraph))
+          getKeywordPopupCopy(keyword).map((paragraph, index) => h("p", { key: index }, paragraph))
         )
       )
     )
@@ -539,7 +536,7 @@ export default function BaroccoCoordinateSphereMusicale() {
   const activeKeywordIndex = musicalOrbit.keywords.findIndex((keyword) => keyword.id === activeKeyword.id);
   const nextKeyword = musicalOrbit.keywords[(activeKeywordIndex + 1) % musicalOrbit.keywords.length] || initialKeyword;
   const nextKeywordId = nextKeyword.id;
-  const popupKeyword = isPopupOpen && activeKeyword.hasPopup ? activeKeyword : null;
+  const popupKeyword = isPopupOpen ? activeKeyword : null;
 
   React.useEffect(() => {
     const frame = frameRef.current;
@@ -636,20 +633,13 @@ export default function BaroccoCoordinateSphereMusicale() {
 
   const selectKeyword = React.useCallback((keywordId) => {
     const selectedKeyword = musicalOrbit.keywords.find((keyword) => keyword.id === keywordId);
-    const canSelect = selectedKeyword && (
-      selectedKeyword.id === activeKeywordId ||
-      selectedKeyword.id === nextKeywordId ||
-      visitedKeywordIds.includes(selectedKeyword.id)
-    );
-    if (!canSelect) return;
+    if (!selectedKeyword) return;
     setActiveKeywordId(keywordId);
-    if (selectedKeyword.hasPopup) {
-      setVisitedKeywordIds((currentIds) => (
-        currentIds.includes(keywordId) ? currentIds : [...currentIds, keywordId]
-      ));
-    }
-    setIsPopupOpen(Boolean(selectedKeyword.hasPopup));
-  }, [activeKeywordId, nextKeywordId, visitedKeywordIds]);
+    setVisitedKeywordIds((currentIds) => (
+      currentIds.includes(keywordId) ? currentIds : [...currentIds, keywordId]
+    ));
+    setIsPopupOpen(true);
+  }, []);
 
   const closePopup = React.useCallback(() => {
     setIsPopupOpen(false);

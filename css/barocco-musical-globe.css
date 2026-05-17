@@ -178,7 +178,7 @@
 
 .barocco-musical-globe__hotspot-copy strong {
   display: block;
-  color: var(--lesson-text);
+  color: rgba(17, 17, 17, 0.86);
   font-size: 0.95rem;
   font-weight: 780;
   letter-spacing: 0;
@@ -204,28 +204,6 @@
     0 0 2rem rgba(220, 155, 76, 0.34),
     inset 0 1px 0 rgba(255, 255, 255, 0.94);
   animation: barocco-globe-active-pulse 1800ms ease-in-out infinite;
-}
-
-.barocco-musical-globe__hotspot.is-disabled {
-  border-color: rgba(17, 17, 17, 0.08);
-  background: rgba(245, 244, 239, 0.58);
-  box-shadow: none;
-  color: rgba(17, 17, 17, 0.32);
-  cursor: default;
-  filter: grayscale(0.68) saturate(0.42);
-  opacity: 0.2 !important;
-  pointer-events: none;
-}
-
-.barocco-musical-globe__hotspot.is-disabled .barocco-musical-globe__hotspot-index {
-  border-color: rgba(17, 17, 17, 0.08);
-  background: rgba(255, 255, 255, 0.42);
-  color: rgba(17, 17, 17, 0.3);
-  box-shadow: none;
-}
-
-.barocco-musical-globe__hotspot.is-disabled .barocco-musical-globe__hotspot-copy strong {
-  color: rgba(17, 17, 17, 0.36);
 }
 
 .barocco-musical-globe__hotspot.is-visited {
@@ -309,7 +287,7 @@
 }
 
 .barocco-musical-globe__hotspot.is-back {
-  opacity: 0.3 !important;
+  opacity: 0.54 !important;
 }
 
 .barocco-musical-globe__hotspot.is-hidden {
@@ -433,18 +411,12 @@
   opacity: 1;
 }
 
-.barocco-musical-globe__chip.is-disabled {
-  border-color: rgba(17, 17, 17, 0.06);
-  background: rgba(245, 244, 239, 0.42);
-  color: rgba(17, 17, 17, 0.3);
-  cursor: default;
-  filter: grayscale(0.7) saturate(0.5);
-  opacity: 0.34;
-}
-
-.barocco-musical-globe__chip.is-disabled .barocco-musical-globe__chip-number {
-  background: rgba(255, 255, 255, 0.36);
-  color: rgba(17, 17, 17, 0.32);
+.barocco-musical-globe__chip:hover .barocco-musical-globe__chip-text,
+.barocco-musical-globe__chip:focus-visible .barocco-musical-globe__chip-text,
+.barocco-musical-globe__chip.is-next .barocco-musical-globe__chip-text,
+.barocco-musical-globe__chip.is-visited .barocco-musical-globe__chip-text {
+  max-width: 15rem;
+  opacity: 1;
 }
 
 .barocco-musical-globe__chip.is-visited {
