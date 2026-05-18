@@ -107,7 +107,14 @@ const musicalOrbit = {
       longitude: 136,
       copy: "È una delle grandi novità del Barocco: musica, parola e azione teatrale si uniscono per raccontare storie attraverso il canto e la scena.",
       insight: "Il canto diventa azione teatrale e porta il racconto dentro la scena.",
-      keyIdea: "Musica, parola e teatro si fondono nell’opera."
+      keyIdea: "Musica, parola e teatro si fondono nell’opera.",
+      popupSide: "left",
+      popupImage: popupAsset("barocco-melodramma-popup.png"),
+      popupCopy: [
+        "È una delle grandi novità del Barocco: musica, parola e azione teatrale si uniscono per raccontare storie attraverso il canto e la scena.",
+        "Nel melodramma i personaggi non si limitano a parlare: cantano emozioni, conflitti e scelte, trasformando il teatro in un’esperienza musicale completa.",
+        "Da questa fusione nasce l’opera, una forma spettacolare capace di coinvolgere vista, ascolto e immaginazione."
+      ]
     },
     {
       id: "concerto-solista",
