@@ -195,28 +195,28 @@ const timelineItems = [
 
 const layoutPresets = {
   desktop: {
-    stepX: 150,
-    stepY: 42,
-    sideScale: 0.82,
-    sideOpacity: 0.42,
+    stepX: 108,
+    stepY: 10,
+    sideScale: 0.9,
+    sideOpacity: 0.68,
     farOpacity: 0.12,
-    maxDistance: 2
+    maxDistance: 4
   },
   tablet: {
-    stepX: 126,
-    stepY: 34,
-    sideScale: 0.86,
-    sideOpacity: 0.34,
+    stepX: 92,
+    stepY: 9,
+    sideScale: 0.88,
+    sideOpacity: 0.58,
     farOpacity: 0.08,
-    maxDistance: 2
+    maxDistance: 3
   },
   mobile: {
-    stepX: 96,
-    stepY: 28,
-    sideScale: 0.88,
-    sideOpacity: 0.24,
+    stepX: 68,
+    stepY: 7,
+    sideScale: 0.84,
+    sideOpacity: 0.46,
     farOpacity: 0,
-    maxDistance: 1
+    maxDistance: 2
   }
 };
 
@@ -355,6 +355,57 @@ function BaroccoTimeline() {
     return transforms.length ? transforms.join(" ") : undefined;
   }, [activeItem]);
 
+  const timelineCompass = h(
+    "div",
+    { className: "barocco-timeline__compass", "aria-label": "Bussola cronologica" },
+    h(
+      "div",
+      { className: "barocco-timeline__compass-progress", "aria-label": "Posizione nella timeline" },
+      h("span", null, "Evento"),
+      h("strong", null, `${String(activeIndex + 1).padStart(2, "0")}/${String(itemCount).padStart(2, "0")}`),
+      h("i", null, h("b", { style: { width: `${((activeIndex + 1) / itemCount) * 100}%` } }))
+    ),
+    h("div", { className: "barocco-timeline__signal", "aria-hidden": "true" }),
+    h("div", { className: "barocco-timeline__scan", "aria-hidden": "true" }),
+    h(
+      "div",
+      { className: "barocco-timeline__nodes" },
+      visibleNodes.map((node, index) => {
+        const isActive = index === activeIndex;
+        return h(
+          "button",
+          {
+            key: node.id,
+            type: "button",
+            className: `barocco-timeline-card${node.visual ? " barocco-timeline-card--featured" : ""}${isActive ? " is-active" : ""}${node.hidden ? " is-hidden" : ""}`,
+            onClick: () => selectItem(index),
+            "aria-current": isActive ? "true" : undefined,
+            "aria-label": `${node.year} — ${node.title}`,
+            style: {
+              transform: `translate3d(${node.x}px, ${node.y}px, 0) scale(${node.scale})`,
+              opacity: node.opacity,
+              zIndex: node.zIndex,
+              pointerEvents: node.hidden ? "none" : "auto"
+            }
+          },
+          h("span", { className: "barocco-timeline-card__year" }, node.year),
+          h("strong", { className: "barocco-timeline-card__title" }, node.title),
+          h("small", { className: "barocco-timeline-card__category" }, node.category),
+          h("em", { className: "barocco-timeline-card__subtitle" }, node.subtitle),
+          h("i", { className: "barocco-timeline-card__stem", "aria-hidden": "true" }),
+          h("i", { className: "barocco-timeline-card__dot", "aria-hidden": "true" })
+        );
+      })
+    ),
+    h(
+      "div",
+      { className: "barocco-timeline__controls" },
+      h("button", { type: "button", onClick: goPrev, "aria-label": "Evento precedente" }, iconArrow("left")),
+      h("button", { type: "button", className: "is-primary", onClick: () => setIsPlaying((current) => !current), "aria-pressed": isPlaying }, iconPlay(isPlaying), h("span", null, isPlaying ? "Ferma" : "Avvia")),
+      h("button", { type: "button", onClick: goNext, "aria-label": "Evento successivo" }, iconArrow("right"))
+    )
+  );
+
   return h(
     "section",
     {
@@ -368,62 +419,11 @@ function BaroccoTimeline() {
         h("p", { className: "barocco-timeline__eyebrow" }, "Asse cronologico"),
         h("h2", { id: "barocco-timeline-title" }, "Timeline"),
         h("p", { className: "barocco-timeline__intro" }, "Eventi di storia e musica per attraversare il Barocco lungo un’unica traiettoria visiva.")
-      ),
-      h(
-        "div",
-        { className: "barocco-timeline__progress", "aria-label": "Posizione nella timeline" },
-        h("span", null, "Evento"),
-        h("strong", null, `${String(activeIndex + 1).padStart(2, "0")}/${String(itemCount).padStart(2, "0")}`),
-        h("i", null, h("b", { style: { width: `${((activeIndex + 1) / itemCount) * 100}%` } }))
-      )
-    ),
-    h(
-      "div",
-      { className: "barocco-timeline__stage" },
-      h("div", { className: "barocco-timeline__signal", "aria-hidden": "true" }),
-      h("div", { className: "barocco-timeline__scan", "aria-hidden": "true" }),
-      h("div", { className: "barocco-timeline__rings", "aria-hidden": "true" }, h("span"), h("span"), h("span")),
-      h(
-        "div",
-        { className: "barocco-timeline__nodes" },
-        visibleNodes.map((node, index) => {
-          const isActive = index === activeIndex;
-          return h(
-            "button",
-            {
-              key: node.id,
-              type: "button",
-              className: `barocco-timeline-card${node.visual ? " barocco-timeline-card--featured" : ""}${isActive ? " is-active" : ""}${node.hidden ? " is-hidden" : ""}`,
-              onClick: () => selectItem(index),
-              "aria-current": isActive ? "true" : undefined,
-              "aria-label": `${node.year} — ${node.title}`,
-              style: {
-                transform: `translate3d(${node.x}px, ${node.y}px, 0) scale(${node.scale})`,
-                opacity: node.opacity,
-                zIndex: node.zIndex,
-                pointerEvents: node.hidden ? "none" : "auto"
-              }
-            },
-            h("span", { className: "barocco-timeline-card__year" }, node.year),
-            h("strong", { className: "barocco-timeline-card__title" }, node.title),
-            h("small", { className: "barocco-timeline-card__category" }, node.category),
-            h("em", { className: "barocco-timeline-card__subtitle" }, node.subtitle),
-            h("i", { className: "barocco-timeline-card__stem", "aria-hidden": "true" }),
-            h("i", { className: "barocco-timeline-card__dot", "aria-hidden": "true" })
-          );
-        })
-      ),
-      h(
-        "div",
-        { className: "barocco-timeline__controls" },
-        h("button", { type: "button", onClick: goPrev, "aria-label": "Evento precedente" }, iconArrow("left")),
-        h("button", { type: "button", className: "is-primary", onClick: () => setIsPlaying((current) => !current), "aria-pressed": isPlaying }, iconPlay(isPlaying), h("span", null, isPlaying ? "Ferma" : "Avvia")),
-        h("button", { type: "button", onClick: goNext, "aria-label": "Evento successivo" }, iconArrow("right"))
       )
     ),
     h(
       "article",
-      { className: `barocco-timeline-detail${activeItem.visual ? " barocco-timeline-detail--immersive" : ""}`, "aria-live": "polite" },
+      { className: `barocco-timeline-detail barocco-timeline-detail--fused${activeItem.visual ? " barocco-timeline-detail--immersive" : ""}`, "aria-live": "polite" },
       activeItem.visual
         ? h(
             "figure",
@@ -458,9 +458,11 @@ function BaroccoTimeline() {
                   h("p", null, activeNarrative)
                 )
               )
-            )
+            ),
+            timelineCompass
           )
         : [
+            timelineCompass,
             h("div", { className: "barocco-timeline-detail__header", key: "header" },
               h("span", null, activeItem.year),
               h("h3", null, activeItem.title),

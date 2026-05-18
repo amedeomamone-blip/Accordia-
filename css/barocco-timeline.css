@@ -15,10 +15,8 @@
 }
 
 .barocco-timeline__head {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
-  gap: 1.2rem;
+  display: grid;
+  gap: 0.6rem;
   padding-bottom: 1rem;
   border-bottom: 1px solid rgba(17, 17, 17, 0.08);
 }
@@ -342,6 +340,11 @@
   background: rgba(255, 255, 255, 0.98);
 }
 
+.barocco-timeline-detail--fused {
+  position: relative;
+  margin-top: 1rem;
+}
+
 .barocco-timeline-detail__body {
   display: grid;
   gap: 1.05rem;
@@ -451,7 +454,7 @@
   position: relative;
   margin: 0;
   min-height: 0;
-  aspect-ratio: var(--barocco-uniform-ratio);
+  aspect-ratio: 16 / 9.7;
   overflow: hidden;
 }
 
@@ -480,7 +483,7 @@
   inset: 0;
   display: grid;
   align-items: stretch;
-  padding: clamp(1.35rem, 3vw, 2.1rem);
+  padding: clamp(1.35rem, 3vw, 2.1rem) clamp(1.35rem, 3vw, 2.1rem) clamp(9rem, 15vw, 10rem);
   z-index: 3;
 }
 
@@ -555,6 +558,174 @@
   line-height: 1.62;
 }
 
+.barocco-timeline__compass {
+  position: absolute;
+  right: clamp(0.75rem, 2vw, 1.25rem);
+  bottom: clamp(0.75rem, 2vw, 1.25rem);
+  left: clamp(0.75rem, 2vw, 1.25rem);
+  z-index: 4;
+  height: clamp(8.4rem, 15vw, 9.2rem);
+  overflow: hidden;
+  border: 1px solid rgba(255, 244, 232, 0.24);
+  border-radius: 1.05rem;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.5), rgba(255, 250, 244, 0.22)),
+    rgba(45, 31, 24, 0.18);
+  box-shadow: 0 0.9rem 2.2rem rgba(18, 12, 10, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.barocco-timeline__compass-progress {
+  position: absolute;
+  top: 0.58rem;
+  left: 0.68rem;
+  width: min(13.5rem, calc(100% - 12.5rem));
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.36rem 0.8rem;
+  align-items: center;
+}
+
+.barocco-timeline__compass-progress span,
+.barocco-timeline__compass-progress strong {
+  color: rgba(255, 253, 249, 0.9);
+  font-size: 0.62rem;
+  font-weight: 820;
+  letter-spacing: 0.18em;
+  line-height: 1;
+  text-shadow: 0 0.12rem 0.7rem rgba(10, 7, 6, 0.22);
+  text-transform: uppercase;
+}
+
+.barocco-timeline__compass-progress strong {
+  justify-self: end;
+}
+
+.barocco-timeline__compass-progress i {
+  position: relative;
+  grid-column: 1 / -1;
+  height: 0.28rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 248, 241, 0.24);
+}
+
+.barocco-timeline__compass-progress b {
+  position: absolute;
+  inset: 0 auto 0 0;
+  display: block;
+  border-radius: inherit;
+  background: rgba(255, 248, 241, 0.82);
+  transition: width 420ms ease;
+}
+
+.barocco-timeline__compass .barocco-timeline__signal {
+  top: calc(100% - 2.02rem);
+  left: 3.5%;
+  right: 3.5%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 248, 241, 0.36) 12%, rgba(255, 248, 241, 0.82) 50%, rgba(255, 248, 241, 0.36) 88%, transparent);
+}
+
+.barocco-timeline__compass .barocco-timeline__scan {
+  display: none;
+}
+
+.barocco-timeline__compass .barocco-timeline__nodes {
+  top: calc(100% - 4.92rem);
+}
+
+.barocco-timeline__compass .barocco-timeline-card {
+  width: 8.9rem;
+  height: 5.65rem;
+  padding: 0.58rem 0.62rem;
+  grid-template-rows: auto minmax(2.05rem, 1fr) auto;
+  gap: 0.3rem;
+  border-color: rgba(255, 244, 232, 0.26);
+  border-radius: 0.88rem;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 0.55rem 1.25rem rgba(18, 12, 10, 0.09);
+}
+
+.barocco-timeline__compass .barocco-timeline-card:hover,
+.barocco-timeline__compass .barocco-timeline-card:focus-visible {
+  border-color: rgba(255, 248, 241, 0.7);
+}
+
+.barocco-timeline__compass .barocco-timeline-card.is-active {
+  border-color: rgba(255, 248, 241, 0.82);
+  background: rgba(255, 255, 255, 0.98);
+  box-shadow:
+    0 0.8rem 1.8rem rgba(18, 12, 10, 0.14),
+    0 0 0 1px rgba(255, 248, 241, 0.24);
+}
+
+.barocco-timeline__compass .barocco-timeline-card__year,
+.barocco-timeline__compass .barocco-timeline-card__category {
+  font-size: 0.55rem;
+  letter-spacing: 0.14em;
+}
+
+.barocco-timeline__compass .barocco-timeline-card__title {
+  min-height: 0;
+  font-size: 0.74rem;
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.barocco-timeline__compass .barocco-timeline-card__category {
+  padding: 0.22rem 0.36rem;
+}
+
+.barocco-timeline__compass .barocco-timeline-card__subtitle {
+  display: none;
+}
+
+.barocco-timeline__compass .barocco-timeline-card__stem {
+  top: 100%;
+  height: 0.7rem;
+  background: rgba(255, 248, 241, 0.44);
+}
+
+.barocco-timeline__compass .barocco-timeline-card__dot {
+  top: calc(100% + 0.58rem);
+  width: 0.54rem;
+  height: 0.54rem;
+  border-color: rgba(255, 248, 241, 0.62);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: none;
+}
+
+.barocco-timeline__compass .barocco-timeline-card.is-active .barocco-timeline-card__dot {
+  border-color: #fff8f1;
+  background: #c14f40;
+  box-shadow: none;
+}
+
+.barocco-timeline__compass .barocco-timeline__controls {
+  top: 0.48rem;
+  right: 0.58rem;
+  bottom: auto;
+  left: auto;
+  z-index: 8;
+  transform: none;
+  padding: 0.28rem;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 0.5rem 1.3rem rgba(18, 12, 10, 0.1);
+}
+
+.barocco-timeline__compass .barocco-timeline__controls button {
+  min-width: 2rem;
+  height: 2rem;
+  padding: 0 0.56rem;
+  font-size: 0.76rem;
+}
+
+.barocco-timeline__compass .barocco-timeline__controls button.is-primary {
+  min-width: 6.7rem;
+}
+
 @keyframes barocco-timeline-scan {
   0%, 100% { left: 7%; opacity: 0.38; }
   50% { left: calc(93% - 14rem); opacity: 0.92; }
@@ -594,10 +765,11 @@
 
   .barocco-timeline-detail__hero {
     min-height: 0;
+    aspect-ratio: 4 / 3.85;
   }
 
   .barocco-timeline-detail__hero-grid {
-    padding: 1.15rem;
+    padding: 1.15rem 1.15rem 9.4rem;
   }
 
   .barocco-timeline-detail__hero-copy {
@@ -622,6 +794,23 @@
   .barocco-timeline-detail__copy--overlay {
     width: min(100%, 18.75rem);
     padding: 0.88rem 0.92rem 0.96rem;
+  }
+
+  .barocco-timeline__compass {
+    height: 8.9rem;
+  }
+
+  .barocco-timeline__compass-progress {
+    width: min(11rem, calc(100% - 10rem));
+  }
+
+  .barocco-timeline__compass .barocco-timeline-card {
+    width: 8.1rem;
+    height: 5.35rem;
+  }
+
+  .barocco-timeline__compass .barocco-timeline__controls button.is-primary {
+    min-width: 5.8rem;
   }
 }
 
@@ -662,10 +851,11 @@
 
   .barocco-timeline-detail__hero {
     min-height: 0;
+    aspect-ratio: 4 / 4.85;
   }
 
   .barocco-timeline-detail__hero-grid {
-    padding: 0.9rem;
+    padding: 0.9rem 0.9rem 10.3rem;
   }
 
   .barocco-timeline-detail__hero-copy {
@@ -693,5 +883,61 @@
   .barocco-timeline-detail__copy--overlay p {
     font-size: 0.94rem;
     line-height: 1.5;
+  }
+
+  .barocco-timeline__compass {
+    right: 0.55rem;
+    bottom: 0.55rem;
+    left: 0.55rem;
+    height: 9.5rem;
+    border-radius: 0.9rem;
+  }
+
+  .barocco-timeline__compass-progress {
+    top: 0.55rem;
+    width: 8.5rem;
+  }
+
+  .barocco-timeline__compass-progress span,
+  .barocco-timeline__compass-progress strong {
+    font-size: 0.54rem;
+    letter-spacing: 0.13em;
+  }
+
+  .barocco-timeline__compass .barocco-timeline__nodes {
+    top: calc(100% - 4.72rem);
+  }
+
+  .barocco-timeline__compass .barocco-timeline-card {
+    width: 6.9rem;
+    height: 5.05rem;
+    padding: 0.5rem 0.52rem;
+  }
+
+  .barocco-timeline__compass .barocco-timeline-card__title {
+    font-size: 0.64rem;
+  }
+
+  .barocco-timeline__compass .barocco-timeline-card__category {
+    font-size: 0.5rem;
+  }
+
+  .barocco-timeline__compass .barocco-timeline__controls {
+    top: 0.46rem;
+    right: 0.48rem;
+  }
+
+  .barocco-timeline__compass .barocco-timeline__controls button {
+    min-width: 1.84rem;
+    height: 1.84rem;
+    padding: 0 0.48rem;
+  }
+
+  .barocco-timeline__compass .barocco-timeline__controls button.is-primary {
+    min-width: 2.2rem;
+  }
+
+  .barocco-timeline__compass .barocco-timeline__controls button.is-primary span {
+    display: none;
   }
 }
