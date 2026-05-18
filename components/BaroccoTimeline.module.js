@@ -213,9 +213,9 @@ const layoutPresets = {
     maxDistance: 3
   },
   mobile: {
-    stepX: 72,
-    stepY: 7,
-    sideScale: 0.84,
+    stepX: 66,
+    stepY: 6,
+    sideScale: 0.82,
     sideOpacity: 0.68,
     opacityStep: 0.24,
     farOpacity: 0,

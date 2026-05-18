@@ -702,6 +702,11 @@
     padding: 0.88rem 0.92rem 0.96rem;
   }
 
+  .barocco-timeline-detail__copy--overlay p {
+    font-size: 0.92rem;
+    line-height: 1.46;
+  }
+
   .barocco-timeline__compass {
     height: 8.1rem;
   }
@@ -716,7 +721,8 @@
 @media (max-width: 40rem) {
   .barocco-timeline {
     --barocco-section-gutter: 1rem;
-    padding: 0.86rem;
+    padding: 0.72rem;
+    border-radius: 1.18rem;
   }
 
   .barocco-timeline-detail__visual-frame {
@@ -742,11 +748,11 @@
 
   .barocco-timeline-detail__hero {
     min-height: 0;
-    aspect-ratio: 4 / 4.85;
+    aspect-ratio: 4 / 5.42;
   }
 
   .barocco-timeline-detail__hero-grid {
-    padding: 0.9rem 0.9rem 10.95rem;
+    padding: 0.82rem 0.82rem 10.35rem;
   }
 
   .barocco-timeline-detail__hero-copy {
@@ -760,50 +766,55 @@
   }
 
   .barocco-timeline-detail__hero-copy > span {
-    font-size: 0.78rem;
+    font-size: 0.76rem;
   }
 
   .barocco-timeline-detail__hero-subtitle {
-    font-size: 0.78rem;
-    letter-spacing: 0.1em;
+    font-size: 0.74rem;
+    letter-spacing: 0.08em;
   }
 
   .barocco-timeline-detail__copy--overlay {
     width: 100%;
-    margin-top: 0.14rem;
-    padding: 0.78rem 0.82rem 0.86rem;
+    max-height: 8.3rem;
+    margin-top: 0.04rem;
+    padding: 0.72rem 0.76rem 0.78rem;
     border-radius: 0.92rem;
+    overflow: auto;
+    overscroll-behavior: contain;
   }
 
   .barocco-timeline-detail__copy--overlay p {
-    font-size: 0.94rem;
-    line-height: 1.5;
+    font-size: 0.84rem;
+    line-height: 1.42;
   }
 
   .barocco-timeline__compass {
     right: 0;
     bottom: 0;
     left: 0;
-    height: 8.35rem;
+    height: 7.65rem;
     border-radius: 0 0 1.15rem 1.15rem;
   }
 
   .barocco-timeline__compass .barocco-timeline__nodes {
-    top: calc(100% - 4.2rem);
+    top: calc(100% - 3.82rem);
   }
 
   .barocco-timeline__compass .barocco-timeline-card {
-    width: 6.9rem;
-    height: 4.75rem;
-    padding: 0.5rem 0.52rem;
+    width: 6.25rem;
+    height: 4.32rem;
+    padding: 0.42rem 0.46rem;
+    gap: 0.24rem;
   }
 
   .barocco-timeline__compass .barocco-timeline-card__title {
-    font-size: 0.62rem;
+    font-size: 0.58rem;
+    line-height: 1.08;
   }
 
   .barocco-timeline__compass .barocco-timeline-card__category {
-    font-size: 0.48rem;
+    font-size: 0.45rem;
   }
 
 }
