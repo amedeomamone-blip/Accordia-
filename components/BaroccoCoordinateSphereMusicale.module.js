@@ -71,7 +71,14 @@ const musicalOrbit = {
       longitude: 70,
       copy: "Vicino agli ambienti religiosi si diffondono gli oratori: composizioni sacre narrative, eseguite senza rappresentazione scenica, spesso dedicate a episodi biblici.",
       insight: "Il racconto sacro viene affidato alla musica senza bisogno di azione teatrale.",
-      keyIdea: "L’oratorio unisce narrazione religiosa e scrittura musicale."
+      keyIdea: "L’oratorio unisce narrazione religiosa e scrittura musicale.",
+      popupSide: "right",
+      popupImage: popupAsset("barocco-oratori-popup.png"),
+      popupCopy: [
+        "Vicino agli ambienti religiosi si diffondono gli oratori: composizioni sacre narrative, spesso dedicate a episodi biblici ed eseguite senza rappresentazione scenica.",
+        "Il racconto prende forma attraverso voci, coro e strumenti: la scena non si vede, ma viene immaginata dall’ascoltatore grazie alla forza espressiva della musica.",
+        "L’oratorio unisce quindi spiritualità, narrazione e intensità teatrale, pur restando fuori dal teatro rappresentato."
+      ]
     },
     {
       id: "orchestra-barocca",
