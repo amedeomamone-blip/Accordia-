@@ -196,25 +196,25 @@ const timelineItems = [
 const layoutPresets = {
   desktop: {
     stepX: 112,
-    stepY: 20,
+    stepY: 12,
     sideScale: 0.9,
-    sideOpacity: 0.7,
+    sideOpacity: 0.64,
     farOpacity: 0.12,
     maxDistance: 4
   },
   tablet: {
     stepX: 96,
-    stepY: 16,
+    stepY: 10,
     sideScale: 0.88,
-    sideOpacity: 0.6,
+    sideOpacity: 0.54,
     farOpacity: 0.08,
     maxDistance: 3
   },
   mobile: {
     stepX: 72,
-    stepY: 11,
+    stepY: 7,
     sideScale: 0.84,
-    sideOpacity: 0.5,
+    sideOpacity: 0.42,
     farOpacity: 0,
     maxDistance: 2
   }
