@@ -125,7 +125,14 @@ const musicalOrbit = {
       longitude: 176,
       copy: "Un singolo strumento dialoga e si contrappone all’orchestra, mettendo in luce virtuosismo, agilità e capacità espressive dell’esecutore.",
       insight: "Il solista emerge come voce riconoscibile dentro il dialogo con l’orchestra.",
-      keyIdea: "Virtuosismo ed espressività diventano protagonisti."
+      keyIdea: "Virtuosismo ed espressività diventano protagonisti.",
+      popupSide: "right",
+      popupImage: popupAsset("barocco-concerto-solista-popup.png"),
+      popupCopy: [
+        "Un singolo strumento dialoga e si contrappone all’orchestra, mettendo in luce virtuosismo, agilità e capacità espressive dell’esecutore.",
+        "Nel concerto solista il musicista diventa una presenza riconoscibile: risponde all’orchestra, la sfida, la guida e spesso sorprende l’ascoltatore con passaggi brillanti.",
+        "Il contrasto tra solista e insieme orchestrale crea movimento, tensione e varietà sonora."
+      ]
     },
     {
       id: "concerto-grosso",
