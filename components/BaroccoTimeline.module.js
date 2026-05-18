@@ -238,55 +238,9 @@ function getViewportMode() {
   return "desktop";
 }
 
-function iconArrow(direction) {
-  const path = direction === "left"
-    ? "M19 12H5 M12 19l-7-7 7-7"
-    : "M5 12h14 M12 5l7 7-7 7";
-  return h(
-    "svg",
-    {
-      viewBox: "0 0 24 24",
-      fill: "none",
-      stroke: "currentColor",
-      strokeWidth: 2,
-      strokeLinecap: "round",
-      strokeLinejoin: "round",
-      "aria-hidden": "true"
-    },
-    h("path", { d: path })
-  );
-}
-
-function iconPlay(isPlaying) {
-  return isPlaying
-    ? h(
-        "svg",
-        {
-          viewBox: "0 0 24 24",
-          fill: "none",
-          stroke: "currentColor",
-          strokeWidth: 2,
-          strokeLinecap: "round",
-          strokeLinejoin: "round",
-          "aria-hidden": "true"
-        },
-        h("path", { d: "M10 6v12 M14 6v12" })
-      )
-    : h(
-        "svg",
-        {
-          viewBox: "0 0 24 24",
-          fill: "currentColor",
-          "aria-hidden": "true"
-        },
-        h("path", { d: "M8 5.5c0-.8.9-1.3 1.6-.9l9 5.5c.7.4.7 1.4 0 1.8l-9 5.5c-.7.4-1.6-.1-1.6-.9v-11Z" })
-      );
-}
-
 function BaroccoTimeline() {
   const itemCount = timelineItems.length;
   const [activeIndex, setActiveIndex] = React.useState(0);
-  const [isPlaying, setIsPlaying] = React.useState(false);
   const [viewportMode, setViewportMode] = React.useState(getViewportMode);
   const activeItem = timelineItems[activeIndex];
   const activeNarrative = `${activeItem.description} ${activeItem.insight}`;
@@ -301,14 +255,6 @@ function BaroccoTimeline() {
       window.removeEventListener("orientationchange", handleResize);
     };
   }, []);
-
-  React.useEffect(() => {
-    if (!isPlaying || itemCount <= 1) return undefined;
-    const timer = window.setInterval(() => {
-      setActiveIndex((current) => wrapIndex(current + 1, itemCount));
-    }, 4300);
-    return () => window.clearInterval(timer);
-  }, [isPlaying, itemCount]);
 
   const visibleNodes = React.useMemo(() => {
     return timelineItems.map((item, index) => {
@@ -328,18 +274,7 @@ function BaroccoTimeline() {
     });
   }, [activeIndex, itemCount, layout]);
 
-  const goPrev = React.useCallback(() => {
-    setIsPlaying(false);
-    setActiveIndex((current) => wrapIndex(current - 1, itemCount));
-  }, [itemCount]);
-
-  const goNext = React.useCallback(() => {
-    setIsPlaying(false);
-    setActiveIndex((current) => wrapIndex(current + 1, itemCount));
-  }, [itemCount]);
-
   const selectItem = React.useCallback((index) => {
-    setIsPlaying(false);
     setActiveIndex(wrapIndex(index, itemCount));
   }, [itemCount]);
 
@@ -389,13 +324,6 @@ function BaroccoTimeline() {
           h("i", { className: "barocco-timeline-card__dot", "aria-hidden": "true" })
         );
       })
-    ),
-    h(
-      "div",
-      { className: "barocco-timeline__controls" },
-      h("button", { type: "button", onClick: goPrev, "aria-label": "Evento precedente" }, iconArrow("left")),
-      h("button", { type: "button", className: "is-primary", onClick: () => setIsPlaying((current) => !current), "aria-pressed": isPlaying }, iconPlay(isPlaying), h("span", null, isPlaying ? "Ferma" : "Avvia")),
-      h("button", { type: "button", onClick: goNext, "aria-label": "Evento successivo" }, iconArrow("right"))
     )
   );
 

@@ -284,52 +284,6 @@
   box-shadow: 0 0 1.2rem rgba(193, 79, 64, 0.28);
 }
 
-.barocco-timeline__controls {
-  position: absolute;
-  bottom: 1.55rem;
-  left: 50%;
-  display: flex;
-  align-items: center;
-  gap: 0.38rem;
-  transform: translateX(-50%);
-  padding: 0.38rem;
-  border: 1px solid rgba(17, 17, 17, 0.12);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.94);
-  box-shadow: 0 0.8rem 1.75rem rgba(17, 17, 17, 0.07);
-}
-
-.barocco-timeline__controls button {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.4rem;
-  min-width: 2.4rem;
-  height: 2.4rem;
-  padding: 0 0.72rem;
-  border: 1px solid rgba(17, 17, 17, 0.10);
-  border-radius: 999px;
-  background: rgba(245, 244, 239, 0.94);
-  color: var(--lesson-text);
-  font: inherit;
-  font-size: 0.84rem;
-  font-weight: 720;
-  cursor: pointer;
-}
-
-.barocco-timeline__controls button svg {
-  width: 0.92rem;
-  height: 0.92rem;
-}
-
-.barocco-timeline__controls button.is-primary {
-  min-width: 8.4rem;
-  border-color: #c14f40;
-  background: #c14f40;
-  color: #fff8f3;
-  box-shadow: 0 0.7rem 1.55rem rgba(193, 79, 64, 0.18);
-}
-
 .barocco-timeline-detail {
   margin-top: 1rem;
   padding: 1rem;
@@ -483,7 +437,7 @@
   inset: 0;
   display: grid;
   align-items: stretch;
-  padding: clamp(1.35rem, 3vw, 2.1rem) clamp(1.35rem, 3vw, 2.1rem) clamp(9rem, 14vw, 10rem);
+  padding: clamp(1.35rem, 3vw, 2.1rem) clamp(1.35rem, 3vw, 2.1rem) clamp(10.65rem, 15vw, 11.35rem);
   z-index: 3;
 }
 
@@ -564,7 +518,7 @@
   bottom: clamp(0.75rem, 2vw, 1.25rem);
   left: clamp(0.75rem, 2vw, 1.25rem);
   z-index: 4;
-  height: clamp(8.35rem, 13.5vw, 9.05rem);
+  height: clamp(8rem, 12.5vw, 8.65rem);
   overflow: hidden;
   border: 1px solid rgba(255, 244, 232, 0.24);
   border-radius: 1.05rem;
@@ -659,29 +613,6 @@
   box-shadow: none;
 }
 
-.barocco-timeline__compass .barocco-timeline__controls {
-  top: 0.52rem;
-  right: auto;
-  bottom: auto;
-  left: 50%;
-  z-index: 8;
-  transform: translateX(-50%);
-  padding: 0.28rem;
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 0.5rem 1.3rem rgba(18, 12, 10, 0.1);
-}
-
-.barocco-timeline__compass .barocco-timeline__controls button {
-  min-width: 2rem;
-  height: 2rem;
-  padding: 0 0.56rem;
-  font-size: 0.76rem;
-}
-
-.barocco-timeline__compass .barocco-timeline__controls button.is-primary {
-  min-width: 6.7rem;
-}
-
 @keyframes barocco-timeline-scan {
   0%, 100% { left: 7%; opacity: 0.38; }
   50% { left: calc(93% - 14rem); opacity: 0.92; }
@@ -725,7 +656,7 @@
   }
 
   .barocco-timeline-detail__hero-grid {
-    padding: 1.15rem 1.15rem 9.25rem;
+    padding: 1.15rem 1.15rem 10.35rem;
   }
 
   .barocco-timeline-detail__hero-copy {
@@ -753,7 +684,7 @@
   }
 
   .barocco-timeline__compass {
-    height: 8.6rem;
+    height: 8.1rem;
   }
 
   .barocco-timeline__compass .barocco-timeline-card {
@@ -761,9 +692,6 @@
     height: 5.05rem;
   }
 
-  .barocco-timeline__compass .barocco-timeline__controls button.is-primary {
-    min-width: 5.8rem;
-  }
 }
 
 @media (max-width: 40rem) {
@@ -789,14 +717,6 @@
   .barocco-timeline__rings span:nth-child(2) { width: 13rem; }
   .barocco-timeline__rings span:nth-child(3) { width: 9rem; }
 
-  .barocco-timeline__controls {
-    bottom: 1.3rem;
-  }
-
-  .barocco-timeline__controls button.is-primary {
-    min-width: 7.2rem;
-  }
-
   .barocco-timeline-detail__copy p {
     font-size: 1rem;
   }
@@ -807,7 +727,7 @@
   }
 
   .barocco-timeline-detail__hero-grid {
-    padding: 0.9rem 0.9rem 9.4rem;
+    padding: 0.9rem 0.9rem 10.55rem;
   }
 
   .barocco-timeline-detail__hero-copy {
@@ -841,7 +761,7 @@
     right: 0.55rem;
     bottom: 0.55rem;
     left: 0.55rem;
-    height: 8.95rem;
+    height: 8.35rem;
     border-radius: 0.9rem;
   }
 
@@ -863,24 +783,4 @@
     font-size: 0.48rem;
   }
 
-  .barocco-timeline__compass .barocco-timeline__controls {
-    top: 0.46rem;
-    right: auto;
-    left: 50%;
-    transform: translateX(-50%);
-  }
-
-  .barocco-timeline__compass .barocco-timeline__controls button {
-    min-width: 1.84rem;
-    height: 1.84rem;
-    padding: 0 0.48rem;
-  }
-
-  .barocco-timeline__compass .barocco-timeline__controls button.is-primary {
-    min-width: 2.2rem;
-  }
-
-  .barocco-timeline__compass .barocco-timeline__controls button.is-primary span {
-    display: none;
-  }
 }
