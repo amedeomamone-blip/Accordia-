@@ -89,7 +89,14 @@ const musicalOrbit = {
       longitude: 82,
       copy: "Si afferma un organico strumentale più ricco e riconoscibile, fondato sugli archi ma arricchito da fiati, percussioni e clavicembalo. Il colore sonoro diventa parte essenziale del linguaggio musicale.",
       insight: "Gli strumenti vengono organizzati per creare impasti e colori più riconoscibili.",
-      keyIdea: "Il timbro diventa una risorsa centrale della musica barocca."
+      keyIdea: "Il timbro diventa una risorsa centrale della musica barocca.",
+      popupSide: "right",
+      popupImage: popupAsset("barocco-orchestra-barocca-popup.png"),
+      popupCopy: [
+        "Nel Barocco si afferma un organico strumentale più ricco e riconoscibile. Gli archi diventano il cuore dell’orchestra, sostenuti dal basso continuo e dal clavicembalo.",
+        "Accanto agli archi possono comparire fiati, percussioni e altri strumenti, scelti per ampliare la tavolozza sonora e rendere la musica più varia, brillante e teatrale.",
+        "Il colore degli strumenti non è più un semplice accompagnamento: diventa una parte essenziale del linguaggio musicale."
+      ]
     },
     {
       id: "melodramma",
