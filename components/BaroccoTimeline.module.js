@@ -236,6 +236,7 @@ function circularOffset(index, activeIndex, length) {
 
 function getViewportMode() {
   if (typeof window === "undefined") return "desktop";
+  if (window.innerWidth <= 960 && window.innerHeight <= 520) return "mobile";
   if (window.innerWidth <= 680) return "mobile";
   if (window.innerWidth <= 1180) return "tablet";
   return "desktop";

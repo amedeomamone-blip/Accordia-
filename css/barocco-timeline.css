@@ -818,3 +818,72 @@
   }
 
 }
+
+@media (max-width: 60rem) and (max-height: 32rem) and (orientation: landscape) {
+  .barocco-timeline {
+    --barocco-section-gutter: 0.7rem;
+    padding: 0.68rem;
+  }
+
+  .barocco-timeline-detail__hero {
+    aspect-ratio: 16 / 8.8;
+  }
+
+  .barocco-timeline-detail__hero-grid {
+    padding: 0.74rem 0.82rem 8.85rem;
+  }
+
+  .barocco-timeline-detail__hero-copy {
+    width: min(100%, 18.5rem);
+    gap: 0.34rem;
+  }
+
+  .barocco-timeline-detail__hero-copy h3 {
+    max-width: 12ch;
+    font-size: clamp(1.52rem, 4.6vw, 2.28rem);
+    line-height: 0.96;
+  }
+
+  .barocco-timeline-detail__hero-subtitle {
+    font-size: 0.64rem;
+    letter-spacing: 0.07em;
+  }
+
+  .barocco-timeline-detail__copy--overlay {
+    width: min(100%, 17.5rem);
+    max-height: 5.25rem;
+    padding: 0.54rem 0.62rem 0.58rem;
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+
+  .barocco-timeline-detail__copy--overlay p {
+    font-size: 0.72rem;
+    line-height: 1.32;
+  }
+
+  .barocco-timeline__compass {
+    height: 7.55rem;
+  }
+
+  .barocco-timeline__compass .barocco-timeline__nodes {
+    top: calc(100% - 4.3rem);
+  }
+
+  .barocco-timeline__compass .barocco-timeline-card {
+    width: 6.3rem;
+    height: 4.18rem;
+    padding: 0.4rem 0.44rem;
+    gap: 0.22rem;
+  }
+
+  .barocco-timeline__compass .barocco-timeline-card__year,
+  .barocco-timeline__compass .barocco-timeline-card__category {
+    font-size: 0.44rem;
+  }
+
+  .barocco-timeline__compass .barocco-timeline-card__title {
+    font-size: 0.56rem;
+    line-height: 1.05;
+  }
+}
