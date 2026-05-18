@@ -195,26 +195,26 @@ const timelineItems = [
 
 const layoutPresets = {
   desktop: {
-    stepX: 108,
-    stepY: 10,
+    stepX: 112,
+    stepY: 20,
     sideScale: 0.9,
-    sideOpacity: 0.68,
+    sideOpacity: 0.7,
     farOpacity: 0.12,
     maxDistance: 4
   },
   tablet: {
-    stepX: 92,
-    stepY: 9,
+    stepX: 96,
+    stepY: 16,
     sideScale: 0.88,
-    sideOpacity: 0.58,
+    sideOpacity: 0.6,
     farOpacity: 0.08,
     maxDistance: 3
   },
   mobile: {
-    stepX: 68,
-    stepY: 7,
+    stepX: 72,
+    stepY: 11,
     sideScale: 0.84,
-    sideOpacity: 0.46,
+    sideOpacity: 0.5,
     farOpacity: 0,
     maxDistance: 2
   }
@@ -358,13 +358,6 @@ function BaroccoTimeline() {
   const timelineCompass = h(
     "div",
     { className: "barocco-timeline__compass", "aria-label": "Bussola cronologica" },
-    h(
-      "div",
-      { className: "barocco-timeline__compass-progress", "aria-label": "Posizione nella timeline" },
-      h("span", null, "Evento"),
-      h("strong", null, `${String(activeIndex + 1).padStart(2, "0")}/${String(itemCount).padStart(2, "0")}`),
-      h("i", null, h("b", { style: { width: `${((activeIndex + 1) / itemCount) * 100}%` } }))
-    ),
     h("div", { className: "barocco-timeline__signal", "aria-hidden": "true" }),
     h("div", { className: "barocco-timeline__scan", "aria-hidden": "true" }),
     h(
