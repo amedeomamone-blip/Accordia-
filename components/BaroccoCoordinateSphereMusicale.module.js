@@ -22,6 +22,7 @@ const musicalOrbit = {
       insight: "Feste, cerimonie e spettacoli trasformano il suono in immagine pubblica del potere.",
       keyIdea: "La musica profana partecipa alla costruzione del prestigio di corte.",
       hasPopup: true,
+      popupSide: "right",
       popupImage: popupAsset("barocco-celebrazione-potere-popup.png"),
       popupCopy: [
         "Nel Barocco la musica profana diventa uno strumento di rappresentanza. Nelle corti europee accompagna feste, cerimonie, banchetti e spettacoli organizzati per mostrare ricchezza, ordine e grandezza.",
@@ -39,6 +40,7 @@ const musicalOrbit = {
       copy: "La musica sacra si arricchisce di nuove risorse sonore ed espressive per rendere il rito più intenso e partecipato, suscitando emozione e devozione.",
       insight: "La forza del suono aiuta il rito a diventare più vivido e coinvolgente.",
       keyIdea: "L’espressività musicale sostiene partecipazione, emozione e devozione.",
+      popupSide: "right",
       popupImage: popupAsset("barocco-coinvolgimento-fedeli-popup.png"),
       popupCopy: [
         "La musica sacra barocca cerca di coinvolgere i fedeli in modo più intenso. Voci, strumenti, contrasti sonori e melodie espressive rendono il rito più solenne e partecipato, trasformando l’ascolto in un’esperienza capace di suscitare emozione, raccoglimento e devozione."
@@ -54,6 +56,7 @@ const musicalOrbit = {
       copy: "Accanto alle sale di corte nascono spazi aperti a un pubblico più ampio. Il teatro musicale esce progressivamente dall’ambiente aristocratico e diventa un’esperienza condivisa.",
       insight: "Il teatro musicale incontra un pubblico più largo e cambia la sua funzione sociale.",
       keyIdea: "Lo spettacolo non resta solo aristocratico: diventa esperienza pubblica.",
+      popupSide: "right",
       popupImage: popupAsset("barocco-teatri-pubblici-popup.png"),
       popupCopy: [
         "Accanto alle sale di corte nascono spazi aperti a un pubblico più ampio. Il teatro musicale esce progressivamente dall’ambiente di corte e diventa un’esperienza condivisa."
@@ -481,13 +484,15 @@ function KeywordChip({ keyword, isActive, isNext, isVisited, onSelect }) {
 }
 
 function KeywordPopup({ keyword, onClose }) {
+  const popupSide = keyword.popupSide === "right" ? "right" : "left";
+
   return h(
     "div",
     { className: "barocco-musical-globe__popup-shell", onClick: onClose },
     h(
       "article",
       {
-        className: "barocco-musical-globe__popup",
+        className: `barocco-musical-globe__popup barocco-musical-globe__popup--copy-${popupSide}`,
         role: "dialog",
         "aria-modal": "true",
         "aria-labelledby": "barocco-musical-globe-popup-title",

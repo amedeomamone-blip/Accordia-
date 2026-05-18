@@ -17,7 +17,7 @@ const timelineItems = [
       position: "38% 48%",
       scale: 1.22,
       origin: "center center",
-      copySide: "left"
+      copySide: "right"
     }
   },
   {
@@ -34,7 +34,7 @@ const timelineItems = [
       position: "84% 52%",
       scale: 1.12,
       origin: "center center",
-      copySide: "left"
+      copySide: "right"
     }
   },
   {
@@ -198,7 +198,8 @@ const layoutPresets = {
     stepX: 112,
     stepY: 12,
     sideScale: 0.9,
-    sideOpacity: 0.64,
+    sideOpacity: 0.78,
+    opacityStep: 0.19,
     farOpacity: 0.12,
     maxDistance: 4
   },
@@ -206,7 +207,8 @@ const layoutPresets = {
     stepX: 96,
     stepY: 10,
     sideScale: 0.88,
-    sideOpacity: 0.54,
+    sideOpacity: 0.72,
+    opacityStep: 0.21,
     farOpacity: 0.08,
     maxDistance: 3
   },
@@ -214,7 +216,8 @@ const layoutPresets = {
     stepX: 72,
     stepY: 7,
     sideScale: 0.84,
-    sideOpacity: 0.42,
+    sideOpacity: 0.68,
+    opacityStep: 0.24,
     farOpacity: 0,
     maxDistance: 2
   }
@@ -261,13 +264,18 @@ function BaroccoTimeline() {
       const offset = circularOffset(index, activeIndex, itemCount);
       const distance = Math.abs(offset);
       const isBeyondLimit = distance > layout.maxDistance;
+      const opacity = offset === 0
+        ? 1
+        : isBeyondLimit
+          ? layout.farOpacity
+          : Math.max(layout.farOpacity, layout.sideOpacity - (distance - 1) * layout.opacityStep);
       return {
         ...item,
         offset,
         x: offset * layout.stepX,
         y: distance * layout.stepY,
         scale: offset === 0 ? 1 : layout.sideScale,
-        opacity: offset === 0 ? 1 : isBeyondLimit ? layout.farOpacity : layout.sideOpacity,
+        opacity,
         zIndex: 40 - distance,
         hidden: isBeyondLimit && layout.farOpacity === 0
       };
