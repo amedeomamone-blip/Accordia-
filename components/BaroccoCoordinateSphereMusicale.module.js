@@ -447,9 +447,14 @@ function buildHotspots(metrics, rotation, keywords) {
   }).sort((a, b) => a.depth - b.depth);
 }
 
-function getKeywordPopupCopy(keyword) {
+function getKeywordDetailCopy(keyword) {
   if (Array.isArray(keyword.popupCopy) && keyword.popupCopy.length) return keyword.popupCopy;
   return [keyword.copy, keyword.insight, keyword.keyIdea].filter(Boolean);
+}
+
+function getNearestRotationY(currentY, desiredY) {
+  const fullTurn = Math.PI * 2;
+  return desiredY + Math.round((currentY - desiredY) / fullTurn) * fullTurn;
 }
 
 function GlobeHotspot({ item, isActive, isNext, isVisited, onSelect }) {
@@ -504,47 +509,36 @@ function KeywordChip({ keyword, isActive, isNext, isVisited, onSelect }) {
   );
 }
 
-function KeywordPopup({ keyword, onClose }) {
-  const popupSide = keyword.popupSide === "right" ? "right" : "left";
+function KeywordDetailPanel({ keyword }) {
+  const copySide = keyword.popupSide === "right" ? "right" : "left";
+  const keywordNumber = String(keyword.sequence).padStart(2, "0");
+  const detailStyle = keyword.popupImage
+    ? { "--barocco-detail-image": `url("${keyword.popupImage}")` }
+    : undefined;
 
   return h(
-    "div",
-    { className: "barocco-musical-globe__popup-shell", onClick: onClose },
+    "article",
+    {
+      className: `barocco-musical-globe__detail${keyword.popupImage ? " has-image" : ""} barocco-musical-globe__detail--copy-${copySide}`,
+      "aria-live": "polite",
+      "aria-labelledby": "barocco-musical-globe-detail-title",
+      style: detailStyle
+    },
+    h("div", { className: "barocco-musical-globe__detail-wash", "aria-hidden": "true" }),
+    h("div", { className: "barocco-musical-globe__detail-lines", "aria-hidden": "true" },
+      h("span"),
+      h("span")
+    ),
     h(
-      "article",
-      {
-        className: `barocco-musical-globe__popup barocco-musical-globe__popup--copy-${popupSide}`,
-        role: "dialog",
-        "aria-modal": "true",
-        "aria-labelledby": "barocco-musical-globe-popup-title",
-        style: keyword.popupImage ? { "--barocco-popup-image": `url("${keyword.popupImage}")` } : undefined,
-        onClick: (event) => event.stopPropagation()
-      },
-      h(
-        "button",
-        {
-          type: "button",
-          className: "barocco-musical-globe__popup-close",
-          onClick: onClose,
-          "aria-label": "Chiudi approfondimento"
-        },
-        "×"
-      ),
-      h("div", { className: "barocco-musical-globe__popup-glow", "aria-hidden": "true" }),
-      h("div", { className: "barocco-musical-globe__popup-lines", "aria-hidden": "true" },
-        h("span"),
-        h("span")
-      ),
+      "div",
+      { className: "barocco-musical-globe__detail-content" },
+      h("span", { className: "barocco-musical-globe__detail-sequence" }, `Parola chiave ${keywordNumber}`),
+      h("h3", { id: "barocco-musical-globe-detail-title" }, keyword.title),
+      h("p", { className: "barocco-musical-globe__detail-subtitle" }, keyword.subtitle),
       h(
         "div",
-        { className: "barocco-musical-globe__popup-content" },
-        h("h3", { id: "barocco-musical-globe-popup-title" }, keyword.title),
-        h("p", { className: "barocco-musical-globe__popup-subtitle" }, keyword.subtitle),
-        h(
-          "div",
-          { className: "barocco-musical-globe__popup-copy" },
-          getKeywordPopupCopy(keyword).map((paragraph, index) => h("p", { key: index }, paragraph))
-        )
+        { className: "barocco-musical-globe__detail-copy" },
+        getKeywordDetailCopy(keyword).map((paragraph, index) => h("p", { key: index }, paragraph))
       )
     )
   );
@@ -552,9 +546,10 @@ function KeywordPopup({ keyword, onClose }) {
 
 export default function BaroccoCoordinateSphereMusicale() {
   const initialKeyword = musicalOrbit.keywords[0];
+  const initialRotationX = clamp(initialKeyword.latitude * DEG, -ROTATION_LIMIT, ROTATION_LIMIT);
+  const initialRotationY = initialKeyword.longitude * DEG - Math.PI / 2;
   const [activeKeywordId, setActiveKeywordId] = React.useState(initialKeyword.id);
-  const [isPopupOpen, setIsPopupOpen] = React.useState(false);
-  const [visitedKeywordIds, setVisitedKeywordIds] = React.useState([]);
+  const [visitedKeywordIds, setVisitedKeywordIds] = React.useState([initialKeyword.id]);
   const [hotspots, setHotspots] = React.useState([]);
   const [isDragging, setIsDragging] = React.useState(false);
   const frameRef = React.useRef(null);
@@ -562,15 +557,11 @@ export default function BaroccoCoordinateSphereMusicale() {
   const pointerRef = React.useRef({ pointerId: null, x: 0, y: 0 });
   const draggingRef = React.useRef(false);
   const hoveredRef = React.useRef(false);
-  const rotationRef = React.useRef({ x: -0.18, y: -0.26, targetX: -0.18, targetY: -0.26 });
+  const rotationRef = React.useRef({ x: initialRotationX, y: initialRotationY, targetX: initialRotationX, targetY: initialRotationY });
   const metricsRef = React.useRef({ width: 0, height: 0, cx: 0, cy: 0, radius: 0, dpr: 1 });
   const timeRef = React.useRef(0);
   const animationRef = React.useRef(null);
   const activeKeyword = musicalOrbit.keywords.find((keyword) => keyword.id === activeKeywordId) || initialKeyword;
-  const activeKeywordIndex = musicalOrbit.keywords.findIndex((keyword) => keyword.id === activeKeyword.id);
-  const nextKeyword = musicalOrbit.keywords[(activeKeywordIndex + 1) % musicalOrbit.keywords.length] || initialKeyword;
-  const nextKeywordId = nextKeyword.id;
-  const popupKeyword = isPopupOpen ? activeKeyword : null;
 
   React.useEffect(() => {
     const frame = frameRef.current;
@@ -672,26 +663,16 @@ export default function BaroccoCoordinateSphereMusicale() {
     setVisitedKeywordIds((currentIds) => (
       currentIds.includes(keywordId) ? currentIds : [...currentIds, keywordId]
     ));
-    setIsPopupOpen(true);
+    const rotation = rotationRef.current;
+    const desiredY = selectedKeyword.longitude * DEG - Math.PI / 2;
+    rotation.targetY = getNearestRotationY(rotation.targetY, desiredY);
+    rotation.targetX = clamp(selectedKeyword.latitude * DEG, -ROTATION_LIMIT, ROTATION_LIMIT);
   }, []);
-
-  const closePopup = React.useCallback(() => {
-    setIsPopupOpen(false);
-  }, []);
-
-  React.useEffect(() => {
-    if (!isPopupOpen) return undefined;
-    const onKeyDown = (event) => {
-      if (event.key === "Escape") setIsPopupOpen(false);
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [isPopupOpen]);
 
   return h(
     "section",
     {
-      className: `barocco-musical-globe${isPopupOpen ? " is-popup-open" : ""}`,
+      className: "barocco-musical-globe",
       "aria-label": "Globo musicale del Barocco"
     },
     h(
@@ -702,48 +683,56 @@ export default function BaroccoCoordinateSphereMusicale() {
     ),
     h(
       "div",
-      { className: "barocco-musical-globe__stage-card" },
+      { className: "barocco-musical-globe__experience" },
       h(
         "div",
-        {
-          ref: frameRef,
-          className: `barocco-musical-globe__stage${isDragging ? " is-dragging" : ""}`,
-          onPointerDown,
-          onPointerMove,
-          onPointerUp: stopDragging,
-          onPointerCancel: stopDragging,
-          onMouseEnter: () => { hoveredRef.current = true; },
-          onMouseLeave: () => { hoveredRef.current = false; }
-        },
-        h("canvas", { ref: canvasRef, className: "barocco-musical-globe__canvas", "aria-hidden": "true" }),
-        h("div", { className: "barocco-musical-globe__hotspots" },
-          hotspots.map((item) => h(GlobeHotspot, {
-            key: item.id,
-            item,
-            isActive: item.id === activeKeywordId,
-            isNext: item.id === nextKeywordId,
-            isVisited: visitedKeywordIds.includes(item.id),
+        { className: "barocco-musical-globe__navigation" },
+        h(
+          "div",
+          { className: "barocco-musical-globe__stage-card" },
+          h(
+            "div",
+            {
+              ref: frameRef,
+              className: `barocco-musical-globe__stage${isDragging ? " is-dragging" : ""}`,
+              onPointerDown,
+              onPointerMove,
+              onPointerUp: stopDragging,
+              onPointerCancel: stopDragging,
+              onMouseEnter: () => { hoveredRef.current = true; },
+              onMouseLeave: () => { hoveredRef.current = false; }
+            },
+            h("canvas", { ref: canvasRef, className: "barocco-musical-globe__canvas", "aria-hidden": "true" }),
+            h("div", { className: "barocco-musical-globe__hotspots" },
+              hotspots.map((item) => h(GlobeHotspot, {
+                key: item.id,
+                item,
+                isActive: item.id === activeKeywordId,
+                isNext: false,
+                isVisited: visitedKeywordIds.includes(item.id),
+                onSelect: selectKeyword
+              }))
+            )
+          )
+        ),
+        h(
+          "div",
+          {
+            className: "barocco-musical-globe__keyword-list",
+            role: "group",
+            "aria-label": "Parole chiave del globo musicale"
+          },
+          musicalOrbit.keywords.map((keyword) => h(KeywordChip, {
+            key: keyword.id,
+            keyword,
+            isActive: keyword.id === activeKeywordId,
+            isNext: false,
+            isVisited: visitedKeywordIds.includes(keyword.id),
             onSelect: selectKeyword
           }))
         )
-      )
-    ),
-    h(
-      "div",
-      {
-        className: "barocco-musical-globe__keyword-list",
-        role: "group",
-        "aria-label": "Parole chiave del globo musicale"
-      },
-      musicalOrbit.keywords.map((keyword) => h(KeywordChip, {
-        key: keyword.id,
-        keyword,
-        isActive: keyword.id === activeKeywordId,
-        isNext: keyword.id === nextKeywordId,
-        isVisited: visitedKeywordIds.includes(keyword.id),
-        onSelect: selectKeyword
-      }))
-    ),
-    popupKeyword ? h(KeywordPopup, { keyword: popupKeyword, onClose: closePopup }) : null
+      ),
+      h(KeywordDetailPanel, { keyword: activeKeyword })
+    )
   );
 }
