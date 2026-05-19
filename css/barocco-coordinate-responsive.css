@@ -13,6 +13,16 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
   background: rgba(255, 255, 255, 0.96);
 }
 
+/* La lezione introduttiva del Barocco deve occupare l'intera area centrale,
+   senza ereditare un eventuale posizionamento laterale del layout generale. */
+body[data-current-nucleus="barocco"] .topic-page--lesson .lesson-mount {
+  width: 100%;
+  max-width: 100%;
+  margin-inline: 0;
+  grid-column: 1 / -1;
+  justify-self: stretch;
+}
+
 .immersive-lesson-intro {
   box-sizing: border-box;
   width: min(calc(100% - 1.6rem), 72rem);
