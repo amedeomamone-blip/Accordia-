@@ -130,8 +130,8 @@ PHASE_LABELS = [
     ("rotta", "Rotta", "Contesto storico"),
     ("orecchio", "Orecchio", "Ascolto guidato"),
     ("grafo", "Grafo", "Pensiero visivo"),
-    ("cantiere", "Cantiere", "Attivita operative"),
-    ("varco", "Varco", "Compito di realta"),
+    ("cantiere", "Cantiere", "Attività operative"),
+    ("varco", "Varco", "Compito di realtà"),
     ("ribalta", "Ribalta", "Restituzione finale"),
     ("specchio", "Specchio", "Valutazione"),
 ]
@@ -760,7 +760,7 @@ NUCLEI = [
         "title": "Barocco",
         "nav_title": "Barocco",
         "category": "Barocco",
-        "period": "XVII - prima meta XVIII secolo",
+        "period": "XVII - prima metà XVIII secolo",
         "position": "Nucleo 06 di 10 · il teatro degli affetti",
         "accent": "#c14f40",
         "description": "Teatro, contrasto, meraviglia e nascita dell'opera moderna.",
@@ -2637,32 +2637,32 @@ EDITORIAL_NUCLEI_BLUEPRINT = [
         "title": "Il Barocco",
         "nav_title": "Il Barocco",
         "category": "Teatro e meraviglia",
-        "period": "XVII - prima meta XVIII secolo",
+        "period": "XVII - prima metà XVIII secolo",
         "landing_reference_period": "Periodo di riferimento · 1600-1750",
         "accent": "#c14f40",
         "description": "Melodramma, basso continuo, concerto, oratorio e nuove forme di spettacolo sonoro.",
-        "hero_subtitle": "Contrasto, teatralita e potenza degli affetti guidano un'epoca in cui la musica entra nello spettacolo moderno.",
-        "context_text": "Il Barocco vive tra corte, chiesa e teatro: spazi diversi che chiedono una musica capace di rappresentare il potere, muovere gli affetti e sorprendere l'ascoltatore.",
+        "hero_subtitle": "Contrasto, teatralità e potenza degli affetti guidano un'epoca in cui la musica entra nello spettacolo moderno.",
+        "context_text": "Il Barocco vive tra corte, chiesa e teatro: spazi diversi che chiedono una musica capace di rappresentare il potere, muovere gli affetti e sorprendere l’ascoltatore.",
         "functions_text": "La musica barocca persuade, commuove, celebra, racconta e rende visibile lo spettacolo del potere e della fede.",
         "forms_text": "Opera, recitar cantando, basso continuo, concerto grosso, concerto solista e oratorio sono le forme principali con cui si organizza il linguaggio barocco.",
-        "instruments_text": "Clavicembalo, archi, organo, fiati storici e orchestra barocca definiscono un suono fondato su contrasto, articolazione e continuo.",
+        "instruments_text": "Clavicembalo, archi, organo, fiati storici e orchestra barocca definiscono un suono fondato su contrasto, articolazione e continuità.",
         "connections": [
             "teatro musicale",
             "corte e chiesa",
             "basso continuo",
-            "concerto e virtuosisimo",
+            "concerto e virtuosismo",
             "circolazione europea degli autori",
         ],
         "lexicon": ["basso continuo", "melodramma", "oratorio", "concerto grosso", "affetti", "clavicembalo"],
         "lessons": [
-            ("Il contesto barocco", "Contesto", "Grandiosita, contrasto, teatralita, corte, chiesa e spettacolo."),
-            ("Musica e meraviglia", "Caratteri", "Contrasti sonori, intensita, ornamenti, solennita e movimento."),
+            ("Il contesto barocco", "Contesto", "Grandiosità, contrasto, teatralità, corte, chiesa e spettacolo."),
+            ("Musica e meraviglia", "Caratteri", "Contrasti sonori, intensità, ornamenti, solennità e movimento."),
             ("La nascita del melodramma", "Forme", "Camerata de' Bardi, recitar cantando, teatro musicale e opera."),
             ("Il basso continuo", "Forme", "Fondamento armonico della musica barocca e ruolo del clavicembalo."),
             ("Concerto grosso e concerto solista", "Forme", "Dialogo tra solisti e orchestra, concertino, tutti e strumento solista."),
             ("L'oratorio e la musica sacra", "Forme", "Narrazione religiosa, coro, solisti e grandi forme vocali."),
             ("Vivaldi. Il suono delle stagioni", "Autori", "Il violino solista dialoga con l'orchestra e trasforma le stagioni in paesaggio sonoro."),
-            ("Bach e il contrappunto", "Autori", "Scrittura rigorosa, musica sacra, concerti e profondita costruttiva."),
+            ("Bach e il contrappunto", "Autori", "Scrittura rigorosa, musica sacra, concerti e profondità costruttiva."),
             ("Handel e l'Europa musicale", "Autori", "Opera, oratorio, musica cerimoniale e grandi pubblici europei."),
             ("Verifica: riconoscere il Barocco", "Verifica", "Melodramma, concerto, oratorio, strumenti e autori principali."),
         ],
@@ -2902,7 +2902,7 @@ def build_topic_phases(nucleo_title: str, lesson_title: str, category: str, summ
     category_lower = category.lower()
     return {
         "scintilla": {
-            "title": f"Perche partire da {lesson_title_lower}?",
+            "title": f"Perché partire da {lesson_title_lower}?",
             "body": f"La card apre una domanda semplice che attiva il lessico di {lesson_title_lower} e lo collega subito al quadro del nucleo.",
         },
         "rotta": {
@@ -2919,7 +2919,7 @@ def build_topic_phases(nucleo_title: str, lesson_title: str, category: str, summ
         },
         "cantiere": {
             "title": "Usare la lezione come snodo operativo",
-            "body": "La classe puo ordinare parole chiave, esempi, confronti e collegamenti rapidi senza perdere il filo del capitolo.",
+            "body": "La classe può ordinare parole chiave, esempi, confronti e collegamenti rapidi senza perdere il filo del capitolo.",
         },
         "varco": {
             "title": "Trasformare il contenuto in una restituzione",
@@ -3135,9 +3135,9 @@ def customize_barocco_context_lesson() -> None:
         context_topic["slug"] = "il-barocco-in-coordinate"
         context_topic["title"] = "Introduzione al Barocco"
         context_topic["label"] = "Lezione"
-        context_topic["subtitle"] = "Timeline e parole chiave musicali"
-        context_topic["summary"] = "Lezione introduttiva con timeline e parole chiave musicali del Barocco."
-        context_topic["x"] = 50
+        context_topic["subtitle"] = "Timeline e concetti chiave musicali"
+        context_topic["summary"] = "Lezione introduttiva con timeline e concetti chiave musicali del Barocco."
+        context_topic["x"] = 36
         context_topic["y"] = 50
         context_topic["cta"] = "Apri la lezione"
         context_topic["phases"] = build_topic_phases(
@@ -3149,17 +3149,16 @@ def customize_barocco_context_lesson() -> None:
         context_topic["lesson"] = {
             "panel_only": True,
             "immersive_preview": True,
-            "immersive_mount_id": "immersive-barocco-context-root",
+            "immersive_mount_id": "barocco-key-concepts-root",
             "immersive_data_key": "barocco-in-coordinate",
             "immersive_intro_title": "Introduzione al Barocco",
             "immersive_intro_subtitle": "Un'epoca di contrasti, invenzioni e nuove forme musicali",
-            "immersive_intro_text": "Tra Seicento e prima meta del Settecento, l'Europa attraversa trasformazioni profonde: guerre, nuove scoperte, corti sfarzose, grandi cambiamenti nel modo di pensare e di rappresentare il mondo. Anche la musica cambia volto. Nascono il melodramma, il concerto, l'oratorio; si affermano nuovi strumenti, nuove sonorita e un linguaggio capace di stupire, commuovere e creare forti contrasti.",
+            "immersive_intro_text": "Tra Seicento e prima metà del Settecento, l'Europa attraversa trasformazioni profonde: guerre, nuove scoperte, corti sfarzose, grandi cambiamenti nel modo di pensare e di rappresentare il mondo. Anche la musica cambia volto. Nascono il melodramma, il concerto, l'oratorio; si affermano nuovi strumenti, nuove sonorità e un linguaggio capace di stupire, commuovere e creare forti contrasti.",
             "immersive_stylesheets": [
                 "../../../../css/lesson-immersive.css",
-                "../../../../css/barocco-sphere-canvas.css",
                 "../../../../css/barocco-timeline.css",
                 "../../../../css/barocco-coordinate-responsive.css",
-                "../../../../css/barocco-musical-globe.css",
+                "../../../../css/barocco-key-concepts.css",
             ],
             "immersive_mounts": [
                 {
@@ -3167,9 +3166,8 @@ def customize_barocco_context_lesson() -> None:
                     "data_attr": "data-barocco-timeline",
                 },
                 {
-                    "mount_id": "immersive-barocco-context-root",
-                    "data_attr": "data-immersive-lesson",
-                    "data_value": "barocco-in-coordinate",
+                    "mount_id": "barocco-key-concepts-root",
+                    "data_attr": "data-barocco-key-concepts",
                 },
             ],
             "immersive_modules": [
@@ -3179,18 +3177,48 @@ def customize_barocco_context_lesson() -> None:
                     "symbol": "BaroccoTimeline",
                 },
                 {
-                    "module": "../../../../components/BaroccoCoordinateSphereMusicale.module.js",
-                    "mount_id": "immersive-barocco-context-root",
-                    "symbol": "ImmersiveLesson",
+                    "module": "../../../../components/BaroccoKeyConcepts.module.js",
+                    "mount_id": "barocco-key-concepts-root",
+                    "symbol": "BaroccoKeyConcepts",
                 },
             ],
             "author": "Lezione Accordia · Il Barocco",
-            "description": "Introduzione al Barocco con timeline e dieci parole chiave musicali: celebrazione del potere, coinvolgimento dei fedeli, teatri pubblici, oratori, orchestra barocca, melodramma, concerto solista, concerto grosso, contrasti sonori, maggiore espressività.",
+            "description": "Introduzione al Barocco con timeline e dieci concetti chiave musicali: celebrazione del potere, coinvolgimento dei fedeli, teatri pubblici, oratori, orchestra barocca, melodramma, concerto solista, concerto grosso, contrasti sonori, maggiore espressività.",
         }
 
-        topic_map["nodes"] = [context_topic]
-        topic_map["connections"] = []
-        topic_map["rail_label"] = "Lezione del nucleo"
+        listening_globe_topic = {
+            "number": "02",
+            "slug": "globo-degli-ascolti",
+            "title": "Globo degli ascolti",
+            "subtitle": "Brani in orbita",
+            "label": "Ascolto",
+            "x": 64,
+            "y": 50,
+            "summary": "Spazio dedicato ai brani: una futura mappa sonora raccoglierà ascolti guidati, esempi e collegamenti musicali.",
+            "cta": "Apri la lezione",
+        }
+        listening_globe_topic["phases"] = build_topic_phases(
+            barocco["title"],
+            listening_globe_topic["title"],
+            listening_globe_topic["label"],
+            listening_globe_topic["summary"],
+        )
+        listening_globe_topic["phases"]["scintilla"] = {
+            "title": "Perché partire dal Globo degli ascolti?",
+            "body": "La lezione prepara uno spazio in cui raccogliere brani, esempi e ascolti guidati senza disperderli: ogni brano potrà diventare un punto da esplorare.",
+        }
+        listening_globe_topic["phases"]["rotta"] = {
+            "title": "Collegare gli ascolti ai concetti del Barocco",
+            "body": "Il percorso aiuta a connettere brani e parole chiave: melodramma, concerto, oratorio, orchestra, contrasto ed espressività diventano indizi da riconoscere con l’orecchio.",
+        }
+        listening_globe_topic["phases"]["orecchio"] = {
+            "title": "Raccogliere gli indizi sonori",
+            "body": "Ogni ascolto potrà mettere in evidenza timbro, forma, funzione, dinamica, rapporto tra solista e orchestra o relazione tra musica e scena.",
+        }
+
+        topic_map["nodes"] = [context_topic, listening_globe_topic]
+        topic_map["connections"] = [{"from": "01", "to": "02", "kind": "main"}]
+        topic_map["rail_label"] = "Lezioni del nucleo"
 
     if vivaldi_topic:
         vivaldi_topic.pop("lesson", None)
@@ -3313,7 +3341,7 @@ def nav_dropdown(prefix: str, active_slug: str | None = None) -> str:
         f'                        {"".join(items)}\n'
         '                    </div>\n'
         '                </div>\n'
-        f'                <a href="{e(page_href(f"{prefix}compiti/"))}" data-nav-link="compiti">Compiti di realta</a>\n'
+        f'                <a href="{e(page_href(f"{prefix}compiti/"))}" data-nav-link="compiti">Compiti di realtà</a>\n'
         f'                <a href="{e(page_href(f"{prefix}docente/"))}" data-nav-link="docenti">Docenti</a>\n'
         f'                <a href="{e(page_href(f"{prefix}pages/risorse.html"))}" data-nav-link="strumenti">Strumenti</a>\n'
         '            </nav>'
@@ -3515,7 +3543,7 @@ def render_topic_content_section(topic: dict) -> str:
             <div class="shell">
                 <div class="nucleus-section__intro">
                     <p class="eyebrow">Dentro l'argomento</p>
-                    <p>I contenuti sono raccolti in blocchi brevi e leggibili: domanda iniziale, contesto, ascolto, mappa, attivita, compito e verifica restano visibili senza trasformarsi in uno schema rigido.</p>
+                    <p>I contenuti sono raccolti in blocchi brevi e leggibili: domanda iniziale, contesto, ascolto, mappa, attività, compito e verifica restano visibili senza trasformarsi in uno schema rigido.</p>
                 </div>
                 <div class="nucleus-card-grid">
                     {"".join(cards)}
@@ -4519,7 +4547,7 @@ def render_lesson_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{e(topic['title'])}: lezione completa del nucleo {e(nucleo['title'])}, con ascolto, attivita, materiali e riferimenti collegati.">
+    <meta name="description" content="{e(topic['title'])}: lezione completa del nucleo {e(nucleo['title'])}, con ascolto, attività, materiali e riferimenti collegati.">
     <title>{e(topic['title'])} | {e(nucleo['title'])} | Accordia</title>
     <link rel="stylesheet" href="{asset_url('../../../../css/style.css')}">
 {render_immersive_lesson_stylesheet(lesson) if immersive_preview else ""}
@@ -4673,7 +4701,7 @@ def render_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="{e(topic['title'])}: approfondimento del nucleo {e(nucleo['title'])}, con contenuti, ascolti, attivita e collegamenti utili.">
+    <meta name="description" content="{e(topic['title'])}: approfondimento del nucleo {e(nucleo['title'])}, con contenuti, ascolti, attività e collegamenti utili.">
     <title>{e(topic['title'])} | {e(nucleo['title'])} | Accordia</title>
     <link rel="stylesheet" href="{asset_url('../../../../css/style.css')}">
 </head>
@@ -4764,7 +4792,7 @@ def render_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str:
             </div>
             <div>
                 <span class="site-footer__label">Strumenti</span>
-                <a href="{e(page_href('../../../../compiti/'))}">Compiti di realta</a>
+                <a href="{e(page_href('../../../../compiti/'))}">Compiti di realtà</a>
                 <a href="{e(page_href('../../../../pages/teoria.html'))}">Teoria in ascolto</a>
             </div>
         </div>
@@ -4997,7 +5025,7 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
         ("#ascolti", "Ascolti"),
         ("#concetti", "Concetti chiave"),
         ("#autori", "Autori e opere"),
-        ("#attivita", "Attivita"),
+        ("#attivita", "Attività"),
         ("#compito", "Compito di realta"),
         ("#verifica", "Verifica"),
     ])

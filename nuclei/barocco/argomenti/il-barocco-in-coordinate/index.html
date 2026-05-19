@@ -3,17 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Introduzione al Barocco: lezione completa del nucleo Il Barocco, con ascolto, attivita, materiali e riferimenti collegati.">
+    <meta name="description" content="Introduzione al Barocco: lezione completa del nucleo Il Barocco, con ascolto, attività, materiali e riferimenti collegati.">
     <title>Introduzione al Barocco | Il Barocco | Accordia</title>
-    <link rel="stylesheet" href="../../../../css/style.css?v=1779140623">
+    <link rel="stylesheet" href="../../../../css/style.css?v=1779204927">
 
-    <link rel="stylesheet" href="../../../../css/lesson-immersive.css?v=1779140623">
-    <link rel="stylesheet" href="../../../../css/barocco-sphere-canvas.css?v=1779140623">
-    <link rel="stylesheet" href="../../../../css/barocco-first-listening.css?v=1779140623">
-    <link rel="stylesheet" href="../../../../css/barocco-timeline.css?v=1779140623">
-    <link rel="stylesheet" href="../../../../css/barocco-coordinate-responsive.css?v=1779140623">
-    <link rel="stylesheet" href="../../../../css/barocco-musical-globe.css?v=1779140623">
-    <link rel="stylesheet" href="../../../../css/barocco-typography-unified.css?v=1779140623">
+    <link rel="stylesheet" href="../../../../css/lesson-immersive.css?v=1779204927">
+    <link rel="stylesheet" href="../../../../css/barocco-timeline.css?v=1779204927">
+    <link rel="stylesheet" href="../../../../css/barocco-coordinate-responsive.css?v=1779204927">
+    <link rel="stylesheet" href="../../../../css/barocco-key-concepts.css?v=1779204927">
 </head>
 <body data-nav="timeline" data-current-nucleus="barocco">
     <header class="site-header">
@@ -36,11 +33,11 @@
         </nav>
 
 
-        <nav class="topic-rail" aria-label="Lezione del nucleo">
+        <nav class="topic-rail" aria-label="Lezioni del nucleo">
             <div class="shell">
-                <p class="topic-rail__eyebrow">Lezione del nucleo</p>
+                <p class="topic-rail__eyebrow">Lezioni del nucleo</p>
                 <div class="topic-rail__track" data-topic-rail-track>
-                    <a href="../il-barocco-in-coordinate/index.html" class="is-active" aria-current="page" data-topic-rail-link><span>01</span><strong>Introduzione al Barocco</strong></a>
+                    <a href="../il-barocco-in-coordinate/index.html" class="is-active" aria-current="page" data-topic-rail-link><span>01</span><strong>Introduzione al Barocco</strong></a><a href="../globo-degli-ascolti/index.html" data-topic-rail-link><span>02</span><strong>Globo degli ascolti</strong></a>
                 </div>
             </div>
         </nav>
@@ -51,11 +48,10 @@
                 
                 <h1 class="immersive-lesson-intro__title">Introduzione al Barocco</h1>
                 <p class="immersive-lesson-intro__subtitle">Un&#x27;epoca di contrasti, invenzioni e nuove forme musicali</p>
-                <p class="immersive-lesson-intro__summary">Tra Seicento e prima meta del Settecento, l&#x27;Europa attraversa trasformazioni profonde: guerre, nuove scoperte, corti sfarzose, grandi cambiamenti nel modo di pensare e di rappresentare il mondo. Anche la musica cambia volto. Nascono il melodramma, il concerto, l&#x27;oratorio; si affermano nuovi strumenti, nuove sonorita e un linguaggio capace di stupire, commuovere e creare forti contrasti.</p>
+                <p class="immersive-lesson-intro__summary">Tra Seicento e prima metà del Settecento, l&#x27;Europa attraversa trasformazioni profonde: guerre, nuove scoperte, corti sfarzose, grandi cambiamenti nel modo di pensare e di rappresentare il mondo. Anche la musica cambia volto. Nascono il melodramma, il concerto, l&#x27;oratorio; si affermano nuovi strumenti, nuove sonorità e un linguaggio capace di stupire, commuovere e creare forti contrasti.</p>
             </header>
-            <div id="barocco-first-listening-root" data-barocco-first-listening></div>
             <div id="barocco-timeline-root" data-barocco-timeline></div>
-            <div id="immersive-barocco-context-root" data-immersive-lesson="barocco-in-coordinate"></div>
+            <div id="barocco-key-concepts-root" data-barocco-key-concepts></div>
             <noscript>
                 <section class="lesson-noscript">
                     <h2>JavaScript richiesto</h2>
@@ -70,13 +66,13 @@
         <div class="shell site-footer__grid">
             <div>
                 <strong>Accordia</strong>
-                <p>Introduzione al Barocco con timeline e dieci parole chiave musicali: celebrazione del potere, coinvolgimento dei fedeli, teatri pubblici, oratori, orchestra barocca, melodramma, concerto solista, concerto grosso, contrasti sonori, maggiore espressività.</p>
+                <p>Introduzione al Barocco con timeline e dieci concetti chiave musicali: celebrazione del potere, coinvolgimento dei fedeli, teatri pubblici, oratori, orchestra barocca, melodramma, concerto solista, concerto grosso, contrasti sonori, maggiore espressività.</p>
             </div>
             <div>
                 <span class="site-footer__label">Navigazione dell'argomento</span>
                 <a href="../../index.html">Torna alla mappa del nucleo</a>
                 <span class="site-footer__muted">Sei all'inizio degli argomenti</span>
-                <span class="site-footer__muted">Ultimo argomento della mappa</span>
+                <a href="../globo-degli-ascolti/index.html">Argomento successivo</a>
             </div>
             <div>
                 <span class="site-footer__label">Lezione</span>
@@ -87,28 +83,22 @@
         </div>
     </footer>
 
-    <script src="../../../../js/main.js?v=1779140623"></script>
+    <script src="../../../../js/main.js?v=1779204927"></script>
 
     <script type="module">
         import React from "https://esm.sh/react@18";
         import { createRoot } from "https://esm.sh/react-dom@18/client";
-        import BaroccoFirstListening from "../../../../components/BaroccoFirstListening.module.js?v=1779140623";
-        import BaroccoTimeline from "../../../../components/BaroccoTimeline.module.js?v=1779140623";
-        import ImmersiveLesson from "../../../../components/BaroccoCoordinateSphereMusicale.module.js?v=1779140623";
-
-        const listeningMount = document.getElementById("barocco-first-listening-root");
-        if (listeningMount) {
-            createRoot(listeningMount).render(React.createElement(BaroccoFirstListening));
-        }
+        import BaroccoTimeline from "../../../../components/BaroccoTimeline.module.js?v=1779204927";
+        import BaroccoKeyConcepts from "../../../../components/BaroccoKeyConcepts.module.js?v=1779204927";
 
         const mountNode0 = document.getElementById("barocco-timeline-root");
         if (mountNode0) {
             createRoot(mountNode0).render(React.createElement(BaroccoTimeline));
         }
 
-        const mountNode1 = document.getElementById("immersive-barocco-context-root");
+        const mountNode1 = document.getElementById("barocco-key-concepts-root");
         if (mountNode1) {
-            createRoot(mountNode1).render(React.createElement(ImmersiveLesson));
+            createRoot(mountNode1).render(React.createElement(BaroccoKeyConcepts));
         }
     </script>
 </body>
