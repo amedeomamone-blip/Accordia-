@@ -1,9 +1,11 @@
 .barocco-key-concepts {
-  --barocco-section-gutter: 1.6rem;
+  --barocco-accent: #c14f40;
+  --barocco-ink: var(--lesson-text, #18191b);
+  --barocco-muted: var(--lesson-muted, #5f646b);
   box-sizing: border-box;
-  width: min(calc(100% - var(--barocco-section-gutter)), 72rem);
-  margin: clamp(1.4rem, 3vw, 2rem) auto clamp(1.5rem, 3vw, 2.2rem);
-  padding: clamp(1rem, 2vw, 1.35rem);
+  width: min(calc(100% - 1.5rem), 84rem);
+  margin: 1.45rem auto 2.25rem;
+  padding: 1.05rem;
   border: 1px solid var(--lesson-border);
   border-radius: 1.45rem;
   background: rgba(255, 255, 255, 0.96);
@@ -18,15 +20,15 @@
 .barocco-key-concepts__header {
   display: grid;
   gap: 0.62rem;
-  padding-bottom: 1rem;
+  padding-bottom: 0.95rem;
   border-bottom: 1px solid rgba(17, 17, 17, 0.08);
 }
 
 .barocco-key-concepts__header h2 {
   margin: 0;
-  color: var(--lesson-text);
-  font-size: clamp(1.9rem, 3vw, 2.7rem);
-  font-weight: 760;
+  color: var(--barocco-ink);
+  font-size: 2.55rem;
+  font-weight: 780;
   line-height: 1.04;
   letter-spacing: 0;
 }
@@ -35,284 +37,215 @@
   width: 100%;
   max-width: none;
   margin: 0;
-  color: var(--lesson-muted);
-  font-size: clamp(1.02rem, 1.45vw, 1.16rem);
-  font-weight: 600;
-  line-height: 1.62;
+  color: var(--barocco-muted);
+  font-size: 1.08rem;
+  font-weight: 610;
+  line-height: 1.58;
 }
 
-.barocco-key-concepts__layout {
+.barocco-key-concepts__track {
   display: grid;
-  grid-template-columns: minmax(20rem, 0.92fr) minmax(0, 1.08fr);
-  gap: clamp(0.9rem, 1.8vw, 1.15rem);
-  align-items: start;
-  margin-top: 1rem;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(30rem, 36rem);
+  gap: 1rem;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 1rem 0.1rem 1.12rem;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  scrollbar-color: #cfd2d7 #f2f3f5;
 }
 
-.barocco-key-concepts__list {
+.barocco-key-concepts__track::-webkit-scrollbar {
+  height: 10px;
+}
+
+.barocco-key-concepts__track::-webkit-scrollbar-track {
+  background: #f2f3f5;
+  border-radius: 999px;
+}
+
+.barocco-key-concepts__track::-webkit-scrollbar-thumb {
+  background: #cfd2d7;
+  border-radius: 999px;
+}
+
+.barocco-key-concepts__slot {
   min-width: 0;
-  padding: 0.7rem;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.52rem;
-  border: 1px solid rgba(17, 17, 17, 0.1);
-  border-radius: 1.25rem;
+  display: flex;
+  scroll-snap-align: start;
+}
+
+.barocco-key-concepts__card {
+  position: relative;
+  isolation: isolate;
+  width: 100%;
+  min-height: 28.5rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 1rem;
+  border: 1px solid rgba(232, 232, 234, 0.9);
+  border-radius: 1.5rem;
   background:
-    linear-gradient(rgba(193, 79, 64, 0.022) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(193, 79, 64, 0.022) 1px, transparent 1px),
-    rgba(245, 244, 239, 0.72);
-  background-size: 3.25rem 3.25rem, 3.25rem 3.25rem, auto;
-}
-
-.barocco-key-concepts__item {
-  width: 100%;
-  min-height: 7.6rem;
-  appearance: none;
-  padding: 0.74rem;
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 0.62rem;
-  align-items: start;
-  border: 1px solid rgba(17, 17, 17, 0.1);
-  border-radius: 1rem;
-  background: rgba(255, 255, 255, 0.88);
-  box-shadow: 0 0.55rem 1.25rem rgba(17, 17, 17, 0.035);
-  color: var(--lesson-text);
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-  transition:
-    transform 220ms ease,
-    border-color 220ms ease,
-    background-color 220ms ease,
-    box-shadow 220ms ease,
-    opacity 220ms ease;
-}
-
-.barocco-key-concepts__item:hover,
-.barocco-key-concepts__item:focus-visible {
-  border-color: rgba(17, 17, 17, 0.22);
-  background: rgba(255, 255, 255, 0.98);
+    linear-gradient(180deg, rgba(24, 25, 27, 0.02) 0%, rgba(24, 25, 27, 0.18) 46%, rgba(24, 25, 27, 0.34) 100%),
+    var(--barocco-concept-image, linear-gradient(135deg, #f5f1e8 0%, #d7c3a4 48%, #705343 100%));
+  background-position: center, var(--barocco-concept-image-position, center);
+  background-size: cover;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.055);
+  color: var(--barocco-ink);
   outline: none;
-  transform: translateY(-0.06rem);
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    border-color 180ms ease;
 }
 
-.barocco-key-concepts__item.is-active {
-  border-color: rgba(17, 17, 17, 0.22);
-  background: rgba(255, 255, 255, 1);
-  box-shadow:
-    0 1rem 2.2rem rgba(17, 17, 17, 0.105),
-    0 0 0 1px rgba(193, 79, 64, 0.08);
+.barocco-key-concepts__card::before {
+  content: "";
+  position: absolute;
+  top: 1.08rem;
+  left: 1.08rem;
+  z-index: 1;
+  width: 3.1rem;
+  height: 0.34rem;
+  border-radius: 999px;
+  background: rgba(193, 79, 64, 0.92);
 }
 
-.barocco-key-concepts__item.is-visited:not(.is-active) {
-  opacity: 0.84;
+.barocco-key-concepts__card:hover,
+.barocco-key-concepts__card:focus-visible {
+  border-color: rgba(193, 79, 64, 0.34);
+  box-shadow: 0 16px 32px rgba(15, 23, 42, 0.1);
+  transform: translateY(-0.25rem);
 }
 
-.barocco-key-concepts__item-number,
-.barocco-key-concepts__detail-number {
-  display: inline-grid;
-  place-items: center;
-  border: 1px solid rgba(193, 79, 64, 0.18);
-  background: rgba(255, 247, 242, 0.96);
-  color: #c14f40;
-  font-weight: 840;
-  letter-spacing: 0.08em;
-  line-height: 1;
-}
-
-.barocco-key-concepts__item-number {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 0.72rem;
-  font-size: 0.68rem;
-}
-
-.barocco-key-concepts__item-text {
-  min-width: 0;
-  width: 100%;
-  display: grid;
-  gap: 0.32rem;
-}
-
-.barocco-key-concepts__item-text strong {
-  color: var(--lesson-text);
-  font-size: clamp(1rem, 1.45vw, 1.12rem);
+.barocco-key-concepts__card-number {
+  position: absolute;
+  top: 0.86rem;
+  right: 1rem;
+  color: rgba(255, 255, 255, 0.74);
+  font-family: var(--font-display);
+  font-size: 2.35rem;
   font-weight: 780;
-  line-height: 1.16;
+  line-height: 1;
+  z-index: 2;
+  text-shadow: 0 0.2rem 0.8rem rgba(17, 17, 17, 0.22);
+}
+
+.barocco-key-concepts__card-body {
+  width: 100%;
+  min-width: 0;
+  display: grid;
+  gap: 0.55rem;
+  padding: 0.95rem;
+  border: 1px solid rgba(17, 17, 17, 0.1);
+  border-radius: 1.08rem;
+  background: rgba(255, 255, 255, 0.91);
+  box-shadow: 0 0.7rem 1.8rem rgba(17, 17, 17, 0.13);
+  backdrop-filter: blur(10px);
+  z-index: 1;
+}
+
+.barocco-key-concepts__card-subtitle {
+  width: 100%;
+  margin: 0;
+  color: var(--barocco-accent);
+  font-size: 0.74rem;
+  font-weight: 840;
+  letter-spacing: 0.11em;
+  line-height: 1.28;
+  text-transform: uppercase;
+}
+
+.barocco-key-concepts__card h3 {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  color: var(--barocco-ink);
+  font-size: 1.62rem;
+  font-weight: 790;
+  line-height: 1.05;
   letter-spacing: 0;
   text-wrap: balance;
 }
 
-.barocco-key-concepts__item-text small {
-  color: #c14f40;
-  font-size: 0.76rem;
-  font-weight: 820;
-  letter-spacing: 0.11em;
-  line-height: 1.24;
-  text-transform: uppercase;
-}
-
-.barocco-key-concepts__item-text em {
+.barocco-key-concepts__card-focus {
   width: 100%;
-  color: var(--lesson-muted);
-  font-size: clamp(0.92rem, 1.2vw, 1rem);
-  font-style: normal;
-  font-weight: 600;
+  margin: 0;
+  padding: 0.62rem 0.68rem;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: 0.78rem;
+  background: rgba(245, 244, 239, 0.78);
+  color: var(--barocco-ink);
+  font-size: 0.95rem;
+  font-weight: 730;
   line-height: 1.42;
 }
 
-.barocco-key-concepts__detail {
-  min-width: 0;
-  overflow: hidden;
-  display: grid;
-  border: 1px solid rgba(17, 17, 17, 0.1);
-  border-radius: 1.25rem;
-  background: rgba(255, 255, 255, 0.98);
-  box-shadow: 0 1rem 3rem rgba(17, 17, 17, 0.055);
-}
-
-.barocco-key-concepts__visual {
-  min-height: clamp(15rem, 25vw, 20.5rem);
-  display: block;
-  background:
-    radial-gradient(circle at 16% 20%, rgba(255, 255, 255, 0.22), rgba(255, 255, 255, 0) 30%),
-    linear-gradient(180deg, rgba(43, 30, 18, 0.04), rgba(43, 30, 18, 0.12)),
-    var(--barocco-concept-image, linear-gradient(135deg, #241a16 0%, #5a4030 48%, #9b7650 100%));
-  background-position: center, center, var(--barocco-concept-image-position, center);
-  background-size: cover;
-}
-
-.barocco-key-concepts__detail:not(.has-image) .barocco-key-concepts__visual {
-  min-height: 7rem;
-  background:
-    linear-gradient(rgba(193, 79, 64, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(193, 79, 64, 0.045) 1px, transparent 1px),
-    linear-gradient(135deg, rgba(255, 247, 242, 0.96), rgba(245, 244, 239, 0.9));
-  background-size: 2.5rem 2.5rem, 2.5rem 2.5rem, auto;
-}
-
-.barocco-key-concepts__detail-body {
-  width: 100%;
-  max-width: none;
-  padding: clamp(1.05rem, 2vw, 1.4rem);
-  display: grid;
-  gap: 0.72rem;
-  background: rgba(255, 255, 255, 0.98);
-}
-
-.barocco-key-concepts__detail-number {
-  width: fit-content;
-  min-height: 1.8rem;
-  padding: 0.42rem 0.62rem;
-  border-radius: 999px;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-}
-
-.barocco-key-concepts__detail h3 {
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  color: var(--lesson-text);
-  font-size: clamp(1.8rem, 3vw, 2.55rem);
-  font-weight: 790;
-  line-height: 1.04;
-  letter-spacing: 0;
-  text-wrap: balance;
-}
-
-.barocco-key-concepts__detail-subtitle {
-  width: 100%;
-  margin: 0;
-  color: #c14f40;
-  font-size: clamp(0.88rem, 1.18vw, 1rem);
-  font-weight: 820;
-  letter-spacing: 0.12em;
-  line-height: 1.35;
-  text-transform: uppercase;
-}
-
-.barocco-key-concepts__focus {
-  width: 100%;
-  margin: 0;
-  padding: 0.78rem 0.86rem;
-  border: 1px solid rgba(17, 17, 17, 0.08);
-  border-radius: 0.92rem;
-  background: rgba(245, 244, 239, 0.82);
-  color: var(--lesson-text);
-  font-size: clamp(1.02rem, 1.45vw, 1.14rem);
-  font-weight: 720;
-  line-height: 1.46;
-}
-
-.barocco-key-concepts__detail-copy {
+.barocco-key-concepts__card-copy {
   width: 100%;
   max-width: none;
   display: grid;
-  gap: 0.72rem;
+  gap: 0.5rem;
 }
 
-.barocco-key-concepts__detail-copy p {
+.barocco-key-concepts__card-copy p {
   width: 100%;
   max-width: none;
   margin: 0;
-  color: var(--lesson-muted);
-  font-size: clamp(1.04rem, 1.45vw, 1.16rem);
+  color: var(--barocco-muted);
+  font-size: 0.92rem;
   font-weight: 590;
-  line-height: 1.7;
+  line-height: 1.52;
 }
 
 @media (min-width: 1181px) and (min-aspect-ratio: 16/10) and (max-height: 1200px) {
   .barocco-key-concepts {
-    width: min(calc(100% - 1.1rem), 82rem);
-    margin: 0.72rem auto 0.84rem;
-    padding: 0.84rem 0.94rem;
+    width: min(calc(100% - 1.1rem), 88rem);
+    margin: 0.8rem auto 1rem;
+    padding: 0.9rem;
     border-radius: 1.25rem;
   }
 
   .barocco-key-concepts__header h2 {
-    font-size: clamp(1.72rem, 2.4vw, 2.32rem);
+    font-size: 2.28rem;
   }
 
-  .barocco-key-concepts__header p,
-  .barocco-key-concepts__detail-copy p {
-    font-size: 0.98rem;
-    line-height: 1.58;
+  .barocco-key-concepts__header p {
+    font-size: 1rem;
+    line-height: 1.52;
   }
 
-  .barocco-key-concepts__item {
-    min-height: 6.8rem;
+  .barocco-key-concepts__track {
+    grid-auto-columns: minmax(28rem, 32rem);
+    padding-top: 0.86rem;
   }
 
-  .barocco-key-concepts__visual {
-    min-height: clamp(13rem, 20vw, 17.5rem);
-  }
-}
-
-@media (max-width: 980px) {
-  .barocco-key-concepts {
-    --barocco-section-gutter: 0.9rem;
+  .barocco-key-concepts__card {
+    min-height: 27rem;
   }
 
-  .barocco-key-concepts__layout {
-    grid-template-columns: 1fr;
+  .barocco-key-concepts__card h3 {
+    font-size: 1.48rem;
   }
 
-  .barocco-key-concepts__detail {
-    order: -1;
+  .barocco-key-concepts__card-copy p {
+    font-size: 0.86rem;
+    line-height: 1.46;
   }
 }
 
-@media (max-width: 680px) {
+@media (max-width: 860px) {
   .barocco-key-concepts {
-    --barocco-section-gutter: 0.7rem;
-    padding: 0.9rem;
-    border-radius: 1.2rem;
+    width: min(calc(100% - 0.9rem), 48rem);
+    padding: 0.88rem;
+    border-radius: 1.25rem;
   }
 
   .barocco-key-concepts__header h2 {
-    font-size: clamp(1.58rem, 7vw, 2.12rem);
+    font-size: 2rem;
   }
 
   .barocco-key-concepts__header p {
@@ -320,33 +253,101 @@
     line-height: 1.5;
   }
 
-  .barocco-key-concepts__list {
-    grid-template-columns: 1fr;
-    padding: 0.52rem;
-    border-radius: 1.05rem;
+  .barocco-key-concepts__track {
+    grid-auto-columns: minmax(18rem, 84vw);
+    gap: 0.82rem;
+    padding-top: 0.82rem;
   }
 
-  .barocco-key-concepts__item {
-    min-height: auto;
-    padding: 0.66rem;
-    border-radius: 0.92rem;
+  .barocco-key-concepts__card {
+    min-height: 35.5rem;
+    padding: 0.82rem;
+    border-radius: 1.25rem;
   }
 
-  .barocco-key-concepts__visual {
-    min-height: min(62vw, 16rem);
+  .barocco-key-concepts__card-body {
+    padding: 0.82rem;
+    border-radius: 0.95rem;
   }
 
-  .barocco-key-concepts__detail-body {
-    padding: 0.9rem;
+  .barocco-key-concepts__card h3 {
+    font-size: 1.42rem;
   }
 
-  .barocco-key-concepts__detail h3 {
-    font-size: clamp(1.58rem, 7vw, 2.12rem);
+  .barocco-key-concepts__card-copy p {
+    font-size: 0.88rem;
+    line-height: 1.48;
+  }
+}
+
+@media (max-width: 420px) {
+  .barocco-key-concepts {
+    width: min(calc(100% - 0.6rem), 100%);
+    padding: 0.7rem;
   }
 
-  .barocco-key-concepts__focus,
-  .barocco-key-concepts__detail-copy p {
-    font-size: 0.96rem;
-    line-height: 1.5;
+  .barocco-key-concepts__track {
+    grid-auto-columns: minmax(16.8rem, 88vw);
+    gap: 0.7rem;
+  }
+
+  .barocco-key-concepts__card {
+    min-height: 37rem;
+  }
+
+  .barocco-key-concepts__card-number {
+    font-size: 2rem;
+  }
+
+  .barocco-key-concepts__card-subtitle {
+    font-size: 0.68rem;
+  }
+
+  .barocco-key-concepts__card h3 {
+    font-size: 1.26rem;
+  }
+
+  .barocco-key-concepts__card-focus,
+  .barocco-key-concepts__card-copy p {
+    font-size: 0.84rem;
+    line-height: 1.44;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 560px) {
+  .barocco-key-concepts {
+    width: min(calc(100% - 0.7rem), 64rem);
+    margin-top: 0.8rem;
+  }
+
+  .barocco-key-concepts__header h2 {
+    font-size: 1.75rem;
+  }
+
+  .barocco-key-concepts__header p {
+    font-size: 0.9rem;
+  }
+
+  .barocco-key-concepts__track {
+    grid-auto-columns: minmax(20rem, 43vw);
+  }
+
+  .barocco-key-concepts__card {
+    min-height: 30rem;
+  }
+
+  .barocco-key-concepts__card-body {
+    gap: 0.44rem;
+    padding: 0.72rem;
+  }
+
+  .barocco-key-concepts__card h3 {
+    font-size: 1.22rem;
+  }
+
+  .barocco-key-concepts__card-focus,
+  .barocco-key-concepts__card-copy p {
+    font-size: 0.82rem;
+    line-height: 1.38;
   }
 }

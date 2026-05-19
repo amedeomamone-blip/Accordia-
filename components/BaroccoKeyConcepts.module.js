@@ -97,6 +97,8 @@ const keyConcepts = [
     id: "concerto-grosso",
     title: "Concerto grosso",
     subtitle: "Gruppo e orchestra",
+    image: conceptAsset("barocco-quattro-stagioni-originale.png"),
+    imageFocus: "center",
     body: [
       "Nel concerto grosso un piccolo gruppo di strumenti, chiamato concertino, si alterna all’intera orchestra.",
       "Il risultato è un gioco di dialoghi e contrasti tra masse sonore diverse: pochi strumenti rispondono al tutti, poi vengono assorbiti di nuovo dall’insieme.",
@@ -108,6 +110,8 @@ const keyConcepts = [
     id: "contrasti-sonori",
     title: "Contrasti sonori",
     subtitle: "Piano, forte, sorpresa",
+    image: conceptAsset("barocco-bach-handel-originale.png"),
+    imageFocus: "center",
     body: [
       "La musica barocca ricerca effetti di opposizione: piano e forte, solo e tutti, pieno e vuoto, rapido e disteso.",
       "Il contrasto non è soltanto un effetto momentaneo: organizza il discorso musicale, orienta l’attenzione e produce energia.",
@@ -119,6 +123,8 @@ const keyConcepts = [
     id: "maggiore-espressivita",
     title: "Maggiore espressività",
     subtitle: "La musica si intensifica",
+    image: conceptAsset("barocco-orfeo-16x9-originale.png"),
+    imageFocus: "center",
     body: [
       "La musica barocca punta a comunicare emozioni con forza, attraverso melodie incisive, dinamiche marcate, alternanze sonore e una scrittura sempre più teatrale.",
       "Gli affetti, cioè gli stati d’animo rappresentati dalla musica, diventano un riferimento importante per capire il linguaggio dell’epoca.",
@@ -131,28 +137,8 @@ const keyConcepts = [
   number: String(index + 1).padStart(2, "0")
 }));
 
-function ConceptButton({ concept, active, visited, onSelect }) {
-  return h(
-    "button",
-    {
-      type: "button",
-      className: `barocco-key-concepts__item${active ? " is-active" : ""}${visited && !active ? " is-visited" : ""}`,
-      onClick: () => onSelect(concept.id),
-      "aria-pressed": active
-    },
-    h("span", { className: "barocco-key-concepts__item-number", "aria-hidden": "true" }, concept.number),
-    h(
-      "span",
-      { className: "barocco-key-concepts__item-text" },
-      h("strong", null, concept.title),
-      h("small", null, concept.subtitle),
-      h("em", null, concept.focus)
-    )
-  );
-}
-
-function ConceptDetail({ concept }) {
-  const detailStyle = concept.image
+function ConceptCard({ concept }) {
+  const cardStyle = concept.image
     ? {
         "--barocco-concept-image": `url("${concept.image}")`,
         "--barocco-concept-image-position": concept.imageFocus || "center"
@@ -162,21 +148,21 @@ function ConceptDetail({ concept }) {
   return h(
     "article",
     {
-      className: `barocco-key-concepts__detail${concept.image ? " has-image" : ""}`,
-      style: detailStyle,
-      "aria-live": "polite"
+      className: `barocco-key-concepts__card${concept.image ? " has-image" : ""}`,
+      style: cardStyle,
+      tabIndex: 0,
+      "aria-labelledby": `barocco-key-concept-title-${concept.id}`
     },
-    h("div", { className: "barocco-key-concepts__visual", "aria-hidden": "true" }),
+    h("span", { className: "barocco-key-concepts__card-number", "aria-hidden": "true" }, concept.number),
     h(
       "div",
-      { className: "barocco-key-concepts__detail-body" },
-      h("span", { className: "barocco-key-concepts__detail-number" }, `Concetto ${concept.number}`),
-      h("h3", null, concept.title),
-      h("p", { className: "barocco-key-concepts__detail-subtitle" }, concept.subtitle),
-      h("p", { className: "barocco-key-concepts__focus" }, concept.focus),
+      { className: "barocco-key-concepts__card-body" },
+      h("p", { className: "barocco-key-concepts__card-subtitle" }, concept.subtitle),
+      h("h3", { id: `barocco-key-concept-title-${concept.id}` }, concept.title),
+      h("p", { className: "barocco-key-concepts__card-focus" }, concept.focus),
       h(
         "div",
-        { className: "barocco-key-concepts__detail-copy" },
+        { className: "barocco-key-concepts__card-copy" },
         concept.body.map((paragraph, index) => h("p", { key: index }, paragraph))
       )
     )
@@ -184,17 +170,6 @@ function ConceptDetail({ concept }) {
 }
 
 export default function BaroccoKeyConcepts() {
-  const [activeId, setActiveId] = React.useState(keyConcepts[0].id);
-  const [visitedIds, setVisitedIds] = React.useState([keyConcepts[0].id]);
-  const activeConcept = keyConcepts.find((concept) => concept.id === activeId) || keyConcepts[0];
-
-  const selectConcept = React.useCallback((conceptId) => {
-    setActiveId(conceptId);
-    setVisitedIds((currentIds) => (
-      currentIds.includes(conceptId) ? currentIds : [...currentIds, conceptId]
-    ));
-  }, []);
-
   return h(
     "section",
     {
@@ -205,30 +180,22 @@ export default function BaroccoKeyConcepts() {
       "header",
       { className: "barocco-key-concepts__header" },
       h("h2", { id: "barocco-key-concepts-title" }, "Concetti chiave"),
-      h("p", null, "Dieci idee per leggere il Barocco musicale: seleziona un concetto, osserva l’immagine quando presente e usa il testo per costruire una spiegazione chiara.")
+      h("p", null, "Dieci idee per leggere il Barocco musicale attraverso immagini, parole e spiegazioni ordinate.")
     ),
     h(
       "div",
-      { className: "barocco-key-concepts__layout" },
-      h(
+      {
+        className: "barocco-key-concepts__track",
+        "data-scroll-track": "",
+        "data-scroll-key": "barocco-key-concepts",
+        role: "list",
+        "aria-label": "Concetti chiave del Barocco musicale"
+      },
+      keyConcepts.map((concept) => h(
         "div",
-        {
-          className: "barocco-key-concepts__list",
-          role: "list",
-          "aria-label": "Elenco dei concetti chiave"
-        },
-        keyConcepts.map((concept) => h(
-          "div",
-          { key: concept.id, role: "listitem" },
-          h(ConceptButton, {
-            concept,
-            active: concept.id === activeId,
-            visited: visitedIds.includes(concept.id),
-            onSelect: selectConcept
-          })
-        ))
-      ),
-      h(ConceptDetail, { concept: activeConcept })
+        { key: concept.id, className: "barocco-key-concepts__slot", role: "listitem" },
+        h(ConceptCard, { concept })
+      ))
     )
   );
 }
