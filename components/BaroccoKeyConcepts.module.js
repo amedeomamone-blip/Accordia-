@@ -64,7 +64,7 @@ const keyConcepts = [
     id: "concerto-grosso",
     title: "Concerto grosso",
     subtitle: "Gruppo e orchestra",
-    image: conceptAsset("barocco-quattro-stagioni-originale.png"),
+    image: conceptAsset("barocco-concerto-grosso-card.jpg"),
     imageFocus: "50% 44%",
     summary: "Un piccolo gruppo di strumenti si alterna all’orchestra. Nascono risposte e contrasti facili da riconoscere."
   },
