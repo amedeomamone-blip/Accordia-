@@ -1,9 +1,16 @@
 body[data-current-nucleus="barocco"] {
+  width: 100%;
+  max-width: 100vw;
+  overflow-x: clip;
   background: #ffffff;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson {
   --lesson-bg: #ffffff;
+  width: 100%;
+  max-width: 100vw;
+  min-width: 0;
+  overflow-x: clip;
   background: #ffffff;
 }
 
@@ -13,14 +20,48 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail {
   background: rgba(255, 255, 255, 0.96);
 }
 
-/* La lezione introduttiva del Barocco deve occupare l'intera area centrale,
-   senza ereditare un eventuale posizionamento laterale del layout generale. */
+/* Contenimento strutturale della pagina Barocco.
+   I caroselli interattivi producono larghezze intrinseche molto estese: senza min-width:0
+   la colonna contenitore si dilata e tutto il contenuto viene spinto fuori asse. */
+body[data-current-nucleus="barocco"] .topic-page--lesson .lesson-mount,
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root,
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-key-concepts-root,
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline,
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts,
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__inner,
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__track {
+  min-width: 0;
+}
+
 body[data-current-nucleus="barocco"] .topic-page--lesson .lesson-mount {
   width: 100%;
   max-width: 100%;
   margin-inline: 0;
   grid-column: 1 / -1;
   justify-self: stretch;
+  overflow-x: clip;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root,
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-key-concepts-root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: clip;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts {
+  width: 100%;
+  max-width: 100%;
+}
+
+@supports not (overflow: clip) {
+  body[data-current-nucleus="barocco"],
+  body[data-current-nucleus="barocco"] .topic-page--lesson,
+  body[data-current-nucleus="barocco"] .topic-page--lesson .lesson-mount,
+  body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root,
+  body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-key-concepts-root {
+    overflow-x: hidden;
+  }
 }
 
 .immersive-lesson-intro {
