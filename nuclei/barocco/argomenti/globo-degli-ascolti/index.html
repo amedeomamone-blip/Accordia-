@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Globo degli ascolti: playlist interattiva del nucleo Il Barocco, con brani selezionati e focus di ascolto.">
+    <meta name="description" content="Globo degli ascolti: spazio interattivo del nucleo Il Barocco.">
     <title>Globo degli ascolti | Il Barocco | Accordia</title>
     <link rel="stylesheet" href="../../../../css/style.css?v=1779210937">
     <link rel="stylesheet" href="../../../../css/lesson-immersive.css?v=1779210937">
-    <link rel="stylesheet" href="../../../../css/barocco-listening-globe.css?v=1779220000">
+    <link rel="stylesheet" href="../../../../css/barocco-musical-globe.css?v=1779210937">
     <style>
         body[data-current-nucleus="barocco"] .topic-page--lesson .lesson-mount {
             grid-column: 1 / -1;
@@ -49,11 +49,10 @@
         <section class="lesson-mount" id="lezione">
             <header class="immersive-lesson-intro">
                 <h1 class="immersive-lesson-intro__title">Globo degli ascolti</h1>
-                <p class="immersive-lesson-intro__subtitle">Una playlist interattiva per attraversare il Barocco con l’orecchio</p>
-                <p class="immersive-lesson-intro__summary">Questa lezione raccoglie alcuni ascolti-chiave del Barocco in un unico spazio esplorabile. Ogni nodo del globo apre un brano e suggerisce cosa riconoscere: forme, contrasti, timbri, funzioni espressive e rapporti tra voce, strumenti e scena.</p>
+                <p class="immersive-lesson-intro__subtitle">Una playlist interattiva da esplorare</p>
             </header>
 
-            <div id="barocco-listening-globe-root" data-barocco-listening-globe></div>
+            <div id="barocco-musical-globe-root" data-barocco-musical-globe></div>
 
             <noscript>
                 <section class="lesson-noscript">
@@ -68,7 +67,7 @@
         <div class="shell site-footer__grid">
             <div>
                 <strong>Accordia</strong>
-                <p>Globo degli ascolti: una playlist interattiva per riconoscere, confrontare e collegare i brani fondamentali del Barocco.</p>
+                <p>Globo degli ascolti: uno spazio interattivo per esplorare le coordinate musicali del Barocco.</p>
             </div>
             <div>
                 <span class="site-footer__label">Navigazione dell'argomento</span>
@@ -89,11 +88,11 @@
     <script type="module">
         import React from "https://esm.sh/react@18";
         import { createRoot } from "https://esm.sh/react-dom@18/client";
-        import BaroccoListeningGlobe from "../../../../components/BaroccoListeningGlobe.module.js?v=1779220000";
+        import BaroccoCoordinateSphereMusicale from "../../../../components/BaroccoCoordinateSphereMusicale.module.js?v=1779210937";
 
-        const listeningGlobeMount = document.getElementById("barocco-listening-globe-root");
-        if (listeningGlobeMount) {
-            createRoot(listeningGlobeMount).render(React.createElement(BaroccoListeningGlobe));
+        const musicalGlobeMount = document.getElementById("barocco-musical-globe-root");
+        if (musicalGlobeMount) {
+            createRoot(musicalGlobeMount).render(React.createElement(BaroccoCoordinateSphereMusicale));
         }
     </script>
 </body>
