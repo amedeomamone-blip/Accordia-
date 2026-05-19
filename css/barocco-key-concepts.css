@@ -151,9 +151,9 @@
   isolation: isolate;
   min-height: 24.6rem;
   overflow: hidden;
-  border: 1px solid #e8e8ea;
+  border: 1px solid #e4e8ee;
   border-radius: 1.5rem;
-  box-shadow: 0 10px 22px rgba(15, 23, 42, 0.04);
+  box-shadow: 0 8px 18px rgba(15, 23, 42, 0.03);
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
   transition:
@@ -166,7 +166,7 @@
   flex-direction: column;
   justify-content: flex-end;
   background:
-    linear-gradient(180deg, rgba(24, 25, 27, 0.08) 0%, rgba(24, 25, 27, 0.02) 42%, rgba(24, 25, 27, 0.72) 100%),
+    linear-gradient(180deg, rgba(24, 25, 27, 0.05) 0%, rgba(24, 25, 27, 0.02) 42%, rgba(24, 25, 27, 0.72) 100%),
     var(--barocco-concept-image, linear-gradient(135deg, #f8f5ee 0%, #d9c5a3 52%, #73533f 100%));
   background-position: center, var(--barocco-concept-image-position, center);
   background-size: cover;
@@ -190,20 +190,18 @@
   flex-direction: column;
   justify-content: flex-end;
   padding: 1.25rem;
-  background:
-    radial-gradient(circle at top right, rgba(193, 79, 64, 0.12), transparent 34%),
-    linear-gradient(180deg, #fffefd 0%, #f8f5ef 100%);
+  background: #ffffff;
   transform: rotateY(180deg);
 }
 
 .barocco-key-concepts__card:hover .barocco-key-concepts__card-face,
 .barocco-key-concepts__card:focus-visible .barocco-key-concepts__card-face {
-  border-color: rgba(193, 79, 64, 0.55);
-  box-shadow: 0 16px 30px rgba(15, 23, 42, 0.09);
+  border-color: color-mix(in srgb, var(--barocco-accent) 32%, #d4dae1);
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.055);
 }
 
 .barocco-key-concepts__card:focus-visible .barocco-key-concepts__card-face {
-  outline: 3px solid rgba(193, 79, 64, 0.24);
+  outline: 3px solid rgba(193, 79, 64, 0.2);
   outline-offset: 3px;
 }
 
@@ -221,7 +219,7 @@
 }
 
 .barocco-key-concepts__card-number--back {
-  color: rgba(193, 79, 64, 0.28);
+  color: #d5d9df;
   text-shadow: none;
 }
 
@@ -259,7 +257,7 @@
 }
 
 .barocco-key-concepts__card-subtitle--back {
-  color: #8b9198;
+  color: #8f97a1;
 }
 
 .barocco-key-concepts__card-title {
@@ -285,7 +283,7 @@
   display: block;
   max-width: 31ch;
   margin: 0;
-  color: var(--barocco-muted);
+  color: #606770;
   font-size: 0.98rem;
   font-weight: 540;
   line-height: 1.68;
@@ -312,9 +310,9 @@
 }
 
 .barocco-key-concepts__card-action--back {
-  border-color: rgba(193, 79, 64, 0.18);
-  background: rgba(193, 79, 64, 0.08);
-  color: var(--barocco-accent);
+  border-color: #e4e8ee;
+  background: #f7f8fa;
+  color: #606770;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
 }
