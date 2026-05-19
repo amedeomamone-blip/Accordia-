@@ -3,9 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Globo degli ascolti: approfondimento del nucleo Il Barocco, con contenuti, ascolti, attività e collegamenti utili.">
+    <meta name="description" content="Globo degli ascolti: playlist interattiva del nucleo Il Barocco, con brani selezionati e focus di ascolto.">
     <title>Globo degli ascolti | Il Barocco | Accordia</title>
-    <link rel="stylesheet" href="../../../../css/style.css?v=1779204927">
+    <link rel="stylesheet" href="../../../../css/style.css?v=1779210937">
+    <link rel="stylesheet" href="../../../../css/lesson-immersive.css?v=1779210937">
+    <link rel="stylesheet" href="../../../../css/barocco-listening-globe.css?v=1779220000">
+    <style>
+        body[data-current-nucleus="barocco"] .topic-page--lesson .lesson-mount {
+            grid-column: 1 / -1;
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            justify-self: stretch;
+        }
+    </style>
 </head>
 <body data-nav="timeline" data-current-nucleus="barocco">
     <header class="site-header">
@@ -16,57 +27,15 @@
                     <strong>Accordia</strong>
                 </span>
             </a>
-            <nav class="site-nav" aria-label="Navigazione principale">
-                <div class="site-nav__dropdown">
-                    <button class="site-nav__trigger" type="button" data-nav-link="timeline" aria-haspopup="true" aria-expanded="false">
-                        <span>Nuclei</span>
-                        <span class="site-nav__caret" aria-hidden="true"></span>
-                    </button>
-                    <div class="site-nav__menu" aria-label="Elenco dei nuclei">
-                        <a href="../../../../nuclei/medioevo/index.html">01 Il Medioevo</a><a href="../../../../nuclei/rinascimento/index.html">02 Il Rinascimento</a><a href="../../../../nuclei/barocco/index.html" class="is-current" aria-current="page">03 Il Barocco</a><a href="../../../../nuclei/settecento-classicismo/index.html">04 Settecento e Classicismo</a><a href="../../../../nuclei/ottocento/index.html">05 L&#x27;Ottocento</a><a href="../../../../nuclei/novecento/index.html">06 Il Novecento</a>
-                    </div>
-                </div>
-                <a href="../../../../compiti/index.html" data-nav-link="compiti">Compiti di realtà</a>
-                <a href="../../../../docente/index.html" data-nav-link="docenti">Docenti</a>
-                <a href="../../../../pages/risorse.html" data-nav-link="strumenti">Strumenti</a>
-            </nav>
         </div>
     </header>
 
-    <main class="nucleus-page topic-page" style="--nucleus-accent: #c14f40;">
-        <section class="nucleus-hero nucleus-hero--topic">
-            <div class="shell nucleus-hero__grid">
-                <div class="nucleus-hero__copy">
-                    <p class="eyebrow">Argomento 02 · Il Barocco</p>
-                    <h1>Globo degli ascolti</h1>
-                    <p class="nucleus-hero__subtitle">Brani in orbita</p>
-                    <p class="nucleus-hero__description">Spazio dedicato ai brani: una futura mappa sonora raccoglierà ascolti guidati, esempi e collegamenti musicali.</p>
-                    <div class="nucleus-hero__meta">
-                        <span class="nucleus-chip">Categoria · Ascolto</span>
-                        <span class="nucleus-chip">Nucleo di riferimento · Il Barocco</span>
-                    </div>
-                    <div class="nucleus-hero__actions">
-                        <a class="button button--secondary" href="../../index.html">Torna alla mappa del nucleo</a>
-                        <a class="button button--secondary" href="../il-barocco-in-coordinate/index.html">Argomento precedente</a>
-                        <span class="button button--primary button--muted" aria-disabled="true">Ultimo argomento</span>
-                    </div>
-                </div>
-                <aside class="nucleus-hero__panel">
-                    <p class="panel-label">Relazioni nella mappa</p>
-                    <p>Questo nodo va letto dentro la rete del nucleo, non come un paragrafo isolato.</p>
-                    <ul class="nucleus-bullet-list">
-                        <li>Introduzione al Barocco</li>
-                    </ul>
-                </aside>
-            </div>
-        </section>
-
+    <main class="nucleus-page topic-page topic-page--lesson" style="--nucleus-accent: #c14f40;">
         <nav class="nucleus-mini-timeline" aria-label="Mini timeline dei nuclei">
             <div class="shell nucleus-mini-timeline__track">
                 <a href="../../../../nuclei/medioevo/index.html" style="--mini-accent: #1f7f90;" data-nucleus-link="medioevo"><span>01</span><strong>Il Medioevo</strong></a><a href="../../../../nuclei/rinascimento/index.html" style="--mini-accent: #768a2a;" data-nucleus-link="rinascimento"><span>02</span><strong>Il Rinascimento</strong></a><a href="../../../../nuclei/barocco/index.html" style="--mini-accent: #c14f40;" data-nucleus-link="barocco" class="is-active" aria-current="page"><span>03</span><strong>Il Barocco</strong></a><a href="../../../../nuclei/settecento-classicismo/index.html" style="--mini-accent: #2f6fd6;" data-nucleus-link="settecento-classicismo"><span>04</span><strong>Settecento e Classicismo</strong></a><a href="../../../../nuclei/ottocento/index.html" style="--mini-accent: #a94d87;" data-nucleus-link="ottocento"><span>05</span><strong>L&#x27;Ottocento</strong></a><a href="../../../../nuclei/novecento/index.html" style="--mini-accent: #7057c9;" data-nucleus-link="novecento"><span>06</span><strong>Il Novecento</strong></a>
             </div>
         </nav>
-
 
         <nav class="topic-rail" aria-label="Lezioni del nucleo">
             <div class="shell">
@@ -77,70 +46,21 @@
             </div>
         </nav>
 
-        <section class="nucleus-section nucleus-section--index">
-            <div class="shell">
-                <div class="nucleus-section__intro">
-                    <p class="eyebrow">Argomento in evidenza</p>
-                    <p>Aprendo un nodo della mappa entri in una vista dedicata: qui trovi i contenuti essenziali dell'argomento, raccolti in blocchi chiari e vicini tra loro.</p>
-                </div>
-                <div class="nucleus-card-grid">
-                    <article class="nucleus-card">
-                        <p class="panel-label">Tema</p>
-                        <p>Spazio dedicato ai brani: una futura mappa sonora raccoglierà ascolti guidati, esempi e collegamenti musicali.</p>
-                    </article>
-                    <article class="nucleus-card">
-                        <p class="panel-label">Si collega a</p>
-                        <ul class="nucleus-bullet-list">
-                            <li>Introduzione al Barocco</li>
-                        </ul>
-                    </article>
-                </div>
-            </div>
-        </section>
+        <section class="lesson-mount" id="lezione">
+            <header class="immersive-lesson-intro">
+                <h1 class="immersive-lesson-intro__title">Globo degli ascolti</h1>
+                <p class="immersive-lesson-intro__subtitle">Una playlist interattiva per attraversare il Barocco con l’orecchio</p>
+                <p class="immersive-lesson-intro__summary">Questa lezione raccoglie alcuni ascolti-chiave del Barocco in un unico spazio esplorabile. Ogni nodo del globo apre un brano e suggerisce cosa riconoscere: forme, contrasti, timbri, funzioni espressive e rapporti tra voce, strumenti e scena.</p>
+            </header>
 
+            <div id="barocco-listening-globe-root" data-barocco-listening-globe></div>
 
-        <section class="nucleus-section" id="percorso-argomento">
-            <div class="shell">
-                <div class="nucleus-section__intro">
-                    <p class="eyebrow">Dentro l'argomento</p>
-                    <p>I contenuti sono raccolti in blocchi brevi e leggibili: domanda iniziale, contesto, ascolto, mappa, attività, compito e verifica restano visibili senza trasformarsi in uno schema rigido.</p>
-                </div>
-                <div class="nucleus-card-grid">
-                    <article class="nucleus-card">
-                    <p class="panel-label">Domanda iniziale</p>
-                    <h3>Perché partire dal Globo degli ascolti?</h3>
-                    <p>La lezione prepara uno spazio in cui raccogliere brani, esempi e ascolti guidati senza disperderli: ogni brano potrà diventare un punto da esplorare.</p>
-                </article><article class="nucleus-card">
-                    <p class="panel-label">Contesto storico</p>
-                    <h3>Collegare gli ascolti ai concetti del Barocco</h3>
-                    <p>Il percorso aiuta a connettere brani e parole chiave: melodramma, concerto, oratorio, orchestra, contrasto ed espressività diventano indizi da riconoscere con l’orecchio.</p>
-                </article><article class="nucleus-card">
-                    <p class="panel-label">Ascolto guidato</p>
-                    <h3>Raccogliere gli indizi sonori</h3>
-                    <p>Ogni ascolto potrà mettere in evidenza timbro, forma, funzione, dinamica, rapporto tra solista e orchestra o relazione tra musica e scena.</p>
-                </article><article class="nucleus-card">
-                    <p class="panel-label">Pensiero visivo</p>
-                    <h3>Leggere i collegamenti del percorso</h3>
-                    <p>Il nodo mostra come la categoria ascolto dialoghi con contesto, forme, strumenti, autori, laboratorio e verifica.</p>
-                </article><article class="nucleus-card">
-                    <p class="panel-label">Attività operative</p>
-                    <h3>Usare la lezione come snodo operativo</h3>
-                    <p>La classe può ordinare parole chiave, esempi, confronti e collegamenti rapidi senza perdere il filo del capitolo.</p>
-                </article><article class="nucleus-card">
-                    <p class="panel-label">Compito di realtà</p>
-                    <h3>Trasformare il contenuto in una restituzione</h3>
-                    <p>Il passaggio operativo chiede una breve sintesi orale, scritta o visuale che fissi l&#x27;essenziale di globo degli ascolti.</p>
-                </article><article class="nucleus-card">
-                    <p class="panel-label">Restituzione finale</p>
-                    <h3>Restituire con chiarezza</h3>
-                    <p>Titolo, lessico minimo, esempio e rapporto con il nucleo restano visibili e aiutano una restituzione breve ma precisa.</p>
-                </article><article class="nucleus-card">
-                    <p class="panel-label">Valutazione</p>
-                    <h3>Controllare comprensione e lessico</h3>
-                    <p>La verifica controlla se sai collocare globo degli ascolti nel percorso del nucleo e descriverne funzione, caratteri o ascolti principali.</p>
-                </article>
-                </div>
-            </div>
+            <noscript>
+                <section class="lesson-noscript">
+                    <h2>JavaScript richiesto</h2>
+                    <p>Questa versione della lezione usa componenti interattivi. Attiva JavaScript per visualizzarla.</p>
+                </section>
+            </noscript>
         </section>
     </main>
 
@@ -148,7 +68,7 @@
         <div class="shell site-footer__grid">
             <div>
                 <strong>Accordia</strong>
-                <p>Spazio dedicato ai brani: una futura mappa sonora raccoglierà ascolti guidati, esempi e collegamenti musicali.</p>
+                <p>Globo degli ascolti: una playlist interattiva per riconoscere, confrontare e collegare i brani fondamentali del Barocco.</p>
             </div>
             <div>
                 <span class="site-footer__label">Navigazione dell'argomento</span>
@@ -157,13 +77,24 @@
                 <span class="site-footer__muted">Ultimo argomento della mappa</span>
             </div>
             <div>
-                <span class="site-footer__label">Strumenti</span>
-                <a href="../../../../compiti/index.html">Compiti di realtà</a>
-                <a href="../../../../pages/teoria.html">Teoria in ascolto</a>
+                <span class="site-footer__label">Lezione</span>
+                <a href="#lezione">Torna all'inizio della lezione</a>
+                <a href="../../../../pages/lezioni.html">Lezioni guidate</a>
+                <a href="../../../../index.html">Home</a>
             </div>
         </div>
     </footer>
 
-    <script src="../../../../js/main.js?v=1779204927"></script>
+    <script src="../../../../js/main.js?v=1779210937"></script>
+    <script type="module">
+        import React from "https://esm.sh/react@18";
+        import { createRoot } from "https://esm.sh/react-dom@18/client";
+        import BaroccoListeningGlobe from "../../../../components/BaroccoListeningGlobe.module.js?v=1779220000";
+
+        const listeningGlobeMount = document.getElementById("barocco-listening-globe-root");
+        if (listeningGlobeMount) {
+            createRoot(listeningGlobeMount).render(React.createElement(BaroccoListeningGlobe));
+        }
+    </script>
 </body>
 </html>
