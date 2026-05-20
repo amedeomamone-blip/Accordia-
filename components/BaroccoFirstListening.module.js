@@ -16,75 +16,39 @@ const listeningCards = [
     questions: [
       {
         question: "Quale elemento si percepisce subito ascoltando il brano?",
-        options: [
-          "Una melodia lenta e malinconica",
-          "Un ritmo regolare e incisivo",
-          "Lunghi silenzi",
-          "Suoni elettronici"
-        ],
+        options: ["Una melodia lenta e malinconica", "Un ritmo regolare e incisivo", "Lunghi silenzi", "Suoni elettronici"],
         correct: 1,
-        explanation:
-          "Il ritmo è l’elemento più evidente: la pulsazione è stabile, riconoscibile e crea subito movimento."
+        explanation: "Il ritmo è l’elemento più evidente: la pulsazione è stabile, riconoscibile e crea subito movimento."
       },
       {
         question: "Questa musica sembra pensata soprattutto per…",
-        options: [
-          "accompagnare una danza o una scena teatrale",
-          "aiutare a dormire",
-          "una colonna sonora cinematografica moderna",
-          "una cerimonia religiosa silenziosa"
-        ],
+        options: ["accompagnare una danza o una scena teatrale", "aiutare a dormire", "una colonna sonora cinematografica moderna", "una cerimonia religiosa silenziosa"],
         correct: 0,
-        explanation:
-          "Il carattere ritmico e l’energia del brano fanno pensare a una musica legata al gesto, alla danza e alla scena."
+        explanation: "Il carattere ritmico e l’energia del brano fanno pensare a una musica legata al gesto, alla danza e alla scena."
       },
       {
         question: "Quale caratteristica del Barocco emerge maggiormente?",
-        options: [
-          "Improvvisazione jazzistica",
-          "Semplicità estrema",
-          "Contrasto ed energia",
-          "Totale assenza di ripetizioni"
-        ],
+        options: ["Improvvisazione jazzistica", "Semplicità estrema", "Contrasto ed energia", "Totale assenza di ripetizioni"],
         correct: 2,
-        explanation:
-          "Il brano mostra bene il gusto barocco per movimento, teatralità, forza espressiva e contrasti sonori."
+        explanation: "Il brano mostra bene il gusto barocco per movimento, teatralità, forza espressiva e contrasti sonori."
       },
       {
         question: "La musica procede in modo…",
-        options: [
-          "completamente libero e casuale",
-          "regolare e controllato",
-          "disordinato e frammentato",
-          "lento e monotono"
-        ],
+        options: ["completamente libero e casuale", "regolare e controllato", "disordinato e frammentato", "lento e monotono"],
         correct: 1,
-        explanation:
-          "La struttura è ordinata: le frasi si ripetono, il ritmo rimane stabile e la forma risulta chiara."
+        explanation: "La struttura è ordinata: le frasi si ripetono, il ritmo rimane stabile e la forma risulta chiara."
       },
       {
         question: "Quale sensazione trasmette maggiormente il brano?",
-        options: [
-          "Immobilità",
-          "Suspense horror",
-          "Movimento e tensione ritmica",
-          "Tristezza profonda"
-        ],
+        options: ["Immobilità", "Suspense horror", "Movimento e tensione ritmica", "Tristezza profonda"],
         correct: 2,
-        explanation:
-          "Gli accenti marcati e il ritmo continuo creano una forte sensazione di energia e avanzamento."
+        explanation: "Gli accenti marcati e il ritmo continuo creano una forte sensazione di energia e avanzamento."
       },
       {
         question: "Perché il brano può essere definito teatrale?",
-        options: [
-          "Perché contiene dialoghi parlati",
-          "Perché usa effetti sonori moderni",
-          "Perché sembra accompagnare gesti, azioni e movimenti scenici",
-          "Perché è quasi sempre silenzioso"
-        ],
+        options: ["Perché contiene dialoghi parlati", "Perché usa effetti sonori moderni", "Perché sembra accompagnare gesti, azioni e movimenti scenici", "Perché è quasi sempre silenzioso"],
         correct: 2,
-        explanation:
-          "La musica suggerisce movimento scenico: sembra accompagnare un’azione visibile, non solo un ascolto statico."
+        explanation: "La musica suggerisce movimento scenico: sembra accompagnare un’azione visibile, non solo un ascolto statico."
       }
     ]
   },
@@ -101,75 +65,39 @@ const listeningCards = [
     questions: [
       {
         question: "Quale impressione domina nei primi istanti del brano?",
-        options: [
-          "Calma e immobilità",
-          "Agitazione e urgenza",
-          "Dolcezza cullante",
-          "Silenzio quasi totale"
-        ],
+        options: ["Calma e immobilità", "Agitazione e urgenza", "Dolcezza cullante", "Silenzio quasi totale"],
         correct: 1,
-        explanation:
-          "L’attacco è rapido e concitato: l’ascoltatore percepisce subito tensione, movimento e instabilità."
+        explanation: "L’attacco è rapido e concitato: l’ascoltatore percepisce subito tensione, movimento e instabilità."
       },
       {
         question: "Quale famiglia di strumenti guida soprattutto l’effetto di tempesta?",
-        options: [
-          "Gli archi",
-          "Gli ottoni",
-          "Le percussioni elettroniche",
-          "Il coro"
-        ],
+        options: ["Gli archi", "Gli ottoni", "Le percussioni elettroniche", "Il coro"],
         correct: 0,
-        explanation:
-          "Gli archi, con figurazioni veloci e accenti serrati, costruiscono l’immagine sonora del temporale."
+        explanation: "Gli archi, con figurazioni veloci e accenti serrati, costruiscono l’immagine sonora del temporale."
       },
       {
         question: "Il brano suggerisce la natura attraverso…",
-        options: [
-          "un ritmo immobile e sempre uguale",
-          "contrasti, ripetizioni rapide e cambi di intensità",
-          "una sola nota prolungata",
-          "assenza di movimento melodico"
-        ],
+        options: ["un ritmo immobile e sempre uguale", "contrasti, ripetizioni rapide e cambi di intensità", "una sola nota prolungata", "assenza di movimento melodico"],
         correct: 1,
-        explanation:
-          "Vivaldi crea un racconto sonoro con effetti di contrasto e figure insistenti che ricordano vento e scosse improvvise."
+        explanation: "Vivaldi crea un racconto sonoro con effetti di contrasto e figure insistenti che ricordano vento e scosse improvvise."
       },
       {
         question: "Quale parola descrive meglio il carattere di questo ascolto?",
-        options: [
-          "Statico",
-          "Travolgente",
-          "Sospeso",
-          "Monotono"
-        ],
+        options: ["Statico", "Travolgente", "Sospeso", "Monotono"],
         correct: 1,
-        explanation:
-          "Il finale dell’Estate è costruito per coinvolgere con energia continua e forte tensione drammatica."
+        explanation: "Il finale dell’Estate è costruito per coinvolgere con energia continua e forte tensione drammatica."
       },
       {
         question: "Quale immagine sonora sembra costruire Vivaldi in questo brano?",
-        options: [
-          "Una tempesta violenta e improvvisa",
-          "Una danza lenta di corte",
-          "Una ninna nanna serena",
-          "Una processione calma e regolare"
-        ],
+        options: ["Una tempesta violenta e improvvisa", "Una danza lenta di corte", "Una ninna nanna serena", "Una processione calma e regolare"],
         correct: 0,
-        explanation:
-          "La musica evoca una tempesta attraverso velocità, accenti, tensione e continui movimenti degli archi."
+        explanation: "La musica evoca una tempesta attraverso velocità, accenti, tensione e continui movimenti degli archi."
       },
       {
         question: "Quale tratto barocco emerge con maggiore forza?",
-        options: [
-          "Contrasto e drammaticità",
-          "Assenza di ritmo",
-          "Uniformità espressiva",
-          "Semplicità senza tensione"
-        ],
+        options: ["Contrasto e drammaticità", "Assenza di ritmo", "Uniformità espressiva", "Semplicità senza tensione"],
         correct: 0,
-        explanation:
-          "L’ascolto è un esempio molto efficace del gusto barocco per contrasto, sorpresa e intensità espressiva."
+        explanation: "L’ascolto è un esempio molto efficace del gusto barocco per contrasto, sorpresa e intensità espressiva."
       }
     ]
   },
@@ -186,75 +114,39 @@ const listeningCards = [
     questions: [
       {
         question: "Quale strumento emerge con maggiore evidenza nella Badinerie?",
-        options: [
-          "Il flauto",
-          "Il timpano",
-          "La chitarra elettrica",
-          "Il coro"
-        ],
+        options: ["Il flauto", "Il timpano", "La chitarra elettrica", "Il coro"],
         correct: 0,
-        explanation:
-          "Il flauto è il protagonista più riconoscibile: espone una linea rapida, brillante e molto agile."
+        explanation: "Il flauto è il protagonista più riconoscibile: espone una linea rapida, brillante e molto agile."
       },
       {
         question: "Quale carattere comunica principalmente il brano?",
-        options: [
-          "Pesante e solenne",
-          "Brillante e vivace",
-          "Lento e doloroso",
-          "Statico e senza ritmo"
-        ],
+        options: ["Pesante e solenne", "Brillante e vivace", "Lento e doloroso", "Statico e senza ritmo"],
         correct: 1,
-        explanation:
-          "La Badinerie ha un carattere vivace e leggero, costruito su rapidità, precisione e movimento continuo."
+        explanation: "La Badinerie ha un carattere vivace e leggero, costruito su rapidità, precisione e movimento continuo."
       },
       {
         question: "Che cosa richiede soprattutto l’esecuzione di questo brano?",
-        options: [
-          "Lentezza estrema",
-          "Virtuosismo e controllo tecnico",
-          "Improvvisazione senza regole",
-          "Assenza di pulsazione"
-        ],
+        options: ["Lentezza estrema", "Virtuosismo e controllo tecnico", "Improvvisazione senza regole", "Assenza di pulsazione"],
         correct: 1,
-        explanation:
-          "La velocità delle figurazioni richiede grande precisione, controllo del suono e sicurezza ritmica."
+        explanation: "La velocità delle figurazioni richiede grande precisione, controllo del suono e sicurezza ritmica."
       },
       {
         question: "Il rapporto tra flauto e archi può essere ascoltato come…",
-        options: [
-          "un dialogo strumentale",
-          "un rumore casuale",
-          "un canto corale uniforme",
-          "una melodia senza accompagnamento"
-        ],
+        options: ["un dialogo strumentale", "un rumore casuale", "un canto corale uniforme", "una melodia senza accompagnamento"],
         correct: 0,
-        explanation:
-          "Il flauto spicca in primo piano, mentre gli archi sostengono e rispondono creando un dialogo molto ordinato."
+        explanation: "Il flauto spicca in primo piano, mentre gli archi sostengono e rispondono creando un dialogo molto ordinato."
       },
       {
         question: "Quale aspetto del Barocco emerge meglio in questo ascolto?",
-        options: [
-          "La scrittura precisa e ornamentale",
-          "L’assenza di forma",
-          "La semplicità di una sola nota ripetuta",
-          "Il suono elettronico"
-        ],
+        options: ["La scrittura precisa e ornamentale", "L’assenza di forma", "La semplicità di una sola nota ripetuta", "Il suono elettronico"],
         correct: 0,
-        explanation:
-          "Il brano mostra una scrittura elegante, veloce e ricca di dettagli: una qualità tipica della musica strumentale barocca."
+        explanation: "Il brano mostra una scrittura elegante, veloce e ricca di dettagli: una qualità tipica della musica strumentale barocca."
       },
       {
         question: "Come si muove principalmente la linea del flauto?",
-        options: [
-          "Con passaggi rapidi e leggeri",
-          "Con note lunghissime e ferme",
-          "Con suoni parlati",
-          "Con colpi isolati e senza melodia"
-        ],
+        options: ["Con passaggi rapidi e leggeri", "Con note lunghissime e ferme", "Con suoni parlati", "Con colpi isolati e senza melodia"],
         correct: 0,
-        explanation:
-          "La parte del flauto procede con agilità: rapide figurazioni, leggerezza e precisione sono al centro dell’ascolto."
+        explanation: "La parte del flauto procede con agilità: rapide figurazioni, leggerezza e precisione sono al centro dell’ascolto."
       }
     ]
   }
@@ -264,11 +156,7 @@ function optionButton(question, option, index, selected, onChoose) {
   const hasAnswered = selected !== null;
   const isCorrect = hasAnswered && index === question.correct;
   const isWrong = selected === index && index !== question.correct;
-  const className = [
-    "barocco-listening-option",
-    isCorrect ? "is-correct" : "",
-    isWrong ? "is-wrong" : ""
-  ].filter(Boolean).join(" ");
+  const className = ["barocco-listening-option", isCorrect ? "is-correct" : "", isWrong ? "is-wrong" : ""].filter(Boolean).join(" ");
 
   return h(
     "button",
@@ -289,9 +177,86 @@ function optionButton(question, option, index, selected, onChoose) {
 }
 
 function ListeningCarousel({ activeIndex, onSelect }) {
+  const carouselRef = React.useRef(null);
+  const frameRef = React.useRef(null);
+  const lastCenteredIndexRef = React.useRef(activeIndex);
+
+  const centerCard = React.useCallback((index) => {
+    const carousel = carouselRef.current;
+    const card = carousel?.querySelector(`[data-listening-index="${index}"]`);
+    if (!carousel || !card) return;
+
+    const target = card.offsetLeft - (carousel.clientWidth - card.clientWidth) / 2;
+    carousel.scrollTo({ left: target, behavior: "smooth" });
+  }, []);
+
+  const chooseCard = React.useCallback((index) => {
+    lastCenteredIndexRef.current = index;
+    onSelect(index);
+    centerCard(index);
+  }, [centerCard, onSelect]);
+
+  const syncCenteredCard = React.useCallback(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+
+    const carouselBox = carousel.getBoundingClientRect();
+    const carouselCenter = carouselBox.left + carouselBox.width / 2;
+    const cards = Array.from(carousel.querySelectorAll("[data-listening-index]"));
+
+    let closestIndex = activeIndex;
+    let closestDistance = Number.POSITIVE_INFINITY;
+
+    cards.forEach((card) => {
+      const cardBox = card.getBoundingClientRect();
+      const cardCenter = cardBox.left + cardBox.width / 2;
+      const distance = Math.abs(cardCenter - carouselCenter);
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestIndex = Number(card.dataset.listeningIndex);
+      }
+    });
+
+    if (Number.isInteger(closestIndex) && closestIndex !== lastCenteredIndexRef.current) {
+      lastCenteredIndexRef.current = closestIndex;
+      onSelect(closestIndex);
+    }
+  }, [activeIndex, onSelect]);
+
+  React.useEffect(() => {
+    lastCenteredIndexRef.current = activeIndex;
+  }, [activeIndex]);
+
+  React.useEffect(() => {
+    const carousel = carouselRef.current;
+    if (!carousel) return undefined;
+
+    const handleScroll = () => {
+      if (frameRef.current) cancelAnimationFrame(frameRef.current);
+      frameRef.current = requestAnimationFrame(syncCenteredCard);
+    };
+
+    carousel.addEventListener("scroll", handleScroll, { passive: true });
+    syncCenteredCard();
+
+    return () => {
+      carousel.removeEventListener("scroll", handleScroll);
+      if (frameRef.current) cancelAnimationFrame(frameRef.current);
+    };
+  }, [syncCenteredCard]);
+
+  React.useEffect(() => {
+    const timeout = window.setTimeout(() => centerCard(activeIndex), 80);
+    return () => window.clearTimeout(timeout);
+  }, [activeIndex, centerCard]);
+
   return h(
     "div",
-    { className: "barocco-listening-carousel", "aria-label": "Scorri i primi ascolti del Barocco" },
+    {
+      className: "barocco-listening-carousel",
+      ref: carouselRef,
+      "aria-label": "Scorri i primi ascolti del Barocco"
+    },
     h(
       "div",
       { className: "barocco-listening-carousel__viewport" },
@@ -302,16 +267,15 @@ function ListeningCarousel({ activeIndex, onSelect }) {
           {
             key: item.id,
             className: `barocco-listening-card${isActive ? " is-active" : ""}`,
-            style: {
-              "--listening-thumb": `url(https://i.ytimg.com/vi/${item.youtubeId}/hqdefault.jpg)`
-            },
-            onClick: () => onSelect(index),
+            style: { "--listening-thumb": `url(https://i.ytimg.com/vi/${item.youtubeId}/hqdefault.jpg)` },
+            onClick: () => chooseCard(index),
             tabIndex: 0,
             role: "button",
+            "data-listening-index": index,
             onKeyDown: (event) => {
               if (event.key === "Enter" || event.key === " ") {
                 event.preventDefault();
-                onSelect(index);
+                chooseCard(index);
               }
             },
             "aria-pressed": isActive ? "true" : "false",
@@ -406,18 +370,11 @@ function ListeningQuiz({ listening }) {
           selected !== null
             ? h(
                 "div",
-                {
-                  className: `barocco-listening-result${isCorrect ? " is-correct" : " is-wrong"}`,
-                  key: "result"
-                },
+                { className: `barocco-listening-result${isCorrect ? " is-correct" : " is-wrong"}`, key: "result" },
                 h("strong", null, isCorrect ? "Risposta corretta" : "Riprova"),
                 h("p", null, isCorrect ? active.explanation : "Non è la risposta giusta. Riascolta il passaggio e prova ancora."),
                 isCorrect
-                  ? h(
-                      "button",
-                      { type: "button", onClick: nextQuestion },
-                      current < listening.questions.length - 1 ? "Domanda successiva" : "Concludi"
-                    )
+                  ? h("button", { type: "button", onClick: nextQuestion }, current < listening.questions.length - 1 ? "Domanda successiva" : "Concludi")
                   : null
               )
             : null
@@ -431,10 +388,7 @@ function BaroccoFirstListening() {
 
   return h(
     "section",
-    {
-      className: "barocco-listening",
-      "aria-labelledby": "barocco-listening-title"
-    },
+    { className: "barocco-listening", "aria-labelledby": "barocco-listening-title" },
     h(
       "header",
       { className: "barocco-listening__head" },
