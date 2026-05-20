@@ -72,8 +72,8 @@ const keyConcepts = [
     id: "contrasti-sonori",
     title: "Contrasti sonori",
     subtitle: "Piano, forte, sorpresa",
-    image: conceptAsset("barocco-bach-handel-originale.png"),
-    imageFocus: "50% 42%",
+    image: conceptAsset("barocco-contrasti-sonori-card.webp"),
+    imageFocus: "50% 45%",
     summary: "La musica barocca ama gli opposti: piano e forte, solo e tutti, pieno e vuoto, rapido e lento."
   },
   {
