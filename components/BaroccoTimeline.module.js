@@ -346,7 +346,6 @@ function BaroccoTimeline() {
       "div",
       { className: "barocco-timeline__head" },
       h("div", null,
-        h("p", { className: "barocco-timeline__eyebrow" }, "Asse cronologico"),
         h("h2", { id: "barocco-timeline-title" }, "Timeline"),
         h("p", { className: "barocco-timeline__intro" }, "Eventi di storia e musica per attraversare il Barocco lungo un’unica traiettoria visiva.")
       )
