@@ -104,17 +104,7 @@ function buildConstellation() {
 const constellation = buildConstellation();
 const LISTENING_ANCHOR = sphericalPoint(10, 34);
 
-function drawSphereEnvelope(ctx, metrics, time) {
-  const aura = 0.5 + 0.5 * Math.sin(time * 0.006);
-  const outerGlow = ctx.createRadialGradient(metrics.cx, metrics.cy, metrics.radius * 0.58, metrics.cx, metrics.cy, metrics.radius * 1.3);
-  outerGlow.addColorStop(0, "rgba(255, 214, 183, 0.06)");
-  outerGlow.addColorStop(0.72, `rgba(193, 79, 64, ${0.028 + aura * 0.018})`);
-  outerGlow.addColorStop(1, "rgba(193, 79, 64, 0)");
-  ctx.beginPath();
-  ctx.arc(metrics.cx, metrics.cy, metrics.radius * 1.28, 0, Math.PI * 2);
-  ctx.fillStyle = outerGlow;
-  ctx.fill();
-
+function drawSphereEnvelope(ctx, metrics) {
   ctx.beginPath();
   ctx.arc(metrics.cx, metrics.cy, metrics.radius * 1.02, 0, Math.PI * 2);
   ctx.strokeStyle = "rgba(193, 79, 64, 0.16)";
@@ -288,7 +278,7 @@ export default function BaroccoCoordinateSphereMusicale() {
       const rotation = rotationRef.current;
 
       ctx.clearRect(0, 0, metrics.width, metrics.height);
-      drawSphereEnvelope(ctx, metrics, time);
+      drawSphereEnvelope(ctx, metrics);
       drawGrid(ctx, metrics, rotation);
       drawDots(ctx, metrics, rotation, time);
 
