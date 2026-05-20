@@ -2,9 +2,8 @@ import React from "https://esm.sh/react@18";
 
 const h = React.createElement;
 const DEG = Math.PI / 180;
-const AUTO_SPIN = 0.00022;
+const AUTO_SPIN = 0.0001;
 const ROTATION_LIMIT = 1.08;
-const ORBIT_SPEED = 0.00005;
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
@@ -103,6 +102,7 @@ function buildConstellation() {
 }
 
 const constellation = buildConstellation();
+const LISTENING_ANCHOR = sphericalPoint(10, 34);
 
 function drawSphereEnvelope(ctx, metrics, time) {
   const aura = 0.5 + 0.5 * Math.sin(time * 0.006);
@@ -118,12 +118,6 @@ function drawSphereEnvelope(ctx, metrics, time) {
   ctx.beginPath();
   ctx.arc(metrics.cx, metrics.cy, metrics.radius * 1.02, 0, Math.PI * 2);
   ctx.strokeStyle = "rgba(193, 79, 64, 0.16)";
-  ctx.lineWidth = 1;
-  ctx.stroke();
-
-  ctx.beginPath();
-  ctx.arc(metrics.cx, metrics.cy, metrics.radius * 0.94, 0, Math.PI * 2);
-  ctx.strokeStyle = "rgba(207, 141, 72, 0.07)";
   ctx.lineWidth = 1;
   ctx.stroke();
 }
@@ -232,7 +226,6 @@ export default function BaroccoCoordinateSphereMusicale() {
   const rotationRef = React.useRef({ x: -0.16, y: 0.28 });
   const velocityRef = React.useRef({ x: 0, y: 0 });
   const dragRef = React.useRef({ active: false, x: 0, y: 0, time: 0 });
-  const orbitRef = React.useRef(18);
   const [activeListening] = React.useState({
     title: "Les Sauvages",
     subtitle: "Anteprima video",
@@ -291,11 +284,6 @@ export default function BaroccoCoordinateSphereMusicale() {
         velocityRef.current.x *= 0.9;
       }
 
-      orbitRef.current = (orbitRef.current + ORBIT_SPEED * elapsed * (dragRef.current.active ? 0.42 : 1)) % 360;
-      if (preview) {
-        preview.style.setProperty("--orbit-angle", `${orbitRef.current}deg`);
-      }
-
       const time = timestamp * 0.06 + elapsed * 0.02;
       const rotation = rotationRef.current;
 
@@ -303,6 +291,20 @@ export default function BaroccoCoordinateSphereMusicale() {
       drawSphereEnvelope(ctx, metrics, time);
       drawGrid(ctx, metrics, rotation);
       drawDots(ctx, metrics, rotation, time);
+
+      if (preview) {
+        const rotatedAnchor = rotatePoint(LISTENING_ANCHOR, rotation.x, rotation.y);
+        const projectedAnchor = projectPoint(rotatedAnchor, metrics);
+        const frontFactor = clamp((rotatedAnchor.z + 1) / 2, 0, 1);
+        const offsetX = rotatedAnchor.x >= 0 ? metrics.radius * 0.52 : -metrics.radius * 0.52;
+        const offsetY = rotatedAnchor.y >= 0 ? metrics.radius * 0.12 : -metrics.radius * 0.12;
+        const previewX = projectedAnchor.x + offsetX;
+        const previewY = projectedAnchor.y + offsetY;
+        preview.style.setProperty("--preview-x", `${previewX}px`);
+        preview.style.setProperty("--preview-y", `${previewY}px`);
+        preview.style.setProperty("--preview-opacity", `${0.42 + frontFactor * 0.58}`);
+        preview.style.setProperty("--preview-scale", `${0.86 + frontFactor * 0.14}`);
+      }
 
       frameRef.current = window.requestAnimationFrame(render);
     }
@@ -385,11 +387,7 @@ export default function BaroccoCoordinateSphereMusicale() {
           "aria-label": "Globo degli ascolti con anteprime orbitanti"
         },
         h("canvas", { ref: canvasRef, className: "barocco-musical-globe__canvas", "aria-hidden": "true" }),
-        h(
-          "div",
-          { className: "barocco-musical-globe__orbit-layer", "aria-hidden": "true" },
-          h("span", { className: "barocco-musical-globe__orbit-track" })
-        ),
+        h("div", { className: "barocco-musical-globe__orbit-layer", "aria-hidden": "true" }),
         h(
           "button",
           {
