@@ -2,9 +2,9 @@ import React from "https://esm.sh/react@18";
 
 const h = React.createElement;
 const DEG = Math.PI / 180;
-const AUTO_SPIN = 0.00072;
+const AUTO_SPIN = 0.00022;
 const ROTATION_LIMIT = 1.08;
-const ORBIT_SPEED = 0.00017;
+const ORBIT_SPEED = 0.00005;
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
@@ -235,8 +235,9 @@ export default function BaroccoCoordinateSphereMusicale() {
   const orbitRef = React.useRef(18);
   const [activeListening] = React.useState({
     title: "Les Sauvages",
-    subtitle: "Anteprima d'ascolto",
-    focus: "Primo tassello del globo: un ascolto della lezione da richiamare e approfondire nella card sottostante."
+    subtitle: "Anteprima video",
+    focus: "Primo tassello del globo: un ascolto della lezione da richiamare e approfondire nella card sottostante.",
+    thumbnail: "https://i.ytimg.com/vi/ShpQD4de-EI/hqdefault.jpg"
   });
 
   React.useEffect(() => {
@@ -395,12 +396,18 @@ export default function BaroccoCoordinateSphereMusicale() {
             ref: previewRef,
             type: "button",
             className: "barocco-musical-globe__orbit-preview is-active",
-            "aria-label": "Anteprima Les Sauvages"
+            "aria-label": "Anteprima video Les Sauvages"
           },
-          h("span", { className: "barocco-musical-globe__orbit-index" }, "01"),
+          h(
+            "span",
+            { className: "barocco-musical-globe__orbit-thumb" },
+            h("img", { src: activeListening.thumbnail, alt: "Anteprima video YouTube di Les Sauvages" }),
+            h("span", { className: "barocco-musical-globe__orbit-play", "aria-hidden": "true" }, "▶")
+          ),
           h(
             "span",
             { className: "barocco-musical-globe__orbit-copy" },
+            h("span", { className: "barocco-musical-globe__orbit-kicker" }, "01 · Ascolto"),
             h("strong", null, activeListening.title),
             h("span", null, activeListening.subtitle)
           )
