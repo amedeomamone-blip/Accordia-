@@ -157,7 +157,7 @@ export default function BaroccoKeyConcepts() {
         "header",
         { className: "barocco-key-concepts__header" },
         h("h2", { id: "barocco-key-concepts-title" }, "Concetti chiave"),
-        h("p", null, "Dieci idee semplici per capire come cambia la musica nel Barocco.")
+        h("p", null, "Scorri ed esplora le card per riconoscere i concetti chiave del Barocco.")
       ),
       h(
         "div",
