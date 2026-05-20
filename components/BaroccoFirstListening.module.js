@@ -334,7 +334,6 @@ function ListeningQuiz({ listening }) {
 
   const active = listening.questions[current];
   const isCorrect = selected === active.correct;
-  const progress = completed ? 100 : ((current + (isCorrect ? 1 : 0)) / listening.questions.length) * 100;
 
   function chooseAnswer(index) {
     if (selected === active.correct) return;
@@ -362,19 +361,8 @@ function ListeningQuiz({ listening }) {
     h(
       "div",
       { className: "barocco-listening-quiz__header" },
-      h("span", null, "Domande di ascolto"),
+      h("span", null, "Rispondi alle domande"),
       h("strong", null, `${listening.title} · ${listening.composer}`)
-    ),
-    h(
-      "div",
-      { className: "barocco-listening-quiz__progress" },
-      h(
-        "div",
-        { className: "barocco-listening-quiz__progress-head" },
-        h("span", null, completed ? "Percorso completato" : `Domanda ${current + 1}`),
-        h("strong", null, `${completed ? listening.questions.length : current + 1}/${listening.questions.length}`)
-      ),
-      h("i", null, h("b", { style: { width: `${progress}%` } }))
     ),
     completed
       ? h(
