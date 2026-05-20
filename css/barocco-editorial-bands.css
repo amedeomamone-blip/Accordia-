@@ -112,11 +112,12 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-musical-globe_
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__head {
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: center !important;
-  justify-content: center !important;
-  width: min(100%, 72rem) !important;
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  justify-items: center !important;
+  align-items: start !important;
+  width: 100% !important;
+  max-width: none !important;
   margin-inline: auto !important;
   text-align: center !important;
 }
@@ -170,12 +171,13 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-musical-globe_
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__subtitle {
   width: max-content;
+  max-width: none !important;
   text-transform: none;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__intro {
-  width: min(100%, 58rem);
-  max-width: 58rem;
+  width: min(100%, 58rem) !important;
+  max-width: 58rem !important;
   margin-top: 0.95rem;
   color: var(--lesson-muted);
   font-size: clamp(1rem, 1.35vw, 1.12rem);
@@ -205,11 +207,11 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__card-subtitle,
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__card-subtitle--back {
-  color: rgba(193, 79, 64, 0.58) !important;
-  font-size: 0.52rem !important;
-  font-weight: 720 !important;
-  letter-spacing: 0.14em !important;
-  line-height: 1.1 !important;
+  color: #c14f40 !important;
+  font-size: 0.48rem !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.12em !important;
+  line-height: 1.08 !important;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-musical-globe {
