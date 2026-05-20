@@ -363,27 +363,33 @@
 .barocco-listening-result > span,
 .barocco-listening-result > strong {
   display: inline-block;
+  width: 100%;
   color: inherit;
   font-size: 0.68rem;
   font-weight: 800;
   letter-spacing: 0.18em;
+  text-align: center;
   text-transform: uppercase;
 }
 
 .barocco-listening-result h3 {
-  margin-top: 0.42rem;
+  width: min(100%, 48rem);
+  margin: 0.42rem auto 0;
   font-size: clamp(1.5rem, 2.7vw, 2rem);
   font-weight: 800;
   line-height: 0.98;
   letter-spacing: -0.05em;
+  text-align: center;
 }
 
 .barocco-listening-result p {
-  margin: 0.72rem 0 0;
+  width: min(100%, 48rem);
+  margin: 0.72rem auto 0;
   color: inherit;
   font-size: 0.92rem;
   font-weight: 620;
   line-height: 1.45;
+  text-align: center;
 }
 
 .barocco-listening-result button {
@@ -391,7 +397,7 @@
   align-items: center;
   justify-content: center;
   min-width: 8.4rem;
-  margin-top: 1rem;
+  margin: 1rem auto 0;
   padding: 0.72rem 1rem;
   border: 1px solid #c14f40;
   border-radius: 999px;
@@ -404,6 +410,8 @@
 }
 
 .barocco-listening-result--complete {
+  display: grid;
+  justify-items: center;
   text-align: center;
 }
 
