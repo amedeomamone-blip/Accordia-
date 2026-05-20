@@ -2,8 +2,9 @@ import React from "https://esm.sh/react@18";
 
 const h = React.createElement;
 const DEG = Math.PI / 180;
-const AUTO_SPIN = 0.00115;
+const AUTO_SPIN = 0.00072;
 const ROTATION_LIMIT = 1.08;
+const ORBIT_SPEED = 0.00017;
 
 function clamp(value, min, max) {
   return Math.max(min, Math.min(max, value));
@@ -103,7 +104,17 @@ function buildConstellation() {
 
 const constellation = buildConstellation();
 
-function drawSphereEnvelope(ctx, metrics) {
+function drawSphereEnvelope(ctx, metrics, time) {
+  const aura = 0.5 + 0.5 * Math.sin(time * 0.006);
+  const outerGlow = ctx.createRadialGradient(metrics.cx, metrics.cy, metrics.radius * 0.58, metrics.cx, metrics.cy, metrics.radius * 1.3);
+  outerGlow.addColorStop(0, "rgba(255, 214, 183, 0.06)");
+  outerGlow.addColorStop(0.72, `rgba(193, 79, 64, ${0.028 + aura * 0.018})`);
+  outerGlow.addColorStop(1, "rgba(193, 79, 64, 0)");
+  ctx.beginPath();
+  ctx.arc(metrics.cx, metrics.cy, metrics.radius * 1.28, 0, Math.PI * 2);
+  ctx.fillStyle = outerGlow;
+  ctx.fill();
+
   ctx.beginPath();
   ctx.arc(metrics.cx, metrics.cy, metrics.radius * 1.02, 0, Math.PI * 2);
   ctx.strokeStyle = "rgba(193, 79, 64, 0.16)";
@@ -215,14 +226,23 @@ function drawDots(ctx, metrics, rotation, time) {
 export default function BaroccoCoordinateSphereMusicale() {
   const canvasRef = React.useRef(null);
   const stageRef = React.useRef(null);
+  const previewRef = React.useRef(null);
   const frameRef = React.useRef(0);
   const metricsRef = React.useRef({ width: 0, height: 0, cx: 0, cy: 0, radius: 0, dpr: 1 });
   const rotationRef = React.useRef({ x: -0.16, y: 0.28 });
-  const dragRef = React.useRef({ active: false, x: 0, y: 0 });
+  const velocityRef = React.useRef({ x: 0, y: 0 });
+  const dragRef = React.useRef({ active: false, x: 0, y: 0, time: 0 });
+  const orbitRef = React.useRef(18);
+  const [activeListening] = React.useState({
+    title: "Les Sauvages",
+    subtitle: "Anteprima d'ascolto",
+    focus: "Primo tassello del globo: un ascolto della lezione da richiamare e approfondire nella card sottostante."
+  });
 
   React.useEffect(() => {
     const canvas = canvasRef.current;
     const stage = stageRef.current;
+    const preview = previewRef.current;
     if (!canvas || !stage) return undefined;
 
     const ctx = canvas.getContext("2d");
@@ -247,7 +267,7 @@ export default function BaroccoCoordinateSphereMusicale() {
         height,
         cx: width / 2,
         cy: height / 2,
-        radius: Math.min(width, height) * 0.34,
+        radius: Math.min(width, height) * 0.35,
         dpr
       };
     }
@@ -259,17 +279,27 @@ export default function BaroccoCoordinateSphereMusicale() {
         return;
       }
 
+      const elapsed = lastTime ? Math.min(timestamp - lastTime, 42) : 16;
+      lastTime = timestamp;
+
       if (!dragRef.current.active) {
-        rotationRef.current.y += AUTO_SPIN;
+        rotationRef.current.y += AUTO_SPIN * elapsed;
+        rotationRef.current.y += velocityRef.current.y;
+        rotationRef.current.x = clamp(rotationRef.current.x + velocityRef.current.x, -ROTATION_LIMIT, ROTATION_LIMIT);
+        velocityRef.current.y *= 0.94;
+        velocityRef.current.x *= 0.9;
       }
 
-      const elapsed = lastTime ? timestamp - lastTime : 16;
-      lastTime = timestamp;
+      orbitRef.current = (orbitRef.current + ORBIT_SPEED * elapsed * (dragRef.current.active ? 0.42 : 1)) % 360;
+      if (preview) {
+        preview.style.setProperty("--orbit-angle", `${orbitRef.current}deg`);
+      }
+
       const time = timestamp * 0.06 + elapsed * 0.02;
       const rotation = rotationRef.current;
 
       ctx.clearRect(0, 0, metrics.width, metrics.height);
-      drawSphereEnvelope(ctx, metrics);
+      drawSphereEnvelope(ctx, metrics, time);
       drawGrid(ctx, metrics, rotation);
       drawDots(ctx, metrics, rotation, time);
 
@@ -277,19 +307,30 @@ export default function BaroccoCoordinateSphereMusicale() {
     }
 
     function onPointerDown(event) {
-      dragRef.current = { active: true, x: event.clientX, y: event.clientY };
+      event.preventDefault();
+      dragRef.current = { active: true, x: event.clientX, y: event.clientY, time: performance.now() };
+      velocityRef.current = { x: 0, y: 0 };
       stage.classList.add("is-dragging");
       stage.setPointerCapture?.(event.pointerId);
     }
 
     function onPointerMove(event) {
       if (!dragRef.current.active) return;
+      event.preventDefault();
+      const now = performance.now();
       const deltaX = event.clientX - dragRef.current.x;
       const deltaY = event.clientY - dragRef.current.y;
+      const elapsed = Math.max(now - dragRef.current.time, 16);
       dragRef.current.x = event.clientX;
       dragRef.current.y = event.clientY;
-      rotationRef.current.y += deltaX * 0.006;
-      rotationRef.current.x = clamp(rotationRef.current.x + deltaY * 0.0045, -ROTATION_LIMIT, ROTATION_LIMIT);
+      dragRef.current.time = now;
+
+      const spinY = deltaX * 0.0082;
+      const spinX = deltaY * 0.0062;
+      rotationRef.current.y += spinY;
+      rotationRef.current.x = clamp(rotationRef.current.x + spinX, -ROTATION_LIMIT, ROTATION_LIMIT);
+      velocityRef.current.y = clamp((spinY / elapsed) * 16, -0.06, 0.06);
+      velocityRef.current.x = clamp((spinX / elapsed) * 16, -0.04, 0.04);
     }
 
     function onPointerUp(event) {
@@ -303,8 +344,8 @@ export default function BaroccoCoordinateSphereMusicale() {
     resizeObserver.observe(stage);
     frameRef.current = window.requestAnimationFrame(render);
 
-    stage.addEventListener("pointerdown", onPointerDown);
-    stage.addEventListener("pointermove", onPointerMove);
+    stage.addEventListener("pointerdown", onPointerDown, { passive: false });
+    stage.addEventListener("pointermove", onPointerMove, { passive: false });
     stage.addEventListener("pointerup", onPointerUp);
     stage.addEventListener("pointercancel", onPointerUp);
     window.addEventListener("resize", resize);
@@ -340,9 +381,55 @@ export default function BaroccoCoordinateSphereMusicale() {
           ref: stageRef,
           className: "barocco-musical-globe__stage",
           role: "img",
-          "aria-label": "Globo degli ascolti in preparazione"
+          "aria-label": "Globo degli ascolti con anteprime orbitanti"
         },
-        h("canvas", { ref: canvasRef, className: "barocco-musical-globe__canvas", "aria-hidden": "true" })
+        h("canvas", { ref: canvasRef, className: "barocco-musical-globe__canvas", "aria-hidden": "true" }),
+        h(
+          "div",
+          { className: "barocco-musical-globe__orbit-layer", "aria-hidden": "true" },
+          h("span", { className: "barocco-musical-globe__orbit-track" })
+        ),
+        h(
+          "button",
+          {
+            ref: previewRef,
+            type: "button",
+            className: "barocco-musical-globe__orbit-preview is-active",
+            "aria-label": "Anteprima Les Sauvages"
+          },
+          h("span", { className: "barocco-musical-globe__orbit-index" }, "01"),
+          h(
+            "span",
+            { className: "barocco-musical-globe__orbit-copy" },
+            h("strong", null, activeListening.title),
+            h("span", null, activeListening.subtitle)
+          )
+        )
+      )
+    ),
+    h(
+      "article",
+      { className: "barocco-musical-globe__detail-card" },
+      h(
+        "div",
+        { className: "barocco-musical-globe__detail-copy" },
+        h("p", { className: "barocco-musical-globe__detail-kicker--plain" }, "Ascolto selezionato"),
+        h("h3", { className: "barocco-musical-globe__detail-title--plain" }, activeListening.title),
+        h("p", { className: "barocco-musical-globe__detail-subtitle--plain" }, "Mini anteprima orbitante"),
+        h("p", null, activeListening.focus),
+        h(
+          "div",
+          { className: "barocco-musical-globe__detail-meta" },
+          h("span", null, "Lezione 1"),
+          h("span", null, "Ascolto da approfondire"),
+          h("span", null, "Globo in costruzione")
+        )
+      ),
+      h(
+        "aside",
+        { className: "barocco-musical-globe__detail-side", "aria-label": "Nota di esplorazione" },
+        h("strong", null, "La card sotto il globo diventa il punto di atterraggio dell’ascolto."),
+        h("span", null, "Quando aggiungeremo i prossimi brani, qui comparirà l’approfondimento dell’anteprima selezionata.")
       )
     )
   );
