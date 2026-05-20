@@ -255,16 +255,17 @@
   display: block;
   max-width: none;
   margin: 0;
-  color: #69727d;
+  color: #c14f40;
   font-size: 0.87rem;
-  font-weight: 700;
+  font-weight: 800;
   line-height: 1.27;
-  letter-spacing: 0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   white-space: nowrap;
 }
 
 .barocco-key-concepts__card-subtitle--back {
-  color: #8f97a1;
+  color: #c14f40;
   white-space: normal;
 }
 
