@@ -148,16 +148,16 @@ const listeningCards = [
           "Il finale dell’Estate è costruito per coinvolgere con energia continua e forte tensione drammatica."
       },
       {
-        question: "Rispetto a Les Sauvages, questo brano mette più in evidenza…",
+        question: "Quale immagine sonora sembra costruire Vivaldi in questo brano?",
         options: [
-          "la quiete contemplativa",
-          "la descrizione musicale di una scena naturale",
-          "il canto corale",
-          "la regolarità di una danza composta"
+          "Una tempesta violenta e improvvisa",
+          "Una danza lenta di corte",
+          "Una ninna nanna serena",
+          "Una processione calma e regolare"
         ],
-        correct: 1,
+        correct: 0,
         explanation:
-          "Qui la musica non suggerisce soprattutto una danza, ma una scena: la tempesta prende forma attraverso il suono."
+          "La musica evoca una tempesta attraverso velocità, accenti, tensione e continui movimenti degli archi."
       },
       {
         question: "Quale tratto barocco emerge con maggiore forza?",
@@ -245,16 +245,16 @@ const listeningCards = [
           "Il brano mostra una scrittura elegante, veloce e ricca di dettagli: una qualità tipica della musica strumentale barocca."
       },
       {
-        question: "Rispetto alla Tempesta di Vivaldi, la Badinerie appare più…",
+        question: "Come si muove principalmente la linea del flauto?",
         options: [
-          "leggera e danzante",
-          "drammatica e tempestosa",
-          "lenta e contemplativa",
-          "corale e religiosa"
+          "Con passaggi rapidi e leggeri",
+          "Con note lunghissime e ferme",
+          "Con suoni parlati",
+          "Con colpi isolati e senza melodia"
         ],
         correct: 0,
         explanation:
-          "La Badinerie non descrive una scena naturale drammatica: punta piuttosto su leggerezza, agilità e brillantezza."
+          "La parte del flauto procede con agilità: rapide figurazioni, leggerezza e precisione sono al centro dell’ascolto."
       }
     ]
   }
