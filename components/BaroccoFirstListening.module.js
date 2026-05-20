@@ -175,16 +175,6 @@ const listeningCards = [
   }
 ];
 
-function clampIndex(index, length) {
-  return ((index % length) + length) % length;
-}
-
-function circularDistance(index, activeIndex, length) {
-  const direct = index - activeIndex;
-  const wrapped = direct > 0 ? direct - length : direct + length;
-  return Math.abs(direct) <= Math.abs(wrapped) ? direct : wrapped;
-}
-
 function optionButton(question, option, index, selected, onChoose) {
   const hasAnswered = selected !== null;
   const isCorrect = hasAnswered && index === question.correct;
@@ -214,8 +204,6 @@ function optionButton(question, option, index, selected, onChoose) {
 }
 
 function ListeningCarousel({ activeIndex, onSelect }) {
-  const activeItem = listeningCards[activeIndex];
-
   return h(
     "div",
     { className: "barocco-listening-carousel", "aria-label": "Scorri i primi ascolti del Barocco" },
@@ -223,7 +211,6 @@ function ListeningCarousel({ activeIndex, onSelect }) {
       "div",
       { className: "barocco-listening-carousel__viewport" },
       listeningCards.map((item, index) => {
-        const offset = circularDistance(index, activeIndex, listeningCards.length);
         const isActive = index === activeIndex;
         return h(
           "article",
@@ -231,11 +218,19 @@ function ListeningCarousel({ activeIndex, onSelect }) {
             key: item.id,
             className: `barocco-listening-card${isActive ? " is-active" : ""}`,
             style: {
-              "--listening-offset": offset,
-              "--listening-abs-offset": Math.abs(offset),
               "--listening-thumb": `url(https://i.ytimg.com/vi/${item.youtubeId}/hqdefault.jpg)`
             },
-            "aria-hidden": isActive ? "false" : "true"
+            onClick: () => onSelect(index),
+            tabIndex: 0,
+            role: "button",
+            onKeyDown: (event) => {
+              if (event.key === "Enter" || event.key === " ") {
+                event.preventDefault();
+                onSelect(index);
+              }
+            },
+            "aria-pressed": isActive ? "true" : "false",
+            "aria-label": `${item.title} — ${item.composer}`
           },
           h(
             "div",
@@ -246,23 +241,10 @@ function ListeningCarousel({ activeIndex, onSelect }) {
                   title: item.embedTitle,
                   allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share",
                   allowFullScreen: true,
-                  loading: "lazy"
+                  loading: "lazy",
+                  onClick: (event) => event.stopPropagation()
                 })
-              : h(
-                  React.Fragment,
-                  null,
-                  h("span", { className: "barocco-listening-card__thumb", "aria-hidden": "true" }),
-                  h(
-                    "button",
-                    {
-                      type: "button",
-                      className: "barocco-listening-card__select",
-                      onClick: () => onSelect(index),
-                      "aria-label": `Apri ${item.title} di ${item.composer}`
-                    },
-                    "Apri ascolto"
-                  )
-                )
+              : h("span", { className: "barocco-listening-card__thumb", "aria-hidden": "true" })
           ),
           h(
             "div",
@@ -273,50 +255,6 @@ function ListeningCarousel({ activeIndex, onSelect }) {
           )
         );
       })
-    ),
-    h(
-      "div",
-      { className: "barocco-listening-carousel__controls" },
-      h(
-        "button",
-        {
-          type: "button",
-          className: "barocco-listening-carousel__arrow",
-          onClick: () => onSelect(clampIndex(activeIndex - 1, listeningCards.length)),
-          "aria-label": "Ascolto precedente"
-        },
-        "‹"
-      ),
-      h(
-        "div",
-        { className: "barocco-listening-carousel__dots", role: "tablist", "aria-label": "Seleziona un ascolto" },
-        listeningCards.map((item, index) => h(
-          "button",
-          {
-            key: `${item.id}-dot`,
-            type: "button",
-            className: `barocco-listening-carousel__dot${index === activeIndex ? " is-active" : ""}`,
-            onClick: () => onSelect(index),
-            "aria-label": `${item.title} — ${item.composer}`,
-            "aria-selected": index === activeIndex ? "true" : "false"
-          }
-        ))
-      ),
-      h(
-        "button",
-        {
-          type: "button",
-          className: "barocco-listening-carousel__arrow",
-          onClick: () => onSelect(clampIndex(activeIndex + 1, listeningCards.length)),
-          "aria-label": "Ascolto successivo"
-        },
-        "›"
-      )
-    ),
-    h(
-      "p",
-      { className: "barocco-listening-carousel__hint" },
-      `${activeItem.index} di ${String(listeningCards.length).padStart(2, "0")} · scorri le card per cambiare ascolto`
     )
   );
 }
