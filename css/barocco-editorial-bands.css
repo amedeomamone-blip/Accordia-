@@ -92,9 +92,29 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__hea
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__head,
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__header,
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-musical-globe__header {
+  display: grid;
+  justify-items: center;
+  text-align: center;
   border-bottom: 0;
   padding-bottom: 0;
   margin-bottom: clamp(1.7rem, 3vw, 2.6rem);
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__head > *,
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__head > *,
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__header > *,
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-musical-globe__header > * {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__subtitle,
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__intro,
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__intro,
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__header p,
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-musical-globe__header p {
+  max-width: 58rem;
+  text-align: center;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__grid,
@@ -117,10 +137,6 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-musical-globe {
   gap: clamp(1.25rem, 2.5vw, 2rem);
-}
-
-body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-musical-globe__header {
-  text-align: center;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-musical-globe__title {
