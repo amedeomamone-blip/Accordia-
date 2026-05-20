@@ -64,24 +64,18 @@ const keyConcepts = [
     id: "concerto-grosso",
     title: "Concerto grosso",
     subtitle: "Gruppo e orchestra",
-    image: conceptAsset("barocco-concerto-grosso-card.webp"),
-    imageFocus: "50% 44%",
     summary: "Un piccolo gruppo di strumenti si alterna all’orchestra. Nascono risposte e contrasti facili da riconoscere."
   },
   {
     id: "contrasti-sonori",
     title: "Contrasti sonori",
     subtitle: "Piano, forte, sorpresa",
-    image: conceptAsset("barocco-contrasti-sonori-card.webp"),
-    imageFocus: "50% 45%",
     summary: "La musica barocca ama gli opposti: piano e forte, solo e tutti, pieno e vuoto, rapido e lento."
   },
   {
     id: "maggiore-espressivita",
     title: "Maggiore espressività",
     subtitle: "La musica si intensifica",
-    image: conceptAsset("barocco-orfeo-16x9-originale.png"),
-    imageFocus: "50% 44%",
     summary: "La musica vuole colpire l’ascoltatore. Melodie, contrasti e gesti sonori rendono le emozioni più forti."
   }
 ].map((concept, index) => ({
