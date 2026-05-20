@@ -9,10 +9,10 @@
 
     <link rel="stylesheet" href="../../../../css/lesson-immersive.css?v=1779210937">
     <link rel="stylesheet" href="../../../../css/lesson-readability.css?v=1779284600">
-    <link rel="stylesheet" href="../../../../css/barocco-first-listening.css?v=1779302300">
+    <link rel="stylesheet" href="../../../../css/barocco-first-listening.css?v=1779303600">
     <link rel="stylesheet" href="../../../../css/barocco-timeline.css?v=1779210937">
     <link rel="stylesheet" href="../../../../css/barocco-coordinate-responsive.css?v=1779210937">
-    <link rel="stylesheet" href="../../../../css/barocco-key-concepts.css?v=1779300400">
+    <link rel="stylesheet" href="../../../../css/barocco-key-concepts.css?v=1779303600">
     <link rel="stylesheet" href="../../../../css/barocco-lesson-layout-final.css?v=1779272200">
     <link rel="stylesheet" href="../../../../css/barocco-editorial-bands.css?v=1779295200">
     <style>
@@ -22,6 +22,25 @@
             max-width: 100%;
             margin: 0;
             justify-self: stretch;
+        }
+
+        body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__header {
+            margin-bottom: clamp(2.35rem, 4vw, 3.6rem) !important;
+        }
+
+        body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__track {
+            margin-top: 0 !important;
+        }
+
+        body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening-quiz__header {
+            margin-bottom: clamp(2.2rem, 3.8vw, 3.2rem) !important;
+        }
+
+        body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening-quiz__question {
+            max-width: 48rem !important;
+            margin: -0.45rem auto clamp(2.85rem, 4.8vw, 4rem) !important;
+            text-align: center !important;
+            line-height: 1.16 !important;
         }
     </style>
 </head>
@@ -102,7 +121,7 @@
     <script type="module">
         import React from "https://esm.sh/react@18";
         import { createRoot } from "https://esm.sh/react-dom@18/client";
-        import BaroccoFirstListening from "../../../../components/BaroccoFirstListening.module.js?v=1779302300";
+        import BaroccoFirstListening from "../../../../components/BaroccoFirstListening.module.js?v=1779303600";
         import BaroccoTimeline from "../../../../components/BaroccoTimeline.module.js?v=1779290200";
         import BaroccoKeyConcepts from "../../../../components/BaroccoKeyConcepts.module.js?v=1779289200";
 
