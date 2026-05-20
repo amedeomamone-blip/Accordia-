@@ -131,8 +131,10 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-musical-globe_
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening h2 {
-  width: max-content;
+  justify-self: center;
+  width: fit-content;
   max-width: none;
+  text-align: center;
   white-space: nowrap;
 }
 
@@ -165,6 +167,11 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts {
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__inner {
   max-width: 72rem;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__card-subtitle,
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__card-subtitle--back {
+  color: #c14f40 !important;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-musical-globe {
