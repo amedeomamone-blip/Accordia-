@@ -62,12 +62,15 @@
 
 .barocco-listening-carousel {
   position: relative;
-  width: min(100% - 2rem, 72rem);
-  margin: 0 auto;
+  left: 50%;
+  right: 50%;
+  width: 100vw;
+  margin-left: -50vw;
+  margin-right: -50vw;
   overflow-x: auto;
   overflow-y: visible;
   scroll-snap-type: x mandatory;
-  scroll-padding-inline: calc((100% - min(58vw, 46rem)) / 2);
+  scroll-padding-inline: calc((100vw - min(58vw, 46rem)) / 2);
   scrollbar-width: none;
   -webkit-overflow-scrolling: touch;
 }
@@ -79,13 +82,13 @@
 .barocco-listening-carousel__viewport {
   position: relative;
   width: max-content;
-  min-width: 100%;
+  min-width: 100vw;
   max-width: none;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: clamp(1rem, 2vw, 1.6rem);
-  padding: 0 calc((100% - min(58vw, 46rem)) / 2);
+  padding: 0 calc((100vw - min(58vw, 46rem)) / 2);
   overflow: visible;
 }
 
@@ -426,13 +429,13 @@
   }
 
   .barocco-listening-carousel {
-    width: min(100% - 2rem, 72rem);
-    scroll-padding-inline: calc((100% - min(82vw, 34rem)) / 2);
+    width: 100vw;
+    scroll-padding-inline: calc((100vw - min(82vw, 34rem)) / 2);
   }
 
   .barocco-listening-carousel__viewport {
     gap: 0.85rem;
-    padding-inline: calc((100% - min(82vw, 34rem)) / 2);
+    padding-inline: calc((100vw - min(82vw, 34rem)) / 2);
   }
 
   .barocco-listening-card {
