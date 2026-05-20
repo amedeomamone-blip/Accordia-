@@ -211,7 +211,7 @@
 .barocco-listening-quiz__header {
   display: grid;
   gap: 0.32rem;
-  margin-bottom: clamp(1.5rem, 2.4vw, 2.2rem);
+  margin-bottom: clamp(1.85rem, 3vw, 2.65rem);
   padding-bottom: 1rem;
   border-bottom: 1px solid rgba(17, 17, 17, 0.08);
 }
@@ -241,11 +241,13 @@
 }
 
 .barocco-listening-quiz__question {
-  margin: 0 0 clamp(1.9rem, 3vw, 2.5rem);
+  max-width: 48rem;
+  margin: 0 auto clamp(2.35rem, 4vw, 3.25rem);
   font-size: clamp(1.18rem, 2vw, 1.58rem);
   font-weight: 800;
-  line-height: 1.12;
+  line-height: 1.16;
   letter-spacing: -0.045em;
+  text-align: center;
 }
 
 .barocco-listening-options {
