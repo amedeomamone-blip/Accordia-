@@ -14,24 +14,14 @@
   z-index: 2;
 }
 
-.barocco-musical-globe__orbit-track {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: min(72%, 40rem);
-  aspect-ratio: 1 / 0.74;
-  transform: translate(-50%, -50%);
-  border: 1px solid rgba(193, 79, 64, 0.08);
-  border-radius: 50%;
-  opacity: 0.9;
-}
-
 .barocco-musical-globe__orbit-preview {
-  --orbit-angle: 0deg;
-  --orbit-x: min(34vw, 18.8rem);
+  --preview-x: 50%;
+  --preview-y: 50%;
+  --preview-opacity: 1;
+  --preview-scale: 1;
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: var(--preview-y);
+  left: var(--preview-x);
   width: min(19rem, calc(100% - 2rem));
   min-height: 6.65rem;
   padding: 0.58rem;
@@ -50,16 +40,14 @@
   text-align: left;
   pointer-events: auto;
   cursor: pointer;
-  transform:
-    translate(-50%, -50%)
-    rotate(var(--orbit-angle))
-    translate(var(--orbit-x), 0)
-    rotate(calc(var(--orbit-angle) * -1));
+  opacity: var(--preview-opacity);
+  transform: translate(-50%, -50%) scale(var(--preview-scale));
   transition:
     border-color 220ms ease,
     background-color 220ms ease,
     box-shadow 220ms ease,
-    transform 160ms linear;
+    opacity 240ms ease,
+    transform 240ms ease;
 }
 
 .barocco-musical-globe__orbit-preview:hover,
@@ -247,12 +235,7 @@
 }
 
 @media (max-width: 900px) {
-  .barocco-musical-globe__orbit-track {
-    width: min(82%, 31rem);
-  }
-
   .barocco-musical-globe__orbit-preview {
-    --orbit-x: min(31vw, 12.8rem);
     width: min(17.6rem, calc(100% - 1.2rem));
     min-height: 6.2rem;
     grid-template-columns: 5.85rem minmax(0, 1fr);
@@ -264,12 +247,7 @@
 }
 
 @media (max-width: 680px) {
-  .barocco-musical-globe__orbit-track {
-    width: min(88%, 22rem);
-  }
-
   .barocco-musical-globe__orbit-preview {
-    --orbit-x: min(33vw, 8.8rem);
     width: min(15rem, calc(100% - 1rem));
     min-height: 5.4rem;
     padding: 0.5rem;
