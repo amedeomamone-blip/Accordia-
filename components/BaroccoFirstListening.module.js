@@ -226,22 +226,19 @@ function ListeningCarousel({ activeIndex, onSelect }) {
         const offset = circularDistance(index, activeIndex, listeningCards.length);
         const isActive = index === activeIndex;
         return h(
-          "button",
+          "article",
           {
             key: item.id,
-            type: "button",
             className: `barocco-listening-card${isActive ? " is-active" : ""}`,
-            onClick: () => onSelect(index),
-            "aria-current": isActive ? "true" : undefined,
-            "aria-label": `${item.title} — ${item.composer}`,
             style: {
               "--listening-offset": offset,
               "--listening-abs-offset": Math.abs(offset),
               "--listening-thumb": `url(https://i.ytimg.com/vi/${item.youtubeId}/hqdefault.jpg)`
-            }
+            },
+            "aria-hidden": isActive ? "false" : "true"
           },
           h(
-            "span",
+            "div",
             { className: "barocco-listening-card__media" },
             isActive
               ? h("iframe", {
@@ -255,11 +252,20 @@ function ListeningCarousel({ activeIndex, onSelect }) {
                   React.Fragment,
                   null,
                   h("span", { className: "barocco-listening-card__thumb", "aria-hidden": "true" }),
-                  h("span", { className: "barocco-listening-card__preview", "aria-hidden": "true" }, "Apri ascolto")
+                  h(
+                    "button",
+                    {
+                      type: "button",
+                      className: "barocco-listening-card__select",
+                      onClick: () => onSelect(index),
+                      "aria-label": `Apri ${item.title} di ${item.composer}`
+                    },
+                    "Apri ascolto"
+                  )
                 )
           ),
           h(
-            "span",
+            "div",
             { className: "barocco-listening-card__caption" },
             h("span", { className: "barocco-listening-card__eyebrow" }, item.eyebrow),
             h("strong", null, item.title),
