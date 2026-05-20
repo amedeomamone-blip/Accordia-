@@ -87,18 +87,41 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-musical-globe 
   border-top: 1px solid rgba(17, 17, 17, 0.08);
 }
 
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts {
+  overflow-x: visible !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__head,
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__grid,
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__head,
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__stage,
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline-detail,
-body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__inner,
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-musical-globe__header,
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-musical-globe__stage-card,
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-musical-globe__detail-card {
   width: min(100%, 72rem);
   margin-left: auto;
   margin-right: auto;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__inner {
+  width: 100vw !important;
+  max-width: none !important;
+  margin-left: calc(50% - 50vw) !important;
+  margin-right: calc(50% - 50vw) !important;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__track {
+  width: 100vw !important;
+  max-width: none !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  padding-left: clamp(1rem, 6vw, 5rem) !important;
+  padding-right: clamp(1rem, 6vw, 5rem) !important;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__head,
@@ -195,14 +218,6 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__stage,
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-musical-globe__stage {
   margin-top: 0;
-}
-
-body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts {
-  overflow-x: clip;
-}
-
-body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__inner {
-  max-width: 72rem;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__card-subtitle,
