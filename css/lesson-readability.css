@@ -1,0 +1,74 @@
+.topic-page--lesson {
+  --lesson-reading-width: 68ch;
+  --lesson-reading-width-tight: 58ch;
+  --lesson-reading-leading: 1.5;
+}
+
+.topic-page--lesson .lesson-mount p,
+.topic-page--lesson .lesson-mount li,
+.topic-page--lesson .lesson-editorial-page p,
+.topic-page--lesson .lesson-editorial-page li,
+.topic-page--lesson .barocco-timeline__intro,
+.topic-page--lesson .barocco-key-concepts__header p,
+.topic-page--lesson .barocco-listening__subtitle,
+.topic-page--lesson .barocco-listening__intro,
+.topic-page--lesson .barocco-musical-globe__detail-copy p,
+.topic-page--lesson .barocco-musical-globe__detail-side span {
+  line-height: var(--lesson-reading-leading);
+}
+
+.topic-page--lesson .lesson-mount p,
+.topic-page--lesson .lesson-editorial-page p,
+.topic-page--lesson .barocco-timeline__intro,
+.topic-page--lesson .barocco-key-concepts__header p,
+.topic-page--lesson .barocco-listening__subtitle,
+.topic-page--lesson .barocco-listening__intro,
+.topic-page--lesson .barocco-musical-globe__detail-copy p,
+.topic-page--lesson .barocco-musical-globe__detail-side span {
+  max-width: var(--lesson-reading-width);
+}
+
+.topic-page--lesson .immersive-lesson-intro__subtitle,
+.topic-page--lesson .immersive-lesson-intro__summary,
+.topic-page--lesson .lesson-hero__guide,
+.topic-page--lesson .lesson-section__intro,
+.topic-page--lesson .lesson-body-text,
+.topic-page--lesson .lesson-note,
+.topic-page--lesson .lesson-feedback,
+.topic-page--lesson .lesson-self-check__row p,
+.topic-page--lesson .lesson-evidence__copy p,
+.topic-page--lesson .lesson-meaning-card__copy p,
+.topic-page--lesson .lesson-term-list__content p,
+.topic-page--lesson .lesson-closing__bridge,
+.topic-page--lesson .lesson-meter-card__action,
+.topic-page--lesson .lesson-figure__body p,
+.topic-page--lesson .lesson-timeline-board__content p,
+.topic-page--lesson .barocco-timeline__intro,
+.topic-page--lesson .barocco-key-concepts__header p,
+.topic-page--lesson .barocco-listening__subtitle,
+.topic-page--lesson .barocco-listening__intro,
+.topic-page--lesson .barocco-musical-globe__detail-copy p,
+.topic-page--lesson .barocco-musical-globe__detail-side span {
+  max-width: var(--lesson-reading-width-tight);
+  line-height: var(--lesson-reading-leading);
+}
+
+.topic-page--lesson .lesson-section__header,
+.topic-page--lesson .lesson-panel__heading,
+.topic-page--lesson .barocco-key-concepts__header,
+.topic-page--lesson .barocco-listening__head {
+  max-width: var(--lesson-reading-width-tight);
+}
+
+.topic-page--lesson .immersive-lesson-intro__subtitle,
+.topic-page--lesson .immersive-lesson-intro__summary {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media (max-width: 760px) {
+  .topic-page--lesson {
+    --lesson-reading-width: 100%;
+    --lesson-reading-width-tight: 100%;
+  }
+}
