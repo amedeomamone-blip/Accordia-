@@ -6,13 +6,23 @@ body[data-current-nucleus="barocco"] .barocco-musical-globe__detail-side {
   background: #ffffff !important;
 }
 
+body[data-current-nucleus="barocco"] .barocco-musical-globe,
+body[data-current-nucleus="barocco"] .barocco-musical-globe__stage,
+body[data-current-nucleus="barocco"] .barocco-musical-globe__stage-card,
+body[data-current-nucleus="barocco"] .barocco-musical-globe__detail-card,
+body[data-current-nucleus="barocco"] .barocco-musical-globe__orbit-preview,
+body[data-current-nucleus="barocco"] .barocco-musical-globe__orbit-preview:hover,
+body[data-current-nucleus="barocco"] .barocco-musical-globe__orbit-preview:focus-visible,
+body[data-current-nucleus="barocco"] .barocco-musical-globe__orbit-preview.is-active {
+  box-shadow: none !important;
+}
+
 body[data-current-nucleus="barocco"] .barocco-musical-globe__orbit-preview,
 body[data-current-nucleus="barocco"] .barocco-musical-globe__orbit-preview:hover,
 body[data-current-nucleus="barocco"] .barocco-musical-globe__orbit-preview:focus-visible,
 body[data-current-nucleus="barocco"] .barocco-musical-globe__orbit-preview.is-active {
   left: clamp(10.5rem, var(--preview-x), calc(100% - 10.5rem)) !important;
   top: clamp(4rem, var(--preview-y), calc(100% - 4rem)) !important;
-  box-shadow: 0 0.75rem 1.9rem rgba(17, 17, 17, 0.045) !important;
   background: #ffffff !important;
 }
 
