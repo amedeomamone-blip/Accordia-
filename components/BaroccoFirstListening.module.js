@@ -111,7 +111,6 @@ function BaroccoFirstListening() {
   const [completed, setCompleted] = React.useState(false);
 
   const active = questions[current];
-  const progress = ((current + 1) / questions.length) * 100;
   const isCorrect = selected === active.correct;
 
   function chooseAnswer(index) {
@@ -172,17 +171,6 @@ function BaroccoFirstListening() {
       h(
         "article",
         { className: "barocco-listening-quiz" },
-        h(
-          "div",
-          { className: "barocco-listening-quiz__progress", "aria-label": "Avanzamento del quiz" },
-          h(
-            "div",
-            { className: "barocco-listening-quiz__progress-head" },
-            h("span", null, "Rispondi correttamente alle domande"),
-            h("strong", null, `${String(current + 1).padStart(2, "0")}/${String(questions.length).padStart(2, "0")}`)
-          ),
-          h("i", null, h("b", { style: { width: `${progress}%` } }))
-        ),
         completed
           ? h(
               "div",
