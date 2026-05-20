@@ -256,16 +256,20 @@
   max-width: none;
   margin: 0;
   color: #c14f40;
-  font-size: 0.87rem;
+  font-size: 0.68rem;
   font-weight: 800;
-  line-height: 1.27;
-  letter-spacing: 0.08em;
+  line-height: 1.2;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
   white-space: nowrap;
 }
 
 .barocco-key-concepts__card-subtitle--back {
   color: #c14f40;
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: 0.22em;
   white-space: normal;
 }
 
@@ -488,8 +492,10 @@
     padding: 0.98rem 1rem 1.04rem;
   }
 
-  .barocco-key-concepts__card-subtitle {
-    font-size: 0.78rem;
+  .barocco-key-concepts__card-subtitle,
+  .barocco-key-concepts__card-subtitle--back {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
   }
 
   .barocco-key-concepts__card-title {
@@ -546,8 +552,10 @@
     padding-top: 3rem;
   }
 
-  .barocco-key-concepts__card-subtitle {
-    font-size: 0.78rem;
+  .barocco-key-concepts__card-subtitle,
+  .barocco-key-concepts__card-subtitle--back {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
   }
 
   .barocco-key-concepts__card-title {
