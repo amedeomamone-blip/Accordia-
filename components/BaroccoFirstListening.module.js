@@ -172,6 +172,91 @@ const listeningCards = [
           "L’ascolto è un esempio molto efficace del gusto barocco per contrasto, sorpresa e intensità espressiva."
       }
     ]
+  },
+  {
+    id: "bach-badinerie",
+    index: "03",
+    title: "Badinerie — Suite BWV 1067",
+    composer: "Johann Sebastian Bach",
+    eyebrow: "Terzo ascolto",
+    intro:
+      "Un brano brillante e velocissimo, affidato al flauto e agli archi. Ascoltalo per riconoscere leggerezza, precisione ritmica, dialogo strumentale e virtuosismo barocco.",
+    youtubeId: "Kl6R4Ui9blc",
+    embedTitle: "Bach - Badinerie BWV 1067",
+    questions: [
+      {
+        question: "Quale strumento emerge con maggiore evidenza nella Badinerie?",
+        options: [
+          "Il flauto",
+          "Il timpano",
+          "La chitarra elettrica",
+          "Il coro"
+        ],
+        correct: 0,
+        explanation:
+          "Il flauto è il protagonista più riconoscibile: espone una linea rapida, brillante e molto agile."
+      },
+      {
+        question: "Quale carattere comunica principalmente il brano?",
+        options: [
+          "Pesante e solenne",
+          "Brillante e vivace",
+          "Lento e doloroso",
+          "Statico e senza ritmo"
+        ],
+        correct: 1,
+        explanation:
+          "La Badinerie ha un carattere vivace e leggero, costruito su rapidità, precisione e movimento continuo."
+      },
+      {
+        question: "Che cosa richiede soprattutto l’esecuzione di questo brano?",
+        options: [
+          "Lentezza estrema",
+          "Virtuosismo e controllo tecnico",
+          "Improvvisazione senza regole",
+          "Assenza di pulsazione"
+        ],
+        correct: 1,
+        explanation:
+          "La velocità delle figurazioni richiede grande precisione, controllo del suono e sicurezza ritmica."
+      },
+      {
+        question: "Il rapporto tra flauto e archi può essere ascoltato come…",
+        options: [
+          "un dialogo strumentale",
+          "un rumore casuale",
+          "un canto corale uniforme",
+          "una melodia senza accompagnamento"
+        ],
+        correct: 0,
+        explanation:
+          "Il flauto spicca in primo piano, mentre gli archi sostengono e rispondono creando un dialogo molto ordinato."
+      },
+      {
+        question: "Quale aspetto del Barocco emerge meglio in questo ascolto?",
+        options: [
+          "La scrittura precisa e ornamentale",
+          "L’assenza di forma",
+          "La semplicità di una sola nota ripetuta",
+          "Il suono elettronico"
+        ],
+        correct: 0,
+        explanation:
+          "Il brano mostra una scrittura elegante, veloce e ricca di dettagli: una qualità tipica della musica strumentale barocca."
+      },
+      {
+        question: "Rispetto alla Tempesta di Vivaldi, la Badinerie appare più…",
+        options: [
+          "leggera e danzante",
+          "drammatica e tempestosa",
+          "lenta e contemplativa",
+          "corale e religiosa"
+        ],
+        correct: 0,
+        explanation:
+          "La Badinerie non descrive una scena naturale drammatica: punta piuttosto su leggerezza, agilità e brillantezza."
+      }
+    ]
   }
 ];
 
