@@ -3,25 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Globo degli ascolti: spazio interattivo del nucleo Il Barocco.">
+    <meta name="description" content="Globo degli ascolti: lezione completa del nucleo Il Barocco, con ascolto, attività, materiali e riferimenti collegati.">
     <title>Globo degli ascolti | Il Barocco | Accordia</title>
-    <link rel="stylesheet" href="../../../../css/style.css?v=1779210937">
-    <link rel="stylesheet" href="../../../../css/lesson-immersive.css?v=1779210937">
-    <link rel="stylesheet" href="../../../../css/lesson-readability.css?v=1779284600">
-    <link rel="stylesheet" href="../../../../css/barocco-musical-globe.css?v=1779282101">
-    <link rel="stylesheet" href="../../../../css/barocco-musical-globe-orbits.css?v=1779282101">
-    <link rel="stylesheet" href="../../../../css/barocco-musical-globe-clean.css?v=1779283201">
-    <link rel="stylesheet" href="../../../../css/barocco-musical-globe-page.css?v=1779282400">
-    <link rel="stylesheet" href="../../../../css/barocco-editorial-bands.css?v=1779288100">
-    <style>
-        body[data-current-nucleus="barocco"] .topic-page--lesson .lesson-mount {
-            grid-column: 1 / -1;
-            width: 100%;
-            max-width: 100%;
-            margin: 0;
-            justify-self: stretch;
-        }
-    </style>
+    <link rel="stylesheet" href="../../../../css/style.css?v=1779394738">
+
+    <link rel="stylesheet" href="../../../../css/lesson-immersive.css?v=1779394738">
+    <link rel="stylesheet" href="../../../../css/lesson-readability.css?v=1779394738">
+    <link rel="stylesheet" href="../../../../css/barocco-musical-globe.css?v=1779394738">
+    <link rel="stylesheet" href="../../../../css/barocco-musical-globe-orbits.css?v=1779394738">
+    <link rel="stylesheet" href="../../../../css/barocco-musical-globe-clean.css?v=1779394738">
+    <link rel="stylesheet" href="../../../../css/barocco-musical-globe-page.css?v=1779394738">
+    <link rel="stylesheet" href="../../../../css/barocco-editorial-bands.css?v=1779394738">
 </head>
 <body data-nav="timeline" data-current-nucleus="barocco">
     <header class="site-header">
@@ -36,11 +28,13 @@
     </header>
 
     <main class="nucleus-page topic-page topic-page--lesson" style="--nucleus-accent: #c14f40;">
+
         <nav class="nucleus-mini-timeline" aria-label="Mini timeline dei nuclei">
             <div class="shell nucleus-mini-timeline__track">
                 <a href="../../../../nuclei/medioevo/index.html" style="--mini-accent: #1f7f90;" data-nucleus-link="medioevo"><span>01</span><strong>Il Medioevo</strong></a><a href="../../../../nuclei/rinascimento/index.html" style="--mini-accent: #768a2a;" data-nucleus-link="rinascimento"><span>02</span><strong>Il Rinascimento</strong></a><a href="../../../../nuclei/barocco/index.html" style="--mini-accent: #c14f40;" data-nucleus-link="barocco" class="is-active" aria-current="page"><span>03</span><strong>Il Barocco</strong></a><a href="../../../../nuclei/settecento-classicismo/index.html" style="--mini-accent: #2f6fd6;" data-nucleus-link="settecento-classicismo"><span>04</span><strong>Settecento e Classicismo</strong></a><a href="../../../../nuclei/ottocento/index.html" style="--mini-accent: #a94d87;" data-nucleus-link="ottocento"><span>05</span><strong>L&#x27;Ottocento</strong></a><a href="../../../../nuclei/novecento/index.html" style="--mini-accent: #7057c9;" data-nucleus-link="novecento"><span>06</span><strong>Il Novecento</strong></a>
             </div>
         </nav>
+
 
         <nav class="topic-rail" aria-label="Lezioni del nucleo">
             <div class="shell">
@@ -56,9 +50,7 @@
                 <h1 class="immersive-lesson-intro__title">Globo degli ascolti</h1>
                 <p class="immersive-lesson-intro__subtitle">Una playlist interattiva da esplorare</p>
             </header>
-
             <div id="barocco-musical-globe-root" data-barocco-musical-globe></div>
-
             <noscript>
                 <section class="lesson-noscript">
                     <h2>JavaScript richiesto</h2>
@@ -67,6 +59,7 @@
             </noscript>
         </section>
     </main>
+
 
     <footer class="site-footer">
         <div class="shell site-footer__grid">
@@ -89,15 +82,16 @@
         </div>
     </footer>
 
-    <script src="../../../../js/main.js?v=1779210937"></script>
+    <script src="../../../../js/main.js?v=1779394738"></script>
+
     <script type="module">
         import React from "https://esm.sh/react@18";
         import { createRoot } from "https://esm.sh/react-dom@18/client";
-        import BaroccoCoordinateSphereMusicale from "../../../../components/BaroccoCoordinateSphereMusicale.module.js?v=1779283201";
+        import BaroccoCoordinateSphereMusicale from "../../../../components/BaroccoCoordinateSphereMusicale.module.js?v=1779394738";
 
-        const musicalGlobeMount = document.getElementById("barocco-musical-globe-root");
-        if (musicalGlobeMount) {
-            createRoot(musicalGlobeMount).render(React.createElement(BaroccoCoordinateSphereMusicale));
+        const mountNode0 = document.getElementById("barocco-musical-globe-root");
+        if (mountNode0) {
+            createRoot(mountNode0).render(React.createElement(BaroccoCoordinateSphereMusicale));
         }
     </script>
 </body>

@@ -3212,6 +3212,36 @@ def customize_barocco_context_lesson() -> None:
             "summary": "Spazio dedicato ai brani: una futura mappa sonora raccoglierà ascolti guidati, esempi e collegamenti musicali.",
             "cta": "Apri la lezione",
         }
+        listening_globe_topic["lesson"] = {
+            "panel_only": True,
+            "immersive_preview": True,
+            "immersive_intro_title": "Globo degli ascolti",
+            "immersive_intro_subtitle": "Una playlist interattiva da esplorare",
+            "immersive_stylesheets": [
+                "../../../../css/lesson-immersive.css",
+                "../../../../css/lesson-readability.css",
+                "../../../../css/barocco-musical-globe.css",
+                "../../../../css/barocco-musical-globe-orbits.css",
+                "../../../../css/barocco-musical-globe-clean.css",
+                "../../../../css/barocco-musical-globe-page.css",
+                "../../../../css/barocco-editorial-bands.css",
+            ],
+            "immersive_mounts": [
+                {
+                    "mount_id": "barocco-musical-globe-root",
+                    "data_attr": "data-barocco-musical-globe",
+                },
+            ],
+            "immersive_modules": [
+                {
+                    "module": "../../../../components/BaroccoCoordinateSphereMusicale.module.js",
+                    "mount_id": "barocco-musical-globe-root",
+                    "symbol": "BaroccoCoordinateSphereMusicale",
+                },
+            ],
+            "author": "Lezione Accordia · Il Barocco",
+            "description": "Globo degli ascolti: uno spazio interattivo per esplorare le coordinate musicali del Barocco.",
+        }
         listening_globe_topic["phases"] = build_topic_phases(
             barocco["title"],
             listening_globe_topic["title"],

@@ -5,6 +5,14 @@ body[data-current-nucleus="barocco"] .topic-page--lesson::after {
   background: #ffffff !important;
 }
 
+body[data-current-nucleus="barocco"] .topic-page--lesson .lesson-mount {
+  grid-column: 1 / -1;
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  justify-self: stretch;
+}
+
 body[data-current-nucleus="barocco"] .topic-page--lesson .immersive-lesson-intro {
   text-align: center;
 }
