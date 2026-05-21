@@ -80,8 +80,8 @@ const keyConcepts = [
     id: "maggiore-espressivita",
     title: "Maggiore espressività",
     subtitle: "La musica si intensifica",
-    image: conceptAsset("barocco-orfeo-16x9-originale.png"),
-    imageFocus: "50% 44%",
+    image: conceptAsset("barocco-maggiore-espressivita-popup.png"),
+    imageFocus: "52% 43%",
     summary: "La musica vuole colpire l’ascoltatore. Melodie, contrasti e gesti sonori rendono le emozioni più forti."
   }
 ].map((concept, index) => ({
