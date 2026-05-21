@@ -409,3 +409,22 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* Rifinitura Accordia: primi ascolti più morbidi e video in rise/fall */
+.barocco-listening-carousel__viewport{align-items:center!important;gap:clamp(1.2rem,2.6vw,2.2rem)!important;padding-top:clamp(.5rem,1.4vw,1rem)!important;padding-bottom:clamp(.9rem,2vw,1.4rem)!important}
+.barocco-listening-card{border-radius:clamp(1.45rem,2.2vw,2.15rem)!important;border-color:rgba(17,17,17,.1)!important;background:#f5f1e8!important;box-shadow:0 .9rem 2.4rem rgba(17,17,17,.07)!important;transform:translateY(.7rem) scale(.92)!important;opacity:.36!important;filter:saturate(.82) contrast(.94) blur(.15px)!important}
+.barocco-listening-card.is-active{transform:translateY(-.45rem) scale(1)!important;opacity:1!important;filter:none!important;box-shadow:0 1.7rem 3.7rem rgba(17,17,17,.14)!important}
+.barocco-listening-card:not(.is-active)::after{content:"";position:absolute;inset:0;background:rgba(255,255,255,.22);pointer-events:none}
+.barocco-listening-card:hover,.barocco-listening-card:focus-visible{opacity:.82!important;filter:saturate(.95) contrast(.98)!important;transform:translateY(.15rem) scale(.96)!important}
+.barocco-listening-card.is-active:hover,.barocco-listening-card.is-active:focus-visible{opacity:1!important;transform:translateY(-.55rem) scale(1.01)!important}
+.barocco-listening-quiz{width:min(100% - 2rem,64rem)!important;padding:clamp(1.15rem,2.2vw,1.7rem)!important;border-color:rgba(17,17,17,.075)!important;border-radius:clamp(1.45rem,2vw,2rem)!important;background:rgba(255,255,255,.96)!important;box-shadow:0 .9rem 2.6rem rgba(17,17,17,.045)!important}
+.barocco-listening-quiz__header span{font-weight:650!important;letter-spacing:.16em!important;color:rgba(193,79,64,.86)!important}
+.barocco-listening-quiz__header strong{font-weight:650!important;letter-spacing:-.025em!important;line-height:1.12!important}
+.barocco-listening-quiz__question{font-weight:650!important;letter-spacing:-.028em!important;line-height:1.22!important}
+.barocco-listening-option{border-color:rgba(17,17,17,.075)!important;background:#fbfaf7!important;border-radius:1.2rem!important;box-shadow:0 .45rem 1.2rem rgba(17,17,17,.025)!important}
+.barocco-listening-option__letter{font-weight:650!important;background:rgba(193,79,64,.085)!important}
+.barocco-listening-option__text{font-weight:500!important;line-height:1.45!important}
+.barocco-listening-result > span,.barocco-listening-result > strong{font-weight:650!important}
+.barocco-listening-result h3{font-weight:650!important;letter-spacing:-.035em!important}
+.barocco-listening-result p{font-weight:500!important;line-height:1.52!important}
+.barocco-listening-result button{font-weight:650!important}
