@@ -5,6 +5,10 @@ body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-first-listenin
 body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-key-concepts-root{order:3!important}
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline,body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts{width:min(calc(100% - 1.6rem),86rem)!important;max-width:86rem!important}
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline{padding:clamp(1.15rem,2.4vw,1.8rem)!important;margin:clamp(1.8rem,3.8vw,3rem) auto clamp(2rem,4vw,3.2rem)!important}
-body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__compass .barocco-timeline__signal{top:calc(100% - 1.18rem)!important;height:2px!important;transform:translateY(-50%)!important}
-body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__compass .barocco-timeline__nodes{top:calc(100% - 4.16rem)!important}
-body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__compass .barocco-timeline-card__dot{top:calc(100% + .72rem)!important;width:.62rem!important;height:.62rem!important}
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__compass{height:clamp(9.6rem,14vw,11rem)!important}
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__compass .barocco-timeline__signal{top:calc(100% - 1.22rem)!important;height:2px!important;transform:translateY(-50%)!important}
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__compass .barocco-timeline__nodes{top:calc(100% - 4.23rem)!important}
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__compass .barocco-timeline-card__stem{height:.88rem!important}
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__compass .barocco-timeline-card__dot{top:calc(100% + .575rem)!important;width:.62rem!important;height:.62rem!important;transform:translateX(-50%) translateY(-50%)!important}
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__header{justify-items:center!important;text-align:center!important}
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__header h2,body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__header p{margin-left:auto!important;margin-right:auto!important;text-align:center!important}
