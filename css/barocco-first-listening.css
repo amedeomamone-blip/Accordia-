@@ -156,48 +156,11 @@
     var(--listening-thumb) center / cover;
 }
 
-.barocco-listening-card__caption {
-  position: absolute;
-  left: clamp(1rem, 2.4vw, 2rem);
-  top: clamp(1rem, 2.3vw, 1.9rem);
-  z-index: 2;
-  width: min(24rem, 52%);
-  display: grid;
-  gap: 0.32rem;
-  color: #ffffff;
-  text-align: left;
-  pointer-events: none;
-}
-
-.barocco-listening-card__caption strong {
-  display: block;
-  color: inherit;
-  font-size: clamp(1.2rem, 2.35vw, 2.25rem);
-  font-weight: 800;
-  line-height: 0.98;
-  letter-spacing: -0.055em;
-  text-shadow: 0 0.35rem 1.5rem rgba(0, 0, 0, 0.35);
-}
-
-.barocco-listening-card__caption em {
-  display: block;
-  color: rgba(255, 255, 255, 0.9);
-  font-style: normal;
-  font-size: clamp(0.86rem, 1.05vw, 1.08rem);
-  font-weight: 700;
-  line-height: 1.25;
-  letter-spacing: -0.02em;
-  text-shadow: 0 0.28rem 1.2rem rgba(0, 0, 0, 0.35);
-}
-
+.barocco-listening-card__caption,
+.barocco-listening-card__caption strong,
+.barocco-listening-card__caption em,
 .barocco-listening-card__eyebrow {
-  color: #fff4ef;
-  font-size: 0.6rem;
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  text-shadow: 0 0.24rem 1rem rgba(0, 0, 0, 0.35);
+  display: none !important;
 }
 
 .barocco-listening-quiz {
@@ -440,10 +403,6 @@
 
   .barocco-listening-card {
     flex-basis: min(82vw, 34rem);
-  }
-
-  .barocco-listening-card__caption {
-    width: min(80%, 22rem);
   }
 
   .barocco-listening-options {
