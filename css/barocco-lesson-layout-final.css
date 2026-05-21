@@ -8,7 +8,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline{paddi
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__compass{height:clamp(9.6rem,14vw,11rem)!important}
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__compass .barocco-timeline__signal{top:calc(100% - 1.22rem)!important;height:2px!important;transform:translateY(-50%)!important}
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__compass .barocco-timeline__nodes{top:calc(100% - 4.23rem)!important}
-body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__compass .barocco-timeline-card__stem{height:.88rem!important}
-body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__compass .barocco-timeline-card__dot{top:calc(100% + .575rem)!important;width:.62rem!important;height:.62rem!important;transform:translateX(-50%) translateY(-50%)!important}
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__compass .barocco-timeline-card__stem{height:.8rem!important}
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__compass .barocco-timeline-card__dot{top:calc(100% + .455rem)!important;width:.62rem!important;height:.62rem!important;transform:translateX(-50%) translateY(-50%)!important}
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__header{justify-items:center!important;text-align:center!important}
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__header h2,body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__header p{margin-left:auto!important;margin-right:auto!important;text-align:center!important}
