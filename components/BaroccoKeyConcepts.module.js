@@ -124,35 +124,40 @@ function ConceptCard({ concept }) {
         h(
           "span",
           { className: "barocco-key-concepts__card-face barocco-key-concepts__card-face--front" },
+          h("span", { className: "barocco-key-concepts__card-image", "aria-hidden": "true" }),
           h(
             "span",
-            { className: "barocco-key-concepts__card-front-body" },
-            h("span", { className: "barocco-key-concepts__card-subtitle" }, concept.subtitle),
-            h("span", { id: `barocco-key-concept-title-${concept.id}`, className: "barocco-key-concepts__card-title" }, concept.title),
-            h("span", { className: "barocco-key-concepts__card-copy" }, concept.summary)
-          ),
-          h(
-            "button",
-            {
-              type: "button",
-              ref: frontButtonRef,
-              className: "barocco-key-concepts__flip-button",
-              onClick: () => flipCard(true),
-              tabIndex: isFlipped ? -1 : 0,
-              "aria-label": `Gira la card: ${concept.title}`
-            },
-            h("span", { "aria-hidden": "true" }, "⇄"),
-            "Girami"
+            { className: "barocco-key-concepts__card-footer" },
+            h(
+              "span",
+              { className: "barocco-key-concepts__card-front-body" },
+              h("span", { className: "barocco-key-concepts__card-subtitle" }, concept.subtitle),
+              h("span", { id: `barocco-key-concept-title-${concept.id}`, className: "barocco-key-concepts__card-title" }, concept.title)
+            ),
+            h(
+              "button",
+              {
+                type: "button",
+                ref: frontButtonRef,
+                className: "barocco-key-concepts__flip-button",
+                onClick: () => flipCard(true),
+                tabIndex: isFlipped ? -1 : 0,
+                "aria-label": `Gira la card: ${concept.title}`
+              },
+              h("span", { "aria-hidden": "true" }, "⇄"),
+              "Girami"
+            )
           )
         ),
         h(
           "span",
           { className: "barocco-key-concepts__card-face barocco-key-concepts__card-face--back", "aria-hidden": !isFlipped },
-          h("span", { className: "barocco-key-concepts__card-visual", "aria-hidden": "true" }),
           h(
             "span",
             { className: "barocco-key-concepts__card-back-body" },
+            h("span", { className: "barocco-key-concepts__card-subtitle barocco-key-concepts__card-subtitle--back" }, concept.subtitle),
             h("span", { className: "barocco-key-concepts__card-title barocco-key-concepts__card-title--back" }, concept.title),
+            h("span", { className: "barocco-key-concepts__card-copy" }, concept.summary),
             h(
               "button",
               {
