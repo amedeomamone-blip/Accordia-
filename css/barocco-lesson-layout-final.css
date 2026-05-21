@@ -22,14 +22,22 @@ body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-key-concepts-r
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline,
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening,
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts {
-  width: min(calc(100% - 1.6rem), 86rem) !important;
-  max-width: 86rem !important;
+  width: 100% !important;
+  max-width: none !important;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline {
-  margin: clamp(1.8rem, 3.8vw, 3rem) auto clamp(2rem, 4vw, 3.2rem) !important;
-  padding: clamp(1.15rem, 2.4vw, 1.8rem) !important;
+  margin: clamp(1.8rem, 3.8vw, 3rem) 0 clamp(2rem, 4vw, 3.2rem) !important;
+  padding: clamp(1.15rem, 2.4vw, 1.8rem) clamp(0.8rem, 2vw, 1.6rem) !important;
+  border-right: 0 !important;
+  border-left: 0 !important;
+  border-radius: 0 !important;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening {
+  margin: 0 !important;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline-card__year {
@@ -86,6 +94,13 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
   margin-left: auto !important;
   margin-right: auto !important;
   text-align: center !important;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline__stage,
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline-detail {
+  max-width: min(100%, 118rem) !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
 }
 
 @media (max-width: 40rem) {

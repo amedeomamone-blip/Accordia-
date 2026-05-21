@@ -936,14 +936,18 @@ body[data-nav="home"] .button--secondary:hover {
 
 .home-timeline__track {
     display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(20rem, 21vw);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     gap: 1.05rem;
-    overflow-x: auto;
-    padding: 0.3rem 0.1rem 1.2rem;
-    scroll-snap-type: x mandatory;
+    overflow-x: visible;
+    padding: 0.3rem clamp(0.8rem, 2vw, 1.6rem) 1.2rem;
+    scroll-snap-type: none;
     scrollbar-width: thin;
     scrollbar-color: #cfd2d7 #f2f3f5;
+}
+
+.home-timeline > .shell:not(.home-section__heading) {
+    width: 100%;
+    max-width: none;
 }
 
 .home-timeline__track::-webkit-scrollbar {
@@ -1041,16 +1045,18 @@ body[data-nav="home"] .button--secondary:hover {
     min-height: 2.95rem;
     color: #18191b;
     font-family: var(--font-display);
-    font-size: 1.46rem;
-    line-height: 1.02;
+    font-size: clamp(1.08rem, 1.55vw, 1.34rem);
+    line-height: 1.06;
+    overflow-wrap: normal;
+    word-break: normal;
 }
 
 .home-era-card p {
     max-width: 29ch;
     min-height: 4.8rem;
     margin-top: 0.12rem;
-    font-size: 0.93rem;
-    line-height: 1.68;
+    font-size: clamp(0.84rem, 1vw, 0.93rem);
+    line-height: 1.58;
 }
 
 .home-era-card__cta {
@@ -1064,7 +1070,8 @@ body[data-nav="home"] .button--secondary:hover {
 }
 
 .home-timeline__hint {
-    margin-top: 1rem;
+    width: min(calc(100% - var(--shell-gutter)), var(--shell-max));
+    margin: 1rem auto 0;
     color: #6b7075;
     font-size: 0.92rem;
 }
@@ -1118,7 +1125,11 @@ body[data-nav="home"] .site-footer__label {
     }
 
     .home-timeline__track {
+        grid-template-columns: none;
+        grid-auto-flow: column;
         grid-auto-columns: minmax(18.5rem, 42vw);
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
     }
 
     .page-grid,

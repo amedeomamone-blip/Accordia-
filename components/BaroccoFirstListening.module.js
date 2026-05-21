@@ -182,7 +182,7 @@ function listeningOffset(index, activeIndex, length) {
   return Math.abs(direct) <= Math.abs(wrapped) ? direct : wrapped;
 }
 
-function ListeningCarousel({ activeIndex, onSelect }) {
+function ListeningCarousel({ activeIndex, playingId, onSelect, onPlay }) {
   const carouselRef = React.useRef(null);
   const frameRef = React.useRef(null);
   const lastCenteredIndexRef = React.useRef(activeIndex);
@@ -268,6 +268,7 @@ function ListeningCarousel({ activeIndex, onSelect }) {
       { className: "barocco-listening-carousel__viewport" },
       listeningCards.map((item, index) => {
         const isActive = index === activeIndex;
+        const isPlaying = isActive && playingId === item.id;
         const offset = listeningOffset(index, activeIndex, listeningCards.length);
         const positionClass = isActive ? "is-active" : offset < 0 ? "is-before" : "is-after";
         return h(
@@ -279,7 +280,13 @@ function ListeningCarousel({ activeIndex, onSelect }) {
               "--listening-thumb": `url(https://i.ytimg.com/vi/${item.youtubeId}/hqdefault.jpg)`,
               "--listening-offset": String(offset)
             },
-            onClick: () => chooseCard(index),
+            onClick: () => {
+              if (isActive) {
+                onPlay(item.id);
+                return;
+              }
+              chooseCard(index);
+            },
             tabIndex: 0,
             role: "button",
             "data-listening-index": index,
@@ -295,7 +302,8 @@ function ListeningCarousel({ activeIndex, onSelect }) {
           h(
             "div",
             { className: "barocco-listening-card__media" },
-            isActive
+            h("span", { className: "barocco-listening-card__thumb", "aria-hidden": "true" }),
+            isPlaying
               ? h("iframe", {
                   src: `https://www.youtube.com/embed/${item.youtubeId}`,
                   title: item.embedTitle,
@@ -304,14 +312,7 @@ function ListeningCarousel({ activeIndex, onSelect }) {
                   loading: "lazy",
                   onClick: (event) => event.stopPropagation()
                 })
-              : h("span", { className: "barocco-listening-card__thumb", "aria-hidden": "true" })
-          ),
-          h(
-            "div",
-            { className: "barocco-listening-card__caption" },
-            h("span", { className: "barocco-listening-card__eyebrow" }, item.eyebrow),
-            h("strong", null, item.title),
-            h("em", null, item.composer)
+              : null
           )
         );
       })
@@ -395,7 +396,13 @@ function ListeningQuiz({ listening }) {
 
 function BaroccoFirstListening() {
   const [activeIndex, setActiveIndex] = React.useState(0);
+  const [playingId, setPlayingId] = React.useState(null);
   const activeListening = listeningCards[activeIndex];
+
+  function selectListening(index) {
+    setActiveIndex(index);
+    setPlayingId(null);
+  }
 
   return h(
     "section",
@@ -407,7 +414,7 @@ function BaroccoFirstListening() {
       h("p", { className: "barocco-listening__subtitle" }, `${activeListening.title} · ${activeListening.composer}`),
       h("p", { className: "barocco-listening__intro" }, activeListening.intro)
     ),
-    h(ListeningCarousel, { activeIndex, onSelect: setActiveIndex }),
+    h(ListeningCarousel, { activeIndex, playingId, onSelect: selectListening, onPlay: setPlayingId }),
     h(ListeningQuiz, { listening: activeListening })
   );
 }
