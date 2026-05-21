@@ -3152,15 +3152,25 @@ def customize_barocco_context_lesson() -> None:
             "immersive_mount_id": "barocco-key-concepts-root",
             "immersive_data_key": "barocco-in-coordinate",
             "immersive_intro_title": "Introduzione al Barocco",
+            "immersive_intro_period": "1600 — 1750",
             "immersive_intro_subtitle": "Un'epoca di contrasti, invenzioni e nuove forme musicali",
             "immersive_intro_text": "Tra Seicento e prima metà del Settecento, l'Europa attraversa trasformazioni profonde: guerre, nuove scoperte, corti sfarzose, grandi cambiamenti nel modo di pensare e di rappresentare il mondo. Anche la musica cambia volto. Nascono il melodramma, il concerto, l'oratorio; si affermano nuovi strumenti, nuove sonorità e un linguaggio capace di stupire, commuovere e creare forti contrasti.",
             "immersive_stylesheets": [
                 "../../../../css/lesson-immersive.css",
+                "../../../../css/lesson-readability.css",
+                "../../../../css/barocco-first-listening.css",
                 "../../../../css/barocco-timeline.css",
                 "../../../../css/barocco-coordinate-responsive.css",
+                "../../../../css/barocco-lesson-layout-final.css",
+                "../../../../css/barocco-editorial-bands.css",
                 "../../../../css/barocco-key-concepts.css",
+                "../../../../css/barocco-typography-unified.css",
             ],
             "immersive_mounts": [
+                {
+                    "mount_id": "barocco-first-listening-root",
+                    "data_attr": "data-barocco-first-listening",
+                },
                 {
                     "mount_id": "barocco-timeline-root",
                     "data_attr": "data-barocco-timeline",
@@ -3171,6 +3181,11 @@ def customize_barocco_context_lesson() -> None:
                 },
             ],
             "immersive_modules": [
+                {
+                    "module": "../../../../components/BaroccoFirstListening.module.js",
+                    "mount_id": "barocco-first-listening-root",
+                    "symbol": "BaroccoFirstListening",
+                },
                 {
                     "module": "../../../../components/BaroccoTimeline.module.js",
                     "mount_id": "barocco-timeline-root",
@@ -4163,17 +4178,24 @@ def render_immersive_lesson_mount(topic: dict) -> str:
     lesson = topic["lesson"]
     intro_title = str(lesson.get("immersive_intro_title", "")).strip()
     intro_subtitle = str(lesson.get("immersive_intro_subtitle", "")).strip()
+    intro_period = str(lesson.get("immersive_intro_period", "")).strip()
     intro_eyebrow = str(lesson.get("immersive_intro_eyebrow", "")).strip()
     intro_text = str(lesson.get("immersive_intro_text", "")).strip()
     intro_markup = ""
-    if intro_title or intro_subtitle or intro_text:
-        intro_markup = f"""
-            <header class="immersive-lesson-intro">
-                {f'<p class="immersive-lesson-intro__eyebrow">{e(intro_eyebrow)}</p>' if intro_eyebrow else ""}
-                {f'<h1 class="immersive-lesson-intro__title">{e(intro_title)}</h1>' if intro_title else ""}
-                {f'<p class="immersive-lesson-intro__subtitle">{e(intro_subtitle)}</p>' if intro_subtitle else ""}
-                {f'<p class="immersive-lesson-intro__summary">{e(intro_text)}</p>' if intro_text else ""}
-            </header>"""
+    if intro_period or intro_eyebrow or intro_title or intro_subtitle or intro_text:
+        intro_lines = ['<header class="immersive-lesson-intro">']
+        if intro_period:
+            intro_lines.append(f'                <p class="immersive-lesson-intro__period">{e(intro_period)}</p>')
+        if intro_eyebrow:
+            intro_lines.append(f'                <p class="immersive-lesson-intro__eyebrow">{e(intro_eyebrow)}</p>')
+        if intro_title:
+            intro_lines.append(f'                <h1 class="immersive-lesson-intro__title">{e(intro_title)}</h1>')
+        if intro_subtitle:
+            intro_lines.append(f'                <p class="immersive-lesson-intro__subtitle">{e(intro_subtitle)}</p>')
+        if intro_text:
+            intro_lines.append(f'                <p class="immersive-lesson-intro__summary">{e(intro_text)}</p>')
+        intro_lines.append("            </header>")
+        intro_markup = "\n".join(intro_lines)
     mounts = lesson.get("immersive_mounts")
     if mounts:
         mount_nodes = []

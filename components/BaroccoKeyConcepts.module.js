@@ -64,18 +64,24 @@ const keyConcepts = [
     id: "concerto-grosso",
     title: "Concerto grosso",
     subtitle: "Gruppo e orchestra",
+    image: conceptAsset("barocco-concerto-grosso-card.webp"),
+    imageFocus: "50% 46%",
     summary: "Un piccolo gruppo di strumenti si alterna all’orchestra. Nascono risposte e contrasti facili da riconoscere."
   },
   {
     id: "contrasti-sonori",
     title: "Contrasti sonori",
     subtitle: "Piano, forte, sorpresa",
+    image: conceptAsset("barocco-bach-handel-originale.png"),
+    imageFocus: "50% 45%",
     summary: "La musica barocca ama gli opposti: piano e forte, solo e tutti, pieno e vuoto, rapido e lento."
   },
   {
     id: "maggiore-espressivita",
     title: "Maggiore espressività",
     subtitle: "La musica si intensifica",
+    image: conceptAsset("barocco-orfeo-16x9-originale.png"),
+    imageFocus: "50% 44%",
     summary: "La musica vuole colpire l’ascoltatore. Melodie, contrasti e gesti sonori rendono le emozioni più forti."
   }
 ].map((concept, index) => ({
@@ -85,12 +91,22 @@ const keyConcepts = [
 
 function ConceptCard({ concept }) {
   const [isFlipped, setIsFlipped] = React.useState(false);
+  const frontButtonRef = React.useRef(null);
+  const backButtonRef = React.useRef(null);
   const cardStyle = concept.image
     ? {
         "--barocco-concept-image": `url("${concept.image}")`,
         "--barocco-concept-image-position": concept.imageFocus || "center"
       }
     : undefined;
+
+  const flipCard = (nextFlipped) => {
+    setIsFlipped(nextFlipped);
+    window.requestAnimationFrame(() => {
+      const target = nextFlipped ? backButtonRef.current : frontButtonRef.current;
+      target?.focus({ preventScroll: true });
+    });
+  };
 
   return h(
     "article",
@@ -100,42 +116,56 @@ function ConceptCard({ concept }) {
       "aria-labelledby": `barocco-key-concept-title-${concept.id}`
     },
     h(
-      "button",
-      {
-        type: "button",
-        className: "barocco-key-concepts__card",
-        onClick: () => setIsFlipped((value) => !value),
-        "aria-pressed": isFlipped,
-        "aria-label": isFlipped
-          ? `Torna all'immagine: ${concept.title}`
-          : `Scopri il concetto: ${concept.title}`
-      },
+      "div",
+      { className: "barocco-key-concepts__card" },
       h(
         "span",
         { className: "barocco-key-concepts__card-inner" },
         h(
           "span",
           { className: "barocco-key-concepts__card-face barocco-key-concepts__card-face--front" },
-          h("span", { className: "barocco-key-concepts__card-number", "aria-hidden": "true" }, concept.number),
           h(
             "span",
             { className: "barocco-key-concepts__card-front-body" },
             h("span", { className: "barocco-key-concepts__card-subtitle" }, concept.subtitle),
             h("span", { id: `barocco-key-concept-title-${concept.id}`, className: "barocco-key-concepts__card-title" }, concept.title),
-            h("span", { className: "barocco-key-concepts__card-action" }, "Scopri")
+            h("span", { className: "barocco-key-concepts__card-copy" }, concept.summary)
+          ),
+          h(
+            "button",
+            {
+              type: "button",
+              ref: frontButtonRef,
+              className: "barocco-key-concepts__flip-button",
+              onClick: () => flipCard(true),
+              tabIndex: isFlipped ? -1 : 0,
+              "aria-label": `Gira la card: ${concept.title}`
+            },
+            h("span", { "aria-hidden": "true" }, "⇄"),
+            "Girami"
           )
         ),
         h(
           "span",
-          { className: "barocco-key-concepts__card-face barocco-key-concepts__card-face--back" },
-          h("span", { className: "barocco-key-concepts__card-number barocco-key-concepts__card-number--back", "aria-hidden": "true" }, concept.number),
+          { className: "barocco-key-concepts__card-face barocco-key-concepts__card-face--back", "aria-hidden": !isFlipped },
+          h("span", { className: "barocco-key-concepts__card-visual", "aria-hidden": "true" }),
           h(
             "span",
             { className: "barocco-key-concepts__card-back-body" },
-            h("span", { className: "barocco-key-concepts__card-subtitle barocco-key-concepts__card-subtitle--back" }, concept.subtitle),
             h("span", { className: "barocco-key-concepts__card-title barocco-key-concepts__card-title--back" }, concept.title),
-            h("span", { className: "barocco-key-concepts__card-copy" }, concept.summary),
-            h("span", { className: "barocco-key-concepts__card-action barocco-key-concepts__card-action--back" }, "Torna all'immagine")
+            h(
+              "button",
+              {
+                type: "button",
+                ref: backButtonRef,
+                className: "barocco-key-concepts__flip-button barocco-key-concepts__flip-button--back",
+                onClick: () => flipCard(false),
+                tabIndex: isFlipped ? 0 : -1,
+                "aria-label": `Torna al testo: ${concept.title}`
+              },
+              h("span", { "aria-hidden": "true" }, "⇄"),
+              "Gira"
+            )
           )
         )
       )
