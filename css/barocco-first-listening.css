@@ -156,11 +156,52 @@
     var(--listening-thumb) center / cover;
 }
 
-.barocco-listening-card__caption,
-.barocco-listening-card__caption strong,
-.barocco-listening-card__caption em,
+.barocco-listening-card__caption {
+  position: absolute;
+  top: clamp(0.72rem, 1.35vw, 1rem);
+  left: clamp(0.72rem, 1.35vw, 1rem);
+  z-index: 2;
+  width: min(72%, 22rem);
+  display: grid;
+  gap: 0.18rem;
+  padding: 0.72rem 0.82rem;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 1rem;
+  background: rgba(24, 21, 18, 0.36);
+  box-shadow: 0 0.8rem 1.8rem rgba(12, 9, 7, 0.12);
+  color: #fffaf5;
+  pointer-events: none;
+  text-shadow: 0 0.18rem 0.72rem rgba(10, 7, 5, 0.32);
+  backdrop-filter: blur(13px) saturate(1.1);
+  -webkit-backdrop-filter: blur(13px) saturate(1.1);
+}
+
 .barocco-listening-card__eyebrow {
-  display: none !important;
+  display: block;
+  color: rgba(255, 248, 241, 0.78);
+  font-size: clamp(0.66rem, 0.95vw, 0.78rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.barocco-listening-card__caption strong {
+  display: block;
+  color: #fffdf9;
+  font-size: clamp(1.05rem, 1.55vw, 1.34rem);
+  font-weight: 760;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+}
+
+.barocco-listening-card__caption em {
+  display: block;
+  color: rgba(255, 248, 241, 0.86);
+  font-size: clamp(0.78rem, 1vw, 0.92rem);
+  font-style: normal;
+  font-weight: 650;
+  line-height: 1.18;
 }
 
 .barocco-listening-quiz {
@@ -410,21 +451,129 @@
   }
 }
 
-/* Rifinitura Accordia: primi ascolti più morbidi e video in rise/fall */
-.barocco-listening-carousel__viewport{align-items:center!important;gap:clamp(1.2rem,2.6vw,2.2rem)!important;padding-top:clamp(.5rem,1.4vw,1rem)!important;padding-bottom:clamp(.9rem,2vw,1.4rem)!important}
-.barocco-listening-card{border-radius:clamp(1.45rem,2.2vw,2.15rem)!important;border-color:rgba(17,17,17,.1)!important;background:#f5f1e8!important;box-shadow:0 .9rem 2.4rem rgba(17,17,17,.07)!important;transform:translateY(.7rem) scale(.92)!important;opacity:.36!important;filter:saturate(.82) contrast(.94) blur(.15px)!important}
-.barocco-listening-card.is-active{transform:translateY(-.45rem) scale(1)!important;opacity:1!important;filter:none!important;box-shadow:0 1.7rem 3.7rem rgba(17,17,17,.14)!important}
-.barocco-listening-card:not(.is-active)::after{content:"";position:absolute;inset:0;background:rgba(255,255,255,.22);pointer-events:none}
-.barocco-listening-card:hover,.barocco-listening-card:focus-visible{opacity:.82!important;filter:saturate(.95) contrast(.98)!important;transform:translateY(.15rem) scale(.96)!important}
-.barocco-listening-card.is-active:hover,.barocco-listening-card.is-active:focus-visible{opacity:1!important;transform:translateY(-.55rem) scale(1.01)!important}
-.barocco-listening-quiz{width:min(100% - 2rem,64rem)!important;padding:clamp(1.15rem,2.2vw,1.7rem)!important;border-color:rgba(17,17,17,.075)!important;border-radius:clamp(1.45rem,2vw,2rem)!important;background:rgba(255,255,255,.96)!important;box-shadow:0 .9rem 2.6rem rgba(17,17,17,.045)!important}
-.barocco-listening-quiz__header span{font-weight:650!important;letter-spacing:.16em!important;color:rgba(193,79,64,.86)!important}
-.barocco-listening-quiz__header strong{font-weight:650!important;letter-spacing:-.025em!important;line-height:1.12!important}
-.barocco-listening-quiz__question{font-weight:650!important;letter-spacing:-.028em!important;line-height:1.22!important}
-.barocco-listening-option{border-color:rgba(17,17,17,.075)!important;background:#fbfaf7!important;border-radius:1.2rem!important;box-shadow:0 .45rem 1.2rem rgba(17,17,17,.025)!important}
-.barocco-listening-option__letter{font-weight:650!important;background:rgba(193,79,64,.085)!important}
-.barocco-listening-option__text{font-weight:500!important;line-height:1.45!important}
-.barocco-listening-result > span,.barocco-listening-result > strong{font-weight:650!important}
-.barocco-listening-result h3{font-weight:650!important;letter-spacing:-.035em!important}
-.barocco-listening-result p{font-weight:500!important;line-height:1.52!important}
-.barocco-listening-result button{font-weight:650!important}
+/* Rifinitura Accordia: primi ascolti in sequenza rise/fall */
+.barocco-listening-carousel {
+  padding-block: 0.2rem;
+}
+
+.barocco-listening-carousel__viewport {
+  align-items: center !important;
+  gap: clamp(1.1rem, 2.8vw, 2.35rem) !important;
+  padding-top: clamp(0.7rem, 1.8vw, 1.25rem) !important;
+  padding-bottom: clamp(1.05rem, 2.2vw, 1.6rem) !important;
+}
+
+.barocco-listening-card {
+  border-radius: clamp(1.45rem, 2.2vw, 2.15rem) !important;
+  border-color: rgba(17, 17, 17, 0.10) !important;
+  background: #f5f1e8 !important;
+  box-shadow: 0 0.9rem 2.4rem rgba(17, 17, 17, 0.07) !important;
+  opacity: 0.38 !important;
+  filter: saturate(0.82) contrast(0.94) blur(0.15px) !important;
+  transform: translateY(0.88rem) scale(0.9) !important;
+  transform-origin: center bottom;
+}
+
+.barocco-listening-card.is-before {
+  transform: translateY(0.82rem) rotate(-1.15deg) scale(0.91) !important;
+}
+
+.barocco-listening-card.is-after {
+  transform: translateY(0.82rem) rotate(1.15deg) scale(0.91) !important;
+}
+
+.barocco-listening-card.is-active {
+  opacity: 1 !important;
+  filter: none !important;
+  transform: translateY(-0.68rem) scale(1) !important;
+  box-shadow:
+    0 1.65rem 3.6rem rgba(17, 17, 17, 0.14),
+    0 0 0 1px rgba(255, 255, 255, 0.62) inset !important;
+}
+
+.barocco-listening-card:not(.is-active)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.24)),
+    rgba(255, 255, 255, 0.06);
+  pointer-events: none;
+}
+
+.barocco-listening-card:hover,
+.barocco-listening-card:focus-visible {
+  opacity: 0.86 !important;
+  filter: saturate(0.96) contrast(0.99) !important;
+  transform: translateY(0.14rem) scale(0.96) !important;
+}
+
+.barocco-listening-card.is-active:hover,
+.barocco-listening-card.is-active:focus-visible {
+  opacity: 1 !important;
+  transform: translateY(-0.78rem) scale(1.01) !important;
+}
+
+.barocco-listening-quiz {
+  width: min(100% - 2rem, 64rem) !important;
+  padding: clamp(1.15rem, 2.2vw, 1.7rem) !important;
+  border-color: rgba(17, 17, 17, 0.075) !important;
+  border-radius: clamp(1.45rem, 2vw, 2rem) !important;
+  background: rgba(255, 255, 255, 0.96) !important;
+  box-shadow: 0 0.9rem 2.6rem rgba(17, 17, 17, 0.045) !important;
+}
+
+.barocco-listening-quiz__header span {
+  color: rgba(193, 79, 64, 0.88) !important;
+  font-size: clamp(0.72rem, 0.95vw, 0.82rem) !important;
+  font-weight: 720 !important;
+  letter-spacing: 0.16em !important;
+}
+
+.barocco-listening-quiz__header strong {
+  font-weight: 720 !important;
+  letter-spacing: -0.025em !important;
+  line-height: 1.12 !important;
+}
+
+.barocco-listening-quiz__question {
+  font-weight: 720 !important;
+  letter-spacing: -0.028em !important;
+  line-height: 1.22 !important;
+}
+
+.barocco-listening-option {
+  border-color: rgba(17, 17, 17, 0.075) !important;
+  border-radius: 1.2rem !important;
+  background: #fbfaf7 !important;
+  box-shadow: 0 0.45rem 1.2rem rgba(17, 17, 17, 0.025) !important;
+}
+
+.barocco-listening-option__letter {
+  background: rgba(193, 79, 64, 0.085) !important;
+  font-weight: 720 !important;
+}
+
+.barocco-listening-option__text {
+  font-weight: 560 !important;
+  line-height: 1.48 !important;
+}
+
+.barocco-listening-result > span,
+.barocco-listening-result > strong {
+  font-weight: 720 !important;
+}
+
+.barocco-listening-result h3 {
+  font-weight: 720 !important;
+  letter-spacing: -0.035em !important;
+}
+
+.barocco-listening-result p {
+  font-weight: 560 !important;
+  line-height: 1.52 !important;
+}
+
+.barocco-listening-result button {
+  font-weight: 720 !important;
+}

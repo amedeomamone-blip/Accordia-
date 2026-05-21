@@ -176,6 +176,12 @@ function optionButton(question, option, index, selected, onChoose) {
   );
 }
 
+function listeningOffset(index, activeIndex, length) {
+  const direct = index - activeIndex;
+  const wrapped = direct > 0 ? direct - length : direct + length;
+  return Math.abs(direct) <= Math.abs(wrapped) ? direct : wrapped;
+}
+
 function ListeningCarousel({ activeIndex, onSelect }) {
   const carouselRef = React.useRef(null);
   const frameRef = React.useRef(null);
@@ -262,12 +268,17 @@ function ListeningCarousel({ activeIndex, onSelect }) {
       { className: "barocco-listening-carousel__viewport" },
       listeningCards.map((item, index) => {
         const isActive = index === activeIndex;
+        const offset = listeningOffset(index, activeIndex, listeningCards.length);
+        const positionClass = isActive ? "is-active" : offset < 0 ? "is-before" : "is-after";
         return h(
           "article",
           {
             key: item.id,
-            className: `barocco-listening-card${isActive ? " is-active" : ""}`,
-            style: { "--listening-thumb": `url(https://i.ytimg.com/vi/${item.youtubeId}/hqdefault.jpg)` },
+            className: `barocco-listening-card ${positionClass}`,
+            style: {
+              "--listening-thumb": `url(https://i.ytimg.com/vi/${item.youtubeId}/hqdefault.jpg)`,
+              "--listening-offset": String(offset)
+            },
             onClick: () => chooseCard(index),
             tabIndex: 0,
             role: "button",
