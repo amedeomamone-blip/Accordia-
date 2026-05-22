@@ -1,14 +1,20 @@
+.barocco-timeline-detail--immersive {
+  overflow: visible;
+}
+
+.barocco-timeline-detail__hero {
+  overflow: hidden;
+}
+
 .barocco-timeline-pillnav {
-  position: absolute;
-  left: 50%;
-  bottom: clamp(1rem, 2vw, 1.35rem);
-  z-index: 5;
+  position: relative;
+  z-index: 8;
   width: min(calc(100% - 2rem), 46rem);
+  margin: clamp(0.85rem, 2vw, 1.2rem) auto 0;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  transform: translateX(-50%);
   pointer-events: auto;
 }
 
@@ -24,7 +30,7 @@
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 999px;
-  background: rgba(30, 30, 32, 0.76);
+  background: rgba(30, 30, 32, 0.86);
   box-shadow: 0 1rem 2.6rem rgba(0, 0, 0, 0.18);
   backdrop-filter: blur(18px) saturate(1.12);
   -webkit-backdrop-filter: blur(18px) saturate(1.12);
@@ -80,7 +86,7 @@
   padding: 0 1.05rem;
   gap: 0.72rem;
   justify-content: flex-start;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   color: #111111;
   box-shadow: 0 0.45rem 1.2rem rgba(0, 0, 0, 0.16);
 }
@@ -128,7 +134,7 @@
   justify-content: center;
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 999px;
-  background: rgba(30, 30, 32, 0.76);
+  background: rgba(30, 30, 32, 0.86);
   color: rgba(255, 255, 255, 0.92);
   font-size: 1.4rem;
   font-weight: 500;
@@ -142,7 +148,7 @@
 .barocco-timeline-pillnav__control:hover,
 .barocco-timeline-pillnav__control:focus-visible {
   outline: none;
-  background: rgba(44, 44, 47, 0.84);
+  background: rgba(44, 44, 47, 0.9);
 }
 
 @media (max-width: 54rem) {
@@ -168,7 +174,6 @@
 
 @media (max-width: 40rem) {
   .barocco-timeline-pillnav {
-    bottom: 0.75rem;
     width: calc(100% - 1rem);
   }
 
