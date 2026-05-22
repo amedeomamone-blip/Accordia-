@@ -246,7 +246,9 @@ function BaroccoTimeline() {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [viewportMode, setViewportMode] = React.useState(getViewportMode);
   const activeItem = timelineItems[activeIndex];
-  const activeNarrative = `${activeItem.description} ${activeItem.insight}`;
+  const activeTitle = activeItem.title;
+  const activeSubtitle = activeItem.insight;
+  const activeDescription = activeItem.description;
   const layout = layoutPresets[viewportMode];
 
   React.useEffect(() => {
@@ -345,7 +347,9 @@ function BaroccoTimeline() {
       "div",
       { className: "barocco-timeline__head" },
       h("div", null,
-        h("h2", { id: "barocco-timeline-title" }, "Timeline")
+        h("p", { className: "barocco-timeline__eyebrow" }, "Timeline"),
+        h("h2", { id: "barocco-timeline-title" }, activeTitle),
+        h("p", { className: "barocco-timeline__intro" }, activeSubtitle)
       )
     ),
     h(
@@ -376,13 +380,13 @@ function BaroccoTimeline() {
               h(
                 "div",
                 { className: "barocco-timeline-detail__hero-copy" },
-                h("span", null, activeItem.year),
-                h("h3", null, activeItem.title),
-                h("p", { className: "barocco-timeline-detail__hero-subtitle" }, activeItem.subtitle),
+                h("span", null, "Timeline"),
+                h("h3", null, activeTitle),
+                h("p", { className: "barocco-timeline-detail__hero-subtitle" }, activeSubtitle),
                 h(
                   "section",
                   { className: "barocco-timeline-detail__copy barocco-timeline-detail__copy--overlay" },
-                  h("p", null, activeNarrative)
+                  h("p", null, activeDescription)
                 )
               )
             ),
@@ -391,16 +395,16 @@ function BaroccoTimeline() {
         : [
             timelineCompass,
             h("div", { className: "barocco-timeline-detail__header", key: "header" },
-              h("span", null, activeItem.year),
-              h("h3", null, activeItem.title),
-              h("p", null, activeItem.subtitle)
+              h("span", null, "Timeline"),
+              h("h3", null, activeTitle),
+              h("p", null, activeSubtitle)
             ),
             h("div", { className: "barocco-timeline-detail__body", key: "body" },
               h(
                 "section",
                 { className: "barocco-timeline-detail__copy" },
                 h("strong", null, "Approfondimento"),
-                h("p", null, activeNarrative)
+                h("p", null, activeDescription)
               )
             )
           ]
