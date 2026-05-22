@@ -1,0 +1,55 @@
+.barocco-key-concepts__card-image {
+  display: none !important;
+}
+
+.barocco-key-concepts__card-face--front {
+  justify-content: stretch;
+  padding: 0;
+  background:
+    radial-gradient(circle at 14% 12%, rgba(193, 79, 64, 0.1), transparent 28%),
+    linear-gradient(180deg, #ffffff 0%, #f8f6f2 100%);
+}
+
+.barocco-key-concepts__card-face--front::after {
+  display: none;
+}
+
+.barocco-key-concepts__card-footer {
+  min-height: 100%;
+  height: auto;
+  align-content: center;
+  align-items: center;
+  padding: clamp(1.15rem, 2vw, 1.45rem);
+  border-top: 0;
+  background:
+    linear-gradient(rgba(193, 79, 64, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(193, 79, 64, 0.035) 1px, transparent 1px),
+    rgba(255, 255, 255, 0.72);
+  background-size: 4.25rem 4.25rem, 4.25rem 4.25rem, auto;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+}
+
+.barocco-key-concepts__card-front-body {
+  min-height: 0;
+  justify-content: center;
+  gap: 0.56rem;
+}
+
+.barocco-key-concepts__card-copy--front {
+  max-width: 33ch;
+  min-height: 0;
+  margin-top: 0.2rem;
+  display: block;
+}
+
+.barocco-key-concepts__flip-button {
+  align-self: center;
+}
+
+@media (max-width: 420px) {
+  .barocco-key-concepts__card-footer {
+    align-content: center;
+  }
+}
