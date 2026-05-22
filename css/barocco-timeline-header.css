@@ -1,0 +1,46 @@
+#barocco-timeline-root .barocco-timeline__head {
+  justify-items: center;
+  text-align: center;
+}
+
+#barocco-timeline-root .barocco-timeline__head > div {
+  width: min(100%, 58rem);
+  margin: 0 auto;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+#barocco-timeline-root .barocco-timeline__eyebrow {
+  width: 100%;
+  margin-inline: auto;
+  color: #c14f40;
+  text-align: center;
+}
+
+#barocco-timeline-root .barocco-timeline__date {
+  margin: 0.55rem auto 0;
+  color: var(--lesson-muted, #6f6a63);
+  font-size: clamp(1.08rem, 2vw, 1.45rem);
+  font-weight: 680;
+  letter-spacing: -0.015em;
+  line-height: 1.28;
+  text-align: center;
+  text-transform: none;
+}
+
+#barocco-timeline-root .barocco-timeline__intro {
+  max-width: 52rem;
+  margin: clamp(1rem, 2vw, 1.35rem) auto 0;
+  color: var(--lesson-muted, #6f6a63);
+  font-size: clamp(1rem, 1.35vw, 1.12rem);
+  font-weight: 480;
+  letter-spacing: 0;
+  line-height: 1.72;
+  text-align: center;
+}
+
+#barocco-timeline-root .barocco-timeline-detail__hero-grid,
+#barocco-timeline-root .barocco-timeline-detail__hero-wash {
+  display: none !important;
+}
