@@ -1,0 +1,203 @@
+.barocco-timeline-pillnav {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(1rem, 2vw, 1.35rem);
+  z-index: 5;
+  width: min(calc(100% - 2rem), 46rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  transform: translateX(-50%);
+  pointer-events: auto;
+}
+
+.barocco-timeline-pillnav__rail {
+  position: relative;
+  min-width: 0;
+  max-width: 100%;
+  padding: 0.62rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.42rem, 1vw, 0.72rem);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(30, 30, 32, 0.76);
+  box-shadow: 0 1rem 2.6rem rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(18px) saturate(1.12);
+  -webkit-backdrop-filter: blur(18px) saturate(1.12);
+}
+
+.barocco-timeline-pillnav__rail::before {
+  content: "";
+  position: absolute;
+  left: 1.4rem;
+  right: 1.4rem;
+  top: 50%;
+  height: 1px;
+  transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.16);
+  pointer-events: none;
+}
+
+.barocco-timeline-pillnav__item {
+  position: relative;
+  z-index: 1;
+  min-width: 0.74rem;
+  height: 2.75rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.86);
+  cursor: pointer;
+  transition:
+    width 260ms ease,
+    min-width 260ms ease,
+    padding 260ms ease,
+    background-color 220ms ease,
+    color 220ms ease,
+    opacity 220ms ease;
+}
+
+.barocco-timeline-pillnav__item:hover,
+.barocco-timeline-pillnav__item:focus-visible {
+  outline: none;
+  opacity: 1;
+}
+
+.barocco-timeline-pillnav__item:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.24);
+}
+
+.barocco-timeline-pillnav__item.is-active {
+  min-width: min(17.5rem, 48vw);
+  padding: 0 1.05rem;
+  gap: 0.72rem;
+  justify-content: flex-start;
+  background: rgba(255, 255, 255, 0.9);
+  color: #111111;
+  box-shadow: 0 0.45rem 1.2rem rgba(0, 0, 0, 0.16);
+}
+
+.barocco-timeline-pillnav__dot {
+  width: 0.56rem;
+  height: 0.56rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 0 0 0.18rem rgba(255, 255, 255, 0.08);
+}
+
+.barocco-timeline-pillnav__year {
+  flex: 0 0 auto;
+  color: #c14f40;
+  font-size: 0.78rem;
+  font-weight: 860;
+  letter-spacing: 0.12em;
+  line-height: 1;
+}
+
+.barocco-timeline-pillnav__title {
+  min-width: 0;
+  overflow: hidden;
+  color: #111111;
+  font-size: 0.9rem;
+  font-weight: 760;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.barocco-timeline-pillnav__controls {
+  display: flex;
+  align-items: center;
+  gap: 0.42rem;
+}
+
+.barocco-timeline-pillnav__control {
+  width: 2.75rem;
+  height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  background: rgba(30, 30, 32, 0.76);
+  color: rgba(255, 255, 255, 0.92);
+  font-size: 1.4rem;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 1rem 2.6rem rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(18px) saturate(1.12);
+  -webkit-backdrop-filter: blur(18px) saturate(1.12);
+}
+
+.barocco-timeline-pillnav__control:hover,
+.barocco-timeline-pillnav__control:focus-visible {
+  outline: none;
+  background: rgba(44, 44, 47, 0.84);
+}
+
+@media (max-width: 54rem) {
+  .barocco-timeline-pillnav {
+    width: min(calc(100% - 1.4rem), 34rem);
+    gap: 0.5rem;
+  }
+
+  .barocco-timeline-pillnav__rail {
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .barocco-timeline-pillnav__rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  .barocco-timeline-pillnav__item.is-active {
+    min-width: min(14rem, 58vw);
+  }
+}
+
+@media (max-width: 40rem) {
+  .barocco-timeline-pillnav {
+    bottom: 0.75rem;
+    width: calc(100% - 1rem);
+  }
+
+  .barocco-timeline-pillnav__rail {
+    padding: 0.48rem;
+    gap: 0.46rem;
+  }
+
+  .barocco-timeline-pillnav__item {
+    height: 2.42rem;
+  }
+
+  .barocco-timeline-pillnav__item.is-active {
+    min-width: min(12.5rem, 62vw);
+    padding: 0 0.78rem;
+    gap: 0.55rem;
+  }
+
+  .barocco-timeline-pillnav__year {
+    font-size: 0.68rem;
+  }
+
+  .barocco-timeline-pillnav__title {
+    font-size: 0.78rem;
+  }
+
+  .barocco-timeline-pillnav__control {
+    width: 2.42rem;
+    height: 2.42rem;
+    font-size: 1.2rem;
+  }
+}
