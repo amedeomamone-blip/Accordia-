@@ -192,21 +192,9 @@ const timelineItems = [
   }
 ];
 
-const layoutPresets = {
-  desktop: { stepX: 112, stepY: 12, sideScale: 0.9, sideOpacity: 0.78, opacityStep: 0.19, farOpacity: 0.12, maxDistance: 4 },
-  tablet: { stepX: 96, stepY: 10, sideScale: 0.88, sideOpacity: 0.72, opacityStep: 0.21, farOpacity: 0.08, maxDistance: 3 },
-  mobile: { stepX: 66, stepY: 6, sideScale: 0.82, sideOpacity: 0.68, opacityStep: 0.24, farOpacity: 0, maxDistance: 2 }
-};
-
 function wrapIndex(index, length) {
   if (length <= 0) return 0;
   return ((index % length) + length) % length;
-}
-
-function circularOffset(index, activeIndex, length) {
-  const direct = index - activeIndex;
-  const wrapped = direct > 0 ? direct - length : direct + length;
-  return Math.abs(direct) <= Math.abs(wrapped) ? direct : wrapped;
 }
 
 function getViewportMode() {
@@ -223,7 +211,6 @@ function BaroccoTimeline() {
   const [viewportMode, setViewportMode] = React.useState(getViewportMode);
   const activeItem = timelineItems[activeIndex];
   const activeBody = `${activeItem.description} ${activeItem.insight}`;
-  const layout = layoutPresets[viewportMode];
 
   React.useEffect(() => {
     const handleResize = () => setViewportMode(getViewportMode());
@@ -235,31 +222,16 @@ function BaroccoTimeline() {
     };
   }, []);
 
-  const visibleNodes = React.useMemo(() => {
-    return timelineItems.map((item, index) => {
-      const offset = circularOffset(index, activeIndex, itemCount);
-      const distance = Math.abs(offset);
-      const isBeyondLimit = distance > layout.maxDistance;
-      const opacity = offset === 0
-        ? 1
-        : isBeyondLimit
-          ? layout.farOpacity
-          : Math.max(layout.farOpacity, layout.sideOpacity - (distance - 1) * layout.opacityStep);
-      return {
-        ...item,
-        offset,
-        x: offset * layout.stepX,
-        y: distance * layout.stepY,
-        scale: offset === 0 ? 1 : layout.sideScale,
-        opacity,
-        zIndex: 40 - distance,
-        hidden: isBeyondLimit && layout.farOpacity === 0
-      };
-    });
-  }, [activeIndex, itemCount, layout]);
-
   const selectItem = React.useCallback((index) => {
     setActiveIndex(wrapIndex(index, itemCount));
+  }, [itemCount]);
+
+  const goToPrevious = React.useCallback(() => {
+    setActiveIndex((current) => wrapIndex(current - 1, itemCount));
+  }, [itemCount]);
+
+  const goToNext = React.useCallback(() => {
+    setActiveIndex((current) => wrapIndex(current + 1, itemCount));
   }, [itemCount]);
 
   const heroTransform = React.useMemo(() => {
@@ -274,40 +246,42 @@ function BaroccoTimeline() {
     return transforms.length ? transforms.join(" ") : undefined;
   }, [activeItem]);
 
-  const timelineCompass = h(
-    "div",
-    { className: "barocco-timeline__compass", "aria-label": "Bussola cronologica" },
-    h("div", { className: "barocco-timeline__signal", "aria-hidden": "true" }),
-    h("div", { className: "barocco-timeline__scan", "aria-hidden": "true" }),
+  const timelineNavigator = h(
+    "nav",
+    {
+      className: "barocco-timeline-pillnav",
+      "aria-label": "Navigazione cronologica della timeline"
+    },
     h(
       "div",
-      { className: "barocco-timeline__nodes" },
-      visibleNodes.map((node, index) => {
+      { className: "barocco-timeline-pillnav__rail" },
+      timelineItems.map((item, index) => {
         const isActive = index === activeIndex;
         return h(
           "button",
           {
-            key: node.id,
+            key: item.id,
             type: "button",
-            className: `barocco-timeline-card${node.visual ? " barocco-timeline-card--featured" : ""}${isActive ? " is-active" : ""}${node.hidden ? " is-hidden" : ""}`,
+            className: `barocco-timeline-pillnav__item${isActive ? " is-active" : ""}`,
             onClick: () => selectItem(index),
             "aria-current": isActive ? "true" : undefined,
-            "aria-label": `${node.year} — ${node.title}`,
-            style: {
-              transform: `translate3d(${node.x}px, ${node.y}px, 0) scale(${node.scale})`,
-              opacity: node.opacity,
-              zIndex: node.zIndex,
-              pointerEvents: node.hidden ? "none" : "auto"
-            }
+            "aria-label": `${item.year} — ${item.title}`,
+            title: `${item.year} — ${item.title}`
           },
-          h("span", { className: "barocco-timeline-card__year" }, node.year),
-          h("strong", { className: "barocco-timeline-card__title" }, node.title),
-          h("small", { className: "barocco-timeline-card__category" }, node.category),
-          h("em", { className: "barocco-timeline-card__subtitle" }, node.subtitle),
-          h("i", { className: "barocco-timeline-card__stem", "aria-hidden": "true" }),
-          h("i", { className: "barocco-timeline-card__dot", "aria-hidden": "true" })
+          isActive
+            ? h(React.Fragment, null,
+                h("span", { className: "barocco-timeline-pillnav__year" }, item.year),
+                h("span", { className: "barocco-timeline-pillnav__title" }, item.title)
+              )
+            : h("span", { className: "barocco-timeline-pillnav__dot", "aria-hidden": "true" })
         );
       })
+    ),
+    h(
+      "div",
+      { className: "barocco-timeline-pillnav__controls", "aria-label": "Scorri eventi" },
+      h("button", { type: "button", className: "barocco-timeline-pillnav__control", onClick: goToPrevious, "aria-label": "Evento precedente" }, "‹"),
+      h("button", { type: "button", className: "barocco-timeline-pillnav__control", onClick: goToNext, "aria-label": "Evento successivo" }, "›")
     )
   );
 
@@ -346,9 +320,9 @@ function BaroccoTimeline() {
                 transform: heroTransform
               }
             }),
-            timelineCompass
+            timelineNavigator
           )
-        : [timelineCompass]
+        : timelineNavigator
     )
   );
 }
