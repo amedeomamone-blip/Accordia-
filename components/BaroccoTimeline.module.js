@@ -285,6 +285,30 @@ function BaroccoTimeline() {
     )
   );
 
+  const timelineMedia = activeItem.visual
+    ? h(
+        React.Fragment,
+        null,
+        h(
+          "figure",
+          { className: "barocco-timeline-detail__hero" },
+          h("img", {
+            className: "barocco-timeline-detail__hero-image",
+            src: activeItem.visual.src,
+            alt: activeItem.visual.alt,
+            loading: "eager",
+            decoding: "async",
+            style: {
+              objectPosition: activeItem.visual.position || "center",
+              transformOrigin: activeItem.visual.origin || "center top",
+              transform: heroTransform
+            }
+          })
+        ),
+        timelineNavigator
+      )
+    : timelineNavigator;
+
   return h(
     "section",
     {
@@ -304,25 +328,7 @@ function BaroccoTimeline() {
     h(
       "article",
       { className: `barocco-timeline-detail barocco-timeline-detail--fused${activeItem.visual ? " barocco-timeline-detail--immersive" : ""}`, "aria-live": "polite" },
-      activeItem.visual
-        ? h(
-            "figure",
-            { className: "barocco-timeline-detail__hero" },
-            h("img", {
-              className: "barocco-timeline-detail__hero-image",
-              src: activeItem.visual.src,
-              alt: activeItem.visual.alt,
-              loading: "eager",
-              decoding: "async",
-              style: {
-                objectPosition: activeItem.visual.position || "center",
-                transformOrigin: activeItem.visual.origin || "center top",
-                transform: heroTransform
-              }
-            }),
-            timelineNavigator
-          )
-        : timelineNavigator
+      timelineMedia
     )
   );
 }
