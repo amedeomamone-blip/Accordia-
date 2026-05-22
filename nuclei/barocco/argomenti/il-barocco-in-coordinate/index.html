@@ -16,6 +16,23 @@
     <link rel="stylesheet" href="../../../../css/barocco-editorial-bands.css?v=1779395390">
     <link rel="stylesheet" href="../../../../css/barocco-key-concepts.css?v=1779395390">
     <link rel="stylesheet" href="../../../../css/barocco-typography-unified.css?v=1779395390">
+    <style>
+        #barocco-timeline-root .barocco-timeline__head > div {
+            width: min(100%, 48rem);
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        #barocco-timeline-root .barocco-timeline__eyebrow {
+            color: #c14f40;
+            text-align: center;
+        }
+
+        #barocco-timeline-root .barocco-timeline-detail__hero-grid,
+        #barocco-timeline-root .barocco-timeline-detail__hero-wash {
+            display: none !important;
+        }
+    </style>
 </head>
 <body data-nav="timeline" data-current-nucleus="barocco">
     <header class="site-header">
@@ -105,6 +122,47 @@
         const mountNode1 = document.getElementById("barocco-timeline-root");
         if (mountNode1) {
             createRoot(mountNode1).render(React.createElement(BaroccoTimeline));
+        }
+
+        const syncTimelineHeader = () => {
+            const root = document.getElementById("barocco-timeline-root");
+            if (!root) return;
+
+            const activeCard = root.querySelector(".barocco-timeline-card.is-active");
+            const heading = root.querySelector("#barocco-timeline-title");
+            const intro = root.querySelector(".barocco-timeline__intro");
+            const eyebrow = root.querySelector(".barocco-timeline__eyebrow");
+
+            if (eyebrow) {
+                eyebrow.textContent = "Timeline";
+                eyebrow.style.color = "#c14f40";
+                eyebrow.style.textAlign = "center";
+            }
+
+            if (!activeCard || !heading || !intro) return;
+
+            const year = activeCard.querySelector(".barocco-timeline-card__year")?.textContent?.trim();
+            const title = activeCard.querySelector(".barocco-timeline-card__title")?.textContent?.trim();
+            const category = activeCard.querySelector(".barocco-timeline-card__category")?.textContent?.trim();
+            const subtitle = activeCard.querySelector(".barocco-timeline-card__subtitle")?.textContent?.trim();
+            const cardInfo = [year, category, subtitle].filter(Boolean).join(" · ");
+
+            if (title) heading.textContent = title;
+            if (cardInfo) intro.textContent = cardInfo;
+        };
+
+        if (mountNode1) {
+            requestAnimationFrame(syncTimelineHeader);
+            setTimeout(syncTimelineHeader, 80);
+            mountNode1.addEventListener("click", () => {
+                requestAnimationFrame(syncTimelineHeader);
+                setTimeout(syncTimelineHeader, 80);
+            });
+            new MutationObserver(syncTimelineHeader).observe(mountNode1, {
+                subtree: true,
+                attributes: true,
+                attributeFilter: ["class", "aria-current"]
+            });
         }
 
         const mountNode2 = document.getElementById("barocco-key-concepts-root");
