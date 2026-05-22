@@ -10,8 +10,8 @@
     <link rel="stylesheet" href="../../../../css/lesson-immersive.css?v=1779395390">
     <link rel="stylesheet" href="../../../../css/lesson-readability.css?v=1779395390">
     <link rel="stylesheet" href="../../../../css/barocco-first-listening.css?v=1779395390">
-    <link rel="stylesheet" href="../../../../css/barocco-timeline.css?v=20260522-orfeo">
-    <link rel="stylesheet" href="../../../../css/barocco-coordinate-responsive.css?v=20260522-orfeo">
+    <link rel="stylesheet" href="../../../../css/barocco-timeline.css?v=20260522-data-corpo">
+    <link rel="stylesheet" href="../../../../css/barocco-coordinate-responsive.css?v=20260522-data-corpo">
     <link rel="stylesheet" href="../../../../css/barocco-lesson-layout-final.css?v=1779395390">
     <link rel="stylesheet" href="../../../../css/barocco-editorial-bands.css?v=1779395390">
     <link rel="stylesheet" href="../../../../css/barocco-key-concepts.css?v=1779395390">
@@ -33,24 +33,29 @@
         #barocco-timeline-root .barocco-timeline__eyebrow {
             width: 100%;
             margin-inline: auto;
-            color: #c14f40;
-            text-align: center;
+            color: #c14f40 !important;
+            text-align: center !important;
         }
 
         #barocco-timeline-root .barocco-timeline__date {
-            margin: 0.42rem auto 0;
-            color: #c14f40;
-            font-size: 0.82rem;
-            font-weight: 800;
-            letter-spacing: 0.18em;
-            line-height: 1.2;
+            margin: 0.55rem auto 0;
+            color: var(--lesson-muted, #6f6a63);
+            font-size: clamp(1.08rem, 2vw, 1.45rem);
+            font-weight: 680;
+            letter-spacing: -0.015em;
+            line-height: 1.28;
             text-align: center;
-            text-transform: uppercase;
+            text-transform: none;
         }
 
         #barocco-timeline-root .barocco-timeline__intro {
-            max-width: 58rem;
-            margin-inline: auto;
+            max-width: 52rem;
+            margin: clamp(1rem, 2vw, 1.35rem) auto 0;
+            color: var(--lesson-muted, #6f6a63);
+            font-size: clamp(1rem, 1.35vw, 1.12rem);
+            font-weight: 480;
+            letter-spacing: 0;
+            line-height: 1.72;
             text-align: center;
         }
 
@@ -137,7 +142,7 @@
         import React from "https://esm.sh/react@18";
         import { createRoot } from "https://esm.sh/react-dom@18/client";
         import BaroccoFirstListening from "../../../../components/BaroccoFirstListening.module.js?v=1779395390";
-        import BaroccoTimeline from "../../../../components/BaroccoTimeline.module.js?v=20260522-timeline-title";
+        import BaroccoTimeline from "../../../../components/BaroccoTimeline.module.js?v=20260522-data-corpo";
         import BaroccoKeyConcepts from "../../../../components/BaroccoKeyConcepts.module.js?v=1779395390";
 
         const mountNode0 = document.getElementById("barocco-first-listening-root");
