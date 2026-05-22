@@ -6,64 +6,16 @@
     <meta name="description" content="Introduzione al Barocco: lezione completa del nucleo Il Barocco, con ascolto, attività, materiali e riferimenti collegati.">
     <title>Introduzione al Barocco | Il Barocco | Accordia</title>
     <link rel="stylesheet" href="../../../../css/style.css?v=1779395390">
-
     <link rel="stylesheet" href="../../../../css/lesson-immersive.css?v=1779395390">
     <link rel="stylesheet" href="../../../../css/lesson-readability.css?v=1779395390">
     <link rel="stylesheet" href="../../../../css/barocco-first-listening.css?v=1779395390">
-    <link rel="stylesheet" href="../../../../css/barocco-timeline.css?v=20260522-data-corpo">
-    <link rel="stylesheet" href="../../../../css/barocco-coordinate-responsive.css?v=20260522-data-corpo">
+    <link rel="stylesheet" href="../../../../css/barocco-timeline.css?v=20260522-consolidated">
+    <link rel="stylesheet" href="../../../../css/barocco-timeline-header.css?v=20260522-consolidated">
+    <link rel="stylesheet" href="../../../../css/barocco-coordinate-responsive.css?v=20260522-consolidated">
     <link rel="stylesheet" href="../../../../css/barocco-lesson-layout-final.css?v=1779395390">
     <link rel="stylesheet" href="../../../../css/barocco-editorial-bands.css?v=1779395390">
     <link rel="stylesheet" href="../../../../css/barocco-key-concepts.css?v=1779395390">
     <link rel="stylesheet" href="../../../../css/barocco-typography-unified.css?v=1779395390">
-    <style>
-        #barocco-timeline-root .barocco-timeline__head {
-            justify-items: center;
-            text-align: center;
-        }
-
-        #barocco-timeline-root .barocco-timeline__head > div {
-            width: min(100%, 58rem);
-            margin: 0 auto;
-            display: grid;
-            justify-items: center;
-            text-align: center;
-        }
-
-        #barocco-timeline-root .barocco-timeline__eyebrow {
-            width: 100%;
-            margin-inline: auto;
-            color: #c14f40 !important;
-            text-align: center !important;
-        }
-
-        #barocco-timeline-root .barocco-timeline__date {
-            margin: 0.55rem auto 0;
-            color: var(--lesson-muted, #6f6a63);
-            font-size: clamp(1.08rem, 2vw, 1.45rem);
-            font-weight: 680;
-            letter-spacing: -0.015em;
-            line-height: 1.28;
-            text-align: center;
-            text-transform: none;
-        }
-
-        #barocco-timeline-root .barocco-timeline__intro {
-            max-width: 52rem;
-            margin: clamp(1rem, 2vw, 1.35rem) auto 0;
-            color: var(--lesson-muted, #6f6a63);
-            font-size: clamp(1rem, 1.35vw, 1.12rem);
-            font-weight: 480;
-            letter-spacing: 0;
-            line-height: 1.72;
-            text-align: center;
-        }
-
-        #barocco-timeline-root .barocco-timeline-detail__hero-grid,
-        #barocco-timeline-root .barocco-timeline-detail__hero-wash {
-            display: none !important;
-        }
-    </style>
 </head>
 <body data-nav="timeline" data-current-nucleus="barocco">
     <header class="site-header">
@@ -78,13 +30,11 @@
     </header>
 
     <main class="nucleus-page topic-page topic-page--lesson" style="--nucleus-accent: #c14f40;">
-
         <nav class="nucleus-mini-timeline" aria-label="Mini timeline dei nuclei">
             <div class="shell nucleus-mini-timeline__track">
                 <a href="../../../../nuclei/medioevo/index.html" style="--mini-accent: #1f7f90;" data-nucleus-link="medioevo"><span>01</span><strong>Il Medioevo</strong></a><a href="../../../../nuclei/rinascimento/index.html" style="--mini-accent: #768a2a;" data-nucleus-link="rinascimento"><span>02</span><strong>Il Rinascimento</strong></a><a href="../../../../nuclei/barocco/index.html" style="--mini-accent: #c14f40;" data-nucleus-link="barocco" class="is-active" aria-current="page"><span>03</span><strong>Il Barocco</strong></a><a href="../../../../nuclei/settecento-classicismo/index.html" style="--mini-accent: #2f6fd6;" data-nucleus-link="settecento-classicismo"><span>04</span><strong>Settecento e Classicismo</strong></a><a href="../../../../nuclei/ottocento/index.html" style="--mini-accent: #a94d87;" data-nucleus-link="ottocento"><span>05</span><strong>L&#x27;Ottocento</strong></a><a href="../../../../nuclei/novecento/index.html" style="--mini-accent: #7057c9;" data-nucleus-link="novecento"><span>06</span><strong>Il Novecento</strong></a>
             </div>
         </nav>
-
 
         <nav class="topic-rail" aria-label="Lezioni del nucleo">
             <div class="shell">
@@ -114,7 +64,6 @@
         </section>
     </main>
 
-
     <footer class="site-footer">
         <div class="shell site-footer__grid">
             <div>
@@ -137,12 +86,11 @@
     </footer>
 
     <script src="../../../../js/main.js?v=1779395390"></script>
-
     <script type="module">
         import React from "https://esm.sh/react@18";
         import { createRoot } from "https://esm.sh/react-dom@18/client";
         import BaroccoFirstListening from "../../../../components/BaroccoFirstListening.module.js?v=1779395390";
-        import BaroccoTimeline from "../../../../components/BaroccoTimeline.module.js?v=20260522-data-corpo";
+        import BaroccoTimeline from "../../../../components/BaroccoTimeline.module.js?v=20260522-consolidated";
         import BaroccoKeyConcepts from "../../../../components/BaroccoKeyConcepts.module.js?v=1779395390";
 
         const mountNode0 = document.getElementById("barocco-first-listening-root");
@@ -153,101 +101,6 @@
         const mountNode1 = document.getElementById("barocco-timeline-root");
         if (mountNode1) {
             createRoot(mountNode1).render(React.createElement(BaroccoTimeline));
-        }
-
-        const timelineDetails = {
-            "L’Orfeo": {
-                date: "1607",
-                text: "Va in scena a Mantova L’Orfeo di Claudio Monteverdi, una delle prime grandi opere della storia della musica. Monteverdi unisce parola, scena e suono con una forza espressiva nuova. L’opera diventa racconto teatrale in musica, non semplice accompagnamento del testo."
-            },
-            "Guerra dei Trent’anni": {
-                date: "1618",
-                text: "Inizia una guerra lunga e devastante che coinvolge molte potenze europee e modifica gli equilibri del continente. Il conflitto termina nel 1648 con la Pace di Westfalia. L’Europa esce profondamente trasformata, sia sul piano politico sia su quello religioso."
-            },
-            "La peste in Europa": {
-                date: "1630",
-                text: "Una grave epidemia colpisce vaste aree europee, aggravando gli effetti di guerre, carestie e instabilità economica. La peste del Seicento segna città e campagne, riduce la popolazione e lascia una traccia profonda nella memoria collettiva."
-            },
-            "Inizia il regno di Luigi XIV": {
-                date: "1643",
-                text: "Luigi XIV sale al trono di Francia. Il suo regno diventerà il modello più celebre di monarchia assoluta. Versailles diventa il centro simbolico del potere monarchico e un riferimento europeo per arti, cerimoniale e spettacolo."
-            },
-            "Pace di Westfalia": {
-                date: "1648",
-                text: "I trattati di Westfalia pongono fine al conflitto iniziato nel 1618 e ridisegnano l’assetto politico europeo. Si consolida il principio della sovranità degli Stati, elemento decisivo nella nascita della diplomazia moderna."
-            },
-            "Pietro il Grande diventa zar": {
-                date: "1682",
-                text: "Pietro I avvia una stagione di riforme che modernizza lo Stato russo e rafforza il suo ruolo internazionale. La Russia guarda sempre più all’Europa occidentale, adottando modelli tecnici, militari e amministrativi innovativi."
-            },
-            "Nascono Bach e Händel": {
-                date: "1685",
-                text: "Nello stesso anno nascono Johann Sebastian Bach e Georg Friedrich Händel, due figure centrali della musica europea. Bach porta al vertice il contrappunto e la scrittura strumentale; Händel domina opera, oratorio e musica celebrativa."
-            },
-            "Nasce il fortepiano": {
-                date: "1711",
-                text: "Cristofori mette a punto uno strumento capace di variare l’intensità del suono in base al tocco dell’esecutore. Il fortepiano apre la strada al pianoforte moderno e introduce una nuova gamma di sfumature espressive rispetto al clavicembalo."
-            },
-            "Muore Luigi XIV": {
-                date: "1715",
-                text: "La morte del Re Sole conclude uno dei regni più lunghi e influenti dell’età moderna. Il suo modello di potere aveva inciso profondamente su politica, architettura, teatro, danza e vita musicale di corte."
-            },
-            "Le quattro stagioni": {
-                date: "1725",
-                text: "Vengono pubblicati i quattro celebri concerti di Vivaldi, tra le pagine più riconoscibili del repertorio barocco. La musica suggerisce immagini precise: il canto degli uccelli, il temporale, il gelo, la quiete dei paesaggi stagionali."
-            },
-            "Rivoluzione industriale": {
-                date: "1760",
-                text: "In Gran Bretagna prende avvio un processo di trasformazione produttiva e tecnologica destinato a cambiare il mondo. L’evento appartiene a una fase successiva al Barocco, ma aiuta a percepire il passaggio verso una società moderna e meccanizzata."
-            }
-        };
-
-        const syncTimelineHeader = () => {
-            const root = document.getElementById("barocco-timeline-root");
-            if (!root) return;
-
-            const activeCard = root.querySelector(".barocco-timeline-card.is-active");
-            const heading = root.querySelector("#barocco-timeline-title");
-            const intro = root.querySelector(".barocco-timeline__intro");
-            const eyebrow = root.querySelector(".barocco-timeline__eyebrow");
-
-            if (eyebrow) {
-                eyebrow.textContent = "Timeline";
-                eyebrow.style.color = "#c14f40";
-                eyebrow.style.textAlign = "center";
-            }
-
-            if (!activeCard || !heading || !intro) return;
-
-            let dateLine = root.querySelector(".barocco-timeline__date");
-            if (!dateLine) {
-                dateLine = document.createElement("p");
-                dateLine.className = "barocco-timeline__date";
-                heading.insertAdjacentElement("afterend", dateLine);
-            }
-
-            const title = activeCard.querySelector(".barocco-timeline-card__title")?.textContent?.trim();
-            const detail = title ? timelineDetails[title] : null;
-
-            if (title) heading.textContent = title;
-            if (detail) {
-                dateLine.textContent = detail.date;
-                intro.textContent = detail.text;
-            }
-        };
-
-        if (mountNode1) {
-            requestAnimationFrame(syncTimelineHeader);
-            setTimeout(syncTimelineHeader, 80);
-            mountNode1.addEventListener("click", () => {
-                requestAnimationFrame(syncTimelineHeader);
-                setTimeout(syncTimelineHeader, 80);
-            });
-            new MutationObserver(syncTimelineHeader).observe(mountNode1, {
-                subtree: true,
-                attributes: true,
-                attributeFilter: ["class", "aria-current"]
-            });
         }
 
         const mountNode2 = document.getElementById("barocco-key-concepts-root");
