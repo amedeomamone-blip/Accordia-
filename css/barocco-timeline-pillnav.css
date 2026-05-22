@@ -22,10 +22,10 @@
   z-index: 8;
   width: min(calc(100% - 2rem), 46rem);
   margin: 0;
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
-  justify-content: center;
-  gap: 0.75rem;
+  gap: 0.68rem;
   transform: translateX(-50%);
   pointer-events: auto;
 }
@@ -40,12 +40,12 @@
   justify-content: center;
   gap: clamp(0.42rem, 1vw, 0.72rem);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 999px;
-  background: rgba(30, 30, 32, 0.86);
-  box-shadow: 0 1rem 2.6rem rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(18px) saturate(1.12);
-  -webkit-backdrop-filter: blur(18px) saturate(1.12);
+  background: rgba(96, 96, 100, 0.34);
+  box-shadow: 0 0.9rem 2.2rem rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(18px) saturate(1.08);
+  -webkit-backdrop-filter: blur(18px) saturate(1.08);
 }
 
 .barocco-timeline-pillnav__rail::before {
@@ -64,7 +64,7 @@
   border: 0;
   border-radius: 999px;
   background: transparent;
-  color: rgba(255, 255, 255, 0.86);
+  color: rgba(255, 255, 255, 0.9);
   cursor: pointer;
   transition:
     width 260ms ease,
@@ -89,18 +89,20 @@
   min-width: min(17.5rem, 48vw);
   padding: 0 1.05rem;
   gap: 0.72rem;
-  justify-content: flex-start;
-  background: rgba(255, 255, 255, 0.92);
+  justify-content: center;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.94);
   color: #111111;
-  box-shadow: 0 0.45rem 1.2rem rgba(0, 0, 0, 0.16);
+  box-shadow: 0 0.42rem 1.05rem rgba(0, 0, 0, 0.14);
 }
 
 .barocco-timeline-pillnav__dot {
   width: 0.56rem;
   height: 0.56rem;
+  border: 0;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.82);
-  box-shadow: 0 0 0 0.18rem rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: none;
 }
 
 .barocco-timeline-pillnav__year {
@@ -120,14 +122,13 @@
   font-weight: 760;
   letter-spacing: -0.02em;
   line-height: 1.1;
+  text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
 
 .barocco-timeline-pillnav__controls {
-  display: flex;
-  align-items: center;
-  gap: 0.42rem;
+  display: contents;
 }
 
 .barocco-timeline-pillnav__control {
@@ -136,23 +137,38 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   border-radius: 999px;
-  background: rgba(30, 30, 32, 0.86);
-  color: rgba(255, 255, 255, 0.92);
+  background: rgba(96, 96, 100, 0.34);
+  color: rgba(255, 255, 255, 0.94);
   font-size: 1.4rem;
   font-weight: 500;
   line-height: 1;
   cursor: pointer;
-  box-shadow: 0 1rem 2.6rem rgba(0, 0, 0, 0.18);
-  backdrop-filter: blur(18px) saturate(1.12);
-  -webkit-backdrop-filter: blur(18px) saturate(1.12);
+  box-shadow: 0 0.9rem 2.2rem rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(18px) saturate(1.08);
+  -webkit-backdrop-filter: blur(18px) saturate(1.08);
+}
+
+.barocco-timeline-pillnav__control:first-child {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.barocco-timeline-pillnav__rail {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.barocco-timeline-pillnav__control:last-child {
+  grid-column: 3;
+  grid-row: 1;
 }
 
 .barocco-timeline-pillnav__control:hover,
 .barocco-timeline-pillnav__control:focus-visible {
   outline: none;
-  background: rgba(44, 44, 47, 0.9);
+  background: rgba(112, 112, 116, 0.44);
 }
 
 @media (max-width: 54rem) {
@@ -189,6 +205,7 @@
   .barocco-timeline-pillnav {
     width: calc(100% - 1rem);
     bottom: 0.7rem;
+    gap: 0.38rem;
   }
 
   .barocco-timeline-pillnav__rail {
