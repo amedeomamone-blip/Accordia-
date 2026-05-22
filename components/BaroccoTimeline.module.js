@@ -12,11 +12,11 @@ const timelineItems = [
     description: "Va in scena a Mantova L’Orfeo di Claudio Monteverdi, una delle prime grandi opere della storia della musica.",
     insight: "Monteverdi unisce parola, scena e suono con una forza espressiva nuova. L’opera diventa racconto teatrale in musica, non semplice accompagnamento del testo.",
     visual: {
-      src: "../../../../assets/barocco-orfeo-originale.png?v=20260514b",
-      alt: "Illustrazione verticale di un giovane musicista con lira, architetture classiche e figure in ombra sullo sfondo.",
-      position: "center top",
-      shiftY: "-35%",
-      scale: 1.36
+      src: "../../../../assets/barocco-orfeo-fascia-timeline.png?v=20260522a",
+      alt: "Illustrazione orizzontale di Orfeo seduto con la lira tra architetture classiche e linee geometriche dorate.",
+      position: "center center",
+      origin: "center center",
+      copySide: "left"
     }
   },
   {
@@ -351,15 +351,20 @@ function BaroccoTimeline() {
               decoding: "async",
               style: {
                 objectPosition: activeItem.visual.position || "center",
+                transformOrigin: activeItem.visual.origin || "center top",
                 transform: activeItem.visual.shiftY
                   ? `translateY(${activeItem.visual.shiftY}) scale(${activeItem.visual.scale || 1})`
-                  : undefined
+                  : activeItem.visual.scale
+                    ? `scale(${activeItem.visual.scale})`
+                    : undefined
               }
             }),
             h("div", { className: "barocco-timeline-detail__hero-wash", "aria-hidden": "true" }),
             h(
               "div",
-              { className: "barocco-timeline-detail__hero-grid" },
+              {
+                className: `barocco-timeline-detail__hero-grid${activeItem.visual.copySide ? ` barocco-timeline-detail__hero-grid--copy-${activeItem.visual.copySide}` : ""}`
+              },
               h(
                 "div",
                 { className: "barocco-timeline-detail__hero-copy" },

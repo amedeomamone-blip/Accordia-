@@ -2,22 +2,24 @@
   position: relative;
   z-index: 0;
   isolation: isolate;
-  width: min(calc(100% - 1.6rem), 72rem);
+  width: 100%;
   margin: clamp(1.4rem, 3vw, 2rem) auto clamp(1.5rem, 3vw, 2.2rem);
-  padding: clamp(1rem, 2vw, 1.35rem);
-  border: 1px solid var(--lesson-border);
-  border-radius: 1.45rem;
-  background: rgba(255, 255, 255, 0.96);
-  box-shadow: 0 1rem 3rem rgba(17, 17, 17, 0.055);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 }
 
 .barocco-timeline__head {
-  display: flex;
-  justify-content: space-between;
-  align-items: end;
+  width: min(calc(100% - 1.6rem), 72rem);
+  margin: 0 auto;
+  display: grid;
+  justify-items: center;
+  text-align: center;
   gap: 1.2rem;
-  padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+  padding: 0 0 clamp(1rem, 2vw, 1.35rem);
+  border-bottom: 0;
 }
 
 .barocco-timeline__eyebrow {
@@ -32,8 +34,8 @@
 .barocco-timeline h2,
 .barocco-timeline h3 {
   margin: 0;
-  color: var(--lesson-text);
-  letter-spacing: -0.055em;
+  color: #0f0f10;
+  letter-spacing: 0;
 }
 
 .barocco-timeline h2 {
@@ -101,7 +103,8 @@
   z-index: 0;
   isolation: isolate;
   min-height: 29rem;
-  margin-top: 1rem;
+  width: min(calc(100% - 1.6rem), 72rem);
+  margin: 1rem auto 0;
   overflow: hidden;
   border: 1px solid rgba(17, 17, 17, 0.10);
   border-radius: 1.3rem;
@@ -329,7 +332,10 @@
 }
 
 .barocco-timeline-detail {
+  width: min(calc(100% - 1.6rem), 72rem);
   margin-top: 1rem;
+  margin-right: auto;
+  margin-left: auto;
   padding: 1rem;
   display: grid;
   gap: 0.95rem;
@@ -436,17 +442,19 @@
 }
 
 .barocco-timeline-detail--immersive {
+  width: 100%;
   padding: 0;
   gap: 0;
   overflow: hidden;
-  border-color: rgba(17, 17, 17, 0.08);
+  border-width: 0;
+  border-radius: 0;
   background: #f4efe6;
 }
 
 .barocco-timeline-detail__hero {
   position: relative;
   margin: 0;
-  min-height: 32rem;
+  min-height: clamp(30rem, 55vw, 48rem);
   aspect-ratio: 16 / 9;
   overflow: hidden;
 }
@@ -467,80 +475,96 @@
   inset: 0;
   z-index: 2;
   background:
-    linear-gradient(90deg, rgba(36, 28, 22, 0.46) 0%, rgba(48, 35, 27, 0.38) 32%, rgba(91, 66, 47, 0.12) 60%, rgba(22, 20, 24, 0.18) 100%),
-    linear-gradient(180deg, rgba(193, 79, 64, 0.05) 0%, rgba(18, 18, 20, 0.16) 100%);
+    linear-gradient(90deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.48) 30%, rgba(255, 255, 255, 0.08) 58%, rgba(255, 255, 255, 0.22) 100%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(245, 239, 229, 0.22) 100%);
 }
 
 .barocco-timeline-detail__hero-grid {
   position: absolute;
   inset: 0;
   display: grid;
-  align-items: stretch;
-  padding: clamp(1.35rem, 3vw, 2.1rem);
+  align-items: center;
+  width: min(calc(100% - 1.6rem), 72rem);
+  margin: 0 auto;
+  padding: clamp(1.35rem, 3vw, 2.1rem) 0;
   z-index: 3;
 }
 
+.barocco-timeline-detail__hero-grid--copy-left {
+  justify-items: start;
+}
+
+.barocco-timeline-detail__hero-grid--copy-right {
+  justify-items: end;
+}
+
 .barocco-timeline-detail__hero-copy {
-  width: min(100%, 21.5rem);
+  width: min(100%, 24rem);
+  padding: clamp(1.05rem, 2.4vw, 1.55rem);
   display: grid;
   align-content: start;
   gap: 0.68rem;
-  color: #fff8f1;
+  border: 1px solid rgba(17, 17, 17, 0.08);
+  border-radius: 1.15rem;
+  background: rgba(255, 255, 255, 0.76);
+  box-shadow: 0 1.15rem 3rem rgba(17, 17, 17, 0.09);
+  color: #111111;
+  backdrop-filter: blur(18px) saturate(1.16);
+  -webkit-backdrop-filter: blur(18px) saturate(1.16);
 }
 
 .barocco-timeline-detail__hero-copy > span,
 .barocco-timeline-detail__copy--overlay strong {
   display: inline-block;
   width: fit-content;
-  color: #fffdf9;
+  color: #c14f40;
   font-size: 0.74rem;
   font-weight: 800;
   letter-spacing: 0.22em;
-  text-shadow: 0 0.12rem 0.9rem rgba(10, 7, 6, 0.28);
   text-transform: uppercase;
 }
 
 .barocco-timeline-detail__hero-copy h3 {
   margin: 0;
   max-width: 10ch;
-  color: #fffdf8;
+  color: #111111;
   font-size: clamp(2.4rem, 4.8vw, 4.2rem);
   font-weight: 790;
   line-height: 0.9;
-  letter-spacing: -0.06em;
-  text-shadow: 0 0.18rem 1.3rem rgba(17, 12, 10, 0.2);
+  letter-spacing: 0;
+  text-shadow: none;
   text-wrap: balance;
 }
 
 .barocco-timeline-detail__hero-subtitle {
   margin: 0;
-  color: #ffffff !important;
-  -webkit-text-fill-color: #ffffff;
+  color: var(--lesson-soft) !important;
+  -webkit-text-fill-color: var(--lesson-soft);
   opacity: 1;
   font-size: 1rem;
   font-weight: 800;
   letter-spacing: 0.12em;
   line-height: 1.35;
-  text-shadow: 0 0.18rem 0.9rem rgba(10, 7, 6, 0.26);
+  text-shadow: none;
   text-transform: uppercase;
 }
 
 .barocco-timeline-detail__copy--overlay {
-  width: min(100%, 20.5rem);
+  width: 100%;
   margin-top: 0.22rem;
-  padding: 1.08rem 1.02rem 1.12rem;
-  border-color: rgba(255, 244, 232, 0.14);
-  background: linear-gradient(180deg, rgba(70, 50, 37, 0.14), rgba(28, 24, 23, 0.18));
-  box-shadow: 0 0.9rem 2rem rgba(25, 17, 12, 0.1);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
 }
 
 .barocco-timeline-detail__copy--overlay p {
-  color: rgba(255, 248, 241, 0.92);
+  color: var(--lesson-muted);
   font-size: clamp(1rem, 1.55vw, 1.14rem);
-  font-weight: 560;
-  line-height: 1.62;
+  font-weight: 610;
+  line-height: 1.66;
 }
 
 @keyframes barocco-timeline-scan {
@@ -550,8 +574,7 @@
 
 @media (max-width: 54rem) {
   .barocco-timeline__head {
-    align-items: stretch;
-    flex-direction: column;
+    width: min(calc(100% - 1.2rem), 72rem);
   }
 
   .barocco-timeline__progress {
@@ -585,7 +608,8 @@
   }
 
   .barocco-timeline-detail__hero-grid {
-    padding: 1.15rem;
+    width: min(calc(100% - 1.2rem), 72rem);
+    padding: 1.15rem 0;
   }
 
   .barocco-timeline-detail__hero-copy {
@@ -615,8 +639,14 @@
 
 @media (max-width: 40rem) {
   .barocco-timeline {
+    width: 100%;
+    padding: 0;
+  }
+
+  .barocco-timeline__head,
+  .barocco-timeline__stage,
+  .barocco-timeline-detail {
     width: min(calc(100% - 1rem), 72rem);
-    padding: 0.86rem;
   }
 
   .barocco-timeline-detail__visual-frame {
@@ -653,7 +683,8 @@
   }
 
   .barocco-timeline-detail__hero-grid {
-    padding: 0.9rem;
+    width: min(calc(100% - 1rem), 72rem);
+    padding: 0.9rem 0;
   }
 
   .barocco-timeline-detail__hero-copy {
