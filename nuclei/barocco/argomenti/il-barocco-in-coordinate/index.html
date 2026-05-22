@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../../../../css/barocco-typography-unified.css?v=1779395390">
     <style>
         #barocco-timeline-root .barocco-timeline__head > div {
-            width: min(100%, 48rem);
+            width: min(100%, 58rem);
             margin: 0 auto;
             text-align: center;
         }
@@ -26,6 +26,10 @@
         #barocco-timeline-root .barocco-timeline__eyebrow {
             color: #c14f40;
             text-align: center;
+        }
+
+        #barocco-timeline-root .barocco-timeline__intro {
+            max-width: 58rem;
         }
 
         #barocco-timeline-root .barocco-timeline-detail__hero-grid,
@@ -124,6 +128,20 @@
             createRoot(mountNode1).render(React.createElement(BaroccoTimeline));
         }
 
+        const timelineDetails = {
+            "L’Orfeo": "1607 · Musica · Claudio Monteverdi · Va in scena a Mantova L’Orfeo di Claudio Monteverdi, una delle prime grandi opere della storia della musica. Monteverdi unisce parola, scena e suono con una forza espressiva nuova. L’opera diventa racconto teatrale in musica, non semplice accompagnamento del testo.",
+            "Guerra dei Trent’anni": "1618 · Storia · Europa in conflitto · Inizia una guerra lunga e devastante che coinvolge molte potenze europee e modifica gli equilibri del continente. Il conflitto termina nel 1648 con la Pace di Westfalia. L’Europa esce profondamente trasformata, sia sul piano politico sia su quello religioso.",
+            "La peste in Europa": "1630 · Storia · Crisi sociale e sanitaria · Una grave epidemia colpisce vaste aree europee, aggravando gli effetti di guerre, carestie e instabilità economica. La peste del Seicento segna città e campagne, riduce la popolazione e lascia una traccia profonda nella memoria collettiva.",
+            "Inizia il regno di Luigi XIV": "1643 · Storia · Il Re Sole · Luigi XIV sale al trono di Francia. Il suo regno diventerà il modello più celebre di monarchia assoluta. Versailles diventa il centro simbolico del potere monarchico e un riferimento europeo per arti, cerimoniale e spettacolo.",
+            "Pace di Westfalia": "1648 · Storia · Fine della Guerra dei Trent’anni · I trattati di Westfalia pongono fine al conflitto iniziato nel 1618 e ridisegnano l’assetto politico europeo. Si consolida il principio della sovranità degli Stati, elemento decisivo nella nascita della diplomazia moderna.",
+            "Pietro il Grande diventa zar": "1682 · Storia · La Russia si trasforma · Pietro I avvia una stagione di riforme che modernizza lo Stato russo e rafforza il suo ruolo internazionale. La Russia guarda sempre più all’Europa occidentale, adottando modelli tecnici, militari e amministrativi innovativi.",
+            "Nascono Bach e Händel": "1685 · Musica · Due protagonisti del Barocco · Nello stesso anno nascono Johann Sebastian Bach e Georg Friedrich Händel, due figure centrali della musica europea. Bach porta al vertice il contrappunto e la scrittura strumentale; Händel domina opera, oratorio e musica celebrativa.",
+            "Nasce il fortepiano": "1711 · Musica · Bartolomeo Cristofori · Cristofori mette a punto uno strumento capace di variare l’intensità del suono in base al tocco dell’esecutore. Il fortepiano apre la strada al pianoforte moderno e introduce una nuova gamma di sfumature espressive rispetto al clavicembalo.",
+            "Muore Luigi XIV": "1715 · Storia · Si chiude un’epoca · La morte del Re Sole conclude uno dei regni più lunghi e influenti dell’età moderna. Il suo modello di potere aveva inciso profondamente su politica, architettura, teatro, danza e vita musicale di corte.",
+            "Le quattro stagioni": "1725 · Musica · Antonio Vivaldi · Vengono pubblicati i quattro celebri concerti di Vivaldi, tra le pagine più riconoscibili del repertorio barocco. La musica suggerisce immagini precise: il canto degli uccelli, il temporale, il gelo, la quiete dei paesaggi stagionali.",
+            "Rivoluzione industriale": "1760 · Storia · Inizia in Inghilterra · In Gran Bretagna prende avvio un processo di trasformazione produttiva e tecnologica destinato a cambiare il mondo. L’evento appartiene a una fase successiva al Barocco, ma aiuta a percepire il passaggio verso una società moderna e meccanizzata."
+        };
+
         const syncTimelineHeader = () => {
             const root = document.getElementById("barocco-timeline-root");
             if (!root) return;
@@ -141,14 +159,9 @@
 
             if (!activeCard || !heading || !intro) return;
 
-            const year = activeCard.querySelector(".barocco-timeline-card__year")?.textContent?.trim();
             const title = activeCard.querySelector(".barocco-timeline-card__title")?.textContent?.trim();
-            const category = activeCard.querySelector(".barocco-timeline-card__category")?.textContent?.trim();
-            const subtitle = activeCard.querySelector(".barocco-timeline-card__subtitle")?.textContent?.trim();
-            const cardInfo = [year, category, subtitle].filter(Boolean).join(" · ");
-
             if (title) heading.textContent = title;
-            if (cardInfo) intro.textContent = cardInfo;
+            if (title && timelineDetails[title]) intro.textContent = timelineDetails[title];
         };
 
         if (mountNode1) {
