@@ -193,33 +193,9 @@ const timelineItems = [
 ];
 
 const layoutPresets = {
-  desktop: {
-    stepX: 112,
-    stepY: 12,
-    sideScale: 0.9,
-    sideOpacity: 0.78,
-    opacityStep: 0.19,
-    farOpacity: 0.12,
-    maxDistance: 4
-  },
-  tablet: {
-    stepX: 96,
-    stepY: 10,
-    sideScale: 0.88,
-    sideOpacity: 0.72,
-    opacityStep: 0.21,
-    farOpacity: 0.08,
-    maxDistance: 3
-  },
-  mobile: {
-    stepX: 66,
-    stepY: 6,
-    sideScale: 0.82,
-    sideOpacity: 0.68,
-    opacityStep: 0.24,
-    farOpacity: 0,
-    maxDistance: 2
-  }
+  desktop: { stepX: 112, stepY: 12, sideScale: 0.9, sideOpacity: 0.78, opacityStep: 0.19, farOpacity: 0.12, maxDistance: 4 },
+  tablet: { stepX: 96, stepY: 10, sideScale: 0.88, sideOpacity: 0.72, opacityStep: 0.21, farOpacity: 0.08, maxDistance: 3 },
+  mobile: { stepX: 66, stepY: 6, sideScale: 0.82, sideOpacity: 0.68, opacityStep: 0.24, farOpacity: 0, maxDistance: 2 }
 };
 
 function wrapIndex(index, length) {
@@ -246,9 +222,7 @@ function BaroccoTimeline() {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [viewportMode, setViewportMode] = React.useState(getViewportMode);
   const activeItem = timelineItems[activeIndex];
-  const activeTitle = activeItem.title;
-  const activeSubtitle = activeItem.insight;
-  const activeDescription = activeItem.description;
+  const activeBody = `${activeItem.description} ${activeItem.insight}`;
   const layout = layoutPresets[viewportMode];
 
   React.useEffect(() => {
@@ -348,8 +322,9 @@ function BaroccoTimeline() {
       { className: "barocco-timeline__head" },
       h("div", null,
         h("p", { className: "barocco-timeline__eyebrow" }, "Timeline"),
-        h("h2", { id: "barocco-timeline-title" }, activeTitle),
-        h("p", { className: "barocco-timeline__intro" }, activeSubtitle)
+        h("h2", { id: "barocco-timeline-title" }, activeItem.title),
+        h("p", { className: "barocco-timeline__date" }, activeItem.year),
+        h("p", { className: "barocco-timeline__intro" }, activeBody)
       )
     ),
     h(
@@ -371,43 +346,9 @@ function BaroccoTimeline() {
                 transform: heroTransform
               }
             }),
-            h("div", { className: "barocco-timeline-detail__hero-wash", "aria-hidden": "true" }),
-            h(
-              "div",
-              {
-                className: `barocco-timeline-detail__hero-grid${activeItem.visual.copySide ? ` barocco-timeline-detail__hero-grid--copy-${activeItem.visual.copySide}` : ""}`
-              },
-              h(
-                "div",
-                { className: "barocco-timeline-detail__hero-copy" },
-                h("span", null, "Timeline"),
-                h("h3", null, activeTitle),
-                h("p", { className: "barocco-timeline-detail__hero-subtitle" }, activeSubtitle),
-                h(
-                  "section",
-                  { className: "barocco-timeline-detail__copy barocco-timeline-detail__copy--overlay" },
-                  h("p", null, activeDescription)
-                )
-              )
-            ),
             timelineCompass
           )
-        : [
-            timelineCompass,
-            h("div", { className: "barocco-timeline-detail__header", key: "header" },
-              h("span", null, "Timeline"),
-              h("h3", null, activeTitle),
-              h("p", null, activeSubtitle)
-            ),
-            h("div", { className: "barocco-timeline-detail__body", key: "body" },
-              h(
-                "section",
-                { className: "barocco-timeline-detail__copy" },
-                h("strong", null, "Approfondimento"),
-                h("p", null, activeDescription)
-              )
-            )
-          ]
+        : [timelineCompass]
     )
   );
 }
