@@ -1,6 +1,12 @@
 .barocco-timeline-detail--immersive {
   overflow: visible;
-  padding-bottom: clamp(3.9rem, 6vw, 4.8rem);
+  padding-bottom: 0;
+}
+
+.barocco-timeline-media {
+  position: relative;
+  width: 100%;
+  padding-bottom: clamp(3.9rem, 6vw, 4.7rem);
 }
 
 .barocco-timeline-detail__hero {
@@ -10,14 +16,17 @@
 }
 
 .barocco-timeline-pillnav {
-  position: relative;
+  position: absolute;
+  left: 50%;
+  bottom: clamp(0.95rem, 2vw, 1.25rem);
   z-index: 8;
   width: min(calc(100% - 2rem), 46rem);
-  margin: clamp(-3.35rem, -4.8vw, -2.65rem) auto 0;
+  margin: 0;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
+  transform: translateX(-50%);
   pointer-events: auto;
 }
 
@@ -147,13 +156,13 @@
 }
 
 @media (max-width: 54rem) {
-  .barocco-timeline-detail--immersive {
-    padding-bottom: 4.4rem;
+  .barocco-timeline-media {
+    padding-bottom: 4.3rem;
   }
 
   .barocco-timeline-pillnav {
     width: min(calc(100% - 1.4rem), 34rem);
-    margin-top: -3rem;
+    bottom: 0.85rem;
     gap: 0.5rem;
   }
 
@@ -173,13 +182,13 @@
 }
 
 @media (max-width: 40rem) {
-  .barocco-timeline-detail--immersive {
+  .barocco-timeline-media {
     padding-bottom: 4rem;
   }
 
   .barocco-timeline-pillnav {
     width: calc(100% - 1rem);
-    margin-top: -2.75rem;
+    bottom: 0.7rem;
   }
 
   .barocco-timeline-pillnav__rail {
