@@ -3,7 +3,7 @@ import React from "https://esm.sh/react@18";
 const h = React.createElement;
 
 const conceptAsset = (filename) => new URL(`../assets/${filename}`, import.meta.url).href;
-const featureCardIds = new Set(["celebrazione-potere", "teatri-pubblici"]);
+const featureCardIds = new Set(["celebrazione-potere", "coinvolgimento-fedeli", "teatri-pubblici"]);
 
 const keyConcepts = [
   {
@@ -18,7 +18,10 @@ const keyConcepts = [
   {
     id: "coinvolgimento-fedeli",
     title: "Coinvolgimento dei fedeli",
-    subtitle: "Emozionare per convincere",
+    subtitle: "",
+    image: conceptAsset("barocco-coinvolgimento-fedeli-card-verticale.png"),
+    imageFocus: "50% 100%",
+    imageSize: "contain",
     summary: "La musica sacra usa voci, strumenti e contrasti per rendere il rito più intenso. Aiuta i fedeli a partecipare con emozione."
   },
   {
