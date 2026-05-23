@@ -3,7 +3,7 @@ import React from "https://esm.sh/react@18";
 const h = React.createElement;
 
 const conceptAsset = (filename) => new URL(`../assets/${filename}`, import.meta.url).href;
-const featureCardIds = new Set(["celebrazione-potere", "coinvolgimento-fedeli", "teatri-pubblici"]);
+const featureCardIds = new Set(["celebrazione-potere", "coinvolgimento-fedeli", "teatri-pubblici", "oratori"]);
 
 const keyConcepts = [
   {
@@ -36,7 +36,10 @@ const keyConcepts = [
   {
     id: "oratori",
     title: "Oratori",
-    subtitle: "Racconti sacri in musica",
+    subtitle: "",
+    image: conceptAsset("barocco-oratori-card-verticale.png"),
+    imageFocus: "50% 100%",
+    imageSize: "contain",
     summary: "L’oratorio racconta storie sacre con voci, coro e strumenti. Non c’è scena teatrale: la storia si immagina ascoltando."
   },
   {
