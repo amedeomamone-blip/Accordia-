@@ -11,7 +11,7 @@ const keyConcepts = [
     subtitle: "",
     image: conceptAsset("barocco-celebrazione-potere-card-verticale.png"),
     imageFocus: "50% 100%",
-    imageSize: "100% auto",
+    imageSize: "contain",
     summary: "Nelle corti barocche, la musica accompagnava feste, cerimonie e momenti ufficiali, esaltando il prestigio e l’autorità del sovrano."
   },
   {
