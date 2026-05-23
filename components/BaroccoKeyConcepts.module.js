@@ -71,12 +71,6 @@ const keyConcepts = [
     title: "Contrasti sonori",
     subtitle: "Piano, forte, sorpresa",
     summary: "La musica barocca ama gli opposti: piano e forte, solo e tutti, pieno e vuoto, rapido e lento."
-  },
-  {
-    id: "maggiore-espressivita",
-    title: "Maggiore espressività",
-    subtitle: "La musica si intensifica",
-    summary: "La musica vuole colpire l’ascoltatore. Melodie, contrasti e gesti sonori rendono le emozioni più forti."
   }
 ].map((concept, index) => ({
   ...concept,
