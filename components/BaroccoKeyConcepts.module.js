@@ -10,7 +10,8 @@ const keyConcepts = [
     title: "La musica al servizio del potere",
     subtitle: "",
     image: conceptAsset("barocco-celebrazione-potere-card-verticale.png"),
-    imageFocus: "50% 92%",
+    imageFocus: "50% 100%",
+    imageSize: "contain",
     summary: "Nelle corti barocche, la musica accompagnava feste, cerimonie e momenti ufficiali, esaltando il prestigio e l’autorità del sovrano."
   },
   {
@@ -76,7 +77,8 @@ function ConceptCard({ concept }) {
   const cardStyle = concept.image
     ? {
         "--barocco-concept-image": `url("${concept.image}")`,
-        "--barocco-concept-image-position": concept.imageFocus || "center"
+        "--barocco-concept-image-position": concept.imageFocus || "center",
+        "--barocco-concept-image-size": concept.imageSize || "cover"
       }
     : undefined;
 
