@@ -4,7 +4,6 @@ const h = React.createElement;
 
 const conceptAsset = (filename) => new URL(`../assets/${filename}`, import.meta.url).href;
 const featureCardIds = new Set(["celebrazione-potere", "coinvolgimento-fedeli", "teatri-pubblici"]);
-const croppedImageCardIds = new Set(["coinvolgimento-fedeli"]);
 
 const keyConcepts = [
   {
@@ -93,7 +92,7 @@ function ConceptCard({ concept }) {
   return h(
     "article",
     {
-      className: `barocco-key-concepts__concept-card${concept.image ? " has-image" : ""}${featureCardIds.has(concept.id) ? " is-feature-card" : ""}${croppedImageCardIds.has(concept.id) ? " has-cropped-image" : ""}`,
+      className: `barocco-key-concepts__concept-card${concept.image ? " has-image" : ""}${featureCardIds.has(concept.id) ? " is-feature-card" : ""}`,
       style: cardStyle,
       "aria-labelledby": `barocco-key-concept-title-${concept.id}`
     },
