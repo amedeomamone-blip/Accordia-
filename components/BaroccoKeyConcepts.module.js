@@ -3,7 +3,7 @@ import React from "https://esm.sh/react@18";
 const h = React.createElement;
 
 const conceptAsset = (filename) => new URL(`../assets/${filename}`, import.meta.url).href;
-const featureCardIds = new Set(["celebrazione-potere", "coinvolgimento-fedeli", "teatri-pubblici", "oratori", "orchestra-barocca"]);
+const featureCardIds = new Set(["celebrazione-potere", "coinvolgimento-fedeli", "teatri-pubblici", "oratori", "orchestra-barocca", "melodramma"]);
 
 const keyConcepts = [
   {
@@ -54,7 +54,10 @@ const keyConcepts = [
   {
     id: "melodramma",
     title: "Melodramma",
-    subtitle: "Nasce l’opera",
+    subtitle: "",
+    image: conceptAsset("barocco-melodramma-card-verticale.png"),
+    imageFocus: "50% 100%",
+    imageSize: "contain",
     summary: "Nel melodramma musica, parola e teatro lavorano insieme. I personaggi raccontano la storia cantando."
   },
   {
