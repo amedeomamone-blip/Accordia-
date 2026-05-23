@@ -3,7 +3,7 @@ import React from "https://esm.sh/react@18";
 const h = React.createElement;
 
 const conceptAsset = (filename) => new URL(`../assets/${filename}`, import.meta.url).href;
-const featureCardIds = new Set(["celebrazione-potere", "coinvolgimento-fedeli", "teatri-pubblici", "oratori", "orchestra-barocca", "melodramma", "concerto-solista"]);
+const featureCardIds = new Set(["celebrazione-potere", "coinvolgimento-fedeli", "teatri-pubblici", "oratori", "orchestra-barocca", "melodramma", "concerto-solista", "concerto-grosso"]);
 
 const keyConcepts = [
   {
@@ -72,7 +72,10 @@ const keyConcepts = [
   {
     id: "concerto-grosso",
     title: "Concerto grosso",
-    subtitle: "Gruppo e orchestra",
+    subtitle: "",
+    image: conceptAsset("barocco-concerto-grosso-card-verticale.png"),
+    imageFocus: "50% 100%",
+    imageSize: "contain",
     summary: "Un piccolo gruppo di strumenti si alterna all’orchestra. Nascono risposte e contrasti facili da riconoscere."
   },
   {
