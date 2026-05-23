@@ -901,3 +901,296 @@
     line-height: 1.05;
   }
 }
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline__head {
+  justify-items: center;
+  text-align: center;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline__head > div {
+  width: min(100%, 58rem);
+  margin: 0 auto;
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline__eyebrow {
+  width: 100%;
+  margin-inline: auto;
+  color: #c14f40;
+  text-align: center;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline__date {
+  margin: 0.55rem auto 0;
+  color: var(--lesson-muted, #6f6a63);
+  font-size: clamp(1.08rem, 2vw, 1.45rem);
+  font-weight: 680;
+  letter-spacing: 0;
+  line-height: 1.28;
+  text-align: center;
+  text-transform: none;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline__intro {
+  max-width: 52rem;
+  margin: clamp(1rem, 2vw, 1.35rem) auto 0;
+  color: var(--lesson-muted, #6f6a63);
+  font-size: clamp(1rem, 1.35vw, 1.12rem);
+  font-weight: 480;
+  letter-spacing: 0;
+  line-height: 1.72;
+  text-align: center;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-detail__hero-grid,
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-detail__hero-wash {
+  display: none;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-detail--immersive {
+  overflow: visible;
+  padding-bottom: 0;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-media {
+  position: relative;
+  width: 100%;
+  padding-bottom: clamp(3.9rem, 6vw, 4.7rem);
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-detail__hero {
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(0.95rem, 2vw, 1.25rem);
+  z-index: 8;
+  width: auto;
+  max-width: calc(100% - 2rem);
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  justify-content: center;
+  gap: 0.58rem;
+  transform: translateX(-50%);
+  pointer-events: auto;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__rail {
+  position: relative;
+  width: auto;
+  min-width: 0;
+  max-width: calc(100vw - 8rem);
+  padding: 0.5rem 0.72rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(0.34rem, 0.8vw, 0.58rem);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(96, 96, 100, 0.34);
+  box-shadow: 0 0.9rem 2.2rem rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(18px) saturate(1.08);
+  -webkit-backdrop-filter: blur(18px) saturate(1.08);
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__rail::before {
+  display: none;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__item {
+  position: relative;
+  z-index: 1;
+  min-width: 0.66rem;
+  height: 2.38rem;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.9);
+  cursor: pointer;
+  transition:
+    width 260ms ease,
+    min-width 260ms ease,
+    padding 260ms ease,
+    background-color 220ms ease,
+    color 220ms ease,
+    opacity 220ms ease;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__item:hover,
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__item:focus-visible {
+  outline: none;
+  opacity: 1;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__item:focus-visible {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.24);
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__item.is-active {
+  min-width: auto;
+  max-width: min(15rem, 42vw);
+  padding: 0 0.9rem;
+  gap: 0.58rem;
+  justify-content: center;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.94);
+  color: #111111;
+  box-shadow: 0 0.42rem 1.05rem rgba(0, 0, 0, 0.14);
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.84);
+  box-shadow: none;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__year {
+  flex: 0 0 auto;
+  color: #c14f40;
+  font-size: 0.74rem;
+  font-weight: 860;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__title {
+  min-width: 0;
+  overflow: hidden;
+  color: #111111;
+  font-size: 0.84rem;
+  font-weight: 760;
+  letter-spacing: 0;
+  line-height: 1.1;
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__controls {
+  display: contents;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__control {
+  width: 2.38rem;
+  height: 2.38rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 999px;
+  background: rgba(96, 96, 100, 0.34);
+  color: rgba(255, 255, 255, 0.94);
+  font-size: 1.18rem;
+  font-weight: 500;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: 0 0.9rem 2.2rem rgba(0, 0, 0, 0.14);
+  backdrop-filter: blur(18px) saturate(1.08);
+  -webkit-backdrop-filter: blur(18px) saturate(1.08);
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__control:first-child {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__rail {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__control:last-child {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__control:hover,
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__control:focus-visible {
+  outline: none;
+  background: rgba(112, 112, 116, 0.44);
+}
+
+@media (max-width: 54rem) {
+  body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-media {
+    padding-bottom: 4.3rem;
+  }
+
+  body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav {
+    max-width: calc(100% - 1.2rem);
+    bottom: 0.85rem;
+    gap: 0.45rem;
+  }
+
+  body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__rail {
+    max-width: calc(100vw - 6.6rem);
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__rail::-webkit-scrollbar {
+    display: none;
+  }
+
+  body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__item.is-active {
+    max-width: min(13rem, 52vw);
+  }
+}
+
+@media (max-width: 40rem) {
+  body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-media {
+    padding-bottom: 4rem;
+  }
+
+  body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav {
+    max-width: calc(100% - 0.8rem);
+    bottom: 0.7rem;
+    gap: 0.32rem;
+  }
+
+  body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__rail {
+    max-width: calc(100vw - 5.6rem);
+    padding: 0.42rem 0.58rem;
+    gap: 0.38rem;
+  }
+
+  body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__item {
+    height: 2.22rem;
+  }
+
+  body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__item.is-active {
+    max-width: min(11.5rem, 56vw);
+    padding: 0 0.66rem;
+    gap: 0.44rem;
+  }
+
+  body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__year {
+    font-size: 0.66rem;
+  }
+
+  body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__title {
+    font-size: 0.75rem;
+  }
+
+  body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav__control {
+    width: 2.22rem;
+    height: 2.22rem;
+    font-size: 1.05rem;
+  }
+}
