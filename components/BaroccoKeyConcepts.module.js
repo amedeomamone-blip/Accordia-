@@ -3,7 +3,7 @@ import React from "https://esm.sh/react@18";
 const h = React.createElement;
 
 const conceptAsset = (filename) => new URL(`../assets/${filename}`, import.meta.url).href;
-const featureCardIds = new Set(["celebrazione-potere", "coinvolgimento-fedeli", "teatri-pubblici", "oratori", "orchestra-barocca", "melodramma", "concerto-solista", "concerto-grosso"]);
+const featureCardIds = new Set(["celebrazione-potere", "coinvolgimento-fedeli", "teatri-pubblici", "oratori", "orchestra-barocca", "melodramma", "concerto-solista", "concerto-grosso", "contrasti-sonori"]);
 
 const keyConcepts = [
   {
@@ -81,7 +81,10 @@ const keyConcepts = [
   {
     id: "contrasti-sonori",
     title: "Contrasti sonori",
-    subtitle: "Piano, forte, sorpresa",
+    subtitle: "",
+    image: conceptAsset("barocco-contrasti-sonori-card-verticale.png"),
+    imageFocus: "50% 100%",
+    imageSize: "contain",
     summary: "La musica barocca ama gli opposti: piano e forte, solo e tutti, pieno e vuoto, rapido e lento."
   }
 ].map((concept, index) => ({
