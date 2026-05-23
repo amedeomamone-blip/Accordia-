@@ -3,7 +3,7 @@ import React from "https://esm.sh/react@18";
 const h = React.createElement;
 
 const conceptAsset = (filename) => new URL(`../assets/${filename}`, import.meta.url).href;
-const featureCardIds = new Set(["celebrazione-potere", "coinvolgimento-fedeli", "teatri-pubblici", "oratori", "orchestra-barocca", "melodramma"]);
+const featureCardIds = new Set(["celebrazione-potere", "coinvolgimento-fedeli", "teatri-pubblici", "oratori", "orchestra-barocca", "melodramma", "concerto-solista"]);
 
 const keyConcepts = [
   {
@@ -63,7 +63,10 @@ const keyConcepts = [
   {
     id: "concerto-solista",
     title: "Concerto solista",
-    subtitle: "Uno strumento in primo piano",
+    subtitle: "",
+    image: conceptAsset("barocco-concerto-solista-card-verticale.png"),
+    imageFocus: "50% 100%",
+    imageSize: "contain",
     summary: "Un solo strumento dialoga con l’orchestra. Il solista può mostrare bravura, energia ed espressività."
   },
   {
