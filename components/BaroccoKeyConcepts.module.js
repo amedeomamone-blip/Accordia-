@@ -3,7 +3,7 @@ import React from "https://esm.sh/react@18";
 const h = React.createElement;
 
 const conceptAsset = (filename) => new URL(`../assets/${filename}`, import.meta.url).href;
-const featureCardIds = new Set(["celebrazione-potere", "coinvolgimento-fedeli", "teatri-pubblici", "oratori"]);
+const featureCardIds = new Set(["celebrazione-potere", "coinvolgimento-fedeli", "teatri-pubblici", "oratori", "orchestra-barocca"]);
 
 const keyConcepts = [
   {
@@ -45,7 +45,10 @@ const keyConcepts = [
   {
     id: "orchestra-barocca",
     title: "Orchestra barocca",
-    subtitle: "Nuovi colori sonori",
+    subtitle: "",
+    image: conceptAsset("barocco-orchestra-barocca-card-verticale.png"),
+    imageFocus: "50% 100%",
+    imageSize: "contain",
     summary: "L’orchestra si arricchisce: archi, basso continuo, clavicembalo e altri strumenti creano colori sonori più vari."
   },
   {
