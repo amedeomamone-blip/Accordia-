@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="../../../../css/barocco-coordinate-responsive.css?v=1779532949">
     <link rel="stylesheet" href="../../../../css/barocco-lesson-layout-final.css?v=1779532949">
     <link rel="stylesheet" href="../../../../css/barocco-editorial-bands.css?v=1779532949">
-    <link rel="stylesheet" href="../../../../css/barocco-key-concepts.css?v=1779532949">
+    <link rel="stylesheet" href="../../../../css/barocco-key-concepts.css?v=20260523-key-concepts-static-large-v2">
     <link rel="stylesheet" href="../../../../css/barocco-typography-unified.css?v=1779532949">
 </head>
 <body data-nav="timeline" data-current-nucleus="barocco">
@@ -93,24 +93,39 @@
     <script type="module">
         import React from "https://esm.sh/react@18";
         import { createRoot } from "https://esm.sh/react-dom@18/client";
-        import BaroccoFirstListening from "../../../../components/BaroccoFirstListening.module.js?v=1779532949";
-        import BaroccoTimeline from "../../../../components/BaroccoTimeline.module.js?v=1779532949";
-        import BaroccoKeyConcepts from "../../../../components/BaroccoKeyConcepts.module.js?v=1779532949";
 
-        const mountNode0 = document.getElementById("barocco-first-listening-root");
-        if (mountNode0) {
-            createRoot(mountNode0).render(React.createElement(BaroccoFirstListening));
+        async function mountLessonBand(mountId, importer) {
+            const mountNode = document.getElementById(mountId);
+            if (!mountNode) return;
+
+            try {
+                const module = await importer();
+                createRoot(mountNode).render(React.createElement(module.default));
+            } catch (error) {
+                console.error(`Errore nel caricamento della fascia ${mountId}`, error);
+                mountNode.innerHTML = `
+                    <section class="lesson-noscript">
+                        <h2>Contenuto temporaneamente non disponibile</h2>
+                        <p>Ricarica la pagina per riprovare.</p>
+                    </section>
+                `;
+            }
         }
 
-        const mountNode1 = document.getElementById("barocco-timeline-root");
-        if (mountNode1) {
-            createRoot(mountNode1).render(React.createElement(BaroccoTimeline));
-        }
+        mountLessonBand(
+            "barocco-first-listening-root",
+            () => import("../../../../components/BaroccoFirstListening.module.js?v=1779532949")
+        );
 
-        const mountNode2 = document.getElementById("barocco-key-concepts-root");
-        if (mountNode2) {
-            createRoot(mountNode2).render(React.createElement(BaroccoKeyConcepts));
-        }
+        mountLessonBand(
+            "barocco-timeline-root",
+            () => import("../../../../components/BaroccoTimeline.module.js?v=1779532949")
+        );
+
+        mountLessonBand(
+            "barocco-key-concepts-root",
+            () => import("../../../../components/BaroccoKeyConcepts.module.js?v=20260523-key-concepts-static-large-v2")
+        );
     </script>
 </body>
 </html>
