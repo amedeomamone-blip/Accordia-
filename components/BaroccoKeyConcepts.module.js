@@ -125,7 +125,7 @@ export default function BaroccoKeyConcepts() {
       h(
         "header",
         { className: "barocco-key-concepts__header" },
-        h("h2", { id: "barocco-key-concepts-title" }, "Concetti chiave")
+        h("h2", { id: "barocco-key-concepts-title" }, "Il Barocco in breve")
       ),
       h(
         "div",
