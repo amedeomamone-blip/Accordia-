@@ -216,7 +216,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
 .barocco-key-concepts__concept-card.is-power-card .barocco-key-concepts__card-image {
   min-height: 100%;
   background-position: var(--barocco-concept-image-position, 50% 100%);
-  background-size: var(--barocco-concept-image-size, 146% auto);
+  background-size: var(--barocco-concept-image-size, auto 106%);
 }
 
 .barocco-key-concepts__concept-card.is-power-card .barocco-key-concepts__card-body {

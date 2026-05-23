@@ -9,9 +9,9 @@ const keyConcepts = [
     id: "celebrazione-potere",
     title: "La musica al servizio del potere",
     subtitle: "",
-    image: conceptAsset("barocco-celebrazione-potere-card-verticale.png"),
-    imageFocus: "52% 100%",
-    imageSize: "146% auto",
+    image: conceptAsset("barocco-celebrazione-potere-card-focus.png"),
+    imageFocus: "50% 100%",
+    imageSize: "auto 106%",
     summary: "Nelle corti barocche, la musica accompagnava feste, cerimonie e momenti ufficiali, esaltando il prestigio e l’autorità del sovrano."
   },
   {
