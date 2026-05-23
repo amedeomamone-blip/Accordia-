@@ -103,7 +103,6 @@ function ConceptCard({ concept }) {
         ? h("span", { className: "barocco-key-concepts__card-fade", "aria-hidden": "true" })
         : null
       )
-    )
   );
 }
 
