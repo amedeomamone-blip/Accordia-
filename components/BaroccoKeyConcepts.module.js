@@ -3,6 +3,7 @@ import React from "https://esm.sh/react@18";
 const h = React.createElement;
 
 const conceptAsset = (filename) => new URL(`../assets/${filename}`, import.meta.url).href;
+const featureCardIds = new Set(["celebrazione-potere", "teatri-pubblici"]);
 
 const keyConcepts = [
   {
@@ -23,7 +24,10 @@ const keyConcepts = [
   {
     id: "teatri-pubblici",
     title: "Teatri pubblici",
-    subtitle: "La musica si apre",
+    subtitle: "",
+    image: conceptAsset("barocco-teatri-pubblici-card-verticale.png"),
+    imageFocus: "50% 100%",
+    imageSize: "contain",
     summary: "Nascono teatri aperti a un pubblico più ampio. L’opera esce dalle corti e diventa uno spettacolo condiviso."
   },
   {
@@ -85,7 +89,7 @@ function ConceptCard({ concept }) {
   return h(
     "article",
     {
-      className: `barocco-key-concepts__concept-card${concept.image ? " has-image" : ""}${concept.id === "celebrazione-potere" ? " is-power-card" : ""}`,
+      className: `barocco-key-concepts__concept-card${concept.image ? " has-image" : ""}${featureCardIds.has(concept.id) ? " is-feature-card" : ""}`,
       style: cardStyle,
       "aria-labelledby": `barocco-key-concept-title-${concept.id}`
     },
