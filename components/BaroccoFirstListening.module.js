@@ -234,6 +234,24 @@ const listeningItems = [
         options: ["Improvvisazione jazzistica", "Semplicita estrema", "Contrasto ed energia", "Totale assenza di ripetizioni"],
         correct: 2,
         explanation: "Il brano mostra bene il gusto barocco per movimento, teatralita, forza espressiva e contrasti sonori."
+      },
+      {
+        question: "Che effetto produce la ripetizione del ritmo durante il brano?",
+        options: ["Rende l'ascolto instabile e confuso", "Cancella la sensazione di movimento", "Crea slancio, ordine e riconoscibilita", "Fa sparire completamente la melodia"],
+        correct: 2,
+        explanation: "La ripetizione ritmica aiuta a dare coesione al brano e rende subito percepibile la sua energia."
+      },
+      {
+        question: "Quale parola descrive meglio il carattere generale di questo ascolto?",
+        options: ["Teatrale", "Spento", "Uniforme", "Astratto"],
+        correct: 0,
+        explanation: "Il brano ha un carattere scenico e dinamico, molto vicino al gusto teatrale dell'epoca barocca."
+      },
+      {
+        question: "Ascoltando Les Sauvages, la musica sembra soprattutto voler...",
+        options: ["restare immobile e contemplativa", "trasmettere gesto, movimento e presenza scenica", "evitare ogni accento marcato", "scomparire dietro il silenzio"],
+        correct: 1,
+        explanation: "Il brano comunica chiaramente gesto, vitalita e presenza, come se accompagnasse una scena in movimento."
       }
     ]
   },
@@ -264,6 +282,24 @@ const listeningItems = [
         options: ["Contrasto e drammaticita", "Assenza di ritmo", "Uniformita espressiva", "Semplicita senza tensione"],
         correct: 0,
         explanation: "L'ascolto e un esempio molto efficace del gusto barocco per contrasto, sorpresa e intensita espressiva."
+      },
+      {
+        question: "Che cosa sembra descrivere la musica di Vivaldi in questo ascolto?",
+        options: ["Un paesaggio immobile", "Una scena naturale violenta", "Una conversazione tranquilla", "Una ninna nanna"],
+        correct: 1,
+        explanation: "La scrittura musicale suggerisce una tempesta: vento, agitazione e forza improvvisa della natura."
+      },
+      {
+        question: "Il ruolo del violino solista in questo brano e soprattutto quello di...",
+        options: ["restare sempre in secondo piano", "imitare la voce di un coro", "guidare con passaggi rapidi e virtuosistici", "suonare accordi lenti e statici"],
+        correct: 2,
+        explanation: "Nel concerto barocco il solista emerge con passaggi brillanti e veloci che guidano l'ascolto."
+      },
+      {
+        question: "Perche questo brano e utile per capire il linguaggio barocco?",
+        options: ["Perche elimina del tutto il contrasto", "Perche usa una sola dinamica dall'inizio alla fine", "Perche trasforma immagini e affetti in suono", "Perche rinuncia al ritmo"],
+        correct: 2,
+        explanation: "Vivaldi mostra bene come il Barocco possa raccontare immagini ed emozioni attraverso ritmo, gesto e colore sonoro."
       }
     ]
   },
@@ -294,6 +330,24 @@ const listeningItems = [
         options: ["Lentezza estrema", "Virtuosismo e controllo tecnico", "Improvvisazione senza regole", "Assenza di pulsazione"],
         correct: 1,
         explanation: "La velocita delle figurazioni richiede grande precisione, controllo del suono e sicurezza ritmica."
+      },
+      {
+        question: "Come si puo descrivere il rapporto tra flauto e archi in questo ascolto?",
+        options: ["Un dialogo rapido e ben coordinato", "Una totale assenza di contatto", "Un contrasto tra coro e orchestra", "Un accompagnamento senza ritmo"],
+        correct: 0,
+        explanation: "Il flauto dialoga con gli archi in modo serrato e preciso, creando una trama agile e brillante."
+      },
+      {
+        question: "Quale sensazione lascia soprattutto la pulsazione del brano?",
+        options: ["Elasticita controllata e continuita", "Pesantezza e lentezza", "Sospensione senza battito", "Disordine casuale"],
+        correct: 0,
+        explanation: "La pulsazione resta viva e continua, sostenendo il virtuosismo senza perdere chiarezza."
+      },
+      {
+        question: "Che cosa rende tipicamente barocco questo brano di Bach?",
+        options: ["La ricerca di effetti elettronici", "La scrittura brillante e ornata", "La rinuncia al contrappunto", "La semplicita quasi infantile"],
+        correct: 1,
+        explanation: "La Badinerie unisce leggerezza, precisione e scrittura ornamentale, elementi molto riconoscibili del Barocco."
       }
     ]
   }
