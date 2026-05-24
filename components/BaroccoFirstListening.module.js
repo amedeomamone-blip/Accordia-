@@ -70,11 +70,11 @@ function drawCurve(ctx, points, color, lineWidth) {
 
 function buildConstellation() {
   const result = [];
-  const latitudes = [-78, -72, -66, -60, -54, -48, -42, -36, -30, -24, -18, -12, -6, 0, 6, 12, 18, 24, 30, 36, 42, 48, 54, 60, 66, 72, 78];
+  const latitudes = [-78, -66, -54, -42, -30, -18, -6, 6, 18, 30, 42, 54, 66, 78];
 
   latitudes.forEach((latitude, latIndex) => {
     const latitudeWeight = Math.cos(latitude * DEG);
-    const count = Math.round(11 + latitudeWeight * 29);
+    const count = Math.round(9 + latitudeWeight * 23);
     const stagger = latIndex % 2 === 0 ? 0 : 180 / count;
 
     for (let index = 0; index < count; index += 1) {
@@ -168,11 +168,13 @@ function drawDots(ctx, metrics, rotation, time) {
     const breathing = Math.sin(time * dot.twinkleSpeed + dot.shimmer + index * 0.031);
     const quickSpark = Math.pow(0.5 + 0.5 * Math.sin(time * (dot.twinkleSpeed * 2.9) + dot.shimmer * 1.73), 5.2);
     const broadFlicker = Math.pow(0.5 + 0.5 * Math.sin(time * (dot.twinkleSpeed * 1.35) + dot.shimmer * 0.93 + index * 0.021), 1.45);
+    const strobeGate = Math.sin(time * (dot.twinkleSpeed * 5.8) + dot.shimmer * 2.4 + index * 0.047) > 0.84 ? 1 : 0;
     const slowTide = 0.5 + 0.5 * Math.sin(time * 0.006 + dot.shimmer * 0.57 + rotation.y);
-    const dynamicPulse = 0.72 + broadFlicker * dot.flickerDepth + breathing * 0.16 + rotationalFlux * 0.045 + quickSpark * dot.flare * 0.26;
+    const dynamicPulse = 0.72 + broadFlicker * dot.flickerDepth + breathing * 0.16 + rotationalFlux * 0.045 + quickSpark * dot.flare * 0.26 + strobeGate * 0.22;
 
     let size = 0.32 + centerFactor * 2.24 + depthFactor * 0.88 + dot.baseVariance * 0.28;
     size += (broadFlicker * 0.18 + quickSpark * dot.flare * 0.28) * (0.42 + centerFactor * 0.52);
+    size += strobeGate * 0.18;
     if (rotated.z < -0.45) size *= 0.76;
     else if (rotated.z < -0.15) size *= 0.88;
     size = clamp(size, 0.24, 4.18);
@@ -182,6 +184,7 @@ function drawDots(ctx, metrics, rotation, time) {
     else if (rotated.z < -0.25) alpha *= 0.34;
     else if (rotated.z < 0.02) alpha *= 0.68;
     alpha *= dynamicPulse + slowTide * 0.08;
+    alpha *= 0.9 + strobeGate * 0.28;
     alpha = clamp(alpha, 0.012, 0.96);
 
     const paletteMotion = clamp(0.52 + dot.paletteShift * 0.34 + rotationalFlux * 0.24 + breathing * 0.18, 0, 1);
@@ -502,7 +505,6 @@ export default function BaroccoFirstListening() {
 
       ctx.clearRect(0, 0, metrics.width, metrics.height);
       drawSphereEnvelope(ctx, metrics);
-      drawGrid(ctx, metrics, rotation);
       drawDots(ctx, metrics, rotation, time);
 
       listeningItems.forEach((item) => {
