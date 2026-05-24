@@ -3158,6 +3158,9 @@ def customize_barocco_context_lesson() -> None:
             "immersive_stylesheets": [
                 "../../../../css/lesson-immersive.css",
                 "../../../../css/lesson-readability.css",
+                "../../../../css/barocco-musical-globe.css",
+                "../../../../css/barocco-musical-globe-orbits.css",
+                "../../../../css/barocco-musical-globe-clean.css",
                 "../../../../css/barocco-first-listening.css",
                 "../../../../css/barocco-timeline.css",
                 "../../../../css/barocco-coordinate-responsive.css",
