@@ -374,7 +374,6 @@ function QuestionCard({ itemId, question, index, selectedIndex, onChoose }) {
             h("strong", null, isCorrect ? "Risposta corretta" : "Riprova"),
             h("p", null, isCorrect ? question.explanation : "Questa non e la risposta giusta. Riascolta il brano e prova a confrontare meglio gli indizi sonori.")
           )
-        )
         : null
     )
   );
