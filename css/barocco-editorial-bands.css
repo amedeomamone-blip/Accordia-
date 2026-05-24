@@ -5,7 +5,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .lesson-mount {
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .lesson-mount {
   display: block;
-  padding-bottom: clamp(2.4rem, 5vw, 4.5rem);
+  padding-bottom: 0;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail__track::before {
@@ -80,7 +80,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening,
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline,
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts,
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-musical-globe {
-  min-height: clamp(32rem, 72vh, 48rem);
+  min-height: clamp(44.5rem, calc(72vh + 12.5rem), 60.5rem);
   display: grid;
   align-content: center;
   padding: clamp(3.8rem, 6.8vw, 6.2rem) max(1rem, calc((100vw - 72rem) / 2));

@@ -478,7 +478,7 @@ export default function BaroccoFirstListening() {
         height,
         cx: width / 2,
         cy: height / 2,
-        radius: Math.min(width, height) * 0.35,
+        radius: Math.min(width, height) * 0.39,
         dpr
       };
     }
