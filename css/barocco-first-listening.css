@@ -1,620 +1,536 @@
 .barocco-listening {
-  position: relative;
-  z-index: 0;
-  isolation: isolate;
-  box-sizing: border-box;
+  --barocco-ink: #18191b;
+  --barocco-muted: #6f6a63;
+  --barocco-surface: #ffffff;
+  --barocco-band: #f7f7f8;
+  --barocco-accent: #c14f40;
+  --barocco-track-pad-start: clamp(7.5rem, 12vw, 11rem);
+  --barocco-track-pad-end: clamp(1rem, 2vw, 1.4rem);
   width: 100%;
-  max-width: none;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: #ffffff;
-  box-shadow: none;
+  max-width: 100%;
+  margin: clamp(1.6rem, 3vw, 2.4rem) 0 0;
+  padding: clamp(3rem, 6vw, 4.8rem) 0;
+  background: var(--barocco-band);
+  overflow-x: visible;
 }
 
 .barocco-listening,
-.barocco-listening * {
+.barocco-listening *,
+.barocco-listening *::before,
+.barocco-listening *::after {
   box-sizing: border-box;
 }
 
+.barocco-listening__inner {
+  width: min(calc(100% - 1.4rem), 124rem);
+  max-width: 124rem;
+  margin: 0 auto;
+}
+
 .barocco-listening__head {
-  width: min(100% - 2rem, 72rem);
-  margin: 0 auto clamp(2.25rem, 4vw, 3.5rem);
-  padding: 0;
-  border: 0;
+  width: min(100%, 58rem);
+  margin: 0 auto clamp(1.85rem, 3vw, 2.4rem);
+  display: grid;
+  justify-items: center;
+  gap: 0;
   text-align: center;
 }
 
-.barocco-listening h2,
-.barocco-listening h3 {
+.barocco-listening__eyebrow {
+  margin: 0 0 0.35rem;
+  color: var(--barocco-accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  line-height: normal;
+  text-transform: uppercase;
+}
+
+.barocco-listening__head h2 {
   margin: 0;
-  color: var(--lesson-text);
-  letter-spacing: -0.055em;
-}
-
-.barocco-listening h2 {
-  font-size: clamp(3rem, 6.2vw, 5.35rem);
-  font-weight: 800;
-  line-height: 0.94;
-}
-
-.barocco-listening__subtitle {
-  width: fit-content;
-  max-width: 100%;
-  margin: 0.9rem auto 0;
-  color: var(--lesson-text);
-  font-size: clamp(1.2rem, 2vw, 1.58rem);
+  color: #111111;
+  font-size: clamp(1.7rem, 3vw, 2.45rem);
   font-weight: 760;
-  line-height: 1.3;
-  letter-spacing: -0.028em;
+  line-height: 0.98;
+  letter-spacing: 0;
+  text-wrap: balance;
+}
+
+.barocco-listening__composer {
+  margin: 0.55rem auto 0;
+  color: var(--barocco-muted);
+  font-size: clamp(1.08rem, 2vw, 1.45rem);
+  font-weight: 680;
+  line-height: 1.28;
 }
 
 .barocco-listening__intro {
-  width: min(100%, 54rem);
-  margin: 0.82rem auto 0;
-  color: var(--lesson-muted);
-  font-size: clamp(1rem, 1.35vw, 1.14rem);
-  font-weight: 610;
-  line-height: 1.62;
-  letter-spacing: -0.01em;
+  max-width: 52rem;
+  margin: clamp(1rem, 2vw, 1.35rem) auto 0;
+  color: var(--barocco-muted);
+  font-size: clamp(1rem, 1.35vw, 1.12rem);
+  font-weight: 480;
+  line-height: 1.72;
+  letter-spacing: 0;
+  text-align: center;
+  text-wrap: pretty;
 }
 
-.barocco-listening-carousel {
-  position: relative;
-  width: 100%;
-  margin: 0;
-  overflow-x: hidden;
-  overflow-y: visible;
-  scroll-snap-type: none;
-  scroll-padding-inline: 0;
-  scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-  border-top: 1px solid rgba(255, 255, 255, 0.12);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  background:
-    radial-gradient(circle at 16% 12%, rgba(193, 79, 64, 0.24), transparent 30rem),
-    linear-gradient(135deg, #141414 0%, #23201d 46%, #111113 100%);
-}
-
-.barocco-listening-carousel::-webkit-scrollbar {
-  display: none;
-}
-
-.barocco-listening-carousel__viewport {
-  position: relative;
-  width: min(100%, 118rem);
-  min-width: 0;
-  max-width: none;
+.barocco-listening__stage {
+  width: min(calc(100% - 1.4rem), 72rem);
   margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  align-items: center;
-  justify-content: center;
-  gap: clamp(0.72rem, 1.4vw, 1.15rem);
-  padding: clamp(1rem, 2.2vw, 1.65rem) clamp(0.8rem, 2vw, 1.6rem);
+}
+
+.barocco-listening__globe-wrap {
+  position: relative;
+  min-height: clamp(32rem, 60vw, 44rem);
+  display: block;
   overflow: visible;
 }
 
-.barocco-listening-card {
+.barocco-listening__globe-ring,
+.barocco-listening__globe-axis,
+.barocco-listening__globe-core {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+}
+
+.barocco-listening__globe-ring {
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.barocco-listening__globe-ring--outer {
+  width: min(28rem, 58vw);
+  height: min(28rem, 58vw);
+  border: 1px solid rgba(193, 79, 64, 0.16);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.55),
+    0 28px 60px rgba(115, 52, 40, 0.08);
+}
+
+.barocco-listening__globe-ring--inner {
+  width: min(18rem, 38vw);
+  height: min(18rem, 38vw);
+  border: 1px dashed rgba(193, 79, 64, 0.18);
+}
+
+.barocco-listening__globe-axis {
+  border-radius: 999px;
+  pointer-events: none;
+}
+
+.barocco-listening__globe-axis--horizontal {
+  width: min(34rem, 72vw);
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(193, 79, 64, 0.2), transparent);
+}
+
+.barocco-listening__globe-axis--vertical {
+  width: 1px;
+  height: min(28rem, 58vw);
+  background: linear-gradient(180deg, transparent, rgba(193, 79, 64, 0.18), transparent);
+}
+
+.barocco-listening__globe-core {
+  z-index: 2;
+  width: clamp(8.5rem, 14vw, 10.5rem);
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 0.18rem;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 50% 38%, rgba(255, 255, 255, 0.98) 0%, rgba(250, 239, 233, 0.96) 58%, rgba(242, 220, 213, 0.92) 100%);
+  border: 1px solid rgba(193, 79, 64, 0.2);
+  box-shadow: 0 24px 44px rgba(115, 52, 40, 0.13);
+  text-align: center;
+}
+
+.barocco-listening__globe-core span,
+.barocco-listening__globe-core strong {
+  display: block;
+  color: #8f3c31;
+  text-transform: uppercase;
+}
+
+.barocco-listening__globe-core span {
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+
+.barocco-listening__globe-core strong {
+  font-size: 0.95rem;
+  font-weight: 760;
+  letter-spacing: 0.08em;
+}
+
+.barocco-listening__orbit {
+  --orbit-tilt: 0deg;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  border: 1px solid rgba(193, 79, 64, 0.14);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: barocco-listening-orbit-spin var(--orbit-duration) linear infinite;
+}
+
+.barocco-listening__orbit--1 {
+  --orbit-duration: 32s;
+  --orbit-tilt: 0deg;
+  width: min(34rem, 72vw);
+  height: min(17.5rem, 38vw);
+}
+
+.barocco-listening__orbit--2 {
+  --orbit-duration: 26s;
+  --orbit-tilt: 90deg;
+  width: min(20rem, 44vw);
+  height: min(28rem, 58vw);
+}
+
+.barocco-listening__orbit--3 {
+  --orbit-duration: 36s;
+  --orbit-tilt: -18deg;
+  width: min(28rem, 60vw);
+  height: min(28rem, 60vw);
+}
+
+.barocco-listening__preview {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  translate: -50% -42%;
+  width: clamp(11rem, 17vw, 14rem);
+  display: grid;
+  gap: 0.72rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  pointer-events: auto;
+  animation: barocco-listening-orbit-counterspin var(--orbit-duration) linear infinite;
+}
+
+.barocco-listening__preview:focus-visible {
+  outline: none;
+}
+
+.barocco-listening__preview-media {
   position: relative;
-  width: 100%;
-  min-width: 0;
   aspect-ratio: 16 / 9;
   display: block;
-  padding: 0;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  border-radius: clamp(0.9rem, 1.2vw, 1.25rem);
-  background: #111113;
-  box-shadow: 0 1.05rem 2.4rem rgba(0, 0, 0, 0.26);
-  cursor: pointer;
-  scroll-snap-align: none;
-  transition:
-    transform 260ms ease,
-    opacity 260ms ease,
-    box-shadow 260ms ease,
-    filter 260ms ease;
-}
-
-.barocco-listening-card:not(.is-active) {
-  opacity: 0.78;
-  filter: saturate(0.86) contrast(0.96);
-}
-
-.barocco-listening-card.is-active {
-  opacity: 1;
-  transform: translateY(-0.28rem);
-  filter: none;
-  border-color: rgba(255, 244, 232, 0.72);
-  box-shadow:
-    0 1.35rem 2.8rem rgba(0, 0, 0, 0.36),
-    0 0 0 1px rgba(193, 79, 64, 0.42);
-}
-
-.barocco-listening-card:hover,
-.barocco-listening-card:focus-visible {
-  opacity: 1;
-  outline: none;
-  transform: translateY(-0.2rem);
-}
-
-.barocco-listening-card:focus-visible {
-  box-shadow: 0 0 0 3px rgba(193, 79, 64, 0.24), 0 1.35rem 2.8rem rgba(17, 17, 17, 0.1);
-}
-
-.barocco-listening-card__media,
-.barocco-listening-card__thumb {
-  position: absolute;
-  inset: 0;
-  display: block;
-}
-
-.barocco-listening-card__media iframe {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  border: 0;
-}
-
-.barocco-listening-card__thumb {
+  border-radius: 1.25rem;
   background:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.02) 0%, rgba(0, 0, 0, 0.2) 100%),
-    var(--listening-thumb) center / cover;
+    linear-gradient(180deg, rgba(17, 17, 17, 0.08) 0%, rgba(17, 17, 17, 0.3) 100%),
+    var(--barocco-preview-image) center / cover;
+  box-shadow: 0 18px 36px rgba(24, 25, 27, 0.12);
+  transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
-.barocco-listening-card__caption {
+.barocco-listening__preview-play {
   position: absolute;
-  top: clamp(0.72rem, 1.35vw, 1rem);
-  left: clamp(0.72rem, 1.35vw, 1rem);
-  z-index: 2;
-  width: min(72%, 22rem);
-  display: grid;
-  gap: 0.18rem;
-  padding: 0.72rem 0.82rem;
-  border: 1px solid rgba(255, 255, 255, 0.28);
-  border-radius: 1rem;
-  background: rgba(24, 21, 18, 0.36);
-  box-shadow: 0 0.8rem 1.8rem rgba(12, 9, 7, 0.12);
-  color: #fffaf5;
-  pointer-events: none;
-  text-shadow: 0 0.18rem 0.72rem rgba(10, 7, 5, 0.32);
-  backdrop-filter: blur(13px) saturate(1.1);
-  -webkit-backdrop-filter: blur(13px) saturate(1.1);
-}
-
-.barocco-listening-card__thumb::after {
-  content: "";
-  position: absolute;
-  inset: 50% auto auto 50%;
-  width: clamp(3rem, 5vw, 4.4rem);
+  inset: auto auto 0.9rem 0.9rem;
+  width: 2.7rem;
   aspect-ratio: 1;
-  transform: translate(-50%, -50%);
-  border-radius: 999px;
-  background:
-    linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(255, 244, 232, 0.78));
-  box-shadow: 0 0.75rem 2.2rem rgba(0, 0, 0, 0.32);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 10px 18px rgba(24, 25, 27, 0.16);
 }
 
-.barocco-listening-card__thumb::before {
+.barocco-listening__preview-play::before {
   content: "";
   position: absolute;
-  inset: 50% auto auto 50%;
-  z-index: 1;
+  top: 50%;
+  left: 50%;
+  translate: -38% -50%;
   width: 0;
   height: 0;
-  transform: translate(-36%, -50%);
-  border-top: clamp(0.48rem, 0.8vw, 0.68rem) solid transparent;
-  border-bottom: clamp(0.48rem, 0.8vw, 0.68rem) solid transparent;
-  border-left: clamp(0.82rem, 1.25vw, 1.08rem) solid #c14f40;
+  border-top: 0.45rem solid transparent;
+  border-bottom: 0.45rem solid transparent;
+  border-left: 0.72rem solid var(--barocco-accent);
 }
 
-.barocco-listening-card__eyebrow {
-  display: block;
-  color: rgba(255, 248, 241, 0.78);
-  font-size: clamp(0.66rem, 0.95vw, 0.78rem);
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-}
-
-.barocco-listening-card__caption strong {
-  display: block;
-  color: #fffdf9;
-  font-size: clamp(1.05rem, 1.55vw, 1.34rem);
-  font-weight: 760;
-  line-height: 1.04;
-  letter-spacing: -0.035em;
-}
-
-.barocco-listening-card__caption em {
-  display: block;
-  color: rgba(255, 248, 241, 0.86);
-  font-size: clamp(0.78rem, 1vw, 0.92rem);
-  font-style: normal;
-  font-weight: 650;
-  line-height: 1.18;
-}
-
-.barocco-listening-quiz {
-  width: min(100% - 2rem, 72rem);
-  margin: clamp(2.1rem, 4vw, 3.4rem) auto 0;
-  padding: clamp(1.25rem, 2.6vw, 2rem);
-  border: 1px solid rgba(17, 17, 17, 0.09);
-  border-radius: clamp(1.35rem, 2vw, 1.8rem);
-  background: #ffffff;
-  box-shadow: 0 1.2rem 3.2rem rgba(17, 17, 17, 0.06);
-}
-
-.barocco-listening-quiz__header {
+.barocco-listening__preview-copy {
   display: grid;
-  justify-items: center;
-  gap: 0.32rem;
-  margin-bottom: clamp(2.2rem, 3.8vw, 3.2rem);
-  padding-bottom: 1rem;
-  border-bottom: 1px solid rgba(17, 17, 17, 0.08);
+  gap: 0.2rem;
+  padding: 0 0.25rem;
   text-align: center;
 }
 
-.barocco-listening-quiz__header span {
-  color: #c14f40;
-  font-size: 0.66rem;
-  font-weight: 800;
-  letter-spacing: 0.18em;
+.barocco-listening__preview-kicker {
+  color: rgba(193, 79, 64, 0.92);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
   line-height: 1;
   text-transform: uppercase;
 }
 
-.barocco-listening-quiz__header strong {
-  width: min(100%, 52rem);
-  margin-inline: auto;
-  color: var(--lesson-text);
-  font-size: clamp(1.24rem, 2.2vw, 1.85rem);
-  font-weight: 800;
-  line-height: 1;
-  letter-spacing: -0.045em;
-  text-align: center;
+.barocco-listening__preview-copy strong {
+  color: var(--barocco-ink);
+  font-family: var(--font-display);
+  font-size: clamp(1rem, 1.3vw, 1.14rem);
+  font-weight: 700;
+  line-height: 1.02;
+  letter-spacing: 0;
+  text-wrap: balance;
 }
 
-.barocco-listening-quiz__progress,
-.barocco-listening-carousel__controls,
-.barocco-listening-carousel__hint,
-.barocco-listening-card__select {
+.barocco-listening__preview-copy em {
+  color: var(--barocco-muted);
+  font-size: 0.88rem;
+  font-style: normal;
+  font-weight: 520;
+  line-height: 1.42;
+}
+
+.barocco-listening__preview:hover .barocco-listening__preview-media,
+.barocco-listening__preview:focus-visible .barocco-listening__preview-media,
+.barocco-listening__preview.is-active .barocco-listening__preview-media {
+  transform: translateY(-3px);
+  box-shadow: 0 24px 44px rgba(24, 25, 27, 0.16);
+}
+
+.barocco-listening__preview.is-active .barocco-listening__preview-media {
+  box-shadow:
+    0 0 0 3px rgba(193, 79, 64, 0.12),
+    0 24px 44px rgba(24, 25, 27, 0.18);
+}
+
+.barocco-listening__questions-track {
+  width: auto;
+  min-width: 0;
+  max-width: none;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: clamp(21.5rem, 33vw, 26rem);
+  gap: clamp(1.15rem, 2vw, 1.45rem);
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-inline: contain;
+  margin-top: clamp(1.4rem, 3vw, 2rem);
+  margin-right: calc(50% - 50vw);
+  padding: 0 var(--barocco-track-pad-end) 0 var(--barocco-track-pad-start);
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+  scrollbar-color: transparent transparent;
+}
+
+.barocco-listening__questions-track::-webkit-scrollbar {
   display: none;
 }
 
-.barocco-listening-quiz__question {
-  max-width: 48rem;
-  margin: 0.35rem auto clamp(2.7rem, 4.4vw, 3.75rem);
-  font-size: clamp(1.18rem, 2vw, 1.58rem);
-  font-weight: 800;
-  line-height: 1.16;
-  letter-spacing: -0.045em;
-  text-align: center;
-}
-
-.barocco-listening-options {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.75rem;
-}
-
-.barocco-listening-option {
-  width: 100%;
-  min-height: 4.2rem;
-  padding: 0.95rem 1rem;
-  border: 1px solid rgba(17, 17, 17, 0.10);
-  border-radius: 1.1rem;
-  background: #ffffff;
-  color: var(--lesson-text);
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  font: inherit;
-  text-align: left;
-  cursor: pointer;
-  transition:
-    border-color 220ms ease,
-    background-color 220ms ease,
-    transform 220ms ease;
-}
-
-.barocco-listening-option:hover,
-.barocco-listening-option:focus-visible {
-  border-color: rgba(193, 79, 64, 0.38);
-  outline: none;
-}
-
-.barocco-listening-option:not(:disabled):hover {
-  transform: translateY(-1px);
-}
-
-.barocco-listening-option:disabled {
-  cursor: default;
-}
-
-.barocco-listening-option.is-correct {
-  border-color: rgba(47, 143, 91, 0.55);
-  background: #e9f7ee;
-  color: #195c37;
-}
-
-.barocco-listening-option.is-wrong {
-  border-color: rgba(193, 79, 64, 0.40);
-  background: #fff1ee;
-  color: #8d2e24;
-}
-
-.barocco-listening-option__layout {
+.barocco-listening__question-slot {
+  min-width: 0;
   display: flex;
-  align-items: flex-start;
-  gap: 0.75rem;
+  scroll-snap-align: start;
 }
 
-.barocco-listening-option__letter {
-  flex: 0 0 auto;
-  display: grid;
-  place-items: center;
-  width: 1.6rem;
-  height: 1.6rem;
-  margin-top: 0.02rem;
-  border-radius: 999px;
-  background: rgba(193, 79, 64, 0.1);
-  color: #c14f40;
-  font-size: 0.68rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
-}
-
-.barocco-listening-option.is-correct .barocco-listening-option__letter {
-  background: #2f8f5b;
-  color: #fff;
-}
-
-.barocco-listening-option.is-wrong .barocco-listening-option__letter {
-  background: #c14f40;
-  color: #fff;
-}
-
-.barocco-listening-option__text {
-  color: inherit;
-  font-size: 0.92rem;
-  font-weight: 650;
-  line-height: 1.38;
-}
-
-.barocco-listening-result {
-  margin-top: 1rem;
-  padding: 1rem 1.1rem;
-  border: 1px solid rgba(17, 17, 17, 0.09);
-  border-radius: 1rem;
-  background: #f7f5ef;
-  transition: all 300ms ease;
-}
-
-.barocco-listening-result.is-correct {
-  border-color: rgba(47, 143, 91, 0.35);
-  background: #e9f7ee;
-  color: #195c37;
-}
-
-.barocco-listening-result.is-wrong {
-  border-color: rgba(193, 79, 64, 0.35);
-  background: #fff1ee;
-  color: #8d2e24;
-}
-
-.barocco-listening-result > span,
-.barocco-listening-result > strong {
-  display: inline-block;
+.barocco-listening__question-card {
   width: 100%;
-  color: inherit;
-  font-size: 0.68rem;
-  font-weight: 800;
+  min-width: 0;
+  display: flex;
+}
+
+.barocco-listening__question-card-body {
+  width: 100%;
+  min-height: clamp(18rem, 28vw, 20.5rem);
+  display: grid;
+  align-content: start;
+  gap: 0.72rem;
+  padding: 1.6rem 1.7rem 1.4rem;
+  border: 0;
+  border-radius: 1.5rem;
+  background: var(--barocco-surface);
+  box-shadow: 0 10px 28px rgba(15, 23, 42, 0.045);
+}
+
+.barocco-listening__question-kicker {
+  margin: 0;
+  color: var(--barocco-accent);
+  font-size: 0.72rem;
+  font-weight: 700;
   letter-spacing: 0.18em;
-  text-align: center;
+  line-height: 1;
   text-transform: uppercase;
 }
 
-.barocco-listening-result h3 {
-  width: min(100%, 48rem);
-  margin: 0.42rem auto 0;
-  font-size: clamp(1.5rem, 2.7vw, 2rem);
-  font-weight: 800;
+.barocco-listening__question-card h3 {
+  margin: 0;
+  color: var(--barocco-ink);
+  font-family: var(--font-display);
+  font-size: clamp(1.22rem, 1.5vw, 1.54rem);
+  font-weight: 700;
   line-height: 0.98;
-  letter-spacing: -0.05em;
-  text-align: center;
+  letter-spacing: 0;
+  text-wrap: balance;
 }
 
-.barocco-listening-result p {
-  width: min(100%, 48rem);
-  margin: 0.72rem auto 0;
-  color: inherit;
-  font-size: 0.92rem;
-  font-weight: 620;
-  line-height: 1.45;
-  text-align: center;
+.barocco-listening__question-copy {
+  margin: 0;
+  color: #2f3440;
+  font-size: 0.96rem;
+  font-weight: 500;
+  line-height: 1.54;
+  text-wrap: pretty;
 }
 
-.barocco-listening-result button {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  min-width: 8.4rem;
-  margin: 1rem auto 0;
-  padding: 0.72rem 1rem;
-  border: 1px solid #c14f40;
-  border-radius: 999px;
-  background: #c14f40;
-  color: #fff8f3;
-  font: inherit;
-  font-size: 0.84rem;
-  font-weight: 800;
-  cursor: pointer;
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-first-listening-root {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: visible !important;
 }
 
-.barocco-listening-result--complete {
-  display: grid;
-  justify-items: center;
-  text-align: center;
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening {
+  width: 100% !important;
+  max-width: 100% !important;
+  overflow-x: visible !important;
+  background: var(--barocco-band) !important;
 }
 
-@media (max-width: 860px) {
-  .barocco-listening h2 {
-    font-size: clamp(2.6rem, 12vw, 4rem);
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__questions-track {
+  width: auto !important;
+  max-width: none !important;
+  padding-left: var(--barocco-track-pad-start) !important;
+  padding-right: var(--barocco-track-pad-end) !important;
+  margin-right: calc(50% - 50vw) !important;
+}
+
+@keyframes barocco-listening-orbit-spin {
+  from {
+    transform: translate(-50%, -50%) rotate(var(--orbit-tilt));
   }
 
-  .barocco-listening-carousel {
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: calc((100vw - min(82vw, 34rem)) / 2);
+  to {
+    transform: translate(-50%, -50%) rotate(calc(var(--orbit-tilt) + 360deg));
+  }
+}
+
+@keyframes barocco-listening-orbit-counterspin {
+  from {
+    transform: translate(-50%, -42%) rotate(0deg);
   }
 
-  .barocco-listening-carousel__viewport {
-    width: max-content;
-    min-width: 100vw;
+  to {
+    transform: translate(-50%, -42%) rotate(-360deg);
+  }
+}
+
+@media (max-width: 72rem) {
+  .barocco-listening__globe-wrap {
+    min-height: clamp(28rem, 70vw, 38rem);
+  }
+
+  .barocco-listening__preview {
+    width: clamp(10rem, 22vw, 12.4rem);
+  }
+}
+
+@media (max-width: 56rem) {
+  .barocco-listening {
+    --barocco-track-pad-start: clamp(1rem, 4vw, 1.35rem);
+    --barocco-track-pad-end: clamp(1rem, 4vw, 1.35rem);
+  }
+
+  .barocco-listening__head {
+    width: min(calc(100% - 2rem), 40rem);
+  }
+
+  .barocco-listening__stage {
+    width: min(calc(100% - 1.4rem), 42rem);
+  }
+
+  .barocco-listening__globe-wrap {
+    min-height: auto;
+    display: grid;
+    gap: 1rem;
+    justify-items: center;
+    padding-top: 0.35rem;
+  }
+
+  .barocco-listening__globe-ring--outer {
+    width: min(17rem, 62vw);
+    height: min(17rem, 62vw);
+  }
+
+  .barocco-listening__globe-ring--inner {
+    width: min(11rem, 40vw);
+    height: min(11rem, 40vw);
+  }
+
+  .barocco-listening__globe-axis--horizontal {
+    width: min(21rem, 76vw);
+  }
+
+  .barocco-listening__globe-axis--vertical {
+    height: min(17rem, 62vw);
+  }
+
+  .barocco-listening__globe-core {
+    position: relative;
+    top: auto;
+    left: auto;
+    translate: none;
+    order: 0;
+    width: 8.4rem;
+  }
+
+  .barocco-listening__orbit {
+    position: relative;
+    top: auto;
+    left: auto;
+    translate: none;
+    width: min(100%, 24rem);
+    height: auto;
+    border: 0;
+    rotate: 0deg;
+    animation: none;
     display: flex;
-    gap: 0.85rem;
-    padding-inline: calc((100vw - min(82vw, 34rem)) / 2);
+    justify-content: center;
   }
 
-  .barocco-listening-card {
-    flex: 0 0 min(82vw, 34rem);
-    flex-basis: min(82vw, 34rem);
-    scroll-snap-align: center;
+  .barocco-listening__preview {
+    position: relative;
+    top: auto;
+    left: auto;
+    translate: none;
+    width: min(100%, 22rem);
+    animation: none;
   }
 
-  .barocco-listening-options {
-    grid-template-columns: 1fr;
+  .barocco-listening__questions-track {
+    grid-auto-columns: minmax(18.5rem, 86vw);
   }
 }
 
-/* Rifinitura Accordia: primi ascolti in sequenza rise/fall */
-.barocco-listening-carousel {
-  padding-block: 0;
-}
+@media (max-width: 40rem) {
+  .barocco-listening {
+    padding: 2.5rem 0;
+  }
 
-.barocco-listening-carousel__viewport {
-  align-items: center !important;
-  gap: clamp(0.72rem, 1.4vw, 1.15rem) !important;
-  padding-top: clamp(1rem, 2.2vw, 1.65rem) !important;
-  padding-bottom: clamp(1rem, 2.2vw, 1.65rem) !important;
-}
+  .barocco-listening__intro {
+    margin-top: 0.9rem;
+    line-height: 1.65;
+  }
 
-.barocco-listening-card {
-  border-radius: clamp(0.9rem, 1.2vw, 1.25rem) !important;
-  border-color: rgba(255, 255, 255, 0.18) !important;
-  background: #111113 !important;
-  box-shadow: 0 0.9rem 2.4rem rgba(0, 0, 0, 0.26) !important;
-  opacity: 0.78 !important;
-  filter: saturate(0.86) contrast(0.96) !important;
-  transform: translateY(0) scale(1) !important;
-  transform-origin: center bottom;
-}
+  .barocco-listening__question-card-body {
+    min-height: 16.5rem;
+    padding: 1.35rem 1.2rem 1.2rem;
+  }
 
-.barocco-listening-card.is-before {
-  transform: translateY(0) rotate(0) scale(1) !important;
-}
+  .barocco-listening__question-card h3 {
+    font-size: 1.16rem;
+  }
 
-.barocco-listening-card.is-after {
-  transform: translateY(0) rotate(0) scale(1) !important;
-}
-
-.barocco-listening-card.is-active {
-  opacity: 1 !important;
-  filter: none !important;
-  transform: translateY(-0.28rem) scale(1) !important;
-  border-color: rgba(255, 244, 232, 0.72) !important;
-  box-shadow:
-    0 1.65rem 3.6rem rgba(0, 0, 0, 0.36),
-    0 0 0 1px rgba(193, 79, 64, 0.42) !important;
-}
-
-.barocco-listening-card:not(.is-active)::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.24)),
-    rgba(255, 255, 255, 0.06);
-  pointer-events: none;
-}
-
-.barocco-listening-card:hover,
-.barocco-listening-card:focus-visible {
-  opacity: 1 !important;
-  filter: saturate(1) contrast(1) !important;
-  transform: translateY(-0.16rem) scale(1) !important;
-}
-
-.barocco-listening-card.is-active:hover,
-.barocco-listening-card.is-active:focus-visible {
-  opacity: 1 !important;
-  transform: translateY(-0.34rem) scale(1) !important;
-}
-
-.barocco-listening-quiz {
-  width: min(100% - 2rem, 64rem) !important;
-  padding: clamp(1.15rem, 2.2vw, 1.7rem) !important;
-  border-color: rgba(17, 17, 17, 0.075) !important;
-  border-radius: clamp(1.45rem, 2vw, 2rem) !important;
-  background: rgba(255, 255, 255, 0.96) !important;
-  box-shadow: 0 0.9rem 2.6rem rgba(17, 17, 17, 0.045) !important;
-}
-
-.barocco-listening-quiz__header span {
-  color: rgba(193, 79, 64, 0.88) !important;
-  font-size: clamp(0.72rem, 0.95vw, 0.82rem) !important;
-  font-weight: 720 !important;
-  letter-spacing: 0.16em !important;
-}
-
-.barocco-listening-quiz__header strong {
-  font-weight: 720 !important;
-  letter-spacing: -0.025em !important;
-  line-height: 1.12 !important;
-}
-
-.barocco-listening-quiz__question {
-  font-weight: 720 !important;
-  letter-spacing: -0.028em !important;
-  line-height: 1.22 !important;
-}
-
-.barocco-listening-option {
-  border-color: rgba(17, 17, 17, 0.075) !important;
-  border-radius: 1.2rem !important;
-  background: #fbfaf7 !important;
-  box-shadow: 0 0.45rem 1.2rem rgba(17, 17, 17, 0.025) !important;
-}
-
-.barocco-listening-option__letter {
-  background: rgba(193, 79, 64, 0.085) !important;
-  font-weight: 720 !important;
-}
-
-.barocco-listening-option__text {
-  font-weight: 560 !important;
-  line-height: 1.48 !important;
-}
-
-.barocco-listening-result > span,
-.barocco-listening-result > strong {
-  font-weight: 720 !important;
-}
-
-.barocco-listening-result h3 {
-  font-weight: 720 !important;
-  letter-spacing: -0.035em !important;
-}
-
-.barocco-listening-result p {
-  font-weight: 560 !important;
-  line-height: 1.52 !important;
-}
-
-.barocco-listening-result button {
-  font-weight: 720 !important;
+  .barocco-listening__question-copy {
+    font-size: 0.94rem;
+  }
 }
