@@ -81,7 +81,7 @@ const timelineItems = [
     category: "Musica",
     description: "Cristofori mette a punto uno strumento capace di variare l’intensità del suono in base al tocco dell’esecutore.",
     insight: "Il fortepiano apre la strada al pianoforte moderno e introduce una nuova gamma di sfumature espressive rispetto al clavicembalo.",
-    visual: { src: "../../../../assets/barocco-fortepiano-fascia-timeline.png?v=20260524a", alt: "Illustrazione panoramica di Bartolomeo Cristofori accanto a un fortepiano aperto nella sua bottega, con schizzi tecnici e strumenti.", position: "center center", origin: "center center", copySide: "left" }
+    visual: { src: "../../../../assets/barocco-fortepiano-fascia-timeline.png?v=20260524b", alt: "Illustrazione panoramica di Bartolomeo Cristofori accanto a un fortepiano aperto nella sua bottega, con schizzi tecnici e strumenti.", position: "center center", origin: "center center", copySide: "left" }
   },
   {
     id: "1715-morte-luigi-xiv",
