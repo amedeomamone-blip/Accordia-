@@ -12,6 +12,7 @@
   --barocco-band-margin-bottom: clamp(0.9rem, 2svh, 1.35rem);
   --barocco-band-padding-y: clamp(1.15rem, 2.4vw, 1.8rem);
   --barocco-band-gap: clamp(0.75rem, 1.8svh, 1.1rem);
+  --barocco-band-frame-height: clamp(32rem, 72vh, 48rem);
   --barocco-track-pad-start: 0rem;
   --barocco-track-pad-end: clamp(1rem, 2vw, 1.4rem);
   width: 100%;
@@ -33,11 +34,16 @@
   width: min(calc(100% - 1.4rem), var(--barocco-shell-width));
   max-width: var(--barocco-shell-width);
   margin: 0 auto;
+  min-height: calc(var(--barocco-band-frame-height) - (var(--barocco-band-padding-y) * 2));
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  align-content: space-between;
+  gap: var(--barocco-band-gap);
 }
 
 .barocco-listening__head {
   width: min(100%, var(--barocco-head-width));
-  margin: 0 auto var(--barocco-band-gap);
+  margin: 0 auto;
   display: grid;
   justify-items: center;
   gap: 0.42rem;
@@ -88,8 +94,9 @@
 }
 
 .barocco-listening__stage {
-  width: min(100%, 60rem);
+  width: min(100%, 52rem);
   margin: 0 auto;
+  align-self: center;
 }
 
 .barocco-listening__stage .barocco-musical-globe__stage-card {
@@ -101,7 +108,7 @@
 }
 
 .barocco-listening__stage .barocco-musical-globe__stage {
-  height: clamp(25rem, 56svh, 37rem);
+  height: clamp(14.5rem, 28svh, 18rem);
   min-height: 0 !important;
   aspect-ratio: auto;
   overflow: visible !important;
@@ -206,9 +213,9 @@
   max-width: none;
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: clamp(18.5rem, 28vw, 22rem);
   gap: clamp(0.85rem, 1.5vw, 1.15rem);
-  margin-top: var(--barocco-band-gap);
+  grid-auto-columns: clamp(16rem, 22vw, 18.25rem);
+  margin-top: 0;
   overflow-x: auto;
   overflow-y: hidden;
   overscroll-behavior-inline: contain;
@@ -236,12 +243,12 @@
 
 .barocco-listening__question-card-body {
   width: 100%;
-  min-height: 22rem;
+  min-height: 13.4rem;
   display: grid;
-  grid-template-rows: minmax(6.4rem, auto) minmax(10.1rem, 1fr) auto;
+  grid-template-rows: minmax(4.6rem, auto) minmax(5.9rem, 1fr) auto;
   align-content: stretch;
-  gap: 0.7rem;
-  padding: 1.18rem 1.25rem 1.1rem;
+  gap: 0.48rem;
+  padding: 1rem 1.06rem 0.92rem;
   border: 0;
   border-radius: 1.5rem;
   background: var(--barocco-card);
@@ -254,7 +261,7 @@
   margin: 0;
   color: var(--barocco-ink);
   font-family: var(--font-display);
-  font-size: clamp(1.08rem, 1.25vw, 1.28rem);
+  font-size: clamp(1rem, 1.08vw, 1.12rem);
   font-weight: 620;
   line-height: 1.08;
   letter-spacing: 0;
@@ -263,15 +270,15 @@
 
 .barocco-listening__options {
   display: grid;
-  gap: 0.46rem;
-  margin-top: 0.12rem;
+  gap: 0.34rem;
+  margin-top: 0;
   align-content: start;
 }
 
 .barocco-listening__option {
   width: 100%;
-  min-height: 3.05rem;
-  padding: 0.56rem 0.68rem;
+  min-height: 2.46rem;
+  padding: 0.46rem 0.58rem;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   gap: 0.74rem;
@@ -299,8 +306,8 @@
 }
 
 .barocco-listening__option-letter {
-  width: 1.54rem;
-  height: 1.54rem;
+  width: 1.38rem;
+  height: 1.38rem;
   display: grid;
   place-items: center;
   border-radius: 999px;
@@ -314,9 +321,9 @@
 .barocco-listening__option-text {
   display: block;
   color: inherit;
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   font-weight: 560;
-  line-height: 1.34;
+  line-height: 1.28;
   text-wrap: pretty;
 }
 
@@ -349,8 +356,8 @@
 .barocco-listening__feedback {
   display: grid;
   gap: 0.32rem;
-  margin-top: 0.08rem;
-  padding: 0.74rem 0.82rem;
+  margin-top: 0.02rem;
+  padding: 0.58rem 0.68rem;
   border-radius: 1rem;
   background: #ffffff;
 }
@@ -382,9 +389,9 @@
 .barocco-listening__feedback p {
   margin: 0;
   color: #2f3440;
-  font-size: 0.86rem;
+  font-size: 0.8rem;
   font-weight: 500;
-  line-height: 1.4;
+  line-height: 1.34;
   text-wrap: pretty;
 }
 
@@ -399,7 +406,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening {
   max-width: 100% !important;
   overflow-x: visible !important;
   background: var(--barocco-band) !important;
-  min-height: auto !important;
+  min-height: var(--barocco-band-frame-height) !important;
   display: block !important;
   margin: var(--barocco-band-margin-top) 0 var(--barocco-band-margin-bottom) !important;
   padding: var(--barocco-band-padding-y) 0 !important;
@@ -461,15 +468,24 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__inn
   max-width: var(--barocco-shell-width) !important;
   margin-left: auto !important;
   margin-right: auto !important;
+  min-height: calc(var(--barocco-band-frame-height) - (var(--barocco-band-padding-y) * 2)) !important;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__head {
   width: min(100%, var(--barocco-head-width)) !important;
   max-width: var(--barocco-head-width) !important;
-  margin: 0 auto var(--barocco-band-gap) !important;
+  margin: 0 auto !important;
   padding: 0 !important;
   justify-items: center !important;
   text-align: center !important;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__stage {
+  width: min(100%, 52rem) !important;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__stage .barocco-musical-globe__stage {
+  height: clamp(14.5rem, 28svh, 18rem) !important;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__head > * {
@@ -507,8 +523,14 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__int
 }
 
 @media (max-width: 56rem) {
+  body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening {
+    min-height: auto !important;
+  }
+
   .barocco-listening__inner {
     width: min(calc(100% - 1.4rem), 44rem);
+    min-height: auto;
+    display: block;
   }
 
   .barocco-listening__head {
