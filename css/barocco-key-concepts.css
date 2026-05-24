@@ -58,12 +58,12 @@
 }
 
 .barocco-key-concepts__eyebrow {
-  margin: 0;
+  margin: 0 0 0.35rem;
   color: #c14f40;
-  font-size: 0.78rem;
+  font-size: 0.72rem;
   font-weight: 700;
-  letter-spacing: 0.16em;
-  line-height: 1;
+  letter-spacing: 0.22em;
+  line-height: normal;
   text-transform: uppercase;
 }
 
@@ -133,6 +133,16 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
   margin-left: 0 !important;
   margin-right: 0 !important;
   text-align: left !important;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__eyebrow {
+  margin-bottom: 0.35rem !important;
+  color: #c14f40 !important;
+  font-size: 0.72rem !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.22em !important;
+  line-height: normal !important;
+  text-transform: uppercase !important;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__track {
@@ -306,7 +316,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
 
   .barocco-key-concepts__eyebrow {
     font-size: 0.72rem;
-    letter-spacing: 0.14em;
+    letter-spacing: 0.22em;
   }
 
   .barocco-key-concepts__track {

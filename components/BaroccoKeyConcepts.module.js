@@ -39,7 +39,7 @@ const keyConcepts = [
     subtitle: "",
     image: conceptAsset("barocco-oratori-card-verticale.png"),
     imageFocus: "50% 100%",
-    imageSize: "contain",
+    imageSize: "auto 88%",
     summary: "L’oratorio racconta storie sacre con voci, coro e strumenti. Non c’è scena teatrale: la storia si immagina ascoltando."
   },
   {
