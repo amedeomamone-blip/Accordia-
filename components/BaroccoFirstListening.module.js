@@ -70,11 +70,11 @@ function drawCurve(ctx, points, color, lineWidth) {
 
 function buildConstellation() {
   const result = [];
-  const latitudes = [-78, -66, -54, -42, -30, -18, -6, 6, 18, 30, 42, 54, 66, 78];
+  const latitudes = [-72, -56, -40, -24, -8, 8, 24, 40, 56, 72];
 
   latitudes.forEach((latitude, latIndex) => {
     const latitudeWeight = Math.cos(latitude * DEG);
-    const count = Math.round(9 + latitudeWeight * 23);
+    const count = Math.round(7 + latitudeWeight * 17);
     const stagger = latIndex % 2 === 0 ? 0 : 180 / count;
 
     for (let index = 0; index < count; index += 1) {
@@ -135,13 +135,13 @@ function drawDots(ctx, metrics, rotation, time) {
     const broadFlicker = Math.pow(0.5 + 0.5 * Math.sin(time * (dot.twinkleSpeed * 1.35) + dot.shimmer * 0.93 + index * 0.021), 1.45);
     const slowTide = 0.5 + 0.5 * Math.sin(time * 0.006 + dot.shimmer * 0.57 + rotation.y);
     const strobeGate = Math.pow(
-      clamp(0.5 + 0.5 * Math.sin(time * (0.028 + dot.flare * 0.006) + dot.shimmer * 2.1 + index * 0.041), 0, 1),
-      3.8
+      clamp(0.5 + 0.5 * Math.sin(time * (0.034 + dot.flare * 0.009) + dot.shimmer * 2.1 + index * 0.041), 0, 1),
+      2.65
     );
     const dynamicPulse = 0.72 + broadFlicker * dot.flickerDepth + breathing * 0.16 + rotationalFlux * 0.045 + quickSpark * dot.flare * 0.26;
 
     let size = 0.32 + centerFactor * 2.24 + depthFactor * 0.88 + dot.baseVariance * 0.28;
-    size += (broadFlicker * 0.18 + quickSpark * dot.flare * 0.28) * (0.42 + centerFactor * 0.52);
+    size += (broadFlicker * 0.18 + quickSpark * dot.flare * 0.28 + strobeGate * (0.16 + dot.flare * 0.14)) * (0.42 + centerFactor * 0.52);
     if (rotated.z < -0.45) size *= 0.76;
     else if (rotated.z < -0.15) size *= 0.88;
     size = clamp(size, 0.24, 4.18);
@@ -150,7 +150,7 @@ function drawDots(ctx, metrics, rotation, time) {
     if (rotated.z < -0.55) alpha *= 0.16;
     else if (rotated.z < -0.25) alpha *= 0.34;
     else if (rotated.z < 0.02) alpha *= 0.68;
-    alpha *= dynamicPulse + slowTide * 0.08 + strobeGate * (0.12 + dot.flare * 0.08);
+    alpha *= dynamicPulse + slowTide * 0.08 + strobeGate * (0.22 + dot.flare * 0.18);
     alpha = clamp(alpha, 0.012, 0.96);
 
     const paletteMotion = clamp(0.52 + dot.paletteShift * 0.34 + rotationalFlux * 0.24 + breathing * 0.18, 0, 1);
@@ -172,6 +172,13 @@ function drawDots(ctx, metrics, rotation, time) {
     ctx.arc(projected.x, projected.y, size, 0, Math.PI * 2);
     ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
     ctx.fill();
+
+    if (strobeGate > 0.58 && rotated.z > -0.08) {
+      ctx.beginPath();
+      ctx.arc(projected.x, projected.y, size * (1.75 + dot.flare * 0.36), 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${clamp(alpha * 0.1, 0.018, 0.11)})`;
+      ctx.fill();
+    }
   });
 }
 
@@ -184,6 +191,7 @@ const listeningItems = [
     description:
       "Un brano breve, energico e costruito su un ritmo molto riconoscibile. Ascoltalo per cogliere movimento, ripetizione, contrasto e teatralita.",
     thumbnail: "https://i.ytimg.com/vi/2sPC8HsXxik/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=2sPC8HsXxik",
     anchor: sphericalPoint(14, 30),
     questions: [
       {
@@ -232,6 +240,7 @@ const listeningItems = [
     description:
       "Un ascolto travolgente dalle Quattro stagioni. Segui la corsa degli archi e riconosci come Vivaldi trasforma vento, tuoni e agitazione in musica.",
     thumbnail: "https://i.ytimg.com/vi/ECZQUg6-TlU/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=ECZQUg6-TlU",
     anchor: sphericalPoint(-20, -116),
     questions: [
       {
@@ -280,6 +289,7 @@ const listeningItems = [
     description:
       "Un brano brillante e velocissimo, affidato al flauto e agli archi. Ascoltalo per riconoscere leggerezza, precisione ritmica, dialogo strumentale e virtuosismo barocco.",
     thumbnail: "https://i.ytimg.com/vi/Kl6R4Ui9blc/hqdefault.jpg",
+    videoUrl: "https://www.youtube.com/watch?v=Kl6R4Ui9blc",
     anchor: sphericalPoint(42, 146),
     questions: [
       {
@@ -324,19 +334,37 @@ const listeningItems = [
 
 function ListeningPreview({ item, isActive, previewRef, onSelect }) {
   return h(
-    "button",
+    "article",
     {
       ref: previewRef,
-      type: "button",
+      role: "button",
+      tabIndex: 0,
       className: `barocco-musical-globe__orbit-preview${isActive ? " is-active" : ""}`,
       onClick: () => onSelect(item.id),
+      onKeyDown: (event) => {
+        if (event.key === "Enter" || event.key === " ") {
+          event.preventDefault();
+          onSelect(item.id);
+        }
+      },
       onPointerDown: (event) => event.stopPropagation(),
       "aria-pressed": isActive,
       "aria-label": `${item.title} - ${item.subtitle}`
     },
     h(
-      "span",
-      { className: "barocco-musical-globe__orbit-thumb" },
+      "a",
+      {
+        className: "barocco-musical-globe__orbit-thumb",
+        href: item.videoUrl,
+        target: "_blank",
+        rel: "noreferrer",
+        onClick: (event) => {
+          event.stopPropagation();
+          onSelect(item.id);
+        },
+        onFocus: () => onSelect(item.id),
+        "aria-label": `Apri su YouTube ${item.title}`
+      },
       h("img", { src: item.thumbnail, alt: `Anteprima video YouTube di ${item.title}` }),
       h("span", { className: "barocco-musical-globe__orbit-play", "aria-hidden": "true" }, "▶")
     ),
@@ -357,14 +385,13 @@ function QuestionCard({ itemId, question, index, selectedIndex, onChoose, isEnab
   return h(
     "article",
     {
-      className: `barocco-listening__question-card${isEnabled ? "" : " is-muted"}`,
+      className: `barocco-listening__question-card${isEnabled ? "" : " is-locked"}`,
       "aria-labelledby": `barocco-listening-question-${itemId}-${index}`,
       "aria-disabled": !isEnabled
     },
     h(
       "div",
       { className: "barocco-listening__question-card-body" },
-      h("p", { className: "barocco-listening__question-kicker" }, `Domanda ${String(index + 1).padStart(2, "0")}`),
       h("h3", { id: `barocco-listening-question-${itemId}-${index}` }, question.question),
       h(
         "div",
@@ -399,13 +426,6 @@ function QuestionCard({ itemId, question, index, selectedIndex, onChoose, isEnab
             h("strong", null, isCorrect ? "Risposta corretta" : "Riprova"),
             h("p", null, isCorrect ? question.explanation : "Questa non e la risposta giusta. Riascolta il brano e prova a confrontare meglio gli indizi sonori.")
           )
-        : !isEnabled
-          ? h(
-              "div",
-              { className: "barocco-listening__feedback is-muted" },
-              h("strong", null, "Sblocco progressivo"),
-              h("p", null, "Prosegui in ordine: questa domanda si attiva solo dopo la risposta corretta della card precedente.")
-            )
         : null
     )
   );
@@ -633,7 +653,7 @@ export default function BaroccoFirstListening() {
             "div",
             {
               key: `${activeListening.id}-${index}`,
-              className: `barocco-listening__question-slot${isEnabled ? "" : " is-muted"}`,
+              className: `barocco-listening__question-slot${isEnabled ? "" : " is-locked"}`,
               role: "listitem"
             },
             h(QuestionCard, {
