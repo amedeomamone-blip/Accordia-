@@ -1126,6 +1126,68 @@ body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root 
   background: rgba(112, 112, 116, 0.44);
 }
 
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline {
+  margin-top: clamp(0.8rem, 1.8svh, 1.2rem);
+  margin-bottom: clamp(0.9rem, 2svh, 1.35rem);
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline__head {
+  gap: 0.42rem;
+  padding-bottom: clamp(0.75rem, 1.8svh, 1.1rem);
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline__head > div {
+  width: min(100%, 46rem);
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline h2 {
+  font-size: clamp(1.95rem, 2.8vw, 2.6rem);
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline__date {
+  margin-top: 0.35rem;
+  font-size: clamp(1rem, 1.45vw, 1.2rem);
+  line-height: 1.18;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline__intro {
+  max-width: 43rem;
+  margin-top: clamp(0.65rem, 1.4svh, 0.9rem);
+  font-size: clamp(0.95rem, 1.08vw, 1.02rem);
+  line-height: 1.56;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-media {
+  padding-bottom: 0;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-detail__hero {
+  height: clamp(20rem, calc(100svh - 22rem), 33rem);
+  min-height: 18rem;
+  aspect-ratio: auto;
+  background: #ffffff;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-detail__hero-image {
+  object-fit: contain;
+  object-position: center bottom;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-pillnav {
+  bottom: clamp(0.65rem, 1.5svh, 1rem);
+}
+
+@media (max-height: 46rem) and (min-width: 54rem) {
+  body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-detail__hero {
+    height: clamp(17rem, calc(100svh - 19.25rem), 27rem);
+  }
+
+  body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline__intro {
+    max-width: 40rem;
+    line-height: 1.48;
+  }
+}
+
 @media (max-width: 54rem) {
   body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-timeline-root .barocco-timeline-media {
     padding-bottom: 4.3rem;
