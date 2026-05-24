@@ -111,41 +111,6 @@ function drawSphereEnvelope(ctx, metrics) {
   ctx.stroke();
 }
 
-function drawGrid(ctx, metrics, rotation) {
-  const latitudes = [-72, -56, -40, -24, -8, 8, 24, 40, 56, 72];
-  const meridians = [-180, -150, -120, -90, -60, -30, 0, 30, 60, 90, 120, 150];
-
-  latitudes.forEach((latitude) => {
-    const front = [];
-    const back = [];
-
-    for (let index = 0; index <= 280; index += 1) {
-      const longitude = -180 + (360 * index) / 280;
-      const rotated = rotatePoint(sphericalPoint(latitude, longitude), rotation.x, rotation.y);
-      const projected = projectPoint(rotated, metrics);
-      (rotated.z >= 0 ? front : back).push(projected);
-    }
-
-    drawCurve(ctx, back, "rgba(193, 79, 64, 0.038)", 0.92);
-    drawCurve(ctx, front, "rgba(193, 79, 64, 0.112)", 1.02);
-  });
-
-  meridians.forEach((longitude) => {
-    const front = [];
-    const back = [];
-
-    for (let index = 0; index <= 320; index += 1) {
-      const latitude = -90 + (180 * index) / 320;
-      const rotated = rotatePoint(sphericalPoint(latitude, longitude), rotation.x, rotation.y);
-      const projected = projectPoint(rotated, metrics);
-      (rotated.z >= 0 ? front : back).push(projected);
-    }
-
-    drawCurve(ctx, back, "rgba(207, 141, 72, 0.036)", 0.9);
-    drawCurve(ctx, front, "rgba(193, 79, 64, 0.104)", 1);
-  });
-}
-
 function drawDots(ctx, metrics, rotation, time) {
   const TERRACOTTA_DARK = [178, 48, 38];
   const BAROQUE_CORE = [207, 67, 51];
@@ -168,13 +133,15 @@ function drawDots(ctx, metrics, rotation, time) {
     const breathing = Math.sin(time * dot.twinkleSpeed + dot.shimmer + index * 0.031);
     const quickSpark = Math.pow(0.5 + 0.5 * Math.sin(time * (dot.twinkleSpeed * 2.9) + dot.shimmer * 1.73), 5.2);
     const broadFlicker = Math.pow(0.5 + 0.5 * Math.sin(time * (dot.twinkleSpeed * 1.35) + dot.shimmer * 0.93 + index * 0.021), 1.45);
-    const strobeGate = Math.sin(time * (dot.twinkleSpeed * 5.8) + dot.shimmer * 2.4 + index * 0.047) > 0.84 ? 1 : 0;
     const slowTide = 0.5 + 0.5 * Math.sin(time * 0.006 + dot.shimmer * 0.57 + rotation.y);
-    const dynamicPulse = 0.72 + broadFlicker * dot.flickerDepth + breathing * 0.16 + rotationalFlux * 0.045 + quickSpark * dot.flare * 0.26 + strobeGate * 0.22;
+    const strobeGate = Math.pow(
+      clamp(0.5 + 0.5 * Math.sin(time * (0.028 + dot.flare * 0.006) + dot.shimmer * 2.1 + index * 0.041), 0, 1),
+      3.8
+    );
+    const dynamicPulse = 0.72 + broadFlicker * dot.flickerDepth + breathing * 0.16 + rotationalFlux * 0.045 + quickSpark * dot.flare * 0.26;
 
     let size = 0.32 + centerFactor * 2.24 + depthFactor * 0.88 + dot.baseVariance * 0.28;
     size += (broadFlicker * 0.18 + quickSpark * dot.flare * 0.28) * (0.42 + centerFactor * 0.52);
-    size += strobeGate * 0.18;
     if (rotated.z < -0.45) size *= 0.76;
     else if (rotated.z < -0.15) size *= 0.88;
     size = clamp(size, 0.24, 4.18);
@@ -183,8 +150,7 @@ function drawDots(ctx, metrics, rotation, time) {
     if (rotated.z < -0.55) alpha *= 0.16;
     else if (rotated.z < -0.25) alpha *= 0.34;
     else if (rotated.z < 0.02) alpha *= 0.68;
-    alpha *= dynamicPulse + slowTide * 0.08;
-    alpha *= 0.9 + strobeGate * 0.28;
+    alpha *= dynamicPulse + slowTide * 0.08 + strobeGate * (0.12 + dot.flare * 0.08);
     alpha = clamp(alpha, 0.012, 0.96);
 
     const paletteMotion = clamp(0.52 + dot.paletteShift * 0.34 + rotationalFlux * 0.24 + breathing * 0.18, 0, 1);
@@ -197,7 +163,7 @@ function drawDots(ctx, metrics, rotation, time) {
     color = mixColor(color, SMOKE_BLUE, (1 - centerFactorRaw) * 0.14);
     color = mixColor(color, LIGHT_CORAL, lightFactor * 0.28 + broadFlicker * 0.12);
 
-    const shading = 0.95 + centerFactor * 0.045 + depthFactor * 0.045 + broadFlicker * 0.035;
+    const shading = 0.95 + centerFactor * 0.045 + depthFactor * 0.045 + broadFlicker * 0.035 + strobeGate * 0.06;
     const red = Math.round(Math.min(255, color[0] * shading));
     const green = Math.round(Math.min(255, color[1] * shading));
     const blue = Math.round(Math.min(255, color[2] * shading));
@@ -384,15 +350,16 @@ function ListeningPreview({ item, isActive, previewRef, onSelect }) {
   );
 }
 
-function QuestionCard({ itemId, question, index, selectedIndex, onChoose }) {
+function QuestionCard({ itemId, question, index, selectedIndex, onChoose, isEnabled }) {
   const hasAnswer = Number.isInteger(selectedIndex);
   const isCorrect = hasAnswer && selectedIndex === question.correct;
 
   return h(
     "article",
     {
-      className: "barocco-listening__question-card",
-      "aria-labelledby": `barocco-listening-question-${itemId}-${index}`
+      className: `barocco-listening__question-card${isEnabled ? "" : " is-muted"}`,
+      "aria-labelledby": `barocco-listening-question-${itemId}-${index}`,
+      "aria-disabled": !isEnabled
     },
     h(
       "div",
@@ -416,6 +383,7 @@ function QuestionCard({ itemId, question, index, selectedIndex, onChoose }) {
               key: option,
               type: "button",
               className: optionClassName,
+              disabled: !isEnabled || isCorrect,
               onClick: () => onChoose(itemId, index, optionIndex),
               "aria-pressed": optionIndex === selectedIndex
             },
@@ -431,6 +399,13 @@ function QuestionCard({ itemId, question, index, selectedIndex, onChoose }) {
             h("strong", null, isCorrect ? "Risposta corretta" : "Riprova"),
             h("p", null, isCorrect ? question.explanation : "Questa non e la risposta giusta. Riascolta il brano e prova a confrontare meglio gli indizi sonori.")
           )
+        : !isEnabled
+          ? h(
+              "div",
+              { className: "barocco-listening__feedback is-muted" },
+              h("strong", null, "Sblocco progressivo"),
+              h("p", null, "Prosegui in ordine: questa domanda si attiva solo dopo la risposta corretta della card precedente.")
+            )
         : null
     )
   );
@@ -449,6 +424,7 @@ export default function BaroccoFirstListening() {
   const [answersByItem, setAnswersByItem] = React.useState({});
 
   const activeListening = listeningItems.find((item) => item.id === activeId) || listeningItems[0];
+  const activeAnswers = answersByItem[activeListening.id] || {};
 
   React.useEffect(() => {
     const canvas = canvasRef.current;
@@ -650,19 +626,26 @@ export default function BaroccoFirstListening() {
           role: "list",
           "aria-label": `Domande a risposta multipla per ${activeListening.title}`
         },
-        activeListening.questions.map((question, index) =>
-          h(
+        activeListening.questions.map((question, index) => {
+          const isEnabled = index === 0 || activeAnswers[index - 1] === activeListening.questions[index - 1].correct;
+
+          return h(
             "div",
-            { key: `${activeListening.id}-${index}`, className: "barocco-listening__question-slot", role: "listitem" },
+            {
+              key: `${activeListening.id}-${index}`,
+              className: `barocco-listening__question-slot${isEnabled ? "" : " is-muted"}`,
+              role: "listitem"
+            },
             h(QuestionCard, {
               itemId: activeListening.id,
               question,
               index,
-              selectedIndex: answersByItem[activeListening.id]?.[index],
-              onChoose: handleAnswer
+              selectedIndex: activeAnswers[index],
+              onChoose: handleAnswer,
+              isEnabled
             })
-          )
-        )
+          );
+        })
       )
     )
   );
