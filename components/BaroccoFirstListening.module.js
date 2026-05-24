@@ -70,11 +70,11 @@ function drawCurve(ctx, points, color, lineWidth) {
 
 function buildConstellation() {
   const result = [];
-  const latitudes = [-72, -56, -40, -24, -8, 8, 24, 40, 56, 72];
+  const latitudes = [-76, -62, -48, -34, -20, -6, 6, 20, 34, 48, 62, 76];
 
   latitudes.forEach((latitude, latIndex) => {
     const latitudeWeight = Math.cos(latitude * DEG);
-    const count = Math.round(7 + latitudeWeight * 17);
+    const count = Math.round(10 + latitudeWeight * 22);
     const stagger = latIndex % 2 === 0 ? 0 : 180 / count;
 
     for (let index = 0; index < count; index += 1) {
@@ -135,13 +135,13 @@ function drawDots(ctx, metrics, rotation, time) {
     const broadFlicker = Math.pow(0.5 + 0.5 * Math.sin(time * (dot.twinkleSpeed * 1.35) + dot.shimmer * 0.93 + index * 0.021), 1.45);
     const slowTide = 0.5 + 0.5 * Math.sin(time * 0.006 + dot.shimmer * 0.57 + rotation.y);
     const strobeGate = Math.pow(
-      clamp(0.5 + 0.5 * Math.sin(time * (0.034 + dot.flare * 0.009) + dot.shimmer * 2.1 + index * 0.041), 0, 1),
-      2.65
+      clamp(0.5 + 0.5 * Math.sin(time * (0.041 + dot.flare * 0.012) + dot.shimmer * 2.34 + index * 0.052), 0, 1),
+      2.08
     );
     const dynamicPulse = 0.72 + broadFlicker * dot.flickerDepth + breathing * 0.16 + rotationalFlux * 0.045 + quickSpark * dot.flare * 0.26;
 
     let size = 0.32 + centerFactor * 2.24 + depthFactor * 0.88 + dot.baseVariance * 0.28;
-    size += (broadFlicker * 0.18 + quickSpark * dot.flare * 0.28 + strobeGate * (0.16 + dot.flare * 0.14)) * (0.42 + centerFactor * 0.52);
+    size += (broadFlicker * 0.18 + quickSpark * dot.flare * 0.28 + strobeGate * (0.22 + dot.flare * 0.18)) * (0.42 + centerFactor * 0.52);
     if (rotated.z < -0.45) size *= 0.76;
     else if (rotated.z < -0.15) size *= 0.88;
     size = clamp(size, 0.24, 4.18);
@@ -150,7 +150,7 @@ function drawDots(ctx, metrics, rotation, time) {
     if (rotated.z < -0.55) alpha *= 0.16;
     else if (rotated.z < -0.25) alpha *= 0.34;
     else if (rotated.z < 0.02) alpha *= 0.68;
-    alpha *= dynamicPulse + slowTide * 0.08 + strobeGate * (0.22 + dot.flare * 0.18);
+    alpha *= dynamicPulse + slowTide * 0.08 + strobeGate * (0.34 + dot.flare * 0.24);
     alpha = clamp(alpha, 0.012, 0.96);
 
     const paletteMotion = clamp(0.52 + dot.paletteShift * 0.34 + rotationalFlux * 0.24 + breathing * 0.18, 0, 1);
@@ -173,10 +173,15 @@ function drawDots(ctx, metrics, rotation, time) {
     ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
     ctx.fill();
 
-    if (strobeGate > 0.58 && rotated.z > -0.08) {
+    if (strobeGate > 0.44 && rotated.z > -0.12) {
       ctx.beginPath();
-      ctx.arc(projected.x, projected.y, size * (1.75 + dot.flare * 0.36), 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${clamp(alpha * 0.1, 0.018, 0.11)})`;
+      ctx.arc(projected.x, projected.y, size * (1.95 + dot.flare * 0.42), 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${clamp(alpha * 0.14, 0.028, 0.16)})`;
+      ctx.fill();
+
+      ctx.beginPath();
+      ctx.arc(projected.x, projected.y, size * (1.14 + dot.flare * 0.08), 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${255}, ${245}, ${236}, ${clamp(alpha * 0.42, 0.06, 0.22)})`;
       ctx.fill();
     }
   });
@@ -186,7 +191,7 @@ const listeningItems = [
   {
     id: "rameau-les-sauvages",
     number: "01",
-    title: "Les Sauvages",
+    title: "Forêts Paisibles",
     subtitle: "Jean-Philippe Rameau",
     description:
       "Un brano breve, energico e costruito su un ritmo molto riconoscibile. Ascoltalo per cogliere movimento, ripetizione, contrasto e teatralita.",
@@ -284,7 +289,7 @@ const listeningItems = [
   {
     id: "bach-badinerie",
     number: "03",
-    title: "Badinerie - Suite BWV 1067",
+    title: "Badinerie",
     subtitle: "Johann Sebastian Bach",
     description:
       "Un brano brillante e velocissimo, affidato al flauto e agli archi. Ascoltalo per riconoscere leggerezza, precisione ritmica, dialogo strumentale e virtuosismo barocco.",
