@@ -106,9 +106,53 @@ const constellation = buildConstellation();
 function drawSphereEnvelope(ctx, metrics) {
   ctx.beginPath();
   ctx.arc(metrics.cx, metrics.cy, metrics.radius * 1.02, 0, Math.PI * 2);
-  ctx.strokeStyle = "rgba(54, 58, 64, 0.5)";
-  ctx.lineWidth = 1.15;
+  ctx.strokeStyle = "rgba(82, 88, 96, 0.26)";
+  ctx.lineWidth = 1;
   ctx.stroke();
+}
+
+function buildVisibleGuidePoints(sampleFactory, rotation, metrics, threshold) {
+  const curves = [];
+  let currentCurve = [];
+
+  for (let degree = -180; degree <= 180; degree += 8) {
+    const rotated = rotatePoint(sampleFactory(degree), rotation.x, rotation.y);
+    if (rotated.z > threshold) {
+      currentCurve.push(projectPoint(rotated, metrics));
+      continue;
+    }
+
+    if (currentCurve.length > 1) curves.push(currentCurve);
+    currentCurve = [];
+  }
+
+  if (currentCurve.length > 1) curves.push(currentCurve);
+  return curves;
+}
+
+function drawSphereGuides(ctx, metrics, rotation) {
+  const guideColor = "rgba(96, 104, 112, 0.1)";
+  const equatorColor = "rgba(96, 104, 112, 0.14)";
+
+  [-34, 0, 34].forEach((latitude) => {
+    const curves = buildVisibleGuidePoints(
+      (longitude) => sphericalPoint(latitude, longitude),
+      rotation,
+      metrics,
+      -0.14
+    );
+    curves.forEach((curve) => drawCurve(ctx, curve, latitude === 0 ? equatorColor : guideColor, latitude === 0 ? 0.95 : 0.78));
+  });
+
+  [-68, 0, 68].forEach((longitude) => {
+    const curves = buildVisibleGuidePoints(
+      (latitude) => sphericalPoint(latitude, longitude),
+      rotation,
+      metrics,
+      -0.14
+    );
+    curves.forEach((curve) => drawCurve(ctx, curve, guideColor, 0.72));
+  });
 }
 
 function drawDots(ctx, metrics, rotation, time) {
@@ -200,38 +244,38 @@ const listeningItems = [
     anchor: sphericalPoint(14, 30),
     questions: [
       {
-        question: "Quale elemento si percepisce subito ascoltando il brano?",
-        options: ["Una melodia lenta e malinconica", "Un ritmo regolare e incisivo", "Lunghi silenzi", "Suoni elettronici"],
+        question: "Che cosa colpisce subito?",
+        options: ["Melodia lenta", "Ritmo incisivo", "Lunghi silenzi", "Suoni elettronici"],
         correct: 1,
         explanation: "Il ritmo e l'elemento piu evidente: la pulsazione resta stabile, riconoscibile e crea subito movimento."
       },
       {
-        question: "Questa musica sembra pensata soprattutto per...",
-        options: ["accompagnare una danza o una scena teatrale", "aiutare a dormire", "una colonna sonora cinematografica moderna", "una cerimonia religiosa silenziosa"],
+        question: "Sembra musica per...",
+        options: ["Danza o scena", "Far dormire", "Film moderno", "Rito silenzioso"],
         correct: 0,
         explanation: "Il carattere ritmico e l'energia del brano fanno pensare a una musica legata al gesto, alla danza e alla scena."
       },
       {
-        question: "Quale caratteristica del Barocco emerge maggiormente?",
-        options: ["Improvvisazione jazzistica", "Semplicita estrema", "Contrasto ed energia", "Totale assenza di ripetizioni"],
+        question: "Quale tratto barocco emerge?",
+        options: ["Improvvisazione", "Semplicita", "Contrasto ed energia", "Niente ripetizioni"],
         correct: 2,
         explanation: "Il brano mostra bene il gusto barocco per movimento, teatralita, forza espressiva e contrasti sonori."
       },
       {
-        question: "Che effetto produce la ripetizione del ritmo durante il brano?",
-        options: ["Rende l'ascolto instabile e confuso", "Cancella la sensazione di movimento", "Crea slancio, ordine e riconoscibilita", "Fa sparire completamente la melodia"],
+        question: "La ripetizione del ritmo...",
+        options: ["Confonde l'ascolto", "Toglie movimento", "Da slancio e ordine", "Cancella la melodia"],
         correct: 2,
         explanation: "La ripetizione ritmica aiuta a dare coesione al brano e rende subito percepibile la sua energia."
       },
       {
-        question: "Quale parola descrive meglio il carattere generale di questo ascolto?",
+        question: "Il carattere del brano e...",
         options: ["Teatrale", "Spento", "Uniforme", "Astratto"],
         correct: 0,
         explanation: "Il brano ha un carattere scenico e dinamico, molto vicino al gusto teatrale dell'epoca barocca."
       },
       {
-        question: "Ascoltando Forêts Paisibles, la musica sembra soprattutto voler...",
-        options: ["restare immobile e contemplativa", "trasmettere gesto, movimento e presenza scenica", "evitare ogni accento marcato", "scomparire dietro il silenzio"],
+        question: "La musica vuole...",
+        options: ["Restare immobile", "Dare gesto e scena", "Evitare accenti", "Sparire nel silenzio"],
         correct: 1,
         explanation: "Il brano comunica chiaramente gesto, vitalita e presenza, come se accompagnasse una scena in movimento."
       }
@@ -249,38 +293,38 @@ const listeningItems = [
     anchor: sphericalPoint(-20, -116),
     questions: [
       {
-        question: "Quale impressione domina nei primi istanti del brano?",
-        options: ["Calma e immobilita", "Agitazione e urgenza", "Dolcezza cullante", "Silenzio quasi totale"],
+        question: "All'inizio prevale...",
+        options: ["Calma ferma", "Urgenza e tensione", "Dolcezza lieve", "Quasi silenzio"],
         correct: 1,
         explanation: "L'attacco e rapido e concitato: l'ascoltatore percepisce subito tensione, movimento e instabilita."
       },
       {
-        question: "Quale famiglia di strumenti guida soprattutto l'effetto di tempesta?",
-        options: ["Gli archi", "Gli ottoni", "Le percussioni elettroniche", "Il coro"],
+        question: "La tempesta la guidano...",
+        options: ["Gli archi", "Gli ottoni", "Basi elettroniche", "Il coro"],
         correct: 0,
         explanation: "Gli archi, con figurazioni veloci e accenti serrati, costruiscono l'immagine sonora del temporale."
       },
       {
-        question: "Quale tratto barocco emerge con maggiore forza?",
-        options: ["Contrasto e drammaticita", "Assenza di ritmo", "Uniformita espressiva", "Semplicita senza tensione"],
+        question: "Quale tratto senti di piu?",
+        options: ["Contrasto", "Assenza di ritmo", "Uniformita", "Semplicita"],
         correct: 0,
         explanation: "L'ascolto e un esempio molto efficace del gusto barocco per contrasto, sorpresa e intensita espressiva."
       },
       {
-        question: "Che cosa sembra descrivere la musica di Vivaldi in questo ascolto?",
-        options: ["Un paesaggio immobile", "Una scena naturale violenta", "Una conversazione tranquilla", "Una ninna nanna"],
+        question: "La musica descrive...",
+        options: ["Paesaggio fermo", "Natura violenta", "Conversazione", "Ninna nanna"],
         correct: 1,
         explanation: "La scrittura musicale suggerisce una tempesta: vento, agitazione e forza improvvisa della natura."
       },
       {
-        question: "Il ruolo del violino solista in questo brano e soprattutto quello di...",
-        options: ["restare sempre in secondo piano", "imitare la voce di un coro", "guidare con passaggi rapidi e virtuosistici", "suonare accordi lenti e statici"],
+        question: "Il violino solista...",
+        options: ["Resta dietro", "Imita il coro", "Guida con virtuosismo", "Suona accordi lenti"],
         correct: 2,
         explanation: "Nel concerto barocco il solista emerge con passaggi brillanti e veloci che guidano l'ascolto."
       },
       {
-        question: "Perche questo brano e utile per capire il linguaggio barocco?",
-        options: ["Perche elimina del tutto il contrasto", "Perche usa una sola dinamica dall'inizio alla fine", "Perche trasforma immagini e affetti in suono", "Perche rinuncia al ritmo"],
+        question: "Per capire il Barocco...",
+        options: ["Toglie il contrasto", "Una sola dinamica", "Rende immagini in suono", "Rinuncia al ritmo"],
         correct: 2,
         explanation: "Vivaldi mostra bene come il Barocco possa raccontare immagini ed emozioni attraverso ritmo, gesto e colore sonoro."
       }
@@ -298,38 +342,38 @@ const listeningItems = [
     anchor: sphericalPoint(42, 146),
     questions: [
       {
-        question: "Quale strumento emerge con maggiore evidenza nella Badinerie?",
-        options: ["Il flauto", "Il timpano", "La chitarra elettrica", "Il coro"],
+        question: "Chi emerge di piu?",
+        options: ["Il flauto", "Il timpano", "Chitarra elettrica", "Il coro"],
         correct: 0,
         explanation: "Il flauto e il protagonista piu riconoscibile: espone una linea rapida, brillante e molto agile."
       },
       {
-        question: "Quale carattere comunica principalmente il brano?",
-        options: ["Pesante e solenne", "Brillante e vivace", "Lento e doloroso", "Statico e senza ritmo"],
+        question: "Il carattere del brano e...",
+        options: ["Pesante", "Brillante", "Doloroso", "Statico"],
         correct: 1,
         explanation: "La Badinerie ha un carattere vivace e leggero, costruito su rapidita, precisione e movimento continuo."
       },
       {
-        question: "Che cosa richiede soprattutto l'esecuzione di questo brano?",
-        options: ["Lentezza estrema", "Virtuosismo e controllo tecnico", "Improvvisazione senza regole", "Assenza di pulsazione"],
+        question: "L'esecuzione richiede...",
+        options: ["Lentezza", "Virtuosismo", "Improvvisazione", "Pulsazione assente"],
         correct: 1,
         explanation: "La velocita delle figurazioni richiede grande precisione, controllo del suono e sicurezza ritmica."
       },
       {
-        question: "Come si puo descrivere il rapporto tra flauto e archi in questo ascolto?",
-        options: ["Un dialogo rapido e ben coordinato", "Una totale assenza di contatto", "Un contrasto tra coro e orchestra", "Un accompagnamento senza ritmo"],
+        question: "Flauto e archi creano...",
+        options: ["Dialogo rapido", "Nessun contatto", "Contrasto con il coro", "Accompagnamento piatto"],
         correct: 0,
         explanation: "Il flauto dialoga con gli archi in modo serrato e preciso, creando una trama agile e brillante."
       },
       {
-        question: "Quale sensazione lascia soprattutto la pulsazione del brano?",
-        options: ["Elasticita controllata e continuita", "Pesantezza e lentezza", "Sospensione senza battito", "Disordine casuale"],
+        question: "La pulsazione lascia...",
+        options: ["Continuita elastica", "Pesantezza", "Sospensione", "Disordine"],
         correct: 0,
         explanation: "La pulsazione resta viva e continua, sostenendo il virtuosismo senza perdere chiarezza."
       },
       {
-        question: "Che cosa rende tipicamente barocco questo brano di Bach?",
-        options: ["La ricerca di effetti elettronici", "La scrittura brillante e ornata", "La rinuncia al contrappunto", "La semplicita quasi infantile"],
+        question: "Che cosa lo rende barocco?",
+        options: ["Effetti elettronici", "Scrittura ornata", "Niente contrappunto", "Semplicita estrema"],
         correct: 1,
         explanation: "La Badinerie unisce leggerezza, precisione e scrittura ornamentale, elementi molto riconoscibili del Barocco."
       }
@@ -498,6 +542,7 @@ export default function BaroccoFirstListening() {
 
       ctx.clearRect(0, 0, metrics.width, metrics.height);
       drawSphereEnvelope(ctx, metrics);
+      drawSphereGuides(ctx, metrics, rotation);
       drawDots(ctx, metrics, rotation, time);
 
       listeningItems.forEach((item) => {
