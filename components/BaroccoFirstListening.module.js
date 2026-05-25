@@ -91,9 +91,9 @@ function buildConstellation() {
         baseVariance: 0.78 + (seed % 17) * 0.026,
         paletteShift: ((seed % 19) - 9) / 9,
         warmthShift: ((seed % 23) - 11) / 11,
-        twinkleSpeed: 0.024 + (microSeed % 23) * 0.004,
-        flare: seed % 7 === 0 ? 1.08 : seed % 4 === 0 ? 0.7 : 0.38,
-        flickerDepth: 0.52 + (seed % 29) * 0.014
+        twinkleSpeed: 0.022 + (microSeed % 23) * 0.0033,
+        flare: seed % 7 === 0 ? 0.84 : seed % 4 === 0 ? 0.54 : 0.3,
+        flickerDepth: 0.44 + (seed % 29) * 0.012
       });
     }
   });
@@ -106,8 +106,8 @@ const constellation = buildConstellation();
 function drawSphereEnvelope(ctx, metrics) {
   ctx.beginPath();
   ctx.arc(metrics.cx, metrics.cy, metrics.radius * 1.02, 0, Math.PI * 2);
-  ctx.strokeStyle = "rgba(193, 79, 64, 0.16)";
-  ctx.lineWidth = 1;
+  ctx.strokeStyle = "rgba(54, 58, 64, 0.5)";
+  ctx.lineWidth = 1.15;
   ctx.stroke();
 }
 
@@ -135,13 +135,13 @@ function drawDots(ctx, metrics, rotation, time) {
     const broadFlicker = Math.pow(0.5 + 0.5 * Math.sin(time * (dot.twinkleSpeed * 1.35) + dot.shimmer * 0.93 + index * 0.021), 1.45);
     const slowTide = 0.5 + 0.5 * Math.sin(time * 0.006 + dot.shimmer * 0.57 + rotation.y);
     const strobeGate = Math.pow(
-      clamp(0.5 + 0.5 * Math.sin(time * (0.052 + dot.flare * 0.016) + dot.shimmer * 2.34 + index * 0.052), 0, 1),
-      1.52
+      clamp(0.5 + 0.5 * Math.sin(time * (0.043 + dot.flare * 0.012) + dot.shimmer * 2.12 + index * 0.046), 0, 1),
+      2.2
     );
-    const dynamicPulse = 0.72 + broadFlicker * dot.flickerDepth + breathing * 0.18 + rotationalFlux * 0.045 + quickSpark * dot.flare * 0.34 + strobeGate * 0.16;
+    const dynamicPulse = 0.7 + broadFlicker * dot.flickerDepth + breathing * 0.14 + rotationalFlux * 0.038 + quickSpark * dot.flare * 0.22 + strobeGate * 0.07;
 
     let size = 0.34 + centerFactor * 2.34 + depthFactor * 0.92 + dot.baseVariance * 0.28;
-    size += (broadFlicker * 0.18 + quickSpark * dot.flare * 0.34 + strobeGate * (0.34 + dot.flare * 0.24)) * (0.42 + centerFactor * 0.52);
+    size += (broadFlicker * 0.16 + quickSpark * dot.flare * 0.22 + strobeGate * (0.16 + dot.flare * 0.12)) * (0.42 + centerFactor * 0.52);
     if (rotated.z < -0.45) size *= 0.76;
     else if (rotated.z < -0.15) size *= 0.88;
     size = clamp(size, 0.24, 4.6);
@@ -150,7 +150,7 @@ function drawDots(ctx, metrics, rotation, time) {
     if (rotated.z < -0.55) alpha *= 0.16;
     else if (rotated.z < -0.25) alpha *= 0.34;
     else if (rotated.z < 0.02) alpha *= 0.68;
-    alpha *= dynamicPulse + slowTide * 0.08 + strobeGate * (0.48 + dot.flare * 0.28);
+    alpha *= dynamicPulse + slowTide * 0.08 + strobeGate * (0.18 + dot.flare * 0.12);
     alpha = clamp(alpha, 0.014, 0.98);
 
     const paletteMotion = clamp(0.52 + dot.paletteShift * 0.34 + rotationalFlux * 0.24 + breathing * 0.18, 0, 1);
@@ -173,15 +173,15 @@ function drawDots(ctx, metrics, rotation, time) {
     ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
     ctx.fill();
 
-    if (strobeGate > 0.34 && rotated.z > -0.18) {
+    if (strobeGate > 0.58 && rotated.z > -0.12) {
       ctx.beginPath();
-      ctx.arc(projected.x, projected.y, size * (2.1 + dot.flare * 0.5), 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${clamp(alpha * 0.2, 0.036, 0.22)})`;
+      ctx.arc(projected.x, projected.y, size * (1.76 + dot.flare * 0.28), 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${clamp(alpha * 0.1, 0.024, 0.12)})`;
       ctx.fill();
 
       ctx.beginPath();
-      ctx.arc(projected.x, projected.y, size * (1.14 + dot.flare * 0.08), 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${255}, ${245}, ${236}, ${clamp(alpha * 0.52, 0.08, 0.28)})`;
+      ctx.arc(projected.x, projected.y, size * (1.08 + dot.flare * 0.05), 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${255}, ${245}, ${236}, ${clamp(alpha * 0.28, 0.04, 0.14)})`;
       ctx.fill();
     }
   });
@@ -379,32 +379,6 @@ function ListeningPreview({ item, isActive, previewRef, onSelect }) {
       h("span", { className: "barocco-musical-globe__orbit-kicker" }, `${item.number} · Ascolto`),
       h("strong", null, item.title),
       h("span", null, item.subtitle)
-    )
-  );
-}
-
-function ListeningPillNav({ items, activeId, onSelect }) {
-  return h(
-    "nav",
-    { className: "barocco-listening__pillnav", "aria-label": "Scegli il brano da ascoltare" },
-    h(
-      "div",
-      { className: "barocco-listening__pillnav-rail" },
-      items.map((item) =>
-        h(
-          "button",
-          {
-            key: item.id,
-            type: "button",
-            className: `barocco-listening__pill${item.id === activeId ? " is-active" : ""}`,
-            onClick: () => onSelect(item.id),
-            "aria-current": item.id === activeId ? "true" : undefined
-          },
-          h("span", { className: "barocco-listening__pill-dot", "aria-hidden": "true" }),
-          h("span", { className: "barocco-listening__pill-number" }, item.number),
-          h("strong", null, item.title)
-        )
-      )
     )
   );
 }
@@ -631,11 +605,6 @@ export default function BaroccoFirstListening() {
         h("p", { className: "barocco-listening__subtitle" }, activeListening.subtitle),
         h("p", { className: "barocco-listening__intro" }, activeListening.description)
       ),
-      h(ListeningPillNav, {
-        items: listeningItems,
-        activeId: activeListening.id,
-        onSelect: setActiveId
-      }),
       h(
         "div",
         { className: "barocco-listening__stage" },

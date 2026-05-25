@@ -18,6 +18,9 @@
   --barocco-track-pad-end: var(--barocco-carousel-gutter);
   width: 100%;
   max-width: 100%;
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
   margin: var(--barocco-band-margin-top) 0 var(--barocco-band-margin-bottom);
   padding: var(--barocco-band-padding-y) 0;
   background: var(--barocco-band);
@@ -37,7 +40,7 @@
   margin: 0 auto;
   min-height: calc(var(--barocco-band-frame-height) - (var(--barocco-band-padding-y) * 2));
   display: grid;
-  grid-template-rows: auto auto minmax(20rem, 1fr) auto;
+  grid-template-rows: auto minmax(20rem, 1fr) auto;
   align-content: space-between;
   gap: var(--barocco-band-gap);
 }
@@ -94,88 +97,6 @@
   text-wrap: pretty;
 }
 
-.barocco-listening__pillnav {
-  width: min(100%, 42rem);
-  margin: 0 auto;
-  display: flex;
-  justify-content: center;
-}
-
-.barocco-listening__pillnav-rail {
-  max-width: 100%;
-  padding: 0.42rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.38rem;
-  overflow-x: auto;
-  border-radius: 999px;
-  background: #f1f1f3;
-  box-shadow: inset 0 0 0 1px rgba(17, 17, 17, 0.05);
-  scrollbar-width: none;
-}
-
-.barocco-listening__pillnav-rail::-webkit-scrollbar {
-  display: none;
-}
-
-.barocco-listening__pill {
-  height: 2.22rem;
-  min-width: 2.22rem;
-  padding: 0 0.82rem;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.42rem;
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: #555b64;
-  font: inherit;
-  font-size: 0.78rem;
-  font-weight: 680;
-  line-height: 1;
-  white-space: nowrap;
-  cursor: pointer;
-  transition:
-    background-color 180ms ease,
-    color 180ms ease,
-    box-shadow 180ms ease;
-}
-
-.barocco-listening__pill:hover,
-.barocco-listening__pill:focus-visible {
-  outline: none;
-  background: rgba(255, 255, 255, 0.72);
-}
-
-.barocco-listening__pill.is-active {
-  background: #111111;
-  color: #ffffff;
-  box-shadow: 0 0.45rem 1rem rgba(15, 23, 42, 0.12);
-}
-
-.barocco-listening__pill-dot {
-  width: 0.44rem;
-  height: 0.44rem;
-  flex: 0 0 auto;
-  border-radius: 999px;
-  background: currentColor;
-  opacity: 0.72;
-}
-
-.barocco-listening__pill-number {
-  color: inherit;
-  font-size: 0.72rem;
-  font-weight: 780;
-}
-
-.barocco-listening__pill strong {
-  color: inherit;
-  font-size: inherit;
-  font-weight: 720;
-}
-
 .barocco-listening__stage {
   width: min(100%, 64rem);
   margin: 0 auto;
@@ -194,7 +115,7 @@
   height: clamp(24rem, 43svh, 31rem);
   min-height: 0 !important;
   aspect-ratio: auto;
-  overflow: visible !important;
+  overflow: hidden !important;
   border: 0 !important;
   border-radius: 0 !important;
   background: #ffffff !important;
@@ -303,6 +224,7 @@
   overflow-x: auto;
   overflow-y: hidden;
   overscroll-behavior-inline: contain;
+  align-items: stretch;
   margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
   padding: 0.18rem var(--barocco-track-pad-end) 0.42rem var(--barocco-track-pad-start);
@@ -331,7 +253,7 @@
   width: 100%;
   min-height: 100%;
   display: grid;
-  grid-template-rows: minmax(2.75rem, auto) minmax(7.2rem, 1fr);
+  grid-template-rows: 3.35rem minmax(0, 1fr);
   align-content: start;
   gap: 0.48rem;
   padding: 0.98rem 1rem 0.92rem;
@@ -351,14 +273,18 @@
   font-weight: 620;
   line-height: 1.08;
   letter-spacing: 0;
-  text-wrap: balance;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
 }
 
 .barocco-listening__options {
   display: grid;
+  grid-template-rows: repeat(4, minmax(2.18rem, 1fr));
   gap: 0.3rem;
   margin-top: 0;
-  align-content: start;
+  align-content: stretch;
 }
 
 .barocco-listening__option {
@@ -445,6 +371,10 @@ body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-first-listenin
   width: 100% !important;
   max-width: 100% !important;
   overflow-x: visible !important;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson .site-header {
+  background: #ffffff !important;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening {
@@ -576,7 +506,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__int
     width: min(calc(100% - 1.4rem), 44rem);
     min-height: auto;
     display: grid;
-    grid-template-rows: auto auto auto auto;
+    grid-template-rows: auto auto auto;
     align-content: start;
     gap: clamp(0.7rem, 1.6svh, 1rem);
   }
@@ -648,6 +578,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__int
   .barocco-listening__question-card-body {
     min-height: 15.25rem;
     padding: 0.96rem 0.94rem 0.9rem;
+    grid-template-rows: 3.6rem minmax(0, 1fr);
   }
 
   .barocco-listening__question-card h3 {
