@@ -13,8 +13,9 @@
   --barocco-band-padding-y: clamp(1rem, 2vw, 1.5rem);
   --barocco-band-gap: clamp(0.58rem, 1.35svh, 0.9rem);
   --barocco-band-frame-height: clamp(32rem, 72vh, 48rem);
-  --barocco-track-pad-start: 0rem;
-  --barocco-track-pad-end: clamp(1rem, 2vw, 1.4rem);
+  --barocco-carousel-gutter: max(clamp(1.25rem, 5.8vw, 5rem), calc((100vw - var(--barocco-shell-width)) * 0.5 + clamp(1.4rem, 2.8vw, 2.25rem)));
+  --barocco-track-pad-start: var(--barocco-carousel-gutter);
+  --barocco-track-pad-end: var(--barocco-carousel-gutter);
   width: 100%;
   max-width: 100%;
   margin: var(--barocco-band-margin-top) 0 var(--barocco-band-margin-bottom);
@@ -290,7 +291,7 @@
 }
 
 .barocco-listening__questions-track {
-  width: auto;
+  width: 100vw;
   min-width: 0;
   max-width: none;
   display: grid;
@@ -302,9 +303,10 @@
   overflow-x: auto;
   overflow-y: hidden;
   overscroll-behavior-inline: contain;
-  margin-left: 0;
+  margin-left: calc(50% - 50vw);
   margin-right: calc(50% - 50vw);
-  padding: 0 var(--barocco-track-pad-end) 0 var(--barocco-track-pad-start);
+  padding: 0.18rem var(--barocco-track-pad-end) 0.42rem var(--barocco-track-pad-start);
+  scroll-padding-inline: var(--barocco-track-pad-start);
   scroll-snap-type: x proximity;
   scrollbar-width: none;
   scrollbar-color: transparent transparent;
@@ -457,12 +459,13 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening {
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__questions-track {
-  width: auto !important;
+  width: 100vw !important;
   max-width: none !important;
-  margin-left: 0 !important;
+  margin-left: calc(50% - 50vw) !important;
   margin-right: calc(50% - 50vw) !important;
   padding-left: var(--barocco-track-pad-start) !important;
   padding-right: var(--barocco-track-pad-end) !important;
+  scroll-padding-inline: var(--barocco-track-pad-start) !important;
 }
 
 .barocco-listening__question-slot.is-locked {
@@ -565,10 +568,17 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__int
     min-height: auto !important;
   }
 
+  .barocco-listening {
+    --barocco-carousel-gutter: clamp(1.8rem, 6.5vw, 3.75rem);
+  }
+
   .barocco-listening__inner {
     width: min(calc(100% - 1.4rem), 44rem);
     min-height: auto;
-    display: block;
+    display: grid;
+    grid-template-rows: auto auto auto auto;
+    align-content: start;
+    gap: clamp(0.7rem, 1.6svh, 1rem);
   }
 
   .barocco-listening__head {
@@ -576,13 +586,19 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__int
   }
 
   .barocco-listening__stage .barocco-musical-globe__stage {
-    height: clamp(23rem, 48rem, 32rem);
+    height: clamp(23rem, 48svh, 30rem);
+  }
+
+  .barocco-listening__questions-track {
+    grid-auto-columns: clamp(19rem, 44vw, 22rem);
+    min-height: clamp(13.5rem, 24svh, 16rem);
   }
 }
 
 @media (max-width: 40rem) {
   .barocco-listening {
-    padding: 2.45rem 0;
+    --barocco-carousel-gutter: clamp(1.15rem, 7vw, 1.9rem);
+    padding: 2.2rem 0;
   }
 
   .barocco-listening__head h2 {
@@ -598,20 +614,53 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__int
   }
 
   .barocco-listening__stage .barocco-musical-globe__stage {
-    height: clamp(21rem, 78vw, 26rem);
+    height: clamp(19.5rem, 82vw, 25rem);
+  }
+
+  .barocco-listening__stage .barocco-musical-globe__orbit-preview {
+    width: min(18.5rem, calc(100vw - 2rem));
+    min-height: 5.9rem;
+    padding: 0.48rem;
+    grid-template-columns: 6.6rem minmax(0, 1fr);
+    gap: 0.58rem;
+    border-radius: 1rem;
+  }
+
+  .barocco-listening__stage .barocco-musical-globe__orbit-thumb {
+    border-radius: 0.82rem;
+  }
+
+  .barocco-listening__stage .barocco-musical-globe__orbit-copy strong {
+    font-size: 0.86rem;
+  }
+
+  .barocco-listening__stage .barocco-musical-globe__orbit-copy span:last-child {
+    font-size: 0.74rem;
+    line-height: 1.18;
+  }
+
+  .barocco-listening__questions-track {
+    grid-auto-columns: min(84vw, 20rem);
+    min-height: 15.25rem;
+    gap: 0.82rem;
   }
 
   .barocco-listening__question-card-body {
-    min-height: 17rem;
-    padding: 1.24rem 1.12rem 1.08rem;
+    min-height: 15.25rem;
+    padding: 0.96rem 0.94rem 0.9rem;
   }
 
   .barocco-listening__question-card h3 {
-    font-size: 1.12rem;
+    font-size: 0.98rem;
   }
 
   .barocco-listening__option {
-    min-height: 3.35rem;
-    padding: 0.68rem 0.74rem;
+    min-height: 2.55rem;
+    padding: 0.54rem 0.62rem;
+  }
+
+  .barocco-listening__option-text {
+    font-size: 0.76rem;
+    line-height: 1.22;
   }
 }

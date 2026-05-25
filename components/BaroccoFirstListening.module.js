@@ -70,11 +70,11 @@ function drawCurve(ctx, points, color, lineWidth) {
 
 function buildConstellation() {
   const result = [];
-  const latitudes = [-76, -62, -48, -34, -20, -6, 6, 20, 34, 48, 62, 76];
+  const latitudes = [-78, -66, -54, -42, -30, -18, -6, 6, 18, 30, 42, 54, 66, 78];
 
   latitudes.forEach((latitude, latIndex) => {
     const latitudeWeight = Math.cos(latitude * DEG);
-    const count = Math.round(10 + latitudeWeight * 22);
+    const count = Math.round(12 + latitudeWeight * 27);
     const stagger = latIndex % 2 === 0 ? 0 : 180 / count;
 
     for (let index = 0; index < count; index += 1) {
@@ -91,9 +91,9 @@ function buildConstellation() {
         baseVariance: 0.78 + (seed % 17) * 0.026,
         paletteShift: ((seed % 19) - 9) / 9,
         warmthShift: ((seed % 23) - 11) / 11,
-        twinkleSpeed: 0.018 + (microSeed % 23) * 0.003,
-        flare: seed % 9 === 0 ? 1 : seed % 5 === 0 ? 0.62 : 0.32,
-        flickerDepth: 0.42 + (seed % 29) * 0.012
+        twinkleSpeed: 0.024 + (microSeed % 23) * 0.004,
+        flare: seed % 7 === 0 ? 1.08 : seed % 4 === 0 ? 0.7 : 0.38,
+        flickerDepth: 0.52 + (seed % 29) * 0.014
       });
     }
   });
@@ -135,33 +135,33 @@ function drawDots(ctx, metrics, rotation, time) {
     const broadFlicker = Math.pow(0.5 + 0.5 * Math.sin(time * (dot.twinkleSpeed * 1.35) + dot.shimmer * 0.93 + index * 0.021), 1.45);
     const slowTide = 0.5 + 0.5 * Math.sin(time * 0.006 + dot.shimmer * 0.57 + rotation.y);
     const strobeGate = Math.pow(
-      clamp(0.5 + 0.5 * Math.sin(time * (0.041 + dot.flare * 0.012) + dot.shimmer * 2.34 + index * 0.052), 0, 1),
-      2.08
+      clamp(0.5 + 0.5 * Math.sin(time * (0.052 + dot.flare * 0.016) + dot.shimmer * 2.34 + index * 0.052), 0, 1),
+      1.52
     );
-    const dynamicPulse = 0.72 + broadFlicker * dot.flickerDepth + breathing * 0.16 + rotationalFlux * 0.045 + quickSpark * dot.flare * 0.26;
+    const dynamicPulse = 0.72 + broadFlicker * dot.flickerDepth + breathing * 0.18 + rotationalFlux * 0.045 + quickSpark * dot.flare * 0.34 + strobeGate * 0.16;
 
-    let size = 0.32 + centerFactor * 2.24 + depthFactor * 0.88 + dot.baseVariance * 0.28;
-    size += (broadFlicker * 0.18 + quickSpark * dot.flare * 0.28 + strobeGate * (0.22 + dot.flare * 0.18)) * (0.42 + centerFactor * 0.52);
+    let size = 0.34 + centerFactor * 2.34 + depthFactor * 0.92 + dot.baseVariance * 0.28;
+    size += (broadFlicker * 0.18 + quickSpark * dot.flare * 0.34 + strobeGate * (0.34 + dot.flare * 0.24)) * (0.42 + centerFactor * 0.52);
     if (rotated.z < -0.45) size *= 0.76;
     else if (rotated.z < -0.15) size *= 0.88;
-    size = clamp(size, 0.24, 4.18);
+    size = clamp(size, 0.24, 4.6);
 
-    let alpha = 0.026 + centerFactor * 0.52 + depthFactor * 0.24;
+    let alpha = 0.034 + centerFactor * 0.56 + depthFactor * 0.25;
     if (rotated.z < -0.55) alpha *= 0.16;
     else if (rotated.z < -0.25) alpha *= 0.34;
     else if (rotated.z < 0.02) alpha *= 0.68;
-    alpha *= dynamicPulse + slowTide * 0.08 + strobeGate * (0.34 + dot.flare * 0.24);
-    alpha = clamp(alpha, 0.012, 0.96);
+    alpha *= dynamicPulse + slowTide * 0.08 + strobeGate * (0.48 + dot.flare * 0.28);
+    alpha = clamp(alpha, 0.014, 0.98);
 
     const paletteMotion = clamp(0.52 + dot.paletteShift * 0.34 + rotationalFlux * 0.24 + breathing * 0.18, 0, 1);
     const warmthMotion = clamp(0.55 + dot.warmthShift * 0.32 + quickSpark * 0.35 - rotationalFlux * 0.08, 0, 1);
     const lightFactor = clamp(centerFactor * 0.58 + depthFactor * 0.22 + broadFlicker * 0.18, 0, 1);
 
     let color = mixColor(TERRACOTTA_DARK, BAROQUE_CORE, 0.44 + paletteMotion * 0.38);
-    color = mixColor(color, SIGNAL_RED, paletteMotion * 0.82);
+    color = mixColor(color, SIGNAL_RED, paletteMotion * 0.92);
     color = mixColor(color, CANDLE_GOLD, warmthMotion * 0.34 + quickSpark * dot.flare * 0.18);
-    color = mixColor(color, SMOKE_BLUE, (1 - centerFactorRaw) * 0.14);
-    color = mixColor(color, LIGHT_CORAL, lightFactor * 0.28 + broadFlicker * 0.12);
+    color = mixColor(color, SMOKE_BLUE, (1 - centerFactorRaw) * 0.08);
+    color = mixColor(color, LIGHT_CORAL, lightFactor * 0.34 + broadFlicker * 0.14);
 
     const shading = 0.95 + centerFactor * 0.045 + depthFactor * 0.045 + broadFlicker * 0.035 + strobeGate * 0.06;
     const red = Math.round(Math.min(255, color[0] * shading));
@@ -173,15 +173,15 @@ function drawDots(ctx, metrics, rotation, time) {
     ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${alpha})`;
     ctx.fill();
 
-    if (strobeGate > 0.44 && rotated.z > -0.12) {
+    if (strobeGate > 0.34 && rotated.z > -0.18) {
       ctx.beginPath();
-      ctx.arc(projected.x, projected.y, size * (1.95 + dot.flare * 0.42), 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${clamp(alpha * 0.14, 0.028, 0.16)})`;
+      ctx.arc(projected.x, projected.y, size * (2.1 + dot.flare * 0.5), 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(${red}, ${green}, ${blue}, ${clamp(alpha * 0.2, 0.036, 0.22)})`;
       ctx.fill();
 
       ctx.beginPath();
       ctx.arc(projected.x, projected.y, size * (1.14 + dot.flare * 0.08), 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${255}, ${245}, ${236}, ${clamp(alpha * 0.42, 0.06, 0.22)})`;
+      ctx.fillStyle = `rgba(${255}, ${245}, ${236}, ${clamp(alpha * 0.52, 0.08, 0.28)})`;
       ctx.fill();
     }
   });
@@ -230,7 +230,7 @@ const listeningItems = [
         explanation: "Il brano ha un carattere scenico e dinamico, molto vicino al gusto teatrale dell'epoca barocca."
       },
       {
-        question: "Ascoltando Les Sauvages, la musica sembra soprattutto voler...",
+        question: "Ascoltando Forêts Paisibles, la musica sembra soprattutto voler...",
         options: ["restare immobile e contemplativa", "trasmettere gesto, movimento e presenza scenica", "evitare ogni accento marcato", "scomparire dietro il silenzio"],
         correct: 1,
         explanation: "Il brano comunica chiaramente gesto, vitalita e presenza, come se accompagnasse una scena in movimento."
