@@ -702,7 +702,7 @@ export default function VivaldiSuonoStagioniLesson() {
             <p className="vivaldi-context-head__eyebrow">
               Il Barocco · Contesto storico-culturale
             </p>
-            <h1>Il Barocco in coordinate</h1>
+            <h1>Introduzione al Barocco</h1>
             <p className="vivaldi-context-head__intro">
               Un globo interattivo raccoglie due accessi al Barocco: il
               contesto storico-culturale e quello musicale. Seleziona il

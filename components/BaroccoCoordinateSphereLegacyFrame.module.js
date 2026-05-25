@@ -646,7 +646,7 @@ function VivaldiBaroccoCoordinateSphereLesson() {
           "div",
           { className: "vivaldi-context-head" },
           h("p", { className: "vivaldi-context-head__eyebrow" }, "Il Barocco · Contesto storico-culturale"),
-          h("h1", null, "Il Barocco in coordinate"),
+          h("h1", null, "Introduzione al Barocco"),
           h("p", { className: "vivaldi-context-head__intro" }, "Un globo interattivo raccoglie due accessi al Barocco: il contesto storico-culturale e quello musicale. Seleziona il contesto, apri una parola chiave sulla sfera e leggi l’approfondimento nella card qui sotto.")
         ),
         h(

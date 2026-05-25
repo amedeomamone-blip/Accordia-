@@ -231,6 +231,15 @@ function drawDots(ctx, metrics, rotation, time) {
   });
 }
 
+function getSequentialProgress(item, answers) {
+  let progress = 0;
+  for (let index = 0; index < item.questions.length; index += 1) {
+    if (answers[index] === item.questions[index].correct) progress += 1;
+    else break;
+  }
+  return progress;
+}
+
 const listeningItems = [
   {
     id: "rameau-les-sauvages",
@@ -238,7 +247,7 @@ const listeningItems = [
     title: "Forêts Paisibles",
     subtitle: "Jean-Philippe Rameau",
     description:
-      "Un brano breve, energico e costruito su un ritmo molto riconoscibile. Ascoltalo per cogliere movimento, ripetizione, contrasto e teatralita.",
+      "Un brano breve, energico e costruito su un ritmo molto riconoscibile. Ascoltalo per cogliere movimento, ripetizione, contrasto e teatralità.",
     thumbnail: "https://i.ytimg.com/vi/2sPC8HsXxik/hqdefault.jpg",
     videoUrl: "https://www.youtube.com/watch?v=2sPC8HsXxik",
     anchor: sphericalPoint(14, 30),
@@ -427,47 +436,141 @@ function ListeningPreview({ item, isActive, previewRef, onSelect }) {
   );
 }
 
-function QuestionCard({ itemId, question, index, selectedIndex, onChoose, isEnabled }) {
+function ListeningQuizPanel({
+  item,
+  answers,
+  started,
+  currentQuestionIndex,
+  onStart,
+  onChoose,
+  onJump,
+  onAdvance
+}) {
+  const progress = getSequentialProgress(item, answers);
+  const isComplete = progress >= item.questions.length;
+  const safeIndex = clamp(currentQuestionIndex ?? progress, 0, item.questions.length - 1);
+  const visibleQuestionIndex = started ? Math.min(safeIndex, Math.min(progress, item.questions.length - 1)) : 0;
+  const question = item.questions[visibleQuestionIndex];
+  const selectedIndex = answers[visibleQuestionIndex];
   const hasAnswer = Number.isInteger(selectedIndex);
   const isCorrect = hasAnswer && selectedIndex === question.correct;
 
   return h(
     "article",
     {
-      className: `barocco-listening__question-card${isEnabled ? "" : " is-locked"}`,
-      "aria-labelledby": `barocco-listening-question-${itemId}-${index}`,
-      "aria-disabled": !isEnabled
+      className: "barocco-listening__quiz-panel",
+      "aria-labelledby": `barocco-listening-question-${item.id}-${visibleQuestionIndex}`
     },
     h(
       "div",
-      { className: "barocco-listening__question-card-body" },
-      h("h3", { id: `barocco-listening-question-${itemId}-${index}` }, question.question),
+      { className: "barocco-listening__quiz-panel-body" },
+      !started
+        ? h(
+            React.Fragment,
+            null,
+            h("p", { className: "barocco-listening__quiz-description" }, item.description),
+            h(
+              "div",
+              { className: "barocco-listening__quiz-start" },
+              h("h3", { id: `barocco-listening-question-${item.id}-start` }, "Inizia il test!"),
+              h("p", null, "Seleziona il brano, ascoltalo e poi rispondi a una domanda alla volta.")
+            )
+          )
+        : h(
+            React.Fragment,
+            null,
+            h(
+              "div",
+              { className: "barocco-listening__quiz-question" },
+              h("h3", { id: `barocco-listening-question-${item.id}-${visibleQuestionIndex}` }, question.question)
+            ),
+            h(
+              "div",
+              {
+                className: "barocco-listening__options",
+                role: "group",
+                "aria-label": `Risposte per la domanda ${visibleQuestionIndex + 1}`
+              },
+              question.options.map((option, optionIndex) => {
+                const optionClassName = [
+                  "barocco-listening__option",
+                  hasAnswer && optionIndex === selectedIndex && optionIndex === question.correct ? "is-correct" : "",
+                  hasAnswer && optionIndex === selectedIndex && optionIndex !== question.correct ? "is-wrong" : "",
+                  optionIndex === selectedIndex ? "is-selected" : ""
+                ].filter(Boolean).join(" ");
+
+                return h(
+                  "button",
+                  {
+                    key: option,
+                    type: "button",
+                    className: optionClassName,
+                    disabled: isCorrect,
+                    onClick: () => onChoose(item.id, visibleQuestionIndex, optionIndex),
+                    "aria-pressed": optionIndex === selectedIndex
+                  },
+                  h("span", { className: "barocco-listening__option-letter", "aria-hidden": "true" }, String.fromCharCode(65 + optionIndex)),
+                  h("span", { className: "barocco-listening__option-text" }, option)
+                );
+              })
+            )
+          )
+    ),
+    h(
+      "div",
+      { className: "barocco-listening__quiz-controls" },
       h(
         "div",
-        { className: "barocco-listening__options", role: "group", "aria-label": `Risposte per la domanda ${index + 1}` },
-        question.options.map((option, optionIndex) => {
-          const optionClassName = [
-            "barocco-listening__option",
-            hasAnswer && optionIndex === selectedIndex && optionIndex === question.correct ? "is-correct" : "",
-            hasAnswer && optionIndex === selectedIndex && optionIndex !== question.correct ? "is-wrong" : "",
-            optionIndex === selectedIndex ? "is-selected" : ""
-          ].filter(Boolean).join(" ");
+        {
+          className: "barocco-listening__quiz-progress",
+          role: "tablist",
+          "aria-label": `Navigazione del test per ${item.title}`
+        },
+        item.questions.map((_, index) => {
+          const unlocked = started && index <= progress;
+          const isActive = started ? index === visibleQuestionIndex : index === 0;
+          const isDone = started && index < progress;
 
-          return h(
+          return h("button", {
+            key: `${item.id}-step-${index}`,
+            type: "button",
+            className: [
+              "barocco-listening__progress-pill",
+              isActive ? "is-active" : "",
+              isDone ? "is-done" : "",
+              !started && index > 0 ? "is-muted" : "",
+              started && !unlocked ? "is-muted" : ""
+            ].filter(Boolean).join(" "),
+            role: "tab",
+            disabled: !started || !unlocked,
+            onClick: () => onJump(item.id, index),
+            "aria-selected": isActive,
+            "aria-label": `Domanda ${index + 1}`
+          });
+        })
+      ),
+      !started
+        ? h(
             "button",
             {
-              key: option,
               type: "button",
-              className: optionClassName,
-              disabled: !isEnabled || isCorrect,
-              onClick: () => onChoose(itemId, index, optionIndex),
-              "aria-pressed": optionIndex === selectedIndex
+              className: "barocco-listening__quiz-next",
+              onClick: () => onStart(item.id)
             },
-            h("span", { className: "barocco-listening__option-letter", "aria-hidden": "true" }, String.fromCharCode(65 + optionIndex)),
-            h("span", { className: "barocco-listening__option-text" }, option)
-          );
-        })
-      )
+            h("span", { "aria-hidden": "true" }, "▶"),
+            h("span", { className: "barocco-listening__sr-only" }, "Inizia il test")
+          )
+        : h(
+            "button",
+            {
+              type: "button",
+              className: "barocco-listening__quiz-next",
+              disabled: !isCorrect || isComplete,
+              onClick: () => onAdvance(item.id)
+            },
+            h("span", { "aria-hidden": "true" }, isComplete ? "✓" : "›"),
+            h("span", { className: "barocco-listening__sr-only" }, isComplete ? "Test completato" : "Domanda successiva")
+          )
     )
   );
 }
@@ -483,9 +586,14 @@ export default function BaroccoFirstListening() {
   const previewRefs = React.useRef(new Map());
   const [activeId, setActiveId] = React.useState(listeningItems[0].id);
   const [answersByItem, setAnswersByItem] = React.useState({});
+  const [startedByItem, setStartedByItem] = React.useState({});
+  const [currentQuestionByItem, setCurrentQuestionByItem] = React.useState({});
 
   const activeListening = listeningItems.find((item) => item.id === activeId) || listeningItems[0];
   const activeAnswers = answersByItem[activeListening.id] || {};
+  const activeStarted = Boolean(startedByItem[activeListening.id]);
+  const activeProgress = getSequentialProgress(activeListening, activeAnswers);
+  const activeQuestionIndex = currentQuestionByItem[activeListening.id] ?? Math.min(activeProgress, activeListening.questions.length - 1);
 
   React.useEffect(() => {
     const canvas = canvasRef.current;
@@ -624,12 +732,55 @@ export default function BaroccoFirstListening() {
   }, []);
 
   function handleAnswer(itemId, questionIndex, optionIndex) {
+    setStartedByItem((current) => ({
+      ...current,
+      [itemId]: true
+    }));
     setAnswersByItem((current) => ({
       ...current,
       [itemId]: {
         ...(current[itemId] || {}),
         [questionIndex]: optionIndex
       }
+    }));
+  }
+
+  function handleStart(itemId) {
+    const item = listeningItems.find((entry) => entry.id === itemId) || listeningItems[0];
+    const itemAnswers = answersByItem[itemId] || {};
+    const progress = getSequentialProgress(item, itemAnswers);
+
+    setStartedByItem((current) => ({
+      ...current,
+      [itemId]: true
+    }));
+    setCurrentQuestionByItem((current) => ({
+      ...current,
+      [itemId]: Math.min(progress, item.questions.length - 1)
+    }));
+  }
+
+  function handleJump(itemId, questionIndex) {
+    setStartedByItem((current) => ({
+      ...current,
+      [itemId]: true
+    }));
+    setCurrentQuestionByItem((current) => ({
+      ...current,
+      [itemId]: questionIndex
+    }));
+  }
+
+  function handleAdvance(itemId) {
+    const item = listeningItems.find((entry) => entry.id === itemId) || listeningItems[0];
+    const itemAnswers = answersByItem[itemId] || {};
+    const progress = getSequentialProgress(item, itemAnswers);
+
+    if (progress >= item.questions.length) return;
+
+    setCurrentQuestionByItem((current) => ({
+      ...current,
+      [itemId]: progress
     }));
   }
 
@@ -647,8 +798,7 @@ export default function BaroccoFirstListening() {
         { className: "barocco-listening__head" },
         h("p", { className: "barocco-listening__eyebrow" }, "Primi ascolti"),
         h("h2", { id: "barocco-listening-title" }, activeListening.title),
-        h("p", { className: "barocco-listening__subtitle" }, activeListening.subtitle),
-        h("p", { className: "barocco-listening__intro" }, activeListening.description)
+        h("p", { className: "barocco-listening__subtitle" }, activeListening.subtitle)
       ),
       h(
         "div",
@@ -683,30 +833,16 @@ export default function BaroccoFirstListening() {
       ),
       h(
         "div",
-        {
-          className: "barocco-listening__questions-track",
-          role: "list",
-          "aria-label": `Domande a risposta multipla per ${activeListening.title}`
-        },
-        activeListening.questions.map((question, index) => {
-          const isEnabled = index === 0 || activeAnswers[index - 1] === activeListening.questions[index - 1].correct;
-
-          return h(
-            "div",
-            {
-              key: `${activeListening.id}-${index}`,
-              className: `barocco-listening__question-slot${isEnabled ? "" : " is-locked"}`,
-              role: "listitem"
-            },
-            h(QuestionCard, {
-              itemId: activeListening.id,
-              question,
-              index,
-              selectedIndex: activeAnswers[index],
-              onChoose: handleAnswer,
-              isEnabled
-            })
-          );
+        { className: "barocco-listening__quiz-wrap" },
+        h(ListeningQuizPanel, {
+          item: activeListening,
+          answers: activeAnswers,
+          started: activeStarted,
+          currentQuestionIndex: activeQuestionIndex,
+          onStart: handleStart,
+          onChoose: handleAnswer,
+          onJump: handleJump,
+          onAdvance: handleAdvance
         })
       )
     )

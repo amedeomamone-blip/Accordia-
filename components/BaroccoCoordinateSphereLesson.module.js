@@ -622,7 +622,7 @@ function BaroccoCoordinateSphereLesson() {
           "header",
           { className: "barocco-coordinate-head" },
           h("p", { className: "barocco-coordinate-head__eyebrow" }, "Il Barocco · Contesto storico e musicale"),
-          h("h1", null, "Il Barocco in coordinate"),
+          h("h1", null, "Introduzione al Barocco"),
           h(
             "p",
             { className: "barocco-coordinate-head__intro" },

@@ -41,7 +41,7 @@
   margin: 0 auto;
   min-height: calc(var(--barocco-band-frame-height) - (var(--barocco-band-padding-y) * 2));
   display: grid;
-  grid-template-rows: auto minmax(20rem, 1fr) auto;
+  grid-template-rows: auto minmax(21rem, 1fr) auto;
   align-content: space-between;
   gap: var(--barocco-band-gap);
 }
@@ -113,7 +113,7 @@
 }
 
 .barocco-listening__stage .barocco-musical-globe__stage {
-  height: clamp(24rem, 43svh, 31rem);
+  height: clamp(25.5rem, 46svh, 33rem);
   min-height: 0 !important;
   aspect-ratio: auto;
   overflow: hidden !important;
@@ -133,39 +133,37 @@
 
 .barocco-listening__stage .barocco-musical-globe__orbit-preview {
   border: 0;
-  width: min(24rem, calc(100% - 1rem));
-  min-height: 7rem;
-  padding: 0.58rem;
+  width: min(15rem, calc(100% - 1rem));
+  min-height: 4.45rem;
+  padding: 0.32rem;
   display: grid;
-  grid-template-columns: 8.7rem minmax(0, 1fr);
-  gap: 0.78rem;
+  grid-template-columns: 5.15rem minmax(0, 1fr);
+  gap: 0.48rem;
   align-items: center;
-  border-radius: 1.18rem;
-  background: rgba(255, 255, 255, 0.34);
-  border: 1px solid rgba(17, 17, 17, 0.045);
-  box-shadow: 0 8px 22px rgba(15, 23, 42, 0.03);
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+  border-radius: 0.9rem;
+  background: rgba(255, 255, 255, 0.16);
+  box-shadow: none;
+  backdrop-filter: blur(1.6px);
+  -webkit-backdrop-filter: blur(1.6px);
 }
 
 .barocco-listening__stage .barocco-musical-globe__orbit-preview:hover,
 .barocco-listening__stage .barocco-musical-globe__orbit-preview:focus-visible,
 .barocco-listening__stage .barocco-musical-globe__orbit-preview.is-active {
-  background: rgba(255, 255, 255, 0.46);
-  border-color: rgba(17, 17, 17, 0.07);
-  box-shadow: 0 10px 26px rgba(15, 23, 42, 0.045);
+  background: rgba(255, 255, 255, 0.24);
+  box-shadow: none;
 }
 
 .barocco-listening__stage .barocco-musical-globe__orbit-thumb {
   display: block;
   align-self: center;
   aspect-ratio: 16 / 9;
-  border-radius: 0.98rem;
+  border-radius: 0.72rem;
   overflow: hidden;
   color: inherit;
   text-decoration: none;
-  box-shadow: inset 0 0 0 1px rgba(17, 17, 17, 0.06);
-  opacity: 0.84;
+  box-shadow: none;
+  opacity: 0.72;
 }
 
 .barocco-listening__stage .barocco-musical-globe__orbit-thumb:focus-visible {
@@ -182,129 +180,120 @@
 }
 
 .barocco-listening__stage .barocco-musical-globe__orbit-play {
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 1.75rem;
+  height: 1.75rem;
 }
 
 .barocco-listening__stage .barocco-musical-globe__orbit-copy {
   min-width: 0;
   display: grid;
-  gap: 0.18rem;
+  gap: 0.08rem;
   text-align: left;
   align-content: center;
-  opacity: 0.72;
+  opacity: 0.54;
 }
 
 .barocco-listening__stage .barocco-musical-globe__orbit-kicker {
   color: #c14f40;
-  font-size: 0.64rem;
+  font-size: 0.53rem;
   font-weight: 700;
-  letter-spacing: 0.2em;
+  letter-spacing: 0.18em;
   line-height: 1;
   text-transform: uppercase;
 }
 
 .barocco-listening__stage .barocco-musical-globe__orbit-copy strong {
   color: #18191b;
-  font-size: 0.98rem;
-  font-weight: 700;
-  line-height: 1.08;
+  font-size: 0.76rem;
+  font-weight: 680;
+  line-height: 1.04;
 }
 
 .barocco-listening__stage .barocco-musical-globe__orbit-copy span:last-child {
   color: #5e6267;
-  font-size: 0.84rem;
+  font-size: 0.64rem;
   font-weight: 560;
-  line-height: 1.28;
+  line-height: 1.1;
 }
 
 .barocco-listening__stage .barocco-musical-globe__orbit-preview:hover .barocco-musical-globe__orbit-copy,
 .barocco-listening__stage .barocco-musical-globe__orbit-preview:focus-visible .barocco-musical-globe__orbit-copy,
 .barocco-listening__stage .barocco-musical-globe__orbit-preview.is-active .barocco-musical-globe__orbit-copy {
-  opacity: 0.86;
+  opacity: 0.72;
 }
 
 .barocco-listening__stage .barocco-musical-globe__orbit-preview:hover .barocco-musical-globe__orbit-thumb,
 .barocco-listening__stage .barocco-musical-globe__orbit-preview:focus-visible .barocco-musical-globe__orbit-thumb,
 .barocco-listening__stage .barocco-musical-globe__orbit-preview.is-active .barocco-musical-globe__orbit-thumb {
-  opacity: 0.94;
+  opacity: 0.84;
 }
 
-.barocco-listening__questions-track {
-  width: 100vw;
-  min-width: 0;
-  max-width: none;
-  display: grid;
-  grid-auto-flow: column;
-  gap: clamp(0.85rem, 1.5vw, 1.15rem);
-  grid-auto-columns: clamp(19rem, 29vw, 22rem);
-  min-height: auto;
-  margin-top: 0;
-  overflow-x: auto;
-  overflow-y: hidden;
-  overscroll-behavior-inline: contain;
-  align-items: stretch;
-  margin-left: calc(50% - 50vw);
-  margin-right: calc(50% - 50vw);
-  padding: 0.18rem var(--barocco-track-pad-end) 0.42rem var(--barocco-track-pad-start);
-  scroll-padding-inline: var(--barocco-track-pad-start);
-  scroll-snap-type: x proximity;
-  scrollbar-width: none;
-  scrollbar-color: transparent transparent;
+.barocco-listening__quiz-wrap {
+  width: min(100%, 44rem);
+  margin: 0 auto;
 }
 
-.barocco-listening__questions-track::-webkit-scrollbar {
-  display: none;
-}
-
-.barocco-listening__question-slot,
-.barocco-listening__question-card {
-  min-width: 0;
-  display: flex;
-}
-
-.barocco-listening__question-slot {
-  height: auto;
-  aspect-ratio: var(--barocco-question-card-ratio);
-  scroll-snap-align: start;
-}
-
-.barocco-listening__question-card {
-  height: 100%;
-}
-
-.barocco-listening__question-card-body {
+.barocco-listening__quiz-panel {
   width: 100%;
-  min-height: 0;
-  height: 100%;
-  display: grid;
-  grid-template-rows: 3.35rem minmax(0, 1fr);
-  align-content: start;
-  gap: 0.48rem;
-  padding: 0.98rem 1rem 0.92rem;
-  border: 0;
-  border-radius: 1.5rem;
+  border-radius: 1.55rem;
   background: var(--barocco-card);
   box-shadow: 0 10px 28px rgba(15, 23, 42, 0.045);
-  position: relative;
   overflow: hidden;
 }
 
-.barocco-listening__question-card h3 {
+.barocco-listening__quiz-panel-body {
+  min-height: 15.5rem;
+  padding: 1.18rem 1.2rem 1rem;
+  display: grid;
+  align-content: start;
+  gap: 0.88rem;
+}
+
+.barocco-listening__quiz-description {
+  margin: 0;
+  color: var(--barocco-muted);
+  font-size: 0.95rem;
+  font-weight: 480;
+  line-height: 1.52;
+  letter-spacing: 0;
+  text-wrap: pretty;
+}
+
+.barocco-listening__quiz-start {
+  display: grid;
+  gap: 0.48rem;
+  align-content: start;
+}
+
+.barocco-listening__quiz-start h3,
+.barocco-listening__quiz-question h3 {
   margin: 0;
   color: var(--barocco-ink);
   font-family: var(--font-display);
-  font-size: clamp(0.9rem, 0.94vw, 1rem);
-  font-weight: 620;
+  font-size: clamp(1rem, 1.16vw, 1.14rem);
+  font-weight: 640;
   line-height: 1.08;
   letter-spacing: 0;
-  white-space: nowrap;
+}
+
+.barocco-listening__quiz-start p {
+  margin: 0;
+  color: var(--barocco-muted);
+  font-size: 0.88rem;
+  font-weight: 520;
+  line-height: 1.46;
+}
+
+.barocco-listening__quiz-question {
+  min-height: 2.9rem;
+  display: grid;
+  align-content: start;
 }
 
 .barocco-listening__options {
   display: grid;
-  grid-template-rows: repeat(4, minmax(2.18rem, 1fr));
-  gap: 0.3rem;
+  grid-template-rows: repeat(4, minmax(2.3rem, 1fr));
+  gap: 0.38rem;
   margin-top: 0;
   align-content: stretch;
 }
@@ -317,7 +306,7 @@
   grid-template-columns: auto minmax(0, 1fr);
   gap: 0.74rem;
   align-items: center;
-  border: 1px solid rgba(17, 17, 17, 0.08);
+  border: 0;
   border-radius: 1rem;
   background: #ffffff;
   color: var(--barocco-ink);
@@ -333,7 +322,6 @@
 
 .barocco-listening__option:hover,
 .barocco-listening__option:focus-visible {
-  border-color: rgba(17, 17, 17, 0.18);
   box-shadow: 0 10px 20px rgba(15, 23, 42, 0.045);
   outline: none;
   transform: translateY(-1px);
@@ -361,12 +349,7 @@
   white-space: nowrap;
 }
 
-.barocco-listening__option.is-selected {
-  border-color: rgba(17, 17, 17, 0.18);
-}
-
 .barocco-listening__option.is-correct {
-  border-color: rgba(54, 142, 86, 0.54);
   background: #ecf8f0;
   color: #183a25;
   box-shadow: 0 0 0 2px rgba(54, 142, 86, 0.12);
@@ -378,7 +361,6 @@
 }
 
 .barocco-listening__option.is-wrong {
-  border-color: rgba(186, 61, 54, 0.52);
   background: #fff0ef;
   color: #55211e;
   box-shadow: 0 0 0 2px rgba(186, 61, 54, 0.11);
@@ -387,6 +369,99 @@
 .barocco-listening__option.is-wrong .barocco-listening__option-letter {
   background: #ba3d36;
   color: #ffffff;
+}
+
+.barocco-listening__quiz-controls {
+  padding: 0 1.2rem 1.12rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.9rem;
+}
+
+.barocco-listening__quiz-progress {
+  min-width: 0;
+  flex: 1 1 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.54rem;
+  padding: 0.62rem 0.98rem;
+  border-radius: 999px;
+  background: #34363b;
+}
+
+.barocco-listening__progress-pill {
+  width: 0.72rem;
+  height: 0.72rem;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.38);
+  padding: 0;
+  cursor: pointer;
+  transition: width 180ms ease, background-color 180ms ease, opacity 180ms ease, transform 180ms ease;
+}
+
+.barocco-listening__progress-pill.is-active {
+  width: 4rem;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.barocco-listening__progress-pill.is-done {
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.barocco-listening__progress-pill.is-muted {
+  opacity: 0.54;
+}
+
+.barocco-listening__progress-pill:disabled {
+  cursor: default;
+}
+
+.barocco-listening__quiz-next {
+  width: 4.1rem;
+  height: 4.1rem;
+  flex: 0 0 auto;
+  display: inline-grid;
+  place-items: center;
+  border: 0;
+  border-radius: 999px;
+  background: #34363b;
+  color: #ffffff;
+  cursor: pointer;
+  transition: transform 180ms ease, opacity 180ms ease, box-shadow 180ms ease;
+}
+
+.barocco-listening__quiz-next:hover,
+.barocco-listening__quiz-next:focus-visible {
+  outline: none;
+  transform: translateY(-1px);
+  box-shadow: 0 12px 22px rgba(15, 23, 42, 0.1);
+}
+
+.barocco-listening__quiz-next:disabled {
+  cursor: default;
+  opacity: 0.42;
+  transform: none;
+  box-shadow: none;
+}
+
+.barocco-listening__quiz-next span[aria-hidden="true"] {
+  font-size: 1.6rem;
+  line-height: 1;
+}
+
+.barocco-listening__sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-first-listening-root {
@@ -408,43 +483,6 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening {
   display: block !important;
   margin: var(--barocco-band-margin-top) 0 var(--barocco-band-margin-bottom) !important;
   padding: var(--barocco-band-padding-y) 0 !important;
-}
-
-body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__questions-track {
-  width: 100vw !important;
-  max-width: none !important;
-  margin-left: calc(50% - 50vw) !important;
-  margin-right: calc(50% - 50vw) !important;
-  padding-left: var(--barocco-track-pad-start) !important;
-  padding-right: var(--barocco-track-pad-end) !important;
-  scroll-padding-inline: var(--barocco-track-pad-start) !important;
-}
-
-.barocco-listening__question-slot.is-locked {
-  opacity: 1;
-}
-
-.barocco-listening__question-card.is-locked .barocco-listening__question-card-body {
-  background: #ececef;
-}
-
-.barocco-listening__question-card.is-locked .barocco-listening__question-card-body > * {
-  filter: none;
-  opacity: 0.34;
-  transform: none;
-}
-
-.barocco-listening__question-card.is-locked .barocco-listening__question-card-body::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
-  pointer-events: none;
-}
-
-.barocco-listening__question-card.is-locked .barocco-listening__option {
-  cursor: not-allowed;
-  box-shadow: none;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__eyebrow {
@@ -478,17 +516,13 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__sta
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__stage .barocco-musical-globe__stage {
-  height: clamp(24rem, 43svh, 31rem) !important;
+  height: clamp(25.5rem, 46svh, 33rem) !important;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__head > * {
   margin-left: auto !important;
   margin-right: auto !important;
   text-align: center !important;
-}
-
-body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__intro {
-  max-width: var(--barocco-copy-width) !important;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening h2 {
@@ -505,14 +539,6 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__sub
   font-weight: 680 !important;
   line-height: 1.18 !important;
   letter-spacing: 0 !important;
-}
-
-body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__intro {
-  color: var(--barocco-muted) !important;
-  font-size: clamp(0.9rem, 0.98vw, 0.96rem) !important;
-  font-weight: 480 !important;
-  line-height: 1.48 !important;
-  text-align: center !important;
 }
 
 @media (max-width: 56rem) {
@@ -538,12 +564,11 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__int
   }
 
   .barocco-listening__stage .barocco-musical-globe__stage {
-    height: clamp(23rem, 48svh, 30rem);
+    height: clamp(23.5rem, 50svh, 30.5rem);
   }
 
-  .barocco-listening__questions-track {
-    grid-auto-columns: clamp(19rem, 44vw, 22rem);
-    min-height: auto;
+  .barocco-listening__quiz-wrap {
+    width: min(100%, 40rem);
   }
 }
 
@@ -561,59 +586,72 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__int
     font-size: 1rem;
   }
 
-  .barocco-listening__intro {
-    line-height: 1.48;
-  }
-
   .barocco-listening__stage .barocco-musical-globe__stage {
-    height: clamp(19.5rem, 82vw, 25rem);
+    height: clamp(20.5rem, 84vw, 25.8rem);
   }
 
   .barocco-listening__stage .barocco-musical-globe__orbit-preview {
-    width: min(18.5rem, calc(100vw - 2rem));
-    min-height: 5.9rem;
-    padding: 0.48rem;
-    grid-template-columns: 6.6rem minmax(0, 1fr);
-    gap: 0.58rem;
-    border-radius: 1rem;
-  }
-
-  .barocco-listening__stage .barocco-musical-globe__orbit-thumb {
+    width: min(12.6rem, calc(100vw - 2rem));
+    min-height: 3.9rem;
+    padding: 0.24rem;
+    grid-template-columns: 4.3rem minmax(0, 1fr);
+    gap: 0.38rem;
     border-radius: 0.82rem;
   }
 
+  .barocco-listening__stage .barocco-musical-globe__orbit-thumb {
+    border-radius: 0.62rem;
+  }
+
   .barocco-listening__stage .barocco-musical-globe__orbit-copy strong {
-    font-size: 0.86rem;
+    font-size: 0.68rem;
   }
 
   .barocco-listening__stage .barocco-musical-globe__orbit-copy span:last-child {
-    font-size: 0.74rem;
-    line-height: 1.18;
+    font-size: 0.58rem;
+    line-height: 1.06;
   }
 
-  .barocco-listening__questions-track {
-    grid-auto-columns: min(84vw, 20rem);
-    min-height: auto;
-    gap: 0.82rem;
+  .barocco-listening__stage .barocco-musical-globe__orbit-kicker {
+    font-size: 0.48rem;
   }
 
-  .barocco-listening__question-card-body {
-    min-height: 0;
-    padding: 0.96rem 0.94rem 0.9rem;
-    grid-template-rows: 3.6rem minmax(0, 1fr);
+  .barocco-listening__quiz-panel-body {
+    min-height: 14.4rem;
+    padding: 1rem 0.94rem 0.9rem;
   }
 
-  .barocco-listening__question-card h3 {
+  .barocco-listening__quiz-start h3,
+  .barocco-listening__quiz-question h3 {
     font-size: 0.98rem;
   }
 
   .barocco-listening__option {
-    min-height: 2.55rem;
+    min-height: 2.48rem;
     padding: 0.54rem 0.62rem;
   }
 
   .barocco-listening__option-text {
     font-size: 0.76rem;
     line-height: 1.22;
+  }
+
+  .barocco-listening__quiz-controls {
+    padding: 0 0.94rem 0.96rem;
+    gap: 0.7rem;
+  }
+
+  .barocco-listening__quiz-progress {
+    gap: 0.42rem;
+    padding: 0.56rem 0.82rem;
+  }
+
+  .barocco-listening__progress-pill.is-active {
+    width: 3.25rem;
+  }
+
+  .barocco-listening__quiz-next {
+    width: 3.45rem;
+    height: 3.45rem;
   }
 }
