@@ -13,6 +13,7 @@
   --barocco-band-padding-y: clamp(1rem, 2vw, 1.5rem);
   --barocco-band-gap: clamp(0.58rem, 1.35svh, 0.9rem);
   --barocco-band-frame-height: clamp(32rem, 72vh, 48rem);
+  --barocco-question-card-ratio: 22 / 15.35;
   --barocco-carousel-gutter: max(clamp(1.25rem, 5.8vw, 5rem), calc((100vw - var(--barocco-shell-width)) * 0.5 + clamp(1.4rem, 2.8vw, 2.25rem)));
   --barocco-track-pad-start: var(--barocco-carousel-gutter);
   --barocco-track-pad-end: var(--barocco-carousel-gutter);
@@ -219,7 +220,7 @@
   grid-auto-flow: column;
   gap: clamp(0.85rem, 1.5vw, 1.15rem);
   grid-auto-columns: clamp(19rem, 29vw, 22rem);
-  min-height: clamp(12.8rem, 20svh, 15.25rem);
+  min-height: auto;
   margin-top: 0;
   overflow-x: auto;
   overflow-y: hidden;
@@ -242,16 +243,22 @@
 .barocco-listening__question-card {
   min-width: 0;
   display: flex;
-  height: 100%;
 }
 
 .barocco-listening__question-slot {
+  height: auto;
+  aspect-ratio: var(--barocco-question-card-ratio);
   scroll-snap-align: start;
+}
+
+.barocco-listening__question-card {
+  height: 100%;
 }
 
 .barocco-listening__question-card-body {
   width: 100%;
-  min-height: 100%;
+  min-height: 0;
+  height: 100%;
   display: grid;
   grid-template-rows: 3.35rem minmax(0, 1fr);
   align-content: start;
@@ -521,7 +528,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__int
 
   .barocco-listening__questions-track {
     grid-auto-columns: clamp(19rem, 44vw, 22rem);
-    min-height: clamp(13.5rem, 24svh, 16rem);
+    min-height: auto;
   }
 }
 
@@ -571,12 +578,12 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__int
 
   .barocco-listening__questions-track {
     grid-auto-columns: min(84vw, 20rem);
-    min-height: 15.25rem;
+    min-height: auto;
     gap: 0.82rem;
   }
 
   .barocco-listening__question-card-body {
-    min-height: 15.25rem;
+    min-height: 0;
     padding: 0.96rem 0.94rem 0.9rem;
     grid-template-rows: 3.6rem minmax(0, 1fr);
   }

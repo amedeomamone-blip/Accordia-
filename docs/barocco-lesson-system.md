@@ -31,12 +31,14 @@ Use these rules whenever a lesson should reuse the Barocco page architecture.
 - Cards are white, borderless, softly rounded, and compact.
 - Keep title, copy, and image inside the same card without flip effects.
 - Images should start from the bottom edge whenever they act as card artwork.
+- Rectangular or portrait cards must keep a fixed `aspect-ratio`. Zoom can scale them, but it must never squash or stretch their silhouette.
+- Prefer fixed proportions over ad hoc `min-height` tuning when a rail needs to stay visually stable across desktop, iPad, iPhone, and browser zoom.
 - For mobile and tablet, reduce card width and text scale slightly before increasing band height.
 
 ## First Listening
 
 - Keep the globe on a white stage and give it visual priority.
-- Use pill navigation for the listening choices.
+- The orbiting video previews are the listening navigation. Do not add a separate pill selector unless a lesson explicitly needs one.
 - Video previews orbit the globe and open their YouTube link when touched.
 - Question cards are sequential: the next card unlocks only after the correct answer.
 - Do not show feedback boxes. Wrong answers light red; correct answers light green.
