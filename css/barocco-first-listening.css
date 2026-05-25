@@ -10,9 +10,9 @@
   --barocco-copy-width: 43rem;
   --barocco-band-margin-top: clamp(0.8rem, 1.8svh, 1.2rem);
   --barocco-band-margin-bottom: clamp(0.9rem, 2svh, 1.35rem);
-  --barocco-band-padding-y: clamp(1.15rem, 2.4vw, 1.8rem);
-  --barocco-band-gap: clamp(0.75rem, 1.8svh, 1.1rem);
-  --barocco-band-frame-height: clamp(44.5rem, calc(72vh + 12.5rem), 60.5rem);
+  --barocco-band-padding-y: clamp(1rem, 2vw, 1.5rem);
+  --barocco-band-gap: clamp(0.58rem, 1.35svh, 0.9rem);
+  --barocco-band-frame-height: clamp(32rem, 72vh, 48rem);
   --barocco-track-pad-start: 0rem;
   --barocco-track-pad-end: clamp(1rem, 2vw, 1.4rem);
   width: 100%;
@@ -36,7 +36,7 @@
   margin: 0 auto;
   min-height: calc(var(--barocco-band-frame-height) - (var(--barocco-band-padding-y) * 2));
   display: grid;
-  grid-template-rows: auto minmax(24rem, 1fr) auto;
+  grid-template-rows: auto auto minmax(20rem, 1fr) auto;
   align-content: space-between;
   gap: var(--barocco-band-gap);
 }
@@ -93,8 +93,90 @@
   text-wrap: pretty;
 }
 
+.barocco-listening__pillnav {
+  width: min(100%, 42rem);
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+}
+
+.barocco-listening__pillnav-rail {
+  max-width: 100%;
+  padding: 0.42rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.38rem;
+  overflow-x: auto;
+  border-radius: 999px;
+  background: #f1f1f3;
+  box-shadow: inset 0 0 0 1px rgba(17, 17, 17, 0.05);
+  scrollbar-width: none;
+}
+
+.barocco-listening__pillnav-rail::-webkit-scrollbar {
+  display: none;
+}
+
+.barocco-listening__pill {
+  height: 2.22rem;
+  min-width: 2.22rem;
+  padding: 0 0.82rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.42rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: #555b64;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 680;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    color 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.barocco-listening__pill:hover,
+.barocco-listening__pill:focus-visible {
+  outline: none;
+  background: rgba(255, 255, 255, 0.72);
+}
+
+.barocco-listening__pill.is-active {
+  background: #111111;
+  color: #ffffff;
+  box-shadow: 0 0.45rem 1rem rgba(15, 23, 42, 0.12);
+}
+
+.barocco-listening__pill-dot {
+  width: 0.44rem;
+  height: 0.44rem;
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.72;
+}
+
+.barocco-listening__pill-number {
+  color: inherit;
+  font-size: 0.72rem;
+  font-weight: 780;
+}
+
+.barocco-listening__pill strong {
+  color: inherit;
+  font-size: inherit;
+  font-weight: 720;
+}
+
 .barocco-listening__stage {
-  width: min(100%, 66rem);
+  width: min(100%, 64rem);
   margin: 0 auto;
   align-self: center;
 }
@@ -108,7 +190,7 @@
 }
 
 .barocco-listening__stage .barocco-musical-globe__stage {
-  height: clamp(26rem, 50svh, 34rem);
+  height: clamp(24rem, 43svh, 31rem);
   min-height: 0 !important;
   aspect-ratio: auto;
   overflow: visible !important;
@@ -214,8 +296,8 @@
   display: grid;
   grid-auto-flow: column;
   gap: clamp(0.85rem, 1.5vw, 1.15rem);
-  grid-auto-columns: clamp(20.5rem, 31vw, 24rem);
-  min-height: clamp(15.5rem, 25svh, 18.75rem);
+  grid-auto-columns: clamp(19rem, 29vw, 22rem);
+  min-height: clamp(12.8rem, 20svh, 15.25rem);
   margin-top: 0;
   overflow-x: auto;
   overflow-y: hidden;
@@ -247,10 +329,10 @@
   width: 100%;
   min-height: 100%;
   display: grid;
-  grid-template-rows: minmax(3.2rem, auto) minmax(6.8rem, 1fr) auto;
+  grid-template-rows: minmax(2.75rem, auto) minmax(7.2rem, 1fr);
   align-content: start;
-  gap: 0.42rem;
-  padding: 1.08rem 1.12rem 0.9rem;
+  gap: 0.48rem;
+  padding: 0.98rem 1rem 0.92rem;
   border: 0;
   border-radius: 1.5rem;
   background: var(--barocco-card);
@@ -263,7 +345,7 @@
   margin: 0;
   color: var(--barocco-ink);
   font-family: var(--font-display);
-  font-size: clamp(0.96rem, 1vw, 1.05rem);
+  font-size: clamp(0.9rem, 0.94vw, 1rem);
   font-weight: 620;
   line-height: 1.08;
   letter-spacing: 0;
@@ -272,15 +354,15 @@
 
 .barocco-listening__options {
   display: grid;
-  gap: 0.34rem;
+  gap: 0.3rem;
   margin-top: 0;
   align-content: start;
 }
 
 .barocco-listening__option {
   width: 100%;
-  min-height: 2.18rem;
-  padding: 0.38rem 0.54rem;
+  min-height: 2.06rem;
+  padding: 0.34rem 0.5rem;
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   gap: 0.74rem;
@@ -334,67 +416,27 @@
 }
 
 .barocco-listening__option.is-correct {
-  border-color: rgba(32, 34, 38, 0.28);
-  background: #ffffff;
-  color: #202226;
+  border-color: rgba(54, 142, 86, 0.54);
+  background: #ecf8f0;
+  color: #183a25;
+  box-shadow: 0 0 0 2px rgba(54, 142, 86, 0.12);
 }
 
 .barocco-listening__option.is-correct .barocco-listening__option-letter {
-  background: #202226;
+  background: #368e56;
   color: #ffffff;
 }
 
 .barocco-listening__option.is-wrong {
-  border-color: rgba(112, 117, 126, 0.28);
-  background: #ffffff;
-  color: #393d45;
+  border-color: rgba(186, 61, 54, 0.52);
+  background: #fff0ef;
+  color: #55211e;
+  box-shadow: 0 0 0 2px rgba(186, 61, 54, 0.11);
 }
 
 .barocco-listening__option.is-wrong .barocco-listening__option-letter {
-  background: #7b828d;
+  background: #ba3d36;
   color: #ffffff;
-}
-
-.barocco-listening__feedback {
-  display: grid;
-  gap: 0.32rem;
-  margin-top: 0.02rem;
-  padding: 0.48rem 0.62rem;
-  border-radius: 1rem;
-  background: #ffffff;
-}
-
-.barocco-listening__feedback.is-correct {
-  background: #ffffff;
-}
-
-.barocco-listening__feedback.is-wrong {
-  background: #ffffff;
-}
-
-.barocco-listening__feedback strong {
-  font-size: 0.74rem;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  line-height: 1;
-  text-transform: uppercase;
-}
-
-.barocco-listening__feedback.is-correct strong {
-  color: #202226;
-}
-
-.barocco-listening__feedback.is-wrong strong {
-  color: #4d535d;
-}
-
-.barocco-listening__feedback p {
-  margin: 0;
-  color: #2f3440;
-  font-size: 0.76rem;
-  font-weight: 500;
-  line-height: 1.34;
-  text-wrap: pretty;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson #barocco-first-listening-root {
@@ -477,11 +519,11 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__hea
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__stage {
-  width: min(100%, 66rem) !important;
+  width: min(100%, 64rem) !important;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__stage .barocco-musical-globe__stage {
-  height: clamp(26rem, 50svh, 34rem) !important;
+  height: clamp(24rem, 43svh, 31rem) !important;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__head > * {

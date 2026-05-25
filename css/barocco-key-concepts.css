@@ -9,9 +9,9 @@
   --barocco-head-width: 46rem;
   --barocco-band-margin-top: clamp(0.8rem, 1.8svh, 1.2rem);
   --barocco-band-margin-bottom: 0rem;
-  --barocco-band-padding-y: clamp(1.15rem, 2.4vw, 1.8rem);
-  --barocco-band-gap: clamp(0.75rem, 1.8svh, 1.1rem);
-  --barocco-band-frame-height: clamp(44.5rem, calc(72vh + 12.5rem), 60.5rem);
+  --barocco-band-padding-y: clamp(1.25rem, 2.3vw, 1.75rem);
+  --barocco-band-gap: clamp(0.8rem, 1.8svh, 1.15rem);
+  --barocco-band-frame-height: clamp(31rem, 56vh, 38rem);
   --barocco-track-pad-start: 0rem;
   --barocco-track-pad-end: clamp(1rem, 2vw, 1.4rem);
   width: 100%;
@@ -96,8 +96,8 @@
   max-width: none;
   display: grid;
   grid-auto-flow: column;
-  grid-auto-columns: clamp(20.5rem, 31vw, 24rem);
-  min-height: clamp(18rem, 32svh, 21.75rem);
+  grid-auto-columns: clamp(19.25rem, 28vw, 22.25rem);
+  min-height: clamp(18.25rem, 30svh, 21rem);
   gap: clamp(0.85rem, 1.5vw, 1.15rem);
   align-self: stretch;
   align-items: end;
@@ -207,7 +207,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
   min-height: 100%;
   height: 100%;
   display: grid;
-  grid-template-rows: auto 1fr minmax(7.8rem, 10.4rem);
+  grid-template-rows: auto 1fr minmax(7.1rem, 9.7rem);
   align-content: start;
   overflow: hidden;
   border: 0;
@@ -219,8 +219,8 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
 .barocco-key-concepts__card-body {
   display: grid;
   align-content: start;
-  gap: 0.5rem;
-  padding: 1.14rem 1.14rem 0.78rem;
+  gap: 0.45rem;
+  padding: 1rem 1.05rem 0.72rem;
 }
 
 .barocco-key-concepts__card-title {
@@ -228,9 +228,9 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
   margin: 0;
   color: var(--barocco-ink);
   font-family: var(--font-display);
-  font-size: clamp(1.06rem, 1.16vw, 1.2rem);
+  font-size: clamp(0.98rem, 1.06vw, 1.12rem);
   font-weight: 620;
-  line-height: 1.06;
+  line-height: 1.04;
   letter-spacing: 0;
   text-wrap: balance;
 }
@@ -239,9 +239,9 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
   max-width: none;
   margin: 0;
   color: var(--barocco-muted);
-  font-size: 0.88rem;
+  font-size: 0.82rem;
   font-weight: 500;
-  line-height: 1.34;
+  line-height: 1.28;
   text-wrap: pretty;
 }
 
@@ -281,15 +281,15 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
 .barocco-key-concepts__concept-card.is-feature-card .barocco-key-concepts__card-title {
   max-width: none;
   color: var(--barocco-navy);
-  font-size: clamp(1.22rem, 1.55vw, 1.52rem);
-  font-weight: 680;
+  font-size: clamp(1.08rem, 1.3vw, 1.3rem);
+  font-weight: 660;
   line-height: 1.04;
 }
 
 .barocco-key-concepts__concept-card.is-feature-card .barocco-key-concepts__card-copy {
   max-width: none;
   color: #2f3440;
-  line-height: 1.38;
+  line-height: 1.3;
 }
 
 .barocco-key-concepts__concept-card.is-feature-card .barocco-key-concepts__card-image {
@@ -307,8 +307,8 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
 .barocco-key-concepts__concept-card.is-feature-card .barocco-key-concepts__card-body {
   position: relative;
   z-index: 1;
-  padding: 1.24rem 1.25rem 0.92rem;
-  gap: 0.52rem;
+  padding: 1.08rem 1.08rem 0.78rem;
+  gap: 0.46rem;
 }
 
 @media (max-width: 980px) {

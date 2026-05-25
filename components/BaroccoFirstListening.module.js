@@ -383,6 +383,32 @@ function ListeningPreview({ item, isActive, previewRef, onSelect }) {
   );
 }
 
+function ListeningPillNav({ items, activeId, onSelect }) {
+  return h(
+    "nav",
+    { className: "barocco-listening__pillnav", "aria-label": "Scegli il brano da ascoltare" },
+    h(
+      "div",
+      { className: "barocco-listening__pillnav-rail" },
+      items.map((item) =>
+        h(
+          "button",
+          {
+            key: item.id,
+            type: "button",
+            className: `barocco-listening__pill${item.id === activeId ? " is-active" : ""}`,
+            onClick: () => onSelect(item.id),
+            "aria-current": item.id === activeId ? "true" : undefined
+          },
+          h("span", { className: "barocco-listening__pill-dot", "aria-hidden": "true" }),
+          h("span", { className: "barocco-listening__pill-number" }, item.number),
+          h("strong", null, item.title)
+        )
+      )
+    )
+  );
+}
+
 function QuestionCard({ itemId, question, index, selectedIndex, onChoose, isEnabled }) {
   const hasAnswer = Number.isInteger(selectedIndex);
   const isCorrect = hasAnswer && selectedIndex === question.correct;
@@ -404,7 +430,7 @@ function QuestionCard({ itemId, question, index, selectedIndex, onChoose, isEnab
         question.options.map((option, optionIndex) => {
           const optionClassName = [
             "barocco-listening__option",
-            hasAnswer && optionIndex === question.correct ? "is-correct" : "",
+            hasAnswer && optionIndex === selectedIndex && optionIndex === question.correct ? "is-correct" : "",
             hasAnswer && optionIndex === selectedIndex && optionIndex !== question.correct ? "is-wrong" : "",
             optionIndex === selectedIndex ? "is-selected" : ""
           ].filter(Boolean).join(" ");
@@ -423,15 +449,7 @@ function QuestionCard({ itemId, question, index, selectedIndex, onChoose, isEnab
             h("span", { className: "barocco-listening__option-text" }, option)
           );
         })
-      ),
-      hasAnswer
-        ? h(
-            "div",
-            { className: `barocco-listening__feedback${isCorrect ? " is-correct" : " is-wrong"}` },
-            h("strong", null, isCorrect ? "Risposta corretta" : "Riprova"),
-            h("p", null, isCorrect ? question.explanation : "Questa non e la risposta giusta. Riascolta il brano e prova a confrontare meglio gli indizi sonori.")
-          )
-        : null
+      )
     )
   );
 }
@@ -478,7 +496,7 @@ export default function BaroccoFirstListening() {
         height,
         cx: width / 2,
         cy: height / 2,
-        radius: Math.min(width, height) * 0.43,
+        radius: Math.min(width, height) * 0.45,
         dpr
       };
     }
@@ -613,6 +631,11 @@ export default function BaroccoFirstListening() {
         h("p", { className: "barocco-listening__subtitle" }, activeListening.subtitle),
         h("p", { className: "barocco-listening__intro" }, activeListening.description)
       ),
+      h(ListeningPillNav, {
+        items: listeningItems,
+        activeId: activeListening.id,
+        onSelect: setActiveId
+      }),
       h(
         "div",
         { className: "barocco-listening__stage" },
