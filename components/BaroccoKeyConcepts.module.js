@@ -3,7 +3,7 @@ import React from "https://esm.sh/react@18";
 const h = React.createElement;
 
 const conceptAsset = (filename) => new URL(`../assets/${filename}`, import.meta.url).href;
-const featureCardIds = new Set(["celebrazione-potere", "coinvolgimento-fedeli", "teatri-pubblici", "oratori", "orchestra-barocca", "melodramma", "concerto-solista", "concerto-grosso", "contrasti-sonori"]);
+const featureCardIds = new Set(["celebrazione-potere", "coinvolgimento-fedeli", "teatri-pubblici", "oratori", "orchestra-barocca", "melodramma", "concerto-solista", "concerto-grosso", "contrasti-sonori", "maggiore-espressivita"]);
 
 const keyConcepts = [
   {
@@ -86,6 +86,15 @@ const keyConcepts = [
     imageFocus: "50% 100%",
     imageSize: "contain",
     summary: "La musica barocca ama gli opposti: piano e forte, solo e tutti, pieno e vuoto, rapido e lento."
+  },
+  {
+    id: "maggiore-espressivita",
+    title: "Maggiore espressività",
+    subtitle: "",
+    image: conceptAsset("barocco-maggiore-espressivita-popup.png"),
+    imageFocus: "50% 100%",
+    imageSize: "cover",
+    summary: "La musica cerca emozioni intense: stupore, tensione e meraviglia diventano parte del racconto sonoro."
   }
 ].map((concept, index) => ({
   ...concept,
@@ -106,6 +115,7 @@ function ConceptCard({ concept }) {
     {
       className: `barocco-key-concepts__concept-card${concept.image ? " has-image" : ""}${featureCardIds.has(concept.id) ? " is-feature-card" : ""}`,
       style: cardStyle,
+      "data-concept-id": concept.id,
       "aria-labelledby": `barocco-key-concept-title-${concept.id}`
     },
     h(
@@ -141,7 +151,8 @@ export default function BaroccoKeyConcepts() {
         "header",
         { className: "barocco-key-concepts__header" },
         h("p", { className: "barocco-key-concepts__eyebrow" }, "Concetti chiave"),
-        h("h2", { id: "barocco-key-concepts-title" }, "Il Barocco in breve")
+        h("h2", { id: "barocco-key-concepts-title" }, "Il Barocco in breve"),
+        h("p", { className: "barocco-key-concepts__subtitle" }, "idee, luoghi e forme musicali che hanno definito un'epoca.")
       ),
       h(
         "div",
