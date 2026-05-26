@@ -10,7 +10,7 @@
   --barocco-band-margin-top: clamp(0.8rem, 1.8svh, 1.2rem);
   --barocco-band-margin-bottom: 0rem;
   --barocco-band-padding-y: clamp(1.25rem, 2.3vw, 1.75rem);
-  --barocco-band-gap: clamp(0.8rem, 1.8svh, 1.15rem);
+  --barocco-band-gap: clamp(1.8rem, 3.8svh, 2.7rem);
   --barocco-band-frame-height: clamp(31rem, 56vh, 38rem);
   --barocco-key-card-ratio: 18.8 / 21.35;
   --barocco-carousel-gutter: max(clamp(1.25rem, 5.8vw, 5rem), calc((100vw - var(--barocco-shell-width)) * 0.5 + clamp(1.4rem, 2.8vw, 2.25rem)));
@@ -151,7 +151,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
   text-align: left !important;
   width: min(100%, var(--barocco-head-width)) !important;
   max-width: var(--barocco-head-width) !important;
-  margin-bottom: 0 !important;
+  margin-bottom: clamp(1.35rem, 3.4vw, 2.25rem) !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
 }
@@ -351,6 +351,10 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
     --barocco-carousel-gutter: clamp(1.15rem, 7vw, 1.9rem);
     padding-top: 2.25rem;
     padding-bottom: 2.4rem;
+  }
+
+  body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__header {
+    margin-bottom: clamp(1.55rem, 6vw, 2.15rem) !important;
   }
 
   .barocco-key-concepts__header {

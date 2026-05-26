@@ -280,6 +280,18 @@
   letter-spacing: -0.03em;
 }
 
+.barocco-listening__quiz-start p {
+  max-width: 27rem;
+  margin: 0;
+  color: var(--barocco-muted);
+  font-size: 0.88rem;
+  font-weight: 480;
+  line-height: 1.44;
+  letter-spacing: 0;
+  text-align: center;
+  text-wrap: pretty;
+}
+
 .barocco-listening__quiz-question {
   min-height: 2.45rem;
   display: grid;
@@ -635,6 +647,11 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__sub
   .barocco-listening__quiz-question h3 {
     font-size: 1.36rem;
     line-height: 0.98;
+  }
+
+  .barocco-listening__quiz-start p {
+    font-size: 0.82rem;
+    line-height: 1.38;
   }
 
   .barocco-listening__quiz-question h3 {

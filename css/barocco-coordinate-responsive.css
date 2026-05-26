@@ -470,9 +470,19 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts {
     min-height: 2.72rem;
   }
 
+  .topic-page--lesson .topic-rail__track a.is-active {
+    width: auto;
+    min-width: fit-content;
+    padding-right: 0.74rem;
+  }
+
   .topic-page--lesson .topic-rail__track a span {
     width: 2.32rem;
     height: 2.32rem;
+  }
+
+  .topic-page--lesson .topic-rail__track a.is-active strong {
+    max-width: min(14rem, calc(100vw - 7.4rem));
   }
 
   .lesson-mount {
@@ -585,9 +595,21 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts {
     min-height: 2.54rem;
   }
 
+  .topic-page--lesson .topic-rail__track a.is-active {
+    width: auto;
+    min-width: fit-content;
+    padding-right: 0.7rem;
+  }
+
   .topic-page--lesson .topic-rail__track a span {
     width: 2.16rem;
     height: 2.16rem;
+  }
+
+  .topic-page--lesson .topic-rail__track a.is-active strong {
+    max-width: min(13.2rem, calc(100vw - 6.6rem));
+    margin-left: 0.52rem;
+    font-size: 0.82rem;
   }
 
   .barocco-listening,

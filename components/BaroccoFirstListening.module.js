@@ -471,7 +471,8 @@ function ListeningQuizPanel({
             h(
               "div",
               { className: "barocco-listening__quiz-start" },
-              h("h3", { id: `barocco-listening-question-${item.id}-start` }, "Inizia il test!")
+              h("h3", { id: `barocco-listening-question-${item.id}-start` }, "Ascolta il brano e mettiti alla prova!"),
+              h("p", null, "Rispondi alle domande scegliendo l'opzione corretta!")
             )
           )
         : h(
