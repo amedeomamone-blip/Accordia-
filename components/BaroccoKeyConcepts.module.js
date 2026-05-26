@@ -91,9 +91,9 @@ const keyConcepts = [
     id: "maggiore-espressivita",
     title: "Maggiore espressività",
     subtitle: "",
-    image: conceptAsset("barocco-maggiore-espressivita-popup.png"),
+    image: conceptAsset("barocco-maggiore-espressivita-card-verticale.png"),
     imageFocus: "50% 100%",
-    imageSize: "cover",
+    imageSize: "contain",
     summary: "La musica cerca emozioni intense: stupore, tensione e meraviglia diventano parte del racconto sonoro."
   }
 ].map((concept, index) => ({
