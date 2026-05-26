@@ -468,12 +468,10 @@ function ListeningQuizPanel({
         ? h(
             React.Fragment,
             null,
-            h("p", { className: "barocco-listening__quiz-description" }, item.description),
             h(
               "div",
               { className: "barocco-listening__quiz-start" },
-              h("h3", { id: `barocco-listening-question-${item.id}-start` }, "Inizia il test!"),
-              h("p", null, "Seleziona il brano, ascoltalo e poi rispondi a una domanda alla volta.")
+              h("h3", { id: `barocco-listening-question-${item.id}-start` }, "Inizia il test!")
             )
           )
         : h(
@@ -798,7 +796,8 @@ export default function BaroccoFirstListening() {
         { className: "barocco-listening__head" },
         h("p", { className: "barocco-listening__eyebrow" }, "Primi ascolti"),
         h("h2", { id: "barocco-listening-title" }, activeListening.title),
-        h("p", { className: "barocco-listening__subtitle" }, activeListening.subtitle)
+        h("p", { className: "barocco-listening__subtitle" }, activeListening.subtitle),
+        h("p", { className: "barocco-listening__intro" }, activeListening.description)
       ),
       h(
         "div",
