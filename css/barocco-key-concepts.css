@@ -13,6 +13,7 @@
   --barocco-band-gap: clamp(1.45rem, 2.9svh, 2.15rem);
   --barocco-band-frame-height: clamp(32rem, 72vh, 48rem);
   --barocco-key-card-ratio: 18.8 / 21.15;
+  --barocco-key-card-min-width: 15.25rem;
   --barocco-carousel-gutter: max(clamp(1.25rem, 5.8vw, 5rem), calc((100vw - var(--barocco-shell-width)) * 0.5 + clamp(1.4rem, 2.8vw, 2.25rem)));
   --barocco-track-pad-start: var(--barocco-carousel-gutter);
   --barocco-track-pad-end: var(--barocco-carousel-gutter);
@@ -109,7 +110,7 @@
   min-width: 0;
   max-width: var(--barocco-shell-width);
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(var(--barocco-key-card-min-width), 1fr));
   min-height: auto;
   gap: clamp(1rem, 1.45vw, 1.35rem);
   align-self: stretch;
@@ -214,7 +215,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
 }
 
 .barocco-key-concepts__slot {
-  min-width: 0;
+  min-width: var(--barocco-key-card-min-width);
   display: flex;
   height: auto;
   min-height: 0;
@@ -335,12 +336,16 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
 
 .barocco-key-concepts__concept-card.is-feature-card .barocco-key-concepts__card-image {
   position: absolute;
-  inset: var(--barocco-concept-image-inset, 0);
+  inset: 0;
   z-index: 0;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
   min-height: 0;
+  padding: var(--barocco-concept-image-inset, 0);
+  box-sizing: border-box;
   pointer-events: none;
+  background-origin: content-box;
+  background-clip: content-box;
   background-position: var(--barocco-concept-image-position, 50% 100%);
   background-size: var(--barocco-concept-image-size, contain);
 }
@@ -381,7 +386,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
   }
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1320px) {
   body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts {
     min-height: auto !important;
   }
@@ -400,7 +405,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
     max-width: none;
     grid-template-columns: none;
     grid-auto-flow: column;
-    grid-auto-columns: clamp(19rem, 50vw, 22.5rem);
+    grid-auto-columns: clamp(var(--barocco-key-card-min-width), 34vw, 22.5rem);
     min-height: auto;
     gap: clamp(0.85rem, 1.5vw, 1.15rem);
     overflow-x: auto;

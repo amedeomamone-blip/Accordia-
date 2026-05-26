@@ -56,9 +56,9 @@ const keyConcepts = [
     title: "Melodramma",
     subtitle: "",
     image: conceptAsset("barocco-melodramma-card-verticale.png"),
-    imageFocus: "50% calc(100% - 0.55rem)",
-    imageSize: "82% auto",
-    imageInset: "0.55rem 0.7rem 0.7rem",
+    imageFocus: "50% 100%",
+    imageSize: "80% auto",
+    imageInset: "0.65rem 0.85rem 0.85rem",
     summary: "Nel melodramma musica, parola e teatro lavorano insieme. I personaggi raccontano la storia cantando."
   },
   {
@@ -75,9 +75,9 @@ const keyConcepts = [
     title: "Concerto grosso",
     subtitle: "",
     image: conceptAsset("barocco-concerto-grosso-card-verticale.png"),
-    imageFocus: "50% calc(100% - 0.55rem)",
-    imageSize: "90% auto",
-    imageInset: "0.55rem 0.75rem 0.75rem",
+    imageFocus: "50% 100%",
+    imageSize: "88% auto",
+    imageInset: "0.65rem 0.9rem 0.9rem",
     summary: "Un piccolo gruppo di strumenti si alterna all’orchestra. Nascono risposte e contrasti facili da riconoscere."
   },
   {
@@ -85,9 +85,9 @@ const keyConcepts = [
     title: "Contrasti sonori",
     subtitle: "",
     image: conceptAsset("barocco-contrasti-sonori-card-verticale.png"),
-    imageFocus: "50% calc(100% - 0.65rem)",
-    imageSize: "86% auto",
-    imageInset: "0.65rem 0.85rem 0.85rem",
+    imageFocus: "50% 100%",
+    imageSize: "82% auto",
+    imageInset: "0.8rem 1rem 1rem",
     summary: "La musica barocca ama gli opposti: piano e forte, solo e tutti, pieno e vuoto, rapido e lento."
   },
   {
@@ -95,9 +95,9 @@ const keyConcepts = [
     title: "Maggiore espressività",
     subtitle: "",
     image: conceptAsset("barocco-maggiore-espressivita-card-verticale.png"),
-    imageFocus: "50% calc(100% - 0.55rem)",
-    imageSize: "80% auto",
-    imageInset: "0.55rem 0.78rem 0.78rem",
+    imageFocus: "50% 100%",
+    imageSize: "78% auto",
+    imageInset: "0.65rem 0.95rem 0.9rem",
     summary: "La musica cerca emozioni intense: stupore, tensione e meraviglia diventano parte del racconto sonoro."
   }
 ].map((concept, index) => ({
