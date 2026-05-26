@@ -113,7 +113,8 @@
   min-height: auto;
   gap: clamp(1rem, 1.45vw, 1.35rem);
   align-self: stretch;
-  align-items: stretch;
+  align-items: start;
+  align-content: start;
   overflow: visible;
   overscroll-behavior-inline: auto;
   margin: 0 auto;
@@ -216,21 +217,26 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
   min-width: 0;
   display: flex;
   height: auto;
+  min-height: 0;
   aspect-ratio: var(--barocco-key-card-ratio);
+  align-self: start;
   scroll-snap-align: start;
 }
 
 .barocco-key-concepts__concept-card {
   width: 100%;
   min-width: 0;
+  min-height: 0;
   display: flex;
   height: 100%;
+  aspect-ratio: inherit;
 }
 
 .barocco-key-concepts__card {
   width: 100%;
   min-height: 0;
   height: 100%;
+  aspect-ratio: inherit;
   display: grid;
   grid-template-rows: auto 1fr minmax(7.1rem, 9.7rem);
   align-content: start;
@@ -329,10 +335,10 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__
 
 .barocco-key-concepts__concept-card.is-feature-card .barocco-key-concepts__card-image {
   position: absolute;
-  inset: 0;
+  inset: var(--barocco-concept-image-inset, 0);
   z-index: 0;
-  width: 100%;
-  height: 100%;
+  width: auto;
+  height: auto;
   min-height: 0;
   pointer-events: none;
   background-position: var(--barocco-concept-image-position, 50% 100%);
