@@ -46,12 +46,16 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail__track a.is
   width: auto;
   min-width: fit-content;
   border-color: color-mix(in srgb, var(--nucleus-accent) 42%, #d7dde4);
-  background: color-mix(in srgb, var(--nucleus-accent) 10%, #ffffff);
+  background: #ffffff;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail__track a.is-active span {
+  background: #ffffff;
+  color: var(--nucleus-accent);
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .topic-rail__track a.is-active strong {
   max-width: min(16rem, calc(100vw - 8.5rem));
-  margin-left: 0.62rem;
   opacity: 1;
   color: #18191b;
   white-space: nowrap;

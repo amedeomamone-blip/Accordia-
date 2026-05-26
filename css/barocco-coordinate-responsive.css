@@ -474,6 +474,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts {
     width: auto;
     min-width: fit-content;
     padding-right: 0.74rem;
+    gap: 0.58rem;
   }
 
   .topic-page--lesson .topic-rail__track a span {
@@ -599,6 +600,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts {
     width: auto;
     min-width: fit-content;
     padding-right: 0.7rem;
+    gap: 0.52rem;
   }
 
   .topic-page--lesson .topic-rail__track a span {
@@ -608,7 +610,6 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts {
 
   .topic-page--lesson .topic-rail__track a.is-active strong {
     max-width: min(13.2rem, calc(100vw - 6.6rem));
-    margin-left: 0.52rem;
     font-size: 0.82rem;
   }
 
