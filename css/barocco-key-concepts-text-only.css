@@ -1,8 +1,8 @@
 .barocco-key-concepts--text-only {
   --barocco-band-frame-height: auto;
-  --barocco-key-card-width: 13.625rem;
+  --barocco-key-card-width: 18.5rem;
   --barocco-key-card-height: 22.45rem;
-  --barocco-key-card-ratio: 13.625 / 22.45;
+  --barocco-key-card-ratio: 18.5 / 22.45;
   --barocco-key-card-min-width: var(--barocco-key-card-width);
   --barocco-shell-width: calc((var(--barocco-key-card-width) * 5) + (1.05rem * 4));
 }
@@ -83,12 +83,12 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts--
   -webkit-backface-visibility: hidden;
 }
 
-.barocco-key-concepts--flip .barocco-key-concepts__card-face--front {
+.barocco-key-concepts--flip .barocco-key-concepts__card-face--front,
+.barocco-key-concepts--flip .barocco-key-concepts__card-face--back {
   justify-content: flex-start;
 }
 
 .barocco-key-concepts--flip .barocco-key-concepts__card-face--back {
-  justify-content: flex-start;
   transform: rotateY(180deg);
   background: #ffffff;
 }
@@ -129,15 +129,15 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts--
 
 .barocco-key-concepts--flip .barocco-key-concepts__card-title {
   display: block;
-  max-width: none;
+  max-width: 10ch;
   min-height: 2.95rem;
-  margin-top: 1.35rem;
+  margin-top: 4.6rem;
   color: #18191b;
   font-family: var(--font-display);
-  font-size: clamp(1.08rem, 1.55vw, 1.34rem);
+  font-size: clamp(1.65rem, 2.2vw, 2.28rem);
   font-weight: 800;
   line-height: 1.06;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.04em;
   overflow-wrap: normal;
   word-break: normal;
 }
@@ -145,11 +145,12 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts--
 .barocco-key-concepts--flip .barocco-key-concepts__card-copy {
   display: block;
   max-width: 29ch;
-  margin-top: 1.35rem;
+  margin-top: 4.6rem;
   color: #5e6267;
-  font-size: clamp(0.84rem, 1vw, 0.93rem);
-  font-weight: 600;
+  font-size: clamp(1rem, 1.2vw, 1.18rem);
+  font-weight: 650;
   line-height: 1.58;
+  letter-spacing: -0.02em;
 }
 
 .barocco-key-concepts--flip .barocco-key-concepts__card:hover .barocco-key-concepts__card-face,
@@ -200,5 +201,13 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts--
   .barocco-key-concepts--flip .barocco-key-concepts__slot {
     width: auto;
     min-width: min(82vw, 19.75rem);
+  }
+
+  .barocco-key-concepts--flip .barocco-key-concepts__card-title {
+    font-size: clamp(1.45rem, 8vw, 2rem);
+  }
+
+  .barocco-key-concepts--flip .barocco-key-concepts__card-copy {
+    font-size: clamp(0.98rem, 4.6vw, 1.08rem);
   }
 }
