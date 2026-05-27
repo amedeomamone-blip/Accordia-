@@ -6,61 +6,51 @@ const keyConcepts = [
   {
     id: "celebrazione-potere",
     title: "La musica al servizio del potere",
-    kicker: "Corti e autorita",
-    summary: "Nelle corti barocche, la musica accompagnava feste, cerimonie e momenti ufficiali, esaltando il prestigio e l'autorita del sovrano."
+    summary: "Nelle corti barocche, la musica accompagnava feste, cerimonie e momenti ufficiali, esaltando il prestigio e l’autorità del sovrano."
   },
   {
     id: "coinvolgimento-fedeli",
     title: "Coinvolgimento dei fedeli",
-    kicker: "Rito ed emozione",
-    summary: "La musica sacra usa voci, strumenti e contrasti per rendere il rito piu intenso. Aiuta i fedeli a partecipare con emozione."
+    summary: "La musica sacra usa voci, strumenti e contrasti per rendere il rito più intenso. Aiuta i fedeli a partecipare con emozione."
   },
   {
     id: "teatri-pubblici",
     title: "Teatri pubblici",
-    kicker: "Spettacolo condiviso",
-    summary: "Nascono teatri aperti a un pubblico piu ampio. L'opera esce dalle corti e diventa uno spettacolo condiviso."
+    summary: "Nascono teatri aperti a un pubblico più ampio. L’opera esce dalle corti e diventa uno spettacolo condiviso."
   },
   {
     id: "oratori",
     title: "Oratori",
-    kicker: "Storie sacre",
-    summary: "L'oratorio racconta storie sacre con voci, coro e strumenti. Non c'e scena teatrale: la storia si immagina ascoltando."
+    summary: "L’oratorio racconta storie sacre con voci, coro e strumenti. Non c’è scena teatrale: la storia si immagina ascoltando."
   },
   {
     id: "orchestra-barocca",
     title: "Orchestra barocca",
-    kicker: "Colori sonori",
-    summary: "L'orchestra si arricchisce: archi, basso continuo, clavicembalo e altri strumenti creano colori sonori piu vari."
+    summary: "L’orchestra si arricchisce: archi, basso continuo, clavicembalo e altri strumenti creano colori sonori più vari."
   },
   {
     id: "melodramma",
     title: "Melodramma",
-    kicker: "Musica e teatro",
     summary: "Nel melodramma musica, parola e teatro lavorano insieme. I personaggi raccontano la storia cantando."
   },
   {
     id: "concerto-solista",
     title: "Concerto solista",
-    kicker: "Solista e orchestra",
-    summary: "Un solo strumento dialoga con l'orchestra. Il solista puo mostrare bravura, energia ed espressivita."
+    summary: "Un solo strumento dialoga con l’orchestra. Il solista può mostrare bravura, energia ed espressività."
   },
   {
     id: "concerto-grosso",
     title: "Concerto grosso",
-    kicker: "Gruppo e insieme",
-    summary: "Un piccolo gruppo di strumenti si alterna all'orchestra. Nascono risposte e contrasti facili da riconoscere."
+    summary: "Un piccolo gruppo di strumenti si alterna all’orchestra. Nascono risposte e contrasti facili da riconoscere."
   },
   {
     id: "contrasti-sonori",
     title: "Contrasti sonori",
-    kicker: "Opposti musicali",
     summary: "La musica barocca ama gli opposti: piano e forte, solo e tutti, pieno e vuoto, rapido e lento."
   },
   {
     id: "maggiore-espressivita",
-    title: "Maggiore espressivita",
-    kicker: "Meraviglia sonora",
+    title: "Maggiore espressività",
     summary: "La musica cerca emozioni intense: stupore, tensione e meraviglia diventano parte del racconto sonoro."
   }
 ].map((concept, index) => ({
@@ -92,18 +82,14 @@ function ConceptCard({ concept }) {
         "span",
         { className: "barocco-key-concepts__card-face barocco-key-concepts__card-face--front", "aria-hidden": isFlipped ? "true" : "false" },
         h("span", { className: "barocco-key-concepts__card-line", "aria-hidden": "true" }),
-        h("span", { className: "barocco-key-concepts__card-number", "aria-hidden": "true" }, concept.number),
-        h("span", { className: "barocco-key-concepts__card-kicker" }, concept.kicker),
-        h("span", { id: `barocco-key-concept-title-${concept.id}`, className: "barocco-key-concepts__card-title" }, concept.title),
-        h("span", { className: "barocco-key-concepts__card-cta" }, "Apri la card")
+        h("span", { className: "barocco-key-concepts__card-flip-icon", "aria-hidden": "true" }, "↻"),
+        h("span", { id: `barocco-key-concept-title-${concept.id}`, className: "barocco-key-concepts__card-title" }, concept.title)
       ),
       h(
         "span",
         { className: "barocco-key-concepts__card-face barocco-key-concepts__card-face--back", "aria-hidden": isFlipped ? "false" : "true" },
-        h("span", { className: "barocco-key-concepts__card-number", "aria-hidden": "true" }, concept.number),
-        h("span", { className: "barocco-key-concepts__card-kicker" }, concept.title),
-        h("span", { className: "barocco-key-concepts__card-copy" }, concept.summary),
-        h("span", { className: "barocco-key-concepts__card-cta" }, "Torna")
+        h("span", { className: "barocco-key-concepts__card-flip-icon", "aria-hidden": "true" }, "↻"),
+        h("span", { className: "barocco-key-concepts__card-copy" }, concept.summary)
       )
     )
   );
