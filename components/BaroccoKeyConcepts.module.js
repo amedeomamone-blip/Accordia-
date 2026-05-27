@@ -2,102 +2,55 @@ import React from "https://esm.sh/react@18";
 
 const h = React.createElement;
 
-const conceptAsset = (filename) => new URL(`../assets/${filename}`, import.meta.url).href;
-const featureCardIds = new Set(["celebrazione-potere", "coinvolgimento-fedeli", "teatri-pubblici", "oratori", "orchestra-barocca", "melodramma", "concerto-solista", "concerto-grosso", "contrasti-sonori", "maggiore-espressivita"]);
-
 const keyConcepts = [
   {
     id: "celebrazione-potere",
     title: "La musica al servizio del potere",
-    subtitle: "",
-    image: conceptAsset("barocco-celebrazione-potere-card-verticale.png"),
-    imageFocus: "50% 100%",
-    imageSize: "contain",
-    summary: "Nelle corti barocche, la musica accompagnava feste, cerimonie e momenti ufficiali, esaltando il prestigio e l’autorità del sovrano."
+    summary: "Nelle corti barocche, la musica accompagnava feste, cerimonie e momenti ufficiali, esaltando il prestigio e l'autorita del sovrano."
   },
   {
     id: "coinvolgimento-fedeli",
     title: "Coinvolgimento dei fedeli",
-    subtitle: "",
-    image: conceptAsset("barocco-coinvolgimento-fedeli-card-verticale.png"),
-    imageFocus: "50% 100%",
-    imageSize: "contain",
-    summary: "La musica sacra usa voci, strumenti e contrasti per rendere il rito più intenso. Aiuta i fedeli a partecipare con emozione."
+    summary: "La musica sacra usa voci, strumenti e contrasti per rendere il rito piu intenso. Aiuta i fedeli a partecipare con emozione."
   },
   {
     id: "teatri-pubblici",
     title: "Teatri pubblici",
-    subtitle: "",
-    image: conceptAsset("barocco-teatri-pubblici-card-verticale.png"),
-    imageFocus: "50% 100%",
-    imageSize: "contain",
-    summary: "Nascono teatri aperti a un pubblico più ampio. L’opera esce dalle corti e diventa uno spettacolo condiviso."
+    summary: "Nascono teatri aperti a un pubblico piu ampio. L'opera esce dalle corti e diventa uno spettacolo condiviso."
   },
   {
     id: "oratori",
     title: "Oratori",
-    subtitle: "",
-    image: conceptAsset("barocco-oratori-card-verticale.png"),
-    imageFocus: "50% 100%",
-    imageSize: "auto 88%",
-    summary: "L’oratorio racconta storie sacre con voci, coro e strumenti. Non c’è scena teatrale: la storia si immagina ascoltando."
+    summary: "L'oratorio racconta storie sacre con voci, coro e strumenti. Non c'e scena teatrale: la storia si immagina ascoltando."
   },
   {
     id: "orchestra-barocca",
     title: "Orchestra barocca",
-    subtitle: "",
-    image: conceptAsset("barocco-orchestra-barocca-card-verticale.png"),
-    imageFocus: "50% 100%",
-    imageSize: "contain",
-    summary: "L’orchestra si arricchisce: archi, basso continuo, clavicembalo e altri strumenti creano colori sonori più vari."
+    summary: "L'orchestra si arricchisce: archi, basso continuo, clavicembalo e altri strumenti creano colori sonori piu vari."
   },
   {
     id: "melodramma",
     title: "Melodramma",
-    subtitle: "",
-    image: conceptAsset("barocco-melodramma-card-verticale.png"),
-    imageFocus: "50% 100%",
-    imageSize: "80% auto",
-    imageInset: "0.65rem 0.85rem 0.85rem",
     summary: "Nel melodramma musica, parola e teatro lavorano insieme. I personaggi raccontano la storia cantando."
   },
   {
     id: "concerto-solista",
     title: "Concerto solista",
-    subtitle: "",
-    image: conceptAsset("barocco-concerto-solista-card-verticale.png"),
-    imageFocus: "50% 100%",
-    imageSize: "contain",
-    summary: "Un solo strumento dialoga con l’orchestra. Il solista può mostrare bravura, energia ed espressività."
+    summary: "Un solo strumento dialoga con l'orchestra. Il solista puo mostrare bravura, energia ed espressivita."
   },
   {
     id: "concerto-grosso",
     title: "Concerto grosso",
-    subtitle: "",
-    image: conceptAsset("barocco-concerto-grosso-card-verticale.png"),
-    imageFocus: "50% 100%",
-    imageSize: "88% auto",
-    imageInset: "0.65rem 0.9rem 0.9rem",
-    summary: "Un piccolo gruppo di strumenti si alterna all’orchestra. Nascono risposte e contrasti facili da riconoscere."
+    summary: "Un piccolo gruppo di strumenti si alterna all'orchestra. Nascono risposte e contrasti facili da riconoscere."
   },
   {
     id: "contrasti-sonori",
     title: "Contrasti sonori",
-    subtitle: "",
-    image: conceptAsset("barocco-contrasti-sonori-card-verticale.png"),
-    imageFocus: "50% 100%",
-    imageSize: "82% auto",
-    imageInset: "0.8rem 1rem 1rem",
     summary: "La musica barocca ama gli opposti: piano e forte, solo e tutti, pieno e vuoto, rapido e lento."
   },
   {
     id: "maggiore-espressivita",
-    title: "Maggiore espressività",
-    subtitle: "",
-    image: conceptAsset("barocco-maggiore-espressivita-card-verticale.png"),
-    imageFocus: "50% 100%",
-    imageSize: "78% auto",
-    imageInset: "0.65rem 0.95rem 0.9rem",
+    title: "Maggiore espressivita",
     summary: "La musica cerca emozioni intense: stupore, tensione e meraviglia diventano parte del racconto sonoro."
   }
 ].map((concept, index) => ({
@@ -106,20 +59,10 @@ const keyConcepts = [
 }));
 
 function ConceptCard({ concept }) {
-  const cardStyle = concept.image
-    ? {
-        "--barocco-concept-image": `url("${concept.image}")`,
-        "--barocco-concept-image-position": concept.imageFocus || "center",
-        "--barocco-concept-image-size": concept.imageSize || "cover",
-        "--barocco-concept-image-inset": concept.imageInset || "0"
-      }
-    : undefined;
-
   return h(
     "article",
     {
-      className: `barocco-key-concepts__concept-card${concept.image ? " has-image" : ""}${featureCardIds.has(concept.id) ? " is-feature-card" : ""}`,
-      style: cardStyle,
+      className: "barocco-key-concepts__concept-card is-text-only",
       "data-concept-id": concept.id,
       "aria-labelledby": `barocco-key-concept-title-${concept.id}`
     },
@@ -131,14 +74,8 @@ function ConceptCard({ concept }) {
         { className: "barocco-key-concepts__card-body" },
         h("h3", { id: `barocco-key-concept-title-${concept.id}`, className: "barocco-key-concepts__card-title" }, concept.title),
         h("p", { className: "barocco-key-concepts__card-copy" }, concept.summary)
-      ),
-      concept.image
-        ? h("span", { className: "barocco-key-concepts__card-image", "aria-hidden": "true" })
-        : null,
-      !concept.image
-        ? h("span", { className: "barocco-key-concepts__card-fade", "aria-hidden": "true" })
-        : null
       )
+    )
   );
 }
 
@@ -146,7 +83,7 @@ export default function BaroccoKeyConcepts() {
   return h(
     "section",
     {
-      className: "barocco-key-concepts",
+      className: "barocco-key-concepts barocco-key-concepts--text-only",
       "aria-labelledby": "barocco-key-concepts-title"
     },
     h(
