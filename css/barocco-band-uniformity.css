@@ -1,5 +1,5 @@
 body[data-current-nucleus="barocco"] .topic-page--lesson {
-  --barocco-section-frame-height: clamp(32rem, 72vh, 48rem);
+  --barocco-section-frame-height: clamp(34rem, 76vh, 50rem);
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening,
@@ -7,8 +7,8 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline {
   min-height: var(--barocco-section-frame-height) !important;
   margin-top: clamp(0.8rem, 1.8svh, 1.2rem) !important;
   margin-bottom: clamp(0.9rem, 2svh, 1.35rem) !important;
-  padding-top: clamp(1rem, 2vw, 1.5rem) !important;
-  padding-bottom: clamp(1rem, 2vw, 1.5rem) !important;
+  padding-top: clamp(1.15rem, 2.2vw, 1.7rem) !important;
+  padding-bottom: clamp(1.15rem, 2.2vw, 1.7rem) !important;
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline {
@@ -17,7 +17,7 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline {
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__inner {
-  min-height: calc(var(--barocco-section-frame-height) - (clamp(1rem, 2vw, 1.5rem) * 2)) !important;
+  min-height: calc(var(--barocco-section-frame-height) - (clamp(1.15rem, 2.2vw, 1.7rem) * 2)) !important;
 }
 
 @media (max-width: 56rem) {
