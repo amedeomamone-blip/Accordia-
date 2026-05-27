@@ -194,13 +194,46 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts--
     --barocco-shell-width: 84rem;
   }
 
+  body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts--text-only .barocco-key-concepts__inner {
+    width: min(calc(100% - 1.4rem), 44rem) !important;
+    max-width: 44rem !important;
+    display: block !important;
+  }
+
+  body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts--text-only .barocco-key-concepts__track,
   .barocco-key-concepts--flip .barocco-key-concepts__track {
+    width: 100vw !important;
+    max-width: none !important;
+    grid-template-columns: none !important;
+    grid-auto-flow: column !important;
     grid-auto-columns: var(--barocco-key-card-width) !important;
+    gap: 0.95rem !important;
     overflow-x: auto !important;
+    overflow-y: hidden !important;
+    overscroll-behavior-inline: contain !important;
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
+    padding-left: var(--barocco-track-pad-start) !important;
+    padding-right: var(--barocco-track-pad-end) !important;
+    scroll-padding-inline: var(--barocco-track-pad-start) !important;
+    scroll-snap-type: x proximity !important;
   }
 
   .barocco-key-concepts--flip .barocco-key-concepts__slot {
-    width: var(--barocco-key-card-width);
-    min-width: var(--barocco-key-card-width);
+    width: var(--barocco-key-card-width) !important;
+    min-width: var(--barocco-key-card-width) !important;
+    scroll-snap-align: start;
+  }
+}
+
+@media (max-width: 640px) {
+  .barocco-key-concepts--text-only {
+    --barocco-key-card-width: min(82vw, 13.2rem);
+    --barocco-key-card-height: 16.35rem;
+  }
+
+  body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts--text-only .barocco-key-concepts__track,
+  .barocco-key-concepts--flip .barocco-key-concepts__track {
+    grid-auto-columns: var(--barocco-key-card-width) !important;
   }
 }
