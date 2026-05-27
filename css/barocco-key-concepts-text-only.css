@@ -181,9 +181,66 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts--
 }
 
 @media (min-width: 981px) {
+  .barocco-key-concepts--text-only {
+    --barocco-key-card-width: 26.4rem;
+    --barocco-key-card-height: 32.7rem;
+    --barocco-key-card-ratio: 13.2 / 16.35;
+    --barocco-shell-width: calc((var(--barocco-key-card-width) * 2) + 1.1rem);
+  }
+
+  body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts--text-only .barocco-key-concepts__inner {
+    width: min(calc(100% - 1.4rem), var(--barocco-shell-width)) !important;
+    max-width: var(--barocco-shell-width) !important;
+  }
+
+  body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts--text-only .barocco-key-concepts__track {
+    max-width: var(--barocco-shell-width) !important;
+  }
+
   .barocco-key-concepts--flip .barocco-key-concepts__track {
-    grid-template-columns: repeat(5, var(--barocco-key-card-width)) !important;
+    grid-template-columns: repeat(2, var(--barocco-key-card-width)) !important;
     justify-content: center;
+    gap: 1.1rem !important;
+  }
+
+  .barocco-key-concepts--flip .barocco-key-concepts__card-face {
+    padding: 4.3rem 1.75rem 1.75rem;
+    border-radius: 1.6rem;
+  }
+
+  .barocco-key-concepts--flip .barocco-key-concepts__card {
+    border-radius: 1.6rem;
+  }
+
+  .barocco-key-concepts--flip .barocco-key-concepts__card-line {
+    top: 1.55rem;
+    left: 1.65rem;
+    width: 3.5rem;
+    height: 0.34rem;
+  }
+
+  .barocco-key-concepts--flip .barocco-key-concepts__card-flip-icon {
+    top: 1.35rem;
+    right: 1.55rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    font-size: 1.08rem;
+  }
+
+  .barocco-key-concepts--flip .barocco-key-concepts__card-title {
+    max-width: 13ch;
+    min-height: 2.3rem;
+    margin-top: 1.15rem;
+    font-size: 1.18rem;
+    line-height: 1.1;
+  }
+
+  .barocco-key-concepts--flip .barocco-key-concepts__card-copy,
+  .barocco-key-concepts--flip .barocco-key-concepts__card-face--back .barocco-key-concepts__card-copy {
+    max-width: 34ch;
+    margin-top: 1.25rem;
+    font-size: 1rem;
+    line-height: 1.58;
   }
 }
 
