@@ -185,22 +185,38 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts--
     --barocco-key-card-width: 26.4rem;
     --barocco-key-card-height: 32.7rem;
     --barocco-key-card-ratio: 13.2 / 16.35;
-    --barocco-shell-width: calc((var(--barocco-key-card-width) * 2) + 1.1rem);
+    --barocco-shell-width: min(100vw, calc((var(--barocco-key-card-width) * 5) + (1.25rem * 4)));
   }
 
   body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts--text-only .barocco-key-concepts__inner {
-    width: min(calc(100% - 1.4rem), var(--barocco-shell-width)) !important;
-    max-width: var(--barocco-shell-width) !important;
+    width: min(calc(100% - 1.4rem), 84rem) !important;
+    max-width: 84rem !important;
+    display: block !important;
   }
 
-  body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts--text-only .barocco-key-concepts__track {
-    max-width: var(--barocco-shell-width) !important;
-  }
-
+  body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts--text-only .barocco-key-concepts__track,
   .barocco-key-concepts--flip .barocco-key-concepts__track {
-    grid-template-columns: repeat(2, var(--barocco-key-card-width)) !important;
-    justify-content: center;
-    gap: 1.1rem !important;
+    width: 100vw !important;
+    max-width: none !important;
+    grid-template-columns: none !important;
+    grid-auto-flow: column !important;
+    grid-auto-columns: var(--barocco-key-card-width) !important;
+    gap: 1.25rem !important;
+    overflow-x: auto !important;
+    overflow-y: hidden !important;
+    overscroll-behavior-inline: contain !important;
+    margin-left: calc(50% - 50vw) !important;
+    margin-right: calc(50% - 50vw) !important;
+    padding-left: max(1.4rem, calc((100vw - 84rem) / 2 + 1.4rem)) !important;
+    padding-right: max(1.4rem, calc((100vw - 84rem) / 2 + 1.4rem)) !important;
+    scroll-padding-inline: max(1.4rem, calc((100vw - 84rem) / 2 + 1.4rem)) !important;
+    scroll-snap-type: x proximity !important;
+  }
+
+  .barocco-key-concepts--flip .barocco-key-concepts__slot {
+    width: var(--barocco-key-card-width) !important;
+    min-width: var(--barocco-key-card-width) !important;
+    scroll-snap-align: start;
   }
 
   .barocco-key-concepts--flip .barocco-key-concepts__card-face {
