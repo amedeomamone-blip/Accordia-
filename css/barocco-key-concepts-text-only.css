@@ -135,15 +135,15 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts--
 
 .barocco-key-concepts--flip .barocco-key-concepts__card-title {
   display: block;
-  max-width: 11.5ch;
-  min-height: 2.1rem;
-  margin-top: 1.58rem;
+  max-width: 12.5ch;
+  min-height: 1.75rem;
+  margin-top: 0.78rem;
   color: #18191b;
   font-family: var(--font-display);
-  font-size: 1.02rem;
-  font-weight: 800;
-  line-height: 1.08;
-  letter-spacing: -0.028em;
+  font-size: 0.84rem;
+  font-weight: 760;
+  line-height: 1.12;
+  letter-spacing: -0.018em;
   overflow-wrap: normal;
   word-break: normal;
 }
