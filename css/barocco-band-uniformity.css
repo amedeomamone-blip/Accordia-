@@ -3,7 +3,8 @@ body[data-current-nucleus="barocco"] .topic-page--lesson {
 }
 
 body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening,
-body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline {
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline,
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts {
   min-height: var(--barocco-section-frame-height) !important;
   margin-top: clamp(0.8rem, 1.8svh, 1.2rem) !important;
   margin-bottom: clamp(0.9rem, 2svh, 1.35rem) !important;
@@ -11,18 +12,30 @@ body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline {
   padding-bottom: clamp(1.15rem, 2.2vw, 1.7rem) !important;
 }
 
-body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline {
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline,
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts {
   display: grid !important;
   align-content: center !important;
 }
 
-body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__inner {
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening__inner,
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__inner {
   min-height: calc(var(--barocco-section-frame-height) - (clamp(1.15rem, 2.2vw, 1.7rem) * 2)) !important;
+}
+
+body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__inner {
+  display: grid !important;
+  align-content: center !important;
 }
 
 @media (max-width: 56rem) {
   body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-listening,
-  body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline {
+  body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-timeline,
+  body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts {
+    min-height: auto !important;
+  }
+
+  body[data-current-nucleus="barocco"] .topic-page--lesson .barocco-key-concepts__inner {
     min-height: auto !important;
   }
 }
