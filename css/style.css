@@ -686,7 +686,7 @@ body[data-nav="home"] .site-nav__menu a {
     align-items: end;
     max-width: none;
     padding: 0;
-    margin-left: clamp(-2.75rem, -4vw, -1rem);
+    margin-left: clamp(0.75rem, 2vw, 2rem);
     border: 0;
     border-radius: 0;
     background: transparent;
@@ -938,14 +938,21 @@ body[data-nav="home"] .button--secondary:hover {
 }
 
 .home-timeline__track {
+    --home-era-card-width: clamp(21.25rem, 24vw, 22rem);
     display: grid;
-    grid-template-columns: repeat(6, minmax(0, 1fr));
-    gap: 1.05rem;
-    overflow-x: visible;
-    padding: 0.3rem clamp(0.8rem, 2vw, 1.6rem) 1.2rem;
-    scroll-snap-type: none;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: var(--home-era-card-width);
+    gap: clamp(0.95rem, 1.4vw, 1.2rem);
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.35rem max(1rem, calc((100vw - min(100vw, var(--shell-max))) / 2 + 1rem)) 1.25rem;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: max(1rem, calc((100vw - min(100vw, var(--shell-max))) / 2 + 1rem));
     scrollbar-width: thin;
     scrollbar-color: #cfd2d7 #f2f3f5;
+    align-items: stretch;
+    -webkit-overflow-scrolling: touch;
 }
 
 .home-timeline > .shell:not(.home-section__heading) {
@@ -1550,7 +1557,7 @@ body[data-nav="home"] .site-footer__label {
 .timeline-editorial-track__scroll {
     display: grid;
     grid-auto-flow: column;
-    grid-auto-columns: minmax(20rem, 20vw);
+    grid-auto-columns: clamp(21.25rem, 24vw, 22rem);
     gap: 1rem;
     overflow-x: auto;
     padding: 0.35rem 0.15rem 1.25rem;

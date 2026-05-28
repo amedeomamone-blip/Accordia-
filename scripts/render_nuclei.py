@@ -122,7 +122,7 @@ DEFAULT_TIMELINE_PAGE_DATA = {
         "track_padding_bottom": "4.6rem",
         "card_min_height": "25rem",
         "card_gap": "1rem",
-        "card_auto_columns": "minmax(20rem, 20vw)",
+        "card_auto_columns": "clamp(21.25rem, 24vw, 22rem)",
     },
 }
 
