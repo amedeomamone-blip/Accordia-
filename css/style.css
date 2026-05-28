@@ -518,6 +518,11 @@ p {
     margin: 0 auto;
 }
 
+.site-footer__grid--contact-only {
+    grid-template-columns: minmax(0, 18rem);
+    justify-content: start;
+}
+
 .site-footer a {
     display: block;
     margin-bottom: 0.5rem;

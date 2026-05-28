@@ -41,6 +41,7 @@ STATIC_PAGES = [
 CSS_ASSET_RE = re.compile(r'href="(?P<path>[^"]*css/style\.css)(?:\?v=\d+)?"')
 JS_ASSET_RE = re.compile(r'src="(?P<path>[^"]*js/main\.js)(?:\?v=\d+)?"')
 SITE_NAV_RE = re.compile(r'\n\s*<nav class="site-nav" aria-label="Navigazione principale">.*?</nav>', re.S)
+SITE_FOOTER_RE = re.compile(r'\n\s*<footer class="site-footer">.*?</footer>', re.S)
 HOME_TIMELINE_TRACK_RE = re.compile(
     r'<div class="home-timeline__track" aria-label="Timeline orizzontale di Accordia">.*?</div>',
     re.S,
@@ -3362,6 +3363,16 @@ def page_href(path: str) -> str:
     return path
 
 
+def render_site_footer() -> str:
+    return """    <footer class="site-footer">
+        <div class="shell site-footer__grid site-footer__grid--contact-only">
+            <div class="site-footer__contacts">
+                <span class="site-footer__label">Contatti</span>
+            </div>
+        </div>
+    </footer>"""
+
+
 def link_button(label: str, href: str | None, variant: str, extra: str = "") -> str:
     if href:
         attrs = f' href="{e(page_href(href))}"'
@@ -3432,6 +3443,23 @@ def sync_home_timeline() -> None:
     updated = HOME_TIMELINE_TRACK_RE.sub(replacement, content, count=1)
     if updated != content:
         path.write_text(updated, encoding="utf-8")
+
+
+def sync_site_footers() -> None:
+    paths = list(STATIC_PAGES)
+    paths.append(ROOT / "timeline" / "index.html")
+    nuclei_root = ROOT / "nuclei"
+    if nuclei_root.exists():
+        paths.extend(sorted(nuclei_root.rglob("*.html")))
+
+    footer = "\n" + render_site_footer()
+    for path in paths:
+        if not path.exists():
+            continue
+        content = path.read_text(encoding="utf-8")
+        updated = SITE_FOOTER_RE.sub(footer, content)
+        if updated != content:
+            path.write_text(updated, encoding="utf-8")
 
 
 def find_nucleo(slug: str) -> dict:
@@ -5511,6 +5539,7 @@ def main() -> None:
                     render_topic_page(nucleo, topic_index, topic),
                 )
     refresh_static_page_assets()
+    sync_site_footers()
 
 
 if __name__ == "__main__":
