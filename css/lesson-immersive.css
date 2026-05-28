@@ -736,6 +736,15 @@
   align-content: start;
 }
 
+.lesson-key-card,
+.lesson-flow-card,
+.lesson-meter-card,
+.lesson-meaning-card {
+  min-height: 0;
+  aspect-ratio: var(--accordia-card-ratio, 0.78 / 1);
+  overflow: hidden;
+}
+
 .lesson-figure {
   margin: 0;
   display: grid;

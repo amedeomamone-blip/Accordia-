@@ -26,8 +26,8 @@ body[data-nav="home"] .home-era-card {
     width: var(--home-era-card-width);
     min-width: 0;
     max-width: none;
-    min-height: 22.45rem;
-    aspect-ratio: 0.78 / 1;
+    min-height: 0;
+    aspect-ratio: var(--accordia-card-ratio);
     height: auto;
     contain: layout paint;
     flex: none;

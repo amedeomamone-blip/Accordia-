@@ -20,6 +20,8 @@
     --signal-red: #dc5d50;
     --shell-max: 1320px;
     --shell-gutter: 3rem;
+    --accordia-card-ratio: 0.78 / 1;
+    --accordia-card-ratio-value: 0.78;
 }
 
 * {
@@ -962,7 +964,8 @@ body[data-nav="home"] .button--secondary:hover {
 
 .home-era-card {
     position: relative;
-    min-height: 22.45rem;
+    min-height: 0;
+    aspect-ratio: var(--accordia-card-ratio);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -973,6 +976,7 @@ body[data-nav="home"] .button--secondary:hover {
     background: #ffffff;
     scroll-snap-align: start;
     box-shadow: 0 10px 22px rgba(15, 23, 42, 0.04);
+    overflow: hidden;
     transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background-color 180ms ease;
 }
 
@@ -1294,6 +1298,13 @@ body[data-nav="home"] .site-footer__label {
     border-radius: 1.35rem;
 }
 
+.content-card,
+.contributor-card {
+    min-height: 0;
+    aspect-ratio: var(--accordia-card-ratio);
+    overflow: hidden;
+}
+
 .page-hero__copy h1 {
     max-width: 15ch;
     margin-top: 1rem;
@@ -1492,6 +1503,13 @@ body[data-nav="home"] .site-footer__label {
 .timeline-editorial-framework__card,
 .nucleus-card {
     border-radius: 1.5rem;
+}
+
+.timeline-editorial-framework__card,
+.nucleus-card:not(.nucleus-card--wide) {
+    min-height: 0;
+    aspect-ratio: var(--accordia-card-ratio);
+    overflow: hidden;
 }
 
 .timeline-editorial-hero__panel,
@@ -2322,6 +2340,8 @@ body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node
     left: calc(var(--node-x) * 1%);
     top: calc(var(--node-y) * 1%);
     width: clamp(13.25rem, 15vw, 16.25rem);
+    min-height: 0;
+    aspect-ratio: var(--accordia-card-ratio);
     transform: translate(-50%, -50%);
     transform-origin: center center;
     display: flex;
@@ -2336,6 +2356,7 @@ body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node
     transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease, color 180ms ease;
     z-index: 1;
     cursor: grab;
+    overflow: hidden;
     user-select: none;
     -webkit-user-select: none;
     touch-action: none;
@@ -2813,7 +2834,7 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
 
 .student-lesson-board {
     --lesson-card-width: min(30rem, calc(100vw - 15rem));
-    --lesson-card-height: clamp(27rem, 57vh, 37rem);
+    --lesson-card-height: calc(var(--lesson-card-width) / var(--accordia-card-ratio-value));
     max-width: none;
     margin: 0 auto;
     width: 100%;
@@ -4569,7 +4590,7 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
 
     .student-lesson-board {
         --lesson-card-width: min(25rem, calc(100vw - 3.25rem));
-        --lesson-card-height: clamp(24rem, 52vh, 33rem);
+        --lesson-card-height: calc(var(--lesson-card-width) / var(--accordia-card-ratio-value));
         min-height: 0;
         padding: 22px 18px 28px;
         border-radius: 24px;

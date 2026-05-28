@@ -38,6 +38,7 @@ Ogni lezione mostra allo studente solo quattro movimenti:
 
 - una schermata deve comunicare una sola idea dominante
 - le card servono solo per contenuti brevi o operativi
+- la proporzione delle card e fissa: usare `--accordia-card-ratio: 0.78 / 1`, derivata dalla fascia inferiore a 1920x1080; la grandezza puo cambiare, la sagoma no, anche su iPhone, iPad, rotazione e zoom
 - i blocchi importanti devono essere larghi, ariosi e panoramici
 - le sezioni devono fluire l'una nell'altra senza effetto scheda
 - le parole chiave devono essere poche, visibili e ordinate

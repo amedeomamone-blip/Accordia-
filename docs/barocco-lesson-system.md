@@ -31,8 +31,9 @@ Use these rules whenever a lesson should reuse the Barocco page architecture.
 - Cards are white, borderless, softly rounded, and compact.
 - Keep title, copy, and image inside the same card without flip effects.
 - Images should start from the bottom edge whenever they act as card artwork.
-- Rectangular or portrait cards must keep a fixed `aspect-ratio`. Zoom can scale them, but it must never squash or stretch their silhouette.
-- Prefer fixed proportions over ad hoc `min-height` tuning when a rail needs to stay visually stable across desktop, iPad, iPhone, and browser zoom.
+- The system card proportion is `--accordia-card-ratio: 0.78 / 1`, derived from the lower home band at 1920x1080.
+- Rectangular or portrait cards must use the system `aspect-ratio`. Zoom, iPad/iPhone orientation, and viewport changes can scale a card, but must never squash or stretch its silhouette.
+- Prefer the shared proportion token over ad hoc `min-height` tuning when a rail needs to stay visually stable across desktop, iPad, iPhone, and browser zoom.
 - For mobile and tablet, reduce card width and text scale slightly before increasing band height.
 
 ## First Listening

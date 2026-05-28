@@ -12,7 +12,7 @@
   --barocco-band-padding-y: clamp(1.25rem, 2.3vw, 1.75rem);
   --barocco-band-gap: clamp(1.45rem, 2.9svh, 2.15rem);
   --barocco-band-frame-height: clamp(32rem, 72vh, 48rem);
-  --barocco-key-card-ratio: 18.8 / 21.15;
+  --barocco-key-card-ratio: var(--accordia-card-ratio, 0.78 / 1);
   --barocco-key-card-min-width: 15.25rem;
   --barocco-carousel-gutter: max(clamp(1.25rem, 5.8vw, 5rem), calc((100vw - var(--barocco-shell-width)) * 0.5 + clamp(1.4rem, 2.8vw, 2.25rem)));
   --barocco-track-pad-start: var(--barocco-carousel-gutter);
