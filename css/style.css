@@ -679,14 +679,10 @@ body[data-nav="home"] .site-nav__menu a {
     align-items: end;
     max-width: none;
     padding: 0;
+    margin-left: clamp(-2.75rem, -4vw, -1rem);
     border: 0;
     border-radius: 0;
     background: transparent;
-}
-
-.home-hero__copy .home-kicker {
-    grid-column: 1 / -1;
-    margin-bottom: 0;
 }
 
 .home-hero__copy h1,
@@ -1103,6 +1099,7 @@ body[data-nav="home"] .site-footer__label {
     .home-hero__copy {
         grid-template-columns: 1fr;
         gap: 1rem;
+        margin-left: 0;
     }
 
     .home-hero__lead {
