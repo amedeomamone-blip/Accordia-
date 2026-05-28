@@ -1579,7 +1579,8 @@ body[data-nav="home"] .site-footer__label {
 
 .timeline-editorial-card {
     position: relative;
-    min-height: 25rem;
+    min-height: 0;
+    aspect-ratio: var(--accordia-card-ratio);
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -1590,6 +1591,7 @@ body[data-nav="home"] .site-footer__label {
     background: #ffffff;
     scroll-snap-align: start;
     box-shadow: 0 12px 26px rgba(15, 23, 42, 0.04);
+    overflow: hidden;
     transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
 }
 
@@ -5382,5 +5384,11 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
 
     .student-workspace .lesson-floating-map {
         border-radius: 24px;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1366px) and (orientation: landscape) {
+    body[data-nav="home"] .home-timeline__track {
+        grid-auto-columns: clamp(23.5rem, 31vw, 26.5rem);
     }
 }

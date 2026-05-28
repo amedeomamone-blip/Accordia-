@@ -4917,7 +4917,15 @@ def render_timeline_page_style(style: dict) -> str:
         }}
 
         .timeline-editorial-card {{
-            min-height: {style["card_min_height"]};
+            min-height: 0;
+            aspect-ratio: var(--accordia-card-ratio, 0.78 / 1);
+            overflow: hidden;
+        }}
+
+        @media (min-width: 900px) and (max-width: 1366px) and (orientation: landscape) {{
+            .timeline-editorial-track__scroll {{
+                grid-auto-columns: clamp(23.5rem, 31vw, 26.5rem);
+            }}
         }}
     </style>"""
 
