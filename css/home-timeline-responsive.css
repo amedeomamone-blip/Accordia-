@@ -1,0 +1,69 @@
+/* Landing timeline nuclei: proporzione stabile desktop/tablet/mobile.
+   Replica la resa iPad anche su desktop evitando card compresse o deformate allo zoom. */
+
+body[data-nav="home"] .home-timeline > .shell:not(.home-section__heading) {
+    width: 100%;
+    max-width: none;
+}
+
+body[data-nav="home"] .home-timeline__track {
+    --home-era-card-width: clamp(18.5rem, 42vw, 22rem);
+    display: grid;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: var(--home-era-card-width);
+    gap: clamp(0.95rem, 1.4vw, 1.2rem);
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.35rem max(1rem, calc((100vw - min(100vw, var(--shell-max))) / 2 + 1rem)) 1.25rem;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: max(1rem, calc((100vw - min(100vw, var(--shell-max))) / 2 + 1rem));
+    align-items: stretch;
+    -webkit-overflow-scrolling: touch;
+}
+
+body[data-nav="home"] .home-era-card {
+    width: var(--home-era-card-width);
+    min-width: 0;
+    max-width: none;
+    min-height: 22.45rem;
+    aspect-ratio: 0.78 / 1;
+    height: auto;
+    contain: layout paint;
+    flex: none;
+}
+
+body[data-nav="home"] .home-era-card strong {
+    font-size: clamp(1.12rem, 1.1vw, 1.34rem);
+}
+
+body[data-nav="home"] .home-era-card p {
+    font-size: clamp(0.86rem, 0.82vw, 0.93rem);
+}
+
+@media (min-width: 1280px) {
+    body[data-nav="home"] .home-timeline__track {
+        --home-era-card-width: clamp(19.5rem, 18vw, 22rem);
+    }
+}
+
+@media (max-width: 1024px) {
+    body[data-nav="home"] .home-timeline__track {
+        --home-era-card-width: minmax(18.5rem, 42vw);
+        grid-auto-columns: var(--home-era-card-width);
+        padding-inline: 1rem;
+        scroll-padding-inline: 1rem;
+    }
+
+    body[data-nav="home"] .home-era-card {
+        width: auto;
+    }
+}
+
+@media (max-width: 760px) {
+    body[data-nav="home"] .home-timeline__track {
+        --home-era-card-width: minmax(17.5rem, 84vw);
+        padding-inline: 0.9rem;
+        scroll-padding-inline: 0.9rem;
+    }
+}
