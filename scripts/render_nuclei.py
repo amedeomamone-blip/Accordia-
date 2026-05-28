@@ -4924,7 +4924,13 @@ def render_timeline_page_style(style: dict) -> str:
 
         @media (min-width: 900px) and (max-width: 1366px) and (orientation: landscape) {{
             .timeline-editorial-track__scroll {{
-                grid-auto-columns: clamp(23.5rem, 31vw, 26.5rem);
+                grid-auto-columns: clamp(27rem, 36vw, 30rem);
+            }}
+        }}
+
+        @media (max-width: 899px) and (max-height: 500px) and (orientation: landscape) {{
+            .timeline-editorial-track__scroll {{
+                grid-auto-columns: clamp(14rem, 35vw, 16rem);
             }}
         }}
     </style>"""
