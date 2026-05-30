@@ -6,6 +6,7 @@
     <meta name="description" content="Accordia e un ambiente didattico per insegnare la storia della musica nella scuola secondaria di primo grado, con timeline, nuclei storici, mappe degli argomenti, ascolti guidati, attivita laboratoriali e verifiche.">
     <title>Accordia | Storia della musica</title>
     <link rel="stylesheet" href="css/style.css?v=1780006673">
+    <link rel="stylesheet" href="css/home-timeline-morph.css?v=20260530">
 </head>
 <body data-nav="home">
     <header class="site-header">
@@ -47,61 +48,64 @@
             </div>
         </section>
 
-        <section class="home-section home-timeline" id="timeline">
-            <div class="shell home-section__heading home-section__heading--timeline">
-                <h2>Un percorso storico in sei nuclei di apprendimento</h2>
-                <p>
-                    Ogni nucleo apre un ambiente di lavoro completo: lezioni collegate, contenuti essenziali,
-                    ascolti guidati, attivit&agrave; laboratoriali e strumenti di verifica.
-                </p>
-            </div>
-            <div class="shell">
-                <div class="home-timeline__track" aria-label="Timeline orizzontale di Accordia">
-
-                    <a class="home-era-card" href="nuclei/medioevo/index.html" style="--card-line: #1f7f90;" data-nucleus-link="medioevo">
-                        <span class="home-era-card__number">01</span>
-                        <span class="home-era-card__era">Dal canto alla scrittura</span>
-                        <strong>Il Medioevo</strong>
-                        <p>Canto gregoriano, monasteri, trovatori, giullari, notazione e nascita della polifonia.</p>
-                        <span class="home-era-card__cta">Apri il nucleo</span>
-                    </a>
-                    <a class="home-era-card" href="nuclei/rinascimento/index.html" style="--card-line: #768a2a;" data-nucleus-link="rinascimento">
-                        <span class="home-era-card__number">02</span>
-                        <span class="home-era-card__era">L&#x27;uomo e la voce</span>
-                        <strong>Il Rinascimento</strong>
-                        <p>Polifonia, madrigale, corti, stampa musicale e ideale umanistico di equilibrio.</p>
-                        <span class="home-era-card__cta">Apri il nucleo</span>
-                    </a>
-                    <a class="home-era-card" href="nuclei/barocco/index.html" style="--card-line: #c14f40;" data-nucleus-link="barocco">
-                        <span class="home-era-card__number">03</span>
-                        <span class="home-era-card__era">Teatro e meraviglia</span>
-                        <strong>Il Barocco</strong>
-                        <p>Melodramma, basso continuo, concerto, oratorio e nuove forme di spettacolo sonoro.</p>
-                        <span class="home-era-card__cta">Apri il nucleo</span>
-                    </a>
-                    <a class="home-era-card" href="nuclei/settecento-classicismo/index.html" style="--card-line: #2f6fd6;" data-nucleus-link="settecento-classicismo">
-                        <span class="home-era-card__number">04</span>
-                        <span class="home-era-card__era">Forma e chiarezza</span>
-                        <strong>Settecento e Classicismo</strong>
-                        <p>Sinfonia, sonata, quartetto e concerto: il linguaggio musicale cerca equilibrio e proporzione.</p>
-                        <span class="home-era-card__cta">Apri il nucleo</span>
-                    </a>
-                    <a class="home-era-card" href="nuclei/ottocento/index.html" style="--card-line: #a94d87;" data-nucleus-link="ottocento">
-                        <span class="home-era-card__number">05</span>
-                        <span class="home-era-card__era">Emozione e identita</span>
-                        <strong>L&#x27;Ottocento</strong>
-                        <p>Romanticismo, pianoforte, lied, virtuosismo, opera, grande orchestra e scuole nazionali.</p>
-                        <span class="home-era-card__cta">Apri il nucleo</span>
-                    </a>
-                    <a class="home-era-card" href="nuclei/novecento/index.html" style="--card-line: #7057c9;" data-nucleus-link="novecento">
-                        <span class="home-era-card__number">06</span>
-                        <span class="home-era-card__era">Rotture e nuovi linguaggi</span>
-                        <strong>Il Novecento</strong>
-                        <p>Crisi della tonalita, avanguardie, rumore, tecnologia e nuovi modi di pensare la musica.</p>
-                        <span class="home-era-card__cta">Apri il nucleo</span>
-                    </a>
+        <section class="home-section home-timeline home-timeline--morph" id="timeline" data-home-timeline-morph>
+            <div class="home-timeline__sticky" data-home-timeline-sticky>
+                <div class="shell home-section__heading home-section__heading--timeline" data-home-timeline-heading>
+                    <span class="home-timeline__eyebrow">Timeline</span>
+                    <h2>Un percorso storico in sei nuclei di apprendimento</h2>
+                    <p>
+                        Ogni nucleo apre un ambiente di lavoro completo: lezioni collegate, contenuti essenziali,
+                        ascolti guidati, attivit&agrave; laboratoriali e strumenti di verifica.
+                    </p>
                 </div>
-                <p class="home-timeline__hint">Scorri lateralmente per seguire il percorso storico, poi apri un nucleo per entrare in lavagne, ascolti, attivit&agrave; e verifiche.</p>
+                <div class="shell home-timeline__shell">
+                    <div class="home-timeline__track" aria-label="Timeline orizzontale di Accordia" data-home-timeline-track>
+
+                        <a class="home-era-card" href="nuclei/medioevo/index.html" style="--card-line: #1f7f90;" data-nucleus-link="medioevo">
+                            <span class="home-era-card__number">01</span>
+                            <span class="home-era-card__era">Dal canto alla scrittura</span>
+                            <strong>Il Medioevo</strong>
+                            <p>Canto gregoriano, monasteri, trovatori, giullari, notazione e nascita della polifonia.</p>
+                            <span class="home-era-card__cta">Apri il nucleo</span>
+                        </a>
+                        <a class="home-era-card" href="nuclei/rinascimento/index.html" style="--card-line: #768a2a;" data-nucleus-link="rinascimento">
+                            <span class="home-era-card__number">02</span>
+                            <span class="home-era-card__era">L&#x27;uomo e la voce</span>
+                            <strong>Il Rinascimento</strong>
+                            <p>Polifonia, madrigale, corti, stampa musicale e ideale umanistico di equilibrio.</p>
+                            <span class="home-era-card__cta">Apri il nucleo</span>
+                        </a>
+                        <a class="home-era-card" href="nuclei/barocco/index.html" style="--card-line: #c14f40;" data-nucleus-link="barocco">
+                            <span class="home-era-card__number">03</span>
+                            <span class="home-era-card__era">Teatro e meraviglia</span>
+                            <strong>Il Barocco</strong>
+                            <p>Melodramma, basso continuo, concerto, oratorio e nuove forme di spettacolo sonoro.</p>
+                            <span class="home-era-card__cta">Apri il nucleo</span>
+                        </a>
+                        <a class="home-era-card" href="nuclei/settecento-classicismo/index.html" style="--card-line: #2f6fd6;" data-nucleus-link="settecento-classicismo">
+                            <span class="home-era-card__number">04</span>
+                            <span class="home-era-card__era">Forma e chiarezza</span>
+                            <strong>Settecento e Classicismo</strong>
+                            <p>Sinfonia, sonata, quartetto e concerto: il linguaggio musicale cerca equilibrio e proporzione.</p>
+                            <span class="home-era-card__cta">Apri il nucleo</span>
+                        </a>
+                        <a class="home-era-card" href="nuclei/ottocento/index.html" style="--card-line: #a94d87;" data-nucleus-link="ottocento">
+                            <span class="home-era-card__number">05</span>
+                            <span class="home-era-card__era">Emozione e identita</span>
+                            <strong>L&#x27;Ottocento</strong>
+                            <p>Romanticismo, pianoforte, lied, virtuosismo, opera, grande orchestra e scuole nazionali.</p>
+                            <span class="home-era-card__cta">Apri il nucleo</span>
+                        </a>
+                        <a class="home-era-card" href="nuclei/novecento/index.html" style="--card-line: #7057c9;" data-nucleus-link="novecento">
+                            <span class="home-era-card__number">06</span>
+                            <span class="home-era-card__era">Rotture e nuovi linguaggi</span>
+                            <strong>Il Novecento</strong>
+                            <p>Crisi della tonalita, avanguardie, rumore, tecnologia e nuovi modi di pensare la musica.</p>
+                            <span class="home-era-card__cta">Apri il nucleo</span>
+                        </a>
+                    </div>
+                    <p class="home-timeline__hint">Scorri lateralmente per seguire il percorso storico, poi apri un nucleo per entrare in lavagne, ascolti, attivit&agrave; e verifiche.</p>
+                </div>
             </div>
         </section>
 
@@ -115,5 +119,6 @@
     </footer>
 
     <script src="js/main.js?v=1780006673"></script>
+    <script src="js/home-timeline-morph.js?v=20260530"></script>
 </body>
 </html>
