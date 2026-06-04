@@ -6,7 +6,7 @@
     <meta name="description" content="Accordia e un ambiente didattico per insegnare la storia della musica nella scuola secondaria di primo grado, con timeline, nuclei storici, mappe degli argomenti, ascolti guidati, attivita laboratoriali e verifiche.">
     <title>Accordia | Storia della musica</title>
     <link rel="stylesheet" href="css/style.css?v=1780006673">
-    <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780006681">
+    <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780006682">
 </head>
 <body data-nav="home">
     <header class="site-header">
@@ -100,40 +100,48 @@
                     </a>
 
                     <aside class="home-era-board" id="baroccoBoard" aria-label="Lavagna lezioni Barocco">
-                        <div class="home-era-board__inner">
-                            <header class="home-era-board__head">
-                                <div class="home-era-board__kicker">Lavagna del nucleo</div>
-                                <h3 class="home-era-board__title">Il Barocco</h3>
-                                <p class="home-era-board__subtitle">Una lavagna laterale che raccoglie le lezioni principali, senza uscire dalla timeline.</p>
-                            </header>
-
-                            <div class="home-era-board__lessons">
-                                <a class="home-era-board__lesson" href="nuclei/barocco/index.html">
-                                    <span class="home-era-board__lesson-num">1</span>
-                                    <div><strong>Introduzione al Barocco</strong><span>Contesto, stile, parole chiave e ascolti iniziali.</span></div>
-                                    <span class="home-era-board__lesson-arrow">›</span>
+                        <div class="home-era-board__map">
+                            <button class="home-era-board__close" id="closeBaroccoBoard" type="button">Chiudi</button>
+                            <svg class="home-era-board__lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+                                <line class="home-era-board__line" x1="28" y1="36" x2="62" y2="28" />
+                                <line class="home-era-board__line" x1="28" y1="36" x2="42" y2="72" />
+                                <line class="home-era-board__line" x1="62" y1="28" x2="72" y2="66" />
+                                <line class="home-era-board__line" x1="42" y1="72" x2="72" y2="66" />
+                            </svg>
+                            <div class="home-era-board__canvas">
+                                <a class="home-era-board__node" href="nuclei/barocco/argomenti/il-barocco-in-coordinate/index.html" style="--x:28;--y:36;">
+                                    <span class="home-era-board__node-number">01</span>
+                                    <span class="home-era-board__node-label">Lezione</span>
+                                    <strong>Introduzione al Barocco</strong>
+                                    <p>Coordinate storiche e parole chiave.</p>
+                                    <small>Contrasto, affetti, teatralità e nascita del nuovo linguaggio musicale.</small>
+                                    <span class="home-era-board__node-cta">Apri la lezione</span>
                                 </a>
-                                <a class="home-era-board__lesson" href="nuclei/barocco/index.html#melodramma">
-                                    <span class="home-era-board__lesson-num">2</span>
-                                    <div><strong>Il melodramma</strong><span>La nascita del teatro musicale e il rapporto parola-musica.</span></div>
-                                    <span class="home-era-board__lesson-arrow">›</span>
+                                <a class="home-era-board__node" href="nuclei/barocco/index.html#melodramma" style="--x:62;--y:28;">
+                                    <span class="home-era-board__node-number">02</span>
+                                    <span class="home-era-board__node-label">Teatro</span>
+                                    <strong>Il melodramma</strong>
+                                    <p>Parola, musica e scena.</p>
+                                    <small>La musica entra nel teatro moderno e costruisce una nuova esperienza drammatica.</small>
+                                    <span class="home-era-board__node-cta">Apri la lezione</span>
                                 </a>
-                                <a class="home-era-board__lesson" href="nuclei/barocco/index.html#orchestra">
-                                    <span class="home-era-board__lesson-num">3</span>
-                                    <div><strong>Orchestra barocca</strong><span>Strumenti, basso continuo, concerto e timbri caratteristici.</span></div>
-                                    <span class="home-era-board__lesson-arrow">›</span>
+                                <a class="home-era-board__node" href="nuclei/barocco/index.html#orchestra" style="--x:42;--y:72;">
+                                    <span class="home-era-board__node-number">03</span>
+                                    <span class="home-era-board__node-label">Strumenti</span>
+                                    <strong>Orchestra barocca</strong>
+                                    <p>Basso continuo e timbri.</p>
+                                    <small>Strumenti, concerto, dialogo sonoro e organizzazione dell’ensemble.</small>
+                                    <span class="home-era-board__node-cta">Apri la lezione</span>
                                 </a>
-                                <a class="home-era-board__lesson" href="nuclei/barocco/index.html#ascolti">
-                                    <span class="home-era-board__lesson-num">4</span>
-                                    <div><strong>Ascolti guidati</strong><span>Vivaldi, Bach, Händel: ascolto, forma e riconoscimento.</span></div>
-                                    <span class="home-era-board__lesson-arrow">›</span>
+                                <a class="home-era-board__node" href="nuclei/barocco/argomenti/globo-degli-ascolti/index.html" style="--x:72;--y:66;">
+                                    <span class="home-era-board__node-number">04</span>
+                                    <span class="home-era-board__node-label">Ascolto</span>
+                                    <strong>Globo degli ascolti</strong>
+                                    <p>Brani in orbita.</p>
+                                    <small>Vivaldi, Bach, Händel: ascolti guidati e collegamenti musicali.</small>
+                                    <span class="home-era-board__node-cta">Apri la lezione</span>
                                 </a>
                             </div>
-
-                            <footer class="home-era-board__foot">
-                                <span class="home-era-board__chip">1600–1750</span>
-                                <button class="home-era-board__close" id="closeBaroccoBoard" type="button">Chiudi</button>
-                            </footer>
                         </div>
                     </aside>
 
