@@ -1,0 +1,149 @@
+/* Accordia landing timeline: lavagna digitale in flusso, senza sovrapposizione */
+
+body[data-nav="home"] .home-timeline__track {
+    --home-track-gap: 12px;
+    display: flex !important;
+    grid-template-columns: none !important;
+    grid-auto-flow: initial !important;
+    grid-auto-columns: initial !important;
+    gap: var(--home-track-gap) !important;
+    align-items: stretch;
+}
+
+body[data-nav="home"] .home-era-card {
+    flex: 0 0 var(--home-era-card-width) !important;
+    width: var(--home-era-card-width) !important;
+}
+
+body[data-nav="home"] .home-era-board {
+    flex: 0 0 0 !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 0 !important;
+    margin-inline: calc(var(--home-track-gap) / -2) !important;
+    transform: scale(.985) !important;
+    transition:
+        flex-basis 620ms cubic-bezier(.2, .8, .2, 1),
+        width 620ms cubic-bezier(.2, .8, .2, 1),
+        min-width 620ms cubic-bezier(.2, .8, .2, 1),
+        max-width 620ms cubic-bezier(.2, .8, .2, 1),
+        margin 620ms cubic-bezier(.2, .8, .2, 1),
+        opacity 340ms ease,
+        transform 620ms cubic-bezier(.2, .8, .2, 1) !important;
+}
+
+body[data-nav="home"] .home-era-board.is-open {
+    flex-basis: var(--home-board-width) !important;
+    width: var(--home-board-width) !important;
+    min-width: var(--home-board-width) !important;
+    max-width: var(--home-board-width) !important;
+    margin-inline: 0 !important;
+    transform: scale(1) !important;
+}
+
+body[data-nav="home"] .home-era-board__node {
+    width: clamp(10.8rem, 13.5vw, 12.6rem) !important;
+    aspect-ratio: 0.78 / 1 !important;
+    padding: 4px !important;
+    border-radius: 24px !important;
+}
+
+body[data-nav="home"] .home-era-board__node-label,
+body[data-nav="home"] .home-era-board__node p,
+body[data-nav="home"] .home-era-board__node small,
+body[data-nav="home"] .home-era-board__node-cta {
+    display: none !important;
+}
+
+body[data-nav="home"] .home-era-board__node::before {
+    display: none !important;
+}
+
+body[data-nav="home"] .home-era-board__node-top {
+    flex: 1;
+    border-radius: 20px;
+    background: var(--accent-soft);
+    padding: 14px 14px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+body[data-nav="home"] .home-era-board__node-number {
+    position: relative !important;
+    top: auto !important;
+    right: auto !important;
+    z-index: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    min-width: 34px;
+    height: 28px;
+    padding: 0 11px;
+    border-radius: 999px;
+    background: var(--accent);
+    color: var(--accent-soft);
+    font-family: var(--font-sans);
+    font-size: 10px;
+    line-height: 1;
+    font-weight: 760;
+    letter-spacing: .05em;
+    box-shadow: 0 8px 18px rgba(102, 54, 46, 0.16);
+}
+
+body[data-nav="home"] .home-era-board__node strong {
+    position: relative;
+    z-index: 1;
+    max-width: 8ch !important;
+    margin: 0;
+    color: var(--accent);
+    font-family: var(--font-display);
+    font-size: 20px !important;
+    line-height: .96 !important;
+    letter-spacing: -0.05em;
+    font-weight: 690;
+    text-wrap: balance;
+}
+
+body[data-nav="home"] .home-era-board__node-bottom {
+    min-height: 30px;
+    margin-top: 4px;
+    padding: 0 10px 0 12px;
+    border-radius: 16px 16px 20px 20px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+body[data-nav="home"] .home-era-board__node-arrow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 28px;
+    height: 28px;
+    border-radius: 999px;
+    background: var(--accent-pale);
+    color: var(--accent);
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+}
+
+@media (max-width: 760px) {
+    body[data-nav="home"] .home-timeline__track {
+        --home-track-gap: 10px;
+    }
+
+    body[data-nav="home"] .home-era-board__node {
+        width: 9.9rem !important;
+    }
+
+    body[data-nav="home"] .home-era-board__node strong {
+        font-size: 17px !important;
+    }
+}
