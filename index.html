@@ -6,7 +6,7 @@
     <meta name="description" content="Accordia e un ambiente didattico per insegnare la storia della musica nella scuola secondaria di primo grado, con timeline, nuclei storici, mappe degli argomenti, ascolti guidati, attivita laboratoriali e verifiche.">
     <title>Accordia | Storia della musica</title>
     <link rel="stylesheet" href="css/style.css?v=1780006673">
-    <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780006680">
+    <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780006681">
 </head>
 <body data-nav="home">
     <header class="site-header">
@@ -85,7 +85,7 @@
                             </div>
                         </div>
                     </a>
-                    <a class="home-era-card" href="nuclei/barocco/index.html" data-nucleus-link="barocco">
+                    <a class="home-era-card" id="baroccoCard" href="nuclei/barocco/index.html" data-nucleus-link="barocco" aria-expanded="false" aria-controls="baroccoBoard">
                         <div class="home-era-card__top">
                             <strong>Il Barocco</strong>
                             <span class="home-era-card__period">1600–1750</span>
@@ -98,6 +98,45 @@
                             </div>
                         </div>
                     </a>
+
+                    <aside class="home-era-board" id="baroccoBoard" aria-label="Lavagna lezioni Barocco">
+                        <div class="home-era-board__inner">
+                            <header class="home-era-board__head">
+                                <div class="home-era-board__kicker">Lavagna del nucleo</div>
+                                <h3 class="home-era-board__title">Il Barocco</h3>
+                                <p class="home-era-board__subtitle">Una lavagna laterale che raccoglie le lezioni principali, senza uscire dalla timeline.</p>
+                            </header>
+
+                            <div class="home-era-board__lessons">
+                                <a class="home-era-board__lesson" href="nuclei/barocco/index.html">
+                                    <span class="home-era-board__lesson-num">1</span>
+                                    <div><strong>Introduzione al Barocco</strong><span>Contesto, stile, parole chiave e ascolti iniziali.</span></div>
+                                    <span class="home-era-board__lesson-arrow">›</span>
+                                </a>
+                                <a class="home-era-board__lesson" href="nuclei/barocco/index.html#melodramma">
+                                    <span class="home-era-board__lesson-num">2</span>
+                                    <div><strong>Il melodramma</strong><span>La nascita del teatro musicale e il rapporto parola-musica.</span></div>
+                                    <span class="home-era-board__lesson-arrow">›</span>
+                                </a>
+                                <a class="home-era-board__lesson" href="nuclei/barocco/index.html#orchestra">
+                                    <span class="home-era-board__lesson-num">3</span>
+                                    <div><strong>Orchestra barocca</strong><span>Strumenti, basso continuo, concerto e timbri caratteristici.</span></div>
+                                    <span class="home-era-board__lesson-arrow">›</span>
+                                </a>
+                                <a class="home-era-board__lesson" href="nuclei/barocco/index.html#ascolti">
+                                    <span class="home-era-board__lesson-num">4</span>
+                                    <div><strong>Ascolti guidati</strong><span>Vivaldi, Bach, Händel: ascolto, forma e riconoscimento.</span></div>
+                                    <span class="home-era-board__lesson-arrow">›</span>
+                                </a>
+                            </div>
+
+                            <footer class="home-era-board__foot">
+                                <span class="home-era-board__chip">1600–1750</span>
+                                <button class="home-era-board__close" id="closeBaroccoBoard" type="button">Chiudi</button>
+                            </footer>
+                        </div>
+                    </aside>
+
                     <a class="home-era-card" href="nuclei/settecento-classicismo/index.html" data-nucleus-link="settecento-classicismo">
                         <div class="home-era-card__top">
                             <strong>Il Classicismo</strong>
@@ -152,5 +191,49 @@
     </footer>
 
     <script src="js/main.js?v=1780006673"></script>
+    <script>
+        (function () {
+            const baroccoCard = document.getElementById('baroccoCard');
+            const board = document.getElementById('baroccoBoard');
+            const closeButton = document.getElementById('closeBaroccoBoard');
+            const cards = document.querySelectorAll('.home-era-card');
+
+            if (!baroccoCard || !board || !closeButton) return;
+
+            function openBoard(event) {
+                event.preventDefault();
+
+                if (board.classList.contains('is-open')) {
+                    closeBoard();
+                    return;
+                }
+
+                board.classList.add('is-open');
+                baroccoCard.classList.add('is-active');
+                baroccoCard.setAttribute('aria-expanded', 'true');
+
+                cards.forEach(function (card) {
+                    if (card !== baroccoCard) card.classList.add('is-dimmed');
+                });
+
+                window.requestAnimationFrame(function () {
+                    board.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                });
+            }
+
+            function closeBoard() {
+                board.classList.remove('is-open');
+                baroccoCard.classList.remove('is-active');
+                baroccoCard.setAttribute('aria-expanded', 'false');
+                cards.forEach(function (card) { card.classList.remove('is-dimmed'); });
+            }
+
+            baroccoCard.addEventListener('click', openBoard);
+            closeButton.addEventListener('click', closeBoard);
+            document.addEventListener('keydown', function (event) {
+                if (event.key === 'Escape') closeBoard();
+            });
+        })();
+    </script>
 </body>
 </html>
