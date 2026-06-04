@@ -25,6 +25,10 @@ body[data-nav="home"] .home-era-card {
 }
 
 body[data-nav="home"] .home-era-board {
+    --board-card-width: min(20rem, calc(var(--home-board-width) - 5rem));
+    --baroque-soft: #ead6d0;
+    --baroque-dark: #66362e;
+    --baroque-gold: #c59a56;
     flex: 0 0 0 !important;
     width: 0 !important;
     min-width: 0 !important;
@@ -66,66 +70,168 @@ body[data-nav="home"] .home-era-board__line {
 
 body[data-nav="home"] .home-era-board__canvas {
     position: relative !important;
-    display: block !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     width: 100% !important;
     height: 100% !important;
-    padding: 0 !important;
-    touch-action: none;
+    padding: 2rem !important;
 }
 
 body[data-nav="home"] .home-era-board__node {
-    position: absolute !important;
-    left: calc(var(--x) * 1%) !important;
-    top: calc(var(--y) * 1%) !important;
-    width: clamp(9.4rem, 11.5vw, 10.9rem) !important;
+    position: relative !important;
+    inset: auto !important;
+    left: auto !important;
+    top: auto !important;
+    width: var(--board-card-width) !important;
     height: auto !important;
-    aspect-ratio: 0.78 / 1 !important;
-    padding: 0 !important;
-    border-radius: 22px !important;
-    border: 1px solid rgba(102, 54, 46, 0.10) !important;
-    background: rgba(255, 255, 255, 0.72) !important;
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.055) !important;
-    backdrop-filter: blur(10px);
-    flex: none !important;
-    transform: translate(-50%, -50%) !important;
-    cursor: grab;
+    aspect-ratio: 0.618 / 1 !important;
+    padding: 6px !important;
+    border: 0 !important;
+    border-radius: 36px !important;
+    background: #ffffff !important;
+    box-shadow: 0 16px 34px rgba(17, 24, 39, 0.08), 0 34px 72px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.80) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    text-decoration: none !important;
+    transform: none !important;
+    cursor: pointer !important;
     user-select: none;
     -webkit-user-drag: none;
     z-index: 2;
-    transition: box-shadow 220ms ease, border-color 220ms ease, background 220ms ease, opacity 220ms ease !important;
+    opacity: 1 !important;
+    transition: transform 320ms cubic-bezier(.2, .8, .2, 1), box-shadow 320ms ease !important;
 }
 
 body[data-nav="home"] .home-era-board.is-open .home-era-board__node {
-    animation: accordiaBoardNodePopFree 520ms cubic-bezier(.2, .8, .2, 1) both !important;
-    animation-delay: var(--delay) !important;
+    animation: accordiaBoardSingleCardIn 520ms cubic-bezier(.2, .8, .2, 1) both !important;
 }
 
 body[data-nav="home"] .home-era-board__node:hover,
 body[data-nav="home"] .home-era-board__node:focus-visible {
-    border-color: rgba(102, 54, 46, 0.22) !important;
-    background: rgba(255, 255, 255, 0.88) !important;
-    box-shadow: 0 16px 34px rgba(15, 23, 42, 0.095) !important;
+    transform: translateY(-8px) scale(1.01) !important;
+    box-shadow: 0 22px 42px rgba(17, 24, 39, 0.11), 0 42px 82px rgba(17, 24, 39, 0.12) !important;
 }
 
-body[data-nav="home"] .home-era-board__node.is-dragging {
-    z-index: 10;
-    cursor: grabbing;
-    opacity: .94;
-    border-color: rgba(102, 54, 46, 0.32) !important;
-    box-shadow: 0 20px 44px rgba(15, 23, 42, 0.16) !important;
-    transition: none !important;
+body[data-nav="home"] .home-era-board__node-top {
+    position: relative !important;
+    height: 64% !important;
+    min-height: 64% !important;
+    border-radius: 30px !important;
+    background: var(--baroque-soft) !important;
+    padding: 0 !important;
+    display: block !important;
+    overflow: hidden !important;
 }
 
-body[data-nav="home"] .home-era-board__node.is-blocked {
-    box-shadow: 0 0 0 2px rgba(102, 54, 46, 0.18), 0 16px 34px rgba(15, 23, 42, 0.10) !important;
+body[data-nav="home"] .home-era-board__node-title {
+    position: absolute;
+    left: 24px;
+    top: 26px;
+    z-index: 4;
+    max-width: 9.5ch;
+    margin: 0;
+    color: var(--baroque-dark);
+    font-family: var(--font-display);
+    font-size: 32px;
+    line-height: .94;
+    letter-spacing: -0.06em;
+    font-weight: 720;
+    text-wrap: balance;
+}
+
+body[data-nav="home"] .home-era-board__node-number {
+    position: absolute !important;
+    left: 24px !important;
+    bottom: 22px !important;
+    top: auto !important;
+    right: auto !important;
+    z-index: 4;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 54px;
+    height: 38px;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: var(--baroque-dark);
+    color: var(--baroque-soft);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1;
+    font-weight: 760;
+    letter-spacing: .05em;
+    box-shadow: 0 10px 22px rgba(102, 54, 46, 0.15);
+}
+
+body[data-nav="home"] .home-era-board__lesson-mask {
+    position: absolute;
+    left: 52%;
+    top: 58%;
+    z-index: 2;
+    width: 58%;
+    max-width: 210px;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 18px 20px rgba(102, 54, 46, 0.16));
+    pointer-events: none;
+}
+
+body[data-nav="home"] .home-era-board__node-body {
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 14px;
+    padding: 20px 22px 22px;
+    background: #ffffff;
+    border-radius: 22px 22px 30px 30px;
+    margin-top: 6px;
+}
+
+body[data-nav="home"] .home-era-board__node-summary {
+    margin: 0;
+    color: #4e535a;
+    font-size: 19px;
+    line-height: 1.24;
+    letter-spacing: -0.035em;
+    font-weight: 520;
+}
+
+body[data-nav="home"] .home-era-board__node-summary br {
+    display: block;
+}
+
+body[data-nav="home"] .home-era-board__node-bottom {
+    min-height: 0;
+    margin-top: auto;
+    padding: 0;
+    border-radius: 0;
+    background: transparent;
+    display: flex !important;
+    align-items: flex-end;
+    justify-content: flex-end;
+}
+
+body[data-nav="home"] .home-era-board__node-arrow {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    width: 46px;
+    height: 46px;
+    border-radius: 999px;
+    background: #f4ebe8;
+    color: var(--baroque-dark);
+    font-size: 24px;
+    font-weight: 760;
+    line-height: 1;
 }
 
 body[data-nav="home"] .home-era-board__node-label,
-body[data-nav="home"] .home-era-board__node p,
+body[data-nav="home"] .home-era-board__node p:not(.home-era-board__node-summary),
 body[data-nav="home"] .home-era-board__node small,
-body[data-nav="home"] .home-era-board__node-cta,
-body[data-nav="home"] .home-era-board__node-bottom,
-body[data-nav="home"] .home-era-board__node-arrow {
+body[data-nav="home"] .home-era-board__node-cta {
     display: none !important;
 }
 
@@ -133,58 +239,23 @@ body[data-nav="home"] .home-era-board__node::before {
     display: none !important;
 }
 
-body[data-nav="home"] .home-era-board__node-top {
-    height: 100% !important;
-    border-radius: 22px !important;
-    background: rgba(234, 214, 208, 0.64) !important;
-    padding: 14px 14px 13px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    overflow: hidden;
+@keyframes accordiaBoardSingleCardIn {
+    from { opacity: 0; transform: translateY(18px) scale(.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-body[data-nav="home"] .home-era-board__node-number {
-    position: relative !important;
-    top: auto !important;
-    right: auto !important;
-    z-index: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    align-self: flex-start;
-    min-width: 31px;
-    height: 25px;
-    padding: 0 10px;
-    border-radius: 999px;
-    background: rgba(102, 54, 46, 0.88);
-    color: #ead6d0;
-    font-family: var(--font-sans);
-    font-size: 9.5px;
-    line-height: 1;
-    font-weight: 740;
-    letter-spacing: .04em;
-    box-shadow: none;
-}
+@media (max-width: 1100px) {
+    body[data-nav="home"] .home-era-board {
+        --board-card-width: min(18.5rem, calc(var(--home-board-width) - 3rem));
+    }
 
-body[data-nav="home"] .home-era-board__node strong {
-    position: relative;
-    z-index: 1;
-    max-width: 8.4ch !important;
-    margin: 0;
-    color: #66362e;
-    font-family: var(--font-display);
-    font-size: 18px !important;
-    line-height: .98 !important;
-    letter-spacing: -0.045em;
-    font-weight: 640;
-    text-wrap: balance;
-}
+    body[data-nav="home"] .home-era-board__node-title {
+        font-size: 28px;
+    }
 
-@keyframes accordiaBoardNodePopFree {
-    from { opacity: 0; transform: translate(-50%, -50%) scale(.94); }
-    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    body[data-nav="home"] .home-era-board__node-summary {
+        font-size: 17px;
+    }
 }
 
 @media (max-width: 760px) {
@@ -192,11 +263,44 @@ body[data-nav="home"] .home-era-board__node strong {
         --home-track-gap: 10px;
     }
 
-    body[data-nav="home"] .home-era-board__node {
-        width: 8.7rem !important;
+    body[data-nav="home"] .home-era-board {
+        --board-card-width: min(18rem, calc(var(--home-board-width) - 2rem));
     }
 
-    body[data-nav="home"] .home-era-board__node strong {
-        font-size: 16px !important;
+    body[data-nav="home"] .home-era-board__canvas {
+        padding: 1rem !important;
+    }
+
+    body[data-nav="home"] .home-era-board__node-title {
+        left: 20px;
+        top: 22px;
+        font-size: 25px;
+    }
+
+    body[data-nav="home"] .home-era-board__node-number {
+        left: 20px !important;
+        bottom: 20px !important;
+        min-width: 48px;
+        height: 34px;
+        font-size: 13px;
+    }
+
+    body[data-nav="home"] .home-era-board__lesson-mask {
+        width: 60%;
+        top: 59%;
+    }
+
+    body[data-nav="home"] .home-era-board__node-body {
+        padding: 18px 20px 20px;
+    }
+
+    body[data-nav="home"] .home-era-board__node-summary {
+        font-size: 15.5px;
+        line-height: 1.22;
+    }
+
+    body[data-nav="home"] .home-era-board__node-arrow {
+        width: 42px;
+        height: 42px;
     }
 }
