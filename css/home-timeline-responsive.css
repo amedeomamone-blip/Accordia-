@@ -1,9 +1,9 @@
-/* Landing timeline nuclei: design finale card a due colori */
+/* Landing timeline nuclei: card bianche con nucleo colore */
 
 body[data-nav="home"] .home-timeline {
-    background: #f4f2ef;
-    border-top: 1px solid #eee9e2;
-    border-bottom: 1px solid #eee9e2;
+    background: #ffffff;
+    border-top: 1px solid #f0eee9;
+    border-bottom: 1px solid #f0eee9;
 }
 
 body[data-nav="home"] .home-timeline > .shell:not(.home-section__heading) {
@@ -12,7 +12,7 @@ body[data-nav="home"] .home-timeline > .shell:not(.home-section__heading) {
 }
 
 body[data-nav="home"] .home-timeline__track {
-    --home-era-card-width: 26rem;
+    --home-era-card-width: 24rem;
     display: grid;
     grid-template-columns: none;
     grid-auto-flow: column;
@@ -20,7 +20,7 @@ body[data-nav="home"] .home-timeline__track {
     gap: 12px;
     overflow-x: auto;
     overflow-y: hidden;
-    padding: 8px max(1rem, calc((100vw - min(100vw, var(--shell-max))) / 2 + 1rem)) 22px;
+    padding: 10px max(1rem, calc((100vw - min(100vw, var(--shell-max))) / 2 + 1rem)) 24px;
     scroll-snap-type: x mandatory;
     scroll-padding-inline: max(1rem, calc((100vw - min(100vw, var(--shell-max))) / 2 + 1rem));
     align-items: stretch;
@@ -40,14 +40,15 @@ body[data-nav="home"] .home-era-card {
     flex: none;
     display: flex;
     flex-direction: column;
-    padding: 4px;
-    border: 4px solid var(--paired);
-    border-radius: 34px;
-    background: var(--paired);
-    color: var(--paired);
+    gap: 0;
+    padding: 6px;
+    border: 0;
+    border-radius: 36px;
+    background: #ffffff;
+    color: #111111;
     overflow: hidden;
     scroll-snap-align: start;
-    box-shadow: 0 14px 26px rgba(17, 24, 39, 0.08), 0 28px 56px rgba(17, 24, 39, 0.10), 0 2px 6px rgba(17, 24, 39, 0.04);
+    box-shadow: 0 16px 34px rgba(17, 24, 39, 0.08), 0 34px 72px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.80);
     animation: accordiaCardIn 720ms cubic-bezier(.2, .8, .2, 1) both;
     transform-origin: center bottom;
     transition: transform 320ms cubic-bezier(.2, .8, .2, 1), box-shadow 320ms ease;
@@ -66,14 +67,15 @@ body[data-nav="home"] .home-era-card::after {
 }
 
 body[data-nav="home"] .home-era-card:hover {
-    transform: translateY(-10px) scale(1.012);
-    box-shadow: 0 18px 34px rgba(17, 24, 39, 0.10), 0 34px 68px rgba(17, 24, 39, 0.14), 0 6px 16px rgba(17, 24, 39, 0.06);
+    transform: translateY(-8px) scale(1.01);
+    background: #ffffff;
+    box-shadow: 0 22px 42px rgba(17, 24, 39, 0.11), 0 42px 82px rgba(17, 24, 39, 0.12);
 }
 
 body[data-nav="home"] .home-era-card__top {
     height: 64%;
     min-height: 64%;
-    border-radius: 29px;
+    border-radius: 30px;
     background: var(--top);
     padding: 0 24px 22px;
     display: flex;
@@ -98,6 +100,11 @@ body[data-nav="home"] .home-era-card strong {
     font-weight: 680;
     text-align: left;
     white-space: nowrap;
+    transition: transform 280ms cubic-bezier(.2, .8, .2, 1);
+}
+
+body[data-nav="home"] .home-era-card:hover strong {
+    transform: translateX(4px);
 }
 
 body[data-nav="home"] .home-era-card strong::after {
@@ -119,6 +126,7 @@ body[data-nav="home"] .home-era-card__period {
     font-weight: 700;
     letter-spacing: .02em;
     white-space: nowrap;
+    box-shadow: 0 8px 18px rgba(17, 24, 39, 0.08);
 }
 
 body[data-nav="home"] .home-era-card__body {
@@ -129,14 +137,15 @@ body[data-nav="home"] .home-era-card__body {
     justify-content: space-between;
     gap: 14px;
     padding: 14px 16px 16px;
-    background: var(--paired);
-    border-radius: 20px 20px 28px 28px;
+    background: #ffffff;
+    border-radius: 22px 22px 30px 30px;
+    margin-top: 6px;
 }
 
 body[data-nav="home"] .home-era-card__summary {
     margin: 0;
     max-width: 100%;
-    color: var(--top);
+    color: #4e535a;
     font-size: 11.5px;
     line-height: 1.34;
     font-weight: 560;
@@ -167,6 +176,7 @@ body[data-nav="home"] .home-era-card__number {
     line-height: 1;
     font-weight: 700;
     letter-spacing: .04em;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 8px 18px rgba(17, 24, 39, 0.08);
 }
 
 body[data-nav="home"] .home-era-card p:not(.home-era-card__summary),
@@ -189,6 +199,7 @@ body[data-nav="home"] .home-era-card__cta {
     letter-spacing: .02em;
     text-transform: none;
     white-space: nowrap;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 8px 18px rgba(17, 24, 39, 0.08);
 }
 
 body[data-nav="home"] .home-era-card__cta::after {
@@ -212,18 +223,20 @@ body[data-nav="home"] .home-era-card:nth-child(5) { --top: #9fe870; --paired: #1
 body[data-nav="home"] .home-era-card:nth-child(6) { --top: #6260ff; --paired: #e4e4ff; }
 
 @keyframes accordiaCardIn {
-    from { opacity: 0; transform: translateY(28px) scale(.965); }
+    from { opacity: 0; transform: translateY(30px) scale(.96); }
     to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @media (prefers-reduced-motion: reduce) {
     body[data-nav="home"] .home-era-card,
+    body[data-nav="home"] .home-era-card strong,
     body[data-nav="home"] .home-era-card__cta::after {
         animation: none !important;
         transition: none !important;
     }
 
     body[data-nav="home"] .home-era-card:hover,
+    body[data-nav="home"] .home-era-card:hover strong,
     body[data-nav="home"] .home-era-card:hover .home-era-card__cta::after {
         transform: none !important;
     }
@@ -231,13 +244,13 @@ body[data-nav="home"] .home-era-card:nth-child(6) { --top: #6260ff; --paired: #e
 
 @media (max-width: 1100px) {
     body[data-nav="home"] .home-timeline__track {
-        --home-era-card-width: 24rem;
+        --home-era-card-width: 22.5rem;
     }
 }
 
 @media (max-width: 760px) {
     body[data-nav="home"] .home-timeline__track {
-        --home-era-card-width: min(22rem, 90vw);
+        --home-era-card-width: min(21.5rem, 88vw);
         padding-inline: 0.9rem;
         scroll-padding-inline: 0.9rem;
         gap: 10px;
