@@ -42,8 +42,8 @@ CSS_ASSET_RE = re.compile(r'href="(?P<path>[^"]*css/style\.css)(?:\?v=\d+)?"')
 JS_ASSET_RE = re.compile(r'src="(?P<path>[^"]*js/main\.js)(?:\?v=\d+)?"')
 SITE_NAV_RE = re.compile(r'\n\s*<nav class="site-nav" aria-label="Navigazione principale">.*?</nav>', re.S)
 SITE_FOOTER_RE = re.compile(r'\n\s*<footer class="site-footer">.*?</footer>', re.S)
-HOME_TIMELINE_SECTION_RE = re.compile(
-    r'<section class="home-section home-timeline" id="timeline">.*?</section>',
+HOME_TIMELINE_TRACK_RE = re.compile(
+    r'<div class="home-timeline__track" aria-label="Timeline orizzontale di Accordia">.*?</div>',
     re.S,
 )
 EDITOR_DATA_DIR = ROOT / "data" / "editor"
@@ -121,7 +121,7 @@ DEFAULT_TIMELINE_PAGE_DATA = {
         "track_padding_top": "4rem",
         "track_padding_bottom": "4.6rem",
         "card_min_height": "25rem",
-        "card_gap": "0.8rem",
+        "card_gap": "1rem",
         "card_auto_columns": "clamp(21.25rem, 24vw, 22rem)",
     },
 }
@@ -3434,22 +3434,10 @@ def sync_static_navigation() -> None:
 
 
 def sync_home_timeline() -> None:
-    path = ROOT / "index.html"
-    content = path.read_text(encoding="utf-8")
-    cards = "".join(render_home_timeline_card(nucleo) for nucleo in get_nuclei())
-    replacement = f"""<section class="home-section home-timeline" id="timeline">
-            <div class="shell home-section__heading home-section__heading--timeline">
-                <h2>Un percorso storico in sei nuclei di apprendimento.</h2>
-            </div>
-            <div class="shell">
-                <div class="home-timeline__track" aria-label="Timeline orizzontale di Accordia">
-{cards}
-                </div>
-            </div>
-        </section>"""
-    updated = HOME_TIMELINE_SECTION_RE.sub(replacement, content, count=1)
-    if updated != content:
-        path.write_text(updated, encoding="utf-8")
+    # The landing timeline is intentionally handcrafted: it contains the
+    # floating Barocco board and precise card proportions that should not be
+    # regenerated from the generic nucleus data.
+    return
 
 
 def sync_site_footers() -> None:
