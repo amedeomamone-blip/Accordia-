@@ -25,7 +25,7 @@ body[data-nav="home"] .home-era-card {
 }
 
 body[data-nav="home"] .home-era-board {
-    --board-card-width: min(17.5rem, calc(var(--home-board-width) - 5rem));
+    --board-card-width: min(17.25rem, calc(var(--home-board-width) - 5rem));
     --baroque-soft: #ead6d0;
     --baroque-dark: #66362e;
     --baroque-gold: #c59a56;
@@ -85,8 +85,8 @@ body[data-nav="home"] .home-era-board__node {
     top: auto !important;
     width: var(--board-card-width) !important;
     height: auto !important;
-    aspect-ratio: 0.618 / 1 !important;
-    padding: 6px !important;
+    aspect-ratio: 0.72 / 1 !important;
+    padding: 8px !important;
     border: 0 !important;
     border-radius: 36px !important;
     background: #ffffff !important;
@@ -116,35 +116,38 @@ body[data-nav="home"] .home-era-board__node:focus-visible {
 
 body[data-nav="home"] .home-era-board__node-top {
     position: relative !important;
-    height: 64% !important;
-    min-height: 64% !important;
+    height: 48% !important;
+    min-height: 48% !important;
     border-radius: 30px !important;
     background: var(--baroque-soft) !important;
-    padding: 0 !important;
-    display: block !important;
+    padding: 22px 22px 20px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
     overflow: hidden !important;
 }
 
 body[data-nav="home"] .home-era-board__node-title {
-    position: absolute;
-    left: 22px;
-    top: 24px;
+    position: relative;
+    left: auto;
+    top: auto;
     z-index: 4;
-    max-width: 9.5ch;
+    max-width: 11ch;
     margin: 0;
     color: var(--baroque-dark);
     font-family: var(--font-display);
-    font-size: 28px;
-    line-height: .94;
+    font-size: 30px;
+    line-height: .88;
     letter-spacing: -0.06em;
     font-weight: 720;
     text-wrap: balance;
 }
 
 body[data-nav="home"] .home-era-board__node-number {
-    position: absolute !important;
-    left: 22px !important;
-    bottom: 20px !important;
+    position: relative !important;
+    left: auto !important;
+    bottom: auto !important;
     top: auto !important;
     right: auto !important;
     z-index: 4;
@@ -165,26 +168,14 @@ body[data-nav="home"] .home-era-board__node-number {
     box-shadow: 0 10px 22px rgba(102, 54, 46, 0.15);
 }
 
-body[data-nav="home"] .home-era-board__lesson-mask {
-    position: absolute;
-    left: 52%;
-    top: 58%;
-    z-index: 2;
-    width: 56%;
-    max-width: 176px;
-    transform: translate(-50%, -50%);
-    filter: drop-shadow(0 18px 20px rgba(102, 54, 46, 0.16));
-    pointer-events: none;
-}
-
 body[data-nav="home"] .home-era-board__node-body {
     flex: 1;
     min-height: 0;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 14px;
-    padding: 18px 20px 20px;
+    gap: 16px;
+    padding: 22px 22px 22px;
     background: #ffffff;
     border-radius: 22px 22px 30px 30px;
     margin-top: 6px;
@@ -193,9 +184,9 @@ body[data-nav="home"] .home-era-board__node-body {
 body[data-nav="home"] .home-era-board__node-summary {
     margin: 0;
     color: #4e535a;
-    font-size: 16px;
+    font-size: 17px;
     line-height: 1.24;
-    letter-spacing: -0.035em;
+    letter-spacing: -0.03em;
     font-weight: 520;
 }
 
@@ -272,26 +263,21 @@ body[data-nav="home"] .home-era-board__node::before {
     }
 
     body[data-nav="home"] .home-era-board__node-title {
-        left: 20px;
-        top: 22px;
+        left: auto;
+        top: auto;
         font-size: 24px;
     }
 
     body[data-nav="home"] .home-era-board__node-number {
-        left: 20px !important;
-        bottom: 20px !important;
+        left: auto !important;
+        bottom: auto !important;
         min-width: 48px;
         height: 34px;
         font-size: 13px;
     }
 
-    body[data-nav="home"] .home-era-board__lesson-mask {
-        width: 58%;
-        top: 59%;
-    }
-
     body[data-nav="home"] .home-era-board__node-body {
-        padding: 18px 20px 20px;
+        padding: 19px 20px 20px;
     }
 
     body[data-nav="home"] .home-era-board__node-summary {
