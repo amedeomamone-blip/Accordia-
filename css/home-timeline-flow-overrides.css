@@ -293,15 +293,15 @@ body[data-nav="home"] .home-era-board__node::before {
 
 /* Landing unica: titolo centrale e card nuclei come schermata principale. */
 body[data-nav="home"] {
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 body[data-nav="home"] .home-page {
     min-height: calc(100svh - 4.25rem);
-    height: calc(100svh - 4.25rem);
-    display: flex;
-    align-items: center;
-    overflow: hidden;
+    height: auto;
+    display: block;
+    overflow: visible;
 }
 
 body[data-nav="home"] .home-hero,
@@ -311,9 +311,8 @@ body[data-nav="home"] .site-footer {
 }
 
 body[data-nav="home"] .home-timeline {
-    flex: 1 1 auto;
     min-width: 0;
-    padding: clamp(1rem, 2.5svh, 2rem) 0 0;
+    padding: clamp(3.25rem, 6vw, 6rem) 0 clamp(2.75rem, 5vw, 5rem);
     border: 0;
 }
 
@@ -378,7 +377,7 @@ body[data-nav="home"] .home-section__heading p:last-child {
 }
 
 body[data-nav="home"] .home-timeline__track {
-    --home-era-card-width: clamp(19.75rem, min(23vw, 36svh), 24rem);
+    --home-era-card-width: clamp(19.75rem, 23vw, 24rem);
     padding-top: 0 !important;
     padding-bottom: clamp(0.8rem, 2svh, 1.35rem) !important;
     opacity: 0;
@@ -443,15 +442,8 @@ body[data-nav="home"] .home-timeline__track {
 }
 
 @media (max-width: 900px) {
-    body[data-nav="home"] {
-        overflow: auto;
-    }
-
     body[data-nav="home"] .home-page {
-        height: auto;
         min-height: calc(100svh - 4.25rem);
-        align-items: flex-start;
-        overflow: visible;
     }
 
     body[data-nav="home"] .home-timeline {
