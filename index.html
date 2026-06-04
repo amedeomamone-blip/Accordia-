@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Accordia e un ambiente didattico per insegnare la storia della musica nella scuola secondaria di primo grado, con timeline, nuclei storici, mappe degli argomenti, ascolti guidati, attivita laboratoriali e verifiche.">
     <title>Accordia | Storia della musica</title>
-    <link rel="stylesheet" href="css/style.css?v=1780600612">
-    <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780006683">
-    <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1780600485">
+    <link rel="stylesheet" href="css/style.css?v=1780602936">
+    <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780602809">
+    <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1780602809">
 </head>
 <body data-nav="home">
     <header class="site-header">
@@ -57,7 +57,7 @@
             <div class="shell">
                 <div class="home-timeline__track" aria-label="Timeline orizzontale di Accordia">
 
-                    <a class="home-era-card" href="nuclei/medioevo/index.html" data-nucleus-link="medioevo">
+                    <a class="home-era-card" href="nuclei/medioevo/index.html" style="--top: #dfeee8; --paired: #24483d;" data-nucleus-link="medioevo" aria-expanded="false" aria-controls="medioevoBoard">
                         <div class="home-era-card__top">
                             <strong>Il Medioevo</strong>
                             <span class="home-era-card__period">476–1492</span>
@@ -70,7 +70,15 @@
                             </div>
                         </div>
                     </a>
-                    <a class="home-era-card" href="nuclei/rinascimento/index.html" data-nucleus-link="rinascimento">
+
+                    <aside class="home-era-board home-era-board--empty" id="medioevoBoard" aria-label="Lavagna lezioni Medioevo" style="--baroque-soft: #dfeee8; --baroque-dark: #24483d;">
+                        <div class="home-era-board__map" data-board-title="Il Medioevo">
+                            <button class="home-era-board__close" type="button">Chiudi</button>
+                            <div class="home-era-board__canvas"></div>
+                        </div>
+                    </aside>
+
+                    <a class="home-era-card" href="nuclei/rinascimento/index.html" style="--top: #f4e6c8; --paired: #5c3f21;" data-nucleus-link="rinascimento" aria-expanded="false" aria-controls="rinascimentoBoard">
                         <div class="home-era-card__top">
                             <strong>Il Rinascimento</strong>
                             <span class="home-era-card__period">1492–1600</span>
@@ -83,7 +91,15 @@
                             </div>
                         </div>
                     </a>
-                    <a class="home-era-card" id="baroccoCard" href="nuclei/barocco/index.html" data-nucleus-link="barocco" aria-expanded="false" aria-controls="baroccoBoard">
+
+                    <aside class="home-era-board home-era-board--empty" id="rinascimentoBoard" aria-label="Lavagna lezioni Rinascimento" style="--baroque-soft: #f4e6c8; --baroque-dark: #5c3f21;">
+                        <div class="home-era-board__map" data-board-title="Il Rinascimento">
+                            <button class="home-era-board__close" type="button">Chiudi</button>
+                            <div class="home-era-board__canvas"></div>
+                        </div>
+                    </aside>
+
+                    <a class="home-era-card" id="baroccoCard" href="nuclei/barocco/index.html" style="--top: #ead6d0; --paired: #66362e;" data-nucleus-link="barocco" aria-expanded="false" aria-controls="baroccoBoard">
                         <div class="home-era-card__top">
                             <strong>Il Barocco</strong>
                             <span class="home-era-card__period">1600–1750</span>
@@ -97,9 +113,9 @@
                         </div>
                     </a>
 
-                    <aside class="home-era-board" id="baroccoBoard" aria-label="Lavagna lezioni Barocco">
-                        <div class="home-era-board__map">
-                            <button class="home-era-board__close" id="closeBaroccoBoard" type="button">Chiudi</button>
+                    <aside class="home-era-board" id="baroccoBoard" aria-label="Lavagna lezioni Barocco" style="--baroque-soft: #ead6d0; --baroque-dark: #66362e;">
+                        <div class="home-era-board__map" data-board-title="Il Barocco">
+                            <button class="home-era-board__close" type="button">Chiudi</button>
                             <div class="home-era-board__canvas">
                                 <a class="home-era-board__node" href="nuclei/barocco/argomenti/il-barocco-in-coordinate/index.html">
                                     <div class="home-era-board__node-top">
@@ -137,7 +153,7 @@
                         </div>
                     </aside>
 
-                    <a class="home-era-card" href="nuclei/settecento-classicismo/index.html" data-nucleus-link="settecento-classicismo">
+                    <a class="home-era-card" href="nuclei/settecento-classicismo/index.html" style="--top: #bdd9d7; --paired: #03363d;" data-nucleus-link="settecento-classicismo" aria-expanded="false" aria-controls="classicismoBoard">
                         <div class="home-era-card__top">
                             <strong>Il Classicismo</strong>
                             <span class="home-era-card__period">1750–1820</span>
@@ -150,7 +166,15 @@
                             </div>
                         </div>
                     </a>
-                    <a class="home-era-card" href="nuclei/ottocento/index.html" data-nucleus-link="ottocento">
+
+                    <aside class="home-era-board home-era-board--empty" id="classicismoBoard" aria-label="Lavagna lezioni Classicismo" style="--baroque-soft: #bdd9d7; --baroque-dark: #03363d;">
+                        <div class="home-era-board__map" data-board-title="Il Classicismo">
+                            <button class="home-era-board__close" type="button">Chiudi</button>
+                            <div class="home-era-board__canvas"></div>
+                        </div>
+                    </aside>
+
+                    <a class="home-era-card" href="nuclei/ottocento/index.html" style="--top: #dedaf0; --paired: #3e365d;" data-nucleus-link="ottocento" aria-expanded="false" aria-controls="ottocentoBoard">
                         <div class="home-era-card__top">
                             <strong>L&#x27;Ottocento</strong>
                             <span class="home-era-card__period">1820–1900</span>
@@ -163,7 +187,15 @@
                             </div>
                         </div>
                     </a>
-                    <a class="home-era-card" href="nuclei/novecento/index.html" data-nucleus-link="novecento">
+
+                    <aside class="home-era-board home-era-board--empty" id="ottocentoBoard" aria-label="Lavagna lezioni Ottocento" style="--baroque-soft: #dedaf0; --baroque-dark: #3e365d;">
+                        <div class="home-era-board__map" data-board-title="L'Ottocento">
+                            <button class="home-era-board__close" type="button">Chiudi</button>
+                            <div class="home-era-board__canvas"></div>
+                        </div>
+                    </aside>
+
+                    <a class="home-era-card" href="nuclei/novecento/index.html" style="--top: #d9e4f2; --paired: #243e63;" data-nucleus-link="novecento" aria-expanded="false" aria-controls="novecentoBoard">
                         <div class="home-era-card__top">
                             <strong>Il Novecento</strong>
                             <span class="home-era-card__period">1900–2000</span>
@@ -176,6 +208,13 @@
                             </div>
                         </div>
                     </a>
+
+                    <aside class="home-era-board home-era-board--empty" id="novecentoBoard" aria-label="Lavagna lezioni Novecento" style="--baroque-soft: #d9e4f2; --baroque-dark: #243e63;">
+                        <div class="home-era-board__map" data-board-title="Il Novecento">
+                            <button class="home-era-board__close" type="button">Chiudi</button>
+                            <div class="home-era-board__canvas"></div>
+                        </div>
+                    </aside>
                 </div>
                 <p class="home-timeline__hint">Scorri lateralmente per seguire il percorso storico, poi apri un nucleo per entrare in lavagne, ascolti, attivit&agrave; e verifiche.</p>
             </div>
@@ -190,30 +229,38 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=1780600612"></script>
+    <script src="js/main.js?v=1780602936"></script>
     <script>
         (function () {
-            const baroccoCard = document.getElementById('baroccoCard');
-            const board = document.getElementById('baroccoBoard');
-            const closeButton = document.getElementById('closeBaroccoBoard');
-            const cards = document.querySelectorAll('.home-era-card');
+            const cards = Array.from(document.querySelectorAll('.home-era-card[aria-controls]'));
+            const boards = Array.from(document.querySelectorAll('.home-era-board'));
 
-            if (!baroccoCard || !board || !closeButton) return;
+            if (!cards.length || !boards.length) return;
 
-            function openBoard(event) {
-                event.preventDefault();
+            function closeBoards() {
+                boards.forEach(function (board) {
+                    board.classList.remove('is-open');
+                });
+                cards.forEach(function (card) {
+                    card.classList.remove('is-active', 'is-dimmed');
+                    card.setAttribute('aria-expanded', 'false');
+                });
+            }
 
-                if (board.classList.contains('is-open')) {
-                    closeBoard();
-                    return;
-                }
+            function openBoard(card) {
+                const board = document.getElementById(card.getAttribute('aria-controls'));
+                if (!board) return;
+
+                const wasOpen = board.classList.contains('is-open');
+                closeBoards();
+
+                if (wasOpen) return;
 
                 board.classList.add('is-open');
-                baroccoCard.classList.add('is-active');
-                baroccoCard.setAttribute('aria-expanded', 'true');
-
-                cards.forEach(function (card) {
-                    if (card !== baroccoCard) card.classList.add('is-dimmed');
+                card.classList.add('is-active');
+                card.setAttribute('aria-expanded', 'true');
+                cards.forEach(function (otherCard) {
+                    if (otherCard !== card) otherCard.classList.add('is-dimmed');
                 });
 
                 window.requestAnimationFrame(function () {
@@ -221,17 +268,21 @@
                 });
             }
 
-            function closeBoard() {
-                board.classList.remove('is-open');
-                baroccoCard.classList.remove('is-active');
-                baroccoCard.setAttribute('aria-expanded', 'false');
-                cards.forEach(function (card) { card.classList.remove('is-dimmed'); });
-            }
+            cards.forEach(function (card) {
+                card.addEventListener('click', function (event) {
+                    event.preventDefault();
+                    openBoard(card);
+                });
+            });
 
-            baroccoCard.addEventListener('click', openBoard);
-            closeButton.addEventListener('click', closeBoard);
+            boards.forEach(function (board) {
+                const closeButton = board.querySelector('.home-era-board__close');
+                if (!closeButton) return;
+                closeButton.addEventListener('click', closeBoards);
+            });
+
             document.addEventListener('keydown', function (event) {
-                if (event.key === 'Escape') closeBoard();
+                if (event.key === 'Escape') closeBoards();
             });
         })();
     </script>
