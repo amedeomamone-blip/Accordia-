@@ -342,17 +342,24 @@ body[data-nav="home"] .home-section__heading h2 {
     margin: 0 auto;
     font-family: var(--font-display);
     font-size: clamp(3.6rem, 7vw, 6.35rem);
+    font-weight: 800;
     line-height: 0.9;
     letter-spacing: -0.07em;
+    text-transform: uppercase;
     text-wrap: balance;
 }
 
 body[data-nav="home"] .home-section__heading p:last-child {
-    max-width: 56rem;
-    margin: clamp(0.75rem, 1.8svh, 1.1rem) auto 0;
-    color: #5a5f66;
-    font-size: clamp(0.92rem, 1vw, 1.04rem);
-    line-height: 1.7;
+    max-width: 68rem;
+    margin: clamp(0.8rem, 1.8svh, 1.15rem) auto 0;
+    color: #2f3338;
+    font-family: var(--font-display);
+    font-size: clamp(1.45rem, 2.25vw, 2.35rem);
+    font-weight: 360;
+    line-height: 1.05;
+    letter-spacing: -0.035em;
+    text-transform: uppercase;
+    text-wrap: balance;
 }
 
 body[data-nav="home"] .home-timeline__track {
