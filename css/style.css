@@ -790,6 +790,11 @@ body[data-nav="home"] .site-nav__menu a {
     max-width: 21ch;
 }
 
+.home-section__heading--timeline p:last-child {
+    font-size: clamp(0.66rem, 0.74vw, 0.8rem);
+    line-height: 1.34;
+}
+
 .home-section__heading--timeline .home-kicker {
     font-size: 0.76rem;
     letter-spacing: 0.15em;
@@ -1219,6 +1224,11 @@ body[data-nav="home"] .site-footer__label {
         line-height: 1.3;
     }
 
+    .home-section__heading--timeline p:last-child {
+        font-size: clamp(0.6rem, 0.8vw, 0.7rem);
+        line-height: 1.3;
+    }
+
     .home-reveal {
         grid-template-columns: 1fr;
     }
@@ -1310,6 +1320,11 @@ body[data-nav="home"] .site-footer__label {
     .home-hero__copy--lead-only .home-hero__lead {
         max-width: none;
         padding: 0;
+        font-size: clamp(0.5rem, 1.45vw, 0.6rem);
+        line-height: 1.28;
+    }
+
+    .home-section__heading--timeline p:last-child {
         font-size: clamp(0.5rem, 1.45vw, 0.6rem);
         line-height: 1.28;
     }
