@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Accordia e un ambiente didattico per insegnare la storia della musica nella scuola secondaria di primo grado, con timeline, nuclei storici, mappe degli argomenti, ascolti guidati, attivita laboratoriali e verifiche.">
     <title>Accordia | Storia della musica</title>
-    <link rel="stylesheet" href="css/style.css?v=1780692865">
+    <link rel="stylesheet" href="css/style.css?v=1780693195">
     <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780681531">
     <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1780681531">
 </head>
@@ -174,7 +174,7 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=1780692865"></script>
+    <script src="js/main.js?v=1780693195"></script>
     <script>
         (function () {
             const baroccoCard = document.getElementById('baroccoCard');
@@ -262,15 +262,15 @@
                     return reducedHeroMotion.matches
                         ? {
                             titleX: Math.min(headingWidth * 0.02, 12),
-                            titleY: -1.5,
+                            titleY: 1.5,
                             copyX: Math.min(headingWidth * 0.015, 8),
-                            copyY: 1.5
+                            copyY: -1.5
                         }
                         : {
                             titleX: Math.min(headingWidth * 0.11, 92),
-                            titleY: -6,
+                            titleY: 6,
                             copyX: Math.min(headingWidth * 0.075, 58),
-                            copyY: 4
+                            copyY: -4
                         };
                 }
 
@@ -278,7 +278,7 @@
                     const rect = timelineHeading.getBoundingClientRect();
                     const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
                     const start = viewportHeight * 0.92;
-                    const end = -rect.height * 0.28;
+                    const end = viewportHeight * 0.34;
                     return clamp((start - rect.top) / (start - end), 0, 1);
                 }
 
@@ -292,12 +292,13 @@
                     }
 
                     const easedProgress = 1 - Math.pow(1 - timelineCurrentProgress, 3);
+                    const remainingProgress = 1 - easedProgress;
                     const travel = getTimelineTravel();
 
-                    timelineHeadingTitle.style.setProperty('--home-timeline-shift-x', `${(travel.titleX * easedProgress).toFixed(2)}px`);
-                    timelineHeadingTitle.style.setProperty('--home-timeline-shift-y', `${(travel.titleY * easedProgress).toFixed(2)}px`);
-                    timelineHeadingCopy.style.setProperty('--home-timeline-shift-x', `${(travel.copyX * easedProgress).toFixed(2)}px`);
-                    timelineHeadingCopy.style.setProperty('--home-timeline-shift-y', `${(travel.copyY * easedProgress).toFixed(2)}px`);
+                    timelineHeadingTitle.style.setProperty('--home-timeline-shift-x', `${(-travel.titleX * remainingProgress).toFixed(2)}px`);
+                    timelineHeadingTitle.style.setProperty('--home-timeline-shift-y', `${(travel.titleY * remainingProgress).toFixed(2)}px`);
+                    timelineHeadingCopy.style.setProperty('--home-timeline-shift-x', `${(-travel.copyX * remainingProgress).toFixed(2)}px`);
+                    timelineHeadingCopy.style.setProperty('--home-timeline-shift-y', `${(travel.copyY * remainingProgress).toFixed(2)}px`);
 
                     if (timelineCurrentProgress !== timelineTargetProgress) {
                         timelineFrameRequest = window.requestAnimationFrame(renderTimelineMotion);
