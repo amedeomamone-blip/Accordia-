@@ -682,7 +682,6 @@ body[data-nav="home"] .site-nav__menu a {
     position: relative;
     min-height: calc(100svh - var(--home-header-height));
     display: block;
-    overflow: hidden;
     isolation: isolate;
     --home-hero-title-shift-x: 0px;
     --home-hero-title-shift-y: 0px;
