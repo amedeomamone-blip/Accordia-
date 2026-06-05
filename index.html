@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Accordia e un ambiente didattico per insegnare la storia della musica nella scuola secondaria di primo grado, con timeline, nuclei storici, mappe degli argomenti, ascolti guidati, attivita laboratoriali e verifiche.">
     <title>Accordia | Storia della musica</title>
-    <link rel="stylesheet" href="css/style.css?v=1780649891">
-    <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780006683">
-    <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1780006686">
+    <link rel="stylesheet" href="css/style.css?v=1780653612">
+    <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780653612">
+    <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1780653612">
 </head>
 <body data-nav="home">
     <header class="site-header">
@@ -44,144 +44,73 @@
                         <p class="home-hero__lead">
                             Un ambiente didattico per insegnare la storia della musica nella scuola secondaria di primo grado.
                         </p>
+                        <a class="home-hero__cue" href="#timeline">
+                            <span>Scorri verso la parete dei nuclei</span>
+                            <span class="home-hero__cue-arrow" aria-hidden="true">↓</span>
+                        </a>
                     </div>
                 </div>
             </div>
         </section>
 
         <section class="home-section home-timeline" id="timeline">
-            <div class="shell home-section__heading home-section__heading--timeline">
-                <h2>Un percorso storico in sei nuclei di apprendimento</h2>
-                <p>
-                    Ogni nucleo apre un ambiente di lavoro completo: lezioni collegate, contenuti essenziali,
-                    ascolti guidati, attivit&agrave; laboratoriali e strumenti di verifica.
-                </p>
+            <div class="home-era-wall" aria-label="Parete dei nuclei di Accordia">
+                <button class="home-era-strip" type="button" data-theme="black" data-era-index="01" data-era-title="Il Medioevo" data-era-period="476–1492" data-era-focus="Notazione, gregoriano, prime polifonie" data-era-summary="Nascono la notazione musicale, il canto gregoriano si consolida e prendono forma le prime esperienze polifoniche." data-era-link="nuclei/medioevo/index.html" aria-controls="homeEraBoard" aria-pressed="false" aria-expanded="false">
+                    <span class="home-era-strip__index">01</span>
+                    <span class="home-era-strip__title">Il Medioevo</span>
+                    <span class="home-era-strip__focus">Notazione, gregoriano, prime polifonie</span>
+                    <span class="home-era-strip__period">476–1492</span>
+                </button>
+                <button class="home-era-strip" type="button" data-theme="burgundy" data-era-index="02" data-era-title="Il Rinascimento" data-era-period="1492–1600" data-era-focus="Polifonia, umanesimo, misura" data-era-summary="La polifonia vocale raggiunge equilibrio e raffinatezza, mentre l’ideale umanistico valorizza chiarezza, misura ed espressività." data-era-link="nuclei/rinascimento/index.html" aria-controls="homeEraBoard" aria-pressed="false" aria-expanded="false">
+                    <span class="home-era-strip__index">02</span>
+                    <span class="home-era-strip__title">Il Rinascimento</span>
+                    <span class="home-era-strip__focus">Polifonia, umanesimo, misura</span>
+                    <span class="home-era-strip__period">1492–1600</span>
+                </button>
+                <button class="home-era-strip is-active" type="button" data-default-active="true" data-theme="chalk" data-era-index="03" data-era-title="Il Barocco" data-era-period="1600–1750" data-era-focus="Teatro, basso continuo, meraviglia" data-era-summary="Teatro, contrasto e meraviglia trasformano la musica, tra melodramma, basso continuo e nuove forme strumentali." data-era-link="nuclei/barocco/index.html" aria-controls="homeEraBoard" aria-pressed="true" aria-expanded="true">
+                    <span class="home-era-strip__index">03</span>
+                    <span class="home-era-strip__title">Il Barocco</span>
+                    <span class="home-era-strip__focus">Teatro, basso continuo, meraviglia</span>
+                    <span class="home-era-strip__period">1600–1750</span>
+                </button>
+                <button class="home-era-strip" type="button" data-theme="black" data-era-index="04" data-era-title="Il Classicismo" data-era-period="1750–1820" data-era-focus="Forma sonata, chiarezza, simmetria" data-era-summary="Forma, ordine e chiarezza guidano uno stile musicale equilibrato, fondato su simmetria, sviluppo tematico e trasparenza." data-era-link="nuclei/settecento-classicismo/index.html" aria-controls="homeEraBoard" aria-pressed="false" aria-expanded="false">
+                    <span class="home-era-strip__index">04</span>
+                    <span class="home-era-strip__title">Il Classicismo</span>
+                    <span class="home-era-strip__focus">Forma sonata, chiarezza, simmetria</span>
+                    <span class="home-era-strip__period">1750–1820</span>
+                </button>
+                <button class="home-era-strip" type="button" data-theme="burgundy" data-era-index="05" data-era-title="L&#x27;Ottocento" data-era-period="1820–1900" data-era-focus="Sentimento, virtuosismo, nazioni" data-era-summary="Sentimento, virtuosismo e identità nazionale diventano centrali, ampliando il linguaggio espressivo della musica ottocentesca." data-era-link="nuclei/ottocento/index.html" aria-controls="homeEraBoard" aria-pressed="false" aria-expanded="false">
+                    <span class="home-era-strip__index">05</span>
+                    <span class="home-era-strip__title">L&#x27;Ottocento</span>
+                    <span class="home-era-strip__focus">Sentimento, virtuosismo, nazioni</span>
+                    <span class="home-era-strip__period">1820–1900</span>
+                </button>
+                <button class="home-era-strip" type="button" data-theme="chalk" data-era-index="06" data-era-title="Il Novecento" data-era-period="1900–2000" data-era-focus="Avanguardie, rumore, tecnologia" data-era-summary="Sperimentazione, tecnologia e nuovi linguaggi ridefiniscono la musica, aprendola ad avanguardie, contaminazioni e inedite sonorità." data-era-link="nuclei/novecento/index.html" aria-controls="homeEraBoard" aria-pressed="false" aria-expanded="false">
+                    <span class="home-era-strip__index">06</span>
+                    <span class="home-era-strip__title">Il Novecento</span>
+                    <span class="home-era-strip__focus">Avanguardie, rumore, tecnologia</span>
+                    <span class="home-era-strip__period">1900–2000</span>
+                </button>
             </div>
-            <div class="shell">
-                <div class="home-timeline__track" aria-label="Timeline orizzontale di Accordia">
 
-                    <a class="home-era-card" href="nuclei/medioevo/index.html" data-nucleus-link="medioevo">
-                        <div class="home-era-card__top">
-                            <strong>Il Medioevo</strong>
-                            <span class="home-era-card__period">476–1492</span>
-                        </div>
-                        <div class="home-era-card__body">
-                            <p class="home-era-card__summary">Nascono la notazione musicale, il canto gregoriano si consolida e prendono forma le prime esperienze polifoniche.</p>
-                            <div class="home-era-card__body-row">
-                                <span class="home-era-card__number">01</span>
-                                <span class="home-era-card__cta">Apri il nucleo</span>
-                            </div>
-                        </div>
-                    </a>
-                    <a class="home-era-card" href="nuclei/rinascimento/index.html" data-nucleus-link="rinascimento">
-                        <div class="home-era-card__top">
-                            <strong>Il Rinascimento</strong>
-                            <span class="home-era-card__period">1492–1600</span>
-                        </div>
-                        <div class="home-era-card__body">
-                            <p class="home-era-card__summary">La polifonia vocale raggiunge equilibrio e raffinatezza, mentre l’ideale umanistico valorizza chiarezza, misura ed espressività.</p>
-                            <div class="home-era-card__body-row">
-                                <span class="home-era-card__number">02</span>
-                                <span class="home-era-card__cta">Apri il nucleo</span>
-                            </div>
-                        </div>
-                    </a>
-                    <a class="home-era-card" id="baroccoCard" href="nuclei/barocco/index.html" data-nucleus-link="barocco" aria-expanded="false" aria-controls="baroccoBoard">
-                        <div class="home-era-card__top">
-                            <strong>Il Barocco</strong>
-                            <span class="home-era-card__period">1600–1750</span>
-                        </div>
-                        <div class="home-era-card__body">
-                            <p class="home-era-card__summary">Teatro, contrasto e meraviglia trasformano la musica, tra melodramma, basso continuo e nuove forme strumentali.</p>
-                            <div class="home-era-card__body-row">
-                                <span class="home-era-card__number">03</span>
-                                <span class="home-era-card__cta">Apri il nucleo</span>
-                            </div>
-                        </div>
-                    </a>
-
-                    <aside class="home-era-board" id="baroccoBoard" aria-label="Lavagna lezioni Barocco">
-                        <div class="home-era-board__map">
-                            <button class="home-era-board__close" id="closeBaroccoBoard" type="button">Chiudi</button>
-                            <div class="home-era-board__canvas">
-                                <a class="home-era-board__node" href="nuclei/barocco/argomenti/il-barocco-in-coordinate/index.html">
-                                    <div class="home-era-board__node-top">
-                                        <h3 class="home-era-board__node-title">Introduzione al Barocco</h3>
-                                        <svg class="home-era-board__lesson-mask" viewBox="0 0 420 420" aria-hidden="true" focusable="false">
-                                            <path d="M90 120 C110 62 160 42 210 48 C260 42 310 62 330 120 C348 172 328 245 282 302 C252 340 224 354 210 358 C196 354 168 340 138 302 C92 245 72 172 90 120 Z" fill="#f2dec1"/>
-                                            <path d="M210 50 C228 102 232 188 214 354 C244 342 278 311 303 265 C338 200 337 133 307 91 C282 58 244 45 210 50 Z" fill="#ead0ae"/>
-                                            <path d="M94 123 C111 73 154 58 203 61 C187 119 184 189 203 350 C174 337 143 310 118 265 C84 202 80 151 94 123 Z" fill="#f7e8d1"/>
-                                            <path d="M70 126 C108 98 148 92 188 112 C170 139 149 158 120 166 C100 171 82 161 70 126 Z" fill="#7a352f"/>
-                                            <path d="M350 126 C312 98 272 92 232 112 C250 139 271 158 300 166 C320 171 338 161 350 126 Z" fill="#7a352f"/>
-                                            <path d="M128 160 C154 148 176 151 193 166 C174 184 151 188 126 179 C119 176 119 165 128 160 Z" fill="#f6f0e9"/>
-                                            <path d="M292 160 C266 148 244 151 227 166 C246 184 269 188 294 179 C301 176 301 165 292 160 Z" fill="#f6f0e9"/>
-                                            <path d="M116 116 C142 88 171 82 198 92" fill="none" stroke="#c59a56" stroke-width="10" stroke-linecap="round"/>
-                                            <path d="M304 116 C278 88 249 82 222 92" fill="none" stroke="#c59a56" stroke-width="10" stroke-linecap="round"/>
-                                            <path d="M94 198 C126 210 156 206 184 184" fill="none" stroke="#c59a56" stroke-width="8" stroke-linecap="round"/>
-                                            <path d="M326 198 C294 210 264 206 236 184" fill="none" stroke="#c59a56" stroke-width="8" stroke-linecap="round"/>
-                                            <path d="M210 70 C201 116 200 178 210 232 C220 178 219 116 210 70 Z" fill="#d6a45a"/>
-                                            <path d="M184 250 C198 260 222 260 236 250 C232 278 188 278 184 250 Z" fill="#8b443a"/>
-                                            <path d="M170 214 C190 225 230 225 250 214" fill="none" stroke="#7b3a33" stroke-width="5" stroke-linecap="round"/>
-                                            <path d="M66 226 C88 248 107 286 112 324 C84 299 67 262 66 226 Z" fill="#7b2f2d"/>
-                                            <path d="M354 226 C332 248 313 286 308 324 C336 299 353 262 354 226 Z" fill="#7b2f2d"/>
-                                            <path d="M123 87 C126 70 141 62 157 68 C145 79 134 89 123 87 Z" fill="#c59a56"/>
-                                            <path d="M297 87 C294 70 279 62 263 68 C275 79 286 89 297 87 Z" fill="#c59a56"/>
-                                        </svg>
-                                        <span class="home-era-board__node-number">01</span>
-                                    </div>
-                                    <div class="home-era-board__node-body">
-                                        <p class="home-era-board__node-summary">Linea del tempo, primi ascolti e<br>concetti chiave del periodo.</p>
-                                        <div class="home-era-board__node-bottom">
-                                            <span class="home-era-board__node-arrow">›</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </aside>
-
-                    <a class="home-era-card" href="nuclei/settecento-classicismo/index.html" data-nucleus-link="settecento-classicismo">
-                        <div class="home-era-card__top">
-                            <strong>Il Classicismo</strong>
-                            <span class="home-era-card__period">1750–1820</span>
-                        </div>
-                        <div class="home-era-card__body">
-                            <p class="home-era-card__summary">Forma, ordine e chiarezza guidano uno stile musicale equilibrato, fondato su simmetria, sviluppo tematico e trasparenza.</p>
-                            <div class="home-era-card__body-row">
-                                <span class="home-era-card__number">04</span>
-                                <span class="home-era-card__cta">Apri il nucleo</span>
-                            </div>
-                        </div>
-                    </a>
-                    <a class="home-era-card" href="nuclei/ottocento/index.html" data-nucleus-link="ottocento">
-                        <div class="home-era-card__top">
-                            <strong>L&#x27;Ottocento</strong>
-                            <span class="home-era-card__period">1820–1900</span>
-                        </div>
-                        <div class="home-era-card__body">
-                            <p class="home-era-card__summary">Sentimento, virtuosismo e identità nazionale diventano centrali, ampliando il linguaggio espressivo della musica ottocentesca.</p>
-                            <div class="home-era-card__body-row">
-                                <span class="home-era-card__number">05</span>
-                                <span class="home-era-card__cta">Apri il nucleo</span>
-                            </div>
-                        </div>
-                    </a>
-                    <a class="home-era-card" href="nuclei/novecento/index.html" data-nucleus-link="novecento">
-                        <div class="home-era-card__top">
-                            <strong>Il Novecento</strong>
-                            <span class="home-era-card__period">1900–2000</span>
-                        </div>
-                        <div class="home-era-card__body">
-                            <p class="home-era-card__summary">Sperimentazione, tecnologia e nuovi linguaggi ridefiniscono la musica, aprendola ad avanguardie, contaminazioni e inedite sonorità.</p>
-                            <div class="home-era-card__body-row">
-                                <span class="home-era-card__number">06</span>
-                                <span class="home-era-card__cta">Apri il nucleo</span>
-                            </div>
-                        </div>
-                    </a>
+            <aside class="home-era-board" id="homeEraBoard" data-theme="chalk" data-era-title="Il Barocco" aria-live="polite">
+                <div class="home-era-board__surface">
+                    <p class="home-era-board__eyebrow">Percorso storico in sei nuclei</p>
+                    <div class="home-era-board__header">
+                        <span class="home-era-board__index" id="homeEraBoardIndex">03</span>
+                        <span class="home-era-board__period" id="homeEraBoardPeriod">1600–1750</span>
+                    </div>
+                    <h2 class="home-era-board__title" id="homeEraBoardTitle">Il Barocco</h2>
+                    <p class="home-era-board__focus" id="homeEraBoardFocus">Teatro, basso continuo, meraviglia</p>
+                    <p class="home-era-board__summary" id="homeEraBoardSummary">Teatro, contrasto e meraviglia trasformano la musica, tra melodramma, basso continuo e nuove forme strumentali.</p>
+                    <div class="home-era-board__footer">
+                        <span class="home-era-board__meta">Lezioni, ascolti, attività e verifiche</span>
+                        <a class="home-era-board__link" id="homeEraBoardLink" href="nuclei/barocco/index.html">Apri il nucleo</a>
+                    </div>
                 </div>
-                <p class="home-timeline__hint">Scorri lateralmente per seguire il percorso storico, poi apri un nucleo per entrare in lavagne, ascolti, attivit&agrave; e verifiche.</p>
-            </div>
+            </aside>
+
+            <p class="home-timeline__hint">Seleziona una striscia: si espande, le altre si comprimono e la lavagna fluttuante apre il nucleo.</p>
         </section>
 
     </main>
@@ -193,48 +122,63 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=1780649891"></script>
+    <script src="js/main.js?v=1780653612"></script>
     <script>
         (function () {
-            const baroccoCard = document.getElementById('baroccoCard');
-            const board = document.getElementById('baroccoBoard');
-            const closeButton = document.getElementById('closeBaroccoBoard');
-            const cards = document.querySelectorAll('.home-era-card');
+            const root = document.documentElement;
+            const strips = Array.from(document.querySelectorAll('.home-era-strip'));
+            const wall = document.querySelector('.home-era-wall');
+            const board = document.getElementById('homeEraBoard');
+            const boardIndex = document.getElementById('homeEraBoardIndex');
+            const boardPeriod = document.getElementById('homeEraBoardPeriod');
+            const boardTitle = document.getElementById('homeEraBoardTitle');
+            const boardFocus = document.getElementById('homeEraBoardFocus');
+            const boardSummary = document.getElementById('homeEraBoardSummary');
+            const boardLink = document.getElementById('homeEraBoardLink');
 
-            if (!baroccoCard || !board || !closeButton) return;
+            if (!strips.length || !wall || !board || !boardIndex || !boardPeriod || !boardTitle || !boardFocus || !boardSummary || !boardLink) return;
 
-            function openBoard(event) {
-                event.preventDefault();
+            root.classList.add('home-scroll-snap');
 
-                if (board.classList.contains('is-open')) {
-                    closeBoard();
-                    return;
-                }
-
-                board.classList.add('is-open');
-                baroccoCard.classList.add('is-active');
-                baroccoCard.setAttribute('aria-expanded', 'true');
-
-                cards.forEach(function (card) {
-                    if (card !== baroccoCard) card.classList.add('is-dimmed');
+            function applyStripState(targetStrip) {
+                strips.forEach(function (strip) {
+                    const isActive = strip === targetStrip;
+                    strip.classList.toggle('is-active', isActive);
+                    strip.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+                    strip.setAttribute('aria-expanded', isActive ? 'true' : 'false');
                 });
 
-                window.requestAnimationFrame(function () {
-                    board.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                wall.classList.add('has-active');
+                board.dataset.theme = targetStrip.dataset.theme || 'chalk';
+                board.dataset.eraTitle = targetStrip.dataset.eraTitle || '';
+                boardIndex.textContent = targetStrip.dataset.eraIndex || '';
+                boardPeriod.textContent = targetStrip.dataset.eraPeriod || '';
+                boardTitle.textContent = targetStrip.dataset.eraTitle || '';
+                boardFocus.textContent = targetStrip.dataset.eraFocus || '';
+                boardSummary.textContent = targetStrip.dataset.eraSummary || '';
+                boardLink.href = targetStrip.dataset.eraLink || '#';
+                boardLink.setAttribute('aria-label', 'Apri il nucleo ' + (targetStrip.dataset.eraTitle || ''));
+            }
+
+            const defaultStrip = strips.find(function (strip) {
+                return strip.hasAttribute('data-default-active');
+            }) || strips[0];
+
+            applyStripState(defaultStrip);
+
+            strips.forEach(function (strip, index) {
+                strip.addEventListener('click', function () {
+                    applyStripState(strip);
                 });
-            }
 
-            function closeBoard() {
-                board.classList.remove('is-open');
-                baroccoCard.classList.remove('is-active');
-                baroccoCard.setAttribute('aria-expanded', 'false');
-                cards.forEach(function (card) { card.classList.remove('is-dimmed'); });
-            }
-
-            baroccoCard.addEventListener('click', openBoard);
-            closeButton.addEventListener('click', closeBoard);
-            document.addEventListener('keydown', function (event) {
-                if (event.key === 'Escape') closeBoard();
+                strip.addEventListener('keydown', function (event) {
+                    if (event.key !== 'ArrowRight' && event.key !== 'ArrowLeft') return;
+                    event.preventDefault();
+                    const direction = event.key === 'ArrowRight' ? 1 : -1;
+                    const nextIndex = (index + direction + strips.length) % strips.length;
+                    strips[nextIndex].focus();
+                    applyStripState(strips[nextIndex]);
+                });
             });
         })();
     </script>
