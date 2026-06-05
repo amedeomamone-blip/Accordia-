@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Accordia e un ambiente didattico per insegnare la storia della musica nella scuola secondaria di primo grado, con timeline, nuclei storici, mappe degli argomenti, ascolti guidati, attivita laboratoriali e verifiche.">
     <title>Accordia | Storia della musica</title>
-    <link rel="stylesheet" href="css/style.css?v=1780681191">
-    <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780681191">
-    <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1780681191">
+    <link rel="stylesheet" href="css/style.css?v=1780681531">
+    <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780681531">
+    <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1780681531">
 </head>
 <body data-nav="home">
     <header class="site-header">
@@ -174,7 +174,7 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=1780681191"></script>
+    <script src="js/main.js?v=1780681531"></script>
     <script>
         (function () {
             const baroccoCard = document.getElementById('baroccoCard');
@@ -186,38 +186,9 @@
             const directPointerMatch = window.matchMedia('(hover: hover) and (pointer: fine)');
             const heroFrame = document.querySelector('.home-hero__frame');
             const reducedHeroMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-            const homeFlowItems = [];
-            let homeFlowFrameRequest = 0;
 
             function clamp(value, min, max) {
                 return Math.max(min, Math.min(max, value));
-            }
-
-            function easeOutCubic(value) {
-                return 1 - Math.pow(1 - value, 3);
-            }
-
-            function easeSigned(value) {
-                const magnitude = Math.abs(value);
-                return Math.sign(value) * easeOutCubic(magnitude);
-            }
-
-            function registerHomeFlowItem(element, options) {
-                if (!element) return;
-
-                if (options.useClass) {
-                    element.classList.add('home-flow-pan');
-                }
-
-                homeFlowItems.push({
-                    element: element,
-                    direction: options.direction || 1,
-                    travel: options.travel || 40,
-                    vertical: options.vertical || 0,
-                    mode: options.mode || 'viewport',
-                    currentX: 0,
-                    currentY: 0
-                });
             }
 
             if (heroFrame) {
@@ -268,17 +239,6 @@
                     }
                 }
 
-                const heroCopy = heroFrame.querySelector('.home-hero__copy--lead-only');
-                if (heroCopy) {
-                    registerHomeFlowItem(heroCopy, {
-                        direction: 1,
-                        travel: 34,
-                        vertical: 5,
-                        mode: 'hero',
-                        useClass: true
-                    });
-                }
-
                 syncHeroMotion();
                 window.addEventListener('scroll', syncHeroMotion, { passive: true });
                 window.addEventListener('resize', syncHeroMotion);
@@ -287,139 +247,6 @@
                 } else if (typeof reducedHeroMotion.addListener === 'function') {
                     reducedHeroMotion.addListener(syncHeroMotion);
                 }
-            }
-
-            const timelineHeading = document.querySelector('.home-section__heading--timeline');
-            const timelineTitle = timelineHeading ? timelineHeading.querySelector('h2') : null;
-            const timelineBody = timelineHeading ? timelineHeading.querySelector('p:last-child') : null;
-            const timelineHint = document.querySelector('.home-timeline__hint');
-            const footerContacts = document.querySelector('.site-footer__contacts');
-
-            if (timelineTitle) {
-                registerHomeFlowItem(timelineTitle, {
-                    direction: -1,
-                    travel: 72,
-                    vertical: 6,
-                    useClass: true
-                });
-            }
-
-            if (timelineBody) {
-                registerHomeFlowItem(timelineBody, {
-                    direction: 1,
-                    travel: 48,
-                    vertical: 4,
-                    useClass: true
-                });
-            }
-
-            cards.forEach(function (card, index) {
-                registerHomeFlowItem(card, {
-                    direction: index % 2 === 0 ? 1 : -1,
-                    travel: 56,
-                    vertical: 5
-                });
-            });
-
-            if (board) {
-                registerHomeFlowItem(board, {
-                    direction: -1,
-                    travel: 84,
-                    vertical: 7
-                });
-            }
-
-            boardCards.forEach(function (card, index) {
-                registerHomeFlowItem(card, {
-                    direction: index % 2 === 0 ? 1 : -1,
-                    travel: 22,
-                    vertical: 3
-                });
-            });
-
-            if (timelineHint) {
-                registerHomeFlowItem(timelineHint, {
-                    direction: 1,
-                    travel: 26,
-                    vertical: 2,
-                    useClass: true
-                });
-            }
-
-            if (footerContacts) {
-                registerHomeFlowItem(footerContacts, {
-                    direction: -1,
-                    travel: 24,
-                    vertical: 2,
-                    useClass: true
-                });
-            }
-
-            function getViewportProgress(element) {
-                const rect = element.getBoundingClientRect();
-                const total = window.innerHeight + rect.height;
-                return clamp((window.innerHeight - rect.top) / total, 0, 1);
-            }
-
-            function renderHomeFlow() {
-                const reducedMotion = reducedHeroMotion.matches;
-                const smoothing = reducedMotion ? 0.3 : 0.16;
-                let needsAnotherFrame = false;
-
-                homeFlowItems.forEach(function (item) {
-                    let targetX = 0;
-                    let targetY = 0;
-
-                    if (!reducedMotion) {
-                        if (item.mode === 'hero' && heroFrame) {
-                            const heroProgress = clamp(window.scrollY / Math.max(window.innerHeight * 1.05, heroFrame.clientHeight * 0.92), 0, 1);
-                            const easedHeroProgress = easeOutCubic(heroProgress);
-                            targetX = item.direction * item.travel * easedHeroProgress;
-                            targetY = -item.vertical * easedHeroProgress;
-                        } else {
-                            const progress = getViewportProgress(item.element);
-                            const centeredProgress = easeSigned(progress * 2 - 1);
-                            targetX = -item.direction * item.travel * centeredProgress;
-                            targetY = Math.sin(progress * Math.PI) * item.vertical * (item.direction > 0 ? 1 : -1);
-                        }
-                    }
-
-                    const deltaX = targetX - item.currentX;
-                    const deltaY = targetY - item.currentY;
-
-                    item.currentX += deltaX * smoothing;
-                    item.currentY += deltaY * smoothing;
-
-                    if (Math.abs(deltaX) < 0.1) item.currentX = targetX;
-                    if (Math.abs(deltaY) < 0.1) item.currentY = targetY;
-
-                    item.element.style.setProperty('--home-flow-x', `${item.currentX.toFixed(2)}px`);
-                    item.element.style.setProperty('--home-flow-y', `${item.currentY.toFixed(2)}px`);
-
-                    if (item.currentX !== targetX || item.currentY !== targetY) {
-                        needsAnotherFrame = true;
-                    }
-                });
-
-                if (needsAnotherFrame) {
-                    homeFlowFrameRequest = window.requestAnimationFrame(renderHomeFlow);
-                } else {
-                    homeFlowFrameRequest = 0;
-                }
-            }
-
-            function syncHomeFlow() {
-                if (!homeFlowItems.length || homeFlowFrameRequest) return;
-                homeFlowFrameRequest = window.requestAnimationFrame(renderHomeFlow);
-            }
-
-            syncHomeFlow();
-            window.addEventListener('scroll', syncHomeFlow, { passive: true });
-            window.addEventListener('resize', syncHomeFlow);
-            if (typeof reducedHeroMotion.addEventListener === 'function') {
-                reducedHeroMotion.addEventListener('change', syncHomeFlow);
-            } else if (typeof reducedHeroMotion.addListener === 'function') {
-                reducedHeroMotion.addListener(syncHomeFlow);
             }
 
             if (!baroccoCard || !board || !closeButton || !track) return;
@@ -472,10 +299,8 @@
                 setActiveBoardCard(boardCards[0]);
 
                 window.requestAnimationFrame(function () {
-                    syncHomeFlow();
                     ensureBoardVisible('smooth');
                     window.setTimeout(function () {
-                        syncHomeFlow();
                         ensureBoardVisible('auto');
                     }, 240);
                 });
@@ -487,7 +312,6 @@
                 baroccoCard.setAttribute('aria-expanded', 'false');
                 cards.forEach(function (card) { card.classList.remove('is-dimmed'); });
                 setActiveBoardCard(boardCards[0]);
-                syncHomeFlow();
             }
 
             baroccoCard.addEventListener('click', openBoard);
@@ -495,11 +319,9 @@
             board.addEventListener('transitionend', function (event) {
                 if (!board.classList.contains('is-open')) return;
                 if (event.propertyName !== 'width' && event.propertyName !== 'flex-basis' && event.propertyName !== 'min-width' && event.propertyName !== 'max-width') return;
-                syncHomeFlow();
                 ensureBoardVisible('auto');
             });
             window.addEventListener('resize', function () {
-                syncHomeFlow();
                 ensureBoardVisible('auto');
             });
             boardCards.forEach(function (card) {

@@ -31,8 +31,6 @@ body[data-nav="home"] .home-timeline__track {
 body[data-nav="home"] .home-era-card {
     --top: #dfeee8;
     --paired: #24483d;
-    --home-flow-x: 0px;
-    --home-flow-y: 0px;
     width: var(--home-era-card-width);
     min-width: 0;
     max-width: none;
@@ -54,8 +52,6 @@ body[data-nav="home"] .home-era-card {
     box-shadow: 0 16px 34px rgba(17, 24, 39, 0.08), 0 34px 72px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.80);
     animation: accordiaCardIn 720ms cubic-bezier(.2, .8, .2, 1) both;
     transform-origin: center bottom;
-    transform: translate3d(var(--home-flow-x), var(--home-flow-y), 0);
-    will-change: transform;
     transition: transform 320ms cubic-bezier(.2, .8, .2, 1), box-shadow 320ms ease, opacity 280ms ease, filter 280ms ease;
 }
 
@@ -73,7 +69,7 @@ body[data-nav="home"] .home-era-card::after {
 
 body[data-nav="home"] .home-era-card:hover,
 body[data-nav="home"] .home-era-card.is-active {
-    transform: translate3d(var(--home-flow-x), var(--home-flow-y), 0) translateY(-8px) scale(1.01);
+    transform: translateY(-8px) scale(1.01);
     background: #ffffff;
     box-shadow: 0 22px 42px rgba(17, 24, 39, 0.11), 0 42px 82px rgba(17, 24, 39, 0.12);
 }
@@ -454,8 +450,8 @@ body[data-nav="home"] .home-era-board__close {
 }
 
 @keyframes accordiaCardIn {
-    from { opacity: 0; transform: translate3d(var(--home-flow-x), var(--home-flow-y), 0) translateY(30px) scale(.96); }
-    to { opacity: 1; transform: translate3d(var(--home-flow-x), var(--home-flow-y), 0) translateY(0) scale(1); }
+    from { opacity: 0; transform: translateY(30px) scale(.96); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 @keyframes accordiaBoardNodePop {
