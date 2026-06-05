@@ -1,36 +1,16 @@
-/* Accordia landing timeline: composizione sovrapposta nell'hero con profondita */
-
-body[data-nav="home"] .home-timeline {
-    border-top: 0;
-    padding-top: 2.9rem;
-}
-
-body[data-nav="home"] .home-timeline > .shell:not(.home-section__heading) {
-    width: min(calc(100% - var(--shell-gutter)), var(--shell-max));
-    max-width: var(--shell-max);
-}
+/* Accordia landing timeline: lavagna digitale in flusso, senza sovrapposizione */
 
 body[data-nav="home"] .home-timeline__track {
-    --home-track-gap: clamp(0.85rem, 1.1vw, 1.05rem);
-    --home-era-card-width: clamp(18.75rem, 19vw, 20.75rem);
-    --home-board-width: clamp(42rem, 44vw, 46rem);
+    --home-track-gap: 12px;
     display: flex !important;
     grid-template-columns: none !important;
     grid-auto-flow: initial !important;
     grid-auto-columns: initial !important;
     gap: var(--home-track-gap) !important;
     align-items: flex-start !important;
-    padding-top: clamp(2.4rem, 4vw, 3.6rem) !important;
-    padding-bottom: 2.8rem !important;
-    perspective: 1800px;
 }
 
 body[data-nav="home"] .home-era-card {
-    --stack-shift: 0px;
-    --stack-depth: 0px;
-    --stack-tilt: 0deg;
-    --card-lift: 0px;
-    --card-scale: 1;
     flex: 0 0 var(--home-era-card-width) !important;
     width: var(--home-era-card-width) !important;
     min-width: var(--home-era-card-width) !important;
@@ -42,11 +22,6 @@ body[data-nav="home"] .home-era-card {
     flex-grow: 0 !important;
     flex-shrink: 0 !important;
     align-self: flex-start !important;
-    contain: layout !important;
-    will-change: transform;
-    transform: translate3d(0, calc(var(--stack-shift) + var(--card-lift)), var(--stack-depth)) rotate(var(--stack-tilt)) scale(var(--card-scale)) !important;
-    transform-origin: center bottom !important;
-    z-index: 1;
 }
 
 body[data-nav="home"] .home-era-board {
@@ -61,9 +36,8 @@ body[data-nav="home"] .home-era-board {
     height: calc(var(--home-era-card-width) / 0.618) !important;
     min-height: calc(var(--home-era-card-width) / 0.618) !important;
     max-height: calc(var(--home-era-card-width) / 0.618) !important;
-    margin-top: 1.3rem !important;
     margin-inline: calc(var(--home-track-gap) / -2) !important;
-    transform: translate3d(0, 0.9rem, 90px) scale(.96) !important;
+    transform: scale(.985) !important;
     transition:
         flex-basis 620ms cubic-bezier(.2, .8, .2, 1),
         width 620ms cubic-bezier(.2, .8, .2, 1),
@@ -80,7 +54,7 @@ body[data-nav="home"] .home-era-board.is-open {
     min-width: var(--home-board-width) !important;
     max-width: var(--home-board-width) !important;
     margin-inline: 0 !important;
-    transform: translate3d(0, 0.35rem, 120px) scale(1) !important;
+    transform: scale(1) !important;
 }
 
 body[data-nav="home"] .home-era-board__map {
@@ -132,55 +106,6 @@ body[data-nav="home"] .home-era-board__node {
 
 body[data-nav="home"] .home-era-board.is-open .home-era-board__node {
     animation: accordiaBoardSingleCardIn 520ms cubic-bezier(.2, .8, .2, 1) both !important;
-}
-
-body[data-nav="home"] .home-era-card:nth-child(1) {
-    --stack-shift: 3.4rem;
-    --stack-depth: 10px;
-    --stack-tilt: -6deg;
-}
-
-body[data-nav="home"] .home-era-card:nth-child(2) {
-    --stack-shift: 1.55rem;
-    --stack-depth: 40px;
-    --stack-tilt: -3.5deg;
-}
-
-body[data-nav="home"] .home-era-card:nth-child(3) {
-    --stack-shift: 0.1rem;
-    --stack-depth: 78px;
-    --stack-tilt: -1deg;
-}
-
-body[data-nav="home"] .home-era-card:nth-child(5) {
-    --stack-shift: 0.85rem;
-    --stack-depth: 62px;
-    --stack-tilt: 1.8deg;
-}
-
-body[data-nav="home"] .home-era-card:nth-child(6) {
-    --stack-shift: 2.45rem;
-    --stack-depth: 28px;
-    --stack-tilt: 4.6deg;
-}
-
-body[data-nav="home"] .home-era-card:nth-child(7) {
-    --stack-shift: 4rem;
-    --stack-depth: 8px;
-    --stack-tilt: 6.8deg;
-}
-
-body[data-nav="home"] .home-era-card:hover,
-body[data-nav="home"] .home-era-card.is-active {
-    --card-lift: -14px;
-    --card-scale: 1.018;
-    background: #ffffff;
-    box-shadow: 0 24px 46px rgba(17, 24, 39, 0.12), 0 44px 84px rgba(17, 24, 39, 0.14);
-    z-index: 3;
-}
-
-body[data-nav="home"] .home-era-card.is-dimmed {
-    z-index: 0;
 }
 
 body[data-nav="home"] .home-era-board__node:hover,
@@ -320,12 +245,6 @@ body[data-nav="home"] .home-era-board__node::before {
 }
 
 @media (max-width: 1100px) {
-    body[data-nav="home"] .home-timeline__track {
-        --home-era-card-width: clamp(17.5rem, 31vw, 18.9rem);
-        --home-board-width: min(39rem, 82vw);
-        padding-top: 2rem !important;
-    }
-
     body[data-nav="home"] .home-era-board {
         --board-card-width: min(18.5rem, calc(var(--home-board-width) - 3rem));
     }
@@ -341,61 +260,15 @@ body[data-nav="home"] .home-era-board__node::before {
 
 @media (max-width: 760px) {
     body[data-nav="home"] .home-timeline__track {
-        --home-track-gap: 0.8rem;
-        --home-era-card-width: min(16.9rem, 76vw);
-        --home-board-width: min(27rem, 82vw);
-        padding-top: 1rem !important;
-        padding-bottom: 1.9rem !important;
+        --home-track-gap: 10px;
     }
 
     body[data-nav="home"] .home-era-board {
         --board-card-width: min(18rem, calc(var(--home-board-width) - 2rem));
-        margin-top: 0.8rem !important;
-        transform: translate3d(0, 0.6rem, 70px) scale(.96) !important;
-    }
-
-    body[data-nav="home"] .home-era-board.is-open {
-        transform: translate3d(0, 0.2rem, 90px) scale(1) !important;
     }
 
     body[data-nav="home"] .home-era-board__canvas {
         padding: 1rem !important;
-    }
-
-    body[data-nav="home"] .home-era-card:nth-child(1) {
-        --stack-shift: 1.7rem;
-        --stack-depth: 4px;
-        --stack-tilt: -4deg;
-    }
-
-    body[data-nav="home"] .home-era-card:nth-child(2) {
-        --stack-shift: 0.8rem;
-        --stack-depth: 18px;
-        --stack-tilt: -2.5deg;
-    }
-
-    body[data-nav="home"] .home-era-card:nth-child(3) {
-        --stack-shift: 0;
-        --stack-depth: 30px;
-        --stack-tilt: -0.5deg;
-    }
-
-    body[data-nav="home"] .home-era-card:nth-child(5) {
-        --stack-shift: 0.35rem;
-        --stack-depth: 24px;
-        --stack-tilt: 1deg;
-    }
-
-    body[data-nav="home"] .home-era-card:nth-child(6) {
-        --stack-shift: 1.15rem;
-        --stack-depth: 14px;
-        --stack-tilt: 2.8deg;
-    }
-
-    body[data-nav="home"] .home-era-card:nth-child(7) {
-        --stack-shift: 1.85rem;
-        --stack-depth: 4px;
-        --stack-tilt: 4deg;
     }
 
     body[data-nav="home"] .home-era-board__node-title {
