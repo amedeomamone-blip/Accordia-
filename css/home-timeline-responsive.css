@@ -45,8 +45,8 @@ body[data-nav="home"] .home-era-card {
     padding: 6px;
     border: 0;
     border-radius: 36px;
-    background: #ffffff;
-    color: #111111;
+    background: var(--top);
+    color: var(--paired);
     overflow: hidden;
     scroll-snap-align: start;
     box-shadow: 0 16px 34px rgba(17, 24, 39, 0.08), 0 34px 72px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.80);
@@ -70,7 +70,7 @@ body[data-nav="home"] .home-era-card::after {
 body[data-nav="home"] .home-era-card:hover,
 body[data-nav="home"] .home-era-card.is-active {
     transform: translateY(-8px) scale(1.01);
-    background: #ffffff;
+    background: var(--top);
     box-shadow: 0 22px 42px rgba(17, 24, 39, 0.11), 0 42px 82px rgba(17, 24, 39, 0.12);
 }
 
@@ -83,13 +83,14 @@ body[data-nav="home"] .home-era-card__top {
     height: 64%;
     min-height: 64%;
     border-radius: 30px;
-    background: var(--top);
+    background: #ffffff;
     padding: 0 24px 22px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
     overflow: hidden;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.96), 0 10px 22px rgba(17, 24, 39, 0.04);
 }
 
 body[data-nav="home"] .home-era-card strong {
@@ -126,14 +127,14 @@ body[data-nav="home"] .home-era-card__period {
     min-height: 32px;
     padding: 0 14px 0 16px;
     border-radius: 999px;
-    background: var(--paired);
-    color: var(--top);
+    background: var(--top);
+    color: var(--paired);
     font-size: 11px;
     line-height: 1;
     font-weight: 700;
     letter-spacing: .02em;
     white-space: nowrap;
-    box-shadow: 0 8px 18px rgba(17, 24, 39, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42), 0 8px 18px rgba(17, 24, 39, 0.08);
 }
 
 body[data-nav="home"] .home-era-card__body {
@@ -144,19 +145,21 @@ body[data-nav="home"] .home-era-card__body {
     justify-content: space-between;
     gap: 14px;
     padding: 14px 16px 16px;
-    background: #ffffff;
+    background: var(--top);
     border-radius: 22px 22px 30px 30px;
     margin-top: 6px;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.16);
 }
 
 body[data-nav="home"] .home-era-card__summary {
     margin: 0;
     max-width: 100%;
-    color: #4e535a;
+    color: var(--paired);
     font-size: 14px;
     line-height: 1.5;
     font-weight: 500;
     letter-spacing: -0.01em;
+    opacity: 0.86;
 }
 
 body[data-nav="home"] .home-era-card__body-row {
@@ -174,11 +177,11 @@ body[data-nav="home"] .home-era-card__cta {
     justify-content: center;
     min-height: 32px;
     border-radius: 999px;
-    background: var(--top);
+    background: #ffffff;
     color: var(--paired);
     line-height: 1;
     font-weight: 700;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 8px 18px rgba(17, 24, 39, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.88), 0 8px 18px rgba(17, 24, 39, 0.08);
 }
 
 body[data-nav="home"] .home-era-card__number {
@@ -215,6 +218,14 @@ body[data-nav="home"] .home-era-card__cta::after {
 
 body[data-nav="home"] .home-era-card:hover .home-era-card__cta::after {
     transform: translateX(3px);
+}
+
+body[data-nav="home"] .home-era-card:hover .home-era-card__number,
+body[data-nav="home"] .home-era-card:hover .home-era-card__cta,
+body[data-nav="home"] .home-era-card.is-active .home-era-card__number,
+body[data-nav="home"] .home-era-card.is-active .home-era-card__cta {
+    background: #ffffff;
+    color: var(--paired);
 }
 
 /* Palette pastello. Classicismo invariato. */
