@@ -731,7 +731,7 @@ body[data-nav="home"] .site-nav__menu a {
 
 .home-hero__copy--lead-only {
     position: absolute;
-    left: calc((100vw - 100%) / -2 + 25vw);
+    left: 0;
     bottom: clamp(0.95rem, 3.8svh, 2rem);
     grid-template-columns: 1fr;
     justify-items: start;
@@ -1203,7 +1203,7 @@ body[data-nav="home"] .site-footer__label {
     }
 
     .home-hero__copy--lead-only {
-        left: calc((100vw - 100%) / -2 + 25vw);
+        left: 0;
         bottom: clamp(0.9rem, 3.5svh, 1.7rem);
         width: max-content;
         max-width: none;
@@ -1293,7 +1293,7 @@ body[data-nav="home"] .site-footer__label {
     }
 
     .home-hero__copy--lead-only {
-        left: calc((100vw - 100%) / -2 + 25vw);
+        left: 0.5rem;
         bottom: clamp(0.85rem, 3svh, 1.3rem);
         width: max-content;
         max-width: none;
