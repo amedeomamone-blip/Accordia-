@@ -1,4 +1,4 @@
-/* Landing timeline nuclei: card bianche con lavagna fluttuante inline */
+/* Home timeline: nucleo cards with Barocco lesson-preview grid */
 
 body[data-nav="home"] .home-timeline {
     background: #ffffff;
@@ -12,55 +12,53 @@ body[data-nav="home"] .home-timeline > .shell:not(.home-section__heading) {
 }
 
 body[data-nav="home"] .home-timeline__track {
+    --home-track-gap: 12px;
     --home-era-card-width: 24rem;
-    --home-board-width: 52rem;
-    display: grid;
-    grid-template-columns: none;
-    grid-auto-flow: column;
-    grid-auto-columns: var(--home-era-card-width);
-    gap: 12px;
+    display: flex;
+    gap: var(--home-track-gap);
+    align-items: flex-start;
     overflow-x: auto;
     overflow-y: hidden;
     padding: 10px max(1rem, calc((100vw - min(100vw, var(--shell-max))) / 2 + 1rem)) 32px;
     scroll-snap-type: x mandatory;
     scroll-padding-inline: max(1rem, calc((100vw - min(100vw, var(--shell-max))) / 2 + 1rem));
-    align-items: stretch;
     -webkit-overflow-scrolling: touch;
 }
 
 body[data-nav="home"] .home-era-card {
     --top: #dfeee8;
     --paired: #24483d;
+    position: relative;
+    flex: 0 0 var(--home-era-card-width);
     width: var(--home-era-card-width);
-    min-width: 0;
-    max-width: none;
-    min-height: 0;
-    height: auto;
-    aspect-ratio: 0.618 / 1;
-    contain: layout paint;
-    flex: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
+    min-width: var(--home-era-card-width);
+    max-width: var(--home-era-card-width);
+    height: calc(var(--home-era-card-width) / 0.618);
+    min-height: calc(var(--home-era-card-width) / 0.618);
+    max-height: calc(var(--home-era-card-width) / 0.618);
     padding: 6px;
     border: 0;
     border-radius: 36px;
     background: #ffffff;
     color: #111111;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
     overflow: hidden;
     scroll-snap-align: start;
-    box-shadow: 0 16px 34px rgba(17, 24, 39, 0.08), 0 34px 72px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.80);
-    animation: accordiaCardIn 720ms cubic-bezier(.2, .8, .2, 1) both;
+    contain: layout paint;
+    box-shadow: 0 16px 34px rgba(17, 24, 39, 0.08), 0 34px 72px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    animation: accordiaCardIn 720ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
     transform-origin: center bottom;
-    transition: transform 320ms cubic-bezier(.2, .8, .2, 1), box-shadow 320ms ease, opacity 280ms ease, filter 280ms ease;
+    transition: transform 320ms cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 320ms ease, opacity 280ms ease, filter 280ms ease;
 }
 
 body[data-nav="home"] .home-era-card:nth-child(1) { animation-delay: 40ms; }
 body[data-nav="home"] .home-era-card:nth-child(2) { animation-delay: 100ms; }
 body[data-nav="home"] .home-era-card:nth-child(3) { animation-delay: 160ms; }
-body[data-nav="home"] .home-era-card:nth-child(5) { animation-delay: 220ms; }
-body[data-nav="home"] .home-era-card:nth-child(6) { animation-delay: 280ms; }
-body[data-nav="home"] .home-era-card:nth-child(7) { animation-delay: 340ms; }
+body[data-nav="home"] .home-era-card:nth-child(4) { animation-delay: 220ms; }
+body[data-nav="home"] .home-era-card:nth-child(5) { animation-delay: 280ms; }
+body[data-nav="home"] .home-era-card:nth-child(6) { animation-delay: 340ms; }
 
 body[data-nav="home"] .home-era-card::before,
 body[data-nav="home"] .home-era-card::after {
@@ -68,27 +66,32 @@ body[data-nav="home"] .home-era-card::after {
 }
 
 body[data-nav="home"] .home-era-card:hover,
+body[data-nav="home"] .home-era-card:focus-visible,
 body[data-nav="home"] .home-era-card.is-active {
     transform: translateY(-8px) scale(1.01);
     background: #ffffff;
     box-shadow: 0 22px 42px rgba(17, 24, 39, 0.11), 0 42px 82px rgba(17, 24, 39, 0.12);
 }
 
+body[data-nav="home"] .home-era-card:focus-visible {
+    outline: 0;
+}
+
 body[data-nav="home"] .home-era-card.is-dimmed {
-    opacity: .38;
-    filter: saturate(.82);
+    opacity: 0.38;
+    filter: saturate(0.82);
 }
 
 body[data-nav="home"] .home-era-card__top {
     height: 64%;
     min-height: 64%;
+    padding: 0 24px 22px;
     border-radius: 30px;
     background: var(--top);
-    padding: 0 24px 22px;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: flex-start;
+    justify-content: flex-start;
     overflow: hidden;
 }
 
@@ -102,15 +105,16 @@ body[data-nav="home"] .home-era-card strong {
     color: var(--paired);
     font-family: var(--font-display);
     font-size: 28px;
-    line-height: .98;
+    line-height: 0.98;
     letter-spacing: -0.055em;
     font-weight: 680;
     text-align: left;
     white-space: nowrap;
-    transition: transform 280ms cubic-bezier(.2, .8, .2, 1);
+    transition: transform 280ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-body[data-nav="home"] .home-era-card:hover strong {
+body[data-nav="home"] .home-era-card:hover strong,
+body[data-nav="home"] .home-era-card:focus-visible strong {
     transform: translateX(4px);
 }
 
@@ -131,7 +135,7 @@ body[data-nav="home"] .home-era-card__period {
     font-size: 11px;
     line-height: 1;
     font-weight: 700;
-    letter-spacing: .02em;
+    letter-spacing: 0.02em;
     white-space: nowrap;
     box-shadow: 0 8px 18px rgba(17, 24, 39, 0.08);
 }
@@ -139,14 +143,14 @@ body[data-nav="home"] .home-era-card__period {
 body[data-nav="home"] .home-era-card__body {
     flex: 1;
     min-height: 0;
+    margin-top: 6px;
+    padding: 14px 16px 16px;
+    border-radius: 22px 22px 30px 30px;
+    background: #ffffff;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 14px;
-    padding: 14px 16px 16px;
-    background: #ffffff;
-    border-radius: 22px 22px 30px 30px;
-    margin-top: 6px;
 }
 
 body[data-nav="home"] .home-era-card__summary {
@@ -182,13 +186,12 @@ body[data-nav="home"] .home-era-card__cta {
 }
 
 body[data-nav="home"] .home-era-card__number {
-    position: static;
     min-width: 44px;
     height: 32px;
     padding: 0 14px;
     font-family: var(--font-sans);
     font-size: 12px;
-    letter-spacing: .04em;
+    letter-spacing: 0.04em;
 }
 
 body[data-nav="home"] .home-era-card p:not(.home-era-card__summary),
@@ -199,7 +202,7 @@ body[data-nav="home"] .home-era-card__era {
 body[data-nav="home"] .home-era-card__cta {
     padding: 0 14px 0 16px;
     font-size: 11px;
-    letter-spacing: .02em;
+    letter-spacing: 0.02em;
     text-transform: none;
     white-space: nowrap;
 }
@@ -210,281 +213,185 @@ body[data-nav="home"] .home-era-card__cta::after {
     font-size: 16px;
     font-weight: 700;
     line-height: 1;
-    transition: transform 260ms cubic-bezier(.2, .8, .2, 1);
+    transition: transform 260ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
-body[data-nav="home"] .home-era-card:hover .home-era-card__cta::after {
+body[data-nav="home"] .home-era-card:hover .home-era-card__cta::after,
+body[data-nav="home"] .home-era-card:focus-visible .home-era-card__cta::after {
     transform: translateX(3px);
 }
 
-/* Palette pastello. Classicismo invariato. */
 body[data-nav="home"] .home-era-card:nth-child(1) { --top: #dfeee8; --paired: #24483d; }
 body[data-nav="home"] .home-era-card:nth-child(2) { --top: #f4e6c8; --paired: #5c3f21; }
 body[data-nav="home"] .home-era-card:nth-child(3) { --top: #ead6d0; --paired: #66362e; }
-body[data-nav="home"] .home-era-card:nth-child(5) { --top: #bdd9d7; --paired: #03363d; }
-body[data-nav="home"] .home-era-card:nth-child(6) { --top: #dedaf0; --paired: #3e365d; }
-body[data-nav="home"] .home-era-card:nth-child(7) { --top: #d9e4f2; --paired: #243e63; }
+body[data-nav="home"] .home-era-card:nth-child(4) { --top: #bdd9d7; --paired: #03363d; }
+body[data-nav="home"] .home-era-card:nth-child(5) { --top: #dedaf0; --paired: #3e365d; }
+body[data-nav="home"] .home-era-card:nth-child(6) { --top: #d9e4f2; --paired: #243e63; }
 
-body[data-nav="home"] .home-era-board {
-    --accent: #66362e;
-    --accent-soft: #ead6d0;
-    --accent-pale: #f7ece8;
-    width: 0;
-    min-width: 0;
-    aspect-ratio: 1.22 / 1;
-    opacity: 0;
-    transform: translateX(-28px) scale(.985);
-    pointer-events: none;
-    scroll-snap-align: center;
-    overflow: hidden;
-    border-radius: 36px;
-    transition: width 620ms cubic-bezier(.2, .8, .2, 1), min-width 620ms cubic-bezier(.2, .8, .2, 1), opacity 340ms ease, transform 620ms cubic-bezier(.2, .8, .2, 1);
+body[data-nav="home"] .home-era-card--baroque .home-era-card__top {
+    padding: 18px 20px 18px;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 14px;
 }
 
-body[data-nav="home"] .home-era-board.is-open {
-    width: var(--home-board-width);
-    min-width: var(--home-board-width);
-    opacity: 1;
-    transform: translateX(0) scale(1);
-    pointer-events: auto;
-}
-
-body[data-nav="home"] .home-era-board__map {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    min-height: 0;
-    padding: 24px;
-    border: 1px solid #e8ebf0;
-    border-radius: 36px;
-    background: radial-gradient(circle at 18% 18%, rgba(234, 214, 208, 0.34), transparent 22%), radial-gradient(circle at 84% 22%, rgba(234, 214, 208, 0.22), transparent 20%), linear-gradient(180deg, #fdfefe 0%, #f7f9fb 100%);
-    box-shadow: 0 18px 36px rgba(15, 23, 42, 0.07);
-    overflow: hidden;
-    isolation: isolate;
-}
-
-body[data-nav="home"] .home-era-board__map::before {
-    content: "Lavagna fluttuante";
-    position: absolute;
-    top: 18px;
-    left: 24px;
-    z-index: 2;
-    color: #6b727b;
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-}
-
-body[data-nav="home"] .home-era-board__map::after {
-    content: "Il Barocco";
-    position: absolute;
-    left: 24px;
-    bottom: 18px;
-    z-index: 1;
-    color: #66362e;
-    font-family: var(--font-display);
-    font-size: 38px;
-    line-height: .9;
-    letter-spacing: -0.07em;
-    font-weight: 760;
-    opacity: .13;
-}
-
-body[data-nav="home"] .home-era-board__lines {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-}
-
-body[data-nav="home"] .home-era-board__line {
-    stroke: #c7a8a2;
-    stroke-width: .7;
-    opacity: .9;
-    vector-effect: non-scaling-stroke;
-    stroke-dasharray: 6 6;
-    animation: accordiaBoardLineDraw 700ms ease both;
-}
-
-body[data-nav="home"] .home-era-board__canvas {
-    position: relative;
-    width: 100%;
-    height: 100%;
-}
-
-body[data-nav="home"] .home-era-board__node {
-    position: absolute;
-    left: calc(var(--x) * 1%);
-    top: calc(var(--y) * 1%);
-    width: clamp(10.8rem, 13.5vw, 12.6rem);
-    aspect-ratio: 0.78 / 1;
-    transform: translate(-50%, -50%);
-    transform-origin: center;
+body[data-nav="home"] .home-era-card--baroque .home-era-card__top-head {
     display: flex;
     flex-direction: column;
-    padding: 4px;
-    border: 1px solid rgba(228, 232, 237, 0.95);
-    border-radius: 24px;
-    background: #ffffff;
-    box-shadow: 0 16px 28px rgba(15, 23, 42, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.92);
-    text-decoration: none;
-    overflow: hidden;
-    will-change: transform;
-    opacity: 0;
-    z-index: 1;
-    transition: transform 280ms cubic-bezier(.2, .8, .2, 1), box-shadow 280ms ease;
+    align-items: flex-start;
 }
 
-body[data-nav="home"] .home-era-board.is-open .home-era-board__node {
-    animation: accordiaBoardNodePop 620ms cubic-bezier(.2, .8, .2, 1) both, accordiaBoardNodeFloat 5800ms ease-in-out infinite;
-    animation-delay: var(--delay), calc(var(--delay) + 700ms);
-}
-
-body[data-nav="home"] .home-era-board__node:nth-of-type(1) { --delay: 140ms; }
-body[data-nav="home"] .home-era-board__node:nth-of-type(2) { --delay: 220ms; }
-body[data-nav="home"] .home-era-board__node:nth-of-type(3) { --delay: 300ms; }
-body[data-nav="home"] .home-era-board__node:nth-of-type(4) { --delay: 380ms; }
-
-body[data-nav="home"] .home-era-board__node:hover,
-body[data-nav="home"] .home-era-board__node:focus-visible {
-    transform: translate(-50%, -53%);
-    box-shadow: 0 22px 38px rgba(15, 23, 42, 0.13);
-    z-index: 4;
-}
-
-body[data-nav="home"] .home-era-board__node-top {
-    flex: 1;
-    border-radius: 20px;
-    background: var(--accent-soft);
-    padding: 14px 14px 12px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    position: relative;
-    overflow: hidden;
-}
-
-body[data-nav="home"] .home-era-board__node-number {
-    position: relative;
-    z-index: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    align-self: flex-start;
-    min-width: 34px;
-    height: 28px;
-    padding: 0 11px;
-    border-radius: 999px;
-    background: var(--accent);
-    color: var(--accent-soft);
-    font-family: var(--font-sans);
-    font-size: 10px;
-    line-height: 1;
-    font-weight: 760;
-    letter-spacing: .05em;
-    box-shadow: 0 8px 18px rgba(102, 54, 46, 0.16);
-}
-
-body[data-nav="home"] .home-era-board__node strong {
-    position: relative;
-    z-index: 1;
-    max-width: 8ch;
+body[data-nav="home"] .home-era-card--baroque strong {
     margin: 0;
-    color: var(--accent);
-    font-family: var(--font-display);
-    font-size: 20px;
-    line-height: .96;
-    letter-spacing: -0.05em;
-    font-weight: 690;
+    max-width: 8ch;
+    white-space: normal;
     text-wrap: balance;
 }
 
-body[data-nav="home"] .home-era-board__node-bottom {
-    min-height: 30px;
-    margin-top: 4px;
-    padding: 0 10px 0 12px;
-    border-radius: 16px 16px 20px 20px;
-    background: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
+body[data-nav="home"] .home-era-card--baroque:hover strong,
+body[data-nav="home"] .home-era-card--baroque:focus-visible strong {
+    transform: none;
 }
 
-body[data-nav="home"] .home-era-board__node-arrow {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-width: 28px;
-    height: 28px;
-    border-radius: 999px;
-    background: var(--accent-pale);
-    color: var(--accent);
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
+body[data-nav="home"] .home-era-card--baroque .home-era-card__period {
+    margin-top: 10px;
 }
 
-body[data-nav="home"] .home-era-board__close {
+body[data-nav="home"] .home-era-card__lesson-preview {
+    position: relative;
+    min-height: 0;
+    height: 100%;
+    width: 100%;
+    padding: 8px;
+    border-radius: 24px;
+    overflow: hidden;
+    container-type: inline-size;
+    background: linear-gradient(180deg, rgba(255, 250, 248, 0.42) 0%, rgba(255, 255, 255, 0.12) 100%);
+    border: 1px solid rgba(102, 54, 46, 0.08);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42);
+}
+
+body[data-nav="home"] .home-era-card__lesson-grid {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+body[data-nav="home"] .home-era-card__lesson-brick {
+    --lesson-x: 0px;
+    --lesson-y: 0px;
+    --lesson-scale: 1;
+    --lesson-opacity: 0;
+    --brick-bg: rgba(255, 255, 255, 0.88);
+    --brick-border: rgba(102, 54, 46, 0.12);
     position: absolute;
-    right: 18px;
-    top: 16px;
-    z-index: 5;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 30px;
-    padding: 0 13px;
-    border: 0;
-    border-radius: 999px;
-    background: #ffffff;
-    color: #34373d;
-    font: inherit;
-    font-size: 11px;
-    line-height: 1;
-    font-weight: 740;
-    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08);
-    cursor: pointer;
+    top: 0;
+    left: 0;
+    display: flex;
+    align-items: flex-start;
+    padding: 0.55rem 0.62rem;
+    border-radius: 18px;
+    border: 1px solid var(--brick-border);
+    background: var(--brick-bg);
+    color: var(--paired);
+    pointer-events: none;
+    user-select: none;
+    overflow: hidden;
+    opacity: var(--lesson-opacity);
+    transform: translate3d(var(--lesson-x), var(--lesson-y), 0) scale(var(--lesson-scale));
+    transform-origin: center center;
+    box-shadow: 0 10px 22px rgba(102, 54, 46, 0.08);
+    transition:
+        transform 2050ms cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 420ms ease,
+        box-shadow 220ms ease,
+        background-color 220ms ease,
+        border-color 220ms ease;
+    will-change: transform, opacity;
+}
+
+body[data-nav="home"] .home-era-card__lesson-brick.is-static {
+    transition: none !important;
+}
+
+body[data-nav="home"] .home-era-card__lesson-brick--feature {
+    width: min(42cqi, 7.85rem);
+    min-height: min(16.5cqi, 3.4rem);
+}
+
+body[data-nav="home"] .home-era-card__lesson-brick--wide {
+    width: min(34cqi, 6.4rem);
+    min-height: min(15cqi, 3.05rem);
+}
+
+body[data-nav="home"] .home-era-card__lesson-brick--compact {
+    width: min(24cqi, 4.7rem);
+    min-height: min(13.5cqi, 2.7rem);
+    padding-inline: 0.56rem;
+}
+
+body[data-nav="home"] .home-era-card__lesson-brick[data-type="paired-secondary"] {
+    background: rgba(255, 251, 249, 0.82);
+}
+
+body[data-nav="home"] .home-era-card__lesson-brick[data-group="intro"] {
+    --brick-border: rgba(102, 54, 46, 0.14);
+}
+
+body[data-nav="home"] .home-era-card__lesson-brick[data-group="instruments"] {
+    --brick-bg: rgba(255, 247, 244, 0.9);
+}
+
+body[data-nav="home"] .home-era-card__lesson-brick[data-group="monteverdi"],
+body[data-nav="home"] .home-era-card__lesson-brick[data-group="bach"],
+body[data-nav="home"] .home-era-card__lesson-brick[data-group="vivaldi"],
+body[data-nav="home"] .home-era-card__lesson-brick[data-group="haendel"] {
+    --brick-bg: rgba(255, 253, 252, 0.9);
+}
+
+body[data-nav="home"] .home-era-card__lesson-brick-label {
+    display: -webkit-box;
+    margin: 0;
+    overflow: hidden;
+    color: inherit;
+    font-size: clamp(0.63rem, 2.3cqi, 0.75rem);
+    line-height: 1.18;
+    font-weight: 620;
+    letter-spacing: -0.018em;
+    text-wrap: balance;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+}
+
+body[data-nav="home"] .home-era-card__lesson-brick--compact .home-era-card__lesson-brick-label {
+    font-size: clamp(0.59rem, 2.1cqi, 0.69rem);
+    line-height: 1.12;
+}
+
+body[data-nav="home"] .home-era-card--baroque.is-preview-paused .home-era-card__lesson-brick {
+    transition-duration: 2600ms, 420ms, 220ms, 220ms, 220ms;
 }
 
 @keyframes accordiaCardIn {
-    from { opacity: 0; transform: translateY(30px) scale(.96); }
+    from { opacity: 0; transform: translateY(30px) scale(0.96); }
     to { opacity: 1; transform: translateY(0) scale(1); }
-}
-
-@keyframes accordiaBoardNodePop {
-    from { opacity: 0; transform: translate(-50%, -50%) scale(.88); }
-    to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-}
-
-@keyframes accordiaBoardNodeFloat {
-    0%, 100% { translate: 0 0; }
-    50% { translate: 0 -8px; }
-}
-
-@keyframes accordiaBoardLineDraw {
-    from { opacity: 0; stroke-dashoffset: 20; }
-    to { opacity: .9; stroke-dashoffset: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {
     body[data-nav="home"] .home-era-card,
     body[data-nav="home"] .home-era-card strong,
     body[data-nav="home"] .home-era-card__cta::after,
-    body[data-nav="home"] .home-era-board,
-    body[data-nav="home"] .home-era-board__line,
-    body[data-nav="home"] .home-era-board__node {
+    body[data-nav="home"] .home-era-card__lesson-brick {
         animation: none !important;
         transition: none !important;
     }
 
     body[data-nav="home"] .home-era-card:hover,
+    body[data-nav="home"] .home-era-card:focus-visible,
     body[data-nav="home"] .home-era-card:hover strong,
+    body[data-nav="home"] .home-era-card:focus-visible strong,
     body[data-nav="home"] .home-era-card:hover .home-era-card__cta::after,
-    body[data-nav="home"] .home-era-board__node:hover,
-    body[data-nav="home"] .home-era-board__node:focus-visible {
+    body[data-nav="home"] .home-era-card:focus-visible .home-era-card__cta::after {
         transform: none !important;
     }
 }
@@ -492,17 +399,15 @@ body[data-nav="home"] .home-era-board__close {
 @media (max-width: 1100px) {
     body[data-nav="home"] .home-timeline__track {
         --home-era-card-width: 22.5rem;
-        --home-board-width: min(46rem, 86vw);
     }
 }
 
 @media (max-width: 760px) {
     body[data-nav="home"] .home-timeline__track {
+        --home-track-gap: 10px;
         --home-era-card-width: min(21.5rem, 86vw);
-        --home-board-width: min(32rem, 86vw);
         padding-inline: 0.9rem;
         scroll-padding-inline: 0.9rem;
-        gap: 10px;
     }
 
     body[data-nav="home"] .home-era-card strong {
@@ -513,20 +418,32 @@ body[data-nav="home"] .home-era-board__close {
         font-size: 12.5px;
     }
 
-    body[data-nav="home"] .home-era-board {
-        aspect-ratio: 0.8 / 1;
+    body[data-nav="home"] .home-era-card--baroque .home-era-card__top {
+        padding: 16px 18px;
+        gap: 12px;
     }
 
-    body[data-nav="home"] .home-era-board__node {
-        width: 9.9rem;
+    body[data-nav="home"] .home-era-card__lesson-preview {
+        padding: 7px;
+        border-radius: 22px;
     }
 
-    body[data-nav="home"] .home-era-board__node strong {
-        font-size: 17px;
+    body[data-nav="home"] .home-era-card__lesson-brick {
+        border-radius: 16px;
     }
 
-    body[data-nav="home"] .home-era-board__node:nth-of-type(3),
-    body[data-nav="home"] .home-era-board__node:nth-of-type(4) {
-        display: none;
+    body[data-nav="home"] .home-era-card__lesson-brick--feature {
+        width: min(44cqi, 7.15rem);
+        min-height: min(18cqi, 3.15rem);
+    }
+
+    body[data-nav="home"] .home-era-card__lesson-brick--wide {
+        width: min(36cqi, 5.9rem);
+        min-height: min(16cqi, 2.85rem);
+    }
+
+    body[data-nav="home"] .home-era-card__lesson-brick--compact {
+        width: min(26cqi, 4.25rem);
+        min-height: min(14cqi, 2.45rem);
     }
 }

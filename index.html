@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Accordia e un ambiente didattico per insegnare la storia della musica nella scuola secondaria di primo grado, con timeline, nuclei storici, mappe degli argomenti, ascolti guidati, attivita laboratoriali e verifiche.">
     <title>Accordia | Storia della musica</title>
-    <link rel="stylesheet" href="css/style.css?v=1780693195">
+    <link rel="stylesheet" href="css/style.css?v=1780696443">
     <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780681531">
     <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1780681531">
 </head>
@@ -86,10 +86,15 @@
                             </div>
                         </div>
                     </a>
-                    <a class="home-era-card" id="baroccoCard" href="nuclei/barocco/index.html" data-nucleus-link="barocco" aria-expanded="false" aria-controls="baroccoBoard">
+                    <a class="home-era-card home-era-card--baroque" id="baroccoCard" href="nuclei/barocco/index.html" data-nucleus-link="barocco">
                         <div class="home-era-card__top">
-                            <strong>Il Barocco</strong>
-                            <span class="home-era-card__period">1600–1750</span>
+                            <div class="home-era-card__top-head">
+                                <strong>Barocco</strong>
+                                <span class="home-era-card__period">1600–1750</span>
+                            </div>
+                            <div class="home-era-card__lesson-preview" data-lesson-preview="barocco" aria-hidden="true">
+                                <div class="home-era-card__lesson-grid" data-lesson-grid="barocco"></div>
+                            </div>
                         </div>
                         <div class="home-era-card__body">
                             <p class="home-era-card__summary">Teatro, contrasto e meraviglia trasformano la musica, tra melodramma, basso continuo e nuove forme strumentali.</p>
@@ -99,27 +104,6 @@
                             </div>
                         </div>
                     </a>
-
-                    <aside class="home-era-board" id="baroccoBoard" aria-label="Lavagna lezioni Barocco">
-                        <div class="home-era-board__map">
-                            <button class="home-era-board__close" id="closeBaroccoBoard" type="button">Chiudi</button>
-                            <div class="home-era-board__canvas">
-                                <a class="home-era-board__node is-selected" data-board-card href="nuclei/barocco/argomenti/il-barocco-in-coordinate/index.html">
-                                    <div class="home-era-board__node-top">
-                                        <span class="home-era-board__node-number">01</span>
-                                        <h3 class="home-era-board__node-title">Introduzione al Barocco</h3>
-                                    </div>
-                                    <div class="home-era-board__node-body">
-                                        <p class="home-era-board__node-summary">Linea del tempo, primi ascolti e concetti chiave per orientarsi nel periodo.</p>
-                                        <div class="home-era-board__node-bottom">
-                                            <span class="home-era-board__node-label">Panorama</span>
-                                            <span class="home-era-board__node-arrow">›</span>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                        </div>
-                    </aside>
 
                     <a class="home-era-card" href="nuclei/settecento-classicismo/index.html" data-nucleus-link="settecento-classicismo">
                         <div class="home-era-card__top">
@@ -161,7 +145,7 @@
                         </div>
                     </a>
                 </div>
-                <p class="home-timeline__hint">Scorri lateralmente per seguire il percorso storico, poi apri un nucleo per entrare in lavagne, ascolti, attivit&agrave; e verifiche.</p>
+                <p class="home-timeline__hint">Scorri lateralmente per seguire il percorso storico, poi apri un nucleo per entrare in lezioni, ascolti, attivit&agrave; e verifiche.</p>
             </div>
         </section>
 
@@ -174,16 +158,10 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=1780693195"></script>
+    <script src="js/main.js?v=1780696443"></script>
+    <script src="js/home-animated-lesson-grid.js?v=1780693195"></script>
     <script>
         (function () {
-            const baroccoCard = document.getElementById('baroccoCard');
-            const board = document.getElementById('baroccoBoard');
-            const closeButton = document.getElementById('closeBaroccoBoard');
-            const cards = document.querySelectorAll('.home-era-card');
-            const boardCards = board ? board.querySelectorAll('[data-board-card]') : [];
-            const track = board ? board.closest('.home-timeline__track') : null;
-            const directPointerMatch = window.matchMedia('(hover: hover) and (pointer: fine)');
             const heroFrame = document.querySelector('.home-hero__frame');
             const timelineHeading = document.querySelector('.home-section__heading--timeline');
             const timelineHeadingTitle = timelineHeading ? timelineHeading.querySelector('h2') : null;
@@ -323,101 +301,6 @@
                     reducedHeroMotion.addListener(syncTimelineMotion);
                 }
             }
-
-            if (!baroccoCard || !board || !closeButton || !track) return;
-
-            function setActiveBoardCard(nextCard) {
-                if (!nextCard || !boardCards.length) return;
-                boardCards.forEach(function (card) {
-                    card.classList.toggle('is-selected', card === nextCard);
-                });
-            }
-
-            function ensureBoardVisible(behavior) {
-                if (!board.classList.contains('is-open')) return;
-
-                const trackRect = track.getBoundingClientRect();
-                const boardRect = board.getBoundingClientRect();
-                const gutter = 12;
-                let nextScrollLeft = track.scrollLeft;
-
-                if (boardRect.left < trackRect.left + gutter) {
-                    nextScrollLeft -= (trackRect.left + gutter) - boardRect.left;
-                }
-
-                if (boardRect.right > trackRect.right - gutter) {
-                    nextScrollLeft += boardRect.right - (trackRect.right - gutter);
-                }
-
-                const maxScrollLeft = Math.max(0, track.scrollWidth - track.clientWidth);
-                nextScrollLeft = clamp(nextScrollLeft, 0, maxScrollLeft);
-
-                track.scrollTo({ left: nextScrollLeft, behavior: behavior || 'auto' });
-            }
-
-            function openBoard(event) {
-                event.preventDefault();
-
-                if (board.classList.contains('is-open')) {
-                    closeBoard();
-                    return;
-                }
-
-                board.classList.add('is-open');
-                baroccoCard.classList.add('is-active');
-                baroccoCard.setAttribute('aria-expanded', 'true');
-
-                cards.forEach(function (card) {
-                    if (card !== baroccoCard) card.classList.add('is-dimmed');
-                });
-
-                setActiveBoardCard(boardCards[0]);
-
-                window.requestAnimationFrame(function () {
-                    ensureBoardVisible('smooth');
-                    window.setTimeout(function () {
-                        ensureBoardVisible('auto');
-                    }, 240);
-                });
-            }
-
-            function closeBoard() {
-                board.classList.remove('is-open');
-                baroccoCard.classList.remove('is-active');
-                baroccoCard.setAttribute('aria-expanded', 'false');
-                cards.forEach(function (card) { card.classList.remove('is-dimmed'); });
-                setActiveBoardCard(boardCards[0]);
-            }
-
-            baroccoCard.addEventListener('click', openBoard);
-            closeButton.addEventListener('click', closeBoard);
-            board.addEventListener('transitionend', function (event) {
-                if (!board.classList.contains('is-open')) return;
-                if (event.propertyName !== 'width' && event.propertyName !== 'flex-basis' && event.propertyName !== 'min-width' && event.propertyName !== 'max-width') return;
-                ensureBoardVisible('auto');
-            });
-            window.addEventListener('resize', function () {
-                ensureBoardVisible('auto');
-            });
-            boardCards.forEach(function (card) {
-                card.addEventListener('mouseenter', function () {
-                    setActiveBoardCard(card);
-                });
-
-                card.addEventListener('focus', function () {
-                    setActiveBoardCard(card);
-                });
-
-                card.addEventListener('click', function (event) {
-                    if (!directPointerMatch.matches && !card.classList.contains('is-selected')) {
-                        event.preventDefault();
-                        setActiveBoardCard(card);
-                    }
-                });
-            });
-            document.addEventListener('keydown', function (event) {
-                if (event.key === 'Escape') closeBoard();
-            });
         })();
     </script>
 </body>
