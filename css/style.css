@@ -722,6 +722,13 @@ body[data-nav="home"] .site-nav__menu a {
     background: transparent;
 }
 
+.home-hero__copy--lead-only {
+    grid-template-columns: 1fr;
+    justify-items: end;
+    max-width: none;
+    margin-top: clamp(9.5rem, 23svh, 14rem);
+}
+
 .home-hero__copy h1,
 .home-section__heading h2,
 .home-reveal__detail-title {
@@ -747,6 +754,12 @@ body[data-nav="home"] .site-nav__menu a {
     font-size: clamp(0.88rem, 0.95cqi, 1.02rem);
     line-height: 1.62;
     text-wrap: pretty;
+}
+
+.home-hero__copy--lead-only .home-hero__lead {
+    grid-column: 1;
+    align-self: start;
+    max-width: 31ch;
 }
 
 .home-section__heading--timeline h2 {
@@ -1165,9 +1178,18 @@ body[data-nav="home"] .site-footer__label {
         margin-top: clamp(2.8rem, 8svh, 5rem);
     }
 
+    .home-hero__copy--lead-only {
+        grid-template-columns: 1fr;
+        margin-top: clamp(8rem, 20svh, 11rem);
+    }
+
     .home-hero__lead {
         max-width: 28ch;
         padding-bottom: 0;
+    }
+
+    .home-hero__copy--lead-only .home-hero__lead {
+        max-width: 29ch;
     }
 
     .home-reveal {
@@ -1244,11 +1266,21 @@ body[data-nav="home"] .site-footer__label {
         margin-top: clamp(1.2rem, 5svh, 2.5rem);
     }
 
+    .home-hero__copy--lead-only {
+        justify-items: end;
+        max-width: none;
+        margin-top: clamp(6.75rem, 17svh, 9rem);
+    }
+
     .home-hero__lead {
         grid-column: 1;
         max-width: 29ch;
         font-size: clamp(0.86rem, 3.5cqi, 0.96rem);
         line-height: 1.56;
+    }
+
+    .home-hero__copy--lead-only .home-hero__lead {
+        max-width: min(23ch, 100%);
     }
 
     .home-reveal__detail {
