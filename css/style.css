@@ -665,8 +665,8 @@ body[data-nav="home"] .site-nav__menu a {
 
 .home-hero {
     position: relative;
-    min-height: clamp(44rem, 100svh, 64rem);
-    padding: clamp(6.8rem, 12svh, 9rem) 0 clamp(10rem, 18svh, 13rem);
+    min-height: clamp(40rem, 88svh, 58rem);
+    padding: clamp(6.8rem, 12svh, 9rem) 0 clamp(2.8rem, 7svh, 5rem);
     background: #ffffff;
     overflow: hidden;
     isolation: isolate;
@@ -679,7 +679,7 @@ body[data-nav="home"] .site-nav__menu a {
 
 .home-hero__frame {
     position: relative;
-    min-height: clamp(34rem, 72svh, 48rem);
+    min-height: clamp(31rem, 66svh, 44rem);
     display: grid;
     align-items: start;
     isolation: isolate;
@@ -690,7 +690,7 @@ body[data-nav="home"] .site-nav__menu a {
     position: absolute;
     z-index: 0;
     left: 50%;
-    bottom: clamp(2rem, 5svh, 4.5rem);
+    bottom: clamp(-1.8rem, -2svh, -0.5rem);
     transform: translateX(-50%);
     color: rgba(24, 25, 27, 0.94);
     font-family: var(--font-display);
@@ -747,35 +747,6 @@ body[data-nav="home"] .site-nav__menu a {
     font-size: clamp(0.88rem, 0.95cqi, 1.02rem);
     line-height: 1.62;
     text-wrap: pretty;
-}
-
-.home-hero__cue {
-    grid-column: 2;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.85rem;
-    align-self: start;
-    justify-self: start;
-    margin-top: 1.35rem;
-    color: #18191b;
-    font-size: 0.8rem;
-    font-weight: 800;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-}
-
-.home-hero__cue-arrow {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.2rem;
-    height: 2.2rem;
-    border-radius: 999px;
-    border: 1px solid #d7d0c6;
-    background: rgba(255, 255, 255, 0.82);
-    box-shadow: 0 10px 24px rgba(24, 25, 27, 0.08);
-    font-size: 1rem;
-    line-height: 1;
 }
 
 .home-section__heading--timeline h2 {
@@ -1175,16 +1146,16 @@ body[data-nav="home"] .site-footer__label {
 
 @media (max-width: 1024px) {
     .home-hero {
-        min-height: clamp(40rem, 96svh, 54rem);
-        padding: clamp(6.25rem, 10svh, 8rem) 0 clamp(8rem, 16svh, 10rem);
+        min-height: clamp(35rem, 84svh, 48rem);
+        padding: clamp(6.25rem, 10svh, 8rem) 0 3.5rem;
     }
 
     .home-hero__frame {
-        min-height: clamp(32rem, 72svh, 42rem);
+        min-height: clamp(28rem, 68svh, 38rem);
     }
 
     .home-hero__frame::before {
-        bottom: clamp(2.4rem, 6svh, 4rem);
+        bottom: clamp(-0.8rem, -1svh, -0.2rem);
         font-size: clamp(7.4rem, 34cqi, 22rem);
     }
 
@@ -1197,10 +1168,6 @@ body[data-nav="home"] .site-footer__label {
     .home-hero__lead {
         max-width: 28ch;
         padding-bottom: 0;
-    }
-
-    .home-hero__cue {
-        margin-top: 1rem;
     }
 
     .home-reveal {
@@ -1250,9 +1217,9 @@ body[data-nav="home"] .site-footer__label {
     }
 
     .home-hero {
-        min-height: clamp(38rem, 96svh, 46rem);
+        min-height: clamp(34rem, 86svh, 42rem);
         padding-top: 6.6rem;
-        padding-bottom: 7rem;
+        padding-bottom: 2.2rem;
     }
 
     .home-hero > .shell {
@@ -1260,11 +1227,11 @@ body[data-nav="home"] .site-footer__label {
     }
 
     .home-hero__frame {
-        min-height: clamp(30rem, 74svh, 38rem);
+        min-height: clamp(27rem, 70svh, 35rem);
     }
 
     .home-hero__frame::before {
-        bottom: clamp(4.6rem, 10svh, 6.2rem);
+        bottom: clamp(1.1rem, 4svh, 2.3rem);
         font-size: clamp(7.2rem, 44cqi, 11rem);
         line-height: 0.78;
         opacity: 0.95;
@@ -1282,11 +1249,6 @@ body[data-nav="home"] .site-footer__label {
         max-width: 29ch;
         font-size: clamp(0.86rem, 3.5cqi, 0.96rem);
         line-height: 1.56;
-    }
-
-    .home-hero__cue {
-        grid-column: 1;
-        margin-top: 0.9rem;
     }
 
     .home-reveal__detail {
