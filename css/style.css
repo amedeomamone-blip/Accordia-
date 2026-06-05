@@ -793,8 +793,7 @@ body[data-nav="home"] {
     max-width: 21ch;
 }
 
-.home-hero__copy--lead-only .home-hero__lead,
-.home-section__heading--timeline p:last-child {
+.home-hero__copy--lead-only .home-hero__lead {
     font-size: var(--home-support-copy-size);
     line-height: var(--home-support-copy-line-height);
 }
@@ -847,6 +846,11 @@ body[data-nav="home"] .button--secondary:hover {
     margin-top: 1rem;
     font-size: 1rem;
     line-height: 1.8;
+}
+
+.home-section__heading--timeline p:last-child {
+    font-size: var(--home-support-copy-size);
+    line-height: var(--home-support-copy-line-height);
 }
 
 .home-method {
