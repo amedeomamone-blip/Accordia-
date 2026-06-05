@@ -726,7 +726,7 @@ body[data-nav="home"] .site-nav__menu a {
     grid-template-columns: 1fr;
     justify-items: end;
     max-width: none;
-    margin-top: clamp(9.5rem, 23svh, 14rem);
+    margin-top: clamp(13rem, 31svh, 18rem);
 }
 
 .home-hero__copy h1,
@@ -979,7 +979,7 @@ body[data-nav="home"] .button--secondary:hover {
 
 .home-timeline {
     background: #ffffff;
-    border-top: 1px solid #efeff1;
+    border-top: 0;
     border-bottom: 1px solid #efeff1;
 }
 
@@ -1180,7 +1180,7 @@ body[data-nav="home"] .site-footer__label {
 
     .home-hero__copy--lead-only {
         grid-template-columns: 1fr;
-        margin-top: clamp(8rem, 20svh, 11rem);
+        margin-top: clamp(11rem, 28svh, 14rem);
     }
 
     .home-hero__lead {
@@ -1269,7 +1269,7 @@ body[data-nav="home"] .site-footer__label {
     .home-hero__copy--lead-only {
         justify-items: end;
         max-width: none;
-        margin-top: clamp(6.75rem, 17svh, 9rem);
+        margin-top: clamp(8.5rem, 23svh, 11rem);
     }
 
     .home-hero__lead {

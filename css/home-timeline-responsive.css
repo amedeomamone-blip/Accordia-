@@ -2,6 +2,7 @@
 
 body[data-nav="home"] .home-timeline {
     background: #ffffff;
+    border-top: 0;
     border-bottom: 1px solid #f0eee9;
 }
 
