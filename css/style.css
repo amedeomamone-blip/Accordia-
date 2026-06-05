@@ -791,6 +791,10 @@ body[data-nav="home"] {
 
 .home-section__heading--timeline h2 {
     max-width: 21ch;
+    --home-timeline-shift-x: 0px;
+    --home-timeline-shift-y: 0px;
+    transform: translate3d(var(--home-timeline-shift-x), var(--home-timeline-shift-y), 0);
+    will-change: transform;
 }
 
 .home-hero__copy--lead-only .home-hero__lead {
@@ -849,8 +853,12 @@ body[data-nav="home"] .button--secondary:hover {
 }
 
 .home-section__heading--timeline p:last-child {
+    --home-timeline-shift-x: 0px;
+    --home-timeline-shift-y: 0px;
     font-size: var(--home-support-copy-size);
     line-height: var(--home-support-copy-line-height);
+    transform: translate3d(var(--home-timeline-shift-x), var(--home-timeline-shift-y), 0);
+    will-change: transform;
 }
 
 .home-method {

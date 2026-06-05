@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Accordia e un ambiente didattico per insegnare la storia della musica nella scuola secondaria di primo grado, con timeline, nuclei storici, mappe degli argomenti, ascolti guidati, attivita laboratoriali e verifiche.">
     <title>Accordia | Storia della musica</title>
-    <link rel="stylesheet" href="css/style.css?v=1780692484">
+    <link rel="stylesheet" href="css/style.css?v=1780692865">
     <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780681531">
     <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1780681531">
 </head>
@@ -174,7 +174,7 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=1780692484"></script>
+    <script src="js/main.js?v=1780692865"></script>
     <script>
         (function () {
             const baroccoCard = document.getElementById('baroccoCard');
@@ -185,6 +185,9 @@
             const track = board ? board.closest('.home-timeline__track') : null;
             const directPointerMatch = window.matchMedia('(hover: hover) and (pointer: fine)');
             const heroFrame = document.querySelector('.home-hero__frame');
+            const timelineHeading = document.querySelector('.home-section__heading--timeline');
+            const timelineHeadingTitle = timelineHeading ? timelineHeading.querySelector('h2') : null;
+            const timelineHeadingCopy = timelineHeading ? timelineHeading.querySelector('p:last-child') : null;
             const reducedHeroMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
             function clamp(value, min, max) {
@@ -246,6 +249,77 @@
                     reducedHeroMotion.addEventListener('change', syncHeroMotion);
                 } else if (typeof reducedHeroMotion.addListener === 'function') {
                     reducedHeroMotion.addListener(syncHeroMotion);
+                }
+            }
+
+            if (timelineHeading && timelineHeadingTitle && timelineHeadingCopy) {
+                let timelineCurrentProgress = 0;
+                let timelineTargetProgress = 0;
+                let timelineFrameRequest = 0;
+
+                function getTimelineTravel() {
+                    const headingWidth = timelineHeading.clientWidth;
+                    return reducedHeroMotion.matches
+                        ? {
+                            titleX: Math.min(headingWidth * 0.02, 12),
+                            titleY: -1.5,
+                            copyX: Math.min(headingWidth * 0.015, 8),
+                            copyY: 1.5
+                        }
+                        : {
+                            titleX: Math.min(headingWidth * 0.11, 92),
+                            titleY: -6,
+                            copyX: Math.min(headingWidth * 0.075, 58),
+                            copyY: 4
+                        };
+                }
+
+                function getTimelineProgress() {
+                    const rect = timelineHeading.getBoundingClientRect();
+                    const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+                    const start = viewportHeight * 0.92;
+                    const end = -rect.height * 0.28;
+                    return clamp((start - rect.top) / (start - end), 0, 1);
+                }
+
+                function renderTimelineMotion() {
+                    const delta = timelineTargetProgress - timelineCurrentProgress;
+                    const smoothing = reducedHeroMotion.matches ? 0.32 : 0.16;
+
+                    timelineCurrentProgress += delta * smoothing;
+                    if (Math.abs(delta) < 0.001) {
+                        timelineCurrentProgress = timelineTargetProgress;
+                    }
+
+                    const easedProgress = 1 - Math.pow(1 - timelineCurrentProgress, 3);
+                    const travel = getTimelineTravel();
+
+                    timelineHeadingTitle.style.setProperty('--home-timeline-shift-x', `${(travel.titleX * easedProgress).toFixed(2)}px`);
+                    timelineHeadingTitle.style.setProperty('--home-timeline-shift-y', `${(travel.titleY * easedProgress).toFixed(2)}px`);
+                    timelineHeadingCopy.style.setProperty('--home-timeline-shift-x', `${(travel.copyX * easedProgress).toFixed(2)}px`);
+                    timelineHeadingCopy.style.setProperty('--home-timeline-shift-y', `${(travel.copyY * easedProgress).toFixed(2)}px`);
+
+                    if (timelineCurrentProgress !== timelineTargetProgress) {
+                        timelineFrameRequest = window.requestAnimationFrame(renderTimelineMotion);
+                    } else {
+                        timelineFrameRequest = 0;
+                    }
+                }
+
+                function syncTimelineMotion() {
+                    timelineTargetProgress = getTimelineProgress();
+                    if (!timelineFrameRequest) {
+                        timelineFrameRequest = window.requestAnimationFrame(renderTimelineMotion);
+                    }
+                }
+
+                syncTimelineMotion();
+                window.addEventListener('scroll', syncTimelineMotion, { passive: true });
+                window.addEventListener('resize', syncTimelineMotion);
+                if (typeof reducedHeroMotion.addEventListener === 'function') {
+                    reducedHeroMotion.addEventListener('change', syncTimelineMotion);
+                } else if (typeof reducedHeroMotion.addListener === 'function') {
+                    reducedHeroMotion.addListener(syncTimelineMotion);
                 }
             }
 
