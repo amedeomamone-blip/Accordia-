@@ -3134,10 +3134,10 @@ def customize_barocco_context_lesson() -> None:
 
     if context_topic:
         context_topic["slug"] = "il-barocco-in-coordinate"
-        context_topic["title"] = "Introduzione al Barocco"
+        context_topic["title"] = "Il Barocco in coordinate"
         context_topic["label"] = "Lezione"
-        context_topic["subtitle"] = "Timeline e concetti chiave musicali"
-        context_topic["summary"] = "Lezione introduttiva con timeline e concetti chiave musicali del Barocco."
+        context_topic["subtitle"] = "Timeline e concetti chiave"
+        context_topic["summary"] = "Timeline, contesto e concetti chiave del nucleo."
         context_topic["x"] = 36
         context_topic["y"] = 50
         context_topic["cta"] = "Apri la lezione"
@@ -3152,7 +3152,7 @@ def customize_barocco_context_lesson() -> None:
             "immersive_preview": True,
             "immersive_mount_id": "barocco-key-concepts-root",
             "immersive_data_key": "barocco-in-coordinate",
-            "immersive_intro_title": "Introduzione al Barocco",
+            "immersive_intro_title": "Il Barocco in coordinate",
             "immersive_intro_period": "1600 — 1750",
             "immersive_intro_subtitle": "Un'epoca di contrasti, invenzioni e nuove forme musicali",
             "immersive_intro_text": "Tra Seicento e prima metà del Settecento, l'Europa attraversa trasformazioni profonde: guerre, nuove scoperte, corti sfarzose, grandi cambiamenti nel modo di pensare e di rappresentare il mondo. Anche la musica cambia volto. Nascono il melodramma, il concerto, l'oratorio; si affermano nuovi strumenti, nuove sonorità e un linguaggio capace di stupire, commuovere e creare forti contrasti.",
@@ -3202,18 +3202,18 @@ def customize_barocco_context_lesson() -> None:
                 },
             ],
             "author": "Lezione Accordia · Il Barocco",
-            "description": "Introduzione al Barocco con timeline e dieci concetti chiave musicali: celebrazione del potere, coinvolgimento dei fedeli, teatri pubblici, oratori, orchestra barocca, melodramma, concerto solista, concerto grosso, contrasti sonori, maggiore espressività.",
+            "description": "Il Barocco in coordinate con timeline e dieci concetti chiave musicali: celebrazione del potere, coinvolgimento dei fedeli, teatri pubblici, oratori, orchestra barocca, melodramma, concerto solista, concerto grosso, contrasti sonori, maggiore espressività.",
         }
 
         listening_globe_topic = {
             "number": "02",
             "slug": "globo-degli-ascolti",
             "title": "Globo degli ascolti",
-            "subtitle": "Brani in orbita",
+            "subtitle": "Ascolti guidati e traiettorie sonore",
             "label": "Ascolto",
             "x": 64,
             "y": 50,
-            "summary": "Spazio dedicato ai brani: una futura mappa sonora raccoglierà ascolti guidati, esempi e collegamenti musicali.",
+            "summary": "Brani, esempi e indizi sonori del Barocco da esplorare.",
             "cta": "Apri la lezione",
         }
         listening_globe_topic["lesson"] = {
@@ -3268,6 +3268,7 @@ def customize_barocco_context_lesson() -> None:
         topic_map["nodes"] = [context_topic, listening_globe_topic]
         topic_map["connections"] = [{"from": "01", "to": "02", "kind": "main"}]
         topic_map["rail_label"] = "Lezioni del nucleo"
+        topic_map["intro"] = "Due accessi al nucleo: la lezione introduttiva con timeline e concetti chiave, e il globo degli ascolti per seguire i brani in relazione."
 
     if vivaldi_topic:
         vivaldi_topic.pop("lesson", None)

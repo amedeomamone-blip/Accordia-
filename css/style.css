@@ -1962,15 +1962,133 @@ body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-section--m
 }
 
 body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-map {
-    min-height: clamp(24rem, 44vh, 31rem);
+    min-height: clamp(28rem, 54vh, 36rem);
+    padding: clamp(1.15rem, 2vw, 1.6rem);
+    border-color: rgba(17, 17, 17, 0.1);
+    border-radius: 1.38rem;
+    background:
+        linear-gradient(rgba(193, 79, 64, 0.026) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(193, 79, 64, 0.026) 1px, transparent 1px),
+        rgba(255, 255, 255, 0.92);
+    background-size: 4.25rem 4.25rem, 4.25rem 4.25rem, auto;
+    box-shadow: 0 1rem 3rem rgba(17, 17, 17, 0.055);
 }
 
 body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-map__canvas {
-    min-height: clamp(20rem, 36vh, 26rem);
+    min-height: clamp(24rem, 48vh, 30rem);
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-map__line {
+    stroke: rgba(193, 79, 64, 0.34);
+    stroke-width: 0.48;
+    opacity: 0.96;
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-map__line--main {
+    stroke-width: 0.66;
 }
 
 body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node {
-    width: clamp(18rem, 22vw, 23rem);
+    display: grid;
+    grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+    align-content: start;
+    width: clamp(16.5rem, 17.8vw, 18rem);
+    min-height: 12.75rem;
+    gap: 0.55rem;
+    padding: 1rem;
+    border-color: rgba(17, 17, 17, 0.12);
+    border-radius: 1.38rem;
+    background: rgba(255, 255, 255, 0.98);
+    box-shadow: 0 0.75rem 1.9rem rgba(17, 17, 17, 0.045);
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node::before {
+    display: none;
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node__number {
+    top: 1rem;
+    right: 1rem;
+    color: rgba(193, 79, 64, 0.72);
+    font-size: 1rem;
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node__label {
+    width: fit-content;
+    padding: 0.34rem 0.52rem;
+    border: 1px solid rgba(17, 17, 17, 0.08);
+    background: rgba(245, 244, 239, 0.92);
+    color: #7a6359;
+    font-size: 0.68rem;
+    font-weight: 760;
+    letter-spacing: 0.15em;
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node strong {
+    max-width: 13.5ch;
+    font-size: 1.08rem;
+    font-weight: 760;
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node p {
+    margin-top: auto;
+    padding-top: 0.65rem;
+    border-top: 1px solid rgba(17, 17, 17, 0.08);
+    color: #5d6570;
+    font-size: 0.88rem;
+    font-weight: 620;
+    line-height: 1.35;
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node small,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node__related {
+    display: none;
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node__cta {
+    margin-top: 0;
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:hover,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:focus-visible,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node.is-floating-hover {
+    border-color: rgba(17, 17, 17, 0.22);
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0 1.5rem 3.7rem rgba(17, 17, 17, 0.13), 0 0 0 1px rgba(17, 17, 17, 0.06);
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:hover::before,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:focus-visible::before,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node.is-floating-hover::before {
+    display: none;
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:hover .nucleus-topic-node__number,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:hover .nucleus-topic-node__label,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:hover strong,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:hover p,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:hover .nucleus-topic-node__cta,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:focus-visible .nucleus-topic-node__number,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:focus-visible .nucleus-topic-node__label,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:focus-visible strong,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:focus-visible p,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:focus-visible .nucleus-topic-node__cta,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node.is-floating-hover .nucleus-topic-node__number,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node.is-floating-hover .nucleus-topic-node__label,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node.is-floating-hover strong,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node.is-floating-hover p,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node.is-floating-hover .nucleus-topic-node__cta {
+    color: inherit;
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:hover .nucleus-topic-node__label,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:focus-visible .nucleus-topic-node__label,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node.is-floating-hover .nucleus-topic-node__label {
+    background: rgba(245, 244, 239, 0.92);
 }
 
 .nucleus-hero__meta {
@@ -4812,6 +4930,28 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
     .lesson-media-carousel__arrow {
         padding: 0.68rem 0.85rem;
     }
+
+    body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-map {
+        min-height: auto;
+        padding: 1rem;
+    }
+
+    body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-map__canvas {
+        min-height: auto;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+    }
+
+    body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: auto;
+        min-height: 12rem;
+        transform: none;
+        will-change: auto;
+    }
 }
 
 @media (max-width: 900px) {
@@ -5036,6 +5176,10 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
 
     .lesson-fact-list li {
         gap: 0.4rem;
+    }
+
+    body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-map__canvas {
+        grid-template-columns: 1fr;
     }
 }
 
