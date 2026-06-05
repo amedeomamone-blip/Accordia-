@@ -663,6 +663,11 @@ body[data-nav="home"] .site-nav__menu a {
     background: #cfd2d7;
 }
 
+body[data-nav="home"] {
+    --home-support-copy-size: clamp(0.66rem, 0.74vw, 0.8rem);
+    --home-support-copy-line-height: 1.34;
+}
+
 .home-hero {
     --home-header-height: 4.35rem;
     position: relative;
@@ -777,8 +782,6 @@ body[data-nav="home"] .site-nav__menu a {
     background: transparent;
     box-shadow: none;
     text-align: left;
-    font-size: clamp(0.66rem, 0.74vw, 0.8rem);
-    line-height: 1.34;
 }
 
 .home-hero__lead-line {
@@ -790,9 +793,10 @@ body[data-nav="home"] .site-nav__menu a {
     max-width: 21ch;
 }
 
+.home-hero__copy--lead-only .home-hero__lead,
 .home-section__heading--timeline p:last-child {
-    font-size: clamp(0.66rem, 0.74vw, 0.8rem);
-    line-height: 1.34;
+    font-size: var(--home-support-copy-size);
+    line-height: var(--home-support-copy-line-height);
 }
 
 .home-section__heading--timeline .home-kicker {
@@ -1187,6 +1191,11 @@ body[data-nav="home"] .site-footer__label {
 }
 
 @media (max-width: 1024px) {
+    body[data-nav="home"] {
+        --home-support-copy-size: clamp(0.6rem, 0.8vw, 0.7rem);
+        --home-support-copy-line-height: 1.3;
+    }
+
     .home-hero {
         --home-header-height: 4.2rem;
         min-height: max(31rem, calc(100svh - var(--home-header-height)));
@@ -1217,16 +1226,6 @@ body[data-nav="home"] .site-footer__label {
     .home-hero__lead {
         max-width: 28ch;
         padding-bottom: 0;
-    }
-
-    .home-hero__copy--lead-only .home-hero__lead {
-        font-size: clamp(0.6rem, 0.8vw, 0.7rem);
-        line-height: 1.3;
-    }
-
-    .home-section__heading--timeline p:last-child {
-        font-size: clamp(0.6rem, 0.8vw, 0.7rem);
-        line-height: 1.3;
     }
 
     .home-reveal {
@@ -1261,6 +1260,11 @@ body[data-nav="home"] .site-footer__label {
 }
 
 @media (max-width: 760px) {
+    body[data-nav="home"] {
+        --home-support-copy-size: clamp(0.5rem, 1.45vw, 0.6rem);
+        --home-support-copy-line-height: 1.28;
+    }
+
     body[data-nav="home"] .site-header__inner {
         align-items: flex-start;
     }
@@ -1320,13 +1324,6 @@ body[data-nav="home"] .site-footer__label {
     .home-hero__copy--lead-only .home-hero__lead {
         max-width: none;
         padding: 0;
-        font-size: clamp(0.5rem, 1.45vw, 0.6rem);
-        line-height: 1.28;
-    }
-
-    .home-section__heading--timeline p:last-child {
-        font-size: clamp(0.5rem, 1.45vw, 0.6rem);
-        line-height: 1.28;
     }
 
     .home-reveal__detail {
