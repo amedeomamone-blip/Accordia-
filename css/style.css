@@ -688,14 +688,28 @@ body[data-nav="home"] {
     min-height: calc(100svh - var(--home-header-height));
     display: block;
     isolation: isolate;
+    overflow: hidden;
     --home-hero-title-shift-x: 0px;
     --home-hero-title-shift-y: 0px;
+}
+
+.home-hero__swarm {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    display: block;
+    pointer-events: none;
+    opacity: 0.92;
+    transform: scale(1.05);
+    transform-origin: center center;
 }
 
 .home-hero__frame::before {
     content: "accordia";
     position: absolute;
-    z-index: 0;
+    z-index: 1;
     left: 50%;
     top: 50%;
     transform: translate3d(
@@ -714,7 +728,11 @@ body[data-nav="home"] {
     will-change: transform;
 }
 
-.home-hero__copy,
+.home-hero__copy {
+    position: relative;
+    z-index: 2;
+}
+
 .home-reveal__detail,
 .home-era-card {
     position: relative;
@@ -1218,6 +1236,10 @@ body[data-nav="home"] .site-footer__label {
         min-height: calc(100svh - var(--home-header-height));
     }
 
+    .home-hero__swarm {
+        transform: scale(1.03);
+    }
+
     .home-hero__frame::before {
         font-size: clamp(7.2rem, 26vw, 20rem);
     }
@@ -1303,6 +1325,11 @@ body[data-nav="home"] .site-footer__label {
 
     .home-hero__frame {
         min-height: calc(100svh - var(--home-header-height));
+    }
+
+    .home-hero__swarm {
+        opacity: 0.84;
+        transform: scale(1.08);
     }
 
     .home-hero__frame::before {
