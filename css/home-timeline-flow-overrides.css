@@ -1,7 +1,13 @@
-/* Fine tuning for the Barocco lesson-preview card */
+/* Accordia landing timeline: lavagna Barocco compatta con mini-card interattive */
 
 body[data-nav="home"] .home-timeline__track {
+    --home-track-gap: 12px;
+    --home-board-width: min(68rem, calc(100vw - 2rem));
+    --home-board-card-width: clamp(10.9rem, 62%, 12.2rem);
     display: flex !important;
+    grid-template-columns: none !important;
+    grid-auto-flow: initial !important;
+    grid-auto-columns: initial !important;
     gap: var(--home-track-gap) !important;
     align-items: flex-start !important;
 }
@@ -20,39 +26,385 @@ body[data-nav="home"] .home-era-card {
     align-self: flex-start !important;
 }
 
-body[data-nav="home"] .home-era-card--baroque .home-era-card__lesson-preview {
-    min-height: 9.25rem;
+body[data-nav="home"] .home-era-board {
+    --baroque-soft: #ead6d0;
+    --baroque-dark: #66362e;
+    --baroque-pale: #fbf6f3;
+    --baroque-ink: #575a61;
+    flex: 0 0 0 !important;
+    width: 0 !important;
+    min-width: 0 !important;
+    max-width: 0 !important;
+    height: calc(var(--home-era-card-width) / 0.618) !important;
+    min-height: calc(var(--home-era-card-width) / 0.618) !important;
+    max-height: calc(var(--home-era-card-width) / 0.618) !important;
+    margin-inline: calc(var(--home-track-gap) / -2) !important;
+    transform: scale(.985) !important;
+    transition:
+        flex-basis 620ms cubic-bezier(.2, .8, .2, 1),
+        width 620ms cubic-bezier(.2, .8, .2, 1),
+        min-width 620ms cubic-bezier(.2, .8, .2, 1),
+        max-width 620ms cubic-bezier(.2, .8, .2, 1),
+        margin 620ms cubic-bezier(.2, .8, .2, 1),
+        opacity 340ms ease,
+        transform 620ms cubic-bezier(.2, .8, .2, 1) !important;
+}
+
+body[data-nav="home"] .home-era-board.is-open {
+    flex-basis: var(--home-board-width) !important;
+    width: var(--home-board-width) !important;
+    min-width: var(--home-board-width) !important;
+    max-width: var(--home-board-width) !important;
+    margin-inline: 0 !important;
+    transform: scale(1) !important;
+}
+
+body[data-nav="home"] .home-era-board__map {
+    height: 100% !important;
+    min-height: 100% !important;
+    max-height: 100% !important;
+    padding: 20px 16px 18px !important;
+    border: 1px solid #ece8e2 !important;
+    border-radius: 36px !important;
     background:
-        radial-gradient(circle at 18% 18%, rgba(255, 255, 255, 0.5), transparent 28%),
-        linear-gradient(180deg, rgba(255, 250, 248, 0.52) 0%, rgba(255, 255, 255, 0.12) 100%);
+        radial-gradient(circle at 18% 14%, rgba(234, 214, 208, 0.32), transparent 24%),
+        radial-gradient(circle at 84% 16%, rgba(255, 255, 255, 0.9), transparent 18%),
+        linear-gradient(180deg, #fcfcfb 0%, #f8f8f7 100%) !important;
+    box-shadow: 0 20px 40px rgba(17, 24, 39, 0.07) !important;
 }
 
-body[data-nav="home"] .home-era-card--baroque .home-era-card__lesson-grid::before {
-    content: "";
-    position: absolute;
-    inset: auto 0 0 0;
-    height: 38%;
-    background: linear-gradient(180deg, rgba(234, 214, 208, 0) 0%, rgba(234, 214, 208, 0.12) 100%);
-    pointer-events: none;
+body[data-nav="home"] .home-era-board__map::before {
+    top: 22px !important;
+    left: 20px !important;
+    color: #6d7179 !important;
+    font-size: 10px !important;
+    letter-spacing: .2em !important;
 }
 
-body[data-nav="home"] .home-era-card--baroque .home-era-card__lesson-brick {
-    box-shadow: 0 10px 18px rgba(102, 54, 46, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.54);
+body[data-nav="home"] .home-era-board__map::after {
+    left: 20px !important;
+    bottom: 22px !important;
+    color: var(--baroque-dark) !important;
+    font-size: 52px !important;
+    letter-spacing: -0.08em !important;
+    opacity: .1 !important;
 }
 
-body[data-nav="home"] .home-era-card--baroque:hover .home-era-card__lesson-brick,
-body[data-nav="home"] .home-era-card--baroque:focus-visible .home-era-card__lesson-brick {
-    box-shadow: 0 12px 22px rgba(102, 54, 46, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.62);
+body[data-nav="home"] .home-era-board__lines,
+body[data-nav="home"] .home-era-board__line,
+body[data-nav="home"] .home-era-board__lesson-mask {
+    display: none !important;
+}
+
+body[data-nav="home"] .home-era-board__canvas {
+    position: relative !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 2.85rem .85rem 5.1rem !important;
+}
+
+body[data-nav="home"] .home-era-board__node {
+    position: relative !important;
+    inset: auto !important;
+    left: auto !important;
+    top: auto !important;
+    width: var(--home-board-card-width) !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    aspect-ratio: var(--accordia-card-ratio) !important;
+    padding: 4px !important;
+    border: 1px solid rgba(233, 228, 223, 0.96) !important;
+    border-radius: 28px !important;
+    background: #ffffff !important;
+    box-shadow: 0 14px 28px rgba(17, 24, 39, 0.08), inset 0 1px 0 rgba(255, 255, 255, 0.92) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow: hidden !important;
+    text-decoration: none !important;
+    transform: var(--stack-transform) scale(1) !important;
+    transform-origin: center center !important;
+    cursor: pointer !important;
+    user-select: none;
+    z-index: var(--stack-z, 1);
+    opacity: 1 !important;
+    transition:
+        transform 280ms cubic-bezier(.2, .8, .2, 1),
+        box-shadow 280ms ease,
+        border-color 280ms ease,
+        filter 280ms ease !important;
+}
+
+body[data-nav="home"] .home-era-board.is-open .home-era-board__node {
+    animation: accordiaBoardMiniCardIn 560ms cubic-bezier(.2, .8, .2, 1) both !important;
+    animation-delay: var(--delay, 0ms) !important;
+}
+
+body[data-nav="home"] .home-era-board__node:nth-of-type(1) {
+    --stack-transform: translateY(.35rem) rotate(-1.2deg);
+    --stack-z: 4;
+    --delay: 70ms;
+}
+
+body[data-nav="home"] .home-era-board__node:hover,
+body[data-nav="home"] .home-era-board__node:focus-visible,
+body[data-nav="home"] .home-era-board__node.is-selected {
+    transform: var(--stack-transform) translateY(-.35rem) scale(1.04) !important;
+    box-shadow: 0 24px 38px rgba(17, 24, 39, 0.12), 0 10px 18px rgba(17, 24, 39, 0.08) !important;
+    border-color: rgba(212, 190, 183, 0.96) !important;
+    filter: saturate(1.03);
+    z-index: 8;
+}
+
+body[data-nav="home"] .home-era-board__node-top {
+    position: relative !important;
+    flex: 0 0 54% !important;
+    min-height: 7.1rem !important;
+    border-radius: 22px !important;
+    background: linear-gradient(180deg, #ecd9d3 0%, #ead6d0 100%) !important;
+    padding: 14px 14px 12px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    align-items: flex-start !important;
+    overflow: hidden !important;
+}
+
+body[data-nav="home"] .home-era-board__node-number {
+    position: relative !important;
+    left: auto !important;
+    right: auto !important;
+    top: auto !important;
+    bottom: auto !important;
+    z-index: 1;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 42px !important;
+    height: 30px !important;
+    padding: 0 12px !important;
+    border-radius: 999px !important;
+    background: var(--baroque-dark) !important;
+    color: var(--baroque-soft) !important;
+    font-size: 11px !important;
+    font-weight: 760 !important;
+    letter-spacing: .06em !important;
+    box-shadow: 0 8px 18px rgba(102, 54, 46, 0.16) !important;
+}
+
+body[data-nav="home"] .home-era-board__node-title {
+    max-width: 9ch;
+    margin: 0 !important;
+    color: var(--baroque-dark) !important;
+    font-family: var(--font-display) !important;
+    font-size: 18px !important;
+    line-height: .94 !important;
+    letter-spacing: -0.06em !important;
+    font-weight: 720 !important;
+    text-wrap: balance;
+}
+
+body[data-nav="home"] .home-era-board__node-body {
+    flex: 1;
+    min-height: 0;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+    padding: 14px 14px 14px !important;
+    background: #ffffff !important;
+    border-radius: 18px 18px 24px 24px !important;
+    margin-top: 0 !important;
+}
+
+body[data-nav="home"] .home-era-board__node-summary {
+    margin: 0 !important;
+    color: var(--baroque-ink) !important;
+    font-size: 13px !important;
+    line-height: 1.38 !important;
+    letter-spacing: -0.02em !important;
+    font-weight: 520 !important;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+}
+
+body[data-nav="home"] .home-era-board__node-bottom {
+    min-height: 0;
+    margin-top: auto;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: .65rem !important;
+}
+
+body[data-nav="home"] .home-era-board__node-label {
+    display: inline-flex !important;
+    align-items: center !important;
+    min-height: 30px !important;
+    padding: 0 12px !important;
+    border-radius: 999px !important;
+    background: #f7efeb !important;
+    color: var(--baroque-dark) !important;
+    font-size: 11px !important;
+    line-height: 1 !important;
+    font-weight: 720 !important;
+    letter-spacing: -.01em !important;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6) !important;
+}
+
+body[data-nav="home"] .home-era-board__node-arrow {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 30px !important;
+    height: 30px !important;
+    border-radius: 999px !important;
+    background: var(--baroque-pale) !important;
+    color: var(--baroque-dark) !important;
+    font-size: 15px !important;
+    font-weight: 760 !important;
+    line-height: 1 !important;
+    transition: transform 220ms ease, background 220ms ease !important;
+}
+
+body[data-nav="home"] .home-era-board__node:hover .home-era-board__node-arrow,
+body[data-nav="home"] .home-era-board__node:focus-visible .home-era-board__node-arrow,
+body[data-nav="home"] .home-era-board__node.is-selected .home-era-board__node-arrow {
+    transform: translateX(2px);
+    background: #f1e3de !important;
+}
+
+body[data-nav="home"] .home-era-board__close {
+    right: 18px !important;
+    top: 16px !important;
+    min-height: 34px !important;
+    padding: 0 14px !important;
+    border-radius: 999px !important;
+    background: rgba(255, 255, 255, 0.92) !important;
+    color: #3a3d43 !important;
+    font-size: 11px !important;
+    font-weight: 740 !important;
+    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.08) !important;
+    backdrop-filter: blur(8px);
+}
+
+body[data-nav="home"] .home-era-board__node p:not(.home-era-board__node-summary),
+body[data-nav="home"] .home-era-board__node small,
+body[data-nav="home"] .home-era-board__node-cta {
+    display: none !important;
+}
+
+body[data-nav="home"] .home-era-board__node::before {
+    display: none !important;
+}
+
+@keyframes accordiaBoardMiniCardIn {
+    from { opacity: 0; transform: var(--stack-transform) translateY(1rem) scale(.96); }
+    to { opacity: 1; transform: var(--stack-transform) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body[data-nav="home"] .home-era-board__node,
+    body[data-nav="home"] .home-era-board__node-arrow {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    body[data-nav="home"] .home-era-board__node:hover,
+    body[data-nav="home"] .home-era-board__node:focus-visible,
+    body[data-nav="home"] .home-era-board__node.is-selected {
+        transform: var(--stack-transform) scale(1) !important;
+    }
 }
 
 @media (max-width: 1100px) {
-    body[data-nav="home"] .home-era-card--baroque .home-era-card__lesson-preview {
-        min-height: 8.75rem;
+    body[data-nav="home"] .home-timeline__track {
+        --home-board-width: min(62rem, calc(100vw - 2rem));
+        --home-board-card-width: clamp(10.65rem, 64%, 11.65rem);
+    }
+
+    body[data-nav="home"] .home-era-board__map::after {
+        font-size: 46px !important;
+    }
+
+    body[data-nav="home"] .home-era-board__node-title {
+        font-size: 17px !important;
     }
 }
 
 @media (max-width: 760px) {
-    body[data-nav="home"] .home-era-card--baroque .home-era-card__lesson-preview {
-        min-height: 7.95rem;
+    body[data-nav="home"] .home-timeline__track {
+        --home-track-gap: 10px;
+        --home-board-width: min(45.5rem, calc(100vw - 1.5rem));
+        --home-board-card-width: min(10.9rem, calc(100% - 1rem));
+    }
+
+    body[data-nav="home"] .home-era-board__map {
+        padding: 18px 12px 16px !important;
+    }
+
+    body[data-nav="home"] .home-era-board__map::before {
+        left: 16px !important;
+        top: 18px !important;
+        font-size: 9px !important;
+    }
+
+    body[data-nav="home"] .home-era-board__map::after {
+        left: 16px !important;
+        bottom: 18px !important;
+        font-size: 42px !important;
+    }
+
+    body[data-nav="home"] .home-era-board__canvas {
+        padding: 2.55rem .35rem 4.25rem !important;
+    }
+
+    body[data-nav="home"] .home-era-board__node:nth-of-type(1) {
+        --stack-transform: translateY(.2rem) rotate(-1deg);
+    }
+
+    body[data-nav="home"] .home-era-board__node-top {
+        min-height: 6.1rem !important;
+        padding: 12px 12px 10px !important;
+    }
+
+    body[data-nav="home"] .home-era-board__node-number {
+        min-width: 38px !important;
+        height: 28px !important;
+        font-size: 10px !important;
+    }
+
+    body[data-nav="home"] .home-era-board__node-title {
+        font-size: 15px !important;
+    }
+
+    body[data-nav="home"] .home-era-board__node-body {
+        gap: 10px !important;
+        padding: 12px !important;
+    }
+
+    body[data-nav="home"] .home-era-board__node-summary {
+        font-size: 12px !important;
+        line-height: 1.32 !important;
+        -webkit-line-clamp: 4;
+    }
+
+    body[data-nav="home"] .home-era-board__node-label {
+        min-height: 28px !important;
+        padding: 0 11px !important;
+        font-size: 10px !important;
+    }
+
+    body[data-nav="home"] .home-era-board__node-arrow {
+        width: 28px !important;
+        height: 28px !important;
     }
 }
