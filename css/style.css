@@ -724,12 +724,12 @@ body[data-nav="home"] .site-nav__menu a {
 
 .home-hero__copy--lead-only {
     position: absolute;
-    top: calc(50% + clamp(4.5rem, 8svh, 6rem));
-    left: calc(50% + clamp(9rem, 13cqi, 14rem));
+    top: calc(50% + clamp(6.8rem, 11svh, 8.4rem));
+    left: calc(50% + clamp(1.2rem, 3.5cqi, 3.6rem));
     grid-template-columns: 1fr;
     justify-items: start;
-    width: min(18rem, calc(100% - 2rem));
-    max-width: 18rem;
+    width: min(24rem, calc(100% - 2rem));
+    max-width: 24rem;
     margin: 0;
     transform: none;
 }
@@ -764,14 +764,14 @@ body[data-nav="home"] .site-nav__menu a {
 .home-hero__copy--lead-only .home-hero__lead {
     grid-column: 1;
     align-self: start;
-    max-width: 20ch;
+    max-width: 28ch;
     padding: 0;
     border-radius: 0;
     background: transparent;
     box-shadow: none;
     text-align: left;
-    font-size: clamp(0.8rem, 0.85cqi, 0.94rem);
-    line-height: 1.48;
+    font-size: clamp(0.78rem, 0.82cqi, 0.9rem);
+    line-height: 1.42;
 }
 
 .home-section__heading--timeline h2 {
@@ -1191,10 +1191,10 @@ body[data-nav="home"] .site-footer__label {
     }
 
     .home-hero__copy--lead-only {
-        top: calc(50% + clamp(4rem, 7svh, 5rem));
-        left: calc(50% + clamp(7rem, 11cqi, 11rem));
-        width: min(15rem, calc(100% - 2rem));
-        max-width: 15rem;
+        top: calc(50% + clamp(5.9rem, 9svh, 7rem));
+        left: calc(50% + clamp(0.8rem, 3cqi, 2.4rem));
+        width: min(20rem, calc(100% - 2rem));
+        max-width: 20rem;
     }
 
     .home-hero__lead {
@@ -1203,7 +1203,7 @@ body[data-nav="home"] .site-footer__label {
     }
 
     .home-hero__copy--lead-only .home-hero__lead {
-        max-width: 19ch;
+        max-width: 25ch;
     }
 
     .home-reveal {
@@ -1281,10 +1281,10 @@ body[data-nav="home"] .site-footer__label {
     }
 
     .home-hero__copy--lead-only {
-        top: calc(50% + clamp(3.55rem, 6svh, 4.2rem));
-        left: calc(50% + clamp(2.8rem, 11cqi, 4.6rem));
-        width: min(10.5rem, calc(100% - 1.25rem));
-        max-width: 10.5rem;
+        top: calc(50% + clamp(4.2rem, 7svh, 5rem));
+        left: calc(50% + clamp(0.8rem, 5cqi, 1.8rem));
+        width: min(13.5rem, calc(100% - 1.25rem));
+        max-width: 13.5rem;
         justify-items: start;
     }
 
@@ -1296,10 +1296,10 @@ body[data-nav="home"] .site-footer__label {
     }
 
     .home-hero__copy--lead-only .home-hero__lead {
-        max-width: min(16ch, 100%);
+        max-width: min(22ch, 100%);
         padding: 0;
-        font-size: clamp(0.72rem, 3cqi, 0.82rem);
-        line-height: 1.4;
+        font-size: clamp(0.7rem, 2.7cqi, 0.8rem);
+        line-height: 1.36;
     }
 
     .home-reveal__detail {
