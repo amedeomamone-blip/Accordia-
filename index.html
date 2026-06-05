@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Accordia e un ambiente didattico per insegnare la storia della musica nella scuola secondaria di primo grado, con timeline, nuclei storici, mappe degli argomenti, ascolti guidati, attivita laboratoriali e verifiche.">
     <title>Accordia | Storia della musica</title>
-    <link rel="stylesheet" href="css/style.css?v=1780678400">
+    <link rel="stylesheet" href="css/style.css?v=1780676986">
     <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780660613">
     <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1780669800">
 </head>
@@ -175,7 +175,7 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=1780662284"></script>
+    <script src="js/main.js?v=1780676986"></script>
     <script>
         (function () {
             const baroccoCard = document.getElementById('baroccoCard');
@@ -185,6 +185,70 @@
             const boardCards = board ? board.querySelectorAll('[data-board-card]') : [];
             const track = board ? board.closest('.home-timeline__track') : null;
             const directPointerMatch = window.matchMedia('(hover: hover) and (pointer: fine)');
+            const heroFrame = document.querySelector('.home-hero__frame');
+            const reducedHeroMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+            function clamp(value, min, max) {
+                return Math.max(min, Math.min(max, value));
+            }
+
+            if (heroFrame) {
+                let heroCurrentProgress = 0;
+                let heroTargetProgress = 0;
+                let heroFrameRequest = 0;
+
+                function getHeroTravel() {
+                    const frameWidth = heroFrame.clientWidth;
+                    return {
+                        x: reducedHeroMotion.matches ? frameWidth * 0.12 : frameWidth * 0.82,
+                        y: reducedHeroMotion.matches ? Math.min(4, frameWidth * 0.004) : Math.min(16, frameWidth * 0.016)
+                    };
+                }
+
+                function getHeroScrollRange() {
+                    return reducedHeroMotion.matches
+                        ? Math.max(window.innerHeight * 0.75, heroFrame.clientHeight * 0.7)
+                        : Math.max(window.innerHeight * 1.05, heroFrame.clientHeight * 0.92);
+                }
+
+                function renderHeroMotion() {
+                    const delta = heroTargetProgress - heroCurrentProgress;
+                    const smoothing = reducedHeroMotion.matches ? 0.3 : 0.14;
+
+                    heroCurrentProgress += delta * smoothing;
+                    if (Math.abs(delta) < 0.001) {
+                        heroCurrentProgress = heroTargetProgress;
+                    }
+
+                    const easedProgress = 1 - Math.pow(1 - heroCurrentProgress, 3);
+                    const travel = getHeroTravel();
+
+                    heroFrame.style.setProperty('--home-hero-title-shift-x', `${(-travel.x * easedProgress).toFixed(2)}px`);
+                    heroFrame.style.setProperty('--home-hero-title-shift-y', `${(travel.y * easedProgress).toFixed(2)}px`);
+
+                    if (heroCurrentProgress !== heroTargetProgress) {
+                        heroFrameRequest = window.requestAnimationFrame(renderHeroMotion);
+                    } else {
+                        heroFrameRequest = 0;
+                    }
+                }
+
+                function syncHeroMotion() {
+                    heroTargetProgress = clamp(window.scrollY / getHeroScrollRange(), 0, 1);
+                    if (!heroFrameRequest) {
+                        heroFrameRequest = window.requestAnimationFrame(renderHeroMotion);
+                    }
+                }
+
+                syncHeroMotion();
+                window.addEventListener('scroll', syncHeroMotion, { passive: true });
+                window.addEventListener('resize', syncHeroMotion);
+                if (typeof reducedHeroMotion.addEventListener === 'function') {
+                    reducedHeroMotion.addEventListener('change', syncHeroMotion);
+                } else if (typeof reducedHeroMotion.addListener === 'function') {
+                    reducedHeroMotion.addListener(syncHeroMotion);
+                }
+            }
 
             if (!baroccoCard || !board || !closeButton || !track) return;
 
@@ -212,7 +276,7 @@
                 }
 
                 const maxScrollLeft = Math.max(0, track.scrollWidth - track.clientWidth);
-                nextScrollLeft = Math.max(0, Math.min(nextScrollLeft, maxScrollLeft));
+                nextScrollLeft = clamp(nextScrollLeft, 0, maxScrollLeft);
 
                 track.scrollTo({ left: nextScrollLeft, behavior: behavior || 'auto' });
             }
