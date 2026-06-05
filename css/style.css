@@ -731,12 +731,12 @@ body[data-nav="home"] .site-nav__menu a {
 
 .home-hero__copy--lead-only {
     position: absolute;
-    left: clamp(1rem, 5vw, 5rem);
-    bottom: clamp(2.4rem, 7svh, 5.2rem);
+    left: calc((100vw - 100%) / -2 + 0.75rem);
+    bottom: clamp(0.95rem, 3.8svh, 2rem);
     grid-template-columns: 1fr;
     justify-items: start;
-    width: min(22rem, 32vw);
-    max-width: 22rem;
+    width: max-content;
+    max-width: none;
     margin: 0;
     transform: none;
 }
@@ -777,8 +777,8 @@ body[data-nav="home"] .site-nav__menu a {
     background: transparent;
     box-shadow: none;
     text-align: left;
-    font-size: clamp(0.8rem, 0.88vw, 0.96rem);
-    line-height: 1.44;
+    font-size: clamp(0.7rem, 0.78vw, 0.84rem);
+    line-height: 1.34;
 }
 
 .home-hero__lead-line {
@@ -1203,10 +1203,10 @@ body[data-nav="home"] .site-footer__label {
     }
 
     .home-hero__copy--lead-only {
-        left: clamp(0.9rem, 3vw, 2rem);
-        bottom: clamp(2rem, 6svh, 4rem);
-        width: min(20.5rem, 52vw);
-        max-width: 20.5rem;
+        left: calc((100vw - 100%) / -2 + 0.65rem);
+        bottom: clamp(0.9rem, 3.5svh, 1.7rem);
+        width: max-content;
+        max-width: none;
     }
 
     .home-hero__lead {
@@ -1215,8 +1215,8 @@ body[data-nav="home"] .site-footer__label {
     }
 
     .home-hero__copy--lead-only .home-hero__lead {
-        font-size: clamp(0.76rem, 1.1vw, 0.9rem);
-        line-height: 1.42;
+        font-size: clamp(0.64rem, 0.88vw, 0.76rem);
+        line-height: 1.3;
     }
 
     .home-reveal {
@@ -1293,10 +1293,10 @@ body[data-nav="home"] .site-footer__label {
     }
 
     .home-hero__copy--lead-only {
-        left: 0.85rem;
-        bottom: clamp(1.6rem, 5svh, 2.8rem);
-        width: min(20rem, calc(100% - 2rem));
-        max-width: 20rem;
+        left: calc((100vw - 100%) / -2 + 0.5rem);
+        bottom: clamp(0.85rem, 3svh, 1.3rem);
+        width: max-content;
+        max-width: none;
         justify-items: start;
     }
 
@@ -1310,8 +1310,8 @@ body[data-nav="home"] .site-footer__label {
     .home-hero__copy--lead-only .home-hero__lead {
         max-width: none;
         padding: 0;
-        font-size: clamp(0.68rem, 2.35vw, 0.8rem);
-        line-height: 1.38;
+        font-size: clamp(0.56rem, 1.7vw, 0.68rem);
+        line-height: 1.28;
     }
 
     .home-reveal__detail {
