@@ -2,7 +2,7 @@
 
 body[data-nav="home"] .home-timeline__track {
     --home-track-gap: 12px;
-    --home-board-width: min(21rem, 76vw);
+    --home-board-width: min(34rem, 88vw);
     --home-board-card-width: clamp(10.9rem, 62%, 12.2rem);
     display: flex !important;
     grid-template-columns: none !important;
@@ -327,7 +327,7 @@ body[data-nav="home"] .home-era-board__node::before {
 
 @media (max-width: 1100px) {
     body[data-nav="home"] .home-timeline__track {
-        --home-board-width: min(19.75rem, 80vw);
+        --home-board-width: min(31rem, 88vw);
         --home-board-card-width: clamp(10.65rem, 64%, 11.65rem);
     }
 
@@ -343,7 +343,7 @@ body[data-nav="home"] .home-era-board__node::before {
 @media (max-width: 760px) {
     body[data-nav="home"] .home-timeline__track {
         --home-track-gap: 10px;
-        --home-board-width: min(18.75rem, 84vw);
+        --home-board-width: min(22.75rem, 90vw);
         --home-board-card-width: min(10.9rem, calc(100% - 1rem));
     }
 
