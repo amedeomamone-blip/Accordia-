@@ -181,15 +181,38 @@
             const closeButton = document.getElementById('closeBaroccoBoard');
             const cards = document.querySelectorAll('.home-era-card');
             const boardCards = board ? board.querySelectorAll('[data-board-card]') : [];
+            const track = board ? board.closest('.home-timeline__track') : null;
             const directPointerMatch = window.matchMedia('(hover: hover) and (pointer: fine)');
 
-            if (!baroccoCard || !board || !closeButton) return;
+            if (!baroccoCard || !board || !closeButton || !track) return;
 
             function setActiveBoardCard(nextCard) {
                 if (!nextCard || !boardCards.length) return;
                 boardCards.forEach(function (card) {
                     card.classList.toggle('is-selected', card === nextCard);
                 });
+            }
+
+            function ensureBoardVisible(behavior) {
+                if (!board.classList.contains('is-open')) return;
+
+                const trackRect = track.getBoundingClientRect();
+                const boardRect = board.getBoundingClientRect();
+                const gutter = 12;
+                let nextScrollLeft = track.scrollLeft;
+
+                if (boardRect.left < trackRect.left + gutter) {
+                    nextScrollLeft -= (trackRect.left + gutter) - boardRect.left;
+                }
+
+                if (boardRect.right > trackRect.right - gutter) {
+                    nextScrollLeft += boardRect.right - (trackRect.right - gutter);
+                }
+
+                const maxScrollLeft = Math.max(0, track.scrollWidth - track.clientWidth);
+                nextScrollLeft = Math.max(0, Math.min(nextScrollLeft, maxScrollLeft));
+
+                track.scrollTo({ left: nextScrollLeft, behavior: behavior || 'auto' });
             }
 
             function openBoard(event) {
@@ -211,7 +234,10 @@
                 setActiveBoardCard(boardCards[0]);
 
                 window.requestAnimationFrame(function () {
-                    board.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+                    ensureBoardVisible('smooth');
+                    window.setTimeout(function () {
+                        ensureBoardVisible('auto');
+                    }, 240);
                 });
             }
 
@@ -225,6 +251,14 @@
 
             baroccoCard.addEventListener('click', openBoard);
             closeButton.addEventListener('click', closeBoard);
+            board.addEventListener('transitionend', function (event) {
+                if (!board.classList.contains('is-open')) return;
+                if (event.propertyName !== 'width' && event.propertyName !== 'flex-basis' && event.propertyName !== 'min-width' && event.propertyName !== 'max-width') return;
+                ensureBoardVisible('auto');
+            });
+            window.addEventListener('resize', function () {
+                ensureBoardVisible('auto');
+            });
             boardCards.forEach(function (card) {
                 card.addEventListener('mouseenter', function () {
                     setActiveBoardCard(card);
