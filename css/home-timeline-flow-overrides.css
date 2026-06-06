@@ -65,20 +65,12 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node {
     gap: clamp(8px, 1vw, 16px);
 }
 
-body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--quick {
-    padding: clamp(12px, 1.25vw, 20px);
-}
-
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--primary {
     padding: clamp(18px, 1.8vw, 28px);
 }
 
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node-copy {
     gap: clamp(.28rem, .45vw, .62rem);
-}
-
-body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--primary .home-era-card__board-node-summary {
-    max-width: 42ch;
 }
 
 @media (prefers-reduced-motion: reduce) {
