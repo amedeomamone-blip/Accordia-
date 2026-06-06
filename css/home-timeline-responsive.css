@@ -449,25 +449,6 @@ body[data-nav="home"] .home-era-card__board-node:active {
     transform: translateY(-1px);
 }
 
-body[data-nav="home"] .home-era-card__board-node-number {
-    grid-column: 1;
-    grid-row: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: flex-start;
-    width: auto;
-    height: auto;
-    border-radius: 0;
-    background: transparent;
-    color: var(--tile-ink);
-    font-family: var(--font-sans);
-    font-size: .72rem;
-    font-weight: 760;
-    letter-spacing: .02em;
-    line-height: 1;
-    text-transform: none;
-}
-
 body[data-nav="home"] .home-era-card__board-node-copy {
     min-width: 0;
     display: grid;
@@ -652,12 +633,6 @@ body[data-nav="home"] .home-era-card__board-node--primary .home-era-card__board-
         padding: 9px;
         border-radius: 18px;
         gap: 5px;
-    }
-
-    body[data-nav="home"] .home-era-card__board-node-number {
-        width: auto;
-        height: auto;
-        font-size: .56rem;
     }
 
     body[data-nav="home"] .home-era-card__board-node--primary {
