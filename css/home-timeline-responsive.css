@@ -247,6 +247,9 @@ body[data-nav="home"] .home-era-card--board .home-era-card__top {
     height: 76%;
     min-height: 76%;
     padding: 0;
+    transition:
+        height 620ms cubic-bezier(.2, .8, .2, 1),
+        min-height 620ms cubic-bezier(.2, .8, .2, 1);
 }
 
 body[data-nav="home"] .home-era-card--board strong {
@@ -257,6 +260,9 @@ body[data-nav="home"] .home-era-card--board .home-era-card__body {
     justify-content: space-between;
     gap: 10px;
     padding: 11px 16px 14px;
+    transition:
+        gap 620ms cubic-bezier(.2, .8, .2, 1),
+        padding 620ms cubic-bezier(.2, .8, .2, 1);
 }
 
 body[data-nav="home"] .home-era-card__body-head {
@@ -351,7 +357,12 @@ body[data-nav="home"] .home-era-card__board-node {
     text-transform: none;
     font-variant-caps: normal;
     transform: translateY(0);
-    transition: transform 280ms cubic-bezier(.22, 1, .36, 1), box-shadow 280ms ease;
+    transition:
+        transform 280ms cubic-bezier(.22, 1, .36, 1),
+        box-shadow 280ms ease,
+        padding 620ms cubic-bezier(.2, .8, .2, 1),
+        border-radius 620ms cubic-bezier(.2, .8, .2, 1),
+        gap 620ms cubic-bezier(.2, .8, .2, 1);
     overflow: hidden;
 }
 
@@ -434,6 +445,7 @@ body[data-nav="home"] .home-era-card__board-node-number {
     letter-spacing: .02em;
     line-height: 1;
     text-transform: none;
+    transition: font-size 620ms cubic-bezier(.2, .8, .2, 1);
 }
 
 body[data-nav="home"] .home-era-card__board-node-copy {
@@ -443,6 +455,7 @@ body[data-nav="home"] .home-era-card__board-node-copy {
     grid-row: 2;
     gap: .24rem;
     align-self: end;
+    transition: gap 620ms cubic-bezier(.2, .8, .2, 1);
 }
 
 body[data-nav="home"] .home-era-card__board-node-kicker {
@@ -470,6 +483,7 @@ body[data-nav="home"] .home-era-card__board-node-title {
     text-transform: none;
     font-variant-caps: normal;
     text-wrap: balance;
+    transition: font-size 620ms cubic-bezier(.2, .8, .2, 1), line-height 620ms cubic-bezier(.2, .8, .2, 1);
 }
 
 body[data-nav="home"] .home-era-card__board-node-summary {
@@ -483,6 +497,7 @@ body[data-nav="home"] .home-era-card__board-node-summary {
     font-weight: 520;
     opacity: .88;
     text-transform: none;
+    transition: font-size 620ms cubic-bezier(.2, .8, .2, 1), line-height 620ms cubic-bezier(.2, .8, .2, 1);
 }
 
 body[data-nav="home"] .home-era-card__board-node-arrow {
@@ -503,7 +518,10 @@ body[data-nav="home"] .home-era-card__board-node-arrow {
     line-height: 1;
     justify-self: end;
     align-self: end;
-    transition: transform 220ms ease, background 220ms ease;
+    transition:
+        transform 220ms ease,
+        background 220ms ease,
+        font-size 620ms cubic-bezier(.2, .8, .2, 1);
 }
 
 body[data-nav="home"] .home-era-card__board-node:hover .home-era-card__board-node-arrow,
@@ -532,8 +550,14 @@ body[data-nav="home"] .home-era-card__board-node--primary .home-era-card__board-
     body[data-nav="home"] .home-era-card,
     body[data-nav="home"] .home-era-card strong,
     body[data-nav="home"] .home-era-card__cta::after,
+    body[data-nav="home"] .home-era-card--board .home-era-card__top,
+    body[data-nav="home"] .home-era-card--board .home-era-card__body,
     body[data-nav="home"] .home-era-card__board-panel,
-    body[data-nav="home"] .home-era-card__board-node {
+    body[data-nav="home"] .home-era-card__board-node,
+    body[data-nav="home"] .home-era-card__board-node-copy,
+    body[data-nav="home"] .home-era-card__board-node-title,
+    body[data-nav="home"] .home-era-card__board-node-summary,
+    body[data-nav="home"] .home-era-card__board-node-arrow {
         animation: none !important;
         transition: none !important;
     }
