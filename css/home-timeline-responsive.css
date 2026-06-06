@@ -27,9 +27,9 @@ body[data-nav="home"] .home-timeline__track {
 }
 
 body[data-nav="home"] .home-era-card {
-    --card-neutral: #f6f6f3;
     --top: #dfeee8;
     --paired: #24483d;
+    --card-neutral: var(--top);
     position: relative;
     width: var(--home-era-card-width);
     min-width: 0;
