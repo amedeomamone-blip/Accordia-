@@ -308,6 +308,7 @@ body[data-nav="home"] .home-era-card__board-canvas {
     width: 100%;
     height: 100%;
     padding: 0;
+    background: #ffffff;
 }
 
 body[data-nav="home"] .home-era-card__board-stack {
@@ -323,6 +324,7 @@ body[data-nav="home"] .home-era-card__board-stack {
     width: 100%;
     height: 100%;
     min-height: 0;
+    background: #ffffff;
 }
 
 body[data-nav="home"] .home-era-card__board-node {
