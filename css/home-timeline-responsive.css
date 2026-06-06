@@ -27,7 +27,7 @@ body[data-nav="home"] .home-timeline__track {
 }
 
 body[data-nav="home"] .home-era-card {
-    --card-neutral: #faf9f4;
+    --card-neutral: #ffffff;
     --top: #dfeee8;
     --paired: #24483d;
     position: relative;
