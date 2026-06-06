@@ -260,12 +260,12 @@ body[data-nav="home"] .home-era-card__board-canvas {
     justify-content: center;
     width: 100%;
     height: 100%;
-    padding: .25rem .35rem .1rem;
+    padding: .12rem .05rem .05rem;
 }
 
 body[data-nav="home"] .home-era-card__board-stack {
     position: relative;
-    width: min(100%, 18.25rem);
+    width: 100%;
     height: 100%;
     min-height: 0;
     align-self: end;
@@ -274,54 +274,55 @@ body[data-nav="home"] .home-era-card__board-stack {
 
 body[data-nav="home"] .home-era-card__board-node {
     --stack-left: 0;
+    --stack-right: 0;
     --stack-bottom: .35rem;
-    --stack-width: 100%;
-    --stack-bg: #efe3cf;
+    --stack-bg: #f3e0db;
     position: absolute;
     left: var(--stack-left);
     bottom: var(--stack-bottom);
-    width: var(--stack-width);
+    width: calc(100% - var(--stack-left) - var(--stack-right));
     min-width: 0;
-    min-height: 7.25rem;
-    padding: .92rem .95rem .92rem .88rem;
-    border: 1px solid rgba(17, 24, 39, 0.1);
-    border-radius: 1.7rem;
+    box-sizing: border-box;
+    min-height: 7.6rem;
+    padding: 1rem 1rem 1rem .95rem;
+    border: 1px solid rgba(102, 54, 46, 0.16);
+    border-radius: 1.85rem;
     background: var(--stack-bg);
-    box-shadow: 0 8px 18px rgba(17, 24, 39, 0.05);
+    box-shadow: 0 10px 18px rgba(102, 54, 46, 0.06);
     display: grid;
-    grid-template-columns: 2.55rem minmax(0, 1fr) 2.2rem;
+    grid-template-columns: 2.6rem minmax(0, 1fr) 2.25rem;
     align-items: start;
-    gap: .75rem;
+    gap: .82rem;
     text-decoration: none;
-    color: #111111;
+    color: var(--paired);
     transform: translateY(0);
     transition: transform 280ms cubic-bezier(.22, 1, .36, 1), box-shadow 280ms ease, border-color 220ms ease;
     overflow: hidden;
 }
 
 body[data-nav="home"] .home-era-card__board-node--primary {
-    --stack-bg: #e3c76f;
-    --stack-left: 0;
+    --stack-bg: #f7e8e3;
+    --stack-left: .05rem;
+    --stack-right: .05rem;
     --stack-bottom: .25rem;
-    --stack-width: 100%;
-    min-height: 7.9rem;
+    min-height: 8.2rem;
     z-index: 2;
 }
 
 body[data-nav="home"] .home-era-card__board-node--secondary {
-    --stack-bg: #efe7df;
-    --stack-left: .85rem;
-    --stack-bottom: 4.95rem;
-    --stack-width: 92%;
-    min-height: 6.55rem;
+    --stack-bg: #dfc5be;
+    --stack-left: .62rem;
+    --stack-right: .18rem;
+    --stack-bottom: 6rem;
+    min-height: 7rem;
     z-index: 1;
 }
 
 body[data-nav="home"] .home-era-card__board-node:hover,
 body[data-nav="home"] .home-era-card__board-node:focus-visible {
     transform: translateY(-.2rem);
-    box-shadow: 0 14px 24px rgba(17, 24, 39, 0.08);
-    border-color: rgba(17, 24, 39, 0.18);
+    box-shadow: 0 16px 24px rgba(102, 54, 46, 0.1);
+    border-color: rgba(102, 54, 46, 0.24);
     z-index: 4;
 }
 
@@ -332,12 +333,12 @@ body[data-nav="home"] .home-era-card__board-node-number {
     width: 2.55rem;
     height: 2.55rem;
     border-radius: 999px;
-    background: rgba(17, 24, 39, 0.08);
-    color: #111111;
+    background: rgba(102, 54, 46, 0.1);
+    color: var(--paired);
+    font-family: var(--font-sans);
     font-size: .9rem;
     font-weight: 760;
-    letter-spacing: -.02em;
-    font-style: italic;
+    letter-spacing: .02em;
 }
 
 body[data-nav="home"] .home-era-card__board-node-copy {
@@ -351,36 +352,35 @@ body[data-nav="home"] .home-era-card__board-node-copy {
 body[data-nav="home"] .home-era-card__board-node-kicker {
     display: inline-flex;
     align-items: center;
-    font-size: .72rem;
+    color: rgba(102, 54, 46, 0.72);
+    font-family: var(--font-sans);
+    font-size: .68rem;
     line-height: 1;
-    font-weight: 560;
-    letter-spacing: -.01em;
-    font-style: italic;
-    opacity: .68;
+    font-weight: 700;
+    letter-spacing: .02em;
 }
 
 body[data-nav="home"] .home-era-card__board-node-title {
-    max-width: 10.5ch;
+    max-width: 14ch;
     margin: 0;
-    color: #111111;
+    color: var(--paired);
     font-family: var(--font-display);
-    font-size: clamp(1.45rem, 1.9vw, 2.05rem);
-    line-height: .88;
-    letter-spacing: -0.07em;
-    font-weight: 720;
-    font-style: italic;
+    font-size: 1.66rem;
+    line-height: .96;
+    letter-spacing: -0.055em;
+    font-weight: 680;
     text-wrap: balance;
 }
 
 body[data-nav="home"] .home-era-card__board-node-summary {
     margin: 0;
-    max-width: 20ch;
-    color: rgba(17, 24, 39, 0.72);
+    max-width: 28ch;
+    color: rgba(102, 54, 46, 0.76);
+    font-family: var(--font-sans);
     font-size: .74rem;
-    line-height: 1.18;
-    letter-spacing: -0.01em;
+    line-height: 1.28;
+    letter-spacing: 0;
     font-weight: 520;
-    font-style: italic;
     opacity: 0;
     max-height: 0;
     overflow: hidden;
@@ -394,24 +394,23 @@ body[data-nav="home"] .home-era-card__board-node-arrow {
     width: 2.2rem;
     height: 2.2rem;
     border-radius: 999px;
-    background: transparent;
-    border: 1px solid rgba(17, 24, 39, 0.16);
-    color: #111111;
-    font-size: .92rem;
-    font-weight: 620;
+    background: var(--paired);
+    border: 0;
+    color: #f5e3dd;
+    font-size: 1.24rem;
+    font-weight: 700;
     line-height: 1;
     transition: transform 220ms ease, border-color 220ms ease, background 220ms ease;
 }
 
 body[data-nav="home"] .home-era-card__board-node:hover .home-era-card__board-node-arrow,
 body[data-nav="home"] .home-era-card__board-node:focus-visible .home-era-card__board-node-arrow {
-    transform: translateX(2px);
-    background: rgba(255, 255, 255, 0.32);
-    border-color: rgba(17, 24, 39, 0.26);
+    transform: translateX(3px);
+    background: #7b463c;
 }
 
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack {
-    width: min(100%, 22rem);
+    width: 100%;
 }
 
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node-summary {
@@ -420,9 +419,9 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node-s
 }
 
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--secondary {
-    --stack-left: 1.15rem;
-    --stack-bottom: 5.55rem;
-    --stack-width: 90%;
+    --stack-left: .9rem;
+    --stack-right: .38rem;
+    --stack-bottom: 6.7rem;
 }
 
 @keyframes accordiaCardIn {
@@ -483,25 +482,25 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--
     }
 
     body[data-nav="home"] .home-era-card__board-stack {
-        width: min(100%, 15.6rem);
+        width: 100%;
     }
 
     body[data-nav="home"] .home-era-card__board-node {
-        min-height: 5.55rem;
-        padding: .76rem .78rem .8rem .72rem;
+        min-height: 5.75rem;
+        padding: .78rem .78rem .8rem .72rem;
         grid-template-columns: 2.2rem minmax(0, 1fr) 2.05rem;
         gap: .58rem;
     }
 
     body[data-nav="home"] .home-era-card__board-node--primary {
-        min-height: 6.15rem;
+        min-height: 6.35rem;
     }
 
     body[data-nav="home"] .home-era-card__board-node--secondary {
-        --stack-left: .55rem;
-        --stack-bottom: 3.95rem;
-        --stack-width: 95%;
-        min-height: 5rem;
+        --stack-left: .42rem;
+        --stack-right: .08rem;
+        --stack-bottom: 4.35rem;
+        min-height: 5.2rem;
     }
 
     body[data-nav="home"] .home-era-card__board-node-number {
@@ -511,18 +510,18 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--
     }
 
     body[data-nav="home"] .home-era-card__board-node-title {
-        max-width: 9ch;
-        font-size: 1.1rem;
+        max-width: 12ch;
+        font-size: 1.16rem;
     }
 
     body[data-nav="home"] .home-era-card__board-node-kicker {
-        font-size: .64rem;
+        font-size: .62rem;
     }
 
     body[data-nav="home"] .home-era-card__board-node-summary {
-        max-width: 16ch;
+        max-width: 18ch;
         font-size: .64rem;
-        line-height: 1.16;
+        line-height: 1.2;
     }
 
     body[data-nav="home"] .home-era-card__board-node-arrow {
@@ -532,8 +531,8 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--
     }
 
     body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--secondary {
-        --stack-left: .8rem;
-        --stack-bottom: 4.3rem;
-        --stack-width: 94%;
+        --stack-left: .62rem;
+        --stack-right: .18rem;
+        --stack-bottom: 4.75rem;
     }
 }
