@@ -220,23 +220,23 @@ body[data-nav="home"] .home-era-card:nth-child(6) { --top: #d9e4f2; --paired: #2
 body[data-nav="home"] .home-era-card--board {
     --nucleus-base: var(--top);
     --nucleus-dark: var(--paired);
-    --nucleus-soft-1: #f6ece9;
-    --nucleus-soft-2: #f1ddd7;
-    --nucleus-mid: #c99a90;
-    --nucleus-strong: #a45c50;
-    --nucleus-deep: #54261f;
-    --nucleus-warm: #b77b70;
+    --nucleus-tone-1: #f8f1ef;
+    --nucleus-tone-2: #f1ddd7;
+    --nucleus-tone-3: #c99990;
+    --nucleus-tone-4: #a66358;
+    --nucleus-tone-5: #744037;
+    --nucleus-tone-6: #4a211c;
     cursor: pointer;
 }
 
 @supports (color: color-mix(in srgb, white, black)) {
     body[data-nav="home"] .home-era-card--board {
-        --nucleus-soft-1: color-mix(in srgb, var(--nucleus-base) 42%, white);
-        --nucleus-soft-2: color-mix(in srgb, var(--nucleus-base) 72%, white);
-        --nucleus-mid: color-mix(in srgb, var(--nucleus-base) 70%, var(--nucleus-dark));
-        --nucleus-strong: color-mix(in srgb, var(--nucleus-dark) 66%, var(--nucleus-base));
-        --nucleus-deep: color-mix(in srgb, var(--nucleus-dark) 90%, black);
-        --nucleus-warm: color-mix(in srgb, var(--nucleus-base) 54%, var(--nucleus-dark));
+        --nucleus-tone-1: color-mix(in srgb, var(--nucleus-base) 26%, white);
+        --nucleus-tone-2: color-mix(in srgb, var(--nucleus-base) 72%, white);
+        --nucleus-tone-3: color-mix(in srgb, var(--nucleus-base) 66%, var(--nucleus-dark));
+        --nucleus-tone-4: color-mix(in srgb, var(--nucleus-base) 42%, var(--nucleus-dark));
+        --nucleus-tone-5: color-mix(in srgb, var(--nucleus-dark) 82%, var(--nucleus-base));
+        --nucleus-tone-6: color-mix(in srgb, var(--nucleus-dark) 92%, black);
     }
 }
 
@@ -326,7 +326,7 @@ body[data-nav="home"] .home-era-card__board-stack {
 }
 
 body[data-nav="home"] .home-era-card__board-node {
-    --stack-bg: var(--nucleus-soft-1);
+    --stack-bg: var(--nucleus-tone-1);
     --tile-ink: var(--nucleus-dark);
     --tile-muted: rgba(102, 54, 46, .72);
     --tile-border: rgba(102, 54, 46, .14);
@@ -355,12 +355,12 @@ body[data-nav="home"] .home-era-card__board-node {
 
 body[data-nav="home"] .home-era-card__board-node--quick-a {
     grid-area: quick-a;
-    --stack-bg: var(--nucleus-soft-1);
+    --stack-bg: var(--nucleus-tone-1);
 }
 
 body[data-nav="home"] .home-era-card__board-node--quick-b {
     grid-area: quick-b;
-    --stack-bg: var(--nucleus-strong);
+    --stack-bg: var(--nucleus-tone-5);
     --tile-ink: #fff8f4;
     --tile-muted: rgba(255, 248, 244, .78);
     --tile-border: rgba(255, 248, 244, .2);
@@ -369,7 +369,7 @@ body[data-nav="home"] .home-era-card__board-node--quick-b {
 
 body[data-nav="home"] .home-era-card__board-node--quick-c {
     grid-area: quick-c;
-    --stack-bg: var(--nucleus-mid);
+    --stack-bg: var(--nucleus-tone-3);
     --tile-ink: #2c1612;
     --tile-muted: rgba(44, 22, 18, .72);
     --tile-border: rgba(44, 22, 18, .14);
@@ -377,14 +377,14 @@ body[data-nav="home"] .home-era-card__board-node--quick-c {
 
 body[data-nav="home"] .home-era-card__board-node--primary {
     grid-area: main;
-    --stack-bg: var(--nucleus-soft-2);
+    --stack-bg: var(--nucleus-tone-2);
     padding: 14px;
     z-index: 2;
 }
 
 body[data-nav="home"] .home-era-card__board-node--listen {
     grid-area: listen;
-    --stack-bg: var(--nucleus-deep);
+    --stack-bg: var(--nucleus-tone-6);
     --tile-ink: #fff7f1;
     --tile-muted: rgba(255, 247, 241, .76);
     --tile-border: rgba(255, 247, 241, .18);
@@ -393,7 +393,7 @@ body[data-nav="home"] .home-era-card__board-node--listen {
 
 body[data-nav="home"] .home-era-card__board-node--activity {
     grid-area: activity;
-    --stack-bg: var(--nucleus-warm);
+    --stack-bg: var(--nucleus-tone-4);
     --tile-ink: #2a1511;
     --tile-muted: rgba(42, 21, 17, .72);
     --tile-border: rgba(42, 21, 17, .14);
