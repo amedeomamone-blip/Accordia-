@@ -220,23 +220,23 @@ body[data-nav="home"] .home-era-card:nth-child(6) { --top: #d9e4f2; --paired: #2
 body[data-nav="home"] .home-era-card--board {
     --nucleus-base: var(--top);
     --nucleus-dark: var(--paired);
-    --nucleus-tone-1: #f8f1ef;
-    --nucleus-tone-2: #f1ddd7;
-    --nucleus-tone-3: #c99990;
-    --nucleus-tone-4: #a66358;
-    --nucleus-tone-5: #744037;
-    --nucleus-tone-6: #4a211c;
+    --nucleus-tone-1: #fff4f0;
+    --nucleus-tone-2: #eec8be;
+    --nucleus-tone-3: #c88476;
+    --nucleus-tone-4: #a65a4e;
+    --nucleus-tone-5: #6f352d;
+    --nucleus-tone-6: #351410;
     cursor: pointer;
 }
 
 @supports (color: color-mix(in srgb, white, black)) {
     body[data-nav="home"] .home-era-card--board {
-        --nucleus-tone-1: color-mix(in srgb, var(--nucleus-base) 26%, white);
-        --nucleus-tone-2: color-mix(in srgb, var(--nucleus-base) 72%, white);
-        --nucleus-tone-3: color-mix(in srgb, var(--nucleus-base) 66%, var(--nucleus-dark));
-        --nucleus-tone-4: color-mix(in srgb, var(--nucleus-base) 42%, var(--nucleus-dark));
-        --nucleus-tone-5: color-mix(in srgb, var(--nucleus-dark) 82%, var(--nucleus-base));
-        --nucleus-tone-6: color-mix(in srgb, var(--nucleus-dark) 92%, black);
+        --nucleus-tone-1: color-mix(in srgb, var(--nucleus-base) 16%, white);
+        --nucleus-tone-2: color-mix(in srgb, var(--nucleus-base) 88%, white);
+        --nucleus-tone-3: color-mix(in srgb, var(--nucleus-base) 48%, var(--nucleus-dark));
+        --nucleus-tone-4: color-mix(in srgb, var(--nucleus-base) 28%, var(--nucleus-dark));
+        --nucleus-tone-5: color-mix(in srgb, var(--nucleus-dark) 88%, var(--nucleus-base));
+        --nucleus-tone-6: color-mix(in srgb, var(--nucleus-dark) 84%, black);
     }
 }
 
@@ -394,9 +394,9 @@ body[data-nav="home"] .home-era-card__board-node--listen {
 body[data-nav="home"] .home-era-card__board-node--activity {
     grid-area: activity;
     --stack-bg: var(--nucleus-tone-4);
-    --tile-ink: #2a1511;
-    --tile-muted: rgba(42, 21, 17, .72);
-    --tile-border: rgba(42, 21, 17, .14);
+    --tile-ink: #fff8f4;
+    --tile-muted: rgba(255, 248, 244, .76);
+    --tile-border: rgba(255, 248, 244, .18);
 }
 
 body[data-nav="home"] .home-era-card__board-node--quick {
