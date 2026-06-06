@@ -49,13 +49,6 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-panel 
     pointer-events: auto;
 }
 
-body[data-nav="home"] .home-era-card--board.is-open .home-era-card__close {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    pointer-events: auto;
-}
-
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__top {
     padding-inline: 18px;
 }

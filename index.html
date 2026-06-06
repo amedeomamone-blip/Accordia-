@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Accordia e un ambiente didattico per insegnare la storia della musica nella scuola secondaria di primo grado, con timeline, nuclei storici, mappe degli argomenti, ascolti guidati, attivita laboratoriali e verifiche.">
     <title>Accordia | Storia della musica</title>
-    <link rel="stylesheet" href="css/style.css?v=1780742436">
+    <link rel="stylesheet" href="css/style.css?v=1780742746">
     <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780742290">
     <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1780742290">
 </head>
@@ -89,9 +89,8 @@
                             <div class="home-era-card__top-head">
                                 <strong>Il Barocco</strong>
                                 <span class="home-era-card__period">1600–1750</span>
-                                <button class="home-era-card__close" id="closeBaroccoBoard" type="button">Chiudi</button>
                             </div>
-                            <div class="home-era-card__board-panel" id="baroccoBoard" aria-label="Lavagna lezioni Barocco">
+                            <div class="home-era-card__board-panel" id="baroccoBoard" aria-label="Lezioni Barocco">
                                 <div class="home-era-card__board-map">
                                     <div class="home-era-card__board-canvas">
                                         <a class="home-era-card__board-node" href="nuclei/barocco/argomenti/il-barocco-in-coordinate/index.html">
@@ -169,12 +168,11 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=1780742436"></script>
+    <script src="js/main.js?v=1780742746"></script>
     <script>
         (function () {
             const baroccoCard = document.getElementById('baroccoCard');
             const board = document.getElementById('baroccoBoard');
-            const closeButton = document.getElementById('closeBaroccoBoard');
             const cards = document.querySelectorAll('.home-era-card');
             const track = baroccoCard ? baroccoCard.closest('.home-timeline__track') : null;
             const heroFrame = document.querySelector('.home-hero__frame');
@@ -317,7 +315,7 @@
                 }
             }
 
-            if (!baroccoCard || !board || !closeButton || !track) return;
+            if (!baroccoCard || !board || !track) return;
 
             function ensureBoardVisible(behavior) {
                 if (!baroccoCard.classList.contains('is-open')) return;
@@ -375,20 +373,15 @@
             }
 
             baroccoCard.addEventListener('click', function (event) {
-                if (event.target.closest('.home-era-card__board-node') || event.target.closest('.home-era-card__close')) return;
+                if (event.target.closest('.home-era-card__board-node')) return;
                 openBoard(event);
             });
             baroccoCard.addEventListener('keydown', function (event) {
-                if (event.target.closest('.home-era-card__board-node') || event.target.closest('.home-era-card__close')) return;
+                if (event.target.closest('.home-era-card__board-node')) return;
                 if (event.key === 'Enter' || event.key === ' ') {
                     event.preventDefault();
                     openBoard(event);
                 }
-            });
-            closeButton.addEventListener('click', function (event) {
-                event.preventDefault();
-                event.stopPropagation();
-                closeBoard();
             });
             baroccoCard.addEventListener('transitionend', function (event) {
                 if (!baroccoCard.classList.contains('is-open')) return;
