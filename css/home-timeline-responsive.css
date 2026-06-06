@@ -29,7 +29,7 @@ body[data-nav="home"] .home-timeline__track {
 body[data-nav="home"] .home-era-card {
     --top: #dfeee8;
     --paired: #24483d;
-    --card-neutral: var(--top);
+    --card-neutral: #ecebe5;
     position: relative;
     width: var(--home-era-card-width);
     min-width: 0;
