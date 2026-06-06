@@ -50,7 +50,7 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-panel 
 }
 
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__top {
-    padding-inline: 18px;
+    padding-inline: 0;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -72,6 +72,6 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__top {
     }
 
     body[data-nav="home"] .home-era-card--board.is-open .home-era-card__top {
-        padding-inline: 14px;
+        padding-inline: 0;
     }
 }
