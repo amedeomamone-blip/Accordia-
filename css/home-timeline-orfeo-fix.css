@@ -36,7 +36,7 @@ body[data-nav="home"] .home-era-card--board:not(.is-open) .home-era-card__board-
     --bento-visible-columns: 2;
     --bento-total-columns: 2;
     grid-template-columns: repeat(2, var(--bento-column-width)) !important;
-    grid-template-rows: repeat(3, var(--bento-column-width)) !important;
+    grid-template-rows: repeat(3, minmax(0, 1fr)) !important;
     grid-template-areas:
         "concerto bach"
         "vivaldi handel"
