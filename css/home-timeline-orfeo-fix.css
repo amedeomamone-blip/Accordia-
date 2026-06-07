@@ -1,3 +1,7 @@
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node {
+    border-radius: 16px !important;
+}
+
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo .home-era-card__board-node-title {
     max-width: 22ch !important;
     color: var(--tile-ink) !important;
