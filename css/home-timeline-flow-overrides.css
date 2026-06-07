@@ -88,6 +88,60 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node--handel .
     max-width: 10ch !important;
 }
 
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--intro .home-era-card__board-node-title {
+    max-width: none !important;
+    color: transparent !important;
+    position: relative !important;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--intro .home-era-card__board-node-title::before {
+    content: "Il concerto barocco:\A Le Quattro stagioni di Vivaldi";
+    position: absolute;
+    inset: 0 auto auto 0;
+    color: var(--tile-ink);
+    white-space: pre-line;
+    max-width: 24ch;
+    font: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--fuga .home-era-card__board-node-title {
+    max-width: none !important;
+    color: transparent !important;
+    position: relative !important;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--fuga .home-era-card__board-node-title::before {
+    content: "L’arte della fuga:\A caccia al tema";
+    position: absolute;
+    inset: 0 auto auto 0;
+    color: var(--tile-ink);
+    white-space: pre-line;
+    max-width: 18ch;
+    font: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo .home-era-card__board-node-title {
+    max-width: none !important;
+    color: transparent !important;
+    position: relative !important;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo .home-era-card__board-node-title::before {
+    content: "I registri vocali\A nel melodramma:\A L’Orfeo";
+    position: absolute;
+    inset: 0 auto auto 0;
+    color: var(--tile-ink);
+    white-space: pre-line;
+    max-width: 18ch;
+    font: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+}
+
 body[data-nav="home"] .home-era-card--board.is-open {
     flex-basis: var(--home-board-width) !important;
     width: var(--home-board-width) !important;
