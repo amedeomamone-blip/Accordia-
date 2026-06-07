@@ -1,19 +1,21 @@
 body[data-nav="home"] #baroccoCard:not(.is-open) {
-    --barocco-offset: 8px;
-    --barocco-gap: 8px;
+    --barocco-space: 8px;
     --barocco-footer-height: 4.5rem;
     aspect-ratio: 0.618 / 1 !important;
     display: flex !important;
     flex-direction: column !important;
+    box-sizing: border-box !important;
+    padding: var(--barocco-space) !important;
+    gap: var(--barocco-space) !important;
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__top {
     flex: 1 1 auto !important;
     min-height: 0 !important;
     height: auto !important;
-    padding: var(--barocco-offset) var(--barocco-offset) 0 !important;
+    padding: 0 !important;
     display: flex !important;
-    align-items: center !important;
+    align-items: flex-start !important;
     justify-content: center !important;
 }
 
@@ -23,7 +25,7 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-canvas {
     height: 100% !important;
     min-height: 0 !important;
     display: flex !important;
-    align-items: center !important;
+    align-items: flex-start !important;
     justify-content: center !important;
     overflow: hidden !important;
 }
@@ -36,7 +38,7 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-stack {
         "monteverdi prova-a" !important;
     grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
     grid-template-rows: repeat(3, minmax(0, 1fr)) !important;
-    gap: var(--barocco-gap) !important;
+    gap: var(--barocco-space) !important;
     width: 100% !important;
     aspect-ratio: 2 / 3 !important;
     max-height: 100% !important;
@@ -54,8 +56,8 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body {
     display: grid !important;
     grid-template-columns: minmax(0, 1fr) auto !important;
     align-items: end !important;
-    padding: 0 var(--barocco-offset) var(--barocco-offset) !important;
-    gap: var(--barocco-gap) !important;
+    padding: 0 !important;
+    gap: var(--barocco-space) !important;
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head {
@@ -73,7 +75,7 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-row {
     align-items: center !important;
     justify-content: flex-end !important;
     align-self: end !important;
-    gap: var(--barocco-gap) !important;
+    gap: var(--barocco-space) !important;
     margin: 0 !important;
     padding: 0 !important;
 }
