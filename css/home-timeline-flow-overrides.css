@@ -88,6 +88,14 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node--handel .
     max-width: 10ch !important;
 }
 
+body[data-nav="home"] .home-era-card--board .home-era-card__board-stack {
+    aspect-ratio: 1 / 1;
+    height: auto !important;
+    max-height: 100%;
+    align-self: start;
+    grid-template-rows: repeat(4, minmax(0, 1fr)) !important;
+}
+
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node--intro .home-era-card__board-node-title {
     max-width: none !important;
     color: transparent !important;
@@ -159,6 +167,9 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-panel 
 
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack {
     --bento-grid-width: 100%;
+    aspect-ratio: auto;
+    height: 100% !important;
+    grid-template-rows: 1fr 1.12fr 1.12fr 1fr !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -177,6 +188,10 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack 
     body[data-nav="home"] .home-timeline__track {
         --home-track-gap: 10px;
         --home-board-width: min(45.5rem, calc(100vw - 1.5rem));
+    }
+
+    body[data-nav="home"] .home-era-card--board .home-era-card__board-stack {
+        aspect-ratio: 1 / 1.02;
     }
 
     body[data-nav="home"] .home-era-card--board .home-era-card__body-head {
