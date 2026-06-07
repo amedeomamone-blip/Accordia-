@@ -271,7 +271,7 @@ body[data-nav="home"] .home-era-card--board .home-era-card__body {
     grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr) auto;
     align-content: stretch;
     gap: 0;
-    padding: 11px 12px 14px;
+    padding: 11px 12px 14px 0;
     transition:
         gap 620ms cubic-bezier(.2, .8, .2, 1),
         padding 620ms cubic-bezier(.2, .8, .2, 1);
@@ -284,11 +284,6 @@ body[data-nav="home"] .home-era-card--board .home-era-card__body-head {
 body[data-nav="home"] .home-era-card--board .home-era-card__body-row {
     grid-row: 4;
     margin-top: 0;
-}
-
-body[data-nav="home"] .home-era-card--board .home-era-card__number {
-    min-width: 0;
-    padding-left: 0;
 }
 
 body[data-nav="home"] .home-era-card__body-head {
@@ -606,7 +601,7 @@ body[data-nav="home"] .home-era-card__board-node--primary .home-era-card__board-
 
     body[data-nav="home"] .home-era-card--board .home-era-card__body {
         gap: 8px;
-        padding: 10px 9px 14px;
+        padding: 10px 9px 14px 0;
     }
 
     body[data-nav="home"] .home-era-card__body-head strong {
