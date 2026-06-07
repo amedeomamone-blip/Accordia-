@@ -39,7 +39,7 @@ body[data-nav="home"] .home-era-card--board .home-era-card__body-head {
 
 body[data-nav="home"] .home-era-card--board .home-era-card__body-row {
     position: absolute !important;
-    left: var(--baroque-info-inset) !important;
+    left: 16px !important;
     right: 16px !important;
     bottom: 16px !important;
     grid-row: auto !important;
@@ -199,7 +199,7 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack 
     }
 
     body[data-nav="home"] .home-era-card--board .home-era-card__body-row {
-        left: var(--baroque-info-inset) !important;
+        left: 16px !important;
         right: 16px !important;
         bottom: 16px !important;
     }
