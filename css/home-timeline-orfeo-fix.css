@@ -11,6 +11,10 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-canvas {
 
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node {
     border-radius: 16px !important;
+    transition:
+        opacity 340ms ease,
+        transform 420ms cubic-bezier(.2, .8, .2, 1),
+        padding 620ms cubic-bezier(.2, .8, .2, 1) !important;
 }
 
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node-arrow {
@@ -26,6 +30,84 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node-copy {
 
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node-title {
     text-align: left !important;
+}
+
+body[data-nav="home"] .home-era-card--board:not(.is-open) .home-era-card__board-stack {
+    --bento-visible-columns: 2;
+    --bento-total-columns: 2;
+    grid-template-columns: repeat(2, var(--bento-column-width)) !important;
+    grid-template-rows: repeat(3, minmax(0, 1fr)) !important;
+    grid-template-areas:
+        "concerto bach"
+        "vivaldi handel"
+        "monteverdi prova-a" !important;
+}
+
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack {
+    --bento-visible-columns: 4;
+    --bento-total-columns: 4;
+    grid-template-columns: repeat(4, var(--bento-column-width)) !important;
+    grid-template-rows: repeat(5, minmax(0, 1fr)) !important;
+    grid-template-areas:
+        "intro intro vivaldi bach"
+        "concerto concerto fuga fuga"
+        "concerto concerto orfeo orfeo"
+        "monteverdi handel oratorio oratorio"
+        "prova-a prova-a prova-a prova-a" !important;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--intro,
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--fuga,
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo,
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--oratorio {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    visibility: visible;
+}
+
+body[data-nav="home"] .home-era-card--board:not(.is-open) .home-era-card__board-node--intro,
+body[data-nav="home"] .home-era-card--board:not(.is-open) .home-era-card__board-node--fuga,
+body[data-nav="home"] .home-era-card--board:not(.is-open) .home-era-card__board-node--orfeo,
+body[data-nav="home"] .home-era-card--board:not(.is-open) .home-era-card__board-node--oratorio {
+    position: absolute !important;
+    inset: 0 auto auto 0;
+    opacity: 0;
+    transform: translateY(10px) scale(.96);
+    visibility: hidden;
+    pointer-events: none;
+}
+
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--intro,
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--fuga,
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--orfeo,
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--oratorio {
+    position: relative !important;
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    visibility: visible;
+    pointer-events: auto;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--prova-b {
+    display: none !important;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--prova-a .home-era-card__board-node-title {
+    max-width: 15ch !important;
+    color: transparent !important;
+    position: relative !important;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--prova-a .home-era-card__board-node-title::before {
+    content: "Gli strumenti\A del Barocco";
+    position: absolute;
+    inset: 0 auto auto 0;
+    color: var(--tile-ink);
+    white-space: pre-line;
+    max-width: 15ch;
+    font: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
 }
 
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo .home-era-card__board-node-title {
