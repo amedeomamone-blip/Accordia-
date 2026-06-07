@@ -286,6 +286,11 @@ body[data-nav="home"] .home-era-card--board .home-era-card__body-row {
     margin-top: 0;
 }
 
+body[data-nav="home"] .home-era-card--board .home-era-card__number {
+    min-width: 0;
+    padding-left: 0;
+}
+
 body[data-nav="home"] .home-era-card__body-head {
     display: grid;
     gap: 2px;
