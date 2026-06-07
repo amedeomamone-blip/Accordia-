@@ -39,6 +39,20 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo .h
     display: none !important;
 }
 
+body[data-nav="home"] .home-era-card--board .home-era-card__body-head strong {
+    color: #BC474E !important;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__body-head .home-era-card__period {
+    color: #C6646A !important;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__number,
+body[data-nav="home"] .home-era-card--board .home-era-card__cta {
+    background-color: #F0D7D8 !important;
+    color: #BC474E !important;
+}
+
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node--concerto {
     background-color: #BC474E !important;
     color: #F1E3D2 !important;
