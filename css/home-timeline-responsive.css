@@ -227,24 +227,13 @@ body[data-nav="home"] .home-era-card--board {
     --baroque-info-inset: 16px;
     --nucleus-base: var(--top);
     --nucleus-dark: var(--paired);
-    --nucleus-tone-1: #fff4f0;
-    --nucleus-tone-2: #eec8be;
-    --nucleus-tone-3: #c88476;
-    --nucleus-tone-4: #a65a4e;
-    --nucleus-tone-5: #6f352d;
-    --nucleus-tone-6: #351410;
+    --nucleus-tone-1: #fff1ee;
+    --nucleus-tone-2: #f8d9d3;
+    --nucleus-tone-3: #f1bfb7;
+    --nucleus-tone-4: #eba59e;
+    --nucleus-tone-5: #dc8e8a;
+    --nucleus-tone-6: #c97573;
     cursor: pointer;
-}
-
-@supports (color: color-mix(in srgb, white, black)) {
-    body[data-nav="home"] .home-era-card--board {
-        --nucleus-tone-1: color-mix(in srgb, var(--nucleus-base) 16%, white);
-        --nucleus-tone-2: color-mix(in srgb, var(--nucleus-base) 88%, white);
-        --nucleus-tone-3: color-mix(in srgb, var(--nucleus-base) 48%, var(--nucleus-dark));
-        --nucleus-tone-4: color-mix(in srgb, var(--nucleus-base) 28%, var(--nucleus-dark));
-        --nucleus-tone-5: color-mix(in srgb, var(--nucleus-dark) 88%, var(--nucleus-base));
-        --nucleus-tone-6: color-mix(in srgb, var(--nucleus-dark) 84%, black);
-    }
 }
 
 body[data-nav="home"] .home-era-card--board .home-era-card__top {
@@ -265,6 +254,10 @@ body[data-nav="home"] .home-era-card--board strong {
 body[data-nav="home"] .home-era-card--board:hover .home-era-card__body-head strong,
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__body-head strong {
     transform: none;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__body-head strong {
+    color: #111111;
 }
 
 body[data-nav="home"] .home-era-card--board .home-era-card__body {
@@ -377,8 +370,8 @@ body[data-nav="home"] .home-era-card__board-stack {
 
 body[data-nav="home"] .home-era-card__board-node {
     --stack-bg: var(--nucleus-tone-1);
-    --tile-ink: var(--nucleus-dark);
-    --tile-muted: rgba(102, 54, 46, .72);
+    --tile-ink: #1d1513;
+    --tile-muted: rgba(29, 21, 19, .68);
     position: relative;
     min-width: 0;
     box-sizing: border-box;
@@ -416,15 +409,11 @@ body[data-nav="home"] .home-era-card__board-node--intro {
 body[data-nav="home"] .home-era-card__board-node--vivaldi {
     grid-area: vivaldi;
     --stack-bg: var(--nucleus-tone-4);
-    --tile-ink: #fff8f4;
-    --tile-muted: rgba(255, 248, 244, .78);
 }
 
 body[data-nav="home"] .home-era-card__board-node--bach {
     grid-area: bach;
     --stack-bg: var(--nucleus-tone-5);
-    --tile-ink: #fff8f4;
-    --tile-muted: rgba(255, 248, 244, .78);
 }
 
 body[data-nav="home"] .home-era-card__board-node--concerto {
@@ -435,8 +424,6 @@ body[data-nav="home"] .home-era-card__board-node--concerto {
 body[data-nav="home"] .home-era-card__board-node--fuga {
     grid-area: fuga;
     --stack-bg: var(--nucleus-tone-3);
-    --tile-ink: #2c1612;
-    --tile-muted: rgba(44, 22, 18, .72);
 }
 
 body[data-nav="home"] .home-era-card__board-node--monteverdi {
@@ -447,22 +434,16 @@ body[data-nav="home"] .home-era-card__board-node--monteverdi {
 body[data-nav="home"] .home-era-card__board-node--orfeo {
     grid-area: orfeo;
     --stack-bg: var(--nucleus-tone-6);
-    --tile-ink: #fff7f1;
-    --tile-muted: rgba(255, 247, 241, .76);
 }
 
 body[data-nav="home"] .home-era-card__board-node--handel {
     grid-area: handel;
     --stack-bg: var(--nucleus-tone-3);
-    --tile-ink: #2c1612;
-    --tile-muted: rgba(44, 22, 18, .72);
 }
 
 body[data-nav="home"] .home-era-card__board-node--oratorio {
     grid-area: oratorio;
     --stack-bg: var(--nucleus-tone-4);
-    --tile-ink: #fff8f4;
-    --tile-muted: rgba(255, 248, 244, .76);
 }
 
 body[data-nav="home"] .home-era-card__board-node-copy {
