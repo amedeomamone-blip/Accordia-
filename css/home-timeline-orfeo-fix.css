@@ -1,5 +1,3 @@
-@charset "UTF-8";
-
 body[data-nav="home"] .home-era-card {
     border-radius: 16px !important;
 }
@@ -39,78 +37,6 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo .h
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo .home-era-card__board-node-title::before {
     content: none !important;
     display: none !important;
-}
-
-body[data-nav="home"] .home-era-card--board {
-    background-color: #C60403 !important;
-    color: #F1E3D2 !important;
-}
-
-body[data-nav="home"] .home-era-card--board .home-era-card__top,
-body[data-nav="home"] .home-era-card--board .home-era-card__body {
-    background-color: #C60403 !important;
-    color: #F1E3D2 !important;
-}
-
-body[data-nav="home"] .home-era-card--board .home-era-card__body-head strong,
-body[data-nav="home"] .home-era-card--board .home-era-card__body-head .home-era-card__period {
-    color: #F1E3D2 !important;
-}
-
-body[data-nav="home"] .home-era-card--board .home-era-card__number,
-body[data-nav="home"] .home-era-card--board .home-era-card__cta {
-    background-color: #F1E3D2 !important;
-    color: #C60403 !important;
-}
-
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node {
-    background-color: #C60403 !important;
-    color: #F1E3D2 !important;
-    --tile-ink: #F1E3D2;
-}
-
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node--concerto {
-    background-color: #C60403 !important;
-    color: #F1E3D2 !important;
-    --tile-ink: #F1E3D2;
-}
-
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node--intro {
-    background-color: #EF2E05 !important;
-    color: #1A0504 !important;
-    --tile-ink: #1A0504;
-}
-
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node--monteverdi,
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo {
-    background-color: #670205 !important;
-    color: #F1E3D2 !important;
-    --tile-ink: #F1E3D2;
-}
-
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node--bach,
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node--fuga {
-    background-color: #05080C !important;
-    color: #F1E3D2 !important;
-    --tile-ink: #F1E3D2;
-}
-
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node--vivaldi {
-    background-color: #B68465 !important;
-    color: #1A0504 !important;
-    --tile-ink: #1A0504;
-}
-
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node--handel,
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node--oratorio {
-    background-color: #2E170F !important;
-    color: #F1E3D2 !important;
-    --tile-ink: #F1E3D2;
-}
-
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node-title,
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node-arrow {
-    color: var(--tile-ink) !important;
 }
 
 @media (max-width: 760px) {
