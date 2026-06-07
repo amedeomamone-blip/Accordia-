@@ -60,7 +60,7 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node-title {
     margin: 0 !important;
     font-family: var(--font-sans) !important;
     font-size: clamp(.66rem, .82vw, .9rem) !important;
-    line-height: .95 !important;
+    line-height: 1.08 !important;
     letter-spacing: -0.03em !important;
     font-weight: 650 !important;
     text-align: left !important;
@@ -72,7 +72,7 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node-title {
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node--primary .home-era-card__board-node-title {
     max-width: 12ch !important;
     font-size: clamp(.98rem, 1.75vw, 1.28rem) !important;
-    line-height: .94 !important;
+    line-height: 1.05 !important;
     letter-spacing: -0.04em !important;
     font-weight: 650 !important;
 }
@@ -134,12 +134,12 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack 
     body[data-nav="home"] .home-era-card--board .home-era-card__board-node-title {
         max-width: 12ch !important;
         font-size: .62rem !important;
-        line-height: .94 !important;
+        line-height: 1.06 !important;
     }
 
     body[data-nav="home"] .home-era-card--board .home-era-card__board-node--primary .home-era-card__board-node-title {
         max-width: 11ch !important;
         font-size: .86rem !important;
-        line-height: .93 !important;
+        line-height: 1.04 !important;
     }
 }
