@@ -5,10 +5,15 @@ body[data-nav="home"] #baroccoCard .home-era-card__board-node--concerto {
 }
 
 body[data-nav="home"] #baroccoCard .home-era-card__board-node--vivaldi,
-body[data-nav="home"] #baroccoCard .home-era-card__board-node--bach,
-body[data-nav="home"] #baroccoCard .home-era-card__board-node--monteverdi,
-body[data-nav="home"] #baroccoCard .home-era-card__board-node--handel {
+body[data-nav="home"] #baroccoCard .home-era-card__board-node--monteverdi {
     background-color: #F0D7D8 !important;
+    color: #1A0504 !important;
+    --tile-ink: #1A0504;
+}
+
+body[data-nav="home"] #baroccoCard .home-era-card__board-node--bach,
+body[data-nav="home"] #baroccoCard .home-era-card__board-node--handel {
+    background-color: #E9C4C7 !important;
     color: #1A0504 !important;
     --tile-ink: #1A0504;
 }
