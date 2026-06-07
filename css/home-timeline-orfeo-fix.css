@@ -2,6 +2,21 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node {
     border-radius: 16px !important;
 }
 
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node-arrow {
+    display: none !important;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node-copy {
+    align-self: center !important;
+    justify-self: start !important;
+    align-content: center !important;
+    justify-items: start !important;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node-title {
+    text-align: left !important;
+}
+
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo .home-era-card__board-node-title {
     max-width: 22ch !important;
     color: var(--tile-ink) !important;
