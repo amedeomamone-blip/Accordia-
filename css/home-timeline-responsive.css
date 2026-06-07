@@ -279,7 +279,7 @@ body[data-nav="home"] .home-era-card--board .home-era-card__body {
 
 body[data-nav="home"] .home-era-card--board .home-era-card__body-head {
     grid-row: 2;
-    margin-left: calc(var(--card-inset) - 16px);
+    transform: translateX(-28px);
 }
 
 body[data-nav="home"] .home-era-card--board .home-era-card__body-row {
