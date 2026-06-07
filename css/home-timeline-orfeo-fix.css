@@ -36,10 +36,11 @@ body[data-nav="home"] .home-era-card--board:not(.is-open) .home-era-card__board-
     --bento-visible-columns: 4;
     --bento-total-columns: 4;
     grid-template-columns: repeat(4, var(--bento-column-width)) !important;
-    grid-template-rows: repeat(3, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(4, minmax(0, 1fr)) !important;
     grid-template-areas:
         "concerto concerto vivaldi bach"
-        "concerto concerto handel bach"
+        "concerto concerto vivaldi bach"
+        "monteverdi handel handel bach"
         "monteverdi prova-a prova-a prova-a" !important;
 }
 
