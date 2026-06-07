@@ -1,0 +1,16 @@
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo .home-era-card__board-node-title {
+    max-width: 22ch !important;
+    color: var(--tile-ink) !important;
+    position: static !important;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo .home-era-card__board-node-title::before {
+    content: none !important;
+    display: none !important;
+}
+
+@media (max-width: 760px) {
+    body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo .home-era-card__board-node-title {
+        max-width: 20ch !important;
+    }
+}
