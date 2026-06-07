@@ -166,7 +166,7 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-panel 
 }
 
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack {
-    --bento-grid-width: calc(var(--home-era-card-width) - (var(--card-inset) * 2));
+    --bento-grid-width: 100%;
     --bento-visible-columns: 4;
     aspect-ratio: auto;
     height: 100% !important;
