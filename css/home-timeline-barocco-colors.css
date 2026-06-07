@@ -148,3 +148,5 @@ body[data-nav="home"] #baroccoCard .home-era-card__board-node-arrow,
 body[data-nav="home"] #baroccoCard .home-era-card__board-node--prova-a .home-era-card__board-node-title::before {
     color: var(--tile-ink) !important;
 }
+
+@import url("./home-barocco-final-spacing-2.css?v=1780848825");
