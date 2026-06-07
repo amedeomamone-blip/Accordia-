@@ -353,17 +353,19 @@ body[data-nav="home"] .home-era-card__board-canvas::-webkit-scrollbar {
 
 body[data-nav="home"] .home-era-card__board-stack {
     --dashboard-gap: 4px;
-    --bento-column-width: calc((var(--bento-grid-width) - (var(--dashboard-gap) * 3)) / 4);
+    --bento-visible-columns: 4;
+    --bento-total-columns: 6;
+    --bento-column-width: calc((var(--bento-grid-width) - (var(--dashboard-gap) * (var(--bento-visible-columns) - 1))) / var(--bento-visible-columns));
     display: grid;
-    grid-template-columns: repeat(4, var(--bento-column-width));
+    grid-template-columns: repeat(var(--bento-total-columns), var(--bento-column-width));
     grid-template-rows: 1fr 1.12fr 1.12fr 1fr;
     grid-template-areas:
-        "intro intro vivaldi bach"
-        "concerto concerto fuga fuga"
-        "concerto concerto orfeo orfeo"
-        "monteverdi handel oratorio oratorio";
+        "intro intro vivaldi bach prova-a prova-a"
+        "concerto concerto fuga fuga prova-a prova-a"
+        "concerto concerto orfeo orfeo prova-b prova-b"
+        "monteverdi handel oratorio oratorio prova-b prova-b";
     gap: var(--dashboard-gap);
-    width: var(--bento-grid-width);
+    width: calc((var(--bento-column-width) * var(--bento-total-columns)) + (var(--dashboard-gap) * (var(--bento-total-columns) - 1)));
     height: 100%;
     min-height: 0;
     background: transparent;
@@ -448,6 +450,16 @@ body[data-nav="home"] .home-era-card__board-node--handel {
 body[data-nav="home"] .home-era-card__board-node--oratorio {
     grid-area: oratorio;
     --stack-bg: var(--nucleus-tone-4);
+}
+
+body[data-nav="home"] .home-era-card__board-node--prova-a {
+    grid-area: prova-a;
+    --stack-bg: var(--nucleus-tone-2);
+}
+
+body[data-nav="home"] .home-era-card__board-node--prova-b {
+    grid-area: prova-b;
+    --stack-bg: var(--nucleus-tone-5);
 }
 
 body[data-nav="home"] .home-era-card__board-node-copy {

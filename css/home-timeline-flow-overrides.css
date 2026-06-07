@@ -166,10 +166,11 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-panel 
 }
 
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack {
-    --bento-grid-width: 100%;
+    --bento-grid-width: 86%;
+    --bento-visible-columns: 5;
     aspect-ratio: auto;
     height: 100% !important;
-    grid-template-rows: 1fr 1.12fr 1.12fr 1fr !important;
+    grid-template-rows: repeat(4, minmax(0, 1fr)) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
