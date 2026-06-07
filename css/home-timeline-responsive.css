@@ -224,6 +224,7 @@ body[data-nav="home"] .home-era-card:nth-child(5) { --top: #dedaf0; --paired: #3
 body[data-nav="home"] .home-era-card:nth-child(6) { --top: #d9e4f2; --paired: #243e63; }
 
 body[data-nav="home"] .home-era-card--board {
+    --baroque-control-shift-x: clamp(-18rem, -27vw, -12rem);
     --nucleus-base: var(--top);
     --nucleus-dark: var(--paired);
     --nucleus-tone-1: #fff4f0;
@@ -279,11 +280,21 @@ body[data-nav="home"] .home-era-card--board .home-era-card__body {
 
 body[data-nav="home"] .home-era-card--board .home-era-card__body-head {
     grid-row: 2;
+    transition: transform 620ms cubic-bezier(.2, .8, .2, 1);
+}
+
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__body-head,
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__number {
+    transform: translateX(var(--baroque-control-shift-x));
 }
 
 body[data-nav="home"] .home-era-card--board .home-era-card__body-row {
     grid-row: 4;
     margin-top: 0;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__number {
+    transition: transform 620ms cubic-bezier(.2, .8, .2, 1);
 }
 
 body[data-nav="home"] .home-era-card__body-head {
@@ -552,6 +563,8 @@ body[data-nav="home"] .home-era-card__board-node--primary .home-era-card__board-
     body[data-nav="home"] .home-era-card__cta::after,
     body[data-nav="home"] .home-era-card--board .home-era-card__top,
     body[data-nav="home"] .home-era-card--board .home-era-card__body,
+    body[data-nav="home"] .home-era-card--board .home-era-card__body-head,
+    body[data-nav="home"] .home-era-card--board .home-era-card__number,
     body[data-nav="home"] .home-era-card__board-panel,
     body[data-nav="home"] .home-era-card__board-node,
     body[data-nav="home"] .home-era-card__board-node-copy,
@@ -577,6 +590,10 @@ body[data-nav="home"] .home-era-card__board-node--primary .home-era-card__board-
 }
 
 @media (max-width: 760px) {
+    body[data-nav="home"] .home-era-card--board {
+        --baroque-control-shift-x: -7rem;
+    }
+
     body[data-nav="home"] .home-timeline__track {
         --home-era-card-width: min(21.5rem, 86vw);
         --home-board-width: min(32rem, 86vw);
