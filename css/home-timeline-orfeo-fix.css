@@ -39,6 +39,65 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo .h
     display: none !important;
 }
 
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--concerto {
+    background-color: #BC474E !important;
+    color: #F1E3D2 !important;
+    --tile-ink: #F1E3D2;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--intro {
+    background-color: #C6646A !important;
+    color: #F1E3D2 !important;
+    --tile-ink: #F1E3D2;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--monteverdi {
+    background-color: #D18085 !important;
+    color: #1A0504 !important;
+    --tile-ink: #1A0504;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo {
+    background-color: #DB9DA1 !important;
+    color: #1A0504 !important;
+    --tile-ink: #1A0504;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--vivaldi {
+    background-color: #E6BABD !important;
+    color: #1A0504 !important;
+    --tile-ink: #1A0504;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--bach {
+    background-color: #F0D7D8 !important;
+    color: #1A0504 !important;
+    --tile-ink: #1A0504;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--fuga {
+    background-color: #BC474E !important;
+    color: #F1E3D2 !important;
+    --tile-ink: #F1E3D2;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--handel {
+    background-color: #C6646A !important;
+    color: #F1E3D2 !important;
+    --tile-ink: #F1E3D2;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--oratorio {
+    background-color: #D18085 !important;
+    color: #1A0504 !important;
+    --tile-ink: #1A0504;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node-title,
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node-arrow {
+    color: var(--tile-ink) !important;
+}
+
 @media (max-width: 760px) {
     body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo .home-era-card__board-node-title {
         max-width: 20ch !important;
