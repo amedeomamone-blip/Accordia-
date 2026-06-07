@@ -27,6 +27,10 @@ body[data-nav="home"] .home-timeline__track {
 }
 
 body[data-nav="home"] .home-era-card {
+    --card-radius: 36px;
+    --card-inset: 6px;
+    --card-inner-radius: calc(var(--card-radius) - var(--card-inset));
+    --bento-tile-radius: var(--card-inner-radius);
     --top: #dfeee8;
     --paired: #24483d;
     --card-neutral: #f5f5f7;
@@ -42,9 +46,9 @@ body[data-nav="home"] .home-era-card {
     display: flex;
     flex-direction: column;
     gap: 0;
-    padding: 6px;
+    padding: var(--card-inset);
     border: 0;
-    border-radius: 36px;
+    border-radius: var(--card-radius);
     background: var(--card-neutral);
     color: #111111;
     overflow: hidden;
@@ -82,7 +86,7 @@ body[data-nav="home"] .home-era-card.is-dimmed {
 body[data-nav="home"] .home-era-card__top {
     height: 80%;
     min-height: 80%;
-    border-radius: 30px;
+    border-radius: var(--card-inner-radius);
     background: var(--card-neutral);
     padding: 0 24px 22px;
     display: flex;
@@ -352,7 +356,7 @@ body[data-nav="home"] .home-era-card__board-node {
     min-height: 0;
     padding: 12px;
     border: 0;
-    border-radius: 22px;
+    border-radius: var(--bento-tile-radius);
     background: var(--stack-bg);
     box-shadow: 0 8px 14px var(--tile-shadow);
     display: grid;
@@ -368,7 +372,6 @@ body[data-nav="home"] .home-era-card__board-node {
         transform 280ms cubic-bezier(.22, 1, .36, 1),
         box-shadow 280ms ease,
         padding 620ms cubic-bezier(.2, .8, .2, 1),
-        border-radius 620ms cubic-bezier(.2, .8, .2, 1),
         gap 620ms cubic-bezier(.2, .8, .2, 1);
     overflow: hidden;
 }
@@ -631,13 +634,11 @@ body[data-nav="home"] .home-era-card__board-node--primary .home-era-card__board-
 
     body[data-nav="home"] .home-era-card__board-node {
         padding: 9px;
-        border-radius: 18px;
         gap: 5px;
     }
 
     body[data-nav="home"] .home-era-card__board-node--primary {
         padding: 10px;
-        border-radius: 18px;
     }
 
     body[data-nav="home"] .home-era-card__board-node-title {

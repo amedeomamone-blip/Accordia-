@@ -61,7 +61,6 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__body {
 
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node {
     padding: clamp(14px, 1.45vw, 24px);
-    border-radius: clamp(22px, 2vw, 30px);
     gap: clamp(8px, 1vw, 16px);
 }
 
