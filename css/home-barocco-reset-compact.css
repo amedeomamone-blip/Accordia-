@@ -1,3 +1,23 @@
-body[data-nav="home"] .home-era-card--board[data-nucleus-link="barocco"] {
-  --barocco-space: 6px;
+body[data-nav="home"] .home-era-card--board[data-nucleus-link="barocco"]:not(.is-open) {
+  --dashboard-gap: 6px !important;
+  --barocco-card-inset: 6px !important;
+  --barocco-footer-height: 4.35rem !important;
+}
+
+body[data-nav="home"] .home-era-card--board[data-nucleus-link="barocco"]:not(.is-open) .home-era-card__top {
+  padding: 6px 6px 0 !important;
+}
+
+body[data-nav="home"] .home-era-card--board[data-nucleus-link="barocco"]:not(.is-open) .home-era-card__board-stack {
+  gap: 6px !important;
+  width: calc(100% - 12px) !important;
+}
+
+body[data-nav="home"] .home-era-card--board[data-nucleus-link="barocco"]:not(.is-open) .home-era-card__body {
+  padding: 0 6px 6px !important;
+  gap: 6px !important;
+}
+
+body[data-nav="home"] .home-era-card--board[data-nucleus-link="barocco"]:not(.is-open) .home-era-card__body-row {
+  gap: 6px !important;
 }
