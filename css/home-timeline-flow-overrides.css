@@ -56,23 +56,27 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node-copy {
 }
 
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node-title {
-    max-width: 13ch !important;
+    max-width: 14ch !important;
     margin: 0 !important;
     font-family: var(--font-sans) !important;
     font-size: clamp(.66rem, .82vw, .9rem) !important;
-    line-height: 1.08 !important;
+    line-height: 1.22 !important;
     letter-spacing: -0.03em !important;
     font-weight: 650 !important;
     text-align: left !important;
     text-transform: none !important;
     text-wrap: balance !important;
     overflow-wrap: normal !important;
+    display: -webkit-box !important;
+    -webkit-box-orient: vertical !important;
+    -webkit-line-clamp: 3 !important;
+    overflow: hidden !important;
 }
 
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node--primary .home-era-card__board-node-title {
-    max-width: 12ch !important;
+    max-width: 13ch !important;
     font-size: clamp(.98rem, 1.75vw, 1.28rem) !important;
-    line-height: 1.05 !important;
+    line-height: 1.16 !important;
     letter-spacing: -0.04em !important;
     font-weight: 650 !important;
 }
@@ -81,7 +85,7 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node--vivaldi 
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node--bach .home-era-card__board-node-title,
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node--monteverdi .home-era-card__board-node-title,
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node--handel .home-era-card__board-node-title {
-    max-width: 9ch !important;
+    max-width: 10ch !important;
 }
 
 body[data-nav="home"] .home-era-card--board.is-open {
@@ -132,14 +136,14 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack 
     }
 
     body[data-nav="home"] .home-era-card--board .home-era-card__board-node-title {
-        max-width: 12ch !important;
+        max-width: 13ch !important;
         font-size: .62rem !important;
-        line-height: 1.06 !important;
+        line-height: 1.18 !important;
     }
 
     body[data-nav="home"] .home-era-card--board .home-era-card__board-node--primary .home-era-card__board-node-title {
-        max-width: 11ch !important;
+        max-width: 12ch !important;
         font-size: .86rem !important;
-        line-height: 1.04 !important;
+        line-height: 1.14 !important;
     }
 }
