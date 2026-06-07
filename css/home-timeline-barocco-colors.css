@@ -1,3 +1,5 @@
+@import url("./home-barocco-compact-offsets.css?v=1780848823");
+
 body[data-nav="home"] #baroccoCard:not(.is-open) {
     --dashboard-gap: 4px;
     --barocco-card-inset: var(--dashboard-gap);
