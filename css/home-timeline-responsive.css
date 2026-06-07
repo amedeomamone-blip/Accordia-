@@ -224,6 +224,7 @@ body[data-nav="home"] .home-era-card:nth-child(5) { --top: #dedaf0; --paired: #3
 body[data-nav="home"] .home-era-card:nth-child(6) { --top: #d9e4f2; --paired: #243e63; }
 
 body[data-nav="home"] .home-era-card--board {
+    --baroque-info-inset: 12px;
     --nucleus-base: var(--top);
     --nucleus-dark: var(--paired);
     --nucleus-tone-1: #fff4f0;
@@ -272,7 +273,7 @@ body[data-nav="home"] .home-era-card--board .home-era-card__body {
     grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr) auto;
     align-content: stretch;
     gap: 0;
-    padding: 11px 12px 14px 0;
+    padding: 11px 12px 14px var(--baroque-info-inset);
     transition:
         gap 620ms cubic-bezier(.2, .8, .2, 1),
         padding 620ms cubic-bezier(.2, .8, .2, 1);
@@ -281,22 +282,14 @@ body[data-nav="home"] .home-era-card--board .home-era-card__body {
 body[data-nav="home"] .home-era-card--board .home-era-card__body-head {
     position: absolute;
     top: 48%;
-    left: 0;
+    left: var(--baroque-info-inset);
     z-index: 2;
     transform: translateY(-50%);
 }
 
 body[data-nav="home"] .home-era-card--board .home-era-card__body-row {
     grid-row: 4;
-    justify-content: flex-end;
     margin-top: 0;
-}
-
-body[data-nav="home"] .home-era-card--board .home-era-card__number {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    z-index: 2;
 }
 
 body[data-nav="home"] .home-era-card__body-head {
@@ -592,6 +585,10 @@ body[data-nav="home"] .home-era-card__board-node--primary .home-era-card__board-
 }
 
 @media (max-width: 760px) {
+    body[data-nav="home"] .home-era-card--board {
+        --baroque-info-inset: 9px;
+    }
+
     body[data-nav="home"] .home-timeline__track {
         --home-era-card-width: min(21.5rem, 86vw);
         --home-board-width: min(32rem, 86vw);
