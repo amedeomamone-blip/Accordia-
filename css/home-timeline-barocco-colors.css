@@ -155,7 +155,7 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node-arrow {
 
 body[data-nav="home"] #baroccoCard:not(.is-open) {
     --barocco-space: 8px;
-    --barocco-footer-height: 2.5rem;
+    --barocco-footer-height: 3.25rem;
 
     aspect-ratio: 0.618 / 1 !important;
     height: auto !important;
@@ -244,6 +244,7 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body {
 
     display: grid !important;
     grid-template-columns: minmax(0, 1fr) auto !important;
+    align-content: end !important;
     align-items: end !important;
     gap: var(--barocco-space) !important;
 }
@@ -297,12 +298,12 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-node--pro
 
 @media (max-width: 1100px) {
     body[data-nav="home"] #baroccoCard:not(.is-open) {
-        --barocco-footer-height: 2.25rem;
+        --barocco-footer-height: 3rem;
     }
 }
 
 @media (max-width: 760px) {
     body[data-nav="home"] #baroccoCard:not(.is-open) {
-        --barocco-footer-height: 2.125rem;
+        --barocco-footer-height: 2.875rem;
     }
 }
