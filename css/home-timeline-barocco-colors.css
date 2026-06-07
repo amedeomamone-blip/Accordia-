@@ -154,22 +154,23 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node-arrow {
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) {
-    --barocco-space: 24px;
-    --barocco-footer-bottom: 22px;
+    --barocco-space: 8px;
+    --barocco-footer-height: 2.8125rem;
 
     aspect-ratio: 0.618 / 1 !important;
     height: auto !important;
     min-height: 0 !important;
 
-    position: relative !important;
     box-sizing: border-box !important;
-    display: block !important;
+    display: flex !important;
+    flex-direction: column !important;
 
     padding: var(--barocco-space) !important;
-    gap: 0 !important;
+    gap: var(--barocco-space) !important;
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__top {
+    flex: 1 1 0 !important;
     min-height: 0 !important;
     height: auto !important;
 
@@ -185,7 +186,7 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__top {
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-panel,
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-canvas {
     width: 100% !important;
-    height: auto !important;
+    height: 100% !important;
     min-height: 0 !important;
 
     box-sizing: border-box !important;
@@ -235,12 +236,8 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-node {
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body {
-    position: absolute !important;
-    left: var(--barocco-space) !important;
-    right: var(--barocco-space) !important;
-    bottom: var(--barocco-footer-bottom) !important;
-
-    min-height: 0 !important;
+    flex: 0 0 var(--barocco-footer-height) !important;
+    min-height: var(--barocco-footer-height) !important;
 
     box-sizing: border-box !important;
     padding: 0 !important;
@@ -256,7 +253,7 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body {
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head {
     position: static !important;
     inset: auto !important;
-    transform: none !important;
+    transform: translateY(7px) !important;
 
     align-self: end !important;
     justify-self: start !important;
@@ -298,4 +295,16 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-node--pro
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
+}
+
+@media (max-width: 1100px) {
+    body[data-nav="home"] #baroccoCard:not(.is-open) {
+        --barocco-footer-height: 2.625rem;
+    }
+}
+
+@media (max-width: 760px) {
+    body[data-nav="home"] #baroccoCard:not(.is-open) {
+        --barocco-footer-height: 2.5rem;
+    }
 }
