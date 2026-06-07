@@ -227,12 +227,12 @@ body[data-nav="home"] .home-era-card--board {
     --baroque-info-inset: 16px;
     --nucleus-base: var(--top);
     --nucleus-dark: var(--paired);
-    --nucleus-tone-1: #fff1ee;
-    --nucleus-tone-2: #f8d9d3;
-    --nucleus-tone-3: #f1bfb7;
-    --nucleus-tone-4: #eba59e;
-    --nucleus-tone-5: #dc8e8a;
-    --nucleus-tone-6: #c97573;
+    --nucleus-tone-1: #ffe8e4;
+    --nucleus-tone-2: #f8c9c2;
+    --nucleus-tone-3: #f2aba3;
+    --nucleus-tone-4: #ea8e88;
+    --nucleus-tone-5: #df7874;
+    --nucleus-tone-6: #d16463;
     cursor: pointer;
 }
 
@@ -370,8 +370,8 @@ body[data-nav="home"] .home-era-card__board-stack {
 
 body[data-nav="home"] .home-era-card__board-node {
     --stack-bg: var(--nucleus-tone-1);
-    --tile-ink: #1d1513;
-    --tile-muted: rgba(29, 21, 19, .68);
+    --tile-ink: #171111;
+    --tile-muted: rgba(23, 17, 17, .66);
     position: relative;
     min-width: 0;
     box-sizing: border-box;
