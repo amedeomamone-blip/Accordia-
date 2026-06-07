@@ -33,6 +33,10 @@ body[data-nav="home"] .home-era-card--board {
         filter 280ms ease !important;
 }
 
+body[data-nav="home"] .home-era-card--board .home-era-card__body-head {
+    top: 44% !important;
+}
+
 body[data-nav="home"] .home-era-card--board.is-open {
     flex-basis: var(--home-board-width) !important;
     width: var(--home-board-width) !important;
@@ -68,5 +72,9 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack 
     body[data-nav="home"] .home-timeline__track {
         --home-track-gap: 10px;
         --home-board-width: min(45.5rem, calc(100vw - 1.5rem));
+    }
+
+    body[data-nav="home"] .home-era-card--board .home-era-card__body-head {
+        top: 43% !important;
     }
 }
