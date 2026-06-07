@@ -155,7 +155,7 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node-arrow {
 
 body[data-nav="home"] #baroccoCard:not(.is-open) {
     --barocco-space: 8px;
-    --barocco-footer-height: 4.5rem;
+    --barocco-footer-height: 2.5rem;
 
     aspect-ratio: 0.618 / 1 !important;
     height: auto !important;
@@ -170,7 +170,7 @@ body[data-nav="home"] #baroccoCard:not(.is-open) {
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__top {
-    flex: 1 1 auto !important;
+    flex: 1 1 0 !important;
     min-height: 0 !important;
     height: auto !important;
 
@@ -218,6 +218,8 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-stack {
     min-height: 0 !important;
 
     gap: var(--barocco-space) !important;
+    row-gap: var(--barocco-space) !important;
+    column-gap: var(--barocco-space) !important;
 
     box-sizing: border-box !important;
     padding: 0 !important;
@@ -225,6 +227,8 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-stack {
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-node {
+    width: 100% !important;
+    height: 100% !important;
     aspect-ratio: 1 / 1 !important;
     min-height: 0 !important;
     box-sizing: border-box !important;
@@ -251,16 +255,21 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head {
 
     align-self: end !important;
     justify-self: start !important;
+    align-content: end !important;
 
     margin: 0 !important;
     padding: 0 !important;
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-row {
+    position: static !important;
+    inset: auto !important;
+
     display: flex !important;
     align-items: center !important;
     justify-content: flex-end !important;
     align-self: end !important;
+    justify-self: end !important;
 
     gap: var(--barocco-space) !important;
     margin: 0 !important;
@@ -284,4 +293,16 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-node--pro
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
+}
+
+@media (max-width: 1100px) {
+    body[data-nav="home"] #baroccoCard:not(.is-open) {
+        --barocco-footer-height: 2.25rem;
+    }
+}
+
+@media (max-width: 760px) {
+    body[data-nav="home"] #baroccoCard:not(.is-open) {
+        --barocco-footer-height: 2.125rem;
+    }
 }
