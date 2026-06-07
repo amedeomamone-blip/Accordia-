@@ -1,30 +1,53 @@
 body[data-nav="home"] #baroccoCard:not(.is-open) {
-    --dashboard-gap: 4px;
-    --bento-visible-columns: 2;
-    --bento-total-columns: 2;
-    --bento-column-width: calc((var(--bento-grid-width) - (var(--dashboard-gap) * (var(--bento-visible-columns) - 1))) / var(--bento-visible-columns));
-    aspect-ratio: auto !important;
-    min-height: calc((var(--bento-column-width) * 3) + (var(--dashboard-gap) * 2) + 9.75rem) !important;
+    aspect-ratio: 0.618 / 1 !important;
+    min-height: 0 !important;
+    height: auto !important;
 }
 
-body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__top,
+body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__top {
+    height: 76% !important;
+    min-height: 76% !important;
+}
+
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-panel,
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-canvas,
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-stack {
-    height: calc((var(--bento-column-width) * 3) + (var(--dashboard-gap) * 2)) !important;
-    min-height: calc((var(--bento-column-width) * 3) + (var(--dashboard-gap) * 2)) !important;
+    height: 100% !important;
+    min-height: 0 !important;
     max-height: none !important;
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-stack {
+    --dashboard-gap: 4px;
+    --bento-visible-columns: 2 !important;
+    --bento-total-columns: 2 !important;
+    --bento-column-width: calc((var(--bento-grid-width) - (var(--dashboard-gap) * (var(--bento-visible-columns) - 1))) / var(--bento-visible-columns));
     grid-template-columns: repeat(2, var(--bento-column-width)) !important;
-    grid-template-rows: repeat(3, var(--bento-column-width)) !important;
+    grid-template-rows: repeat(3, minmax(0, 1fr)) !important;
     grid-template-areas:
         "concerto bach"
         "vivaldi handel"
         "monteverdi prova-a" !important;
     gap: var(--dashboard-gap) !important;
-    align-content: start !important;
+    align-content: stretch !important;
+}
+
+body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head {
+    top: 38% !important;
+}
+
+body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-row {
+    justify-content: flex-end !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__number {
+    order: 1;
+}
+
+body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__cta {
+    order: 2;
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-node--intro,
