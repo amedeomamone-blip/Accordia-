@@ -39,9 +39,9 @@ body[data-nav="home"] .home-era-card--board:not(.is-open) .home-era-card__board-
     grid-template-rows: repeat(4, minmax(0, 1fr)) !important;
     grid-template-areas:
         "concerto concerto vivaldi bach"
-        "concerto concerto vivaldi bach"
-        "monteverdi handel handel bach"
-        "monteverdi prova-a prova-a prova-a" !important;
+        "concerto concerto monteverdi handel"
+        "prova-a prova-a prova-a prova-a"
+        "prova-a prova-a prova-a prova-a" !important;
 }
 
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack {
@@ -142,48 +142,24 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node--concerto
     --tile-ink: #F1E3D2;
 }
 
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node--intro {
-    background-color: #C6646A !important;
-    color: #F1E3D2 !important;
-    --tile-ink: #F1E3D2;
-}
-
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node--monteverdi {
-    background-color: #D18085 !important;
-    color: #1A0504 !important;
-    --tile-ink: #1A0504;
-}
-
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo {
-    background-color: #DB9DA1 !important;
-    color: #1A0504 !important;
-    --tile-ink: #1A0504;
-}
-
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node--vivaldi {
-    background-color: #E6BABD !important;
-    color: #1A0504 !important;
-    --tile-ink: #1A0504;
-}
-
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node--bach {
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--vivaldi,
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--bach,
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--monteverdi,
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--handel {
     background-color: #F0D7D8 !important;
     color: #1A0504 !important;
     --tile-ink: #1A0504;
 }
 
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node--fuga {
-    background-color: #BC474E !important;
-    color: #F1E3D2 !important;
-    --tile-ink: #F1E3D2;
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--prova-a {
+    background-color: #E6BABD !important;
+    color: #1A0504 !important;
+    --tile-ink: #1A0504;
 }
 
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node--handel {
-    background-color: #C6646A !important;
-    color: #F1E3D2 !important;
-    --tile-ink: #F1E3D2;
-}
-
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--intro,
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--fuga,
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo,
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node--oratorio {
     background-color: #D18085 !important;
     color: #1A0504 !important;
