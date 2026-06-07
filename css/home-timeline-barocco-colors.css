@@ -248,7 +248,7 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body {
     align-content: end !important;
     align-items: end !important;
     gap: var(--barocco-space) !important;
-    transform: translateY(18px) !important;
+    transform: translateY(23px) !important;
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head {
