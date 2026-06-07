@@ -1,6 +1,7 @@
 body[data-nav="home"] #baroccoCard:not(.is-open) {
     --dashboard-gap: 4px;
-    --barocco-footer-height: 6.15rem;
+    --barocco-card-inset: 16px;
+    --barocco-footer-height: 5.65rem;
     aspect-ratio: 0.618 / 1 !important;
     min-height: 0 !important;
     height: auto !important;
@@ -15,6 +16,7 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__top {
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
+    padding: var(--barocco-card-inset) var(--barocco-card-inset) 0 !important;
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-panel,
@@ -59,7 +61,7 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body {
     grid-template-columns: minmax(0, 1fr) auto !important;
     align-items: end !important;
     gap: 12px !important;
-    padding: 0 16px 16px !important;
+    padding: 0 var(--barocco-card-inset) var(--barocco-card-inset) !important;
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head {
@@ -69,6 +71,7 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head {
     align-self: end !important;
     justify-self: start !important;
     margin: 0 !important;
+    padding: 0 !important;
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-row {
@@ -78,6 +81,7 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-row {
     align-self: end !important;
     gap: 8px !important;
     margin: 0 !important;
+    padding: 0 !important;
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__number {
