@@ -267,6 +267,7 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__body-head st
 }
 
 body[data-nav="home"] .home-era-card--board .home-era-card__body {
+    position: relative;
     display: grid;
     grid-template-rows: minmax(0, 1fr) auto minmax(0, 1fr) auto;
     align-content: stretch;
@@ -278,12 +279,24 @@ body[data-nav="home"] .home-era-card--board .home-era-card__body {
 }
 
 body[data-nav="home"] .home-era-card--board .home-era-card__body-head {
-    grid-row: 2;
+    position: absolute;
+    top: 48%;
+    left: 0;
+    z-index: 2;
+    transform: translateY(-50%);
 }
 
 body[data-nav="home"] .home-era-card--board .home-era-card__body-row {
     grid-row: 4;
+    justify-content: flex-end;
     margin-top: 0;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__number {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: 2;
 }
 
 body[data-nav="home"] .home-era-card__body-head {
