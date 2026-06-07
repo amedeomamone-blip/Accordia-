@@ -248,12 +248,13 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body {
     align-content: end !important;
     align-items: end !important;
     gap: var(--barocco-space) !important;
+    transform: translateY(18px) !important;
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head {
     position: static !important;
     inset: auto !important;
-    transform: translateY(7px) !important;
+    transform: none !important;
 
     align-self: end !important;
     justify-self: start !important;
