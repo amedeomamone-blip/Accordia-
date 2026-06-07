@@ -59,19 +59,6 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__body {
     padding: 8px 16px 10px;
 }
 
-body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node {
-    padding: clamp(14px, 1.45vw, 24px);
-    gap: clamp(8px, 1vw, 16px);
-}
-
-body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--primary {
-    padding: clamp(18px, 1.8vw, 28px);
-}
-
-body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node-copy {
-    gap: clamp(.28rem, .45vw, .62rem);
-}
-
 @media (prefers-reduced-motion: reduce) {
     body[data-nav="home"] .home-era-card--board {
         transition: none !important;
