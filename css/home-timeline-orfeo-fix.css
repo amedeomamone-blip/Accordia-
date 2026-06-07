@@ -135,13 +135,23 @@ body[data-nav="home"] .home-era-card--board .home-era-card__cta {
     color: #BC474E !important;
 }
 
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node--concerto,
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--concerto {
+    background-color: #BC474E !important;
+    color: #F1E3D2 !important;
+    --tile-ink: #F1E3D2;
+}
+
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node--vivaldi,
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node--bach,
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node--monteverdi,
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node--handel,
-body[data-nav="home"] .home-era-card--board .home-era-card__board-node--prova-a {
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--handel {
     background-color: #F0D7D8 !important;
+    color: #1A0504 !important;
+    --tile-ink: #1A0504;
+}
+
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node--prova-a {
+    background-color: #E6BABD !important;
     color: #1A0504 !important;
     --tile-ink: #1A0504;
 }
