@@ -1,7 +1,7 @@
 body[data-nav="home"] #baroccoCard:not(.is-open) {
     --dashboard-gap: 4px;
-    --barocco-card-inset: 8px;
-    --barocco-footer-height: 4.75rem;
+    --barocco-card-inset: var(--dashboard-gap);
+    --barocco-footer-height: 4.35rem;
     aspect-ratio: 0.618 / 1 !important;
     min-height: 0 !important;
     height: auto !important;
@@ -41,7 +41,7 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-stack {
         "vivaldi handel"
         "monteverdi prova-a" !important;
     gap: var(--dashboard-gap) !important;
-    width: min(100%, calc((100% - var(--dashboard-gap)) * .985)) !important;
+    width: min(100%, calc(100% - (var(--barocco-card-inset) * 2))) !important;
     height: auto !important;
     aspect-ratio: 2 / 3 !important;
     max-height: 100% !important;
