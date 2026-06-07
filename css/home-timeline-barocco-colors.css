@@ -155,6 +155,7 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node-arrow {
 
 body[data-nav="home"] #baroccoCard:not(.is-open) {
     --barocco-space: 8px;
+    --barocco-board-bottom-air: 14px;
     --barocco-footer-height: 3.25rem;
 
     aspect-ratio: 0.618 / 1 !important;
@@ -211,10 +212,11 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-stack {
     grid-template-columns: repeat(2, 1fr) !important;
     grid-template-rows: repeat(3, 1fr) !important;
 
-    width: 100% !important;
-    height: auto !important;
+    width: auto !important;
+    height: calc(100% - var(--barocco-board-bottom-air)) !important;
     aspect-ratio: 2 / 3 !important;
     max-height: 100% !important;
+    max-width: 100% !important;
     min-height: 0 !important;
 
     gap: var(--barocco-space) !important;
