@@ -353,6 +353,9 @@ body[data-nav="home"] .home-era-card__board-stack {
     height: 100%;
     min-height: 0;
     background: transparent;
+    transition:
+        width 620ms cubic-bezier(.2, .8, .2, 1),
+        grid-template-columns 620ms cubic-bezier(.2, .8, .2, 1);
 }
 
 body[data-nav="home"] .home-era-card__board-node {
