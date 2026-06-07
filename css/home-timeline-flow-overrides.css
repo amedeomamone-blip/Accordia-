@@ -158,20 +158,6 @@ body[data-nav="home"] .home-era-card--board.is-open {
     z-index: 8;
 }
 
-body[data-nav="home"] .home-era-card--board.is-open .home-era-card__top {
-    height: calc(100% - 98px) !important;
-    min-height: calc(100% - 98px) !important;
-}
-
-body[data-nav="home"] .home-era-card--board.is-open .home-era-card__body {
-    flex: 0 0 92px !important;
-    min-height: 92px !important;
-}
-
-body[data-nav="home"] .home-era-card--board.is-open .home-era-card__body-head {
-    top: 24% !important;
-}
-
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-panel {
     opacity: 1;
     visibility: visible;
