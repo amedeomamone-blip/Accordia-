@@ -1,7 +1,10 @@
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__top,
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-panel,
-body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-canvas {
+body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-canvas,
+body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-stack {
+    height: calc((var(--bento-column-width) * 3) + (var(--bento-gap, 8px) * 2)) !important;
     min-height: calc((var(--bento-column-width) * 3) + (var(--bento-gap, 8px) * 2)) !important;
+    max-height: none !important;
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-stack {
@@ -13,6 +16,7 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-stack {
         "concerto bach"
         "vivaldi handel"
         "monteverdi prova-a" !important;
+    align-content: start !important;
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-node--intro,
