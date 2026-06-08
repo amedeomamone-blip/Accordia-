@@ -154,7 +154,7 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node-arrow {
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) {
-    --barocco-space: 8px;
+    --barocco-space: 12px;
     --barocco-footer-height: 2.8125rem;
 
     aspect-ratio: 0.618 / 1 !important;
@@ -313,12 +313,14 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-node--pro
 
 @media (max-width: 1100px) {
     body[data-nav="home"] #baroccoCard:not(.is-open) {
+        --barocco-space: 11px;
         --barocco-footer-height: 2.625rem;
     }
 }
 
 @media (max-width: 760px) {
     body[data-nav="home"] #baroccoCard:not(.is-open) {
+        --barocco-space: 10px;
         --barocco-footer-height: 2.5rem;
     }
 }
