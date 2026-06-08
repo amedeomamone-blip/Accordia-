@@ -32,17 +32,22 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node-title {
     text-align: left !important;
 }
 
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node-meta,
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node-summary {
+    display: none !important;
+}
+
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack {
-    --bento-visible-columns: 4;
-    --bento-total-columns: 4;
-    grid-template-columns: repeat(4, var(--bento-column-width)) !important;
-    grid-template-rows: repeat(5, minmax(0, 1fr)) !important;
+    --bento-visible-columns: 3;
+    --bento-total-columns: 6;
+    grid-template-columns: repeat(6, var(--bento-column-width)) !important;
+    grid-template-rows: repeat(3, minmax(0, 1fr)) !important;
     grid-template-areas:
-        "intro intro vivaldi bach"
-        "concerto concerto fuga fuga"
-        "concerto concerto orfeo orfeo"
-        "monteverdi handel oratorio oratorio"
-        "prova-a prova-a prova-a prova-a" !important;
+        "concerto concerto vivaldi vivaldi bach bach"
+        "monteverdi monteverdi handel handel prova-a prova-a"
+        "intro intro intro intro intro intro" !important;
+    width: max-content !important;
+    min-width: 100% !important;
 }
 
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node--intro,
@@ -63,6 +68,13 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--
     transform: translateY(0) scale(1);
     visibility: visible;
     pointer-events: auto;
+}
+
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--fuga,
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--orfeo,
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--oratorio,
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--prova-b {
+    display: none !important;
 }
 
 body[data-nav="home"] .home-era-card--board .home-era-card__board-node--prova-b {
@@ -147,9 +159,75 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node-arrow {
     color: var(--tile-ink) !important;
 }
 
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node {
+    padding: 12px !important;
+}
+
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node-copy {
+    align-self: stretch !important;
+    align-content: end !important;
+    gap: .24rem !important;
+}
+
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node-title {
+    letter-spacing: 0 !important;
+}
+
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node-meta,
+body[data-nav="home"] #baroccoCard.is-open p.home-era-card__board-node-summary {
+    display: block !important;
+}
+
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node-meta {
+    margin: 0;
+    color: var(--tile-ink);
+    font-family: var(--font-sans);
+    font-size: .62rem;
+    font-weight: 480;
+    line-height: 1;
+    letter-spacing: 0;
+    opacity: .68;
+}
+
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node-summary {
+    max-width: 28ch;
+    color: var(--tile-ink);
+    font-size: .64rem;
+    font-weight: 500;
+    line-height: 1.08;
+    opacity: .76;
+}
+
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--concerto .home-era-card__board-node-summary,
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--intro .home-era-card__board-node-summary,
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--prova-a .home-era-card__board-node-summary {
+    max-width: 34ch;
+}
+
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--prova-a .home-era-card__board-node-title::before {
+    max-width: none;
+}
+
 @media (max-width: 760px) {
     body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo .home-era-card__board-node-title {
         max-width: 20ch !important;
+    }
+
+    body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack {
+        --bento-visible-columns: 2;
+    }
+
+    body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node {
+        padding: 10px !important;
+    }
+
+    body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node-meta {
+        font-size: .56rem;
+    }
+
+    body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node-summary {
+        font-size: .55rem;
+        line-height: 1.05;
     }
 }
 
