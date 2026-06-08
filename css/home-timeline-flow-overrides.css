@@ -1,7 +1,7 @@
 /* Accordia landing timeline: Barocco card expands in place */
 
 body[data-nav="home"] .home-timeline__track {
-    --home-era-card-width: 25rem;
+    --home-era-card-width: 27rem;
     --home-track-gap: 12px;
     --home-board-width: min(68rem, calc(100vw - 2rem));
     display: flex !important;
