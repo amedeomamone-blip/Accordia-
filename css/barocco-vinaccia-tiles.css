@@ -1,0 +1,98 @@
+/* Barocco topic tiles — palette rosso pastello / bordeaux / vinaccia
+   Scope limitato alla pagina del nucleo Barocco. */
+
+body[data-current-nucleus="barocco"] {
+    --barocco-soft-rose: #d8a1a1;
+    --barocco-antique-red: #b86f73;
+    --barocco-muted-bordeaux: #8f3f4a;
+    --barocco-wine: #6f2735;
+    --barocco-vinaccia: #4a1826;
+    --barocco-dark-plum: #2e101a;
+    --barocco-ivory-text: #f7ece8;
+    --barocco-dark-text: #241015;
+    --barocco-soft-line: rgba(74, 24, 38, 0.18);
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page {
+    --nucleus-accent: var(--barocco-muted-bordeaux) !important;
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-map {
+    border-color: rgba(74, 24, 38, 0.13);
+    background:
+        linear-gradient(rgba(143, 63, 74, 0.026) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(143, 63, 74, 0.026) 1px, transparent 1px),
+        rgba(255, 255, 255, 0.94);
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-map__line {
+    stroke: rgba(111, 39, 53, 0.28);
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node {
+    border-color: rgba(74, 24, 38, 0.14);
+    background: var(--barocco-soft-rose);
+    color: var(--barocco-dark-text);
+    box-shadow: 0 0.75rem 1.9rem rgba(74, 24, 38, 0.075);
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node[data-topic-number="01"] {
+    background: var(--barocco-soft-rose);
+    color: var(--barocco-dark-text);
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node[data-topic-number="02"] {
+    background: var(--barocco-antique-red);
+    color: var(--barocco-dark-text);
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node[data-topic-number="03"] {
+    background: var(--barocco-muted-bordeaux);
+    color: var(--barocco-ivory-text);
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node[data-topic-number="04"] {
+    background: var(--barocco-wine);
+    color: var(--barocco-ivory-text);
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node[data-topic-number="05"] {
+    background: var(--barocco-vinaccia);
+    color: var(--barocco-ivory-text);
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node[data-topic-number="06"] {
+    background: var(--barocco-dark-plum);
+    color: var(--barocco-ivory-text);
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node__number,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node strong,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node p,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node__cta {
+    color: currentColor;
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node__label {
+    border-color: color-mix(in srgb, currentColor 22%, transparent);
+    background: color-mix(in srgb, currentColor 9%, transparent);
+    color: currentColor;
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node p {
+    border-top-color: color-mix(in srgb, currentColor 18%, transparent);
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:hover,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:focus-visible,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node.is-floating-hover {
+    border-color: color-mix(in srgb, currentColor 32%, transparent);
+    background: color-mix(in srgb, currentColor 92%, #ffffff);
+    box-shadow: 0 1.5rem 3.7rem rgba(74, 24, 38, 0.16), 0 0 0 1px rgba(74, 24, 38, 0.08);
+}
+
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:hover .nucleus-topic-node__label,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node:focus-visible .nucleus-topic-node__label,
+body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node.is-floating-hover .nucleus-topic-node__label {
+    background: color-mix(in srgb, currentColor 12%, transparent);
+}
