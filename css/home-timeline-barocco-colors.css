@@ -57,7 +57,7 @@ body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-canvas {
 
 body[data-nav="home"] #baroccoCard.is-open {
     --barocco-open-space: 5px;
-    --barocco-open-footer-height: 32px;
+    --barocco-open-footer-height: 3.85rem;
 
     box-sizing: border-box !important;
     display: flex !important;
@@ -100,8 +100,8 @@ body[data-nav="home"] #baroccoCard.is-open .home-era-card__body {
     box-sizing: border-box !important;
     display: grid !important;
     grid-template-columns: minmax(0, 1fr) auto !important;
-    align-content: center !important;
-    align-items: center !important;
+    align-content: end !important;
+    align-items: end !important;
     gap: var(--barocco-open-space) !important;
     padding: 0 !important;
     margin: 0 !important;
@@ -109,7 +109,25 @@ body[data-nav="home"] #baroccoCard.is-open .home-era-card__body {
 }
 
 body[data-nav="home"] #baroccoCard.is-open .home-era-card__body-head {
-    display: none !important;
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    display: grid !important;
+    align-self: end !important;
+    justify-self: start !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__body-head strong {
+    font-size: 25px !important;
+    line-height: .88 !important;
+    transform: none !important;
+}
+
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__body-head .home-era-card__period {
+    font-size: 11px !important;
+    line-height: .95 !important;
 }
 
 body[data-nav="home"] #baroccoCard.is-open .home-era-card__body-row {
@@ -117,9 +135,9 @@ body[data-nav="home"] #baroccoCard.is-open .home-era-card__body-row {
     inset: auto !important;
     transform: none !important;
     display: flex !important;
-    align-items: center !important;
+    align-items: end !important;
     justify-content: flex-end !important;
-    align-self: center !important;
+    align-self: end !important;
     justify-self: end !important;
     gap: var(--barocco-open-space) !important;
     margin: 0 !important;
@@ -347,7 +365,7 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--
 body[data-nav="home"] #baroccoCard:not(.is-open) {
     --barocco-space: 5px;
     --barocco-board-lift: 0px;
-    --barocco-footer-height: 32px;
+    --barocco-footer-height: 3.85rem;
     --barocco-footer-head-shift: 36px;
     --barocco-footer-row-shift: 0px;
 
@@ -462,18 +480,33 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body {
 
     display: grid !important;
     grid-template-columns: minmax(0, 1fr) auto !important;
-    align-content: center !important;
-    align-items: center !important;
+    align-content: end !important;
+    align-items: end !important;
     gap: var(--barocco-space) !important;
     transform: none !important;
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head {
-    display: none !important;
+    position: static !important;
+    inset: auto !important;
+    transform: none !important;
+    display: grid !important;
+    align-self: end !important;
+    justify-self: start !important;
+    align-content: end !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head strong {
     font-size: 25px !important;
+    line-height: .88 !important;
+    transform: none !important;
+}
+
+body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head .home-era-card__period {
+    font-size: 11px !important;
+    line-height: .95 !important;
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-row {
@@ -482,9 +515,9 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-row {
     transform: none !important;
 
     display: flex !important;
-    align-items: center !important;
+    align-items: end !important;
     justify-content: flex-end !important;
-    align-self: center !important;
+    align-self: end !important;
     justify-self: end !important;
 
     gap: var(--barocco-space) !important;
@@ -527,13 +560,17 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-node--pro
 @media (max-width: 1100px) {
     body[data-nav="home"] #baroccoCard.is-open {
         --barocco-open-space: 5px;
-        --barocco-open-footer-height: 32px;
+        --barocco-open-footer-height: 3.6rem;
+    }
+
+    body[data-nav="home"] #baroccoCard.is-open .home-era-card__body-head strong {
+        font-size: 24px !important;
     }
 
     body[data-nav="home"] #baroccoCard:not(.is-open) {
         --barocco-space: 5px;
         --barocco-board-lift: 0px;
-        --barocco-footer-height: 32px;
+        --barocco-footer-height: 3.6rem;
         --barocco-footer-head-shift: 27px;
         --barocco-footer-row-shift: 0px;
     }
@@ -553,13 +590,21 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-node--pro
 @media (max-width: 760px) {
     body[data-nav="home"] #baroccoCard.is-open {
         --barocco-open-space: 4px;
-        --barocco-open-footer-height: 32px;
+        --barocco-open-footer-height: 3.35rem;
+    }
+
+    body[data-nav="home"] #baroccoCard.is-open .home-era-card__body-head strong {
+        font-size: 23px !important;
+    }
+
+    body[data-nav="home"] #baroccoCard.is-open .home-era-card__body-head .home-era-card__period {
+        font-size: 10px !important;
     }
 
     body[data-nav="home"] #baroccoCard:not(.is-open) {
         --barocco-space: 4px;
         --barocco-board-lift: 0px;
-        --barocco-footer-height: 32px;
+        --barocco-footer-height: 3.35rem;
         --barocco-footer-head-shift: 22px;
         --barocco-footer-row-shift: 0px;
     }

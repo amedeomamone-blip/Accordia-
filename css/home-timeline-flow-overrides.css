@@ -13,10 +13,10 @@ body[data-nav="home"] .home-era-card {
     width: var(--home-era-card-width) !important;
     min-width: var(--home-era-card-width) !important;
     max-width: var(--home-era-card-width) !important;
-    height: calc(var(--home-era-card-width) / 0.618) !important;
-    min-height: calc(var(--home-era-card-width) / 0.618) !important;
-    max-height: calc(var(--home-era-card-width) / 0.618) !important;
-    aspect-ratio: 0.618 / 1 !important;
+    height: calc(var(--home-era-card-width) / 0.59) !important;
+    min-height: calc(var(--home-era-card-width) / 0.59) !important;
+    max-height: calc(var(--home-era-card-width) / 0.59) !important;
+    aspect-ratio: 0.59 / 1 !important;
     flex-grow: 0 !important;
     flex-shrink: 0 !important;
     align-self: flex-start !important;
