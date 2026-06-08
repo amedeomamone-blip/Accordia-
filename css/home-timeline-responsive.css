@@ -41,7 +41,7 @@ body[data-nav="home"] .home-era-card {
     max-width: none;
     min-height: 0;
     height: auto;
-    aspect-ratio: 0.535 / 1;
+    aspect-ratio: 0.515 / 1;
     contain: layout paint;
     flex: none;
     display: flex;
