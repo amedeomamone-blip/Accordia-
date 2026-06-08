@@ -230,3 +230,14 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack 
         line-height: 1.08 !important;
     }
 }
+
+body[data-nav="home"] .home-timeline__track .home-era-card--board .home-era-card__board-stack {
+    --dashboard-gap: 2px !important;
+    gap: var(--dashboard-gap) !important;
+    row-gap: var(--dashboard-gap) !important;
+    column-gap: var(--dashboard-gap) !important;
+}
+
+body[data-nav="home"] .home-timeline__track #baroccoCard.home-era-card--board:not(.is-open) {
+    --barocco-space: 2px !important;
+}
