@@ -175,6 +175,7 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack 
 
 @media (max-width: 760px) {
     body[data-nav="home"] .home-timeline__track {
+        --home-era-card-width: min(16.75rem, 72vw) !important;
         --home-track-gap: 10px;
         --home-board-width: min(45.5rem, calc(100vw - 1.5rem));
     }
