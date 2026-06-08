@@ -347,9 +347,9 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--
 body[data-nav="home"] #baroccoCard:not(.is-open) {
     --barocco-space: 5px;
     --barocco-board-lift: 0px;
-    --barocco-footer-height: 3.85rem;
+    --barocco-footer-height: 32px;
     --barocco-footer-head-shift: 36px;
-    --barocco-footer-row-shift: 22px;
+    --barocco-footer-row-shift: 0px;
 
     aspect-ratio: 0.515 / 1 !important;
     height: auto !important;
@@ -469,16 +469,7 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body {
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head {
-    position: static !important;
-    inset: auto !important;
-    transform: translateY(var(--barocco-footer-head-shift)) !important;
-
-    align-self: center !important;
-    justify-self: start !important;
-    align-content: end !important;
-
-    margin: 0 !important;
-    padding: 0 !important;
+    display: none !important;
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head strong {
@@ -488,7 +479,7 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head stron
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-row {
     position: static !important;
     inset: auto !important;
-    transform: translateY(var(--barocco-footer-row-shift)) !important;
+    transform: none !important;
 
     display: flex !important;
     align-items: center !important;
@@ -542,9 +533,9 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-node--pro
     body[data-nav="home"] #baroccoCard:not(.is-open) {
         --barocco-space: 5px;
         --barocco-board-lift: 0px;
-        --barocco-footer-height: 3.6rem;
+        --barocco-footer-height: 32px;
         --barocco-footer-head-shift: 27px;
-        --barocco-footer-row-shift: 16px;
+        --barocco-footer-row-shift: 0px;
     }
 
     body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head strong {
@@ -568,9 +559,9 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-node--pro
     body[data-nav="home"] #baroccoCard:not(.is-open) {
         --barocco-space: 4px;
         --barocco-board-lift: 0px;
-        --barocco-footer-height: 3.35rem;
+        --barocco-footer-height: 32px;
         --barocco-footer-head-shift: 22px;
-        --barocco-footer-row-shift: 13px;
+        --barocco-footer-row-shift: 0px;
     }
 
     body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head strong {
