@@ -1,9 +1,9 @@
 /* Accordia landing timeline: Barocco card expands in place */
 
 body[data-nav="home"] .home-timeline__track {
-    --home-era-card-width: 27rem;
+    --home-era-card-width: 24rem;
     --home-track-gap: 12px;
-    --home-board-width: min(68rem, calc(100vw - 2rem));
+    --home-board-width: 52rem;
     display: flex !important;
     gap: var(--home-track-gap) !important;
     align-items: flex-start !important;
@@ -194,7 +194,7 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack 
 
 @media (max-width: 1100px) {
     body[data-nav="home"] .home-timeline__track {
-        --home-board-width: min(62rem, calc(100vw - 2rem));
+        --home-board-width: min(52rem, calc(100vw - 2rem));
     }
 }
 
