@@ -157,7 +157,8 @@ body[data-nav="home"] #baroccoCard:not(.is-open) {
     --barocco-space: 5px;
     --barocco-board-lift: 0px;
     --barocco-footer-height: 3.85rem;
-    --barocco-footer-shift: 22px;
+    --barocco-footer-head-shift: 28px;
+    --barocco-footer-row-shift: 22px;
 
     aspect-ratio: 0.515 / 1 !important;
     height: auto !important;
@@ -257,7 +258,7 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body {
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head {
     position: static !important;
     inset: auto !important;
-    transform: translateY(var(--barocco-footer-shift)) !important;
+    transform: translateY(var(--barocco-footer-head-shift)) !important;
 
     align-self: center !important;
     justify-self: start !important;
@@ -274,7 +275,7 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head stron
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-row {
     position: static !important;
     inset: auto !important;
-    transform: translateY(var(--barocco-footer-shift)) !important;
+    transform: translateY(var(--barocco-footer-row-shift)) !important;
 
     display: flex !important;
     align-items: center !important;
@@ -324,7 +325,8 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-node--pro
         --barocco-space: 5px;
         --barocco-board-lift: 0px;
         --barocco-footer-height: 3.6rem;
-        --barocco-footer-shift: 16px;
+        --barocco-footer-head-shift: 21px;
+        --barocco-footer-row-shift: 16px;
     }
 
     body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head strong {
@@ -337,7 +339,8 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-node--pro
         --barocco-space: 4px;
         --barocco-board-lift: 0px;
         --barocco-footer-height: 3.35rem;
-        --barocco-footer-shift: 13px;
+        --barocco-footer-head-shift: 17px;
+        --barocco-footer-row-shift: 13px;
     }
 
     body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__body-head strong {
