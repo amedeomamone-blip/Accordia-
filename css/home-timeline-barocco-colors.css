@@ -330,12 +330,12 @@ body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-node--pro
 body[data-nav="home"] .home-era-card--board .home-era-card__board-stack,
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack,
 body[data-nav="home"] #baroccoCard:not(.is-open) .home-era-card__board-stack {
-    --dashboard-gap: 2px !important;
-    gap: 2px !important;
-    row-gap: 2px !important;
-    column-gap: 2px !important;
+    --dashboard-gap: 1.5px !important;
+    gap: 1.5px !important;
+    row-gap: 1.5px !important;
+    column-gap: 1.5px !important;
 }
 
 body[data-nav="home"] #baroccoCard:not(.is-open) {
-    --barocco-space: 2px !important;
+    --barocco-space: 1.5px !important;
 }
