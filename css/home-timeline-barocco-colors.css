@@ -286,8 +286,9 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node {
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node-copy {
     grid-row: 1 / -1 !important;
     align-self: stretch !important;
-    align-content: end !important;
-    gap: .24rem !important;
+    align-content: start !important;
+    justify-items: start !important;
+    gap: .3rem !important;
 }
 
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node-title {
@@ -628,7 +629,7 @@ body[data-nav="home"] #baroccoCard .home-era-card__board-node--monteverdi .home-
 body[data-nav="home"] #baroccoCard .home-era-card__board-node--handel .home-era-card__board-node-title {
     max-width: none !important;
     font-size: 13px !important;
-    line-height: .96 !important;
+    line-height: 1.08 !important;
     font-weight: 620 !important;
     letter-spacing: -0.045em !important;
     white-space: nowrap !important;
@@ -642,9 +643,17 @@ body[data-nav="home"] #baroccoCard .home-era-card__board-node--bach .home-era-ca
 body[data-nav="home"] #baroccoCard .home-era-card__board-node--monteverdi .home-era-card__board-node-meta,
 body[data-nav="home"] #baroccoCard .home-era-card__board-node--handel .home-era-card__board-node-meta {
     font-size: 9px !important;
-    line-height: 1 !important;
+    line-height: 1.08 !important;
     font-weight: 430 !important;
     letter-spacing: -0.01em !important;
     white-space: nowrap !important;
     opacity: .62 !important;
+}
+
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node-copy {
+    grid-row: 1 / -1 !important;
+    align-self: start !important;
+    align-content: start !important;
+    justify-self: start !important;
+    justify-items: start !important;
 }
