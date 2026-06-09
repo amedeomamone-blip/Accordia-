@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/style.css?v=1780986203">
     <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780919039">
     <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1780948981">
-    <link rel="stylesheet" href="css/home-timeline-barocco-colors.css?v=1780986204">
+    <link rel="stylesheet" href="css/home-timeline-barocco-colors.css?v=1780986205">
 </head>
 <body data-nav="home">
     <header class="site-header">
@@ -242,6 +242,7 @@
         (function () {
             const baroccoCard = document.getElementById('baroccoCard');
             const board = document.getElementById('baroccoBoard');
+            const boardStack = board ? board.querySelector('.home-era-card__board-stack') : null;
             const cards = document.querySelectorAll('.home-era-card');
             const track = baroccoCard ? baroccoCard.closest('.home-timeline__track') : null;
             const heroFrame = document.querySelector('.home-hero__frame');
@@ -408,6 +409,26 @@
                 track.scrollTo({ left: nextScrollLeft, behavior: behavior || 'auto' });
             }
 
+            function updateScrollFocus() {
+                if (!boardStack) return;
+                var nodes = boardStack.querySelectorAll('.home-era-card__board-node');
+                var stackRect = boardStack.getBoundingClientRect();
+                var stackCenterY = stackRect.top + stackRect.height / 2;
+                nodes.forEach(function (node) {
+                    if (node.offsetParent === null) return;
+                    var nodeRect = node.getBoundingClientRect();
+                    var nodeCenterY = nodeRect.top + nodeRect.height / 2;
+                    var distance = Math.abs(nodeCenterY - stackCenterY);
+                    var maxDistance = stackRect.height * 0.44;
+                    var d = Math.min(distance / maxDistance, 1);
+                    node.style.setProperty('--focus-distance', d.toFixed(3));
+                });
+            }
+
+            if (boardStack) {
+                boardStack.addEventListener('scroll', updateScrollFocus, { passive: true });
+            }
+
             function openBoard(event) {
                 if (event) event.preventDefault();
 
@@ -420,6 +441,7 @@
                 baroccoCard.classList.add('is-active');
                 baroccoCard.classList.add('is-open');
                 baroccoCard.setAttribute('aria-expanded', 'true');
+                window.requestAnimationFrame(updateScrollFocus);
 
                 cards.forEach(function (card) {
                     if (card !== baroccoCard) card.classList.add('is-dimmed');
@@ -459,6 +481,7 @@
             });
             window.addEventListener('resize', function () {
                 ensureBoardVisible('auto');
+                if (baroccoCard.classList.contains('is-open')) updateScrollFocus();
             });
             document.addEventListener('keydown', function (event) {
                 if (event.key === 'Escape') closeBoard();

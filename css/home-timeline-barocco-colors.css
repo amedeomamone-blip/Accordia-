@@ -38,17 +38,23 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node-summary {
 }
 
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack {
-    gap: var(--barocco-open-space) !important;
-    --bento-visible-columns: 2;
-    --bento-total-columns: 2;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    grid-template-rows: repeat(3, minmax(0, 1fr)) !important;
-    grid-template-areas:
-        "concerto bach"
-        "vivaldi handel"
-        "monteverdi prova-a" !important;
+    display: flex !important;
+    flex-direction: column !important;
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
+    overscroll-behavior: contain !important;
+    scroll-snap-type: y proximity !important;
+    -webkit-overflow-scrolling: touch !important;
+    scrollbar-width: none !important;
+    gap: 5px !important;
     width: 100% !important;
     min-width: 0 !important;
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 16%, black 84%, transparent 100%) !important;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 16%, black 84%, transparent 100%) !important;
+}
+
+body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack::-webkit-scrollbar {
+    display: none !important;
 }
 
 body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-canvas {
@@ -285,8 +291,25 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node-specs {
 }
 
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node {
+    scroll-snap-align: center !important;
+    flex: 0 0 auto !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    aspect-ratio: unset !important;
     padding: 12px !important;
+    box-sizing: border-box !important;
+    transition: opacity 200ms ease, transform 200ms ease, padding 620ms cubic-bezier(.2, .8, .2, 1) !important;
+    opacity: calc(1 - var(--focus-distance, 0) * 0.5) !important;
+    transform: scale(calc(1 - var(--focus-distance, 0) * 0.03)) !important;
 }
+
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--concerto { order: 1 !important; }
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach     { order: 2 !important; }
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--vivaldi  { order: 3 !important; }
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--handel   { order: 4 !important; }
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--monteverdi { order: 5 !important; }
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--prova-a  { order: 6 !important; }
 
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node-copy {
     grid-row: 1 / -1 !important;
@@ -336,26 +359,17 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--
 }
 
 body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach {
-    grid-template-columns: clamp(72px, 22%, 96px) minmax(0, 1fr) !important;
-    grid-template-rows: auto minmax(0, 1fr) auto !important;
-    gap: 10px 12px !important;
+    grid-template-columns: 1fr !important;
+    grid-template-rows: auto !important;
+    gap: 4px !important;
     align-items: start !important;
     background-color: #F5EDE3 !important;
     color: #1A0504 !important;
     --tile-ink: #1A0504;
-    border-left: 3px solid #BC474E !important;
 }
 
 body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-media {
-    display: block !important;
-    grid-column: 1 !important;
-    grid-row: 1 / span 2 !important;
-    align-self: start !important;
-    width: clamp(72px, 22%, 96px) !important;
-    aspect-ratio: 2 / 3 !important;
-    border-radius: 12px !important;
-    overflow: hidden !important;
-    background: #A31B1D !important;
+    display: none !important;
 }
 
 body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-media img {
@@ -367,8 +381,8 @@ body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .hom
 }
 
 body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-copy {
-    grid-column: 2 !important;
-    grid-row: 1 / span 2 !important;
+    grid-column: 1 !important;
+    grid-row: 1 !important;
     align-self: start !important;
     align-content: start !important;
     justify-self: stretch !important;
@@ -401,34 +415,7 @@ body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .hom
 }
 
 body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-specs {
-    display: grid !important;
-    grid-column: 1 / -1 !important;
-    grid-row: 3 !important;
-    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-    align-items: center !important;
-    gap: 0 !important;
-    min-height: 24px !important;
-    padding-top: 7px !important;
-    border-top: 1px solid rgba(188, 71, 78, 0.18) !important;
-    color: rgba(26, 5, 4, 0.65) !important;
-    font-family: var(--font-sans) !important;
-    font-size: clamp(9px, 0.85vw, 10px) !important;
-    font-weight: 520 !important;
-    line-height: 1 !important;
-    letter-spacing: 0.01em !important;
-}
-
-body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-specs span {
-    min-width: 0;
-}
-
-body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-specs span:first-child {
-    padding-right: 8px;
-    border-right: 1px solid rgba(188, 71, 78, 0.18);
-}
-
-body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-specs span:last-child {
-    padding-left: 8px;
+    display: none !important;
 }
 
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--concerto .home-era-card__board-node-summary,
@@ -442,23 +429,8 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--
 }
 
 @media (max-width: 760px) {
-    body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach {
-        grid-template-columns: clamp(64px, 20%, 84px) minmax(0, 1fr) !important;
-        gap: 8px 10px !important;
-    }
-
-    body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-media {
-        width: clamp(64px, 20%, 84px) !important;
-        border-radius: 10px !important;
-    }
-
     body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-title {
         font-size: 12px !important;
-    }
-
-    body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-summary,
-    body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-specs {
-        font-size: 10px !important;
     }
 
     body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo .home-era-card__board-node-title {
@@ -486,33 +458,6 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--
 @media (max-width: 430px) {
     body[data-nav="home"] #baroccoCard.is-open {
         --barocco-open-space: 4px;
-    }
-
-    body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach {
-        grid-template-columns: 1fr !important;
-        grid-template-rows: auto auto auto !important;
-        gap: 8px !important;
-        border-left: none !important;
-        border-top: 3px solid #BC474E !important;
-    }
-
-    body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-media {
-        grid-column: 1 !important;
-        grid-row: 1 !important;
-        width: 100% !important;
-        aspect-ratio: 16 / 7 !important;
-        border-radius: 8px !important;
-        align-self: auto !important;
-    }
-
-    body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-copy {
-        grid-column: 1 !important;
-        grid-row: 2 !important;
-    }
-
-    body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-specs {
-        grid-column: 1 !important;
-        grid-row: 3 !important;
     }
 
     body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node {
