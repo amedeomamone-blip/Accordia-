@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/style.css?v=1780986203">
     <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780919039">
     <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1780948981">
-    <link rel="stylesheet" href="css/home-timeline-barocco-colors.css?v=1780986206">
+    <link rel="stylesheet" href="css/home-timeline-barocco-colors.css?v=1780986207">
 </head>
 <body data-nav="home">
     <header class="site-header">
@@ -242,7 +242,7 @@
         (function () {
             const baroccoCard = document.getElementById('baroccoCard');
             const board = document.getElementById('baroccoBoard');
-            const boardStack = board ? board.querySelector('.home-era-card__board-stack') : null;
+            const boardStack = board ? board.querySelector('.home-era-card__board-canvas') : null;
             const cards = document.querySelectorAll('.home-era-card');
             const track = baroccoCard ? baroccoCard.closest('.home-timeline__track') : null;
             const heroFrame = document.querySelector('.home-hero__frame');
@@ -465,13 +465,13 @@
 
             baroccoCard.addEventListener('click', function (event) {
                 if (event.target.closest('.home-era-card__board-node')) return;
-                openBoard(event);
+                window.location.href = 'nuclei/barocco/index.html';
             });
             baroccoCard.addEventListener('keydown', function (event) {
                 if (event.target.closest('.home-era-card__board-node')) return;
                 if (event.key === 'Enter' || event.key === ' ') {
                     event.preventDefault();
-                    openBoard(event);
+                    window.location.href = 'nuclei/barocco/index.html';
                 }
             });
             baroccoCard.addEventListener('transitionend', function (event) {
