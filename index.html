@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/style.css?v=1780986203">
     <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780919039">
     <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1780948981">
-    <link rel="stylesheet" href="css/home-timeline-barocco-colors.css?v=1780986205">
+    <link rel="stylesheet" href="css/home-timeline-barocco-colors.css?v=1780986206">
 </head>
 <body data-nav="home">
     <header class="site-header">
@@ -413,13 +413,13 @@
                 if (!boardStack) return;
                 var nodes = boardStack.querySelectorAll('.home-era-card__board-node');
                 var stackRect = boardStack.getBoundingClientRect();
-                var stackCenterY = stackRect.top + stackRect.height / 2;
+                var stackCenterX = stackRect.left + stackRect.width / 2;
                 nodes.forEach(function (node) {
                     if (node.offsetParent === null) return;
                     var nodeRect = node.getBoundingClientRect();
-                    var nodeCenterY = nodeRect.top + nodeRect.height / 2;
-                    var distance = Math.abs(nodeCenterY - stackCenterY);
-                    var maxDistance = stackRect.height * 0.44;
+                    var nodeCenterX = nodeRect.left + nodeRect.width / 2;
+                    var distance = Math.abs(nodeCenterX - stackCenterX);
+                    var maxDistance = stackRect.width * 0.52;
                     var d = Math.min(distance / maxDistance, 1);
                     node.style.setProperty('--focus-distance', d.toFixed(3));
                 });

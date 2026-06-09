@@ -39,18 +39,19 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node-summary {
 
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack {
     display: flex !important;
-    flex-direction: column !important;
-    overflow-y: scroll !important;
-    overflow-x: hidden !important;
+    flex-direction: row !important;
+    overflow-x: scroll !important;
+    overflow-y: hidden !important;
     overscroll-behavior: contain !important;
-    scroll-snap-type: y proximity !important;
+    scroll-snap-type: x mandatory !important;
     -webkit-overflow-scrolling: touch !important;
     scrollbar-width: none !important;
+    align-items: stretch !important;
     gap: 5px !important;
     width: 100% !important;
     min-width: 0 !important;
-    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 16%, black 84%, transparent 100%) !important;
-    mask-image: linear-gradient(to bottom, transparent 0%, black 16%, black 84%, transparent 100%) !important;
+    -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 88%, transparent 100%) !important;
+    mask-image: linear-gradient(to right, transparent 0%, black 8%, black 88%, transparent 100%) !important;
 }
 
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-stack::-webkit-scrollbar {
@@ -101,13 +102,14 @@ body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-stack {
 }
 
 body[data-nav="home"] #baroccoCard.is-open .home-era-card__body {
+    order: -1 !important;
     flex: 0 0 var(--barocco-open-footer-height) !important;
     min-height: var(--barocco-open-footer-height) !important;
     box-sizing: border-box !important;
     display: grid !important;
     grid-template-columns: minmax(0, 1fr) auto !important;
-    align-content: end !important;
-    align-items: end !important;
+    align-content: center !important;
+    align-items: center !important;
     gap: var(--barocco-open-space) !important;
     padding: 0 !important;
     margin: 0 !important;
@@ -119,7 +121,7 @@ body[data-nav="home"] #baroccoCard.is-open .home-era-card__body-head {
     inset: auto !important;
     transform: none !important;
     display: grid !important;
-    align-self: end !important;
+    align-self: center !important;
     justify-self: start !important;
     margin: 0 !important;
     padding: 0 !important;
@@ -141,9 +143,9 @@ body[data-nav="home"] #baroccoCard.is-open .home-era-card__body-row {
     inset: auto !important;
     transform: none !important;
     display: flex !important;
-    align-items: end !important;
+    align-items: center !important;
     justify-content: flex-end !important;
-    align-self: end !important;
+    align-self: center !important;
     justify-self: end !important;
     gap: var(--barocco-open-space) !important;
     margin: 0 !important;
@@ -291,17 +293,17 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node-specs {
 }
 
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node {
-    scroll-snap-align: center !important;
-    flex: 0 0 auto !important;
-    width: 100% !important;
-    height: auto !important;
+    scroll-snap-align: start !important;
+    flex: 0 0 calc(46% - 3px) !important;
+    width: auto !important;
+    height: 100% !important;
     min-height: 0 !important;
     aspect-ratio: unset !important;
     padding: 12px !important;
     box-sizing: border-box !important;
     transition: opacity 200ms ease, transform 200ms ease, padding 620ms cubic-bezier(.2, .8, .2, 1) !important;
-    opacity: calc(1 - var(--focus-distance, 0) * 0.5) !important;
-    transform: scale(calc(1 - var(--focus-distance, 0) * 0.03)) !important;
+    opacity: calc(1 - var(--focus-distance, 0) * 0.45) !important;
+    transform: scale(calc(1 - var(--focus-distance, 0) * 0.025)) !important;
 }
 
 body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--concerto { order: 1 !important; }
@@ -314,7 +316,7 @@ body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--prova-a  
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node-copy {
     grid-row: 1 / -1 !important;
     align-self: stretch !important;
-    align-content: start !important;
+    align-content: end !important;
     justify-items: start !important;
     gap: 4px !important;
 }
@@ -759,8 +761,8 @@ body[data-nav="home"] #baroccoCard .home-era-card__board-node--handel .home-era-
 
 body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node-copy {
     grid-row: 1 / -1 !important;
-    align-self: start !important;
-    align-content: start !important;
+    align-self: stretch !important;
+    align-content: end !important;
     justify-self: start !important;
     justify-items: start !important;
 }
