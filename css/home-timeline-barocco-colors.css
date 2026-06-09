@@ -279,6 +279,11 @@ body[data-nav="home"] .home-era-card--board .home-era-card__board-node-arrow {
     color: var(--tile-ink) !important;
 }
 
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node-media,
+body[data-nav="home"] .home-era-card--board .home-era-card__board-node-specs {
+    display: none;
+}
+
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node {
     padding: 12px !important;
 }
@@ -330,6 +335,99 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--
     max-width: none !important;
 }
 
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach {
+    grid-template-columns: 104px minmax(0, 1fr) !important;
+    grid-template-rows: auto 1fr auto !important;
+    gap: 10px 12px !important;
+    align-items: start !important;
+    background-color: #F7F0EA !important;
+    color: #1A0504 !important;
+    --tile-ink: #1A0504;
+}
+
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-media {
+    display: block !important;
+    grid-column: 1 !important;
+    grid-row: 1 / span 2 !important;
+    align-self: start !important;
+    width: 104px !important;
+    aspect-ratio: 1 / 1 !important;
+    border-radius: 14px !important;
+    overflow: hidden !important;
+    background: #A31B1D !important;
+}
+
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-media img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-copy {
+    grid-column: 2 !important;
+    grid-row: 1 / span 2 !important;
+    align-self: start !important;
+    align-content: start !important;
+    justify-self: stretch !important;
+    gap: .26rem !important;
+}
+
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-title {
+    font-size: 14px !important;
+    line-height: 1.02 !important;
+    letter-spacing: -0.04em !important;
+    -webkit-line-clamp: 2 !important;
+    white-space: normal !important;
+    text-wrap: balance !important;
+}
+
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-meta {
+    font-size: 10px !important;
+    line-height: 1.1 !important;
+    font-weight: 430 !important;
+    opacity: .58 !important;
+}
+
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-summary {
+    max-width: none !important;
+    font-size: 11px !important;
+    line-height: 1.14 !important;
+    font-weight: 520 !important;
+    opacity: .8 !important;
+}
+
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-specs {
+    display: grid !important;
+    grid-column: 1 / -1 !important;
+    grid-row: 3 !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    align-items: center !important;
+    gap: 0 !important;
+    min-height: 28px !important;
+    padding-top: 8px !important;
+    border-top: 1px solid rgba(26, 5, 4, 0.12) !important;
+    color: rgba(26, 5, 4, 0.72) !important;
+    font-family: var(--font-sans) !important;
+    font-size: 10px !important;
+    font-weight: 520 !important;
+    line-height: 1 !important;
+}
+
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-specs span {
+    min-width: 0;
+}
+
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-specs span:first-child {
+    padding-right: 8px;
+    border-right: 1px solid rgba(26, 5, 4, 0.12);
+}
+
+body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-specs span:last-child {
+    padding-left: 8px;
+}
+
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--concerto .home-era-card__board-node-summary,
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--intro .home-era-card__board-node-summary,
 body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--prova-a .home-era-card__board-node-summary {
@@ -341,6 +439,25 @@ body[data-nav="home"] .home-era-card--board.is-open .home-era-card__board-node--
 }
 
 @media (max-width: 760px) {
+    body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach {
+        grid-template-columns: 84px minmax(0, 1fr) !important;
+        gap: 8px 10px !important;
+    }
+
+    body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-media {
+        width: 84px !important;
+        border-radius: 12px !important;
+    }
+
+    body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-title {
+        font-size: 12px !important;
+    }
+
+    body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-summary,
+    body[data-nav="home"] #baroccoCard.is-open .home-era-card__board-node--bach .home-era-card__board-node-specs {
+        font-size: 9px !important;
+    }
+
     body[data-nav="home"] .home-era-card--board .home-era-card__board-node--orfeo .home-era-card__board-node-title {
         max-width: 20ch !important;
     }
