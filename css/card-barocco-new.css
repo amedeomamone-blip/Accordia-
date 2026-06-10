@@ -87,7 +87,7 @@ body[data-nav="home"] .home-era-card {
 .bx-comp {
   flex: 0 0 auto;
   margin-top: auto;
-  padding-top: 2.2rem;
+  padding-top: 2.8rem;
   display: flex;
   flex-direction: column;
 }
@@ -131,21 +131,21 @@ body[data-nav="home"] .home-era-card {
 }
 .bx-info .it {
   color: #f9ede9;
-  font-size: clamp(.88rem, 1.7vw, 1rem);
+  font-size: clamp(.80rem, 1.4vw, .90rem);
   font-weight: 500;
   letter-spacing: -.03em;
   line-height: 1.15;
-  min-height: 2.3em;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
+  min-height: 1.15em;
+  white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
-.bx-info .it span { display: block; }
+.bx-info .it span { display: inline; }
+.bx-info .it span + span::before { content: " · "; opacity: .55; font-weight: 400; }
 .bx-info .ds {
   margin-top: .4rem;
-  color: rgba(249,237,233,.62);
-  font-size: clamp(.68rem, 1.1vw, .76rem);
+  color: rgba(249,237,233,.58);
+  font-size: clamp(.64rem, 1vw, .72rem);
   font-weight: 400;
   line-height: 1.45;
   min-height: 2.9em;
@@ -172,7 +172,7 @@ body[data-nav="home"] .home-era-card {
     font-size: 1.35rem;
   }
   .bx-comp {
-    padding-top: 1.3rem;
+    padding-top: 1.6rem;
   }
   .bx-comp .nm {
     font-size: 1.35rem;
@@ -185,10 +185,10 @@ body[data-nav="home"] .home-era-card {
     padding-top: .9rem;
   }
   .bx-info .it {
-    font-size: .86rem;
+    font-size: .78rem;
   }
   .bx-info .ds {
-    font-size: .66rem;
+    font-size: .62rem;
   }
   .bx-info .foot {
     margin-top: .5rem;
