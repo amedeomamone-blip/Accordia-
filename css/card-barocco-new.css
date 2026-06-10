@@ -1,12 +1,10 @@
 /* ============================================================
    Card Barocco — nuovo design
-   Scoped a .barocco-card per non toccare le altre card
    ============================================================ */
 
-/* Altezza ridotta (0.715:1 invece di 0.59:1 delle altre card)
-   così il .bx con height:100% distribuisce correttamente gli elementi */
+/* Altezza ridotta (rapporto 0.82:1) e breathing room dai bordi */
 body[data-nav="home"] .barocco-card {
-  height: calc(var(--home-era-card-width) / 0.715) !important;
+  height: calc(var(--home-era-card-width) / 0.82) !important;
   min-height: 0 !important;
   max-height: none !important;
   aspect-ratio: unset !important;
@@ -16,7 +14,7 @@ body[data-nav="home"] .barocco-card {
 
 /* La card Barocco */
 .barocco-card {
-  padding: .9rem .65rem .65rem !important;
+  padding: 1.25rem 1.1rem 1.1rem !important;
   gap: 0 !important;
   background: #C37A6B !important;
   cursor: pointer;
@@ -33,22 +31,21 @@ body[data-nav="home"] .barocco-card {
 }
 .barocco-card:hover strong { color: inherit !important; }
 
-/* Layout interno — height:100% lavora sulla card a altezza fissa */
+/* Layout interno — space-between distribuisce gli elementi sull'altezza fissa */
 .bx {
   display: flex;
   flex-direction: column;
   height: 100%;
-  justify-content: flex-start;
+  justify-content: space-between;
   font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
 }
 
 /* A · titolo */
 .bx-title {
   flex: 0 0 auto;
-  overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
 }
 .bx-title h3 {
   margin: 0;
@@ -57,7 +54,7 @@ body[data-nav="home"] .barocco-card {
   font-weight: 700;
   letter-spacing: -.055em;
   line-height: .86;
-  text-transform: none !important;  /* annulla h3 { text-transform: uppercase } globale */
+  text-transform: none !important;
 }
 .bx-title .era {
   display: block;
@@ -73,7 +70,6 @@ body[data-nav="home"] .barocco-card {
 /* B · intro */
 .bx-intro {
   flex: 0 0 auto;
-  margin-top: 2rem;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -85,15 +81,15 @@ body[data-nav="home"] .barocco-card {
   letter-spacing: -.04em;
   line-height: .92;
 }
-.bx-intro .foot { display: flex; justify-content: flex-end; margin-top: .5rem; }
-
-/* Spacer che spinge il fondo verso il basso */
-.bx-spacer { flex: 1 1 0; }
+.bx-intro .foot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: .5rem;
+}
 
 /* C · compositori */
 .bx-comp {
   flex: 0 0 auto;
-  margin-top: 1.2rem;
   display: flex;
   flex-direction: column;
 }
@@ -116,18 +112,16 @@ body[data-nav="home"] .barocco-card {
 .bx-circles {
   display: flex;
   gap: .3rem;
-  margin-top: .9rem;
+  margin-top: .75rem;
 }
 
 /* D · info */
 .bx-info {
   background: transparent;
-  border-radius: 0;
-  padding: .5rem 0 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;
-  margin-top: .5rem;
 }
 .bx-info .text-wrap {
   display: flex;
@@ -144,16 +138,16 @@ body[data-nav="home"] .barocco-card {
 }
 .bx-info .it span { display: block; }
 .bx-info .ds {
-  margin-top: .35rem;
+  margin-top: .3rem;
   color: rgba(249,237,233,.72);
-  font-size: .78rem;
+  font-size: .76rem;
   line-height: 1.45;
   text-wrap: pretty;
 }
 .bx-info .foot {
   display: flex;
   justify-content: flex-end;
-  margin-top: .4rem;
+  margin-top: .35rem;
 }
 
 /* Cerchi compositori */
