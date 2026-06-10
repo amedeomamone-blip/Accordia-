@@ -1,0 +1,120 @@
+/* ============================================================
+   Card Barocco — nuovo design (da Accordia Preview.html)
+   Da linkare DOPO home-timeline-barocco-colors.css in index.html
+   ============================================================ */
+
+/* Dimensione card */
+.home-era-card {
+  aspect-ratio: 0.715/1 !important;
+  height: auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  border-radius: 16px !important;
+}
+
+/* La card Barocco */
+.barocco-card {
+  padding: .9rem .65rem .65rem !important;
+  gap: 0 !important;
+  background: #C37A6B !important;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.barocco-card::before { display: none !important; }
+.barocco-card:hover {
+  transform: translateY(-5px);
+  background: #b56c5c !important;
+  border-color: #a5604f !important;
+  box-shadow: 0 14px 26px rgba(15,23,42,.12);
+}
+.barocco-card:hover strong { color: inherit !important; }
+
+/* Layout interno */
+.bx {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  justify-content: flex-start;
+  font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+}
+
+/* A · titolo — 47px */
+.bx-title { flex: 0 0 47px; overflow: hidden; display: flex; flex-direction: column; justify-content: center; }
+.bx-title h3 {
+  margin: 0; color: #f9ede9;
+  font-size: 1.95rem; font-weight: 700; letter-spacing: -.055em; line-height: .86;
+}
+.bx-title .era {
+  display: block; margin-top: .2rem; color: rgba(249,237,233,.6);
+  font-size: .78rem; font-weight: 700; letter-spacing: .1em;
+  text-transform: uppercase; font-variant-numeric: tabular-nums;
+}
+
+/* B · intro — 76px */
+.bx-intro { flex: 0 0 76px; margin-top: 36px; display: flex; flex-direction: column; justify-content: space-between; }
+.bx-intro .lab {
+  color: #f9ede9;
+  font-size: 1.55rem; font-weight: 500; letter-spacing: -.04em; line-height: .92;
+}
+.bx-intro .foot { display: flex; justify-content: flex-end; }
+
+/* C · compositori — 122px */
+.bx-comp { flex: 0 0 122px; margin-top: 28px; display: flex; flex-direction: column; }
+.bx-comp .nm {
+  color: #f9ede9;
+  font-size: 1.55rem; font-weight: 500; letter-spacing: -.04em; line-height: .92;
+}
+.bx-comp .nm span { display: block; }
+.bx-comp .dt {
+  margin-top: .12rem; color: rgba(249,237,233,.65);
+  font-size: .78rem; font-weight: 500; letter-spacing: .03em; font-variant-numeric: tabular-nums;
+}
+.bx-circles {
+  display: flex; gap: .3rem; margin-top: 1.5rem; flex: 1 1 auto;
+}
+
+/* D · info — no sfondo, testo su card */
+.bx-info {
+  background: transparent; border-radius: 0; padding: .5rem 0 0;
+  display: flex; flex-direction: column;
+  flex: 0 0 160px; min-height: 0; margin-top: 8px;
+}
+.bx-info .text-wrap { display: flex; flex-direction: column; justify-content: center; flex: 1 1 auto; }
+.bx-info .it {
+  color: #f9ede9;
+  font-size: 1.55rem; font-weight: 500; letter-spacing: -.04em; line-height: 1.02; text-wrap: balance;
+}
+.bx-info .it span { display: block; }
+.bx-info .ds {
+  margin-top: .5rem; color: rgba(249,237,233,.72);
+  font-size: .85rem; line-height: 1.52; text-wrap: pretty;
+}
+.bx-info .foot { display: flex; justify-content: flex-end; margin-top: auto; padding-top: .4rem; }
+
+/* Cerchi compositori */
+.bx-author {
+  flex: 1 1 0; aspect-ratio: 1; border: none; background: none; padding: 0; cursor: pointer; position: relative;
+}
+.bx-author .ph {
+  position: absolute; inset: 0; border-radius: 50%; overflow: hidden; background: #b56c5c;
+  transition: filter .26s ease;
+}
+.bx-author .ph img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 26%; display: block; }
+.bx-author:not(.active) .ph { filter: grayscale(.7) brightness(.9); opacity: .5; }
+.bx-author:not(.active):hover .ph { filter: grayscale(.15); opacity: .82; }
+.bx-author.active .ph { filter: none; }
+
+/* Freccia (su sfondo colorato) */
+.bx-arrow {
+  width: 1.85rem; height: 1.85rem; border-radius: 50%;
+  background: rgba(249,237,233,.22); color: #f9ede9; border: none; cursor: pointer;
+  display: grid; place-items: center; transition: background .18s, transform .18s; flex: 0 0 auto;
+}
+.bx-arrow:hover { background: rgba(249,237,233,.4); transform: translate(2px,-2px); }
+.bx-arrow svg { display: block; }
+
+/* Animazione fade info */
+.bx-fade { animation: bxf .34s ease; }
+@keyframes bxf { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
