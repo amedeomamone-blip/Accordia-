@@ -9,7 +9,7 @@ body[data-nav="home"] .barocco-card {
 
 /* La card Barocco */
 .barocco-card {
-  padding: 1.25rem 1.1rem 1.1rem !important;
+  padding: 2.5rem 4.5rem 2.5rem !important;
   gap: 0 !important;
   background: #C37A6B !important;
   cursor: pointer;
@@ -45,7 +45,7 @@ body[data-nav="home"] .barocco-card {
 .bx-title h3 {
   margin: 0;
   color: #f9ede9;
-  font-size: 1.95rem;
+  font-size: clamp(1.95rem, 4vw, 2.4rem);
   font-weight: 700;
   letter-spacing: -.055em;
   line-height: .86;
@@ -71,7 +71,7 @@ body[data-nav="home"] .barocco-card {
 }
 .bx-intro .lab {
   color: #f9ede9;
-  font-size: 1.55rem;
+  font-size: clamp(1.55rem, 3.2vw, 1.85rem);
   font-weight: 500;
   letter-spacing: -.04em;
   line-height: .92;
@@ -90,7 +90,7 @@ body[data-nav="home"] .barocco-card {
 }
 .bx-comp .nm {
   color: #f9ede9;
-  font-size: 1.55rem;
+  font-size: clamp(1.55rem, 3.2vw, 1.85rem);
   font-weight: 500;
   letter-spacing: -.04em;
   line-height: .92;
@@ -125,7 +125,7 @@ body[data-nav="home"] .barocco-card {
 }
 .bx-info .it {
   color: #f9ede9;
-  font-size: 1.25rem;
+  font-size: clamp(1.25rem, 2.6vw, 1.45rem);
   font-weight: 500;
   letter-spacing: -.04em;
   line-height: 1.02;
@@ -135,7 +135,7 @@ body[data-nav="home"] .barocco-card {
 .bx-info .ds {
   margin-top: .3rem;
   color: rgba(249,237,233,.72);
-  font-size: .76rem;
+  font-size: clamp(.76rem, 1.4vw, .88rem);
   line-height: 1.45;
   text-wrap: pretty;
 }
