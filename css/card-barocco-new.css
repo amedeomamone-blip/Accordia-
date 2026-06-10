@@ -45,7 +45,7 @@ body[data-nav="home"] .home-era-card {
   margin: 0;
   color: #f9ede9;
   font-size: clamp(1.95rem, 4vw, 2.4rem);
-  font-weight: 750;
+  font-weight: 650;
   letter-spacing: -.055em;
   line-height: .86;
   text-transform: none !important;
@@ -55,7 +55,7 @@ body[data-nav="home"] .home-era-card {
   margin-top: .2rem;
   color: rgba(249,237,233,.6);
   font-size: .78rem;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: .1em;
   text-transform: uppercase;
   font-variant-numeric: tabular-nums;
