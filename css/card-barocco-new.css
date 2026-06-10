@@ -12,7 +12,7 @@ body[data-nav="home"] .home-era-card {
 
 /* La card Barocco — cornice uniforme */
 .barocco-card {
-  padding: clamp(1.9rem, 2.6vw, 2.5rem) !important;
+  padding: clamp(1.9rem, 2.6vw, 2.5rem) 1.3rem !important;
   gap: 0 !important;
   background: #C37A6B !important;
   cursor: pointer;
@@ -37,33 +37,28 @@ body[data-nav="home"] .home-era-card {
   font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
 }
 
-/* Micro-label condivisa: era e date dei compositori parlano la stessa lingua */
-.bx-title .era,
-.bx-comp .dt {
-  display: block;
-  color: rgba(249,237,233,.55);
-  font-size: .72rem;
-  font-weight: 600;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  font-variant-numeric: tabular-nums;
-}
-
-/* A · titolo — display dominante */
+/* A · titolo */
 .bx-title {
   flex: 0 0 auto;
 }
 .bx-title h3 {
   margin: 0;
   color: #f9ede9;
-  font-size: clamp(2.5rem, 4.6vw, 3rem);
+  font-size: clamp(1.95rem, 4vw, 2.4rem);
   font-weight: 700;
-  letter-spacing: -.05em;
-  line-height: .84;
+  letter-spacing: -.055em;
+  line-height: .86;
   text-transform: none !important;
 }
 .bx-title .era {
-  margin-top: .55rem;
+  display: block;
+  margin-top: .2rem;
+  color: rgba(249,237,233,.6);
+  font-size: .78rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
 }
 
 /* B · intro — testo e freccia sulla stessa riga, basi allineate */
@@ -78,10 +73,10 @@ body[data-nav="home"] .home-era-card {
 }
 .bx-intro .lab {
   color: #f9ede9;
-  font-size: clamp(1.45rem, 2.6vw, 1.7rem);
+  font-size: clamp(1.55rem, 3.2vw, 1.85rem);
   font-weight: 500;
-  letter-spacing: -.035em;
-  line-height: 1;
+  letter-spacing: -.04em;
+  line-height: .92;
 }
 .bx-intro .foot {
   display: flex;
@@ -98,14 +93,20 @@ body[data-nav="home"] .home-era-card {
 }
 .bx-comp .nm {
   color: #f9ede9;
-  font-size: clamp(1.45rem, 2.6vw, 1.7rem);
+  font-size: clamp(1.55rem, 3.2vw, 1.85rem);
   font-weight: 500;
-  letter-spacing: -.035em;
-  line-height: .94;
+  letter-spacing: -.04em;
+  line-height: .92;
 }
 .bx-comp .nm span { display: block; }
 .bx-comp .dt {
-  margin-top: .45rem;
+  display: block;
+  margin-top: .12rem;
+  color: rgba(249,237,233,.65);
+  font-size: .78rem;
+  font-weight: 500;
+  letter-spacing: .03em;
+  font-variant-numeric: tabular-nums;
 }
 .bx-circles {
   display: flex;
@@ -129,20 +130,20 @@ body[data-nav="home"] .home-era-card {
 }
 .bx-info .it {
   color: #f9ede9;
-  font-size: clamp(1.2rem, 2.1vw, 1.4rem);
+  font-size: clamp(1.25rem, 2.6vw, 1.45rem);
   font-weight: 500;
-  letter-spacing: -.03em;
-  line-height: 1.08;
+  letter-spacing: -.04em;
+  line-height: 1.02;
   text-wrap: balance;
 }
 .bx-info .it span { display: block; }
 .bx-info .ds {
-  margin-top: .55rem;
+  margin-top: .5rem;
   max-width: 26ch;
-  color: rgba(249,237,233,.66);
-  font-size: .84rem;
+  color: rgba(249,237,233,.72);
+  font-size: clamp(.76rem, 1.4vw, .88rem);
   font-weight: 400;
-  line-height: 1.55;
+  line-height: 1.45;
   text-wrap: pretty;
 }
 .bx-info .foot {
