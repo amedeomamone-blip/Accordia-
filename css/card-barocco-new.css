@@ -1,15 +1,18 @@
 /* ============================================================
-   Card Barocco — nuovo design
+   Card Barocco — composizione armonica
+   Sistema: cornice di padding uniforme, scala tipografica a 4
+   livelli (display / sezione / info / micro-label), ritmo
+   verticale con respiro flessibile sopra il blocco compositori.
    ============================================================ */
 
-/* Stessa altezza delle altre card — nessun override, eredita da home-timeline-flow-overrides.css */
-body[data-nav="home"] .barocco-card {
+/* Raggio uniforme per tutte le card (era in home-timeline-barocco-colors.css) */
+body[data-nav="home"] .home-era-card {
   border-radius: 16px !important;
 }
 
-/* La card Barocco */
+/* La card Barocco — cornice uniforme */
 .barocco-card {
-  padding: 2.5rem 4.5rem 2.5rem !important;
+  padding: clamp(1.9rem, 2.6vw, 2.5rem) !important;
   gap: 0 !important;
   background: #C37A6B !important;
   cursor: pointer;
@@ -26,123 +29,126 @@ body[data-nav="home"] .barocco-card {
 }
 .barocco-card:hover strong { color: inherit !important; }
 
-/* Layout interno — space-between distribuisce gli elementi sull'altezza fissa */
+/* Layout interno */
 .bx {
   display: flex;
   flex-direction: column;
   height: 100%;
-  justify-content: space-between;
   font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
 }
 
-/* A · titolo */
-.bx-title {
-  flex: 0 0 auto;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-}
-.bx-title h3 {
-  margin: 0;
-  color: #f9ede9;
-  font-size: clamp(1.95rem, 4vw, 2.4rem);
-  font-weight: 700;
-  letter-spacing: -.055em;
-  line-height: .86;
-  text-transform: none !important;
-}
-.bx-title .era {
+/* Micro-label condivisa: era e date dei compositori parlano la stessa lingua */
+.bx-title .era,
+.bx-comp .dt {
   display: block;
-  margin-top: .2rem;
-  color: rgba(249,237,233,.6);
-  font-size: .78rem;
-  font-weight: 700;
-  letter-spacing: .1em;
+  color: rgba(249,237,233,.55);
+  font-size: .72rem;
+  font-weight: 600;
+  letter-spacing: .18em;
   text-transform: uppercase;
   font-variant-numeric: tabular-nums;
 }
 
-/* B · intro */
+/* A · titolo — display dominante */
+.bx-title {
+  flex: 0 0 auto;
+}
+.bx-title h3 {
+  margin: 0;
+  color: #f9ede9;
+  font-size: clamp(2.5rem, 4.6vw, 3rem);
+  font-weight: 700;
+  letter-spacing: -.05em;
+  line-height: .84;
+  text-transform: none !important;
+}
+.bx-title .era {
+  margin-top: .55rem;
+}
+
+/* B · intro — testo e freccia sulla stessa riga, basi allineate */
 .bx-intro {
   flex: 0 0 auto;
+  margin-top: clamp(2rem, 3.4vw, 2.8rem);
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  align-items: flex-end;
   justify-content: space-between;
+  gap: 1rem;
 }
 .bx-intro .lab {
   color: #f9ede9;
-  font-size: clamp(1.55rem, 3.2vw, 1.85rem);
+  font-size: clamp(1.45rem, 2.6vw, 1.7rem);
   font-weight: 500;
-  letter-spacing: -.04em;
-  line-height: .92;
+  letter-spacing: -.035em;
+  line-height: 1;
 }
 .bx-intro .foot {
   display: flex;
-  justify-content: flex-end;
-  margin-top: .5rem;
+  flex: 0 0 auto;
 }
 
-/* C · compositori */
+/* Respiro flessibile: spinge il cluster compositori+info verso il basso */
 .bx-comp {
   flex: 0 0 auto;
+  margin-top: auto;
+  padding-top: 2.2rem;
   display: flex;
   flex-direction: column;
 }
 .bx-comp .nm {
   color: #f9ede9;
-  font-size: clamp(1.55rem, 3.2vw, 1.85rem);
+  font-size: clamp(1.45rem, 2.6vw, 1.7rem);
   font-weight: 500;
-  letter-spacing: -.04em;
-  line-height: .92;
+  letter-spacing: -.035em;
+  line-height: .94;
 }
 .bx-comp .nm span { display: block; }
 .bx-comp .dt {
-  margin-top: .12rem;
-  color: rgba(249,237,233,.65);
-  font-size: .78rem;
-  font-weight: 500;
-  letter-spacing: .03em;
-  font-variant-numeric: tabular-nums;
+  margin-top: .45rem;
 }
 .bx-circles {
   display: flex;
-  gap: .3rem;
-  margin-top: .75rem;
+  gap: .45rem;
+  margin-top: 1.1rem;
 }
 
-/* D · info */
+/* D · info — separato da un filo sottile, descrizione con gabbia stretta */
 .bx-info {
   background: transparent;
-  padding: 0;
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;
+  margin-top: 1.5rem;
+  padding: 1.3rem 0 0;
+  border-top: 1px solid rgba(249,237,233,.28);
 }
 .bx-info .text-wrap {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
 }
 .bx-info .it {
   color: #f9ede9;
-  font-size: clamp(1.25rem, 2.6vw, 1.45rem);
+  font-size: clamp(1.2rem, 2.1vw, 1.4rem);
   font-weight: 500;
-  letter-spacing: -.04em;
-  line-height: 1.02;
+  letter-spacing: -.03em;
+  line-height: 1.08;
   text-wrap: balance;
 }
 .bx-info .it span { display: block; }
 .bx-info .ds {
-  margin-top: .3rem;
-  color: rgba(249,237,233,.72);
-  font-size: clamp(.76rem, 1.4vw, .88rem);
-  line-height: 1.45;
+  margin-top: .55rem;
+  max-width: 26ch;
+  color: rgba(249,237,233,.66);
+  font-size: .84rem;
+  font-weight: 400;
+  line-height: 1.55;
   text-wrap: pretty;
 }
 .bx-info .foot {
   display: flex;
   justify-content: flex-end;
-  margin-top: .35rem;
+  margin-top: .6rem;
 }
 
 /* Cerchi compositori */
@@ -161,7 +167,7 @@ body[data-nav="home"] .barocco-card {
   border-radius: 50%;
   overflow: hidden;
   background: #b56c5c;
-  transition: filter .26s ease;
+  transition: filter .26s ease, opacity .26s ease, transform .26s ease;
 }
 .bx-author .ph img {
   width: 100%;
@@ -170,16 +176,16 @@ body[data-nav="home"] .barocco-card {
   object-position: 50% 26%;
   display: block;
 }
-.bx-author:not(.active) .ph { filter: grayscale(.7) brightness(.9); opacity: .5; }
-.bx-author:not(.active):hover .ph { filter: grayscale(.15); opacity: .82; }
-.bx-author.active .ph { filter: none; }
+.bx-author:not(.active) .ph { filter: grayscale(.7) brightness(.9); opacity: .42; }
+.bx-author:not(.active):hover .ph { filter: grayscale(.15); opacity: .85; }
+.bx-author.active .ph { filter: none; transform: scale(1.06); }
 
 /* Freccia */
 .bx-arrow {
-  width: 1.85rem;
-  height: 1.85rem;
+  width: 2.1rem;
+  height: 2.1rem;
   border-radius: 50%;
-  background: rgba(249,237,233,.22);
+  background: rgba(249,237,233,.2);
   color: #f9ede9;
   border: none;
   cursor: pointer;
