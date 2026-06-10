@@ -9,7 +9,7 @@ body[data-nav="home"] .barocco-card {
 
 /* La card Barocco */
 .barocco-card {
-  padding: 2rem 3rem 2rem !important;
+  padding: 2.5rem 4.5rem 2.5rem !important;
   gap: 0 !important;
   background: #C37A6B !important;
   cursor: pointer;
