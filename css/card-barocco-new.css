@@ -140,7 +140,6 @@ body[data-nav="home"] .home-era-card {
 .bx-info .it span { display: block; }
 .bx-info .ds {
   margin-top: .5rem;
-  max-width: 26ch;
   color: rgba(249,237,233,.72);
   font-size: clamp(.76rem, 1.4vw, .88rem);
   font-weight: 400;
