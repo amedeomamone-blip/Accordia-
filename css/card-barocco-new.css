@@ -114,12 +114,12 @@ body[data-nav="home"] .home-era-card {
   margin-top: 1.1rem;
 }
 
-/* D · info — separato da un filo sottile, descrizione con gabbia stretta */
+/* D · info — separato da un filo sottile */
 .bx-info {
   background: transparent;
   display: flex;
   flex-direction: column;
-  flex: 1 1 auto;
+  flex: 0 0 auto;
   margin-top: 1.5rem;
   padding: 1.3rem 0 0;
   border-top: 1px solid rgba(249,237,233,.28);
@@ -127,15 +127,19 @@ body[data-nav="home"] .home-era-card {
 .bx-info .text-wrap {
   display: flex;
   flex-direction: column;
-  flex: 1 1 auto;
+  flex: 0 0 auto;
 }
 .bx-info .it {
   color: #f9ede9;
   font-size: clamp(1.25rem, 2.6vw, 1.45rem);
   font-weight: 600;
   letter-spacing: -.04em;
-  line-height: 1.02;
-  text-wrap: balance;
+  line-height: 1.1;
+  min-height: 2.2em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .bx-info .it span { display: block; }
 .bx-info .ds {
@@ -144,13 +148,51 @@ body[data-nav="home"] .home-era-card {
   font-size: clamp(.76rem, 1.4vw, .88rem);
   font-weight: 400;
   line-height: 1.45;
-  text-wrap: pretty;
+  min-height: 2.9em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 .bx-info .foot {
   display: flex;
   justify-content: flex-end;
-  margin-top: auto;
-  padding-top: .8rem;
+  margin-top: .7rem;
+}
+
+/* iPhone */
+@media (max-width: 480px) {
+  .barocco-card {
+    padding: 1.2rem 1.1rem !important;
+  }
+  .bx-intro {
+    margin-top: 1.2rem;
+  }
+  .bx-intro .lab {
+    font-size: 1.35rem;
+  }
+  .bx-comp {
+    padding-top: 1.3rem;
+  }
+  .bx-comp .nm {
+    font-size: 1.35rem;
+  }
+  .bx-circles {
+    margin-top: .6rem;
+  }
+  .bx-info {
+    margin-top: .9rem;
+    padding-top: .9rem;
+  }
+  .bx-info .it {
+    font-size: 1.1rem;
+  }
+  .bx-info .ds {
+    font-size: .74rem;
+  }
+  .bx-info .foot {
+    margin-top: .5rem;
+  }
 }
 
 /* Cerchi compositori */
