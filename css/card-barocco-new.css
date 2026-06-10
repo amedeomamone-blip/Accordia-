@@ -2,14 +2,9 @@
    Card Barocco — nuovo design
    ============================================================ */
 
-/* Altezza ridotta (rapporto 0.82:1) e breathing room dai bordi */
+/* Stessa altezza delle altre card — nessun override, eredita da home-timeline-flow-overrides.css */
 body[data-nav="home"] .barocco-card {
-  height: calc(var(--home-era-card-width) / 0.82) !important;
-  min-height: 0 !important;
-  max-height: none !important;
-  aspect-ratio: unset !important;
   border-radius: 16px !important;
-  align-self: flex-start !important;
 }
 
 /* La card Barocco */
