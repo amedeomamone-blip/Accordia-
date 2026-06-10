@@ -1,15 +1,16 @@
 /* ============================================================
-   Card Barocco — nuovo design (da Accordia Preview.html)
-   Da linkare DOPO home-timeline-barocco-colors.css in index.html
+   Card Barocco — nuovo design
+   Scoped a .barocco-card per non toccare le altre card
    ============================================================ */
 
-/* Dimensione card */
-.home-era-card {
-  aspect-ratio: 0.715/1 !important;
+/* Sovrascrive solo la card Barocco: altezza auto, no aspect-ratio fisso */
+body[data-nav="home"] .barocco-card {
   height: auto !important;
   min-height: 0 !important;
   max-height: none !important;
+  aspect-ratio: unset !important;
   border-radius: 16px !important;
+  align-self: flex-start !important;
 }
 
 /* La card Barocco */
