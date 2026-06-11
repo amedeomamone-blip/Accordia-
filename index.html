@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/style.css?v=1780986203">
     <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780919039">
     <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1780948981">
-    <link rel="stylesheet" href="css/home-nuclei-list.css?v=1781364000">
+    <link rel="stylesheet" href="css/home-nuclei-list.css?v=1781368000">
 </head>
 <body data-nav="home">
     <header class="site-header">
@@ -116,6 +116,22 @@
     <script>
         (function () {
             const heroFrame = document.querySelector('.home-hero__frame');
+            const siteHeader = document.querySelector('.site-header');
+            const homeHero = document.querySelector('.home-hero');
+
+            // La hero deve riempire esattamente il primo viewport: l'altezza
+            // dell'header nel CSS è un valore fisso che su alcuni dispositivi
+            // (es. iPhone) non corrisponde a quella reale, facendo spuntare
+            // il titolo della seconda schermata. Qui usiamo la misura reale.
+            if (siteHeader && homeHero) {
+                function syncHeaderHeight() {
+                    homeHero.style.setProperty('--home-header-height', siteHeader.offsetHeight + 'px');
+                }
+                syncHeaderHeight();
+                window.addEventListener('resize', syncHeaderHeight);
+                window.addEventListener('load', syncHeaderHeight);
+            }
+
             const timelineHeading = document.querySelector('.home-section__heading--timeline');
             const timelineHeadingTitle = timelineHeading ? timelineHeading.querySelector('h2') : null;
             const timelineHeadingCopy = timelineHeading ? timelineHeading.querySelector('p:last-child') : null;
