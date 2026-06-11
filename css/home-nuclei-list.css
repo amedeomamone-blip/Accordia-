@@ -133,7 +133,7 @@ body[data-nav="home"] .nuclei-col__tile {
     animation-delay: var(--blink-delay, 0s);
     transition: background-color .3s ease;
 }
-/* Medioevo: ocra dorata #D9B36A — il contrasto da acceso è nero, non bianco */
+/* Medioevo: sabbia pergamena #D9C89E — il contrasto da acceso è nero, non bianco */
 body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(1) {
     --tile-bg: #f7f6f4;
     --blink-delay: 0s;
@@ -141,7 +141,7 @@ body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(1) {
     --lit-arrow-bg: rgba(17,17,17,.14);
     --lit-arrow-fg: #18191b;
 }
-/* Rinascimento: verde salvia #A9C4A4 — contrasto da acceso in nero */
+/* Rinascimento: lilla polveroso #B5A3C5 — contrasto da acceso in nero */
 body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(2) {
     --tile-bg: #f3f4f2;
     --blink-delay: 2s;
