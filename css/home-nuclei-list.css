@@ -60,16 +60,18 @@ body[data-nav="home"] .nuclei-col__num {
     display: none;
 }
 
-/* Titolo */
+/* Titolo — l'effetto dei vecchi numeri: grande, grigio tenue,
+   accento di palette al passaggio. Mai in maiuscolo. */
 body[data-nav="home"] .nuclei-col__title {
-    margin: 0 0 .5rem;
+    margin: 0 0 .6rem;
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: clamp(1.15rem, 1.4vw, 1.45rem);
+    font-size: clamp(1.6rem, 2.1vw, 2.2rem);
     font-weight: 700;
-    letter-spacing: -.03em;
-    line-height: 1.05;
-    color: #111111;
-    transition: color .18s ease;
+    letter-spacing: -.04em;
+    line-height: .98;
+    color: rgba(17,17,17,.28);
+    text-transform: none;
+    transition: color .2s ease;
 }
 body[data-nav="home"] .nuclei-col:hover .nuclei-col__title {
     color: var(--accent, #111111);
@@ -129,7 +131,7 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__arrow {
         padding: 0 1rem;
     }
     body[data-nav="home"] .nuclei-col__title {
-        font-size: 1rem;
+        font-size: 1.35rem;
     }
     body[data-nav="home"] .nuclei-col__desc {
         font-size: .78rem;
