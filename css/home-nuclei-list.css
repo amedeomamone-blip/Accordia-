@@ -44,8 +44,8 @@ body[data-nav="home"] .home-section__heading--timeline h2 {
     text-align: left !important;
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
     /* Display in stampatello su due righe, come il riferimento:
-       "UN PERCORSO STORICO IN SEI" / "NUCLEI DI APPRENDIMENTO" */
-    font-size: clamp(1.6rem, 5.4vw, 6.5rem) !important;
+       "UN PERCORSO STORICO IN" / "6 NUCLEI DI APPRENDIMENTO" (1.3em) */
+    font-size: clamp(1.3rem, 4.6vw, 5.4rem) !important;
     font-weight: 800;
     letter-spacing: -.03em;
     line-height: .95 !important;
@@ -55,41 +55,13 @@ body[data-nav="home"] .home-section__heading--timeline h2 {
     transform: none !important;
 }
 
-/* ── Il "6": solo contorno, vuoto dentro, cicla i sei colori
-      della palette al ritmo delle mattonelle che si accendono ── */
-body[data-nav="home"] .home-section__heading--timeline h2 .heading-six {
-    color: transparent;
-    -webkit-text-stroke: .045em #24483d;
-    font-variant-numeric: lining-nums;
-    animation: six-palette 12s linear infinite;
-}
-@keyframes six-palette {
-    0%, 16.6%    { -webkit-text-stroke-color: #24483d; }
-    16.7%, 33.3% { -webkit-text-stroke-color: #5c3f21; }
-    33.4%, 50%   { -webkit-text-stroke-color: #C37A6B; }
-    50.1%, 66.6% { -webkit-text-stroke-color: #03363d; }
-    66.7%, 83.3% { -webkit-text-stroke-color: #3e365d; }
-    83.4%, 100%  { -webkit-text-stroke-color: #243e63; }
-}
-/* Fallback senza text-stroke: numero pieno che cicla i colori */
-@supports not (-webkit-text-stroke: 1px #000) {
-    body[data-nav="home"] .home-section__heading--timeline h2 .heading-six {
-        color: #24483d;
-        animation: six-palette-fill 12s linear infinite;
-    }
-    @keyframes six-palette-fill {
-        0%, 16.6%    { color: #24483d; }
-        16.7%, 33.3% { color: #5c3f21; }
-        33.4%, 50%   { color: #C37A6B; }
-        50.1%, 66.6% { color: #03363d; }
-        66.7%, 83.3% { color: #3e365d; }
-        83.4%, 100%  { color: #243e63; }
-    }
-}
-@media (prefers-reduced-motion: reduce) {
-    body[data-nav="home"] .home-section__heading--timeline h2 .heading-six {
-        animation: none;
-    }
+/* ── Seconda riga "6 nuclei di apprendimento": più grande,
+      più pesante, in corsivo ── */
+body[data-nav="home"] .home-section__heading--timeline h2 .heading-emphasis {
+    font-size: 1.3em;
+    font-weight: 900;
+    font-style: italic;
+    letter-spacing: -.04em;
 }
 
 /* Istruzione per lo studente — una riga, allineata al titolo */
