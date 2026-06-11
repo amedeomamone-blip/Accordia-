@@ -141,7 +141,14 @@ body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(1) {
     --lit-arrow-bg: rgba(17,17,17,.14);
     --lit-arrow-fg: #18191b;
 }
-body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(2) { --tile-bg: #f3f4f2; --blink-delay: 2s; }
+/* Rinascimento: mint cloud #DFF4EC — contrasto da acceso in nero */
+body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(2) {
+    --tile-bg: #f3f4f2;
+    --blink-delay: 2s;
+    --lit-num: rgba(17,17,17,.85);
+    --lit-arrow-bg: rgba(17,17,17,.14);
+    --lit-arrow-fg: #18191b;
+}
 body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(3) { --tile-bg: #f8f3f1; --blink-delay: 4s; }
 body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(4) { --tile-bg: #f1f4f4; --blink-delay: 6s; }
 body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(5) { --tile-bg: #f4f3f6; --blink-delay: 8s; }
