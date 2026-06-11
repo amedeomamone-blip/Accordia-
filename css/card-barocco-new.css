@@ -152,11 +152,12 @@
   margin-top: .6rem;
 }
 
-/* Cerchi compositori — piccoli, fissi */
+/* Cerchi compositori — a tutta larghezza della card */
 .bx-author {
-  flex: 0 0 2.8rem;
-  width: 2.8rem;
-  height: 2.8rem;
+  flex: 1 1 0;
+  width: auto;
+  height: auto;
+  aspect-ratio: 1;
   border: none;
   background: none;
   padding: 0;
@@ -169,7 +170,7 @@
   inset: 0;
   border-radius: 50%;
   overflow: hidden;
-  background: #ececec;
+  background: #f2f0ed;
   transition: filter .26s ease, opacity .26s ease, transform .26s ease;
 }
 .bx-author .ph img {
@@ -179,14 +180,24 @@
   object-position: 50% 22%;
   display: block;
 }
-.bx-author:not(.active) .ph { filter: grayscale(1); opacity: .35; }
-.bx-author:not(.active):hover .ph { filter: grayscale(.3); opacity: .8; }
-.bx-author.active .ph { filter: grayscale(0); transform: scale(1.08); }
+/* Ritratti sempre in scala di grigi — armonici col bianco e nero */
+.bx-author .ph img { filter: grayscale(1); }
+.bx-author:not(.active) .ph { opacity: .3; }
+.bx-author:not(.active):hover .ph { opacity: .7; }
+.bx-author.active .ph { opacity: 1; }
+/* L'attivo si distingue con un anello nell'accento di palette */
+.bx-author.active::after {
+  content: "";
+  position: absolute;
+  inset: -5px;
+  border: 2px solid var(--accent, #C37A6B);
+  border-radius: 50%;
+}
 
 /* Freccia — unico punto di colore */
 .bx-arrow {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 1.9rem;
+  height: 1.9rem;
   border-radius: 50%;
   background: var(--accent, #C37A6B);
   color: #ffffff;
@@ -224,10 +235,9 @@
   .bx-comp .nm {
     font-size: 1.2rem;
   }
-  .bx-author {
-    flex: 0 0 2.3rem;
-    width: 2.3rem;
-    height: 2.3rem;
+  .bx-arrow {
+    width: 1.7rem;
+    height: 1.7rem;
   }
   .bx-info .it {
     font-size: .88rem;
