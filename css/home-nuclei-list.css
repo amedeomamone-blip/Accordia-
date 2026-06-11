@@ -50,7 +50,7 @@ body[data-nav="home"] .home-section__heading--timeline h2 {
     letter-spacing: -.03em;
     line-height: .95 !important;
     color: #111111;
-    text-transform: uppercase;
+    text-transform: none;
     white-space: nowrap !important;
     transform: none !important;
 }
@@ -60,7 +60,8 @@ body[data-nav="home"] .home-section__heading--timeline h2 {
 body[data-nav="home"] .home-section__heading--timeline h2 .heading-emphasis {
     font-size: 1.3em;
     font-weight: 900;
-    font-style: italic;
+    font-style: normal;
+    text-transform: uppercase;
     letter-spacing: -.04em;
 }
 
