@@ -1,10 +1,10 @@
 /* ============================================================
-   Home — nuclei in 6 colonne affiancate, solo testo
-   Numero in grassetto in basso a sinistra, freccia a destra,
-   nessuna circonferenza, nessun effetto quadrato al hover.
+   Home — nuclei come 6 mattonelle quadrate su griglia 3×2
+   Grigio chiaro di default, si illuminano con l'accento di
+   palette al passaggio del mouse. Sezione alta 100svh.
    ============================================================ */
 
-/* ── Hero "Un ambiente didattico" — in linea col B&N editoriale ── */
+/* ── Hero lead — in linea col B&N editoriale ── */
 body[data-nav="home"] .home-hero__copy--lead-only .home-hero__lead {
     color: #111111 !important;
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif) !important;
@@ -14,18 +14,26 @@ body[data-nav="home"] .home-hero__copy--lead-only .home-hero__lead {
     line-height: 1.6 !important;
 }
 
-/* ── Intestazione sezione — display centrato ── */
+/* ── Sezione: alta quanto la hero (un solo scroll) ── */
+body[data-nav="home"] .home-section.home-timeline {
+    min-height: 100svh;
+    display: flex !important;
+    flex-direction: column !important;
+    padding: 0 !important;
+    border-bottom: 0;
+}
+
+/* ── Intestazione — compatta, centrata ── */
 body[data-nav="home"] .home-section__heading--timeline {
-    margin-bottom: 2.5rem;
+    flex: 0 0 auto;
+    padding: 2.2rem 1.5rem 2rem;
     text-align: center;
 }
 body[data-nav="home"] .home-section__heading--timeline h2 {
     max-width: none !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
     text-align: center !important;
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: clamp(2rem, 3.8vw, 3.4rem);
+    font-size: clamp(1.6rem, 3vw, 2.8rem);
     font-weight: 750;
     letter-spacing: -.05em;
     line-height: 1;
@@ -37,72 +45,59 @@ body[data-nav="home"] .home-section__heading--timeline p {
     display: none;
 }
 
-/* ── Wrapper ── */
+/* ── Wrapper: occupa tutto lo spazio restante ── */
 body[data-nav="home"] .nuclei-grid-wrap {
-    width: 100%;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+    flex: 1 1 0;
+    overflow: hidden;
 }
-body[data-nav="home"] .nuclei-grid-wrap::-webkit-scrollbar { display: none; }
 
-/* ── Griglia: 6 colonne centrate nella pagina ── */
+/* ── Griglia 3×2: riempie l'altezza disponibile ── */
 body[data-nav="home"] .nuclei-grid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    min-width: 52rem;
-    max-width: var(--shell-max, 75rem);
-    margin: 0 auto;
-    padding: 0 max(1.5rem, calc((100vw - min(100vw, var(--shell-max, 75rem))) / 2 + 1.5rem));
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    height: 100%;
+    min-width: 0;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    gap: 2px;
+    background: #d8d8d8;
 }
 
-/* ── Singola colonna ── */
+/* ── Mattonella ── */
 body[data-nav="home"] .nuclei-col {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 2rem 1.2rem 1.6rem;
-    border: 0;
-    text-decoration: none;
+    justify-content: space-between;
+    padding: 1.8rem;
+    background: #ebebeb;
     color: #111111;
-    background: transparent;
+    text-decoration: none;
+    border: 0;
+    transition: background-color .35s ease, color .35s ease;
+    overflow: hidden;
+    position: relative;
+}
+body[data-nav="home"] .nuclei-col:hover {
+    background: var(--accent);
+    color: #ffffff;
 }
 
-/* Titolo — effetto numeri: grigio tenue → accento al passaggio */
+/* Titolo — grande, display, muted di default */
 body[data-nav="home"] .nuclei-col__title {
-    margin: 0 0 .5rem;
+    margin: 0;
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: clamp(1.5rem, 1.8vw, 2rem);
-    font-weight: 700;
+    font-size: clamp(1.4rem, 2.4vw, 2.6rem);
+    font-weight: 750;
     letter-spacing: -.04em;
-    line-height: .98;
-    color: rgba(17,17,17,.28);
+    line-height: .97;
+    color: rgba(17,17,17,.45);
     text-transform: none;
-    transition: color .2s ease;
+    transition: color .35s ease;
 }
 body[data-nav="home"] .nuclei-col:hover .nuclei-col__title {
-    color: var(--accent, #111111);
-}
-
-/* Data */
-body[data-nav="home"] .nuclei-col__date {
-    display: block;
-    font-size: .7rem;
-    font-weight: 600;
-    letter-spacing: .08em;
-    color: rgba(17,17,17,.4);
-    font-variant-numeric: tabular-nums;
-    margin-bottom: .9rem;
-}
-
-/* Descrizione — sottile, evocativa */
-body[data-nav="home"] .nuclei-col__desc {
-    margin: 0;
-    font-size: .8rem;
-    font-weight: 300;
-    line-height: 1.5;
-    color: rgba(17,17,17,.5);
-    flex: 1 1 auto;
+    color: rgba(255,255,255,.95);
 }
 
 /* Riga di fondo: numero a sinistra, freccia a destra */
@@ -111,59 +106,65 @@ body[data-nav="home"] .nuclei-col__bottom {
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin-top: 1.4rem;
+    margin-top: auto;
+    padding-top: 1rem;
 }
 
-/* Numero — grassetto senza circonferenza */
+/* Numero — bold, muted, nessuna circonferenza */
 body[data-nav="home"] .nuclei-col__num {
     font-size: .72rem;
     font-weight: 700;
-    letter-spacing: .06em;
-    color: rgba(17,17,17,.3);
+    letter-spacing: .07em;
+    color: rgba(17,17,17,.35);
     font-variant-numeric: tabular-nums;
-    transition: color .2s ease;
+    transition: color .35s ease;
 }
 body[data-nav="home"] .nuclei-col:hover .nuclei-col__num {
-    color: var(--accent, #111111);
-    opacity: .6;
+    color: rgba(255,255,255,.6);
 }
 
-/* Freccia — piccola, a destra, con accento di palette */
+/* Freccia — piccolo cerchio, adattivo al contesto */
 body[data-nav="home"] .nuclei-col__arrow {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1.4rem;
-    height: 1.4rem;
+    width: 1.5rem;
+    height: 1.5rem;
     border-radius: 50%;
-    background: var(--accent, #111111);
-    color: #ffffff;
-    font-size: .65rem;
+    background: rgba(17,17,17,.12);
+    color: rgba(17,17,17,.7);
+    font-size: .7rem;
     line-height: 1;
     flex: 0 0 auto;
-    transition: transform .18s ease;
+    transition: background .35s ease, color .35s ease, transform .18s ease;
 }
 body[data-nav="home"] .nuclei-col:hover .nuclei-col__arrow {
+    background: rgba(255,255,255,.28);
+    color: #ffffff;
     transform: translate(2px, -2px);
 }
 
-/* Mobile */
+/* ── Mobile: 2 colonne × 3 righe ── */
 @media (max-width: 600px) {
+    body[data-nav="home"] .home-section.home-timeline {
+        min-height: auto;
+    }
     body[data-nav="home"] .home-section__heading--timeline h2 {
-        font-size: 1.9rem !important;
+        font-size: 1.5rem !important;
+    }
+    body[data-nav="home"] .nuclei-grid-wrap {
+        flex: none;
     }
     body[data-nav="home"] .nuclei-grid {
-        grid-template-columns: repeat(3, minmax(9rem, 1fr));
-        min-width: 0;
-        padding: 0 1rem;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        height: auto;
     }
     body[data-nav="home"] .nuclei-col {
-        padding: 1.3rem 1rem 1.2rem;
+        padding: 1.2rem;
+        aspect-ratio: 1;
     }
     body[data-nav="home"] .nuclei-col__title {
-        font-size: 1.3rem;
-    }
-    body[data-nav="home"] .nuclei-col__desc {
-        font-size: .75rem;
+        font-size: 1.2rem;
     }
 }
