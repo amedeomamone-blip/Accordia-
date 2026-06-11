@@ -1,13 +1,7 @@
-/* ============================================================
-   Home — 6 mattonelle quadrate attaccate, da margine a margine
-   Si illuminano a intermittenza con i colori piatti di palette.
-   Titolo da solo appena sotto la mattonella.
-   ============================================================ */
-
-/* ── Header: wordmark "accordia" a destra ── */
 body[data-nav="home"] .site-header__inner {
     flex-direction: row-reverse;
 }
+
 body[data-nav="home"] .brand--wordmark {
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
     font-size: 1.45rem;
@@ -19,203 +13,232 @@ body[data-nav="home"] .brand--wordmark {
     text-decoration: none;
 }
 
-/* ── Seconda schermata: titolo + istruzione + riquadri + footer
-      in un viewport. Il footer è fuori dalla sezione, quindi la
-      sezione occupa 100svh meno l'altezza del footer compatto. ── */
-body[data-nav="home"] .home-section.home-timeline {
-    min-height: calc(100svh - 5rem);
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: center;
-    padding: 2.5rem 0 3rem !important;
-    border-bottom: 0;
+body[data-nav="home"] .home-page--single-stage {
+    min-height: 100svh;
+    background: #ffffff;
 }
 
-/* ── Intestazione — vicina ai riquadri, centrata ── */
-body[data-nav="home"] .home-section__heading--timeline {
-    flex: 0 0 auto;
-    padding: 0 1.5vw;
-    margin: 0 0 2.2vw;
-    text-align: left;
-}
-body[data-nav="home"] .home-section__heading--timeline h2 {
-    margin: 0;
-    max-width: none !important;
-    text-align: left !important;
-    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    /* Solo vw: le proporzioni col resto della pagina restano identiche
-       a qualsiasi zoom e larghezza di finestra */
-    font-size: 3.8vw !important;
-    font-weight: 800;
-    letter-spacing: -.03em;
-    line-height: .95 !important;
-    color: #111111;
-    text-transform: none;
-    white-space: nowrap !important;
-    transform: none !important;
+body[data-nav="home"] .home-stage {
+    --home-stage-scroll-range: 24rem;
+    --home-stage-progress: 0;
+    --home-stage-tiles-shift: 0px;
+    --home-stage-tiles-opacity: 0;
+    position: relative;
+    min-height: calc(100svh - var(--home-header-height, 4.35rem) + var(--home-stage-scroll-range));
+    background: #ffffff;
 }
 
-/* ── Seconda riga "6 nuclei di apprendimento": più grande,
-      più pesante, in corsivo ── */
-body[data-nav="home"] .home-section__heading--timeline h2 .heading-emphasis {
-    font-size: 1.3em;
-    font-weight: 900;
-    font-style: normal;
-    text-transform: uppercase;
-    letter-spacing: -.04em;
-}
-
-/* Istruzione per lo studente — una riga, allineata al titolo */
-body[data-nav="home"] .home-section__heading--timeline .nuclei-instruction {
-    display: block;
-    margin: .9vw 0 0;
-    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: 1.15vw !important;
-    font-weight: 300;
-    letter-spacing: .01em;
-    line-height: 1.5 !important;
-    color: rgba(17,17,17,.55);
-    text-align: left !important;
-    white-space: nowrap !important;
-    transform: none !important;
-}
-
-/* ── Wrapper: i riquadri subito sotto l'intestazione ── */
-body[data-nav="home"] .nuclei-grid-wrap {
-    flex: 0 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+body[data-nav="home"] .home-stage__sticky {
+    position: sticky;
+    top: var(--home-header-height, 4.35rem);
+    height: calc(100svh - var(--home-header-height, 4.35rem));
     overflow: hidden;
+    background: #ffffff;
+}
+
+body[data-nav="home"] .home-hero--single-stage,
+body[data-nav="home"] .home-stage__tiles {
+    position: absolute;
+    inset: 0;
+}
+
+body[data-nav="home"] .home-hero--single-stage {
+    min-height: 0;
     padding: 0;
+    background: #ffffff;
+    overflow: hidden;
 }
 
-/* ── Footer compatto, dentro la seconda schermata ── */
-body[data-nav="home"] .site-footer {
-    padding: 1.6rem 0;
+body[data-nav="home"] .home-hero--single-stage > .shell {
+    width: 100%;
+    max-width: none;
+    height: 100%;
 }
 
-/* ── 6 colonne attaccate, da margine a margine ── */
+body[data-nav="home"] .home-hero--single-stage .home-hero__frame {
+    min-height: 100%;
+    height: 100%;
+}
+
+body[data-nav="home"] .home-hero--single-stage .home-hero__frame::before {
+    content: "Accordia";
+    left: 50%;
+    top: 50%;
+    transform: translate3d(
+        calc(-50% + var(--home-hero-title-shift-x, 0px)),
+        calc(-48% + var(--home-hero-title-shift-y, 0px)),
+        0
+    );
+    color: #18191b;
+    opacity: var(--home-hero-title-opacity, 1);
+    font-size: 14rem;
+    font-weight: 820;
+    line-height: 0.82;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+body[data-nav="home"] .home-stage__tiles {
+    display: grid;
+    align-items: center;
+    padding: 1.25rem 0 1.5rem;
+    transform: translate3d(var(--home-stage-tiles-shift), 0, 0);
+    opacity: var(--home-stage-tiles-opacity);
+    pointer-events: auto;
+    will-change: transform, opacity;
+}
+
+body[data-nav="home"] .nuclei-grid-wrap {
+    width: 100%;
+    overflow: hidden;
+    pointer-events: auto;
+}
+
 body[data-nav="home"] .nuclei-grid {
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
     width: 100%;
     min-width: 0;
-    max-width: none;
-    margin: 0;
-    padding: 0;
     gap: 0;
-    background: transparent;
+    pointer-events: auto;
 }
 
-/* ── Colonna: quadrato + titolo sotto ── */
 body[data-nav="home"] .nuclei-col {
     display: flex;
     flex-direction: column;
-    color: #111111;
+    min-width: 0;
+    color: #18191b;
     text-decoration: none;
-    border: 0;
     background: transparent;
-    overflow: hidden;
-    position: relative;
 }
 
-/* ── Mattonella quadrata — si illumina a intermittenza ── */
 body[data-nav="home"] .nuclei-col__tile {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    aspect-ratio: 1;
+    aspect-ratio: 1 / 1;
     width: 100%;
-    padding: 1.5vw;
-    background-color: var(--tile-bg, #f4f4f4);
+    padding: 1.35rem;
+    background: var(--tile-bg, #f4f4f4);
     animation: nucleo-blink 12s ease-in-out infinite;
     animation-delay: var(--blink-delay, 0s);
-    transition: background-color .3s ease;
+    transition: background-color 220ms ease;
 }
-/* Medioevo: sabbia pergamena #D9C89E — il contrasto da acceso è nero, non bianco */
+
 body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(1) {
     --tile-bg: #f7f6f4;
     --blink-delay: 0s;
-    --lit-num: rgba(17,17,17,.85);
-    --lit-arrow-bg: rgba(17,17,17,.14);
+    --lit-num: rgba(17, 17, 17, 0.85);
+    --lit-arrow-bg: rgba(17, 17, 17, 0.14);
     --lit-arrow-fg: #18191b;
 }
-/* Rinascimento: azzurro lapislazzuli tenue #9AABD4 — contrasto da acceso in nero */
+
 body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(2) {
     --tile-bg: #f3f4f2;
     --blink-delay: 2s;
-    --lit-num: rgba(17,17,17,.85);
-    --lit-arrow-bg: rgba(17,17,17,.14);
+    --lit-num: rgba(17, 17, 17, 0.85);
+    --lit-arrow-bg: rgba(17, 17, 17, 0.14);
     --lit-arrow-fg: #18191b;
 }
-body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(3) { --tile-bg: #f8f3f1; --blink-delay: 4s; }
-/* Classicismo: verde acqua #84A9A4 — contrasto nero */
+
+body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(3) {
+    --tile-bg: #f8f3f1;
+    --blink-delay: 4s;
+}
+
 body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(4) {
     --tile-bg: #f1f4f4;
     --blink-delay: 6s;
-    --lit-num: rgba(17,17,17,.85);
-    --lit-arrow-bg: rgba(17,17,17,.14);
+    --lit-num: rgba(17, 17, 17, 0.85);
+    --lit-arrow-bg: rgba(17, 17, 17, 0.14);
     --lit-arrow-fg: #18191b;
 }
-/* Romanticismo: rosa antico #D4B4C8 — contrasto nero */
+
 body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(5) {
     --tile-bg: #f6f3f5;
     --blink-delay: 8s;
-    --lit-num: rgba(17,17,17,.85);
-    --lit-arrow-bg: rgba(17,17,17,.14);
+    --lit-num: rgba(17, 17, 17, 0.85);
+    --lit-arrow-bg: rgba(17, 17, 17, 0.14);
     --lit-arrow-fg: #18191b;
 }
-/* Novecento: azzurro ardesia #A8BCC8 — contrasto nero */
+
 body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(6) {
     --tile-bg: #f2f4f6;
     --blink-delay: 10s;
-    --lit-num: rgba(17,17,17,.85);
-    --lit-arrow-bg: rgba(17,17,17,.14);
+    --lit-num: rgba(17, 17, 17, 0.85);
+    --lit-arrow-bg: rgba(17, 17, 17, 0.14);
     --lit-arrow-fg: #18191b;
 }
 
-/* Accensione: colore piatto di palette, poi ritorno al grigio */
 @keyframes nucleo-blink {
-    0%, 100% { background-color: var(--tile-bg, #f4f4f4); }
-    6%, 11%  { background-color: var(--accent, #111111); }
-    17%      { background-color: var(--tile-bg, #f4f4f4); }
+    0%, 100% {
+        background-color: var(--tile-bg, #f4f4f4);
+    }
+
+    6%, 11% {
+        background-color: var(--accent, #111111);
+    }
+
+    17% {
+        background-color: var(--tile-bg, #f4f4f4);
+    }
 }
 
-/* Numero e freccia in bianco quando la mattonella è accesa */
 @keyframes nucleo-blink-num {
-    0%, 100% { color: rgba(17,17,17,.35); }
-    6%, 11%  { color: var(--lit-num, rgba(255,255,255,.9)); }
-    17%      { color: rgba(17,17,17,.35); }
-}
-@keyframes nucleo-blink-arrow {
-    0%, 100% { background-color: rgba(17,17,17,.12); color: rgba(17,17,17,.7); }
-    6%, 11%  { background-color: var(--lit-arrow-bg, rgba(255,255,255,.28)); color: var(--lit-arrow-fg, #ffffff); }
-    17%      { background-color: rgba(17,17,17,.12); color: rgba(17,17,17,.7); }
+    0%, 100% {
+        color: rgba(17, 17, 17, 0.35);
+    }
+
+    6%, 11% {
+        color: var(--lit-num, rgba(255, 255, 255, 0.92));
+    }
+
+    17% {
+        color: rgba(17, 17, 17, 0.35);
+    }
 }
 
-/* Hover: accensione stabile, numero e freccia in bianco */
-body[data-nav="home"] .nuclei-col:hover .nuclei-col__tile {
+@keyframes nucleo-blink-arrow {
+    0%, 100% {
+        background-color: rgba(17, 17, 17, 0.12);
+        color: rgba(17, 17, 17, 0.7);
+    }
+
+    6%, 11% {
+        background-color: var(--lit-arrow-bg, rgba(255, 255, 255, 0.28));
+        color: var(--lit-arrow-fg, #ffffff);
+    }
+
+    17% {
+        background-color: rgba(17, 17, 17, 0.12);
+        color: rgba(17, 17, 17, 0.7);
+    }
+}
+
+body[data-nav="home"] .nuclei-col:hover .nuclei-col__tile,
+body[data-nav="home"] .nuclei-col:focus-visible .nuclei-col__tile {
     animation: none;
     background-color: var(--accent, #111111);
 }
-body[data-nav="home"] .nuclei-col:hover .nuclei-col__num {
+
+body[data-nav="home"] .nuclei-col:hover .nuclei-col__num,
+body[data-nav="home"] .nuclei-col:focus-visible .nuclei-col__num {
     animation: none;
-    color: var(--lit-num, rgba(255,255,255,.9));
+    color: var(--lit-num, rgba(255, 255, 255, 0.92));
 }
-body[data-nav="home"] .nuclei-col:hover .nuclei-col__arrow {
+
+body[data-nav="home"] .nuclei-col:hover .nuclei-col__arrow,
+body[data-nav="home"] .nuclei-col:focus-visible .nuclei-col__arrow {
     animation: none;
-    background: var(--lit-arrow-bg, rgba(255,255,255,.28));
+    background: var(--lit-arrow-bg, rgba(255, 255, 255, 0.28));
     color: var(--lit-arrow-fg, #ffffff);
+    transform: translate(2px, -2px);
 }
 
-@media (prefers-reduced-motion: reduce) {
-    body[data-nav="home"] .nuclei-col__tile,
-    body[data-nav="home"] .nuclei-col__num,
-    body[data-nav="home"] .nuclei-col__arrow { animation: none; }
+body[data-nav="home"] .nuclei-col:focus-visible {
+    outline: none;
 }
 
-/* ── Riga di fondo nel quadrato: numero a sinistra, freccia a destra ── */
 body[data-nav="home"] .nuclei-col__bottom {
     display: flex;
     align-items: center;
@@ -224,122 +247,164 @@ body[data-nav="home"] .nuclei-col__bottom {
     margin-top: auto;
 }
 
-/* Numero — bold, muted, nessuna circonferenza */
 body[data-nav="home"] .nuclei-col__num {
-    font-size: .8vw;
+    font-size: 0.78rem;
     font-weight: 700;
-    letter-spacing: .07em;
-    color: rgba(17,17,17,.35);
+    letter-spacing: 0.07em;
+    color: rgba(17, 17, 17, 0.35);
     font-variant-numeric: tabular-nums;
     animation: nucleo-blink-num 12s ease-in-out infinite;
     animation-delay: var(--blink-delay, 0s);
 }
 
-/* Freccia — piccolo cerchio neutro */
 body[data-nav="home"] .nuclei-col__arrow {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 1.65vw;
-    height: 1.65vw;
-    border-radius: 50%;
-    background: rgba(17,17,17,.12);
-    color: rgba(17,17,17,.7);
-    font-size: .78vw;
+    width: 1.7rem;
+    height: 1.7rem;
+    border-radius: 999px;
+    background: rgba(17, 17, 17, 0.12);
+    color: rgba(17, 17, 17, 0.7);
+    font-size: 0.82rem;
     line-height: 1;
-    flex: 0 0 auto;
-    transition: transform .18s ease;
     animation: nucleo-blink-arrow 12s ease-in-out infinite;
     animation-delay: var(--blink-delay, 0s);
-}
-body[data-nav="home"] .nuclei-col:hover .nuclei-col__arrow {
-    transform: translate(2px, -2px);
+    transition: transform 180ms ease;
 }
 
-/* ── Data — piccola, sotto il titolo ── */
-body[data-nav="home"] .nuclei-col__date {
-    display: block;
-    padding: .3vw 1.5vw .8vw;
-    font-size: .75vw;
-    font-weight: 400;
-    letter-spacing: .04em;
-    color: rgba(17,17,17,.38);
-    font-variant-numeric: tabular-nums;
-    transition: color .2s ease;
-}
-body[data-nav="home"] .nuclei-col:hover .nuclei-col__date {
-    color: var(--accent, #111111);
-}
-
-/* ── Titolo — da solo, appena sotto la mattonella ── */
 body[data-nav="home"] .nuclei-col__title {
     margin: 0;
-    padding: .75vw 1.5vw 0;
+    padding: 0.85rem 1.35rem 0;
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: 1.15vw;
-    font-weight: 700;
-    letter-spacing: -.03em;
-    line-height: 1.05;
+    font-size: 1.1rem;
+    font-weight: 720;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
     color: #111111;
-    text-transform: none;
-    transition: color .2s ease;
 }
-body[data-nav="home"] .nuclei-col:hover .nuclei-col__title {
+
+body[data-nav="home"] .nuclei-col__date {
+    display: block;
+    padding: 0.28rem 1.35rem 0;
+    font-size: 0.76rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: rgba(17, 17, 17, 0.42);
+    font-variant-numeric: tabular-nums;
+}
+
+body[data-nav="home"] .nuclei-col:hover .nuclei-col__title,
+body[data-nav="home"] .nuclei-col:hover .nuclei-col__date,
+body[data-nav="home"] .nuclei-col:focus-visible .nuclei-col__title,
+body[data-nav="home"] .nuclei-col:focus-visible .nuclei-col__date {
     color: var(--accent, #111111);
 }
 
-/* ── Mobile: 2 colonne ── */
-@media (max-width: 600px) {
-    /* Su iPhone la barra di Safari all'apertura è espansa: la hero
-       calcolata su 100svh finisce esattamente al bordo e un pixel di
-       arrotondamento fa spuntare il titolo della seconda schermata.
-       Ancorata a 100lvh (viewport grande) parte sempre sotto la piega. */
-    body[data-nav="home"] .home-hero,
-    body[data-nav="home"] .home-hero__frame {
-        min-height: calc(100svh - var(--home-header-height, 4.15rem));
-        min-height: calc(100lvh - var(--home-header-height, 4.15rem));
+body[data-nav="home"] .site-footer {
+    padding: 1.6rem 0;
+    background: #ffffff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body[data-nav="home"] .home-stage__tiles {
+        transition: none;
     }
-    body[data-nav="home"] .home-section.home-timeline {
-        min-height: auto;
-        padding: 3rem 0 2.5rem !important;
-    }
-    body[data-nav="home"] .nuclei-grid-wrap {
-        flex: none;
-    }
-    /* Con 2 colonne ogni mattonella è ~3x più larga in vw:
-       le misure interne scalano di conseguenza, sempre in vw */
-    body[data-nav="home"] .home-section__heading--timeline {
-        padding: 0 4vw;
-        margin: 0 0 6vw;
-    }
-    body[data-nav="home"] .home-section__heading--timeline h2 {
-        font-size: 7vw !important;
-    }
-    body[data-nav="home"] .home-section__heading--timeline .nuclei-instruction {
-        font-size: 2.4vw !important;
-        margin: 2vw 0 0;
-    }
-    body[data-nav="home"] .nuclei-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0;
-    }
-    body[data-nav="home"] .nuclei-col__tile {
-        padding: 4vw;
-    }
-    body[data-nav="home"] .nuclei-col__num {
-        font-size: 2.2vw;
-    }
+
+    body[data-nav="home"] .nuclei-col__tile,
+    body[data-nav="home"] .nuclei-col__num,
     body[data-nav="home"] .nuclei-col__arrow {
-        width: 4.5vw;
-        height: 4.5vw;
-        font-size: 2.1vw;
+        animation: none;
     }
+}
+
+@media (max-width: 1100px) {
+    body[data-nav="home"] .home-stage {
+        --home-stage-scroll-range: 20rem;
+    }
+
+    body[data-nav="home"] .home-hero--single-stage .home-hero__frame::before {
+        font-size: 10rem;
+    }
+
+    body[data-nav="home"] .home-stage__tiles {
+        padding: 1rem 0 1.35rem;
+    }
+
+    body[data-nav="home"] .nuclei-col__tile {
+        padding: 1rem;
+    }
+
     body[data-nav="home"] .nuclei-col__title {
-        font-size: 3.4vw;
-        padding: 2vw 4vw 0;
+        padding-inline: 1rem;
+        font-size: 0.96rem;
     }
+
     body[data-nav="home"] .nuclei-col__date {
-        font-size: 2.2vw;
-        padding: .8vw 4vw 3vw;
+        padding-inline: 1rem;
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 760px) {
+    body[data-nav="home"] .home-stage {
+        --home-stage-scroll-range: 16rem;
+    }
+
+    body[data-nav="home"] .home-stage__sticky {
+        height: calc(100svh - var(--home-header-height, 4.15rem));
+    }
+
+    body[data-nav="home"] .home-hero--single-stage .home-hero__frame::before {
+        font-size: 6rem;
+    }
+
+    body[data-nav="home"] .home-stage__tiles {
+        align-items: end;
+        padding: 0.8rem 0 1.2rem;
+    }
+
+    body[data-nav="home"] .nuclei-grid-wrap {
+        overflow-x: auto;
+        overflow-y: hidden;
+        pointer-events: auto;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+
+    body[data-nav="home"] .nuclei-grid-wrap::-webkit-scrollbar {
+        display: none;
+    }
+
+    body[data-nav="home"] .nuclei-grid {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(12.75rem, 44vw);
+        grid-template-columns: none;
+        width: max-content;
+        min-width: 100%;
+    }
+
+    body[data-nav="home"] .nuclei-col__tile {
+        padding: 0.95rem;
+    }
+
+    body[data-nav="home"] .nuclei-col__num {
+        font-size: 0.72rem;
+    }
+
+    body[data-nav="home"] .nuclei-col__arrow {
+        width: 1.55rem;
+        height: 1.55rem;
+        font-size: 0.78rem;
+    }
+
+    body[data-nav="home"] .nuclei-col__title {
+        padding: 0.7rem 0.95rem 0;
+        font-size: 0.96rem;
+    }
+
+    body[data-nav="home"] .nuclei-col__date {
+        padding: 0.24rem 0.95rem 0;
+        font-size: 0.68rem;
     }
 }
