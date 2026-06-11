@@ -8,8 +8,7 @@
     <link rel="stylesheet" href="css/style.css?v=1780986203">
     <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780919039">
     <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1780948981">
-    <link rel="stylesheet" href="css/card-barocco-new.css?v=1781222400">
-    <link rel="stylesheet" href="css/home-cards-bw.css?v=1781222400">
+    <link rel="stylesheet" href="css/home-nuclei-list.css?v=1781225000">
 </head>
 <body data-nav="home">
     <header class="site-header">
@@ -54,113 +53,70 @@
         <section class="home-section home-timeline" id="timeline">
             <div class="shell home-section__heading home-section__heading--timeline">
                 <h2>Un percorso storico in sei nuclei di apprendimento</h2>
-                <p>
-                    Ogni nucleo apre un ambiente di lavoro completo: lezioni collegate, contenuti essenziali,
-                    ascolti guidati, attivit&agrave; laboratoriali e strumenti di verifica.
-                </p>
             </div>
             <div class="shell">
-                <div class="home-timeline__track" aria-label="Timeline orizzontale di Accordia">
-
-                    <a class="home-era-card" href="nuclei/medioevo/index.html" data-nucleus-link="medioevo">
-                        <div class="home-era-card__top">
-                            <strong>Il Medioevo</strong>
-                            <span class="home-era-card__period">476–1492</span>
-                            <p class="home-era-card__desc">Canto gregoriano e le radici della polifonia</p>
-                        </div>
-                        <div class="home-era-card__body">
-                            <div class="home-era-card__body-row">
-                                <span class="home-era-card__cta">↗</span>
+                <div class="nuclei-list" aria-label="I sei nuclei di apprendimento">
+                    <a class="nuclei-item" href="nuclei/medioevo/index.html" data-nucleus-link="medioevo" style="--accent:#24483d">
+                        <div class="nuclei-item__text">
+                            <div class="nuclei-item__line">
+                                <h3>Il Medioevo</h3>
+                                <span class="nuclei-item__date">476–1492</span>
                             </div>
+                            <p class="nuclei-item__desc">Canto gregoriano e le radici della polifonia</p>
                         </div>
+                        <span class="nuclei-item__arrow" aria-hidden="true">&#8599;</span>
                     </a>
-                    <a class="home-era-card" href="nuclei/rinascimento/index.html" data-nucleus-link="rinascimento">
-                        <div class="home-era-card__top">
-                            <strong>Il Rinascimento</strong>
-                            <span class="home-era-card__period">1492–1600</span>
-                            <p class="home-era-card__desc">Madrigale, contrappunto e l'umanesimo musicale</p>
-                        </div>
-                        <div class="home-era-card__body">
-                            <div class="home-era-card__body-row">
-                                <span class="home-era-card__cta">↗</span>
+                    <a class="nuclei-item" href="nuclei/rinascimento/index.html" data-nucleus-link="rinascimento" style="--accent:#5c3f21">
+                        <div class="nuclei-item__text">
+                            <div class="nuclei-item__line">
+                                <h3>Il Rinascimento</h3>
+                                <span class="nuclei-item__date">1492–1600</span>
                             </div>
+                            <p class="nuclei-item__desc">Madrigale, contrappunto e l&#x27;umanesimo musicale</p>
                         </div>
+                        <span class="nuclei-item__arrow" aria-hidden="true">&#8599;</span>
                     </a>
-                    <article class="home-era-card barocco-card" id="baroccoCard" data-nucleus-link="barocco" tabindex="0" role="link" aria-label="Apri il nucleo del Barocco">
-                        <div class="bx">
-
-                            <div class="bx-title">
+                    <a class="nuclei-item" href="nuclei/barocco/index.html" data-nucleus-link="barocco" style="--accent:#C37A6B">
+                        <div class="nuclei-item__text">
+                            <div class="nuclei-item__line">
                                 <h3>Il Barocco</h3>
-                                <span class="era">1600 – 1750</span>
+                                <span class="nuclei-item__date">1600–1750</span>
                             </div>
-
-                            <div class="bx-intro">
-                                <div class="lab">Introduzione<br>al Barocco</div>
-                                <div class="foot">
-                                    <button class="bx-arrow" type="button" aria-label="Introduzione al Barocco">
-                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                                    </button>
-                                </div>
-                            </div>
-
-                            <div class="bx-comp">
-                                <div class="nm" id="bxName"></div>
-                                <div class="dt" id="bxDates"></div>
-                                <div class="bx-circles" id="bxCircles"></div>
-                            </div>
-
-                            <div class="bx-info">
-                                <div class="text-wrap">
-                                    <div class="it" id="bxTitle"></div>
-                                    <div class="ds" id="bxDesc"></div>
-                                </div>
-                                <div class="foot">
-                                    <button class="bx-arrow" type="button" aria-label="Apri la lezione">
-                                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
-                                    </button>
-                                </div>
-                            </div>
+                            <p class="nuclei-item__desc">Melodramma, concerto e l&#x27;arte della fuga</p>
                         </div>
-                    </article>
-
-                    <a class="home-era-card" href="nuclei/settecento-classicismo/index.html" data-nucleus-link="settecento-classicismo">
-                        <div class="home-era-card__top">
-                            <strong>Il Classicismo</strong>
-                            <span class="home-era-card__period">1750–1820</span>
-                            <p class="home-era-card__desc">Sonata, sinfonia e i maestri viennesi</p>
-                        </div>
-                        <div class="home-era-card__body">
-                            <div class="home-era-card__body-row">
-                                <span class="home-era-card__cta">↗</span>
-                            </div>
-                        </div>
+                        <span class="nuclei-item__arrow" aria-hidden="true">&#8599;</span>
                     </a>
-                    <a class="home-era-card" href="nuclei/ottocento/index.html" data-nucleus-link="ottocento">
-                        <div class="home-era-card__top">
-                            <strong>L&#x27;Ottocento</strong>
-                            <span class="home-era-card__period">1820–1900</span>
-                            <p class="home-era-card__desc">Romanticismo, opera e i grandi virtuosi</p>
-                        </div>
-                        <div class="home-era-card__body">
-                            <div class="home-era-card__body-row">
-                                <span class="home-era-card__cta">↗</span>
+                    <a class="nuclei-item" href="nuclei/settecento-classicismo/index.html" data-nucleus-link="settecento-classicismo" style="--accent:#03363d">
+                        <div class="nuclei-item__text">
+                            <div class="nuclei-item__line">
+                                <h3>Il Classicismo</h3>
+                                <span class="nuclei-item__date">1750–1820</span>
                             </div>
+                            <p class="nuclei-item__desc">Sonata, sinfonia e i maestri viennesi</p>
                         </div>
+                        <span class="nuclei-item__arrow" aria-hidden="true">&#8599;</span>
                     </a>
-                    <a class="home-era-card" href="nuclei/novecento/index.html" data-nucleus-link="novecento">
-                        <div class="home-era-card__top">
-                            <strong>Il Novecento</strong>
-                            <span class="home-era-card__period">1900–2000</span>
-                            <p class="home-era-card__desc">Avanguardie, jazz e la musica del futuro</p>
-                        </div>
-                        <div class="home-era-card__body">
-                            <div class="home-era-card__body-row">
-                                <span class="home-era-card__cta">↗</span>
+                    <a class="nuclei-item" href="nuclei/ottocento/index.html" data-nucleus-link="ottocento" style="--accent:#3e365d">
+                        <div class="nuclei-item__text">
+                            <div class="nuclei-item__line">
+                                <h3>L&#x27;Ottocento</h3>
+                                <span class="nuclei-item__date">1820–1900</span>
                             </div>
+                            <p class="nuclei-item__desc">Romanticismo, opera e i grandi virtuosi</p>
                         </div>
+                        <span class="nuclei-item__arrow" aria-hidden="true">&#8599;</span>
+                    </a>
+                    <a class="nuclei-item" href="nuclei/novecento/index.html" data-nucleus-link="novecento" style="--accent:#243e63">
+                        <div class="nuclei-item__text">
+                            <div class="nuclei-item__line">
+                                <h3>Il Novecento</h3>
+                                <span class="nuclei-item__date">1900–2000</span>
+                            </div>
+                            <p class="nuclei-item__desc">Avanguardie, jazz e la musica del futuro</p>
+                        </div>
+                        <span class="nuclei-item__arrow" aria-hidden="true">&#8599;</span>
                     </a>
                 </div>
-                <p class="home-timeline__hint">Scorri lateralmente per seguire il percorso storico, poi apri un nucleo per entrare in lavagne, ascolti, attivit&agrave; e verifiche.</p>
             </div>
         </section>
 
@@ -314,64 +270,6 @@
                 } else if (typeof reducedHeroMotion.addListener === 'function') {
                     reducedHeroMotion.addListener(syncTimelineMotion);
                 }
-            }
-        })();
-    </script>
-    <script src="portraits.js"></script>
-    <script>
-        (function () {
-            var P = window.PORTRAITS || {};
-            var DATA = [
-                { id: 'monteverdi', name: 'Claudio\nMonteverdi', dates: '1567–1643', img: P.monteverdi,
-                  title: 'I registri vocali\nnel Melodramma', desc: 'Con L’Orfeo (1607) la voce diventa azione drammatica e nasce il melodramma moderno.' },
-                { id: 'vivaldi', name: 'Antonio\nVivaldi', dates: '1678–1741', img: P.vivaldi,
-                  title: 'Il concerto barocco\nLe Quattro Stagioni', desc: 'Il concerto solista al suo apice: la musica “dipinge” la natura tra contrasti di tempo e colore.' },
-                { id: 'bach', name: 'Johann Sebastian\nBach', dates: '1685–1750', img: P.bach,
-                  title: 'L’arte della fuga\nCaccia al tema', desc: 'Da un solo soggetto Bach esplora ogni via del contrappunto: una caccia al tema che attraversa tutte le voci.' },
-                { id: 'handel', name: 'Georg Friedrich\nHändel', dates: '1685–1759', img: P.handel,
-                  title: 'Oratorio\no Melodramma?', desc: 'Due grandi forme a confronto: l’opera, fatta di scena e azione, e l’oratorio, racconto sacro.' }
-            ];
-            var circlesEl = document.getElementById('bxCircles');
-            if (!circlesEl) return;
-            DATA.forEach(function (c, i) {
-                var b = document.createElement('button');
-                b.className = 'bx-author' + (i === 0 ? ' active' : '');
-                b.type = 'button';
-                b.dataset.id = c.id;
-                b.innerHTML = '<div class="ph"><img src="' + c.img + '" alt="' + c.name.replace('\n', ' ') + '"></div>';
-                b.addEventListener('click', function (e) { e.stopPropagation(); select(c.id); });
-                circlesEl.appendChild(b);
-            });
-            var bxName  = document.getElementById('bxName');
-            var bxDates = document.getElementById('bxDates');
-            var bxTitle = document.getElementById('bxTitle');
-            var bxDesc  = document.getElementById('bxDesc');
-            function select(id) {
-                var c = DATA.find(function (d) { return d.id === id; });
-                document.querySelectorAll('.bx-author').forEach(function (a) {
-                    a.classList.toggle('active', a.dataset.id === id);
-                });
-                bxName.innerHTML  = c.name.split('\n').map(function (l) { return '<span>' + l + '</span>'; }).join('');
-                bxDates.textContent = c.dates;
-                bxTitle.innerHTML = c.title.split('\n').map(function (l) { return '<span>' + l + '</span>'; }).join('');
-                bxDesc.textContent = c.desc;
-                var box = document.querySelector('.bx-info');
-                box.classList.remove('bx-fade'); void box.offsetWidth; box.classList.add('bx-fade');
-            }
-            select('monteverdi');
-            var card = document.getElementById('baroccoCard');
-            if (card) {
-                card.addEventListener('click', function (e) {
-                    if (e.target.closest('.bx-author') || e.target.closest('.bx-arrow')) return;
-                    window.location.href = 'nuclei/barocco/index.html';
-                });
-                card.addEventListener('keydown', function (e) {
-                    if (e.target.closest('.bx-author') || e.target.closest('.bx-arrow')) return;
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        window.location.href = 'nuclei/barocco/index.html';
-                    }
-                });
             }
         })();
     </script>

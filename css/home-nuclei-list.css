@@ -1,0 +1,134 @@
+/* ============================================================
+   Home — nuclei come elenco editoriale, solo testo
+   Nessuna card: titolo display + data + descrizione sottile +
+   freccia diagonale ↗. Filetti hairline tra le righe.
+   ============================================================ */
+
+/* Intestazione sezione — display centrato, una riga */
+body[data-nav="home"] .home-section__heading--timeline {
+    margin-bottom: 1.5rem;
+}
+body[data-nav="home"] .home-section__heading--timeline h2 {
+    max-width: none;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size: clamp(1.4rem, 2.2vw, 2rem);
+    font-weight: 750;
+    letter-spacing: -.04em;
+    line-height: 1;
+    color: #111111;
+    white-space: nowrap;
+}
+
+/* Elenco */
+body[data-nav="home"] .nuclei-list {
+    display: flex;
+    flex-direction: column;
+    max-width: 56rem;
+    margin: 0 auto;
+}
+
+body[data-nav="home"] .nuclei-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    padding: 1.7rem .25rem;
+    border-top: 1px solid rgba(17, 17, 17, .16);
+    text-decoration: none;
+    color: #111111;
+    transition: background-color .18s ease;
+}
+body[data-nav="home"] .nuclei-item:last-child {
+    border-bottom: 1px solid rgba(17, 17, 17, .16);
+}
+
+body[data-nav="home"] .nuclei-item__text {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+/* Titolo + data sulla stessa riga di base */
+body[data-nav="home"] .nuclei-item__line {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+}
+body[data-nav="home"] .nuclei-item__line h3 {
+    margin: 0;
+    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+    font-weight: 750;
+    letter-spacing: -.05em;
+    line-height: .96;
+    color: #111111;
+}
+body[data-nav="home"] .nuclei-item__date {
+    flex: 0 0 auto;
+    font-size: .8rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    color: rgba(17, 17, 17, .45);
+    font-variant-numeric: tabular-nums;
+}
+
+/* Descrizione — sottile, grigia */
+body[data-nav="home"] .nuclei-item__desc {
+    margin: .5rem 0 0;
+    font-size: .92rem;
+    font-weight: 300;
+    line-height: 1.4;
+    color: rgba(17, 17, 17, .55);
+}
+
+/* Freccia diagonale — unico punto di colore */
+body[data-nav="home"] .nuclei-item__arrow {
+    flex: 0 0 auto;
+    width: 2.3rem;
+    height: 2.3rem;
+    border-radius: 50%;
+    background: var(--accent, #111111);
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: .95rem;
+    font-weight: 500;
+    line-height: 1;
+    transition: transform .18s ease;
+}
+
+body[data-nav="home"] .nuclei-item:hover .nuclei-item__arrow {
+    transform: translate(3px, -3px);
+}
+body[data-nav="home"] .nuclei-item:hover .nuclei-item__line h3 {
+    color: var(--accent, #111111);
+}
+
+@media (max-width: 600px) {
+    body[data-nav="home"] .home-section__heading--timeline h2 {
+        white-space: normal;
+        font-size: 1.35rem;
+    }
+    body[data-nav="home"] .nuclei-item {
+        padding: 1.3rem 0;
+        gap: 1.2rem;
+    }
+    body[data-nav="home"] .nuclei-item__line {
+        flex-direction: column;
+        gap: .35rem;
+    }
+    body[data-nav="home"] .nuclei-item__line h3 {
+        font-size: 1.7rem;
+    }
+    body[data-nav="home"] .nuclei-item__desc {
+        font-size: .82rem;
+    }
+    body[data-nav="home"] .nuclei-item__arrow {
+        width: 2rem;
+        height: 2rem;
+    }
+}
