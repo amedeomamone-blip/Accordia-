@@ -5,13 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Accordia e un ambiente didattico per insegnare la storia della musica nella scuola secondaria di primo grado, con timeline, nuclei storici, mappe degli argomenti, ascolti guidati, attivita laboratoriali e verifiche.">
     <title>Accordia | Storia della musica</title>
-    <link rel="stylesheet" href="css/style.css?v=1781214130">
-    <link rel="stylesheet" href="css/home-nuclei-list.css?v=1781214137">
+    <link rel="stylesheet" href="css/style.css?v=1780986203">
+    <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780919039">
+    <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1780948981">
+    <link rel="stylesheet" href="css/home-nuclei-list.css?v=1781424000">
 </head>
 <body data-nav="home">
     <header class="site-header">
         <div class="shell site-header__inner">
-            <a class="brand brand--wordmark" href="index.html">Accordia</a>
+            <a class="brand brand--wordmark" href="index.html">accordia</a>
             <nav class="site-nav" aria-label="Navigazione principale">
                 <div class="site-nav__dropdown">
                     <button class="site-nav__trigger" type="button" data-nav-link="timeline" aria-haspopup="true" aria-expanded="false">
@@ -29,85 +31,82 @@
         </div>
     </header>
 
-    <main class="home-page home-page--single-stage" id="top">
-        <section class="home-stage" id="timeline">
-            <div class="home-stage__sticky">
-                <section class="home-hero home-hero--single-stage" aria-label="Accordia">
+    <main class="home-page" id="top">
+        <div class="scroll-scene">
+            <div class="scroll-stage">
+                <section class="home-hero">
                     <div class="shell">
                         <div class="home-hero__frame"></div>
                     </div>
                 </section>
-
-                <section class="home-stage__tiles" aria-label="I sei nuclei di apprendimento">
-                    <div class="nuclei-grid-wrap">
-                        <div class="nuclei-grid">
-                            <a class="nuclei-col" href="nuclei/medioevo/index.html" data-nucleus-link="medioevo" style="--accent:#D9C89E">
-                                <span class="nuclei-col__tile">
-                                    <span class="nuclei-col__bottom">
-                                        <span class="nuclei-col__num">01</span>
-                                        <span class="nuclei-col__arrow" aria-hidden="true">&#8599;</span>
-                                    </span>
+                <div class="nuclei-grid-wrap">
+                    <div class="nuclei-grid" aria-label="I sei nuclei di apprendimento">
+                        <a class="nuclei-col" href="nuclei/medioevo/index.html" data-nucleus-link="medioevo" style="--accent:#D9C89E">
+                            <span class="nuclei-col__tile">
+                                <span class="nuclei-col__bottom">
+                                    <span class="nuclei-col__num">01</span>
+                                    <span class="nuclei-col__arrow" aria-hidden="true">&#8599;</span>
                                 </span>
-                                <h3 class="nuclei-col__title">Il Medioevo</h3>
-                                <span class="nuclei-col__date">476 – 1400</span>
-                            </a>
-                            <a class="nuclei-col" href="nuclei/rinascimento/index.html" data-nucleus-link="rinascimento" style="--accent:#9AABD4">
-                                <span class="nuclei-col__tile">
-                                    <span class="nuclei-col__bottom">
-                                        <span class="nuclei-col__num">02</span>
-                                        <span class="nuclei-col__arrow" aria-hidden="true">&#8599;</span>
-                                    </span>
+                            </span>
+                            <h3 class="nuclei-col__title">Il Medioevo</h3>
+                            <span class="nuclei-col__date">476 – 1400</span>
+                        </a>
+                        <a class="nuclei-col" href="nuclei/rinascimento/index.html" data-nucleus-link="rinascimento" style="--accent:#9AABD4">
+                            <span class="nuclei-col__tile">
+                                <span class="nuclei-col__bottom">
+                                    <span class="nuclei-col__num">02</span>
+                                    <span class="nuclei-col__arrow" aria-hidden="true">&#8599;</span>
                                 </span>
-                                <h3 class="nuclei-col__title">Il Rinascimento</h3>
-                                <span class="nuclei-col__date">1400 – 1600</span>
-                            </a>
-                            <a class="nuclei-col" href="nuclei/barocco/index.html" data-nucleus-link="barocco" style="--accent:#C37A6B">
-                                <span class="nuclei-col__tile">
-                                    <span class="nuclei-col__bottom">
-                                        <span class="nuclei-col__num">03</span>
-                                        <span class="nuclei-col__arrow" aria-hidden="true">&#8599;</span>
-                                    </span>
+                            </span>
+                            <h3 class="nuclei-col__title">Il Rinascimento</h3>
+                            <span class="nuclei-col__date">1400 – 1600</span>
+                        </a>
+                        <a class="nuclei-col" href="nuclei/barocco/index.html" data-nucleus-link="barocco" style="--accent:#C37A6B">
+                            <span class="nuclei-col__tile">
+                                <span class="nuclei-col__bottom">
+                                    <span class="nuclei-col__num">03</span>
+                                    <span class="nuclei-col__arrow" aria-hidden="true">&#8599;</span>
                                 </span>
-                                <h3 class="nuclei-col__title">Il Barocco</h3>
-                                <span class="nuclei-col__date">1600 – 1750</span>
-                            </a>
-                            <a class="nuclei-col" href="nuclei/settecento-classicismo/index.html" data-nucleus-link="settecento-classicismo" style="--accent:#84A9A4">
-                                <span class="nuclei-col__tile">
-                                    <span class="nuclei-col__bottom">
-                                        <span class="nuclei-col__num">04</span>
-                                        <span class="nuclei-col__arrow" aria-hidden="true">&#8599;</span>
-                                    </span>
+                            </span>
+                            <h3 class="nuclei-col__title">Il Barocco</h3>
+                            <span class="nuclei-col__date">1600 – 1750</span>
+                        </a>
+                        <a class="nuclei-col" href="nuclei/settecento-classicismo/index.html" data-nucleus-link="settecento-classicismo" style="--accent:#84A9A4">
+                            <span class="nuclei-col__tile">
+                                <span class="nuclei-col__bottom">
+                                    <span class="nuclei-col__num">04</span>
+                                    <span class="nuclei-col__arrow" aria-hidden="true">&#8599;</span>
                                 </span>
-                                <h3 class="nuclei-col__title">Il Classicismo</h3>
-                                <span class="nuclei-col__date">1750 – 1820</span>
-                            </a>
-                            <a class="nuclei-col" href="nuclei/ottocento/index.html" data-nucleus-link="ottocento" style="--accent:#D4B4C8">
-                                <span class="nuclei-col__tile">
-                                    <span class="nuclei-col__bottom">
-                                        <span class="nuclei-col__num">05</span>
-                                        <span class="nuclei-col__arrow" aria-hidden="true">&#8599;</span>
-                                    </span>
+                            </span>
+                            <h3 class="nuclei-col__title">Il Classicismo</h3>
+                            <span class="nuclei-col__date">1750 – 1820</span>
+                        </a>
+                        <a class="nuclei-col" href="nuclei/ottocento/index.html" data-nucleus-link="ottocento" style="--accent:#D4B4C8">
+                            <span class="nuclei-col__tile">
+                                <span class="nuclei-col__bottom">
+                                    <span class="nuclei-col__num">05</span>
+                                    <span class="nuclei-col__arrow" aria-hidden="true">&#8599;</span>
                                 </span>
-                                <h3 class="nuclei-col__title">Il Romanticismo</h3>
-                                <span class="nuclei-col__date">1820 – 1900</span>
-                            </a>
-                            <a class="nuclei-col" href="nuclei/novecento/index.html" data-nucleus-link="novecento" style="--accent:#A8BCC8">
-                                <span class="nuclei-col__tile">
-                                    <span class="nuclei-col__bottom">
-                                        <span class="nuclei-col__num">06</span>
-                                        <span class="nuclei-col__arrow" aria-hidden="true">&#8599;</span>
-                                    </span>
+                            </span>
+                            <h3 class="nuclei-col__title">Il Romanticismo</h3>
+                            <span class="nuclei-col__date">1820 – 1900</span>
+                        </a>
+                        <a class="nuclei-col" href="nuclei/novecento/index.html" data-nucleus-link="novecento" style="--accent:#A8BCC8">
+                            <span class="nuclei-col__tile">
+                                <span class="nuclei-col__bottom">
+                                    <span class="nuclei-col__num">06</span>
+                                    <span class="nuclei-col__arrow" aria-hidden="true">&#8599;</span>
                                 </span>
-                                <h3 class="nuclei-col__title">Il Novecento</h3>
-                                <span class="nuclei-col__date">1900 – 2000</span>
-                            </a>
-                        </div>
+                            </span>
+                            <h3 class="nuclei-col__title">Il Novecento</h3>
+                            <span class="nuclei-col__date">1900 – 2000</span>
+                        </a>
                     </div>
-                </section>
+                </div>
             </div>
-        </section>
-
+        </div>
     </main>
+
     <footer class="site-footer">
         <div class="shell site-footer__grid site-footer__grid--contact-only">
             <div class="site-footer__contacts">
@@ -116,101 +115,87 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=1781214130"></script>
+    <script src="js/main.js?v=1780986203"></script>
     <script>
         (function () {
-            if ('scrollRestoration' in window.history) {
-                window.history.scrollRestoration = 'manual';
-            }
-            if (!window.location.hash) {
-                window.scrollTo(0, 0);
-            }
-
-            const siteHeader = document.querySelector('.site-header');
-            const siteFooter = document.querySelector('.site-footer');
-            const homeStage = document.querySelector('.home-stage');
-            const homeStageSticky = document.querySelector('.home-stage__sticky');
-            const heroFrame = document.querySelector('.home-hero__frame');
-            const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-
-            if (siteHeader || siteFooter) {
-                function syncChromeHeight() {
-                    if (siteHeader) {
-                        document.documentElement.style.setProperty('--home-header-height', siteHeader.offsetHeight + 'px');
-                    }
-                    if (siteFooter) {
-                        document.documentElement.style.setProperty('--home-footer-height', siteFooter.offsetHeight + 'px');
-                    }
-                }
-
-                syncChromeHeight();
-                window.addEventListener('resize', syncChromeHeight);
-                window.addEventListener('load', syncChromeHeight);
-            }
+            const heroFrame   = document.querySelector('.home-hero__frame');
+            const siteHeader  = document.querySelector('.site-header');
+            const scrollStage = document.querySelector('.scroll-stage');
+            const tilesWrap   = document.querySelector('.nuclei-grid-wrap');
+            const reducedHeroMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
             function clamp(value, min, max) {
                 return Math.max(min, Math.min(max, value));
             }
 
-            if (homeStage && homeStageSticky && heroFrame) {
-                let currentProgress = 0;
-                let targetProgress = 0;
-                let frameRequest = 0;
+            if (siteHeader && scrollStage) {
+                function syncHeaderHeight() {
+                    scrollStage.style.setProperty('--home-header-height', siteHeader.offsetHeight + 'px');
+                }
+                syncHeaderHeight();
+                window.addEventListener('resize', syncHeaderHeight);
+                window.addEventListener('load', syncHeaderHeight);
+            }
 
-                function getHeaderHeight() {
-                    return siteHeader ? siteHeader.offsetHeight : 0;
+            if (heroFrame) {
+                let heroCurrentProgress = 0;
+                let heroTargetProgress  = 0;
+                let heroFrameRequest    = 0;
+
+                function getHeroTravel() {
+                    const w = heroFrame.clientWidth;
+                    return {
+                        x: reducedHeroMotion.matches ? w * 0.12 : w * 0.82,
+                        y: reducedHeroMotion.matches ? Math.min(4, w * 0.004) : Math.min(16, w * 0.016)
+                    };
                 }
 
-                function getStageRange() {
-                    return Math.max(1, homeStage.offsetHeight - homeStageSticky.offsetHeight);
+                function getHeroScrollRange() {
+                    return reducedHeroMotion.matches
+                        ? window.innerHeight * 0.75
+                        : window.innerHeight * 1.05;
                 }
 
-                function renderStageMotion() {
-                    const delta = targetProgress - currentProgress;
-                    const smoothing = reducedMotion.matches ? 0.32 : 0.1;
+                function renderHeroMotion() {
+                    const delta     = heroTargetProgress - heroCurrentProgress;
+                    const smoothing = reducedHeroMotion.matches ? 0.3 : 0.14;
 
-                    currentProgress += delta * smoothing;
-                    if (Math.abs(delta) < 0.001) {
-                        currentProgress = targetProgress;
+                    heroCurrentProgress += delta * smoothing;
+                    if (Math.abs(delta) < 0.001) heroCurrentProgress = heroTargetProgress;
+
+                    const eased  = 1 - Math.pow(1 - heroCurrentProgress, 3);
+                    const travel = getHeroTravel();
+
+                    heroFrame.style.setProperty('--home-hero-title-shift-x', `${(-travel.x * eased).toFixed(2)}px`);
+                    heroFrame.style.setProperty('--home-hero-title-shift-y', `${(travel.y * eased).toFixed(2)}px`);
+
+                    if (tilesWrap) {
+                        const tp = reducedHeroMotion.matches
+                            ? heroCurrentProgress
+                            : clamp((heroCurrentProgress - 0.2) / 0.75, 0, 1);
+                        const te = 1 - Math.pow(1 - tp, 3);
+                        tilesWrap.style.setProperty('--tiles-shift-x', `${((1 - te) * 100).toFixed(2)}vw`);
                     }
 
-                    const easedProgress = reducedMotion.matches
-                        ? currentProgress
-                        : 1 - Math.pow(1 - currentProgress, 3);
-                    const stageWidth = homeStageSticky.clientWidth;
-                    const titleTravelX = stageWidth * (reducedMotion.matches ? 0.36 : 0.9);
-                    const titleTravelY = reducedMotion.matches ? 0 : Math.min(10, stageWidth * 0.007);
-                    const tilesStartX = stageWidth * (window.innerWidth <= 760 ? 1.08 : 1.14);
-                    const tilesProgress = clamp((easedProgress - 0.16) / 0.84, 0, 1);
-
-                    heroFrame.style.setProperty('--home-hero-title-shift-x', `${(-titleTravelX * easedProgress).toFixed(2)}px`);
-                    heroFrame.style.setProperty('--home-hero-title-shift-y', `${(titleTravelY * easedProgress).toFixed(2)}px`);
-                    homeStage.style.setProperty('--home-stage-progress', easedProgress.toFixed(4));
-                    homeStage.style.setProperty('--home-stage-tiles-shift', `${(tilesStartX * (1 - tilesProgress)).toFixed(2)}px`);
-                    homeStage.classList.toggle('is-tiles-active', tilesProgress > 0.92);
-
-                    if (currentProgress !== targetProgress) {
-                        frameRequest = window.requestAnimationFrame(renderStageMotion);
+                    if (heroCurrentProgress !== heroTargetProgress) {
+                        heroFrameRequest = window.requestAnimationFrame(renderHeroMotion);
                     } else {
-                        frameRequest = 0;
+                        heroFrameRequest = 0;
                     }
                 }
 
-                function syncStageMotion() {
-                    const stageTop = homeStage.getBoundingClientRect().top;
-                    targetProgress = clamp((getHeaderHeight() - stageTop) / getStageRange(), 0, 1);
-                    if (!frameRequest) {
-                        frameRequest = window.requestAnimationFrame(renderStageMotion);
-                    }
+                function syncHeroMotion() {
+                    heroTargetProgress = clamp(window.scrollY / getHeroScrollRange(), 0, 1);
+                    if (!heroFrameRequest) heroFrameRequest = window.requestAnimationFrame(renderHeroMotion);
                 }
 
-                syncStageMotion();
-                window.addEventListener('scroll', syncStageMotion, { passive: true });
-                window.addEventListener('resize', syncStageMotion);
-                if (typeof reducedMotion.addEventListener === 'function') {
-                    reducedMotion.addEventListener('change', syncStageMotion);
-                } else if (typeof reducedMotion.addListener === 'function') {
-                    reducedMotion.addListener(syncStageMotion);
+                syncHeroMotion();
+                window.addEventListener('scroll', syncHeroMotion, { passive: true });
+                window.addEventListener('resize', syncHeroMotion);
+                if (typeof reducedHeroMotion.addEventListener === 'function') {
+                    reducedHeroMotion.addEventListener('change', syncHeroMotion);
+                } else if (typeof reducedHeroMotion.addListener === 'function') {
+                    reducedHeroMotion.addListener(syncHeroMotion);
                 }
             }
         })();
