@@ -1,11 +1,20 @@
 /* ============================================================
    Home — nuclei in 6 colonne affiancate, solo testo
-   Impostazione e spaziatura del modello a griglia, ma senza
-   bordi né numeri. Titolo con l'effetto dei vecchi numeri:
-   grigio tenue che prende l'accento al passaggio.
+   Titolo con effetto numeri (grigio tenue → accento al passaggio),
+   numero piccolo come la freccia, nessun effetto quadrato al hover.
    ============================================================ */
 
-/* Intestazione sezione — display centrato, una riga */
+/* ── Hero "Un ambiente didattico" — in linea col B&N editoriale ── */
+body[data-nav="home"] .home-hero__copy--lead-only .home-hero__lead {
+    color: #111111 !important;
+    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif) !important;
+    font-size: clamp(.82rem, 1vw, 1rem) !important;
+    font-weight: 300 !important;
+    letter-spacing: .01em !important;
+    line-height: 1.6 !important;
+}
+
+/* ── Intestazione sezione — display centrato, una riga ── */
 body[data-nav="home"] .home-section__heading--timeline {
     margin-bottom: 2.5rem;
 }
@@ -13,9 +22,9 @@ body[data-nav="home"] .home-section__heading--timeline h2 {
     max-width: none;
     text-align: center;
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: clamp(2rem, 3.4vw, 3.1rem);
+    font-size: clamp(2.4rem, 5vw, 5rem);
     font-weight: 750;
-    letter-spacing: -.045em;
+    letter-spacing: -.05em;
     line-height: 1;
     color: #111111;
     white-space: nowrap;
@@ -24,7 +33,7 @@ body[data-nav="home"] .home-section__heading--timeline p {
     display: none;
 }
 
-/* Wrapper a tutta larghezza — nessuna cornice */
+/* ── Wrapper ── */
 body[data-nav="home"] .nuclei-grid-wrap {
     width: 100%;
     overflow-x: auto;
@@ -33,14 +42,14 @@ body[data-nav="home"] .nuclei-grid-wrap {
 }
 body[data-nav="home"] .nuclei-grid-wrap::-webkit-scrollbar { display: none; }
 
-/* Griglia: 6 colonne uguali in riga — come il modello, senza separatori */
+/* ── Griglia: 6 colonne uguali ── */
 body[data-nav="home"] .nuclei-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     min-width: 52rem;
 }
 
-/* Singola colonna — stessa spaziatura del modello a griglia */
+/* ── Singola colonna ── */
 body[data-nav="home"] .nuclei-col {
     display: flex;
     flex-direction: column;
@@ -50,20 +59,33 @@ body[data-nav="home"] .nuclei-col {
     text-decoration: none;
     color: #111111;
     background: transparent;
-    transition: background-color .2s ease;
-    position: relative;
-}
-body[data-nav="home"] .nuclei-col:hover {
-    background: rgba(17,17,17,.03);
 }
 
-/* Numero — rimosso */
+/* Numero — piccolo cerchio, stessa misura della freccia */
 body[data-nav="home"] .nuclei-col__num {
-    display: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 50%;
+    border: 1px solid rgba(17,17,17,.2);
+    font-size: .58rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    color: rgba(17,17,17,.35);
+    margin-bottom: 1.1rem;
+    font-variant-numeric: tabular-nums;
+    flex: 0 0 auto;
+    transition: border-color .2s ease, color .2s ease;
+}
+body[data-nav="home"] .nuclei-col:hover .nuclei-col__num {
+    border-color: var(--accent, #111111);
+    color: var(--accent, #111111);
+    opacity: .6;
 }
 
-/* Titolo — l'effetto dei vecchi numeri: grigio tenue,
-   accento di palette al passaggio. Mai in maiuscolo. */
+/* Titolo — effetto numeri: grigio tenue → accento al passaggio */
 body[data-nav="home"] .nuclei-col__title {
     margin: 0 0 .5rem;
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
@@ -90,7 +112,7 @@ body[data-nav="home"] .nuclei-col__date {
     margin-bottom: .85rem;
 }
 
-/* Descrizione — sottile */
+/* Descrizione — sottile, evocativa */
 body[data-nav="home"] .nuclei-col__desc {
     margin: 0;
     font-size: .78rem;
@@ -124,7 +146,7 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__arrow {
 @media (max-width: 600px) {
     body[data-nav="home"] .home-section__heading--timeline h2 {
         white-space: normal;
-        font-size: 1.6rem;
+        font-size: 2rem;
     }
     body[data-nav="home"] .nuclei-grid {
         grid-template-columns: repeat(3, minmax(9rem, 1fr));
