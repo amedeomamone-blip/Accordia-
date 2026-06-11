@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Accordia e un ambiente didattico per insegnare la storia della musica nella scuola secondaria di primo grado, con timeline, nuclei storici, mappe degli argomenti, ascolti guidati, attivita laboratoriali e verifiche.">
     <title>Accordia | Storia della musica</title>
-    <link rel="stylesheet" href="css/style.css?v=1781213116">
-    <link rel="stylesheet" href="css/home-nuclei-list.css?v=1781518600">
+    <link rel="stylesheet" href="css/style.css?v=1781213812">
+    <link rel="stylesheet" href="css/home-nuclei-list.css?v=1781213812">
 </head>
 <body data-nav="home">
     <header class="site-header">
         <div class="shell site-header__inner">
-            <a class="brand brand--wordmark" href="index.html">accordia</a>
+            <a class="brand brand--wordmark" href="index.html">Accordia</a>
             <nav class="site-nav" aria-label="Navigazione principale">
                 <div class="site-nav__dropdown">
                     <button class="site-nav__trigger" type="button" data-nav-link="timeline" aria-haspopup="true" aria-expanded="false">
@@ -116,23 +116,29 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=1781213116"></script>
+    <script src="js/main.js?v=1781213812"></script>
     <script>
         (function () {
             const siteHeader = document.querySelector('.site-header');
+            const siteFooter = document.querySelector('.site-footer');
             const homeStage = document.querySelector('.home-stage');
             const homeStageSticky = document.querySelector('.home-stage__sticky');
             const heroFrame = document.querySelector('.home-hero__frame');
             const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-            if (siteHeader) {
-                function syncHeaderHeight() {
-                    document.documentElement.style.setProperty('--home-header-height', siteHeader.offsetHeight + 'px');
+            if (siteHeader || siteFooter) {
+                function syncChromeHeight() {
+                    if (siteHeader) {
+                        document.documentElement.style.setProperty('--home-header-height', siteHeader.offsetHeight + 'px');
+                    }
+                    if (siteFooter) {
+                        document.documentElement.style.setProperty('--home-footer-height', siteFooter.offsetHeight + 'px');
+                    }
                 }
 
-                syncHeaderHeight();
-                window.addEventListener('resize', syncHeaderHeight);
-                window.addEventListener('load', syncHeaderHeight);
+                syncChromeHeight();
+                window.addEventListener('resize', syncChromeHeight);
+                window.addEventListener('load', syncChromeHeight);
             }
 
             function clamp(value, min, max) {
@@ -171,10 +177,13 @@
 
                     heroFrame.style.setProperty('--home-hero-title-shift-x', `${(-titleTravelX * easedProgress).toFixed(2)}px`);
                     heroFrame.style.setProperty('--home-hero-title-shift-y', `${(titleTravelY * easedProgress).toFixed(2)}px`);
-                    heroFrame.style.setProperty('--home-hero-title-opacity', `${(1 - easedProgress * 0.94).toFixed(3)}`);
+                    const tilesProgress = clamp((easedProgress - 0.08) / 0.92, 0, 1);
+
+                    heroFrame.style.setProperty('--home-hero-title-opacity', `${(1 - tilesProgress * 0.72).toFixed(3)}`);
                     homeStage.style.setProperty('--home-stage-progress', easedProgress.toFixed(4));
-                    homeStage.style.setProperty('--home-stage-tiles-shift', `${(tilesStartX * (1 - easedProgress)).toFixed(2)}px`);
-                    homeStage.style.setProperty('--home-stage-tiles-opacity', `${(0.1 + easedProgress * 0.9).toFixed(3)}`);
+                    homeStage.style.setProperty('--home-stage-tiles-shift', `${(tilesStartX * (1 - tilesProgress)).toFixed(2)}px`);
+                    homeStage.style.setProperty('--home-stage-tiles-opacity', tilesProgress.toFixed(3));
+                    homeStage.classList.toggle('is-tiles-active', tilesProgress > 0.7);
 
                     if (currentProgress !== targetProgress) {
                         frameRequest = window.requestAnimationFrame(renderStageMotion);
