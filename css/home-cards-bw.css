@@ -1,0 +1,175 @@
+/* ============================================================
+   Home timeline — redesign bianco e nero
+   Tipografia svizzera: bianco, nero, un solo accento di colore
+   per card (cerchio freccia). Card più piccole, proporzione
+   aurea invariata (altezza = larghezza / 0.618).
+   ============================================================ */
+
+/* Card più piccole — l'altezza segue dalla larghezza (φ) */
+body[data-nav="home"] .home-timeline__track {
+    --home-era-card-width: 16.5rem !important;
+}
+
+@media (max-width: 760px) {
+    body[data-nav="home"] .home-timeline__track {
+        --home-era-card-width: min(14.5rem, 70vw) !important;
+    }
+}
+
+/* ── Base comune: bianco, hairline, nero ── */
+body[data-nav="home"] .home-era-card {
+    --accent: #111111;
+    --card-neutral: #ffffff;
+    background: #ffffff !important;
+    border: 1px solid rgba(17, 17, 17, .16) !important;
+    border-radius: 14px !important;
+    color: #111111 !important;
+    box-shadow: none !important;
+}
+
+body[data-nav="home"] .home-era-card:hover,
+body[data-nav="home"] .home-era-card.is-active {
+    background: #ffffff !important;
+    border-color: rgba(17, 17, 17, .4) !important;
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(17, 17, 17, .08) !important;
+}
+
+/* Accento per card — palette indicata */
+body[data-nav="home"] .home-era-card:nth-child(1) { --accent: #24483d; }
+body[data-nav="home"] .home-era-card:nth-child(2) { --accent: #5c3f21; }
+body[data-nav="home"] .home-era-card:nth-child(3) { --accent: #C37A6B; }
+body[data-nav="home"] .home-era-card:nth-child(4) { --accent: #03363d; }
+body[data-nav="home"] .home-era-card:nth-child(5) { --accent: #3e365d; }
+body[data-nav="home"] .home-era-card:nth-child(6) { --accent: #243e63; }
+
+/* ── Card standard (tutte tranne Barocco) ── */
+body[data-nav="home"] .home-era-card:not(.barocco-card) {
+    padding: 1.4rem 1.2rem 1.2rem !important;
+    display: flex;
+    flex-direction: column;
+}
+
+body[data-nav="home"] .home-era-card:not(.barocco-card) .home-era-card__top {
+    height: auto !important;
+    min-height: 0 !important;
+    flex: 0 0 auto;
+    padding: 0 !important;
+    background: transparent !important;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow: visible;
+}
+
+/* Periodo sopra il titolo — micro-etichetta grigia */
+body[data-nav="home"] .home-era-card:not(.barocco-card) .home-era-card__period {
+    order: -1;
+    margin: 0 0 .8rem !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    color: rgba(17, 17, 17, .5) !important;
+    font-size: .72rem;
+    font-weight: 600;
+    letter-spacing: .09em;
+    font-variant-numeric: tabular-nums;
+    box-shadow: none !important;
+}
+
+/* Titolo — display nero, grande, stretto */
+body[data-nav="home"] .home-era-card:not(.barocco-card) strong {
+    margin: 0 !important;
+    color: #111111 !important;
+    font-family: var(--font-display) !important;
+    font-size: clamp(1.75rem, 2.1vw, 2.05rem) !important;
+    font-weight: 750 !important;
+    line-height: .94 !important;
+    letter-spacing: -.05em !important;
+    white-space: normal !important;
+    text-align: left !important;
+}
+
+body[data-nav="home"] .home-era-card:not(.barocco-card):hover strong {
+    color: #111111 !important;
+    transform: none !important;
+}
+
+/* Corpo: spinge la riga finale in basso */
+body[data-nav="home"] .home-era-card:not(.barocco-card) .home-era-card__body {
+    flex: 1 1 auto !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+body[data-nav="home"] .home-era-card:not(.barocco-card) .home-era-card__body-row {
+    align-items: center !important;
+}
+
+/* Numero — cifra grigia, senza pillola */
+body[data-nav="home"] .home-era-card:not(.barocco-card) .home-era-card__number {
+    min-width: 0 !important;
+    min-height: 0 !important;
+    height: auto !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    color: rgba(17, 17, 17, .4) !important;
+    font-size: .82rem !important;
+    font-weight: 700 !important;
+    letter-spacing: .06em !important;
+    font-variant-numeric: tabular-nums;
+    box-shadow: none !important;
+}
+
+/* CTA → cerchio freccia con l'accento di colore */
+body[data-nav="home"] .home-era-card:not(.barocco-card) .home-era-card__cta {
+    width: 2.2rem !important;
+    height: 2.2rem !important;
+    min-height: 0 !important;
+    padding: 0 !important;
+    border-radius: 50% !important;
+    background: var(--accent) !important;
+    color: #ffffff !important;
+    font-size: 0 !important;
+    box-shadow: none !important;
+    transition: transform .18s ease, opacity .18s ease;
+}
+
+body[data-nav="home"] .home-era-card:not(.barocco-card) .home-era-card__cta::after {
+    content: "→";
+    margin: 0 !important;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1;
+    color: #ffffff;
+}
+
+body[data-nav="home"] .home-era-card:not(.barocco-card):hover .home-era-card__cta {
+    transform: translate(2px, -2px);
+}
+
+body[data-nav="home"] .home-era-card:not(.barocco-card):hover .home-era-card__cta::after {
+    transform: none;
+}
+
+/* Neutralizza inversioni colore al passaggio del mouse */
+body[data-nav="home"] .home-era-card:hover .home-era-card__number {
+    color: rgba(17, 17, 17, .4) !important;
+    background: transparent !important;
+}
+
+@media (max-width: 480px) {
+    body[data-nav="home"] .home-era-card:not(.barocco-card) {
+        padding: 1.15rem 1rem 1rem !important;
+    }
+    body[data-nav="home"] .home-era-card:not(.barocco-card) strong {
+        font-size: 1.55rem !important;
+    }
+}
