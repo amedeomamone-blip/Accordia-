@@ -1,14 +1,18 @@
 /* ============================================================
-   Card Barocco — layout ispirato Apple Music
-   Hero compositore in alto, strip era+lezione in basso.
+   Card Barocco — composizione armonica
+   Sistema: cornice di padding uniforme, scala tipografica a 4
+   livelli (display / sezione / info / micro-label), ritmo
+   verticale con respiro flessibile sopra il blocco compositori.
    ============================================================ */
 
+/* Raggio uniforme per tutte le card (era in home-timeline-barocco-colors.css) */
 body[data-nav="home"] .home-era-card {
   border-radius: 16px !important;
 }
 
+/* La card Barocco — cornice uniforme */
 .barocco-card {
-  padding: clamp(1.6rem, 2.4vw, 2.2rem) 1.3rem !important;
+  padding: clamp(1.9rem, 2.6vw, 2.5rem) 1.3rem !important;
   gap: 0 !important;
   background: #C37A6B !important;
   cursor: pointer;
@@ -25,6 +29,7 @@ body[data-nav="home"] .home-era-card {
 }
 .barocco-card:hover strong { color: inherit !important; }
 
+/* Layout interno */
 .bx {
   display: flex;
   flex-direction: column;
@@ -32,50 +37,173 @@ body[data-nav="home"] .home-era-card {
   font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
 }
 
-/* ── Hero: compositore occupa la parte alta ── */
-.bx-hero {
-  flex: 1 1 auto;
+/* A · titolo */
+.bx-title {
+  flex: 0 0 auto;
+}
+.bx-title h3 {
+  margin: 0;
+  color: #f9ede9;
+  font-size: clamp(2.5rem, 5.5vw, 3.4rem);
+  font-weight: 300;
+  letter-spacing: -.055em;
+  line-height: .86;
+  text-transform: none !important;
+}
+.bx-title .era {
+  display: block;
+  margin-top: .2rem;
+  color: rgba(249,237,233,.6);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  font-variant-numeric: tabular-nums;
+}
+
+/* B · intro — testo e freccia sulla stessa riga, basi allineate */
+.bx-intro {
+  flex: 0 0 auto;
+  margin-top: clamp(2rem, 3.4vw, 2.8rem);
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.bx-intro .lab {
+  color: #f9ede9;
+  font-size: clamp(1.55rem, 3.2vw, 1.85rem);
+  font-weight: 600;
+  letter-spacing: -.04em;
+  line-height: .92;
+}
+.bx-intro .foot {
+  display: flex;
+  flex: 0 0 auto;
+}
+
+/* Respiro flessibile: spinge il cluster compositori+info verso il basso */
+.bx-comp {
+  flex: 0 0 auto;
+  margin-top: auto;
+  padding-top: 2.8rem;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
 }
-
-.bx-hero .nm {
+.bx-comp .nm {
   color: #f9ede9;
-  font-size: clamp(2.1rem, 5vw, 2.8rem);
-  font-weight: 650;
-  letter-spacing: -.045em;
-  line-height: .90;
+  font-size: clamp(1.55rem, 3.2vw, 1.85rem);
+  font-weight: 600;
+  letter-spacing: -.04em;
+  line-height: .92;
 }
-.bx-hero .nm span { display: block; }
-
-.bx-hero .dt {
+.bx-comp .nm span { display: block; }
+.bx-comp .dt {
   display: block;
-  margin-top: .22rem;
-  color: rgba(249,237,233,.62);
-  font-size: .75rem;
+  margin-top: .12rem;
+  color: rgba(249,237,233,.65);
+  font-size: .78rem;
   font-weight: 500;
   letter-spacing: .03em;
   font-variant-numeric: tabular-nums;
 }
-
-/* Cerchi compositori — piccoli e fissi */
 .bx-circles {
   display: flex;
-  gap: .3rem;
-  margin-top: .8rem;
+  gap: .45rem;
+  margin-top: 1.1rem;
 }
 
+/* D · info — separato da un filo sottile */
+.bx-info {
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+  margin-top: 1.5rem;
+  padding: 1.3rem 0 0;
+  border-top: 1px solid rgba(249,237,233,.28);
+}
+.bx-info .text-wrap {
+  display: flex;
+  flex-direction: column;
+  flex: 0 0 auto;
+}
+.bx-info .it {
+  color: #f9ede9;
+  font-size: clamp(.92rem, 1.7vw, 1.05rem);
+  font-weight: 500;
+  letter-spacing: -.03em;
+  line-height: 1.15;
+  min-height: 1.15em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.bx-info .it span { display: inline; }
+.bx-info .it span + span::before { content: " · "; opacity: .55; font-weight: 400; }
+.bx-info .ds {
+  margin-top: .4rem;
+  color: rgba(249,237,233,.58);
+  font-size: clamp(.74rem, 1.2vw, .84rem);
+  font-weight: 400;
+  line-height: 1.45;
+  min-height: 2.9em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.bx-info .foot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: .6rem;
+}
+
+/* iPhone */
+@media (max-width: 480px) {
+  .barocco-card {
+    padding: 1.2rem 1.1rem !important;
+  }
+  .bx-intro {
+    margin-top: 1.2rem;
+  }
+  .bx-intro .lab {
+    font-size: 1.35rem;
+  }
+  .bx-comp {
+    padding-top: 1.6rem;
+  }
+  .bx-comp .nm {
+    font-size: 1.35rem;
+  }
+  .bx-circles {
+    margin-top: .6rem;
+  }
+  .bx-info {
+    margin-top: .9rem;
+    padding-top: .9rem;
+  }
+  .bx-info .it {
+    font-size: .78rem;
+  }
+  .bx-info .ds {
+    font-size: .62rem;
+  }
+  .bx-info .foot {
+    margin-top: .5rem;
+  }
+}
+
+/* Cerchi compositori */
 .bx-author {
-  flex: 0 0 2rem;
-  width: 2rem;
-  height: 2rem;
+  flex: 1 1 0;
+  aspect-ratio: 1;
   border: none;
   background: none;
   padding: 0;
   cursor: pointer;
   position: relative;
-  border-radius: 50%;
 }
 .bx-author .ph {
   position: absolute;
@@ -89,88 +217,17 @@ body[data-nav="home"] .home-era-card {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 50% 20%;
+  object-position: 50% 26%;
   display: block;
 }
-.bx-author:not(.active) .ph { filter: grayscale(.7) brightness(.85); opacity: .45; }
-.bx-author:not(.active):hover .ph { filter: grayscale(.2); opacity: .85; }
-.bx-author.active .ph { filter: none; transform: scale(1.08); }
-
-/* ── Strip inferiore: era + lezione ── */
-.bx-strip {
-  flex: 0 0 auto;
-  margin-top: 1.4rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(249,237,233,.28);
-  display: flex;
-  flex-direction: column;
-}
-
-.bx-era-row {
-  display: flex;
-  align-items: baseline;
-  gap: .45rem;
-  margin-bottom: .5rem;
-}
-
-.bx-era-row .era-name {
-  color: #f9ede9;
-  font-size: clamp(1.5rem, 3.2vw, 1.9rem);
-  font-weight: 300;
-  letter-spacing: -.05em;
-  line-height: 1;
-}
-.bx-era-row .era-period {
-  color: rgba(249,237,233,.58);
-  font-size: .70rem;
-  font-weight: 600;
-  letter-spacing: .1em;
-  text-transform: uppercase;
-  font-variant-numeric: tabular-nums;
-}
-
-.bx-lesson-row {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: .5rem;
-}
-
-.bx-lesson-text {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-
-.bx-lesson-text .it {
-  color: #f9ede9;
-  font-size: clamp(.88rem, 1.7vw, 1rem);
-  font-weight: 500;
-  letter-spacing: -.03em;
-  line-height: 1.15;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.bx-lesson-text .it span { display: inline; }
-.bx-lesson-text .it span + span::before { content: " · "; opacity: .5; font-weight: 400; }
-
-.bx-lesson-text .ds {
-  margin-top: .35rem;
-  color: rgba(249,237,233,.55);
-  font-size: clamp(.72rem, 1.2vw, .82rem);
-  font-weight: 400;
-  line-height: 1.4;
-  min-height: 2.8em;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
+.bx-author:not(.active) .ph { filter: grayscale(.7) brightness(.9); opacity: .42; }
+.bx-author:not(.active):hover .ph { filter: grayscale(.15); opacity: .85; }
+.bx-author.active .ph { filter: none; transform: scale(1.06); }
 
 /* Freccia */
 .bx-arrow {
-  width: 2rem;
-  height: 2rem;
+  width: 2.1rem;
+  height: 2.1rem;
   border-radius: 50%;
   background: rgba(249,237,233,.2);
   color: #f9ede9;
@@ -184,29 +241,6 @@ body[data-nav="home"] .home-era-card {
 .bx-arrow:hover { background: rgba(249,237,233,.4); transform: translate(2px,-2px); }
 .bx-arrow svg { display: block; }
 
-/* Animazione fade strip */
+/* Animazione fade info */
 .bx-fade { animation: bxf .34s ease; }
 @keyframes bxf { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
-
-/* iPhone */
-@media (max-width: 480px) {
-  .barocco-card {
-    padding: 1.2rem 1rem !important;
-  }
-  .bx-hero .nm {
-    font-size: 1.9rem;
-  }
-  .bx-circles {
-    margin-top: .6rem;
-  }
-  .bx-strip {
-    margin-top: 1rem;
-    padding-top: .85rem;
-  }
-  .bx-lesson-text .it {
-    font-size: .84rem;
-  }
-  .bx-lesson-text .ds {
-    font-size: .68rem;
-  }
-}
