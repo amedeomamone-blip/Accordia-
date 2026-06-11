@@ -1,12 +1,13 @@
 /* ============================================================
-   Home — nuclei in colonne affiancate, solo testo
-   Niente numeri, niente griglia: titolo + data + descrizione
-   sottile + piccola freccia ↗ con l'accento di palette.
+   Home — nuclei in 6 colonne affiancate, solo testo
+   Impostazione e spaziatura del modello a griglia, ma senza
+   bordi né numeri. Titolo con l'effetto dei vecchi numeri:
+   grigio tenue che prende l'accento al passaggio.
    ============================================================ */
 
 /* Intestazione sezione — display centrato, una riga */
 body[data-nav="home"] .home-section__heading--timeline {
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
 }
 body[data-nav="home"] .home-section__heading--timeline h2 {
     max-width: none;
@@ -23,7 +24,7 @@ body[data-nav="home"] .home-section__heading--timeline p {
     display: none;
 }
 
-/* Wrapper — nessuna cornice */
+/* Wrapper a tutta larghezza — nessuna cornice */
 body[data-nav="home"] .nuclei-grid-wrap {
     width: 100%;
     overflow-x: auto;
@@ -32,27 +33,28 @@ body[data-nav="home"] .nuclei-grid-wrap {
 }
 body[data-nav="home"] .nuclei-grid-wrap::-webkit-scrollbar { display: none; }
 
-/* 6 colonne in riga, senza separatori */
+/* Griglia: 6 colonne uguali in riga — come il modello, senza separatori */
 body[data-nav="home"] .nuclei-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    gap: 2.5rem;
-    min-width: 56rem;
-    max-width: var(--shell-max, 75rem);
-    margin: 0 auto;
-    padding: 0 max(1rem, calc((100vw - min(100vw, var(--shell-max, 75rem))) / 2 + 1rem));
+    min-width: 52rem;
 }
 
-/* Singola colonna — solo testo */
+/* Singola colonna — stessa spaziatura del modello a griglia */
 body[data-nav="home"] .nuclei-col {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 0;
+    padding: 2rem 1.4rem 1.6rem;
     border: 0;
     text-decoration: none;
     color: #111111;
     background: transparent;
+    transition: background-color .2s ease;
+    position: relative;
+}
+body[data-nav="home"] .nuclei-col:hover {
+    background: rgba(17,17,17,.03);
 }
 
 /* Numero — rimosso */
@@ -60,12 +62,12 @@ body[data-nav="home"] .nuclei-col__num {
     display: none;
 }
 
-/* Titolo — l'effetto dei vecchi numeri: grande, grigio tenue,
+/* Titolo — l'effetto dei vecchi numeri: grigio tenue,
    accento di palette al passaggio. Mai in maiuscolo. */
 body[data-nav="home"] .nuclei-col__title {
-    margin: 0 0 .6rem;
+    margin: 0 0 .5rem;
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: clamp(1.6rem, 2.1vw, 2.2rem);
+    font-size: clamp(1.5rem, 1.8vw, 2rem);
     font-weight: 700;
     letter-spacing: -.04em;
     line-height: .98;
@@ -80,7 +82,7 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__title {
 /* Data */
 body[data-nav="home"] .nuclei-col__date {
     display: block;
-    font-size: .75rem;
+    font-size: .7rem;
     font-weight: 600;
     letter-spacing: .08em;
     color: rgba(17,17,17,.4);
@@ -91,7 +93,7 @@ body[data-nav="home"] .nuclei-col__date {
 /* Descrizione — sottile */
 body[data-nav="home"] .nuclei-col__desc {
     margin: 0;
-    font-size: .85rem;
+    font-size: .78rem;
     font-weight: 300;
     line-height: 1.45;
     color: rgba(17,17,17,.5);
@@ -110,7 +112,7 @@ body[data-nav="home"] .nuclei-col__arrow {
     color: #ffffff;
     font-size: .65rem;
     line-height: 1;
-    margin-top: 1.2rem;
+    margin-top: 1.4rem;
     flex: 0 0 auto;
     transition: transform .18s ease;
 }
@@ -125,15 +127,16 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__arrow {
         font-size: 1.6rem;
     }
     body[data-nav="home"] .nuclei-grid {
-        grid-template-columns: repeat(3, minmax(9.5rem, 1fr));
-        gap: 1.6rem;
+        grid-template-columns: repeat(3, minmax(9rem, 1fr));
         min-width: 0;
-        padding: 0 1rem;
+    }
+    body[data-nav="home"] .nuclei-col {
+        padding: 1.3rem 1rem 1.2rem;
     }
     body[data-nav="home"] .nuclei-col__title {
-        font-size: 1.35rem;
+        font-size: 1.3rem;
     }
     body[data-nav="home"] .nuclei-col__desc {
-        font-size: .78rem;
+        font-size: .74rem;
     }
 }
