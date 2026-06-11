@@ -45,33 +45,37 @@ body[data-nav="home"] .home-section__heading--timeline p {
     display: none;
 }
 
-/* ── Wrapper: occupa tutto lo spazio restante ── */
+/* ── Wrapper: centra la fila di mattonelle nello spazio restante ── */
 body[data-nav="home"] .nuclei-grid-wrap {
     flex: 1 1 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     overflow: hidden;
+    padding: 0 1.5rem 2rem;
 }
 
-/* ── Griglia 3×2: riempie l'altezza disponibile ── */
+/* ── 6 mattonelle quadrate in linea ── */
 body[data-nav="home"] .nuclei-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    height: 100%;
+    grid-template-columns: repeat(6, 1fr);
+    width: min(100%, 88rem);
     min-width: 0;
     max-width: none;
     margin: 0;
     padding: 0;
-    gap: 2px;
-    background: #d8d8d8;
+    gap: .8rem;
+    background: transparent;
 }
 
-/* ── Mattonella ── */
+/* ── Mattonella quadrata, grigi chiarissimi diversi tra loro ── */
 body[data-nav="home"] .nuclei-col {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 1.8rem;
-    background: #ebebeb;
+    aspect-ratio: 1;
+    padding: 1.4rem;
+    border-radius: 10px;
     color: #111111;
     text-decoration: none;
     border: 0;
@@ -79,8 +83,14 @@ body[data-nav="home"] .nuclei-col {
     overflow: hidden;
     position: relative;
 }
-body[data-nav="home"] .nuclei-col:hover {
-    background: var(--accent);
+body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(1) { background: #f7f6f4; }
+body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(2) { background: #f3f4f2; }
+body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(3) { background: #f8f3f1; }
+body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(4) { background: #f1f4f4; }
+body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(5) { background: #f4f3f6; }
+body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(6) { background: #f2f4f7; }
+body[data-nav="home"] .nuclei-grid .nuclei-col:hover {
+    background: var(--accent) !important;
     color: #ffffff;
 }
 
@@ -88,7 +98,7 @@ body[data-nav="home"] .nuclei-col:hover {
 body[data-nav="home"] .nuclei-col__title {
     margin: 0;
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: clamp(1.4rem, 2.4vw, 2.6rem);
+    font-size: clamp(1.05rem, 1.55vw, 1.7rem);
     font-weight: 750;
     letter-spacing: -.04em;
     line-height: .97;
@@ -157,12 +167,10 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__arrow {
     }
     body[data-nav="home"] .nuclei-grid {
         grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: repeat(3, 1fr);
-        height: auto;
+        gap: .6rem;
     }
     body[data-nav="home"] .nuclei-col {
         padding: 1.2rem;
-        aspect-ratio: 1;
     }
     body[data-nav="home"] .nuclei-col__title {
         font-size: 1.2rem;
