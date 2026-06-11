@@ -43,26 +43,28 @@ body[data-nav="home"] .home-section__heading--timeline h2 {
     max-width: none !important;
     text-align: center !important;
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: clamp(1.6rem, 3vw, 2.8rem);
+    /* Scala col viewport: sempre su una sola riga, anche su mobile */
+    font-size: clamp(.95rem, 3.3vw, 2.8rem) !important;
     font-weight: 750;
     letter-spacing: -.05em;
-    line-height: 1;
+    line-height: 1 !important;
     color: #111111;
-    white-space: normal;
+    white-space: nowrap !important;
     transform: none !important;
 }
 
-/* Istruzione per lo studente — sottile, sotto il titolo */
+/* Istruzione per lo studente — una riga, allineata al titolo */
 body[data-nav="home"] .home-section__heading--timeline .nuclei-instruction {
     display: block;
     margin: .9rem 0 0;
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: clamp(.88rem, 1.05vw, 1.02rem);
+    font-size: clamp(.62rem, 1.9vw, 1.02rem) !important;
     font-weight: 300;
     letter-spacing: .01em;
-    line-height: 1.5;
+    line-height: 1.5 !important;
     color: rgba(17,17,17,.55);
-    text-align: center;
+    text-align: center !important;
+    white-space: nowrap !important;
     transform: none !important;
 }
 
@@ -228,9 +230,6 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__title {
 @media (max-width: 600px) {
     body[data-nav="home"] .home-section.home-timeline {
         min-height: auto;
-    }
-    body[data-nav="home"] .home-section__heading--timeline h2 {
-        font-size: 1.5rem !important;
     }
     body[data-nav="home"] .nuclei-grid-wrap {
         flex: none;
