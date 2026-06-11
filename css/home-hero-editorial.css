@@ -1,0 +1,138 @@
+/* ============================================================
+   Hero editoriale — Accordia
+   Riferimento: tipografia display oversized in cascata
+   diagonale, griglia hairline, micro-testi nelle celle.
+   Solo bianco, nero, grigio. Nessuna immagine.
+   ============================================================ */
+
+/* La vecchia timeline scompare */
+body[data-nav="home"] .home-timeline {
+    display: none !important;
+}
+
+/* ── Hero ── */
+body[data-nav="home"] .hero-edit {
+    position: relative;
+    min-height: calc(100vh - 76px);
+    background: #f2f2f0;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+/* Griglia hairline — la struttura geometrica */
+body[data-nav="home"] .hero-edit__grid {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+        repeating-linear-gradient(to right,
+            rgba(17, 17, 17, .07) 0, rgba(17, 17, 17, .07) 1px,
+            transparent 1px, transparent calc(100% / 8)),
+        repeating-linear-gradient(to bottom,
+            rgba(17, 17, 17, .07) 0, rgba(17, 17, 17, .07) 1px,
+            transparent 1px, transparent calc((100vh - 76px) / 4));
+}
+
+/* Quadratino nero — punteggiatura grafica */
+body[data-nav="home"] .hero-edit__dot {
+    position: absolute;
+    top: 2.2rem;
+    right: max(2rem, 4vw);
+    width: 9px;
+    height: 9px;
+    background: #111111;
+    z-index: 2;
+}
+
+/* ── La parola — cascata diagonale ── */
+body[data-nav="home"] .hero-edit__word {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    margin: 0;
+    padding: clamp(2rem, 6vh, 5rem) max(1.5rem, 4vw);
+    display: flex;
+    flex-direction: column;
+    font-family: var(--font-display, "SF Pro Display", -apple-system, "Helvetica Neue", Arial, sans-serif);
+    font-size: clamp(5.5rem, 20vw, 21rem);
+    font-weight: 800;
+    line-height: .76;
+    letter-spacing: -.06em;
+    color: #111111;
+    text-transform: none;
+}
+
+body[data-nav="home"] .hero-edit__seg {
+    display: block;
+}
+
+body[data-nav="home"] .hero-edit__seg--1 { align-self: flex-start; }
+body[data-nav="home"] .hero-edit__seg--2 { align-self: center; }
+body[data-nav="home"] .hero-edit__seg--3 { align-self: flex-end; }
+
+/* ── Micro-testi nelle celle della griglia ── */
+body[data-nav="home"] .hero-edit__meta {
+    position: absolute;
+    z-index: 2;
+    margin: 0;
+    font-size: .72rem;
+    font-weight: 500;
+    line-height: 1.55;
+    letter-spacing: .01em;
+    color: #111111;
+}
+
+body[data-nav="home"] .hero-edit__meta--a {
+    top: 16%;
+    right: max(2rem, 13vw);
+    text-align: left;
+}
+
+body[data-nav="home"] .hero-edit__meta--b {
+    bottom: 14%;
+    left: max(1.5rem, 4vw);
+}
+
+/* Indice nuclei — in basso, come numero di pagina */
+body[data-nav="home"] .hero-edit__index {
+    position: absolute;
+    bottom: 2rem;
+    right: max(2rem, 4vw);
+    z-index: 2;
+    font-size: .78rem;
+    font-weight: 700;
+    letter-spacing: .04em;
+    color: #111111;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── Mobile ── */
+@media (max-width: 760px) {
+    body[data-nav="home"] .hero-edit {
+        min-height: calc(100svh - 64px);
+    }
+    body[data-nav="home"] .hero-edit__grid {
+        background-image:
+            repeating-linear-gradient(to right,
+                rgba(17, 17, 17, .07) 0, rgba(17, 17, 17, .07) 1px,
+                transparent 1px, transparent calc(100% / 4)),
+            repeating-linear-gradient(to bottom,
+                rgba(17, 17, 17, .07) 0, rgba(17, 17, 17, .07) 1px,
+                transparent 1px, transparent calc((100svh - 64px) / 5));
+    }
+    body[data-nav="home"] .hero-edit__word {
+        font-size: clamp(4.5rem, 24vw, 8rem);
+        line-height: .8;
+    }
+    body[data-nav="home"] .hero-edit__meta--a {
+        top: 12%;
+        right: max(1.25rem, 5vw);
+    }
+    body[data-nav="home"] .hero-edit__meta--b {
+        bottom: 12%;
+    }
+    body[data-nav="home"] .hero-edit__index {
+        bottom: 1.4rem;
+    }
+}
