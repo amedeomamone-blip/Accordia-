@@ -45,7 +45,7 @@ body[data-nav="home"] .home-section__heading--timeline h2 {
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
     /* Solo vw: le proporzioni col resto della pagina restano identiche
        a qualsiasi zoom e larghezza di finestra */
-    font-size: 4.6vw !important;
+    font-size: 3.8vw !important;
     font-weight: 800;
     letter-spacing: -.03em;
     line-height: .95 !important;
@@ -151,8 +151,22 @@ body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(2) {
 }
 body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(3) { --tile-bg: #f8f3f1; --blink-delay: 4s; }
 body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(4) { --tile-bg: #f1f4f4; --blink-delay: 6s; }
-body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(5) { --tile-bg: #f4f3f6; --blink-delay: 8s; }
-body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(6) { --tile-bg: #f2f4f7; --blink-delay: 10s; }
+/* Romanticismo: rosa antico #D4B4C8 — contrasto nero */
+body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(5) {
+    --tile-bg: #f6f3f5;
+    --blink-delay: 8s;
+    --lit-num: rgba(17,17,17,.85);
+    --lit-arrow-bg: rgba(17,17,17,.14);
+    --lit-arrow-fg: #18191b;
+}
+/* Novecento: azzurro ardesia #A8BCC8 — contrasto nero */
+body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(6) {
+    --tile-bg: #f2f4f6;
+    --blink-delay: 10s;
+    --lit-num: rgba(17,17,17,.85);
+    --lit-arrow-bg: rgba(17,17,17,.14);
+    --lit-arrow-fg: #18191b;
+}
 
 /* Accensione: colore piatto di palette, poi ritorno al grigio */
 @keyframes nucleo-blink {
@@ -235,6 +249,21 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__arrow {
     transform: translate(2px, -2px);
 }
 
+/* ── Data — piccola, sotto il titolo ── */
+body[data-nav="home"] .nuclei-col__date {
+    display: block;
+    padding: .3vw 1.5vw .8vw;
+    font-size: .75vw;
+    font-weight: 400;
+    letter-spacing: .04em;
+    color: rgba(17,17,17,.38);
+    font-variant-numeric: tabular-nums;
+    transition: color .2s ease;
+}
+body[data-nav="home"] .nuclei-col:hover .nuclei-col__date {
+    color: var(--accent, #111111);
+}
+
 /* ── Titolo — da solo, appena sotto la mattonella ── */
 body[data-nav="home"] .nuclei-col__title {
     margin: 0;
@@ -300,6 +329,10 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__title {
     }
     body[data-nav="home"] .nuclei-col__title {
         font-size: 3.4vw;
-        padding: 2vw 4vw 3vw;
+        padding: 2vw 4vw 0;
+    }
+    body[data-nav="home"] .nuclei-col__date {
+        font-size: 2.2vw;
+        padding: .8vw 4vw 3vw;
     }
 }
