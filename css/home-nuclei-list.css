@@ -141,7 +141,7 @@ body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(1) {
     --lit-arrow-bg: rgba(17,17,17,.14);
     --lit-arrow-fg: #18191b;
 }
-/* Rinascimento: lilla polveroso #B5A3C5 — contrasto da acceso in nero */
+/* Rinascimento: azzurro lapislazzuli tenue #9AABD4 — contrasto da acceso in nero */
 body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(2) {
     --tile-bg: #f3f4f2;
     --blink-delay: 2s;
