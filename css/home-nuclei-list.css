@@ -240,8 +240,18 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__title {
 
 /* ── Mobile: 2 colonne ── */
 @media (max-width: 600px) {
+    /* Su iPhone la barra di Safari all'apertura è espansa: la hero
+       calcolata su 100svh finisce esattamente al bordo e un pixel di
+       arrotondamento fa spuntare il titolo della seconda schermata.
+       Ancorata a 100lvh (viewport grande) parte sempre sotto la piega. */
+    body[data-nav="home"] .home-hero,
+    body[data-nav="home"] .home-hero__frame {
+        min-height: calc(100svh - var(--home-header-height, 4.15rem));
+        min-height: calc(100lvh - var(--home-header-height, 4.15rem));
+    }
     body[data-nav="home"] .home-section.home-timeline {
         min-height: auto;
+        padding: 3rem 0 2.5rem !important;
     }
     body[data-nav="home"] .nuclei-grid-wrap {
         flex: none;
