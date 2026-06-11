@@ -1,7 +1,7 @@
 /* ============================================================
    Home — nuclei in 6 colonne affiancate, solo testo
-   Titolo con effetto numeri (grigio tenue → accento al passaggio),
-   numero piccolo come la freccia, nessun effetto quadrato al hover.
+   Numero in grassetto in basso a sinistra, freccia a destra,
+   nessuna circonferenza, nessun effetto quadrato al hover.
    ============================================================ */
 
 /* ── Hero "Un ambiente didattico" — in linea col B&N editoriale ── */
@@ -14,20 +14,24 @@ body[data-nav="home"] .home-hero__copy--lead-only .home-hero__lead {
     line-height: 1.6 !important;
 }
 
-/* ── Intestazione sezione — display centrato, una riga ── */
+/* ── Intestazione sezione — display centrato ── */
 body[data-nav="home"] .home-section__heading--timeline {
     margin-bottom: 2.5rem;
+    text-align: center;
 }
 body[data-nav="home"] .home-section__heading--timeline h2 {
-    max-width: none;
-    text-align: center;
+    max-width: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: center !important;
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: clamp(2.4rem, 5vw, 5rem);
+    font-size: clamp(2rem, 3.8vw, 3.4rem);
     font-weight: 750;
     letter-spacing: -.05em;
     line-height: 1;
     color: #111111;
-    white-space: nowrap;
+    white-space: normal;
+    transform: none !important;
 }
 body[data-nav="home"] .home-section__heading--timeline p {
     display: none;
@@ -42,11 +46,14 @@ body[data-nav="home"] .nuclei-grid-wrap {
 }
 body[data-nav="home"] .nuclei-grid-wrap::-webkit-scrollbar { display: none; }
 
-/* ── Griglia: 6 colonne uguali ── */
+/* ── Griglia: 6 colonne centrate nella pagina ── */
 body[data-nav="home"] .nuclei-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     min-width: 52rem;
+    max-width: var(--shell-max, 75rem);
+    margin: 0 auto;
+    padding: 0 max(1.5rem, calc((100vw - min(100vw, var(--shell-max, 75rem))) / 2 + 1.5rem));
 }
 
 /* ── Singola colonna ── */
@@ -54,35 +61,11 @@ body[data-nav="home"] .nuclei-col {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 2rem 1.4rem 1.6rem;
+    padding: 2rem 1.2rem 1.6rem;
     border: 0;
     text-decoration: none;
     color: #111111;
     background: transparent;
-}
-
-/* Numero — piccolo cerchio, stessa misura della freccia */
-body[data-nav="home"] .nuclei-col__num {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.4rem;
-    height: 1.4rem;
-    border-radius: 50%;
-    border: 1px solid rgba(17,17,17,.2);
-    font-size: .58rem;
-    font-weight: 700;
-    letter-spacing: .04em;
-    color: rgba(17,17,17,.35);
-    margin-bottom: 1.1rem;
-    font-variant-numeric: tabular-nums;
-    flex: 0 0 auto;
-    transition: border-color .2s ease, color .2s ease;
-}
-body[data-nav="home"] .nuclei-col:hover .nuclei-col__num {
-    border-color: var(--accent, #111111);
-    color: var(--accent, #111111);
-    opacity: .6;
 }
 
 /* Titolo — effetto numeri: grigio tenue → accento al passaggio */
@@ -109,20 +92,43 @@ body[data-nav="home"] .nuclei-col__date {
     letter-spacing: .08em;
     color: rgba(17,17,17,.4);
     font-variant-numeric: tabular-nums;
-    margin-bottom: .85rem;
+    margin-bottom: .9rem;
 }
 
 /* Descrizione — sottile, evocativa */
 body[data-nav="home"] .nuclei-col__desc {
     margin: 0;
-    font-size: .78rem;
+    font-size: .8rem;
     font-weight: 300;
-    line-height: 1.45;
+    line-height: 1.5;
     color: rgba(17,17,17,.5);
     flex: 1 1 auto;
 }
 
-/* Freccia — piccola, con accento di palette */
+/* Riga di fondo: numero a sinistra, freccia a destra */
+body[data-nav="home"] .nuclei-col__bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 1.4rem;
+}
+
+/* Numero — grassetto senza circonferenza */
+body[data-nav="home"] .nuclei-col__num {
+    font-size: .72rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    color: rgba(17,17,17,.3);
+    font-variant-numeric: tabular-nums;
+    transition: color .2s ease;
+}
+body[data-nav="home"] .nuclei-col:hover .nuclei-col__num {
+    color: var(--accent, #111111);
+    opacity: .6;
+}
+
+/* Freccia — piccola, a destra, con accento di palette */
 body[data-nav="home"] .nuclei-col__arrow {
     display: flex;
     align-items: center;
@@ -134,7 +140,6 @@ body[data-nav="home"] .nuclei-col__arrow {
     color: #ffffff;
     font-size: .65rem;
     line-height: 1;
-    margin-top: 1.4rem;
     flex: 0 0 auto;
     transition: transform .18s ease;
 }
@@ -145,12 +150,12 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__arrow {
 /* Mobile */
 @media (max-width: 600px) {
     body[data-nav="home"] .home-section__heading--timeline h2 {
-        white-space: normal;
-        font-size: 2rem;
+        font-size: 1.9rem !important;
     }
     body[data-nav="home"] .nuclei-grid {
         grid-template-columns: repeat(3, minmax(9rem, 1fr));
         min-width: 0;
+        padding: 0 1rem;
     }
     body[data-nav="home"] .nuclei-col {
         padding: 1.3rem 1rem 1.2rem;
@@ -159,6 +164,6 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__arrow {
         font-size: 1.3rem;
     }
     body[data-nav="home"] .nuclei-col__desc {
-        font-size: .74rem;
+        font-size: .75rem;
     }
 }
