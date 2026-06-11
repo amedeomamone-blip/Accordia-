@@ -43,12 +43,13 @@ body[data-nav="home"] .home-section__heading--timeline h2 {
     max-width: none !important;
     text-align: center !important;
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: clamp(2.2rem, 6vw, 7rem) !important;
+    /* Una sola riga: scala col viewport, il più grande possibile */
+    font-size: clamp(1rem, 3.5vw, 4rem) !important;
     font-weight: 800;
     letter-spacing: -.05em;
-    line-height: .95 !important;
+    line-height: 1 !important;
     color: #111111;
-    white-space: normal !important;
+    white-space: nowrap !important;
     transform: none !important;
 }
 
