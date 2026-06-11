@@ -36,19 +36,21 @@ body[data-nav="home"] .home-section__heading--timeline {
     flex: 0 0 auto;
     padding: 0 1.5rem;
     margin: 0 0 2.2rem;
-    text-align: center;
+    text-align: left;
 }
 body[data-nav="home"] .home-section__heading--timeline h2 {
     margin: 0;
     max-width: none !important;
-    text-align: center !important;
+    text-align: left !important;
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    /* Una sola riga: scala col viewport, il più grande possibile */
-    font-size: clamp(1rem, 3.5vw, 4rem) !important;
+    /* Display in stampatello su due righe, come il riferimento:
+       "UN PERCORSO STORICO IN SEI" / "NUCLEI DI APPRENDIMENTO" */
+    font-size: clamp(1.6rem, 5.4vw, 6.5rem) !important;
     font-weight: 800;
-    letter-spacing: -.05em;
-    line-height: 1 !important;
+    letter-spacing: -.03em;
+    line-height: .95 !important;
     color: #111111;
+    text-transform: uppercase;
     white-space: nowrap !important;
     transform: none !important;
 }
@@ -63,7 +65,7 @@ body[data-nav="home"] .home-section__heading--timeline .nuclei-instruction {
     letter-spacing: .01em;
     line-height: 1.5 !important;
     color: rgba(17,17,17,.55);
-    text-align: center !important;
+    text-align: left !important;
     white-space: nowrap !important;
     transform: none !important;
 }
