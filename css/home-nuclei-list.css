@@ -52,19 +52,19 @@ body[data-nav="home"] .nuclei-grid-wrap {
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    padding: 0 1.5rem 2rem;
+    padding: 0;
 }
 
-/* ── 6 mattonelle quadrate in linea ── */
+/* ── 6 mattonelle quadrate attaccate, da margine a margine ── */
 body[data-nav="home"] .nuclei-grid {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
-    width: min(100%, 88rem);
+    width: 100%;
     min-width: 0;
     max-width: none;
     margin: 0;
     padding: 0;
-    gap: .8rem;
+    gap: 0;
     background: transparent;
 }
 
@@ -75,7 +75,7 @@ body[data-nav="home"] .nuclei-col {
     justify-content: space-between;
     aspect-ratio: 1;
     padding: 1.4rem;
-    border-radius: 10px;
+    border-radius: 0;
     color: #111111;
     text-decoration: none;
     border: 0;
@@ -167,7 +167,7 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__arrow {
     }
     body[data-nav="home"] .nuclei-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: .6rem;
+        gap: 0;
     }
     body[data-nav="home"] .nuclei-col {
         padding: 1.2rem;
