@@ -6,7 +6,7 @@
 
 .barocco-card {
   --accent: #C37A6B;
-  padding: 1.4rem 1.2rem 1.2rem !important;
+  padding: 2rem 1.6rem 1.6rem !important;
   gap: 0 !important;
   background: #ffffff !important;
   cursor: pointer;
@@ -35,9 +35,9 @@
 .bx-title .era {
   order: -1;
   display: block;
-  margin-bottom: .8rem;
+  margin-bottom: 1rem;
   color: rgba(17,17,17,.5);
-  font-size: .72rem;
+  font-size: .78rem;
   font-weight: 600;
   letter-spacing: .09em;
   text-transform: uppercase;
@@ -46,7 +46,7 @@
 .bx-title h3 {
   margin: 0;
   color: #111111;
-  font-size: clamp(1.75rem, 2.1vw, 2.05rem);
+  font-size: clamp(2.15rem, 2.8vw, 2.6rem);
   font-weight: 750;
   letter-spacing: -.05em;
   line-height: .94;
@@ -56,7 +56,7 @@
 /* B · intro — testo e freccia, basi allineate */
 .bx-intro {
   flex: 0 0 auto;
-  margin-top: 1.3rem;
+  margin-top: 2rem;
   display: flex;
   flex-direction: row;
   align-items: flex-end;
@@ -65,7 +65,7 @@
 }
 .bx-intro .lab {
   color: #111111;
-  font-size: .95rem;
+  font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: -.02em;
   line-height: 1.1;
@@ -79,13 +79,13 @@
 .bx-comp {
   flex: 0 0 auto;
   margin-top: auto;
-  padding-top: 1.2rem;
+  padding-top: 1.8rem;
   display: flex;
   flex-direction: column;
 }
 .bx-comp .nm {
   color: #111111;
-  font-size: 1.1rem;
+  font-size: 1.45rem;
   font-weight: 700;
   letter-spacing: -.03em;
   line-height: 1.02;
@@ -95,15 +95,15 @@
   display: block;
   margin-top: .15rem;
   color: rgba(17,17,17,.45);
-  font-size: .7rem;
+  font-size: .78rem;
   font-weight: 600;
   letter-spacing: .04em;
   font-variant-numeric: tabular-nums;
 }
 .bx-circles {
   display: flex;
-  gap: .35rem;
-  margin-top: .7rem;
+  gap: .45rem;
+  margin-top: 1rem;
 }
 
 /* D · info — filo sottile nero */
@@ -112,8 +112,8 @@
   display: flex;
   flex-direction: column;
   flex: 0 0 auto;
-  margin-top: .9rem;
-  padding: .85rem 0 0;
+  margin-top: 1.3rem;
+  padding: 1.1rem 0 0;
   border-top: 1px solid rgba(17,17,17,.16);
 }
 .bx-info .text-wrap {
@@ -123,7 +123,7 @@
 }
 .bx-info .it {
   color: #111111;
-  font-size: .82rem;
+  font-size: .98rem;
   font-weight: 600;
   letter-spacing: -.01em;
   line-height: 1.2;
@@ -135,9 +135,9 @@
 .bx-info .it span { display: inline; }
 .bx-info .it span + span::before { content: " · "; opacity: .45; font-weight: 400; }
 .bx-info .ds {
-  margin-top: .3rem;
+  margin-top: .4rem;
   color: rgba(17,17,17,.55);
-  font-size: .7rem;
+  font-size: .8rem;
   font-weight: 400;
   line-height: 1.4;
   min-height: 2.8em;
@@ -149,14 +149,14 @@
 .bx-info .foot {
   display: flex;
   justify-content: flex-end;
-  margin-top: .45rem;
+  margin-top: .6rem;
 }
 
 /* Cerchi compositori — piccoli, fissi */
 .bx-author {
-  flex: 0 0 2.1rem;
-  width: 2.1rem;
-  height: 2.1rem;
+  flex: 0 0 2.8rem;
+  width: 2.8rem;
+  height: 2.8rem;
   border: none;
   background: none;
   padding: 0;
@@ -185,8 +185,8 @@
 
 /* Freccia — unico punto di colore */
 .bx-arrow {
-  width: 2.2rem;
-  height: 2.2rem;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 50%;
   background: var(--accent, #C37A6B);
   color: #ffffff;
@@ -207,32 +207,32 @@
 /* iPhone */
 @media (max-width: 480px) {
   .barocco-card {
-    padding: 1.15rem 1rem 1rem !important;
+    padding: 1.5rem 1.25rem 1.25rem !important;
   }
   .bx-title h3 {
-    font-size: 1.55rem;
+    font-size: 1.85rem;
   }
   .bx-intro {
     margin-top: 1rem;
   }
   .bx-intro .lab {
-    font-size: .88rem;
+    font-size: 1.05rem;
   }
   .bx-comp {
     padding-top: 1rem;
   }
   .bx-comp .nm {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
   .bx-author {
-    flex: 0 0 1.9rem;
-    width: 1.9rem;
-    height: 1.9rem;
+    flex: 0 0 2.3rem;
+    width: 2.3rem;
+    height: 2.3rem;
   }
   .bx-info .it {
-    font-size: .78rem;
+    font-size: .88rem;
   }
   .bx-info .ds {
-    font-size: .66rem;
+    font-size: .72rem;
   }
 }

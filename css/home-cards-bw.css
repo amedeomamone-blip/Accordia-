@@ -5,17 +5,6 @@
    aurea invariata (altezza = larghezza / 0.618).
    ============================================================ */
 
-/* Card più piccole — l'altezza segue dalla larghezza (φ) */
-body[data-nav="home"] .home-timeline__track {
-    --home-era-card-width: 16.5rem !important;
-}
-
-@media (max-width: 760px) {
-    body[data-nav="home"] .home-timeline__track {
-        --home-era-card-width: min(14.5rem, 70vw) !important;
-    }
-}
-
 /* ── Base comune: bianco, hairline, nero ── */
 body[data-nav="home"] .home-era-card {
     --accent: #111111;
@@ -45,7 +34,7 @@ body[data-nav="home"] .home-era-card:nth-child(6) { --accent: #243e63; }
 
 /* ── Card standard (tutte tranne Barocco) ── */
 body[data-nav="home"] .home-era-card:not(.barocco-card) {
-    padding: 1.4rem 1.2rem 1.2rem !important;
+    padding: 2rem 1.6rem 1.6rem !important;
     display: flex;
     flex-direction: column;
 }
@@ -65,13 +54,13 @@ body[data-nav="home"] .home-era-card:not(.barocco-card) .home-era-card__top {
 /* Periodo sopra il titolo — micro-etichetta grigia */
 body[data-nav="home"] .home-era-card:not(.barocco-card) .home-era-card__period {
     order: -1;
-    margin: 0 0 .8rem !important;
+    margin: 0 0 1rem !important;
     min-height: 0 !important;
     padding: 0 !important;
     border-radius: 0 !important;
     background: transparent !important;
     color: rgba(17, 17, 17, .5) !important;
-    font-size: .72rem;
+    font-size: .78rem;
     font-weight: 600;
     letter-spacing: .09em;
     font-variant-numeric: tabular-nums;
@@ -83,7 +72,7 @@ body[data-nav="home"] .home-era-card:not(.barocco-card) strong {
     margin: 0 !important;
     color: #111111 !important;
     font-family: var(--font-display) !important;
-    font-size: clamp(1.75rem, 2.1vw, 2.05rem) !important;
+    font-size: clamp(2.15rem, 2.8vw, 2.6rem) !important;
     font-weight: 750 !important;
     line-height: .94 !important;
     letter-spacing: -.05em !important;
@@ -121,7 +110,7 @@ body[data-nav="home"] .home-era-card:not(.barocco-card) .home-era-card__number {
     border-radius: 0 !important;
     background: transparent !important;
     color: rgba(17, 17, 17, .4) !important;
-    font-size: .82rem !important;
+    font-size: .9rem !important;
     font-weight: 700 !important;
     letter-spacing: .06em !important;
     font-variant-numeric: tabular-nums;
@@ -130,8 +119,8 @@ body[data-nav="home"] .home-era-card:not(.barocco-card) .home-era-card__number {
 
 /* CTA → cerchio freccia con l'accento di colore */
 body[data-nav="home"] .home-era-card:not(.barocco-card) .home-era-card__cta {
-    width: 2.2rem !important;
-    height: 2.2rem !important;
+    width: 2.5rem !important;
+    height: 2.5rem !important;
     min-height: 0 !important;
     padding: 0 !important;
     border-radius: 50% !important;
@@ -167,9 +156,9 @@ body[data-nav="home"] .home-era-card:hover .home-era-card__number {
 
 @media (max-width: 480px) {
     body[data-nav="home"] .home-era-card:not(.barocco-card) {
-        padding: 1.15rem 1rem 1rem !important;
+        padding: 1.5rem 1.25rem 1.25rem !important;
     }
     body[data-nav="home"] .home-era-card:not(.barocco-card) strong {
-        font-size: 1.55rem !important;
+        font-size: 1.85rem !important;
     }
 }
