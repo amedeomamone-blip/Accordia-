@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Accordia e un ambiente didattico per insegnare la storia della musica nella scuola secondaria di primo grado, con timeline, nuclei storici, mappe degli argomenti, ascolti guidati, attivita laboratoriali e verifiche.">
     <title>Accordia | Storia della musica</title>
-    <link rel="stylesheet" href="css/style.css?v=1781213812">
-    <link rel="stylesheet" href="css/home-nuclei-list.css?v=1781213812">
+    <link rel="stylesheet" href="css/style.css?v=1781214130">
+    <link rel="stylesheet" href="css/home-nuclei-list.css?v=1781214137">
 </head>
 <body data-nav="home">
     <header class="site-header">
@@ -116,9 +116,16 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=1781213812"></script>
+    <script src="js/main.js?v=1781214130"></script>
     <script>
         (function () {
+            if ('scrollRestoration' in window.history) {
+                window.history.scrollRestoration = 'manual';
+            }
+            if (!window.location.hash) {
+                window.scrollTo(0, 0);
+            }
+
             const siteHeader = document.querySelector('.site-header');
             const siteFooter = document.querySelector('.site-footer');
             const homeStage = document.querySelector('.home-stage');
@@ -160,7 +167,7 @@
 
                 function renderStageMotion() {
                     const delta = targetProgress - currentProgress;
-                    const smoothing = reducedMotion.matches ? 0.38 : 0.14;
+                    const smoothing = reducedMotion.matches ? 0.32 : 0.1;
 
                     currentProgress += delta * smoothing;
                     if (Math.abs(delta) < 0.001) {
@@ -172,18 +179,15 @@
                         : 1 - Math.pow(1 - currentProgress, 3);
                     const stageWidth = homeStageSticky.clientWidth;
                     const titleTravelX = stageWidth * (reducedMotion.matches ? 0.36 : 0.9);
-                    const titleTravelY = reducedMotion.matches ? 0 : Math.min(18, stageWidth * 0.012);
-                    const tilesStartX = stageWidth * (window.innerWidth <= 760 ? 0.62 : 0.96);
+                    const titleTravelY = reducedMotion.matches ? 0 : Math.min(10, stageWidth * 0.007);
+                    const tilesStartX = stageWidth * (window.innerWidth <= 760 ? 1.08 : 1.14);
+                    const tilesProgress = clamp((easedProgress - 0.16) / 0.84, 0, 1);
 
                     heroFrame.style.setProperty('--home-hero-title-shift-x', `${(-titleTravelX * easedProgress).toFixed(2)}px`);
                     heroFrame.style.setProperty('--home-hero-title-shift-y', `${(titleTravelY * easedProgress).toFixed(2)}px`);
-                    const tilesProgress = clamp((easedProgress - 0.08) / 0.92, 0, 1);
-
-                    heroFrame.style.setProperty('--home-hero-title-opacity', `${(1 - tilesProgress * 0.72).toFixed(3)}`);
                     homeStage.style.setProperty('--home-stage-progress', easedProgress.toFixed(4));
                     homeStage.style.setProperty('--home-stage-tiles-shift', `${(tilesStartX * (1 - tilesProgress)).toFixed(2)}px`);
-                    homeStage.style.setProperty('--home-stage-tiles-opacity', tilesProgress.toFixed(3));
-                    homeStage.classList.toggle('is-tiles-active', tilesProgress > 0.7);
+                    homeStage.classList.toggle('is-tiles-active', tilesProgress > 0.92);
 
                     if (currentProgress !== targetProgress) {
                         frameRequest = window.requestAnimationFrame(renderStageMotion);
