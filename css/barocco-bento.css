@@ -1,6 +1,6 @@
 /* ============================================================
    Barocco nucleus — tile strip (mirrors home structure)
-   5 tile quadrate in fila, strip in basso, info in alto.
+   2 fasce da 5 tile quadrate, strip ancorata in basso.
    ============================================================ */
 
 /* ── Stage: viewport height minus header ── */
@@ -9,41 +9,6 @@
     height: calc(100svh - var(--barocco-header-h, 4rem));
     background: #ffffff;
     overflow: hidden;
-}
-
-/* ── Info in alto ── */
-.barocco-head {
-    padding: 2.4vw 3rem 0;
-}
-
-.barocco-head__eyebrow {
-    font-size: .75vw;
-    font-weight: 500;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: rgba(17,17,17,.38);
-    display: block;
-}
-
-.barocco-head__title {
-    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: 3.8vw;
-    font-weight: 800;
-    letter-spacing: -.05em;
-    line-height: .95;
-    color: #111111;
-    margin: .5vw 0 0;
-    display: block;
-}
-
-.barocco-head__period {
-    font-size: .75vw;
-    font-weight: 400;
-    letter-spacing: .04em;
-    color: rgba(17,17,17,.38);
-    display: block;
-    margin-top: .5vw;
-    font-variant-numeric: tabular-nums;
 }
 
 /* ── Tile strip ancorata in basso ── */
@@ -84,11 +49,16 @@
     transition: background-color .3s ease;
 }
 
-.barocco-tile:nth-child(1) { --blink-delay: 0s; }
-.barocco-tile:nth-child(2) { --blink-delay: 2.4s; }
-.barocco-tile:nth-child(3) { --blink-delay: 4.8s; }
-.barocco-tile:nth-child(4) { --blink-delay: 7.2s; }
-.barocco-tile:nth-child(5) { --blink-delay: 9.6s; }
+.barocco-tile:nth-child(1)  { --blink-delay:  0s; }
+.barocco-tile:nth-child(2)  { --blink-delay:  1.2s; }
+.barocco-tile:nth-child(3)  { --blink-delay:  2.4s; }
+.barocco-tile:nth-child(4)  { --blink-delay:  3.6s; }
+.barocco-tile:nth-child(5)  { --blink-delay:  4.8s; }
+.barocco-tile:nth-child(6)  { --blink-delay:  6s; }
+.barocco-tile:nth-child(7)  { --blink-delay:  7.2s; }
+.barocco-tile:nth-child(8)  { --blink-delay:  8.4s; }
+.barocco-tile:nth-child(9)  { --blink-delay:  9.6s; }
+.barocco-tile:nth-child(10) { --blink-delay: 10.8s; }
 
 /* ── Animazioni blink ── */
 @keyframes barocco-blink {
@@ -193,16 +163,12 @@
 
 /* ── Mobile ≤600px ── */
 @media (max-width: 600px) {
-    .barocco-stage         { height: auto; }
-    .barocco-head          { padding: 4vw 4vw 0; }
-    .barocco-tiles-wrap    { position: static; padding: 2rem 0; }
-    .barocco-tiles         { grid-template-columns: repeat(2, 1fr); }
-    .barocco-head__eyebrow { font-size: 2.5vw; }
-    .barocco-head__title   { font-size: 9vw; }
-    .barocco-head__period  { font-size: 2.8vw; }
-    .barocco-tile__face    { padding: 4vw; }
-    .barocco-tile__num     { font-size: 3vw; }
-    .barocco-tile__arrow   { width: 5.5vw; height: 5.5vw; font-size: 2.8vw; }
-    .barocco-tile__name    { font-size: 4vw; padding: 2vw 4vw 0; }
-    .barocco-tile__sub     { font-size: 2.5vw; padding: .8vw 4vw 3vw; }
+    .barocco-stage      { height: auto; }
+    .barocco-tiles-wrap { position: static; }
+    .barocco-tiles      { grid-template-columns: repeat(2, 1fr); }
+    .barocco-tile__face { padding: 4vw; }
+    .barocco-tile__num  { font-size: 3vw; }
+    .barocco-tile__arrow{ width: 5.5vw; height: 5.5vw; font-size: 2.8vw; }
+    .barocco-tile__name { font-size: 4vw; padding: 2vw 4vw 0; }
+    .barocco-tile__sub  { font-size: 2.5vw; padding: .8vw 4vw 3vw; }
 }
