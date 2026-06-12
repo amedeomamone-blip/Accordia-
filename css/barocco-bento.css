@@ -184,6 +184,9 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     line-height: 1.1;
     color: #111111;
 }
+.barocco-tile__textbody-kicker {
+    font-weight: 400;
+}
 
 /* ── Hover ── */
 .barocco-tile:hover .barocco-tile__face {
