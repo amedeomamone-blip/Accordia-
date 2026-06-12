@@ -1,11 +1,8 @@
 /* ============================================================
    Barocco nucleus — bento grid index
-   3 colonne × 3 righe:
-     col1 r1-2: tile titolo (alto)
-     col2 r1 / col3 r1: L1 L2 (quadrati)
-     col2 r2 / col3 r2: L3 L4 (quadrati)
-     col1-2 r3: L5 (largo)
-     col3 r3: L6 (quadrato)
+   3 colonne × 2 righe:
+     row 1: [Introduzione: col 1–2 largo] [Monteverdi: col 3]
+     row 2: [Vivaldi: col 1] [Bach: col 2] [Handel: col 3]
    ============================================================ */
 
 .nucleus-bento-page {
@@ -13,11 +10,26 @@
     padding: 0;
 }
 
+/* ── Header: wordmark "accordia" come nella home ── */
+body[data-current-nucleus="barocco"] .site-header__inner {
+    flex-direction: row-reverse;
+}
+body[data-current-nucleus="barocco"] .brand--wordmark {
+    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1;
+    color: #18191b;
+    text-transform: none;
+    text-decoration: none;
+}
+
 /* ── Grid ── */
 .nucleus-bento {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
     gap: 2px;
     background: #ccc9c6;
     height: calc(100svh - var(--bento-header-h, 4rem));
@@ -34,35 +46,54 @@
     text-decoration: none;
     overflow: hidden;
     position: relative;
-    transition: background-color .25s ease;
 }
 
 /* ── Grid areas ── */
-.bento-tile--nucleus { grid-row: 1 / 3; grid-column: 1 / 2; }   /* col 1, righe 1–2 */
-.bento-tile--l1      { grid-row: 1 / 2; grid-column: 2 / 3; }   /* col 2, riga 1 */
-.bento-tile--l2      { grid-row: 1 / 2; grid-column: 3 / 4; }   /* col 3, riga 1 */
-.bento-tile--l3      { grid-row: 2 / 3; grid-column: 2 / 3; }   /* col 2, riga 2 */
-.bento-tile--l4      { grid-row: 2 / 3; grid-column: 3 / 4; }   /* col 3, riga 2 */
-.bento-tile--l5      { grid-row: 3 / 4; grid-column: 1 / 3; }   /* col 1–2, riga 3 (largo) */
-.bento-tile--l6      { grid-row: 3 / 4; grid-column: 3 / 4; }   /* col 3, riga 3 */
+.bento-tile--l1 { grid-row: 1 / 2; grid-column: 1 / 3; }   /* col 1–2, riga 1 (largo) */
+.bento-tile--l2 { grid-row: 1 / 2; grid-column: 3 / 4; }   /* col 3, riga 1 */
+.bento-tile--l3 { grid-row: 2 / 3; grid-column: 1 / 2; }   /* col 1, riga 2 */
+.bento-tile--l4 { grid-row: 2 / 3; grid-column: 2 / 3; }   /* col 2, riga 2 */
+.bento-tile--l5 { grid-row: 2 / 3; grid-column: 3 / 4; }   /* col 3, riga 2 */
 
-/* ── Colori tile ── */
-.bento-tile--nucleus { --btile-bg: #C37A6B; --btile-fg: #ffffff; }
-.bento-tile--l1      { --btile-bg: #f7f4f3; }
-.bento-tile--l2      { --btile-bg: #f4f2f1; }
-.bento-tile--l3      { --btile-bg: #f8f6f5; }
-.bento-tile--l4      { --btile-bg: #f5f3f2; }
-.bento-tile--l5      { --btile-bg: #f6f4f3; }
-.bento-tile--l6      { --btile-bg: #f3f1f0; }
+/* ── Colori e ritardi blink per tile ── */
+.bento-tile--l1 { --btile-bg: #f7f4f3; --blink-delay: 0s; }
+.bento-tile--l2 { --btile-bg: #f4f2f1; --blink-delay: 2.4s; }
+.bento-tile--l3 { --btile-bg: #f8f6f5; --blink-delay: 4.8s; }
+.bento-tile--l4 { --btile-bg: #f5f3f2; --blink-delay: 7.2s; }
+.bento-tile--l5 { --btile-bg: #f6f4f3; --blink-delay: 9.6s; }
+
+/* ── Blink — stessa logica delle mattonelle home ── */
+@keyframes bento-blink {
+    0%, 100% { background-color: var(--btile-bg, #f4f4f4); }
+    6%,  11% { background-color: #C37A6B; }
+    17%      { background-color: var(--btile-bg, #f4f4f4); }
+}
+@keyframes bento-blink-num {
+    0%, 100% { color: rgba(17,17,17,.35); }
+    6%,  11% { color: rgba(255,255,255,.9); }
+    17%      { color: rgba(17,17,17,.35); }
+}
+@keyframes bento-blink-arrow {
+    0%, 100% { background: rgba(17,17,17,.12); color: rgba(17,17,17,.7); }
+    6%,  11% { background: rgba(255,255,255,.28); color: #ffffff; }
+    17%      { background: rgba(17,17,17,.12); color: rgba(17,17,17,.7); }
+}
+
+.bento-tile {
+    animation: bento-blink 12s ease-in-out infinite;
+    animation-delay: var(--blink-delay, 0s);
+}
 
 /* ── Tipografia — stessa scala delle mattonelle home ── */
 .bento-num {
     font-size: .8vw;
     font-weight: 700;
     letter-spacing: .07em;
-    color: var(--bnum-color, rgba(17,17,17,.35));
+    color: rgba(17,17,17,.35);
     font-variant-numeric: tabular-nums;
     line-height: 1;
+    animation: bento-blink-num 12s ease-in-out infinite;
+    animation-delay: var(--blink-delay, 0s);
 }
 
 .bento-label {
@@ -70,7 +101,7 @@
     font-weight: 500;
     letter-spacing: .1em;
     text-transform: uppercase;
-    color: var(--blabel-color, rgba(17,17,17,.38));
+    color: rgba(17,17,17,.38);
     display: block;
 }
 
@@ -83,26 +114,6 @@
     line-height: 1.05;
     color: var(--btitle-color, #111111);
     margin: 0 0 .3vw;
-}
-
-.bento-nucleus-name {
-    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: 3.6vw;
-    font-weight: 800;
-    letter-spacing: -.05em;
-    line-height: .95;
-    color: #ffffff;
-    margin: 0;
-    display: block;
-}
-
-.bento-period {
-    font-size: .75vw;
-    font-weight: 400;
-    letter-spacing: .04em;
-    color: rgba(255,255,255,.65);
-    font-variant-numeric: tabular-nums;
-    display: block;
 }
 
 /* ── Foot: numero + freccia ── */
@@ -126,58 +137,55 @@
     font-size: .78vw;
     line-height: 1;
     flex: 0 0 auto;
-    transition: transform .18s ease, background .2s ease, color .2s ease;
-}
-.bento-tile--nucleus .bento-num   { --bnum-color: rgba(255,255,255,.6); }
-.bento-tile--nucleus .bento-arrow {
-    background: rgba(255,255,255,.22);
-    color: rgba(255,255,255,.9);
+    transition: transform .18s ease;
+    animation: bento-blink-arrow 12s ease-in-out infinite;
+    animation-delay: var(--blink-delay, 0s);
 }
 
-/* ── Hover sui tile-lezione ── */
-.bento-tile--l1:hover,
-.bento-tile--l2:hover,
-.bento-tile--l3:hover,
-.bento-tile--l4:hover,
-.bento-tile--l5:hover,
-.bento-tile--l6:hover {
+/* ── Hover: blocca blink, accendi il colore ── */
+.bento-tile:hover {
+    animation: none;
     background-color: #C37A6B;
     --btitle-color: #ffffff;
-    --blabel-color: rgba(255,255,255,.6);
-    --bnum-color: rgba(255,255,255,.6);
 }
-.bento-tile--l1:hover .bento-arrow,
-.bento-tile--l2:hover .bento-arrow,
-.bento-tile--l3:hover .bento-arrow,
-.bento-tile--l4:hover .bento-arrow,
-.bento-tile--l5:hover .bento-arrow,
-.bento-tile--l6:hover .bento-arrow {
+.bento-tile:hover .bento-num {
+    animation: none;
+    color: rgba(255,255,255,.9);
+}
+.bento-tile:hover .bento-label {
+    color: rgba(255,255,255,.6);
+}
+.bento-tile:hover .bento-arrow {
+    animation: none;
     background: rgba(255,255,255,.28);
     color: #ffffff;
     transform: translate(2px, -2px);
 }
 
-/* ── Mobile ≤600px: layout statico a 2 col ── */
+@media (prefers-reduced-motion: reduce) {
+    .bento-tile,
+    .bento-num,
+    .bento-arrow { animation: none; }
+}
+
+/* ── Mobile ≤600px ── */
 @media (max-width: 600px) {
+    body[data-current-nucleus="barocco"] .site-header__inner { flex-direction: row; }
+
     .nucleus-bento {
         grid-template-columns: 1fr 1fr;
         grid-template-rows: auto;
         height: auto;
-        background: #ccc9c6;
     }
-    .bento-tile--nucleus { grid-row: auto; grid-column: span 2; min-height: 60vw; }
-    .bento-tile--l1      { grid-row: auto; grid-column: auto; }
-    .bento-tile--l2      { grid-row: auto; grid-column: auto; }
-    .bento-tile--l3      { grid-row: auto; grid-column: auto; }
-    .bento-tile--l4      { grid-row: auto; grid-column: auto; }
-    .bento-tile--l5      { grid-row: auto; grid-column: span 2; min-height: 40vw; }
-    .bento-tile--l6      { grid-row: auto; grid-column: auto; }
+    .bento-tile--l1 { grid-row: auto; grid-column: span 2; min-height: 50vw; }
+    .bento-tile--l2,
+    .bento-tile--l3,
+    .bento-tile--l4,
+    .bento-tile--l5 { grid-row: auto; grid-column: auto; min-height: 45vw; }
 
-    .bento-tile          { padding: 5vw; }
-    .bento-num           { font-size: 3vw; }
-    .bento-label         { font-size: 2.5vw; }
-    .bento-title         { font-size: 4.2vw; margin-bottom: 1vw; }
-    .bento-nucleus-name  { font-size: 11vw; }
-    .bento-period        { font-size: 2.8vw; }
-    .bento-arrow         { width: 5.5vw; height: 5.5vw; font-size: 2.8vw; }
+    .bento-tile  { padding: 5vw; }
+    .bento-num   { font-size: 3vw; }
+    .bento-label { font-size: 2.5vw; }
+    .bento-title { font-size: 4.2vw; }
+    .bento-arrow { width: 5.5vw; height: 5.5vw; font-size: 2.8vw; }
 }
