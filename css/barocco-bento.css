@@ -15,26 +15,59 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     text-decoration: none;
 }
 
-/* ── Stage: occupa la schermata, cresce (e scorre) se lo zoom riduce l'altezza ── */
+body.barocco-grid-page {
+    height: 100svh;
+    overflow: hidden;
+}
+
+@supports (height: 100dvh) {
+    body.barocco-grid-page {
+        height: 100dvh;
+    }
+}
+
+body.barocco-grid-page main {
+    overflow: hidden;
+}
+
+/* ── Stage: una sola schermata, senza scroll verticale ── */
 .barocco-stage {
     position: relative;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    min-height: calc(100svh - var(--barocco-header-h, 4rem));
+    justify-content: center;
+    --barocco-stage-h: calc(100svh - var(--barocco-header-h, 4rem));
+    height: var(--barocco-stage-h);
+    min-height: 0;
+    overflow: hidden;
     background: #ffffff;
-    --u: 1vw;
 }
 
-/* ── Tile strip in basso, sempre da margine a margine ── */
+@supports (height: 100dvh) {
+    .barocco-stage {
+        --barocco-stage-h: calc(100dvh - var(--barocco-header-h, 4rem));
+    }
+}
+
+/* ── Tile strip, sempre da margine a margine quando il viewport lo consente ── */
 .barocco-tiles-wrap {
-    width: 100%;
+    --barocco-cell: min(calc(100vw / 7), calc(var(--barocco-stage-h) / 3));
+    --barocco-tile-pad: clamp(8px, calc(var(--barocco-cell) * .055), 18px);
+    --barocco-name-size: clamp(12px, calc(var(--barocco-cell) * .074), 20px);
+    --barocco-sub-size: clamp(8px, calc(var(--barocco-cell) * .043), 12px);
+    --barocco-title-size: clamp(13px, calc(var(--barocco-cell) * .082), 22px);
+    --barocco-num-size: clamp(9px, calc(var(--barocco-cell) * .043), 13px);
+    --barocco-icon-size: clamp(22px, calc(var(--barocco-cell) * .14), 34px);
+    flex: 0 0 auto;
+    width: min(100%, calc(var(--barocco-cell) * 7));
+    margin-inline: auto;
 }
 
 .barocco-row {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     width: 100%;
+    height: var(--barocco-cell);
     gap: 0;
 }
 
@@ -43,13 +76,15 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     grid-column: span 2;
 }
 .barocco-tile--wide .barocco-tile__face {
-    aspect-ratio: 2 / 1;
+    aspect-ratio: auto;
 }
 
 /* ── Tile: struttura identica alla home ── */
 .barocco-tile {
-    display: flex;
-    flex-direction: column;
+    position: relative;
+    display: block;
+    height: var(--barocco-cell);
+    min-width: 0;
     color: #111111;
     text-decoration: none;
     overflow: hidden;
@@ -57,12 +92,15 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 
 /* ── Faccia quadrata animata ── */
 .barocco-tile__face {
+    position: absolute;
+    inset: 0;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    aspect-ratio: 1;
+    aspect-ratio: auto;
     width: 100%;
-    padding: calc(1.1 * var(--u));
+    height: 100%;
+    padding: var(--barocco-tile-pad);
     background-color: #e8e8e8;
     animation: barocco-blink 12s ease-in-out infinite;
     animation-delay: var(--blink-delay, 0s);
@@ -86,16 +124,21 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     17%      { background: rgba(17,17,17,.12); color: rgba(17,17,17,.7); }
 }
 
-/* ── Numero + freccia in fondo alla faccia ── */
+/* ── Numero + freccia in alto alla faccia ── */
 .barocco-tile__bottom {
+    position: absolute;
+    top: var(--barocco-tile-pad);
+    left: var(--barocco-tile-pad);
+    right: var(--barocco-tile-pad);
+    z-index: 2;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 100%;
+    width: auto;
 }
 
 .barocco-tile__num {
-    font-size: calc(.6 * var(--u));
+    font-size: var(--barocco-num-size);
     font-weight: 700;
     letter-spacing: .07em;
     color: rgba(17,17,17,.35);
@@ -108,12 +151,12 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: calc(1.2 * var(--u));
-    height: calc(1.2 * var(--u));
+    width: var(--barocco-icon-size);
+    height: var(--barocco-icon-size);
     border-radius: 50%;
     background: rgba(17,17,17,.12);
     color: rgba(17,17,17,.7);
-    font-size: calc(.56 * var(--u));
+    font-size: calc(var(--barocco-icon-size) * .46);
     line-height: 1;
     flex: 0 0 auto;
     transition: transform .18s ease;
@@ -121,27 +164,37 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     animation-delay: var(--blink-delay, 0s);
 }
 
-/* ── Testo sotto la faccia ── */
+/* ── Testi dentro la faccia ── */
 .barocco-tile__name {
+    position: absolute;
+    left: var(--barocco-tile-pad);
+    right: var(--barocco-tile-pad);
+    bottom: calc(var(--barocco-tile-pad) + (var(--barocco-sub-size) * 1.45) + 2px);
+    z-index: 2;
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: calc(.85 * var(--u));
+    font-size: var(--barocco-name-size);
     font-weight: 700;
-    letter-spacing: -.03em;
-    line-height: 1.05;
+    letter-spacing: 0;
+    line-height: 1.02;
     color: #111111;
-    padding: calc(.55 * var(--u)) calc(1.1 * var(--u)) 0;
+    padding: 0;
     margin: 0;
     display: block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    white-space: normal;
+    overflow-wrap: normal;
     transition: color .2s ease;
 }
 
 .barocco-tile__sub {
+    position: absolute;
+    left: var(--barocco-tile-pad);
+    right: var(--barocco-tile-pad);
+    bottom: var(--barocco-tile-pad);
+    z-index: 2;
     display: block;
-    padding: calc(.2 * var(--u)) calc(1.1 * var(--u)) calc(.6 * var(--u));
-    font-size: calc(.55 * var(--u));
+    padding: 0;
+    font-size: var(--barocco-sub-size);
+    line-height: 1.15;
     font-weight: 400;
     letter-spacing: .04em;
     color: rgba(17,17,17,.38);
@@ -184,14 +237,14 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 .barocco-tile__textbody {
     display: flex;
     flex-direction: column;
-    padding: calc(.1 * var(--u)) 0 0;
+    padding: calc(var(--barocco-tile-pad) * .1) 0 0;
 }
 .barocco-tile__textbody-title {
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: calc(.82 * var(--u));
+    font-size: var(--barocco-title-size);
     font-weight: 700;
-    letter-spacing: -.03em;
-    line-height: 1.4;
+    letter-spacing: 0;
+    line-height: 1.12;
     color: #111111;
 }
 
@@ -210,8 +263,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     color: #ffffff;
     transform: translate(2px, -2px);
 }
-.barocco-tile:hover .barocco-tile__name { color: #C37A6B; }
-.barocco-tile:hover .barocco-tile__sub  { color: #C37A6B; }
+.barocco-tile:hover .barocco-tile__name { color: #ffffff; }
+.barocco-tile:hover .barocco-tile__sub  { color: rgba(255,255,255,.74); }
 
 @media (prefers-reduced-motion: reduce) {
     .barocco-tile__face,
@@ -221,7 +274,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 
 /* ── Tile con ritratto fotografico ── */
 .barocco-tile__face--photo {
-    position: relative;
+    position: absolute;
     background-size: cover;
     background-position: center top;
     animation: none;
@@ -230,21 +283,24 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(0,0,0,.52) 0%, transparent 65%);
+    background:
+        linear-gradient(to top, rgba(0,0,0,.62) 0%, rgba(0,0,0,.18) 45%, transparent 78%),
+        linear-gradient(to right, rgba(0,0,0,.28) 0%, transparent 52%);
     pointer-events: none;
 }
 .barocco-tile__face--photo .barocco-tile__bottom {
-    position: relative;
-    z-index: 1;
+    position: absolute;
+    z-index: 2;
 }
 /* testo attività in bianco sul secondo quadrato (invisibile) della foto:
    stessa posizione che aveva nel quadrato grigio — in alto a sinistra,
    con il padding della faccia */
 .barocco-tile__face--photo .barocco-tile__textbody {
     position: absolute;
-    right: calc(1.1 * var(--u));
-    top: calc(1.1 * var(--u));
+    right: var(--barocco-tile-pad);
+    top: calc((var(--barocco-tile-pad) * 1.85) + var(--barocco-icon-size));
     z-index: 1;
+    max-width: calc(var(--barocco-cell) * .9);
     padding: 0;
     text-align: left;
 }
@@ -259,6 +315,10 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     animation: none;
     background: rgba(255,255,255,.22);
     color: #ffffff;
+}
+.barocco-tile__face--photo + .barocco-tile__name,
+.barocco-tile__face--photo + .barocco-tile__name + .barocco-tile__sub {
+    color: rgba(255,255,255,.92);
 }
 .barocco-tile:hover .barocco-tile__face--photo {
     animation: none;
@@ -276,21 +336,21 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 /* ── Mobile ≤600px: 3 fasce orizzontali a scorrimento laterale ── */
 @media (max-width: 600px) {
     .barocco-stage      { min-height: 0; display: block; }
+    .barocco-tiles-wrap {
+        --barocco-cell: min(38vw, calc(var(--barocco-stage-h) / 3));
+        width: 100%;
+    }
     .barocco-row {
         display: flex;
         flex-wrap: nowrap;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
         scroll-snap-type: x proximity;
+        height: var(--barocco-cell);
     }
     .barocco-tile {
-        flex: 0 0 38vw;
+        flex: 0 0 var(--barocco-cell);
         scroll-snap-align: start;
     }
-    .barocco-tile--wide { flex: 0 0 76vw; }
-    .barocco-tile__face { padding: 3vw; }
-    .barocco-tile__num  { font-size: 2.4vw; }
-    .barocco-tile__arrow{ width: 4.5vw; height: 4.5vw; font-size: 2.2vw; }
-    .barocco-tile__name { font-size: 3vw; padding: 1.5vw 3vw 0; }
-    .barocco-tile__sub  { font-size: 2vw; padding: .6vw 3vw 2.5vw; }
+    .barocco-tile--wide { flex: 0 0 calc(var(--barocco-cell) * 2); }
 }
