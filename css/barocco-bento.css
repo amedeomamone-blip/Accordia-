@@ -1,6 +1,6 @@
 /* ============================================================
    Barocco nucleus — tile strip (mirrors home structure)
-   3 fasce da 7 tile quadrate (~14.3vw), tutto in una schermata.
+   3 fasce da 7 tile quadrate, tutto sempre in una schermata.
    ============================================================ */
 
 /* ── Header: wordmark "accordia" come nella landing, a sinistra ── */
@@ -21,14 +21,19 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     height: calc(100svh - var(--barocco-header-h, 4rem));
     background: #ffffff;
     overflow: hidden;
+    /* unità adattiva: 1vw finché la finestra è larga,
+       si riduce quando l'altezza non basta per le 3 fasce intere */
+    --u: min(1vw, calc((100svh - var(--barocco-header-h, 4rem)) / 52.5));
 }
 
-/* ── Tile strip ancorata in basso ── */
+/* ── Tile strip ancorata in basso, centrata se ridotta ── */
 .barocco-tiles-wrap {
     position: absolute;
     bottom: 0;
     left: 0;
     right: 0;
+    width: calc(100 * var(--u));
+    margin: 0 auto;
 }
 
 .barocco-row {
@@ -62,7 +67,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     justify-content: flex-end;
     aspect-ratio: 1;
     width: 100%;
-    padding: 1.1vw;
+    padding: calc(1.1 * var(--u));
     background-color: #e8e8e8;
     animation: barocco-blink 12s ease-in-out infinite;
     animation-delay: var(--blink-delay, 0s);
@@ -95,7 +100,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 }
 
 .barocco-tile__num {
-    font-size: .6vw;
+    font-size: calc(.6 * var(--u));
     font-weight: 700;
     letter-spacing: .07em;
     color: rgba(17,17,17,.35);
@@ -108,12 +113,12 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 1.2vw;
-    height: 1.2vw;
+    width: calc(1.2 * var(--u));
+    height: calc(1.2 * var(--u));
     border-radius: 50%;
     background: rgba(17,17,17,.12);
     color: rgba(17,17,17,.7);
-    font-size: .56vw;
+    font-size: calc(.56 * var(--u));
     line-height: 1;
     flex: 0 0 auto;
     transition: transform .18s ease;
@@ -124,12 +129,12 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 /* ── Testo sotto la faccia ── */
 .barocco-tile__name {
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: .85vw;
+    font-size: calc(.85 * var(--u));
     font-weight: 700;
     letter-spacing: -.03em;
     line-height: 1.05;
     color: #111111;
-    padding: .55vw 1.1vw 0;
+    padding: calc(.55 * var(--u)) calc(1.1 * var(--u)) 0;
     margin: 0;
     display: block;
     white-space: nowrap;
@@ -140,8 +145,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 
 .barocco-tile__sub {
     display: block;
-    padding: .2vw 1.1vw .6vw;
-    font-size: .55vw;
+    padding: calc(.2 * var(--u)) calc(1.1 * var(--u)) calc(.6 * var(--u));
+    font-size: calc(.55 * var(--u));
     font-weight: 400;
     letter-spacing: .04em;
     color: rgba(17,17,17,.38);
@@ -219,7 +224,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 /* ── Mobile ≤600px: 3 fasce orizzontali a scorrimento laterale ── */
 @media (max-width: 600px) {
     .barocco-stage      { height: auto; }
-    .barocco-tiles-wrap { position: static; }
+    .barocco-tiles-wrap { position: static; width: auto; margin: 0; }
     .barocco-row {
         display: flex;
         flex-wrap: nowrap;
