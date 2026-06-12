@@ -3,15 +3,16 @@
    "accordia" esce a sinistra, la striscia di mattonelle entra da destra.
    ============================================================ */
 
-/* ── Header: wordmark "accordia" a destra ── */
+/* ── Header: wordmark "accordia" a sinistra ── */
 body[data-nav="home"] .site-header__inner {
     flex-direction: row;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
 body[data-nav="home"] .brand--wordmark {
-    order: 2;
-    margin-left: auto;
+    order: 0;
+    margin-left: 0;
+    margin-right: auto;
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
     font-size: 1.45rem;
     font-weight: 800;
