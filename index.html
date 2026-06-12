@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Accordia e un ambiente didattico per insegnare la storia della musica nella scuola secondaria di primo grado, con timeline, nuclei storici, mappe degli argomenti, ascolti guidati, attivita laboratoriali e verifiche.">
     <title>Accordia | Storia della musica</title>
-    <link rel="stylesheet" href="css/style.css?v=1780986203">
+    <link rel="stylesheet" href="css/style.css?v=1781242167">
     <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1780919039">
     <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1780948981">
-    <link rel="stylesheet" href="css/home-nuclei-list.css?v=1781424000">
+    <link rel="stylesheet" href="css/home-nuclei-list.css?v=1781242179">
 </head>
 <body data-nav="home">
     <header class="site-header">
@@ -106,7 +106,6 @@
             </div>
         </div>
     </main>
-
     <footer class="site-footer">
         <div class="shell site-footer__grid site-footer__grid--contact-only">
             <div class="site-footer__contacts">
@@ -115,9 +114,16 @@
         </div>
     </footer>
 
-    <script src="js/main.js?v=1780986203"></script>
+    <script src="js/main.js?v=1781242167"></script>
     <script>
         (function () {
+            if ('scrollRestoration' in window.history) {
+                window.history.scrollRestoration = 'manual';
+            }
+            if (!window.location.hash) {
+                window.scrollTo(0, 0);
+            }
+
             const heroFrame   = document.querySelector('.home-hero__frame');
             const siteHeader  = document.querySelector('.site-header');
             const scrollStage = document.querySelector('.scroll-stage');
@@ -174,7 +180,8 @@
                             ? heroCurrentProgress
                             : clamp((heroCurrentProgress - 0.2) / 0.75, 0, 1);
                         const te = 1 - Math.pow(1 - tp, 3);
-                        tilesWrap.style.setProperty('--tiles-shift-x', `${((1 - te) * 100).toFixed(2)}vw`);
+                        tilesWrap.style.setProperty('--tiles-shift-x', `${((1 - te) * 120).toFixed(2)}vw`);
+                        tilesWrap.style.setProperty('--tiles-shift-y', `${(travel.y * eased).toFixed(2)}px`);
                     }
 
                     if (heroCurrentProgress !== heroTargetProgress) {

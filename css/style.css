@@ -693,7 +693,7 @@ body[data-nav="home"] {
 }
 
 .home-hero__frame::before {
-    content: "Accordia";
+    content: "accordia";
     position: absolute;
     z-index: 0;
     left: 50%;
