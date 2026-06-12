@@ -700,7 +700,7 @@ body[data-nav="home"] {
     top: 50%;
     transform: translate3d(
         calc(-50% + var(--home-hero-title-shift-x)),
-        calc(-47% + var(--home-hero-title-shift-y)),
+        calc(-49.5% + var(--home-hero-title-shift-y)),
         0
     );
     color: rgba(24, 25, 27, 0.94);
