@@ -227,13 +227,14 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     position: relative;
     z-index: 1;
 }
-/* testo attività in bianco sul secondo quadrato della foto */
+/* testo attività in bianco sul secondo quadrato (invisibile) della foto:
+   stessa posizione che aveva nel quadrato grigio — in alto a sinistra,
+   con il padding della faccia */
 .barocco-tile__face--photo .barocco-tile__textbody {
     position: absolute;
-    left: 50%;
+    left: calc(50% + 1.1 * var(--u));
     right: calc(1.1 * var(--u));
-    top: 50%;
-    transform: translateY(-50%);
+    top: calc(1.2 * var(--u));
     z-index: 1;
     padding: 0;
 }
