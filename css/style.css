@@ -2146,6 +2146,257 @@ body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node
     background: rgba(245, 244, 239, 0.92);
 }
 
+body[data-current-nucleus="barocco"] .barocco-lesson-grid-section {
+    padding: clamp(1.4rem, 2.4vw, 2.2rem) 0 clamp(4rem, 7vw, 7rem);
+    background: #f7f4ef;
+}
+
+body[data-current-nucleus="barocco"] .barocco-lesson-grid-section .shell {
+    width: min(calc(100vw - 1rem), 1920px);
+}
+
+.barocco-lesson-grid__hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(16rem, 26rem);
+    align-items: end;
+    gap: 1rem;
+    min-height: clamp(13rem, 24vw, 22rem);
+    padding: clamp(1rem, 2vw, 1.5rem);
+    border: 1px solid rgba(17, 17, 17, 0.18);
+    border-bottom: 0;
+    background:
+        linear-gradient(rgba(17, 17, 17, 0.08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(17, 17, 17, 0.08) 1px, transparent 1px),
+        #fbfaf7;
+    background-size: 12.5% 50%, 12.5% 50%, auto;
+}
+
+.barocco-lesson-grid__eyebrow {
+    margin: 0 0 0.45rem;
+    color: #4a342f;
+    font-size: 0.72rem;
+    font-weight: 820;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.barocco-lesson-grid__hero h2 {
+    margin: 0;
+    color: #111111;
+    font-size: 11rem;
+    font-weight: 860;
+    letter-spacing: 0;
+    line-height: 0.75;
+}
+
+.barocco-lesson-grid__hero p:last-child {
+    max-width: 31ch;
+    margin: 0;
+    color: #3f3c38;
+    font-size: 1rem;
+    font-weight: 620;
+    line-height: 1.28;
+}
+
+.barocco-lesson-grid {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    border-top: 1px solid rgba(17, 17, 17, 0.18);
+    border-left: 1px solid rgba(17, 17, 17, 0.18);
+    background: #fbfaf7;
+}
+
+.barocco-lesson-card {
+    position: relative;
+    display: grid;
+    grid-column: span 3;
+    min-height: clamp(19rem, 29vw, 31rem);
+    padding: clamp(0.85rem, 1.2vw, 1.15rem);
+    border-right: 1px solid rgba(17, 17, 17, 0.18);
+    border-bottom: 1px solid rgba(17, 17, 17, 0.18);
+    background: #fbfaf7;
+    color: #111111;
+    text-decoration: none;
+    overflow: hidden;
+    isolation: isolate;
+    transition: background-color 180ms ease, color 180ms ease;
+}
+
+.barocco-lesson-card--wide {
+    grid-column: span 6;
+}
+
+.barocco-lesson-card__media {
+    position: absolute;
+    inset: clamp(0.75rem, 1vw, 1rem) clamp(0.75rem, 1vw, 1rem) auto auto;
+    z-index: -1;
+    width: min(42%, 11rem);
+    aspect-ratio: 1;
+    border-radius: 6px;
+    overflow: hidden;
+    opacity: 0.78;
+    filter: grayscale(1) contrast(1.06);
+}
+
+.barocco-lesson-card--wide .barocco-lesson-card__media {
+    width: min(26%, 13rem);
+}
+
+.barocco-lesson-card__media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.barocco-lesson-card__meta {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: auto;
+    color: rgba(17, 17, 17, 0.62);
+    font-size: 0.68rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+}
+
+.barocco-lesson-card strong {
+    align-self: end;
+    max-width: 9.5ch;
+    margin-top: clamp(4.5rem, 9vw, 7rem);
+    font-size: 3.25rem;
+    font-weight: 860;
+    letter-spacing: 0;
+    line-height: 0.82;
+}
+
+.barocco-lesson-card--wide strong {
+    max-width: 12ch;
+    font-size: 5.4rem;
+}
+
+.barocco-lesson-card__body {
+    max-width: 30ch;
+    margin-top: clamp(1rem, 2vw, 2.25rem);
+    color: #49443f;
+    font-size: 0.95rem;
+    font-weight: 560;
+    line-height: 1.34;
+}
+
+.barocco-lesson-card__cta {
+    justify-self: start;
+    margin-top: 1.1rem;
+    color: #c14f40;
+    font-size: 0.68rem;
+    font-weight: 860;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+}
+
+.barocco-lesson-card:hover,
+.barocco-lesson-card:focus-visible {
+    background: #111111;
+    color: #ffffff;
+}
+
+.barocco-lesson-card:hover .barocco-lesson-card__meta,
+.barocco-lesson-card:focus-visible .barocco-lesson-card__meta,
+.barocco-lesson-card:hover .barocco-lesson-card__body,
+.barocco-lesson-card:focus-visible .barocco-lesson-card__body {
+    color: rgba(255, 255, 255, 0.72);
+}
+
+.barocco-lesson-card:hover .barocco-lesson-card__cta,
+.barocco-lesson-card:focus-visible .barocco-lesson-card__cta {
+    color: #f0e7da;
+}
+
+.barocco-lesson-card:hover .barocco-lesson-card__media,
+.barocco-lesson-card:focus-visible .barocco-lesson-card__media {
+    opacity: 0.3;
+    filter: grayscale(1) contrast(1.2);
+}
+
+@media (min-width: 1440px) {
+    .barocco-lesson-grid__hero h2 {
+        font-size: 14rem;
+    }
+
+    .barocco-lesson-card strong {
+        font-size: 3.8rem;
+    }
+
+    .barocco-lesson-card--wide strong {
+        font-size: 6.4rem;
+    }
+}
+
+@media (max-width: 1100px) {
+    .barocco-lesson-grid__hero {
+        grid-template-columns: 1fr;
+        min-height: 17rem;
+    }
+
+    .barocco-lesson-grid__hero h2 {
+        font-size: 7.25rem;
+    }
+
+    .barocco-lesson-grid {
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+    }
+
+    .barocco-lesson-card,
+    .barocco-lesson-card--wide {
+        grid-column: span 3;
+    }
+
+    .barocco-lesson-card strong,
+    .barocco-lesson-card--wide strong {
+        font-size: 2.75rem;
+    }
+}
+
+@media (max-width: 700px) {
+    body[data-current-nucleus="barocco"] .barocco-lesson-grid-section .shell {
+        width: min(calc(100vw - 1rem), 100%);
+    }
+
+    .barocco-lesson-grid__hero {
+        min-height: 14rem;
+    }
+
+    .barocco-lesson-grid__hero h2 {
+        font-size: 4.4rem;
+    }
+
+    .barocco-lesson-grid__hero p:last-child {
+        font-size: 0.92rem;
+    }
+
+    .barocco-lesson-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .barocco-lesson-card,
+    .barocco-lesson-card--wide {
+        grid-column: span 1;
+        min-height: 18rem;
+    }
+
+    .barocco-lesson-card strong,
+    .barocco-lesson-card--wide strong {
+        max-width: 11ch;
+        margin-top: 5rem;
+        font-size: 2.35rem;
+    }
+
+    .barocco-lesson-card__media,
+    .barocco-lesson-card--wide .barocco-lesson-card__media {
+        width: 7.25rem;
+    }
+}
+
 .nucleus-hero__meta {
     display: flex;
     flex-wrap: wrap;
