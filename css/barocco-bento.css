@@ -227,6 +227,19 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     position: relative;
     z-index: 1;
 }
+/* testo attività in bianco sul secondo quadrato della foto */
+.barocco-tile__face--photo .barocco-tile__textbody {
+    position: absolute;
+    left: 50%;
+    right: calc(1.1 * var(--u));
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    padding: 0;
+}
+.barocco-tile__face--photo .barocco-tile__textbody-title {
+    color: #ffffff;
+}
 .barocco-tile__face--photo .barocco-tile__num {
     animation: none;
     color: rgba(255,255,255,.75);
