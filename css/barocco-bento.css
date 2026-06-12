@@ -38,6 +38,14 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     gap: 0;
 }
 
+/* ── Tile rettangolare: occupa 2 celle ── */
+.barocco-tile--wide {
+    grid-column: span 2;
+}
+.barocco-tile--wide .barocco-tile__face {
+    aspect-ratio: 2 / 1;
+}
+
 /* ── Tile: struttura identica alla home ── */
 .barocco-tile {
     display: flex;
@@ -183,6 +191,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         flex: 0 0 38vw;
         scroll-snap-align: start;
     }
+    .barocco-tile--wide { flex: 0 0 76vw; }
     .barocco-tile__face { padding: 3vw; }
     .barocco-tile__num  { font-size: 2.4vw; }
     .barocco-tile__arrow{ width: 4.5vw; height: 4.5vw; font-size: 2.2vw; }
