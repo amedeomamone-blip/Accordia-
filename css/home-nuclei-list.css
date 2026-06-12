@@ -59,6 +59,8 @@ body[data-nav="home"] .nuclei-grid-wrap {
     bottom: auto;
     left: 0;
     right: 0;
+    z-index: 1;
+    isolation: isolate;
     height: calc((100vw / 6) + 4.2vw);
     overflow: hidden;
     --tiles-shift-x: 120vw;
@@ -72,6 +74,15 @@ body[data-nav="home"] .nuclei-grid-wrap {
         0
     );
     will-change: transform;
+}
+
+body[data-nav="home"] .nuclei-grid-wrap::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: #ffffff;
+    pointer-events: none;
 }
 
 /* ── Footer compatto ── */
@@ -91,6 +102,8 @@ body[data-nav="home"] .site-footer {
 
 /* ── 6 colonne attaccate, da margine a margine ── */
 body[data-nav="home"] .nuclei-grid {
+    position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     width: 100%;
@@ -291,6 +304,7 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__date {
         transform: none !important;
         padding: 3rem 0 calc(4.25rem + env(safe-area-inset-bottom));
     }
+    body[data-nav="home"] .nuclei-grid-wrap::before { display: none; }
     body[data-nav="home"] .site-footer {
         padding: .55rem 0 calc(.55rem + env(safe-area-inset-bottom));
     }
