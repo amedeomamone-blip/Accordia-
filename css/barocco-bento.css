@@ -73,6 +73,11 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     6%,  11% { color: rgba(255,255,255,.9); }
     17%      { color: rgba(17,17,17,.35); }
 }
+@keyframes bento-blink-muted {
+    0%, 100% { color: rgba(17,17,17,.38); }
+    6%,  11% { color: rgba(255,255,255,.6); }
+    17%      { color: rgba(17,17,17,.38); }
+}
 @keyframes bento-blink-arrow {
     0%, 100% { background: rgba(17,17,17,.12); color: rgba(17,17,17,.7); }
     6%,  11% { background: rgba(255,255,255,.28); color: #ffffff; }
@@ -103,6 +108,20 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     text-transform: uppercase;
     color: rgba(17,17,17,.38);
     display: block;
+    animation: bento-blink-muted 12s ease-in-out infinite;
+    animation-delay: var(--blink-delay, 0s);
+}
+
+.bento-birth {
+    display: block;
+    font-size: .75vw;
+    font-weight: 400;
+    letter-spacing: .04em;
+    color: rgba(17,17,17,.38);
+    font-variant-numeric: tabular-nums;
+    margin-top: .2vw;
+    animation: bento-blink-muted 12s ease-in-out infinite;
+    animation-delay: var(--blink-delay, 0s);
 }
 
 .bento-title {
@@ -113,7 +132,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     letter-spacing: -.03em;
     line-height: 1.05;
     color: var(--btitle-color, #111111);
-    margin: 0 0 .3vw;
+    margin: 0 0 .2vw;
 }
 
 /* ── Foot: numero + freccia ── */
@@ -152,7 +171,9 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     animation: none;
     color: rgba(255,255,255,.9);
 }
-.bento-tile:hover .bento-label {
+.bento-tile:hover .bento-label,
+.bento-tile:hover .bento-birth {
+    animation: none;
     color: rgba(255,255,255,.6);
 }
 .bento-tile:hover .bento-arrow {
@@ -165,6 +186,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 @media (prefers-reduced-motion: reduce) {
     .bento-tile,
     .bento-num,
+    .bento-label,
+    .bento-birth,
     .bento-arrow { animation: none; }
 }
 
@@ -186,6 +209,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     .bento-tile  { padding: 5vw; }
     .bento-num   { font-size: 3vw; }
     .bento-label { font-size: 2.5vw; }
+    .bento-birth { font-size: 2.5vw; }
     .bento-title { font-size: 4.2vw; }
     .bento-arrow { width: 5.5vw; height: 5.5vw; font-size: 2.8vw; }
 }
