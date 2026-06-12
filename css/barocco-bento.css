@@ -152,6 +152,32 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     transition: color .2s ease;
 }
 
+/* ── Tile testuale: titolo + descrizione dentro la faccia ── */
+.barocco-tile--text .barocco-tile__face {
+    justify-content: space-between;
+}
+.barocco-tile__textbody {
+    display: flex;
+    flex-direction: column;
+    gap: calc(.35 * var(--u));
+    padding: calc(.1 * var(--u)) 0 0;
+}
+.barocco-tile__textbody-title {
+    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size: calc(.82 * var(--u));
+    font-weight: 700;
+    letter-spacing: -.03em;
+    line-height: 1.1;
+    color: #111111;
+}
+.barocco-tile__textbody-desc {
+    font-size: calc(.52 * var(--u));
+    font-weight: 400;
+    letter-spacing: .01em;
+    line-height: 1.45;
+    color: rgba(17,17,17,.55);
+}
+
 /* ── Hover ── */
 .barocco-tile:hover .barocco-tile__face {
     animation: none;
