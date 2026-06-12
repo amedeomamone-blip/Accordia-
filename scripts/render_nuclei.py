@@ -3134,7 +3134,7 @@ def customize_barocco_context_lesson() -> None:
 
     if context_topic:
         context_topic["slug"] = "il-barocco-in-coordinate"
-        context_topic["title"] = "Il Barocco in coordinate"
+        context_topic["title"] = "Introduzione al Barocco"
         context_topic["label"] = "Lezione"
         context_topic["subtitle"] = "Timeline e concetti chiave"
         context_topic["summary"] = "Timeline, contesto e concetti chiave del nucleo."
@@ -3152,7 +3152,7 @@ def customize_barocco_context_lesson() -> None:
             "immersive_preview": True,
             "immersive_mount_id": "barocco-key-concepts-root",
             "immersive_data_key": "barocco-in-coordinate",
-            "immersive_intro_title": "Il Barocco in coordinate",
+            "immersive_intro_title": "Introduzione al Barocco",
             "immersive_intro_period": "1600 — 1750",
             "immersive_intro_subtitle": "Un'epoca di contrasti, invenzioni e nuove forme musicali",
             "immersive_intro_text": "Tra Seicento e prima metà del Settecento, l'Europa attraversa trasformazioni profonde: guerre, nuove scoperte, corti sfarzose, grandi cambiamenti nel modo di pensare e di rappresentare il mondo. Anche la musica cambia volto. Nascono il melodramma, il concerto, l'oratorio; si affermano nuovi strumenti, nuove sonorità e un linguaggio capace di stupire, commuovere e creare forti contrasti.",
@@ -3202,7 +3202,7 @@ def customize_barocco_context_lesson() -> None:
                 },
             ],
             "author": "Lezione Accordia · Il Barocco",
-            "description": "Il Barocco in coordinate con timeline e dieci concetti chiave musicali: celebrazione del potere, coinvolgimento dei fedeli, teatri pubblici, oratori, orchestra barocca, melodramma, concerto solista, concerto grosso, contrasti sonori, maggiore espressività.",
+            "description": "Introduzione al Barocco con timeline e dieci concetti chiave musicali: celebrazione del potere, coinvolgimento dei fedeli, teatri pubblici, oratori, orchestra barocca, melodramma, concerto solista, concerto grosso, contrasti sonori, maggiore espressività.",
         }
 
         listening_globe_topic = {
@@ -4732,125 +4732,89 @@ def render_barocco_lesson_grid_section(nucleo: dict) -> str:
     lessons = [
         {
             "number": "01",
-            "label": "Coordinate",
-            "title": "Il Barocco in coordinate",
-            "body": "Timeline, contesto storico e dieci concetti chiave per entrare nel nucleo senza dispersione.",
+            "label": "Introduzione",
+            "title": "Introduzione al Barocco",
+            "summary": "Contesto storico, forme, ascolti, timeline e concetti chiave.",
+            "activity": "Mappa corte, chiesa, teatro, contrasto e meraviglia.",
             "href": "argomenti/il-barocco-in-coordinate/",
             "image": "../../assets/barocco-luigi-xiv-fascia-timeline.png",
-            "alt": "Dettaglio figurativo legato alla corte barocca",
         },
         {
             "number": "02",
-            "label": "Caratteri",
-            "title": "Musica e meraviglia",
-            "body": "Contrasto, affetti, ornamento, tensione e spettacolo come grammatica espressiva del Barocco.",
+            "label": "Autore",
+            "title": "Monteverdi",
+            "summary": "L'Orfeo e la nascita del teatro musicale moderno.",
+            "activity": "Distingui parola, scena e gesto musicale in un breve ascolto.",
             "href": "argomenti/il-barocco-in-coordinate/",
-            "image": "../../assets/barocco-contrasti-sonori-card-verticale.png",
-            "alt": "Immagine verticale dedicata ai contrasti sonori del Barocco",
+            "image": "../../assets/barocco-orfeo-fascia-timeline.png",
         },
         {
             "number": "03",
-            "label": "Teatro",
-            "title": "La nascita del melodramma",
-            "body": "Recitar cantando, scena, parola e musica: l'opera diventa il laboratorio dello spettacolo moderno.",
+            "label": "Autore",
+            "title": "Vivaldi",
+            "summary": "Concerto solista, energia ritmica e Quattro stagioni.",
+            "activity": "Segui il dialogo solo/tutti e associa suono e immagine.",
             "href": "argomenti/il-barocco-in-coordinate/",
-            "image": "../../assets/barocco-melodramma-card-verticale.png",
-            "alt": "Dettaglio visivo dedicato al melodramma barocco",
+            "image": "../../assets/barocco-quattro-stagioni-fascia-timeline.png",
         },
         {
             "number": "04",
-            "label": "Fondamento",
-            "title": "Il basso continuo",
-            "body": "Clavicembalo, armonia e sostegno: la continuità sonora che tiene insieme forma e gesto.",
+            "label": "Autore",
+            "title": "Bach",
+            "summary": "Contrappunto, fuga e architettura musicale.",
+            "activity": "Riconosci entrate, imitazioni e costruzione a strati.",
             "href": "argomenti/il-barocco-in-coordinate/",
-            "image": "../../assets/barocco-orchestra-barocca-card-verticale.png",
-            "alt": "Immagine sugli strumenti e sull'orchestra barocca",
+            "image": "../../assets/barocco-bach-open-card.png",
         },
         {
             "number": "05",
-            "label": "Forme",
-            "title": "Concerto grosso e solista",
-            "body": "Concertino, tutti, virtuosismo e dialogo: la forma strumentale si costruisce per contrasto.",
+            "label": "Autore",
+            "title": "Handel",
+            "summary": "Opera, oratorio e grandi pubblici europei.",
+            "activity": "Confronta teatro, cerimoniale, coro e racconto sacro.",
             "href": "argomenti/il-barocco-in-coordinate/",
-            "image": "../../assets/barocco-concerto-grosso-card-verticale.png",
-            "alt": "Dettaglio visivo dedicato al concerto grosso",
+            "image": "../../assets/barocco-bach-handel-fascia-timeline.png",
         },
         {
             "number": "06",
-            "label": "Sacro",
-            "title": "Oratorio e musica sacra",
-            "body": "Narrazione religiosa, coro, solisti e grande retorica degli affetti nello spazio della fede.",
+            "label": "Attività",
+            "title": "Restituzione del nucleo",
+            "summary": "Sintesi visuale, parole chiave e collegamenti sonori.",
+            "activity": "Prepara cinque parole chiave, due ascolti e una consegna breve.",
             "href": "argomenti/il-barocco-in-coordinate/",
-            "image": "../../assets/barocco-oratori-card-verticale.png",
-            "alt": "Immagine verticale dedicata agli oratori barocchi",
-        },
-        {
-            "number": "07",
-            "label": "Autori",
-            "title": "Vivaldi. Il suono delle stagioni",
-            "body": "Il violino solista dialoga con l'orchestra e trasforma paesaggio, gesto e natura in ascolto.",
-            "href": "argomenti/il-barocco-in-coordinate/",
-            "image": "../../assets/barocco-quattro-stagioni-fascia-timeline.png",
-            "alt": "Dettaglio sulle Quattro Stagioni di Vivaldi",
-        },
-        {
-            "number": "08",
-            "label": "Autori",
-            "title": "Bach e il contrappunto",
-            "body": "Scrittura rigorosa, profondità costruttiva e tensione spirituale dentro una musica architettonica.",
-            "href": "argomenti/il-barocco-in-coordinate/",
-            "image": "../../assets/barocco-bach-open-card.png",
-            "alt": "Dettaglio dedicato a Bach",
-        },
-        {
-            "number": "09",
-            "label": "Autori",
-            "title": "Handel e l'Europa musicale",
-            "body": "Opera, oratorio, musica cerimoniale e grandi pubblici: il Barocco come lingua europea.",
-            "href": "argomenti/il-barocco-in-coordinate/",
-            "image": "../../assets/barocco-bach-handel-fascia-timeline.png",
-            "alt": "Dettaglio su Bach e Handel",
-        },
-        {
-            "number": "10",
-            "label": "Ascolto",
-            "title": "Globo degli ascolti",
-            "body": "Brani, traiettorie e indizi sonori per riconoscere melodramma, concerto, oratorio e contrasto.",
-            "href": "argomenti/globo-degli-ascolti/",
-            "image": "../../assets/barocco-concerto-solista-popup.png",
-            "alt": "Dettaglio collegato all'ascolto del concerto solista",
+            "image": "../../assets/barocco-contrasti-sonori-card-verticale.png",
         },
     ]
 
     card_markup = []
     for index, item in enumerate(lessons):
-        modifier = " barocco-lesson-card--wide" if index in {0, 9} else ""
         card_markup.append(
-            f"""<a class="barocco-lesson-card{modifier}" href="{e(page_href(item['href']))}">
-                    <span class="barocco-lesson-card__media" aria-hidden="true">
-                        <img src="{e(item['image'])}" alt="{e(item['alt'])}" loading="lazy">
+            f"""<a class="barocco-single-tile barocco-single-tile--{index + 1}" href="{e(page_href(item['href']))}">
+                    <span class="barocco-single-tile__media" aria-hidden="true">
+                        <img src="{e(item['image'])}" alt="" loading="lazy">
                     </span>
-                    <span class="barocco-lesson-card__meta">
+                    <span class="barocco-single-tile__meta">
                         <span>{e(item['number'])}</span>
                         <span>{e(item['label'])}</span>
                     </span>
                     <strong>{e(item['title'])}</strong>
-                    <span class="barocco-lesson-card__body">{e(item['body'])}</span>
-                    <span class="barocco-lesson-card__cta">Apri</span>
+                    <span class="barocco-single-tile__summary">{e(item['summary'])}</span>
+                    <span class="barocco-single-tile__activity">{e(item['activity'])}</span>
+                    <span class="barocco-single-tile__arrow" aria-hidden="true">&#8599;</span>
                 </a>"""
         )
 
     return f"""
-        <section class="nucleus-section nucleus-section--map barocco-lesson-grid-section" id="lavagna">
+        <section class="barocco-single-screen" id="lavagna" aria-labelledby="barocco-single-title">
             <div class="shell">
-                <div class="barocco-lesson-grid__hero">
-                    <div>
-                        <p class="barocco-lesson-grid__eyebrow">Griglia lezioni</p>
-                        <h2>Barocco</h2>
+                <div class="barocco-single-screen__head">
+                    <div class="barocco-single-screen__title">
+                        <p>03 · Lezioni</p>
+                        <h1 id="barocco-single-title">Barocco</h1>
                     </div>
-                    <p>Contesto, forme, ascolti e autori attraversano il Seicento come una partitura visiva: dall'opera al concerto, dal basso continuo alla grande retorica degli affetti.</p>
+                    <p>Dalle coordinate del Seicento agli autori: ascolti e attività costruiscono il nucleo.</p>
                 </div>
-                <div class="barocco-lesson-grid" aria-label="Lezioni del nucleo Barocco">
+                <div class="barocco-single-tiles" aria-label="Lezioni del nucleo Barocco">
                     {"".join(card_markup)}
                 </div>
             </div>
@@ -5221,10 +5185,13 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
     topic_map = nucleo.get("topic_map")
     show_topic_map = nucleo["slug"] in NUCLEI_WITH_FLOATING_BOARD and bool(topic_map)
     map_only_landing = nucleo.get("landing_mode", "editorial") == "map-only"
+    barocco_single_screen = show_topic_map and map_only_landing and nucleo["slug"] == "barocco"
     hero_subtitle = nucleo.get("hero_subtitle") or nucleo.get("description", "")
     landing_reference_period = nucleo.get("landing_reference_period", "")
     page_description = (
-        f"{nucleo['title']} in Accordia: titolo del nucleo e griglia editoriale delle lezioni."
+        f"{nucleo['title']} in Accordia: schermata unica con introduzione, autori e attività."
+        if barocco_single_screen
+        else f"{nucleo['title']} in Accordia: titolo del nucleo e griglia editoriale delle lezioni."
         if show_topic_map and map_only_landing
         else f"{nucleo['title']} in Accordia: nucleo storico-musicale completo con contenuti da manuale, ascolti, compito di realta e verifica."
     )
@@ -5357,7 +5324,9 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
 """
     )
 
-    if show_topic_map and map_only_landing and nucleo["slug"] == "barocco":
+    if barocco_single_screen:
+        hero_markup = ""
+        mini_timeline_markup = ""
         map_section_markup = render_barocco_lesson_grid_section(nucleo)
     else:
         map_section_markup = (
@@ -5372,6 +5341,9 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
         )
 
     footer_html = (
+        render_site_footer()
+        if barocco_single_screen
+        else
         ""
         if map_only_landing
         else f"""
@@ -5607,6 +5579,14 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
         else map_section_markup
     )
 
+    main_extra_class = (
+        " nucleus-page--map-only nucleus-page--barocco-single"
+        if barocco_single_screen
+        else " nucleus-page--map-only"
+        if map_only_landing
+        else ""
+    )
+
     return f"""<!DOCTYPE html>
 <html lang="it">
 <head>
@@ -5629,7 +5609,7 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
         </div>
     </header>
 
-    <main class="nucleus-page{' nucleus-page--map-only' if map_only_landing else ''}" style="--nucleus-accent: {e(nucleo['accent'])};">
+    <main class="nucleus-page{main_extra_class}" style="--nucleus-accent: {e(nucleo['accent'])};">
 {hero_markup}
 
 {mini_timeline_markup}
