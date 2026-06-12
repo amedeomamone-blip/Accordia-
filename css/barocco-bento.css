@@ -37,6 +37,9 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     width: 100%;
     gap: 0;
 }
+.barocco-row--8 {
+    grid-template-columns: repeat(8, 1fr);
+}
 
 /* ── Tile rettangolare: occupa 2 celle ── */
 .barocco-tile--wide {
@@ -44,6 +47,14 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 }
 .barocco-tile--wide .barocco-tile__face {
     aspect-ratio: 2 / 1;
+}
+
+/* ── Tile tripla: occupa 3 celle ── */
+.barocco-tile--triple {
+    grid-column: span 3;
+}
+.barocco-tile--triple .barocco-tile__face {
+    aspect-ratio: 3 / 1;
 }
 
 /* ── Tile: struttura identica alla home ── */
