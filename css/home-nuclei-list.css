@@ -5,9 +5,13 @@
 
 /* ── Header: wordmark "accordia" a destra ── */
 body[data-nav="home"] .site-header__inner {
-    flex-direction: row-reverse;
+    flex-direction: row;
+    justify-content: flex-end;
 }
+
 body[data-nav="home"] .brand--wordmark {
+    order: 2;
+    margin-left: auto;
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
     font-size: 1.45rem;
     font-weight: 800;
@@ -55,6 +59,8 @@ body[data-nav="home"] .nuclei-grid-wrap {
     bottom: auto;
     left: 0;
     right: 0;
+    height: calc(100vw / 6);
+    overflow: hidden;
     --tiles-shift-x: 120vw;
     --tiles-shift-y: 0px;
     --tiles-align-y: -47%;
@@ -215,6 +221,11 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__arrow {
     transform: translate(2px, -2px);
 }
 
+body[data-nav="home"] .nuclei-col__title,
+body[data-nav="home"] .nuclei-col__date {
+    visibility: hidden;
+}
+
 body[data-nav="home"] .nuclei-col__title {
     margin: 0;
     padding: .75vw 1.5vw 0;
@@ -270,6 +281,8 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__date {
     }
     body[data-nav="home"] .nuclei-grid-wrap {
         position: static;
+        height: auto;
+        overflow: visible;
         transform: none !important;
         padding: 3rem 0 2rem;
     }
@@ -279,4 +292,6 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__date {
     body[data-nav="home"] .nuclei-col__arrow { width: 4.5vw; height: 4.5vw; font-size: 2.1vw; }
     body[data-nav="home"] .nuclei-col__title { font-size: 3.4vw; padding: 2vw 4vw 0; }
     body[data-nav="home"] .nuclei-col__date  { font-size: 2.2vw; padding: .8vw 4vw 3vw; }
+    body[data-nav="home"] .nuclei-col__title,
+    body[data-nav="home"] .nuclei-col__date { visibility: visible; }
 }
