@@ -15,25 +15,20 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     text-decoration: none;
 }
 
-/* ── Stage: viewport height minus header ── */
+/* ── Stage: occupa la schermata, cresce (e scorre) se lo zoom riduce l'altezza ── */
 .barocco-stage {
     position: relative;
-    height: calc(100svh - var(--barocco-header-h, 4rem));
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    min-height: calc(100svh - var(--barocco-header-h, 4rem));
     background: #ffffff;
-    overflow: hidden;
-    /* unità adattiva: 1vw finché la finestra è larga,
-       si riduce quando l'altezza non basta per le 3 fasce intere */
-    --u: min(1vw, calc((100svh - var(--barocco-header-h, 4rem)) / 52.5));
+    --u: 1vw;
 }
 
-/* ── Tile strip ancorata in basso, centrata se ridotta ── */
+/* ── Tile strip in basso, sempre da margine a margine ── */
 .barocco-tiles-wrap {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    width: calc(100 * var(--u));
-    margin: 0 auto;
+    width: 100%;
 }
 
 .barocco-row {
@@ -223,8 +218,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 
 /* ── Mobile ≤600px: 3 fasce orizzontali a scorrimento laterale ── */
 @media (max-width: 600px) {
-    .barocco-stage      { height: auto; }
-    .barocco-tiles-wrap { position: static; width: auto; margin: 0; }
+    .barocco-stage      { min-height: 0; display: block; }
     .barocco-row {
         display: flex;
         flex-wrap: nowrap;
