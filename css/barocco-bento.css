@@ -152,14 +152,28 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     transition: color .2s ease;
 }
 
-/* ── Tile testuale: titolo + descrizione dentro la faccia ── */
+/* ── Tile attività: testo dentro la faccia, grigio più chiaro, niente blink ── */
 .barocco-tile--text .barocco-tile__face {
     justify-content: space-between;
+    background-color: #f3f3f3;
+    animation: none;
+}
+.barocco-tile--text .barocco-tile__bottom {
+    justify-content: flex-end;
+}
+.barocco-tile--text .barocco-tile__arrow {
+    animation: none;
+}
+.barocco-tile--text:hover .barocco-tile__face {
+    background-color: #f3f3f3;
+}
+.barocco-tile--text:hover .barocco-tile__arrow {
+    background: rgba(17,17,17,.12);
+    color: rgba(17,17,17,.7);
 }
 .barocco-tile__textbody {
     display: flex;
     flex-direction: column;
-    gap: calc(.35 * var(--u));
     padding: calc(.1 * var(--u)) 0 0;
 }
 .barocco-tile__textbody-title {
@@ -169,13 +183,6 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     letter-spacing: -.03em;
     line-height: 1.1;
     color: #111111;
-}
-.barocco-tile__textbody-desc {
-    font-size: calc(.52 * var(--u));
-    font-weight: 400;
-    letter-spacing: .01em;
-    line-height: 1.45;
-    color: rgba(17,17,17,.55);
 }
 
 /* ── Hover ── */
