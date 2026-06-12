@@ -149,7 +149,7 @@ body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(5) {
 }
 body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(6) {
     --tile-bg: #f2f4f6; --blink-delay: 10s;
-    --lit-num: rgba(17,17,17,.85); --lit-arrow-bg: rgba(17,17,17,.14); --lit-arrow-fg: #18191b;
+    --lit-num: rgba(255,255,255,.9); --lit-arrow-bg: rgba(255,255,255,.28); --lit-arrow-fg: #ffffff;
 }
 
 @keyframes nucleo-blink {
