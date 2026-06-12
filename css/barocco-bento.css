@@ -152,6 +152,16 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     transition: color .2s ease;
 }
 
+/* ── Tile vuota intermittente (niente numero né freccia) ── */
+.barocco-tile--blank {
+    pointer-events: none;
+}
+
+/* ── Nome autore a capo ── */
+.barocco-tile__name--wrap {
+    white-space: normal;
+}
+
 /* ── Tile attività: testo dentro la faccia, grigio più chiaro, niente blink ── */
 .barocco-tile--text .barocco-tile__face {
     justify-content: space-between;
