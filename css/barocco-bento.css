@@ -233,8 +233,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 .barocco-tile__face--photo .barocco-tile__textbody {
     position: absolute;
     left: calc(50% + 1.1 * var(--u));
-    right: calc(1.1 * var(--u));
-    top: calc(1.2 * var(--u));
+    right: calc(2.8 * var(--u));
+    bottom: calc(1.1 * var(--u));
     z-index: 1;
     padding: 0;
 }
