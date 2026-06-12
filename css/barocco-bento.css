@@ -181,11 +181,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     font-size: calc(.82 * var(--u));
     font-weight: 700;
     letter-spacing: -.03em;
-    line-height: 1.1;
+    line-height: 1.4;
     color: #111111;
-}
-.barocco-tile__textbody-kicker {
-    font-weight: 400;
 }
 
 /* ── Hover ── */
