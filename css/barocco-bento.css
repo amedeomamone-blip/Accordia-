@@ -1,150 +1,131 @@
 /* ============================================================
-   Barocco nucleus — bento grid index
-   3 colonne × 2 righe:
-     row 1: [Introduzione: col 1–2 largo] [Monteverdi: col 3]
-     row 2: [Vivaldi: col 1] [Bach: col 2] [Handel: col 3]
+   Barocco nucleus — tile strip (mirrors home structure)
+   5 tile quadrate in fila, strip in basso, info in alto.
    ============================================================ */
 
-.nucleus-bento-page {
-    margin: 0;
-    padding: 0;
-}
-
-/* ── Header: wordmark "accordia" come nella home ── */
-body[data-current-nucleus="barocco"] .site-header__inner {
-    flex-direction: row-reverse;
-}
-body[data-current-nucleus="barocco"] .brand--wordmark {
-    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: 1.45rem;
-    font-weight: 800;
-    letter-spacing: 0;
-    line-height: 1;
-    color: #18191b;
-    text-transform: none;
-    text-decoration: none;
-}
-
-/* ── Grid ── */
-.nucleus-bento {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    gap: 2px;
-    background: #ccc9c6;
-    height: calc(100svh - var(--bento-header-h, 4rem));
-}
-
-/* ── Tile base ── */
-.bento-tile {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 1.5vw;
-    background: var(--btile-bg, #f4f4f4);
-    color: var(--btile-fg, #111111);
-    text-decoration: none;
-    overflow: hidden;
+/* ── Stage: viewport height minus header ── */
+.barocco-stage {
     position: relative;
+    height: calc(100svh - var(--barocco-header-h, 4rem));
+    background: #ffffff;
+    overflow: hidden;
 }
 
-/* ── Grid areas ── */
-.bento-tile--l1 { grid-row: 1 / 2; grid-column: 1 / 3; }   /* col 1–2, riga 1 (largo) */
-.bento-tile--l2 { grid-row: 1 / 2; grid-column: 3 / 4; }   /* col 3, riga 1 */
-.bento-tile--l3 { grid-row: 2 / 3; grid-column: 1 / 2; }   /* col 1, riga 2 */
-.bento-tile--l4 { grid-row: 2 / 3; grid-column: 2 / 3; }   /* col 2, riga 2 */
-.bento-tile--l5 { grid-row: 2 / 3; grid-column: 3 / 4; }   /* col 3, riga 2 */
-
-/* ── Colori e ritardi blink per tile ── */
-.bento-tile--l1 { --btile-bg: #f7f4f3; --blink-delay: 0s; }
-.bento-tile--l2 { --btile-bg: #f4f2f1; --blink-delay: 2.4s; }
-.bento-tile--l3 { --btile-bg: #f8f6f5; --blink-delay: 4.8s; }
-.bento-tile--l4 { --btile-bg: #f5f3f2; --blink-delay: 7.2s; }
-.bento-tile--l5 { --btile-bg: #f6f4f3; --blink-delay: 9.6s; }
-
-/* ── Blink — stessa logica delle mattonelle home ── */
-@keyframes bento-blink {
-    0%, 100% { background-color: var(--btile-bg, #f4f4f4); }
-    6%,  11% { background-color: #C37A6B; }
-    17%      { background-color: var(--btile-bg, #f4f4f4); }
-}
-@keyframes bento-blink-num {
-    0%, 100% { color: rgba(17,17,17,.35); }
-    6%,  11% { color: rgba(255,255,255,.9); }
-    17%      { color: rgba(17,17,17,.35); }
-}
-@keyframes bento-blink-muted {
-    0%, 100% { color: rgba(17,17,17,.38); }
-    6%,  11% { color: rgba(255,255,255,.6); }
-    17%      { color: rgba(17,17,17,.38); }
-}
-@keyframes bento-blink-arrow {
-    0%, 100% { background: rgba(17,17,17,.12); color: rgba(17,17,17,.7); }
-    6%,  11% { background: rgba(255,255,255,.28); color: #ffffff; }
-    17%      { background: rgba(17,17,17,.12); color: rgba(17,17,17,.7); }
+/* ── Info in alto ── */
+.barocco-head {
+    padding: 2.4vw 3rem 0;
 }
 
-.bento-tile {
-    animation: bento-blink 12s ease-in-out infinite;
-    animation-delay: var(--blink-delay, 0s);
-}
-
-/* ── Tipografia — stessa scala delle mattonelle home ── */
-.bento-num {
-    font-size: .8vw;
-    font-weight: 700;
-    letter-spacing: .07em;
-    color: rgba(17,17,17,.35);
-    font-variant-numeric: tabular-nums;
-    line-height: 1;
-    animation: bento-blink-num 12s ease-in-out infinite;
-    animation-delay: var(--blink-delay, 0s);
-}
-
-.bento-label {
-    font-size: .7vw;
+.barocco-head__eyebrow {
+    font-size: .75vw;
     font-weight: 500;
     letter-spacing: .1em;
     text-transform: uppercase;
     color: rgba(17,17,17,.38);
     display: block;
-    animation: bento-blink-muted 12s ease-in-out infinite;
-    animation-delay: var(--blink-delay, 0s);
 }
 
-.bento-birth {
+.barocco-head__title {
+    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size: 3.8vw;
+    font-weight: 800;
+    letter-spacing: -.05em;
+    line-height: .95;
+    color: #111111;
+    margin: .5vw 0 0;
     display: block;
+}
+
+.barocco-head__period {
     font-size: .75vw;
     font-weight: 400;
     letter-spacing: .04em;
     color: rgba(17,17,17,.38);
-    font-variant-numeric: tabular-nums;
-    margin-top: .2vw;
-    animation: bento-blink-muted 12s ease-in-out infinite;
-    animation-delay: var(--blink-delay, 0s);
-}
-
-.bento-title {
     display: block;
-    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: 1.15vw;
-    font-weight: 700;
-    letter-spacing: -.03em;
-    line-height: 1.05;
-    color: var(--btitle-color, #111111);
-    margin: 0 0 .2vw;
+    margin-top: .5vw;
+    font-variant-numeric: tabular-nums;
 }
 
-/* ── Foot: numero + freccia ── */
-.bento-foot {
+/* ── Tile strip ancorata in basso ── */
+.barocco-tiles-wrap {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.barocco-tiles {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    width: 100%;
+    gap: 0;
+}
+
+/* ── Tile: struttura identica alla home ── */
+.barocco-tile {
+    display: flex;
+    flex-direction: column;
+    color: #111111;
+    text-decoration: none;
+    overflow: hidden;
+}
+
+/* ── Faccia quadrata animata ── */
+.barocco-tile__face {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    aspect-ratio: 1;
+    width: 100%;
+    padding: 1.5vw;
+    background-color: #e8e8e8;
+    animation: barocco-blink 12s ease-in-out infinite;
+    animation-delay: var(--blink-delay, 0s);
+    transition: background-color .3s ease;
+}
+
+.barocco-tile:nth-child(1) { --blink-delay: 0s; }
+.barocco-tile:nth-child(2) { --blink-delay: 2.4s; }
+.barocco-tile:nth-child(3) { --blink-delay: 4.8s; }
+.barocco-tile:nth-child(4) { --blink-delay: 7.2s; }
+.barocco-tile:nth-child(5) { --blink-delay: 9.6s; }
+
+/* ── Animazioni blink ── */
+@keyframes barocco-blink {
+    0%, 100% { background-color: #e8e8e8; }
+    6%,  11% { background-color: #C37A6B; }
+    17%      { background-color: #e8e8e8; }
+}
+@keyframes barocco-blink-num {
+    0%, 100% { color: rgba(17,17,17,.35); }
+    6%,  11% { color: rgba(255,255,255,.9); }
+    17%      { color: rgba(17,17,17,.35); }
+}
+@keyframes barocco-blink-arrow {
+    0%, 100% { background: rgba(17,17,17,.12); color: rgba(17,17,17,.7); }
+    6%,  11% { background: rgba(255,255,255,.28); color: #ffffff; }
+    17%      { background: rgba(17,17,17,.12); color: rgba(17,17,17,.7); }
+}
+
+/* ── Numero + freccia in fondo alla faccia ── */
+.barocco-tile__bottom {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 100%;
-    margin-top: auto;
 }
 
-.bento-arrow {
+.barocco-tile__num {
+    font-size: .8vw;
+    font-weight: 700;
+    letter-spacing: .07em;
+    color: rgba(17,17,17,.35);
+    font-variant-numeric: tabular-nums;
+    animation: barocco-blink-num 12s ease-in-out infinite;
+    animation-delay: var(--blink-delay, 0s);
+}
+
+.barocco-tile__arrow {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -157,59 +138,71 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     line-height: 1;
     flex: 0 0 auto;
     transition: transform .18s ease;
-    animation: bento-blink-arrow 12s ease-in-out infinite;
+    animation: barocco-blink-arrow 12s ease-in-out infinite;
     animation-delay: var(--blink-delay, 0s);
 }
 
-/* ── Hover: blocca blink, accendi il colore ── */
-.bento-tile:hover {
+/* ── Testo sotto la faccia ── */
+.barocco-tile__name {
+    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size: 1.15vw;
+    font-weight: 700;
+    letter-spacing: -.03em;
+    line-height: 1.05;
+    color: #111111;
+    padding: .75vw 1.5vw 0;
+    margin: 0;
+    display: block;
+    transition: color .2s ease;
+}
+
+.barocco-tile__sub {
+    display: block;
+    padding: .25vw 1.5vw .8vw;
+    font-size: .72vw;
+    font-weight: 400;
+    letter-spacing: .04em;
+    color: rgba(17,17,17,.38);
+    font-variant-numeric: tabular-nums;
+    transition: color .2s ease;
+}
+
+/* ── Hover ── */
+.barocco-tile:hover .barocco-tile__face {
     animation: none;
     background-color: #C37A6B;
-    --btitle-color: #ffffff;
 }
-.bento-tile:hover .bento-num {
+.barocco-tile:hover .barocco-tile__num {
     animation: none;
     color: rgba(255,255,255,.9);
 }
-.bento-tile:hover .bento-label,
-.bento-tile:hover .bento-birth {
-    animation: none;
-    color: rgba(255,255,255,.6);
-}
-.bento-tile:hover .bento-arrow {
+.barocco-tile:hover .barocco-tile__arrow {
     animation: none;
     background: rgba(255,255,255,.28);
     color: #ffffff;
     transform: translate(2px, -2px);
 }
+.barocco-tile:hover .barocco-tile__name { color: #C37A6B; }
+.barocco-tile:hover .barocco-tile__sub  { color: #C37A6B; }
 
 @media (prefers-reduced-motion: reduce) {
-    .bento-tile,
-    .bento-num,
-    .bento-label,
-    .bento-birth,
-    .bento-arrow { animation: none; }
+    .barocco-tile__face,
+    .barocco-tile__num,
+    .barocco-tile__arrow { animation: none; }
 }
 
 /* ── Mobile ≤600px ── */
 @media (max-width: 600px) {
-    body[data-current-nucleus="barocco"] .site-header__inner { flex-direction: row; }
-
-    .nucleus-bento {
-        grid-template-columns: 1fr 1fr;
-        grid-template-rows: auto;
-        height: auto;
-    }
-    .bento-tile--l1 { grid-row: auto; grid-column: span 2; min-height: 50vw; }
-    .bento-tile--l2,
-    .bento-tile--l3,
-    .bento-tile--l4,
-    .bento-tile--l5 { grid-row: auto; grid-column: auto; min-height: 45vw; }
-
-    .bento-tile  { padding: 5vw; }
-    .bento-num   { font-size: 3vw; }
-    .bento-label { font-size: 2.5vw; }
-    .bento-birth { font-size: 2.5vw; }
-    .bento-title { font-size: 4.2vw; }
-    .bento-arrow { width: 5.5vw; height: 5.5vw; font-size: 2.8vw; }
+    .barocco-stage         { height: auto; }
+    .barocco-head          { padding: 4vw 4vw 0; }
+    .barocco-tiles-wrap    { position: static; padding: 2rem 0; }
+    .barocco-tiles         { grid-template-columns: repeat(2, 1fr); }
+    .barocco-head__eyebrow { font-size: 2.5vw; }
+    .barocco-head__title   { font-size: 9vw; }
+    .barocco-head__period  { font-size: 2.8vw; }
+    .barocco-tile__face    { padding: 4vw; }
+    .barocco-tile__num     { font-size: 3vw; }
+    .barocco-tile__arrow   { width: 5.5vw; height: 5.5vw; font-size: 2.8vw; }
+    .barocco-tile__name    { font-size: 4vw; padding: 2vw 4vw 0; }
+    .barocco-tile__sub     { font-size: 2.5vw; padding: .8vw 4vw 3vw; }
 }

@@ -126,37 +126,37 @@ body[data-nav="home"] .nuclei-col__tile {
     aspect-ratio: 1;
     width: 100%;
     padding: 1.5vw;
-    background-color: var(--tile-bg, #F0E7DA);
+    background-color: var(--tile-bg, #e8e8e8);
     animation: nucleo-blink 12s ease-in-out infinite;
     animation-delay: var(--blink-delay, 0s);
     transition: background-color .3s ease;
 }
 body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(1) {
-    --tile-bg: #F0E7DA; --blink-delay: 0s;
+    --tile-bg: #e8e8e8; --blink-delay: 0s;
     --lit-num: rgba(17,17,17,.85); --lit-arrow-bg: rgba(17,17,17,.14); --lit-arrow-fg: #18191b;
 }
 body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(2) {
-    --tile-bg: #F0E7DA; --blink-delay: 2s;
+    --tile-bg: #e8e8e8; --blink-delay: 2s;
     --lit-num: rgba(17,17,17,.85); --lit-arrow-bg: rgba(17,17,17,.14); --lit-arrow-fg: #18191b;
 }
-body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(3) { --tile-bg: #F0E7DA; --blink-delay: 4s; }
+body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(3) { --tile-bg: #e8e8e8; --blink-delay: 4s; }
 body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(4) {
-    --tile-bg: #F0E7DA; --blink-delay: 6s;
+    --tile-bg: #e8e8e8; --blink-delay: 6s;
     --lit-num: rgba(17,17,17,.85); --lit-arrow-bg: rgba(17,17,17,.14); --lit-arrow-fg: #18191b;
 }
 body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(5) {
-    --tile-bg: #F0E7DA; --blink-delay: 8s;
+    --tile-bg: #e8e8e8; --blink-delay: 8s;
     --lit-num: rgba(17,17,17,.85); --lit-arrow-bg: rgba(17,17,17,.14); --lit-arrow-fg: #18191b;
 }
 body[data-nav="home"] .nuclei-grid .nuclei-col:nth-child(6) {
-    --tile-bg: #F0E7DA; --blink-delay: 10s;
+    --tile-bg: #e8e8e8; --blink-delay: 10s;
     --lit-num: rgba(255,255,255,.9); --lit-arrow-bg: rgba(255,255,255,.28); --lit-arrow-fg: #ffffff;
 }
 
 @keyframes nucleo-blink {
-    0%, 100% { background-color: var(--tile-bg, #F0E7DA); }
+    0%, 100% { background-color: var(--tile-bg, #e8e8e8); }
     6%, 11%  { background-color: var(--accent, #111111); }
-    17%      { background-color: var(--tile-bg, #F0E7DA); }
+    17%      { background-color: var(--tile-bg, #e8e8e8); }
 }
 @keyframes nucleo-blink-num {
     0%, 100% { color: rgba(17,17,17,.35); }
