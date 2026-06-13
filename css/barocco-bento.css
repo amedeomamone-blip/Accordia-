@@ -225,13 +225,12 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     background-size: cover;
     background-position: center top;
     animation: none;
-    filter: saturate(0.82) brightness(0.97);
 }
 .barocco-tile__face--photo::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: linear-gradient(to top, rgba(195,122,107,.55) 0%, rgba(195,122,107,.10) 55%, transparent 80%);
+    background: linear-gradient(to top, rgba(0,0,0,.52) 0%, transparent 65%);
     pointer-events: none;
 }
 .barocco-tile__face--photo .barocco-tile__bottom {
