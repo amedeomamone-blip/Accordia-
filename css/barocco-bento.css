@@ -225,6 +225,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     background-size: cover;
     background-position: center top;
     animation: none;
+    background-color: rgba(195, 122, 107, 0.22);
+    background-blend-mode: multiply;
 }
 .barocco-tile__face--photo::after {
     content: '';
