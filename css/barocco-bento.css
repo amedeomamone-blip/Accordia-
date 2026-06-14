@@ -319,15 +319,20 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     .barocco-tiles-wrap {
         display: flex;
         flex-wrap: wrap;
+        align-content: flex-start;
     }
     .barocco-row {
         display: contents;
     }
+    /* Tile a dimensione FISSA (niente grow/shrink): non si deformano mai e
+       vanno a capo puliti appena la larghezza non basta. */
     .barocco-tile {
-        flex: 1 0 calc(14 * var(--u));
+        flex: 0 0 calc(14 * var(--u));
+        width: calc(14 * var(--u));
     }
     .barocco-tile--wide {
-        flex: 2 0 calc(28 * var(--u));
+        flex: 0 0 calc(28 * var(--u));
+        width: calc(28 * var(--u));
     }
 }
 
