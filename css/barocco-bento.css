@@ -77,19 +77,6 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     6%,  11% { background: rgba(255,255,255,.28); color: #ffffff; }
     17%      { background: rgba(17,17,17,.12); color: rgba(17,17,17,.7); }
 }
-/* Varianti tono per le mattonelle spente/intermittenti: stessa palette,
-   sfumature leggermente diverse a riposo e in accensione, per dare movimento. */
-@keyframes barocco-blink-b {
-    0%, 100% { background-color: #e9e3df; }
-    6%,  11% { background-color: #b56d5f; }
-    17%      { background-color: #e9e3df; }
-}
-@keyframes barocco-blink-c {
-    0%, 100% { background-color: #ece4e0; }
-    6%,  11% { background-color: #cf8a7a; }
-    17%      { background-color: #ece4e0; }
-}
-
 /* ── Numero + freccia in fondo alla faccia ── */
 .barocco-tile__bottom {
     display: flex;
@@ -154,19 +141,6 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     overflow: hidden;
     text-overflow: ellipsis;
     transition: color .2s ease;
-}
-
-/* ── Tile vuota intermittente (niente numero né freccia) ── */
-.barocco-tile--blank {
-    pointer-events: none;
-}
-/* Tonalità alternate solo per le mattonelle spente: le lezioni
-   mantengono la tonalità base, queste variano per dare movimento. */
-.barocco-tile--blank:nth-child(3n+2) .barocco-tile__face {
-    animation-name: barocco-blink-b;
-}
-.barocco-tile--blank:nth-child(3n) .barocco-tile__face {
-    animation-name: barocco-blink-c;
 }
 
 /* ── Nome autore a capo ── */
