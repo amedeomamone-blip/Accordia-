@@ -296,21 +296,34 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     color: #ffffff;
 }
 
-/* ── Desktop ≥601px: 7 colonne 1fr → i quadrati vanno SEMPRE da margine a
-   margine (faccia = 100vw/7, quadrata via aspect-ratio). Le 3 fasce stanno
-   in una sola schermata, senza scroll: --u è ancorato all'ALTEZZA così le
-   etichette si adattano e il tutto resta dentro lo schermo; overflow hidden
-   garantisce che la pagina non scrolli mai. ── */
+/* ── Desktop ≥601px: unica fascia orizzontale centrata, scroll laterale.
+   --u ancorato all'altezza → la faccia quadrata (14u) occupa ~58%
+   dell'altezza disponibile, etichette sotto, spazio bianco sopra e sotto.
+   Page non scrolla: overflow hidden sullo stage; la striscia scorre via
+   overflow-x auto sul tiles-wrap. ── */
 @media (min-width: 601px) {
     .barocco-stage {
-        --u: calc((100svh - var(--barocco-header-h, 4rem)) / 59);
+        --u: calc((100svh - var(--barocco-header-h, 4rem)) / 24);
         height: calc(100svh - var(--barocco-header-h, 4rem));
         min-height: 0;
         overflow: hidden;
-        justify-content: flex-start;
+        justify-content: center;
     }
+    .barocco-tiles-wrap {
+        display: flex;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x proximity;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+    }
+    .barocco-tiles-wrap::-webkit-scrollbar { display: none; }
     .barocco-row {
-        grid-template-columns: repeat(7, 1fr);
+        display: contents;
+    }
+    .barocco-tile {
+        flex: 0 0 calc(14 * var(--u));
+        scroll-snap-align: start;
     }
 }
 
