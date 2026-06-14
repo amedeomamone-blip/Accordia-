@@ -304,24 +304,30 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     color: #ffffff;
 }
 
-/* ── Desktop: a schermo intero tutto visibile senza scroll;
-   riducendo la larghezza, ogni fascia scorre orizzontalmente
-   mantenendo altezza e posizione dei tile.
-   La misura dei tile è ancorata all'ALTEZZA del viewport (resta fissa
-   quando si stringe la larghezza); il fattore 59 è calibrato perché a
-   schermo intero i 7 tile riempiano la larghezza da margine a margine. ── */
+/* ── Desktop: a schermo intero i 7 tile riempiono la larghezza da margine a
+   margine senza scroll; riducendo la larghezza i tile scorrono a capo in
+   flusso unico continuo con scroll verticale della pagina.
+   --u ancorato all'altezza del viewport; fattore 59 calibrato perché
+   a schermo intero 7 × 14u = larghezza intera. ── */
 @media (min-width: 601px) {
     .barocco-stage {
         --u: calc((100svh - var(--barocco-header-h, 4rem)) / 59);
-        height: calc(100svh - var(--barocco-header-h, 4rem));
-        min-height: 0;
-        overflow: hidden;
+        min-height: calc(100svh - var(--barocco-header-h, 4rem));
+        overflow: visible;
         justify-content: flex-start;
     }
+    .barocco-tiles-wrap {
+        display: flex;
+        flex-wrap: wrap;
+    }
     .barocco-row {
-        grid-template-columns: repeat(7, minmax(calc(14 * var(--u)), 1fr));
-        overflow-x: auto;
-        overflow-y: hidden;
+        display: contents;
+    }
+    .barocco-tile {
+        flex: 1 0 calc(14 * var(--u));
+    }
+    .barocco-tile--wide {
+        flex: 2 0 calc(28 * var(--u));
     }
 }
 
