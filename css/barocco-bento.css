@@ -56,9 +56,32 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     width: 100%;
     padding: calc(1.1 * var(--u));
     background-color: #e8e8e8;
-    animation: barocco-blink 12s ease-in-out infinite;
-    animation-delay: var(--blink-delay, 0s);
+    animation:
+        barocco-blink 12s ease-in-out var(--blink-delay, 0s) infinite,
+        barocco-tile-in .45s ease var(--enter-delay, 0s) both;
     transition: background-color .3s ease;
+}
+
+/* ── Entrata scaglionata dei tile: compaiono 1 a 1, rapidamente ── */
+@keyframes barocco-tile-in {
+    from { opacity: 0; transform: scale(.94); }
+    to   { opacity: 1; transform: scale(1); }
+}
+.barocco-tile:nth-child(1) { --enter-delay: 0s; }
+.barocco-tile:nth-child(2) { --enter-delay: .07s; }
+.barocco-tile:nth-child(3) { --enter-delay: .14s; }
+.barocco-tile:nth-child(4) { --enter-delay: .21s; }
+.barocco-tile:nth-child(5) { --enter-delay: .28s; }
+.barocco-tile:nth-child(6) { --enter-delay: .35s; }
+
+/* ── I titoli compaiono tutti insieme, come nella hero, a tile finiti ── */
+@keyframes barocco-label-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.barocco-tile__name,
+.barocco-tile__sub {
+    animation: barocco-label-in .55s ease .85s both;
 }
 
 /* ── Animazioni blink ── */
@@ -201,8 +224,11 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 
 @media (prefers-reduced-motion: reduce) {
     .barocco-tile__face,
+    .barocco-tile__face--photo,
     .barocco-tile__num,
-    .barocco-tile__arrow { animation: none; }
+    .barocco-tile__arrow,
+    .barocco-tile__name,
+    .barocco-tile__sub { animation: none; }
 }
 
 /* ── Tile con ritratto fotografico ── */
@@ -210,7 +236,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     position: relative;
     background-size: cover;
     background-position: center top;
-    animation: none;
+    animation: barocco-tile-in .45s ease var(--enter-delay, 0s) both;
     background-color: transparent;
     background-blend-mode: normal;
 }
