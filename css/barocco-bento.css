@@ -258,7 +258,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 }
 .barocco-tile:hover .barocco-tile__face--photo {
     animation: none;
-    background-color: #C37A6B;
+    background-color: #D8A89C;
     filter: none;
 }
 .barocco-tile:hover .barocco-tile__face--photo .barocco-tile__textbody {
