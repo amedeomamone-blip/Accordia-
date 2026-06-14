@@ -316,6 +316,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         height: calc(100svh - var(--barocco-header-h, 4rem));
         min-height: 0;
         overflow: hidden;
+        justify-content: flex-start;
     }
     .barocco-row {
         grid-template-columns: repeat(7, minmax(calc(14 * var(--u)), 1fr));
