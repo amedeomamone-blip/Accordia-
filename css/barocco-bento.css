@@ -313,14 +313,24 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     color: #ffffff;
 }
 
-/* ── Desktop: niente scroll — le proporzioni dei tile non si toccano mai.
-   Lo scroll è bloccato a livello di html/body; i tile mantengono
-   aspect-ratio originale e si posizionano in basso come prima. ── */
+/* ── Desktop: proporzioni e impaginazione SEMPRE intatte.
+   I tile non si rimpiccioliscono mai sotto una larghezza minima
+   (legata all'altezza, così le 3 fasce restano dentro la schermata):
+   se lo spazio orizzontale si riduce, la fascia scorre lateralmente
+   invece di comprimere i quadrati. ── */
 @media (min-width: 601px) {
     .barocco-stage {
+        --col-min: calc((100svh - var(--barocco-header-h, 4rem)) / 4.6);
         height: calc(100svh - var(--barocco-header-h, 4rem));
         min-height: 0;
         overflow: hidden;
+    }
+    .barocco-tiles-wrap {
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+    .barocco-row {
+        grid-template-columns: repeat(7, minmax(var(--col-min), 1fr));
     }
 }
 
