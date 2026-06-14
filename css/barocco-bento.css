@@ -304,6 +304,26 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     color: #ffffff;
 }
 
+/* ── Desktop: a schermo intero tutto visibile senza scroll;
+   riducendo la larghezza, ogni fascia scorre orizzontalmente
+   mantenendo altezza e posizione dei tile.
+   La misura dei tile è ancorata all'ALTEZZA del viewport (resta fissa
+   quando si stringe la larghezza); il fattore 59 è calibrato perché a
+   schermo intero i 7 tile riempiano la larghezza da margine a margine. ── */
+@media (min-width: 601px) {
+    .barocco-stage {
+        --u: calc((100svh - var(--barocco-header-h, 4rem)) / 59);
+        height: calc(100svh - var(--barocco-header-h, 4rem));
+        min-height: 0;
+        overflow: hidden;
+    }
+    .barocco-row {
+        grid-template-columns: repeat(7, minmax(calc(14 * var(--u)), 1fr));
+        overflow-x: auto;
+        overflow-y: hidden;
+    }
+}
+
 /* ── Mobile ≤600px: 3 fasce orizzontali a scorrimento laterale ── */
 @media (max-width: 600px) {
     .barocco-stage      { min-height: 0; display: block; }
