@@ -47,11 +47,6 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     overflow: hidden;
 }
 
-/* ── Tile rettangolare: faccia 2:1 (occupa due quadrati) ── */
-.barocco-tile--wide .barocco-tile__face {
-    aspect-ratio: 2 / 1;
-}
-
 /* ── Faccia quadrata animata ── */
 .barocco-tile__face {
     display: flex;
@@ -230,16 +225,15 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     position: relative;
     z-index: 1;
 }
-/* testo attività in bianco sul secondo quadrato (invisibile) della foto:
-   stessa posizione che aveva nel quadrato grigio — in alto a sinistra,
-   con il padding della faccia */
 .barocco-tile__face--photo .barocco-tile__textbody {
     position: absolute;
-    right: calc(1.1 * var(--u));
+    left: calc(1.1 * var(--u));
     top: calc(1.1 * var(--u));
     z-index: 1;
     padding: 0;
-    text-align: right;
+    text-align: left;
+    opacity: 0;
+    transition: opacity .2s ease;
 }
 .barocco-tile__face--photo .barocco-tile__textbody-title {
     color: #ffffff;
@@ -264,8 +258,11 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 }
 .barocco-tile:hover .barocco-tile__face--photo {
     animation: none;
-    background-color: transparent;
-    filter: brightness(1.08);
+    background-color: #C37A6B;
+    filter: none;
+}
+.barocco-tile:hover .barocco-tile__face--photo .barocco-tile__textbody {
+    opacity: 1;
 }
 .barocco-tile:hover .barocco-tile__face--photo .barocco-tile__num {
     color: rgba(255,255,255,.9);
@@ -304,9 +301,6 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         flex: 0 0 calc(14 * var(--u));
         scroll-snap-align: start;
     }
-    .barocco-tile--wide {
-        flex: 0 0 calc(28 * var(--u));
-    }
 }
 
 /* ── Mobile ≤600px: griglia a 2 colonne ordinata e a capo — come la home ── */
@@ -321,5 +315,4 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         grid-template-columns: repeat(2, 1fr);
     }
     .barocco-row { display: contents; }
-    .barocco-tile--wide { grid-column: 1 / -1; }
 }
