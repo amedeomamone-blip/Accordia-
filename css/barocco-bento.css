@@ -218,18 +218,20 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     content: '';
     position: absolute;
     inset: 0;
+    z-index: 0;
     background: linear-gradient(to top, rgba(0,0,0,.52) 0%, transparent 65%);
     pointer-events: none;
+    transition: background .25s ease;
 }
 .barocco-tile__face--photo .barocco-tile__bottom {
     position: relative;
-    z-index: 1;
+    z-index: 2;
 }
 .barocco-tile__face--photo .barocco-tile__textbody {
     position: absolute;
     left: calc(1.1 * var(--u));
     top: calc(1.1 * var(--u));
-    z-index: 1;
+    z-index: 2;
     padding: 0;
     text-align: left;
     opacity: 0;
@@ -260,6 +262,9 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     animation: none;
     background-color: transparent;
     filter: none;
+}
+.barocco-tile:hover .barocco-tile__face--photo::after {
+    background: rgba(0, 0, 0, 0.45);
 }
 .barocco-tile:hover .barocco-tile__face--photo .barocco-tile__textbody {
     opacity: 1;
