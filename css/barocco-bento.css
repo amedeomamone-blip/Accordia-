@@ -3,15 +3,6 @@
    3 fasce da 7 tile quadrate, tutto sempre in una schermata.
    ============================================================ */
 
-/* ── Niente scroll su desktop: html e body bloccati ── */
-@media (min-width: 601px) {
-    html:has([data-current-nucleus="barocco"]),
-    body[data-current-nucleus="barocco"] {
-        height: 100%;
-        overflow: hidden;
-    }
-}
-
 /* ── Header: wordmark "accordia" come nella landing, a sinistra ── */
 body[data-current-nucleus="barocco"] .brand--wordmark {
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
@@ -311,29 +302,6 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 .barocco-tile:hover .barocco-tile__face--photo .barocco-tile__arrow {
     background: rgba(255,255,255,.32);
     color: #ffffff;
-}
-
-/* ── Desktop: dimensione e posizione dei tile SEMPRE fisse.
-   L'unità è ancorata all'ALTEZZA del viewport (che non cambia quando
-   si stringe la larghezza): le 3 fasce stanno sempre nella schermata e
-   i quadrati non si deformano né si rimpiccioliscono. Le colonne hanno
-   larghezza fissa: se lo spazio orizzontale si riduce, la fascia scorre
-   lateralmente mantenendo posizione e dimensione invariate. ── */
-@media (min-width: 601px) {
-    .barocco-stage {
-        --u: calc((100svh - var(--barocco-header-h, 4rem)) / 59);
-        height: calc(100svh - var(--barocco-header-h, 4rem));
-        min-height: 0;
-        overflow: hidden;
-    }
-    .barocco-tiles-wrap {
-        overflow-x: auto;
-        overflow-y: hidden;
-    }
-    .barocco-row {
-        grid-template-columns: repeat(7, calc(14 * var(--u)));
-        justify-content: start;
-    }
 }
 
 /* ── Mobile ≤600px: 3 fasce orizzontali a scorrimento laterale ── */
