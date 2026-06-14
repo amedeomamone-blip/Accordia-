@@ -297,13 +297,13 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 }
 
 /* ── Desktop ≥601px: unica fascia orizzontale centrata, scroll laterale.
-   --u ancorato all'altezza → la faccia quadrata (14u) occupa ~58%
-   dell'altezza disponibile, etichette sotto, spazio bianco sopra e sotto.
-   Page non scrolla: overflow hidden sullo stage; la striscia scorre via
+   Quadrati della STESSA dimensione della landing: lì il tile è 100vw/6,
+   qui 14u, quindi --u = 100vw/84 → 14u = 100vw/6 (identico alla home).
+   Page non scrolla (overflow hidden sullo stage); la striscia scorre via
    overflow-x auto sul tiles-wrap. ── */
 @media (min-width: 601px) {
     .barocco-stage {
-        --u: calc((100svh - var(--barocco-header-h, 4rem)) / 24);
+        --u: calc(100vw / 84);
         height: calc(100svh - var(--barocco-header-h, 4rem));
         min-height: 0;
         overflow: hidden;
