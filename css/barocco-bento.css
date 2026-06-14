@@ -296,23 +296,21 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     color: #ffffff;
 }
 
-/* ── Desktop ≥601px: i 21 quadrati entrano SEMPRE in una sola schermata,
-   senza scroll. --u è il minore tra il limite di larghezza (100vw/98 →
-   7 tile da margine a margine) e quello di altezza ((schermata-header)/60
-   → le 3 fasce con le etichette ci stanno in altezza). Vince il lato che
-   "finisce" prima, così niente scroll e i quadrati non si deformano mai.
-   Le colonne sono a misura fissa (14u) e la griglia è centrata. ── */
+/* ── Desktop ≥601px: 7 colonne 1fr → i quadrati vanno SEMPRE da margine a
+   margine (faccia = 100vw/7, quadrata via aspect-ratio). Le 3 fasce stanno
+   in una sola schermata, senza scroll: --u è ancorato all'ALTEZZA così le
+   etichette si adattano e il tutto resta dentro lo schermo; overflow hidden
+   garantisce che la pagina non scrolli mai. ── */
 @media (min-width: 601px) {
     .barocco-stage {
-        --u: min(100vw / 98, (100svh - var(--barocco-header-h, 4rem)) / 60);
+        --u: calc((100svh - var(--barocco-header-h, 4rem)) / 59);
         height: calc(100svh - var(--barocco-header-h, 4rem));
         min-height: 0;
         overflow: hidden;
-        justify-content: center;
+        justify-content: flex-start;
     }
     .barocco-row {
-        grid-template-columns: repeat(7, calc(14 * var(--u)));
-        justify-content: center;
+        grid-template-columns: repeat(7, 1fr);
     }
 }
 
