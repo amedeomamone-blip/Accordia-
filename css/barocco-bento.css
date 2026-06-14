@@ -253,7 +253,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     filter: none;
 }
 .barocco-tile:hover .barocco-tile__face--photo::after {
-    background: rgba(70, 70, 70, 0.62);
+    background: rgba(0, 0, 0, 0.45);
 }
 .barocco-tile:hover .barocco-tile__face--photo .barocco-tile__textbody {
     opacity: 1;
