@@ -3,6 +3,15 @@
    3 fasce da 7 tile quadrate, tutto sempre in una schermata.
    ============================================================ */
 
+/* ── Niente scroll su desktop: html e body bloccati ── */
+@media (min-width: 601px) {
+    html:has([data-current-nucleus="barocco"]),
+    body[data-current-nucleus="barocco"] {
+        height: 100%;
+        overflow: hidden;
+    }
+}
+
 /* ── Header: wordmark "accordia" come nella landing, a sinistra ── */
 body[data-current-nucleus="barocco"] .brand--wordmark {
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
@@ -304,24 +313,14 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     color: #ffffff;
 }
 
-/* ── Desktop: tutto in una schermata, niente scroll verticale ──
-   L'unità --u diventa relativa all'altezza disponibile, così le tre
-   fasce (faccia + nome + sottotitolo) entrano sempre nel viewport. */
+/* ── Desktop: niente scroll — le proporzioni dei tile non si toccano mai.
+   Lo scroll è bloccato a livello di html/body; i tile mantengono
+   aspect-ratio originale e si posizionano in basso come prima. ── */
 @media (min-width: 601px) {
     .barocco-stage {
-        --u: calc((100svh - var(--barocco-header-h, 4rem)) / 52);
         height: calc(100svh - var(--barocco-header-h, 4rem));
         min-height: 0;
         overflow: hidden;
-        justify-content: flex-end;
-    }
-    .barocco-tile__face {
-        aspect-ratio: auto;
-        height: calc(14 * var(--u));
-    }
-    .barocco-tile--wide .barocco-tile__face {
-        aspect-ratio: auto;
-        height: calc(14 * var(--u));
     }
 }
 
