@@ -85,6 +85,18 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     6%,  11% { background: rgba(255,255,255,.28); color: #ffffff; }
     17%      { background: rgba(17,17,17,.12); color: rgba(17,17,17,.7); }
 }
+/* Varianti tono per le mattonelle spente/intermittenti: stessa palette,
+   sfumature leggermente diverse a riposo e in accensione, per dare movimento. */
+@keyframes barocco-blink-b {
+    0%, 100% { background-color: #e9e3df; }
+    6%,  11% { background-color: #b56d5f; }
+    17%      { background-color: #e9e3df; }
+}
+@keyframes barocco-blink-c {
+    0%, 100% { background-color: #ece4e0; }
+    6%,  11% { background-color: #cf8a7a; }
+    17%      { background-color: #ece4e0; }
+}
 
 /* ── Numero + freccia in fondo alla faccia ── */
 .barocco-tile__bottom {
@@ -155,6 +167,14 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 /* ── Tile vuota intermittente (niente numero né freccia) ── */
 .barocco-tile--blank {
     pointer-events: none;
+}
+/* Tonalità alternate solo per le mattonelle spente: le lezioni
+   mantengono la tonalità base, queste variano per dare movimento. */
+.barocco-tile--blank:nth-child(3n+2) .barocco-tile__face {
+    animation-name: barocco-blink-b;
+}
+.barocco-tile--blank:nth-child(3n) .barocco-tile__face {
+    animation-name: barocco-blink-c;
 }
 
 /* ── Nome autore a capo ── */
@@ -282,6 +302,27 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 .barocco-tile:hover .barocco-tile__face--photo .barocco-tile__arrow {
     background: rgba(255,255,255,.32);
     color: #ffffff;
+}
+
+/* ── Desktop: tutto in una schermata, niente scroll verticale ──
+   L'unità --u diventa relativa all'altezza disponibile, così le tre
+   fasce (faccia + nome + sottotitolo) entrano sempre nel viewport. */
+@media (min-width: 601px) {
+    .barocco-stage {
+        --u: calc((100svh - var(--barocco-header-h, 4rem)) / 52);
+        height: calc(100svh - var(--barocco-header-h, 4rem));
+        min-height: 0;
+        overflow: hidden;
+        justify-content: flex-end;
+    }
+    .barocco-tile__face {
+        aspect-ratio: auto;
+        height: calc(14 * var(--u));
+    }
+    .barocco-tile--wide .barocco-tile__face {
+        aspect-ratio: auto;
+        height: calc(14 * var(--u));
+    }
 }
 
 /* ── Mobile ≤600px: 3 fasce orizzontali a scorrimento laterale ── */
