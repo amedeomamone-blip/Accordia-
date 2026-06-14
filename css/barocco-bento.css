@@ -182,23 +182,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     color: #111111;
 }
 
-/* ── Hover ── */
-.barocco-tile:hover .barocco-tile__face {
-    animation: none;
-    background-color: #C37A6B;
-}
-.barocco-tile:hover .barocco-tile__num {
-    animation: none;
-    color: rgba(255,255,255,.9);
-}
-.barocco-tile:hover .barocco-tile__arrow {
-    animation: none;
-    background: rgba(255,255,255,.28);
-    color: #ffffff;
-    transform: translate(2px, -2px);
-}
-.barocco-tile:hover .barocco-tile__name { color: #C37A6B; }
-.barocco-tile:hover .barocco-tile__sub  { color: #C37A6B; }
+/* ── Nessuna interazione hover sui tile grigi: restano statici.
+   L'unica interazione resta sui ritratti (overlay + lezione). ── */
 
 @media (prefers-reduced-motion: reduce) {
     .barocco-tile__face,
@@ -268,7 +253,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     filter: none;
 }
 .barocco-tile:hover .barocco-tile__face--photo::after {
-    background: rgba(0, 0, 0, 0.45);
+    background: rgba(70, 70, 70, 0.62);
 }
 .barocco-tile:hover .barocco-tile__face--photo .barocco-tile__textbody {
     opacity: 1;
@@ -289,7 +274,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 @media (min-width: 601px) {
     .barocco-stage {
         --u: calc(100vw / 84);
-        height: calc(100svh - var(--barocco-header-h, 4rem));
+        height: calc(100svh - var(--barocco-header-h, 4rem) - var(--barocco-footer-h, 3.5rem));
         min-height: 0;
         overflow: hidden;
         justify-content: center;
@@ -324,4 +309,9 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         grid-template-columns: repeat(2, 1fr);
     }
     .barocco-row { display: contents; }
+}
+
+/* ── Footer compatto, sempre visibile sotto la striscia ── */
+body[data-current-nucleus="barocco"] .site-footer {
+    padding: 1.1rem 0;
 }
