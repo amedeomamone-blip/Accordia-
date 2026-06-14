@@ -313,14 +313,15 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     color: #ffffff;
 }
 
-/* ── Desktop: proporzioni e impaginazione SEMPRE intatte.
-   I tile non si rimpiccioliscono mai sotto una larghezza minima
-   (legata all'altezza, così le 3 fasce restano dentro la schermata):
-   se lo spazio orizzontale si riduce, la fascia scorre lateralmente
-   invece di comprimere i quadrati. ── */
+/* ── Desktop: dimensione e posizione dei tile SEMPRE fisse.
+   L'unità è ancorata all'ALTEZZA del viewport (che non cambia quando
+   si stringe la larghezza): le 3 fasce stanno sempre nella schermata e
+   i quadrati non si deformano né si rimpiccioliscono. Le colonne hanno
+   larghezza fissa: se lo spazio orizzontale si riduce, la fascia scorre
+   lateralmente mantenendo posizione e dimensione invariate. ── */
 @media (min-width: 601px) {
     .barocco-stage {
-        --col-min: calc((100svh - var(--barocco-header-h, 4rem)) / 4.6);
+        --u: calc((100svh - var(--barocco-header-h, 4rem)) / 59);
         height: calc(100svh - var(--barocco-header-h, 4rem));
         min-height: 0;
         overflow: hidden;
@@ -330,7 +331,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         overflow-y: hidden;
     }
     .barocco-row {
-        grid-template-columns: repeat(7, minmax(var(--col-min), 1fr));
+        grid-template-columns: repeat(7, calc(14 * var(--u)));
+        justify-content: start;
     }
 }
 
