@@ -47,6 +47,11 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     overflow: hidden;
 }
 
+/* ── Tile rettangolare: faccia 2:1 (occupa due quadrati) ── */
+.barocco-tile--wide .barocco-tile__face {
+    aspect-ratio: 2 / 1;
+}
+
 /* ── Faccia quadrata animata ── */
 .barocco-tile__face {
     display: flex;
@@ -146,12 +151,6 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 /* ── Nome autore a capo ── */
 .barocco-tile__name--wrap {
     white-space: normal;
-}
-
-/* ── Ritratto autore: solo immagine + nome, non interattivo
-   (l'attività vive nel tile-lezione subito dopo) ── */
-.barocco-tile--author {
-    pointer-events: none;
 }
 
 /* ── Tile attività: testo dentro la faccia, grigio più chiaro, niente blink ── */
@@ -305,6 +304,9 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         flex: 0 0 calc(14 * var(--u));
         scroll-snap-align: start;
     }
+    .barocco-tile--wide {
+        flex: 0 0 calc(28 * var(--u));
+    }
 }
 
 /* ── Mobile ≤600px: griglia a 2 colonne ordinata e a capo — come la home ── */
@@ -319,4 +321,5 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         grid-template-columns: repeat(2, 1fr);
     }
     .barocco-row { display: contents; }
+    .barocco-tile--wide { grid-column: 1 / -1; }
 }
