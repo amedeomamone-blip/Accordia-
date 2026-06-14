@@ -56,8 +56,27 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     width: 100%;
     padding: calc(1.1 * var(--u));
     background-color: #e8e8e8;
-    animation: barocco-tile-in .55s ease var(--enter-delay, 0s) both;
+    animation:
+        barocco-blink 12s ease-in-out var(--blink-delay, 0s) infinite,
+        barocco-tile-in .55s ease var(--enter-delay, 0s) both;
     transition: background-color .3s ease;
+}
+
+/* ── Animazioni blink: le mattonelle si accendono a intermittenza ── */
+@keyframes barocco-blink {
+    0%, 100% { background-color: #e8e8e8; }
+    6%,  11% { background-color: #C37A6B; }
+    17%      { background-color: #e8e8e8; }
+}
+@keyframes barocco-blink-num {
+    0%, 100% { color: rgba(17,17,17,.35); }
+    6%,  11% { color: rgba(255,255,255,.9); }
+    17%      { color: rgba(17,17,17,.35); }
+}
+@keyframes barocco-blink-arrow {
+    0%, 100% { background: rgba(17,17,17,.12); color: rgba(17,17,17,.7); }
+    6%,  11% { background: rgba(255,255,255,.28); color: #ffffff; }
+    17%      { background: rgba(17,17,17,.12); color: rgba(17,17,17,.7); }
 }
 
 /* ── Entrata scaglionata dei tile: compaiono 1 a 1, rapidamente ── */
@@ -96,6 +115,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     letter-spacing: .07em;
     color: rgba(17,17,17,.35);
     font-variant-numeric: tabular-nums;
+    animation: barocco-blink-num 12s ease-in-out infinite;
+    animation-delay: var(--blink-delay, 0s);
 }
 
 .barocco-tile__arrow {
@@ -111,6 +132,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     line-height: 1;
     flex: 0 0 auto;
     transition: transform .18s ease;
+    animation: barocco-blink-arrow 12s ease-in-out infinite;
+    animation-delay: var(--blink-delay, 0s);
 }
 
 /* ── Testo sotto la faccia ── */
@@ -247,11 +270,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     background: rgba(255,255,255,.22);
     color: #ffffff;
 }
-.barocco-tile:hover .barocco-tile__face--photo {
-    animation: none;
-    background-color: transparent;
-    filter: none;
-}
+/* Niente animation:none qui: l'entrata non deve ripartire all'uscita
+   del mouse (era il "ritorno dell'immagine" indesiderato). */
 .barocco-tile:hover .barocco-tile__face--photo::after {
     background: rgba(0, 0, 0, 0.45);
 }
