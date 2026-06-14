@@ -211,8 +211,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     background-size: cover;
     background-position: center top;
     animation: none;
-    background-color: rgba(195, 122, 107, 0.22);
-    background-blend-mode: multiply;
+    background-color: transparent;
+    background-blend-mode: normal;
 }
 .barocco-tile__face--photo::after {
     content: '';
@@ -258,7 +258,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 }
 .barocco-tile:hover .barocco-tile__face--photo {
     animation: none;
-    background-color: #D8A89C;
+    background-color: transparent;
     filter: none;
 }
 .barocco-tile:hover .barocco-tile__face--photo .barocco-tile__textbody {
