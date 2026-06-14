@@ -312,7 +312,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
    schermo intero i 7 tile riempiano la larghezza da margine a margine. ── */
 @media (min-width: 601px) {
     .barocco-stage {
-        --u: calc((100svh - var(--barocco-header-h, 4rem)) / 59);
+        --u: max(1vw, calc((100svh - var(--barocco-header-h, 4rem)) / 59));
         height: calc(100svh - var(--barocco-header-h, 4rem));
         min-height: 0;
         overflow: hidden;
