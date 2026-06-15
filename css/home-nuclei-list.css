@@ -25,7 +25,7 @@ body[data-nav="home"] .brand--wordmark {
 
 /* ── Scroll scene: contenitore che fornisce spazio di scorrimento ── */
 body[data-nav="home"] .scroll-scene {
-    height: calc(100svh + 120vh);
+    height: 220vh;
 }
 body[data-nav="home"] .scroll-stage {
     position: sticky;
