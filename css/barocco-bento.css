@@ -365,9 +365,16 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     }
     .barocco-header {
         position: absolute;
-        top: 0;
         left: 0;
         right: 0;
+        /* Ancora il fondo del titolo a 2u sopra i tile.
+           bottom = stageH − lowerTop + 2u
+                  = (50svh − footer + 100vw/12 − scrollOffset) + 2u */
+        bottom: calc(50svh - var(--barocco-footer-h, 3.5rem) + (100vw / 12) - min(16px, 1.6vw) + 2 * var(--u));
+    }
+    .barocco-intro__body {
+        max-width: calc(41 * var(--u));
+        padding-top: calc(2 * var(--u));
     }
     .barocco-lower {
         position: absolute;
