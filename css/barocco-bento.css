@@ -330,7 +330,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         height: calc(100svh - var(--barocco-header-h, 4rem) - var(--barocco-footer-h, 3.5rem));
         min-height: 0;
         overflow: hidden;
-        justify-content: flex-end;
+        justify-content: center;
         gap: 0;
     }
     .barocco-intro {
