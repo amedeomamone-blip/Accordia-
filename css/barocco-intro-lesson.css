@@ -1,0 +1,367 @@
+/* ================================================================
+   Barocco — Intro Lesson  · 3-screen scroll presentation
+   ================================================================ */
+
+/* ── variables ─────────────────────────────────────────────────── */
+.bintro-stage {
+    --accent:        #C37A6B;
+    --bg-1:          #ffffff;
+    --bg-2:          #f8f6f3;
+    --bg-3:          #111111;
+    --ink-1:         #111111;
+    --ink-2:         rgba(17, 17, 17, .48);
+    --light-1:       #f0ede8;
+    --light-2:       rgba(240, 237, 232, .45);
+    --bintro-header-h: 4rem;   /* overwritten by JS */
+}
+
+/* ── scroll container – creates the 3-screen scroll height ─────── */
+.bintro-scroll {
+    height: 300svh;
+    position: relative;
+}
+
+/* ── sticky pinned viewport (one screen tall) ───────────────────── */
+.bintro-pin {
+    position: sticky;
+    top:    var(--bintro-header-h, 4rem);
+    height: calc(100svh - var(--bintro-header-h, 4rem));
+    overflow: hidden;
+    will-change: transform;
+}
+
+/* ── horizontal screens track ───────────────────────────────────── */
+.bintro-screens {
+    display: flex;
+    width:   300vw;
+    height:  100%;
+    will-change: transform;
+}
+
+/* ── single screen ──────────────────────────────────────────────── */
+.bintro-screen {
+    flex:     0 0 100vw;
+    width:    100vw;
+    height:   100%;
+    position: relative;
+    overflow: hidden;
+    display:  flex;
+    align-items:     center;
+    justify-content: center;
+}
+
+.bintro-screen[data-screen="1"] { background: var(--bg-1); }
+.bintro-screen[data-screen="2"] { background: var(--bg-2); }
+.bintro-screen[data-screen="3"] { background: var(--bg-3); }
+
+/* ── inner content shell ────────────────────────────────────────── */
+.bintro-inner {
+    width:     min(calc(100% - 4rem), 1120px);
+    position:  relative;
+    z-index:   1;
+}
+
+/* ================================================================
+   SCREEN 1 — Hero
+   ================================================================ */
+.bintro-s1-eyebrow {
+    display:        block;
+    font-size:      0.68rem;
+    font-weight:    600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color:          var(--accent);
+    margin-bottom:  2.5rem;
+}
+
+.bintro-s1-title {
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      clamp(2.8rem, 6.5vw, 6rem);
+    font-weight:    700;
+    letter-spacing: -.035em;
+    line-height:    1.02;
+    color:          var(--ink-1);
+    margin:         0 0 1.5rem;
+}
+
+.bintro-s1-subtitle {
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      clamp(1.05rem, 2vw, 1.5rem);
+    font-weight:    400;
+    color:          var(--ink-2);
+    max-width:      36ch;
+    line-height:    1.45;
+    margin:         0 0 3.5rem;
+}
+
+.bintro-s1-period {
+    display:        inline-block;
+    font-size:      0.72rem;
+    font-weight:    600;
+    letter-spacing: .1em;
+    color:          var(--accent);
+    border:         1px solid rgba(195, 122, 107, .28);
+    border-radius:  2rem;
+    padding:        .35em 1em;
+}
+
+/* decorative blurred orb */
+.bintro-s1-orb {
+    position:      absolute;
+    right:         4%;
+    top:           50%;
+    transform:     translateY(-50%);
+    width:         min(42vw, 520px);
+    height:        min(42vw, 520px);
+    border-radius: 50%;
+    background:    radial-gradient(circle at 38% 38%, hsl(8,62%,78%), hsl(22,68%,86%));
+    opacity:       .14;
+    filter:        blur(3.5rem);
+    pointer-events: none;
+    z-index:       0;
+}
+
+/* ================================================================
+   SCREEN 2 — Il Contesto
+   ================================================================ */
+.bintro-s2-label {
+    display:        block;
+    font-size:      0.68rem;
+    font-weight:    600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color:          var(--ink-2);
+    margin-bottom:  1.5rem;
+}
+
+.bintro-s2-title {
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      clamp(2rem, 4.5vw, 4.2rem);
+    font-weight:    700;
+    letter-spacing: -.028em;
+    line-height:    1.08;
+    color:          var(--ink-1);
+    margin:         0 0 2.5rem;
+}
+
+.bintro-s2-grid {
+    display:          grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap:              1px;
+    background:       rgba(17, 17, 17, .07);
+    border:           1px solid rgba(17, 17, 17, .07);
+    border-radius:    2px;
+    overflow:         hidden;
+    margin-bottom:    2.5rem;
+}
+
+.bintro-s2-card {
+    background: var(--bg-2);
+    padding:    1.5rem 1.25rem 1.75rem;
+}
+
+.bintro-s2-card__num {
+    display:        block;
+    font-size:      .6rem;
+    font-weight:    600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color:          var(--accent);
+    margin-bottom:  .65rem;
+}
+
+.bintro-s2-card__label {
+    display:     block;
+    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:   clamp(.95rem, 1.4vw, 1.1rem);
+    font-weight: 600;
+    color:       var(--ink-1);
+    line-height: 1.3;
+}
+
+.bintro-s2-card__desc {
+    display:     block;
+    font-size:   .8rem;
+    color:       var(--ink-2);
+    line-height: 1.6;
+    margin-top:  .5rem;
+}
+
+.bintro-s2-body {
+    font-size:   .88rem;
+    line-height: 1.82;
+    color:       var(--ink-2);
+    max-width:   60ch;
+}
+
+/* ================================================================
+   SCREEN 3 — La Musica
+   ================================================================ */
+.bintro-s3-label {
+    display:        block;
+    font-size:      0.68rem;
+    font-weight:    600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color:          var(--light-2);
+    margin-bottom:  1.5rem;
+}
+
+.bintro-s3-title {
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      clamp(2rem, 4.5vw, 4.2rem);
+    font-weight:    700;
+    letter-spacing: -.028em;
+    line-height:    1.08;
+    color:          var(--light-1);
+    margin:         0 0 2.8rem;
+}
+
+.bintro-s3-forms {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:     2rem;
+}
+
+.bintro-s3-form {
+    border-top: 1px solid rgba(240, 237, 232, .12);
+    padding-top: 1.25rem;
+}
+
+.bintro-s3-form__num {
+    display:        block;
+    font-size:      .6rem;
+    font-weight:    600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color:          var(--accent);
+    margin-bottom:  .65rem;
+}
+
+.bintro-s3-form__name {
+    display:     block;
+    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:   clamp(1.3rem, 2.2vw, 1.8rem);
+    font-weight: 600;
+    color:       var(--light-1);
+    line-height: 1.2;
+    margin-bottom: .6rem;
+}
+
+.bintro-s3-form__desc {
+    display:     block;
+    font-size:   .85rem;
+    line-height: 1.75;
+    color:       var(--light-2);
+}
+
+/* dark orb for screen 3 */
+.bintro-s3-orb {
+    position:      absolute;
+    left:          -10%;
+    bottom:        -20%;
+    width:         60vw;
+    height:        60vw;
+    border-radius: 50%;
+    background:    radial-gradient(circle, hsl(8,50%,28%), transparent 70%);
+    opacity:       .4;
+    filter:        blur(5rem);
+    pointer-events: none;
+    z-index:       0;
+}
+
+/* ================================================================
+   Progress dots (fixed, right edge)
+   ================================================================ */
+.bintro-progress {
+    position:       fixed;
+    right:          1.5rem;
+    top:            50%;
+    transform:      translateY(-50%);
+    z-index:        50;
+    display:        flex;
+    flex-direction: column;
+    gap:            .55rem;
+    pointer-events: auto;
+}
+
+.bintro-progress__dot {
+    width:         6px;
+    height:        6px;
+    border-radius: 50%;
+    background:    rgba(17, 17, 17, .18);
+    transition:    background .3s ease, transform .3s ease;
+    cursor:        pointer;
+    border:        none;
+    padding:       0;
+}
+
+.bintro-progress__dot.is-active {
+    background: var(--accent);
+    transform:  scale(1.5);
+}
+
+/* on dark screen (screen 3) dots lighten */
+.bintro-stage[data-active-screen="3"] .bintro-progress__dot {
+    background: rgba(240, 237, 232, .25);
+}
+
+.bintro-stage[data-active-screen="3"] .bintro-progress__dot.is-active {
+    background: var(--accent);
+}
+
+/* ================================================================
+   Screen nav label (small, bottom-left of pin)
+   ================================================================ */
+.bintro-screen-label {
+    position:       absolute;
+    bottom:         1.75rem;
+    left:           calc((100vw - min(calc(100% - 4rem), 1120px)) / 2);
+    font-size:      .65rem;
+    font-weight:    600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color:          rgba(17, 17, 17, .22);
+    pointer-events: none;
+    z-index:        2;
+    transition:     color .4s ease;
+}
+
+.bintro-stage[data-active-screen="3"] .bintro-screen-label {
+    color: rgba(240, 237, 232, .25);
+}
+
+/* ================================================================
+   Responsive — tablet / mobile
+   ================================================================ */
+@media (max-width: 900px) {
+    .bintro-s2-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .bintro-inner {
+        width: calc(100% - 2.5rem);
+    }
+
+    .bintro-s1-title {
+        font-size: clamp(2.2rem, 9vw, 3rem);
+    }
+
+    .bintro-s2-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .bintro-s3-forms {
+        grid-template-columns: 1fr;
+    }
+
+    .bintro-progress {
+        display: none;
+    }
+
+    .bintro-screen-label {
+        display: none;
+    }
+}
