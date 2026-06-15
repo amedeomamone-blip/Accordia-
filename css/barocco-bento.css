@@ -286,11 +286,27 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     color: #ffffff;
 }
 
-/* ── Intro: titolo gradient + corpo arioso ── */
+/* ── Eyebrow "Introduzione" (label piccolo in cima) ── */
 .barocco-intro {
-    padding: 0 calc(1.1 * var(--u)) calc(1.4 * var(--u));
+    padding: calc(1.1 * var(--u));
     flex-shrink: 0;
-    animation: barocco-label-in .6s ease .2s both;
+    animation: barocco-label-in .6s ease .1s both;
+}
+.barocco-intro__eyebrow {
+    display: block;
+    font-size: clamp(0.7rem, 0.65 * var(--u), 0.85rem);
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: rgba(17, 17, 17, .35);
+}
+
+/* ── Centro: titolo + tiles + descrizione come gruppo centrato ── */
+.barocco-center {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    animation: barocco-label-in .6s ease .25s both;
 }
 .barocco-intro__title-wrap {
     position: relative;
@@ -298,6 +314,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     width: 100%;
     overflow: hidden;
     background: #ffffff;
+    padding: 0 calc(1.1 * var(--u)) calc(0.7 * var(--u));
 }
 .barocco-intro__title {
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
@@ -316,7 +333,9 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     line-height: 1.85;
     color: rgba(17, 17, 17, .52);
     max-width: 52ch;
-    margin: calc(1.6 * var(--u)) 0 0;
+    margin: 0;
+    padding: calc(0.9 * var(--u)) calc(1.1 * var(--u)) 0;
+    animation: barocco-label-in .6s ease 1.5s both;
 }
 
 /* ── Desktop ≥601px: unica fascia orizzontale centrata, scroll laterale.
@@ -334,6 +353,14 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         gap: 0;
     }
     .barocco-intro {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        flex-shrink: unset;
+        pointer-events: none;
+    }
+    .barocco-center {
         flex-shrink: 0;
     }
     .barocco-tiles-wrap {
@@ -362,14 +389,22 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         --u: calc(100vw / 28); /* 2 tile per riga → ogni tile = 50vw = 14u */
     }
     .barocco-intro {
-        padding: 1.6rem 1rem 1rem;
+        position: static;
+        padding: 1.6rem 1rem .6rem;
+        pointer-events: auto;
+    }
+    .barocco-center {
+        display: block;
+    }
+    .barocco-intro__title-wrap {
+        padding: 0 1rem .6rem;
     }
     .barocco-intro__title {
         font-size: clamp(1.4rem, 7vw, 2.4rem);
     }
     .barocco-intro__body {
         font-size: clamp(.82rem, 3.5vw, 1rem);
-        margin-top: 1rem;
+        padding: 1rem 1rem 0;
     }
     .barocco-tiles-wrap {
         display: grid;
