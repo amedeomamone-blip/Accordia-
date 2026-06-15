@@ -297,6 +297,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     flex: 0 0 calc(28 * var(--u));
     display: flex;
     align-items: center;
+    justify-content: flex-end;
     font-size: clamp(0.7rem, 0.65 * var(--u), 0.85rem);
     font-weight: 600;
     letter-spacing: .1em;
@@ -373,7 +374,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         bottom: calc(50svh - var(--barocco-footer-h, 3.5rem) + (100vw / 12) - min(16px, 1.6vw) + 2 * var(--u));
     }
     .barocco-intro__body {
-        max-width: calc(41 * var(--u));
+        max-width: calc(31 * var(--u));
         padding-top: calc(2 * var(--u));
     }
     .barocco-lower {
