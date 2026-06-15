@@ -298,6 +298,10 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         min-height: 0;
         overflow: hidden;
         justify-content: center;
+        gap: 0;
+    }
+    .barocco-ticker {
+        flex-shrink: 0;
     }
     .barocco-tiles-wrap {
         display: flex;
@@ -334,4 +338,37 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 /* ── Footer compatto, sempre visibile sotto la striscia ── */
 body[data-current-nucleus="barocco"] .site-footer {
     padding: 1.1rem 0;
+}
+
+/* ── Ticker: testo scorrevole sopra i tile ── */
+.barocco-ticker {
+    width: 100%;
+    overflow: hidden;
+    pointer-events: none;
+    user-select: none;
+}
+.barocco-ticker__track {
+    display: flex;
+    gap: 0;
+    white-space: nowrap;
+    animation: barocco-ticker-scroll 18s linear infinite;
+    will-change: transform;
+}
+.barocco-ticker__track span {
+    display: inline-block;
+    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size: clamp(2.8rem, 6.5vw, 7rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    color: rgba(24, 25, 27, 0.08);
+    padding-right: 1.5em;
+    flex-shrink: 0;
+}
+@keyframes barocco-ticker-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .barocco-ticker__track { animation: none; }
 }
