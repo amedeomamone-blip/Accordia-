@@ -294,7 +294,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 }
 .barocco-intro__title-wrap {
     position: relative;
-    display: inline-flex;
+    display: block;
+    width: 100%;
     overflow: hidden;
     background: #ffffff;
 }
@@ -401,28 +402,28 @@ body[data-current-nucleus="barocco"] .site-footer {
 }
 .barocco-ticker__blob--1 {
     top: -50%; left: 0;
-    background: hsl(8, 42%, 57%);
+    background: hsl(8, 62%, 60%);   /* terracotta pieno */
     animation:
         barocco-blob-drift 6s ease-in-out infinite,
         barocco-blob-move-1 12s ease-in-out infinite alternate;
 }
 .barocco-ticker__blob--2 {
     top: 0; right: 0;
-    background: hsl(20, 55%, 70%);
+    background: hsl(18, 70%, 72%);  /* salmone caldo */
     animation:
         barocco-blob-drift 6s ease-in-out infinite,
         barocco-blob-move-2 12s ease-in-out infinite alternate;
 }
 .barocco-ticker__blob--3 {
     bottom: 0; left: 0;
-    background: hsl(5, 38%, 45%);
+    background: hsl(2, 58%, 55%);   /* rosso mattone acceso */
     animation:
         barocco-blob-drift 6s ease-in-out infinite,
         barocco-blob-move-3 12s ease-in-out infinite alternate;
 }
 .barocco-ticker__blob--4 {
     bottom: -50%; right: 0;
-    background: hsl(30, 50%, 65%);
+    background: hsl(26, 65%, 68%);  /* ambra terracotta */
     animation:
         barocco-blob-drift 6s ease-in-out infinite,
         barocco-blob-move-4 12s ease-in-out infinite alternate;
