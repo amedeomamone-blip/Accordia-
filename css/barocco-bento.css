@@ -286,6 +286,30 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     color: #ffffff;
 }
 
+/* ── Intro: titolo + corpo sopra il ticker ── */
+.barocco-intro {
+    padding: 0 calc(1.1 * var(--u)) calc(1.4 * var(--u));
+    flex-shrink: 0;
+    animation: barocco-label-in .6s ease .2s both;
+}
+.barocco-intro__title {
+    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size: calc(3.4 * var(--u));
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 0.95;
+    color: #18191b;
+    margin: 0 0 calc(0.8 * var(--u));
+}
+.barocco-intro__body {
+    font-size: calc(0.85 * var(--u));
+    font-weight: 400;
+    line-height: 1.6;
+    color: rgba(17, 17, 17, .52);
+    max-width: 52ch;
+    margin: 0;
+}
+
 /* ── Desktop ≥601px: unica fascia orizzontale centrata, scroll laterale.
    Quadrati della STESSA dimensione della landing: lì il tile è 100vw/6,
    qui 14u, quindi --u = 100vw/84 → 14u = 100vw/6 (identico alla home).
@@ -300,6 +324,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         justify-content: center;
         gap: 0;
     }
+    .barocco-intro,
     .barocco-ticker {
         flex-shrink: 0;
     }
@@ -327,6 +352,16 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         min-height: 0;
         display: block;
         --u: calc(100vw / 28); /* 2 tile per riga → ogni tile = 50vw = 14u */
+    }
+    .barocco-intro {
+        padding: 1.6rem 1rem 1rem;
+    }
+    .barocco-intro__title {
+        font-size: clamp(1.65rem, 7vw, 2.4rem);
+        margin-bottom: .6rem;
+    }
+    .barocco-intro__body {
+        font-size: clamp(.82rem, 3.5vw, 1rem);
     }
     .barocco-tiles-wrap {
         display: grid;
