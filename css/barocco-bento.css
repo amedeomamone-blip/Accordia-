@@ -334,7 +334,13 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         gap: 0;
     }
     .barocco-intro {
-        flex-shrink: 0;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        flex-shrink: unset;
+        pointer-events: none;
+        z-index: 1;
     }
     .barocco-tiles-wrap {
         display: flex;
