@@ -263,15 +263,6 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__date {
     color: var(--accent, #111111);
 }
 
-/* ── Tablet 601–1024px: schermata unica statica, niente scroll-animation ── */
-@media (min-width: 601px) and (max-width: 1024px) {
-    body[data-nav="home"] .scroll-scene { height: 100svh; }
-    body[data-nav="home"] .scroll-stage {
-        position: relative;
-        height: 100svh;
-    }
-}
-
 /* ── Mobile: layout statico, nessuno scroll-scene sticky ── */
 @media (max-width: 600px) {
     body[data-nav="home"] .scroll-scene { height: auto; }
