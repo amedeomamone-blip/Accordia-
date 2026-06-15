@@ -353,11 +353,31 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         height: calc(100svh - var(--barocco-header-h, 4rem) - var(--barocco-footer-h, 3.5rem));
         min-height: 0;
         overflow: hidden;
-        justify-content: center;
+        justify-content: stretch;
         gap: 0;
     }
+    /* Center riempie lo stage; titolo in alto (più aria), tile ancorati a
+       metà schermata come nella landing, descrizione subito sotto. */
     .barocco-center {
-        flex-shrink: 0;
+        position: relative;
+        flex: 1 1 auto;
+        height: 100%;
+    }
+    .barocco-header {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+    }
+    .barocco-lower {
+        position: absolute;
+        left: 0;
+        right: 0;
+        /* faccia tile centrata verticalmente a 50svh (stessa altezza dei
+           tile nella landing): top = 50svh − metà tile − header.
+           Il + min(16px,1.6vw) replica l'offset di riposo dell'animazione
+           di scorrimento della landing, così i tile combaciano esattamente. */
+        top: calc(50svh - (100vw / 12) - var(--barocco-header-h, 4rem) + min(16px, 1.6vw));
     }
     .barocco-tiles-wrap {
         display: flex;
