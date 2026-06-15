@@ -373,9 +373,17 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
                   = (50svh − footer + 100vw/12 − scrollOffset) + 2u */
         bottom: calc(50svh - var(--barocco-footer-h, 3.5rem) + (100vw / 12) - min(16px, 1.6vw) + 2 * var(--u));
     }
+    /* Eyebrow leggermente abbassata: in linea con la "U" del titolo. */
+    .barocco-intro__eyebrow {
+        margin-top: calc(0.9 * var(--u));
+    }
+    /* Descrizione: dal lato sx del tile di Vivaldi (28u) al lato dx del
+       tile di Bach (56u) → larghezza esatta 28u, niente padding destro. */
     .barocco-intro__body {
-        max-width: calc(31 * var(--u));
+        width: calc(28 * var(--u));
+        max-width: none;
         padding-top: calc(2 * var(--u));
+        padding-right: 0;
     }
     .barocco-lower {
         position: absolute;
