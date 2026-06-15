@@ -296,8 +296,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 .barocco-intro__eyebrow {
     flex: 0 0 calc(28 * var(--u));
     display: flex;
-    align-items: center;
-    justify-content: flex-end;
+    align-items: flex-start;
+    justify-content: flex-start;
     font-size: clamp(0.7rem, 0.65 * var(--u), 0.85rem);
     font-weight: 600;
     letter-spacing: .1em;
@@ -373,9 +373,9 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
                   = (50svh − footer + 100vw/12 − scrollOffset) + 2u */
         bottom: calc(50svh - var(--barocco-footer-h, 3.5rem) + (100vw / 12) - min(16px, 1.6vw) + 2 * var(--u));
     }
-    /* Eyebrow leggermente abbassata: in linea con la "U" del titolo. */
+    /* Eyebrow a filo superiore della U, testo partendo dal lato sx di Monteverdi (14u). */
     .barocco-intro__eyebrow {
-        margin-top: calc(0.9 * var(--u));
+        padding-left: calc(14 * var(--u));
     }
     /* Descrizione: dal lato sx del tile di Vivaldi (28u) al lato dx del
        tile di Bach (56u) → larghezza esatta 28u, niente padding destro. */
