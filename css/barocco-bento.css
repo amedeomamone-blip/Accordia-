@@ -214,7 +214,9 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     .barocco-tile__num,
     .barocco-tile__arrow,
     .barocco-tile__name,
-    .barocco-tile__sub { animation: none; }
+    .barocco-tile__sub,
+    .barocco-header,
+    .barocco-intro__body { animation: none; }
 }
 
 /* ── Tile con ritratto fotografico ── */
@@ -291,7 +293,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     display: flex;
     align-items: flex-start;
     width: 100%;
-    animation: barocco-label-in .6s ease .1s both;
+    /* Fase 3: titolo (+ eyebrow) compare dopo il testo dei tile. */
+    animation: barocco-label-in .6s ease 2.1s both;
 }
 .barocco-intro__eyebrow {
     flex: 0 0 calc(28 * var(--u));
@@ -311,7 +314,6 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     display: flex;
     flex-direction: column;
     width: 100%;
-    animation: barocco-label-in .6s ease .25s both;
 }
 .barocco-intro__title-wrap {
     flex: 1;
@@ -340,7 +342,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     max-width: 52ch;
     margin: 0 0 0 calc(28 * var(--u));
     padding: calc(0.9 * var(--u)) calc(1.1 * var(--u)) 0 0;
-    animation: barocco-label-in .6s ease 1.5s both;
+    /* Fase 3: corpo testo compare insieme al titolo. */
+    animation: barocco-label-in .6s ease 2.1s both;
 }
 
 /* ── Desktop ≥601px: unica fascia orizzontale centrata, scroll laterale.
