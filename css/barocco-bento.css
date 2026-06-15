@@ -337,8 +337,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     line-height: 1.85;
     color: rgba(17, 17, 17, .52);
     max-width: 52ch;
-    margin: 0;
-    padding: calc(0.9 * var(--u)) calc(1.1 * var(--u)) 0 calc(28 * var(--u));
+    margin: 0 0 0 calc(28 * var(--u));
+    padding: calc(0.9 * var(--u)) calc(1.1 * var(--u)) 0 0;
     animation: barocco-label-in .6s ease 1.5s both;
 }
 
@@ -404,6 +404,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     }
     .barocco-intro__body {
         font-size: clamp(.82rem, 3.5vw, 1rem);
+        margin: 0;
         padding: 1rem 1rem 0;
     }
     .barocco-tiles-wrap {
