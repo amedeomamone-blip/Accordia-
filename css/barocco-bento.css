@@ -346,6 +346,7 @@ body[data-current-nucleus="barocco"] .site-footer {
     overflow: hidden;
     pointer-events: none;
     user-select: none;
+    padding-bottom: calc(2.5 * var(--u, 1vw));
 }
 .barocco-ticker__track {
     display: flex;
@@ -357,11 +358,14 @@ body[data-current-nucleus="barocco"] .site-footer {
 .barocco-ticker__track span {
     display: inline-block;
     font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size: clamp(2.8rem, 6.5vw, 7rem);
+    font-size: clamp(1.4rem, 3vw, 3.2rem);
     font-weight: 800;
     letter-spacing: -0.04em;
     line-height: 1;
-    color: rgba(24, 25, 27, 0.08);
+    color: rgba(195, 122, 107, 0.22);
+    text-shadow:
+        0 0 18px rgba(195, 122, 107, 0.55),
+        0 0 40px rgba(195, 122, 107, 0.28);
     padding-right: 1.5em;
     flex-shrink: 0;
 }
