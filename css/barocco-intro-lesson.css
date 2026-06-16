@@ -383,79 +383,120 @@
 }
 
 /* ================================================================
-   SCREEN 3 — La Musica
+   SCREEN 3 — Concetti chiave (griglia editoriale tipo rivista)
    ================================================================ */
-.bintro-s3-label {
-    display:        block;
-    font-size:      0.68rem;
-    font-weight:    600;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color:          var(--light-2);
-    margin-bottom:  1.5rem;
+.bintro-screen[data-screen="3"] {
+    background:      var(--bg-1);   /* bianco, non più scuro */
+    align-items:     stretch;
+    justify-content: flex-start;
 }
 
-.bintro-s3-title {
+.bintro-screen[data-screen="3"] .bintro-inner {
+    width:          min(calc(100% - 4rem), 1180px);
+    height:         100%;
+    display:        flex;
+    flex-direction: column;
+    padding:        clamp(1.25rem, 3vh, 2.5rem) 0 clamp(3rem, 5vh, 4rem);
+}
+
+/* ── header strip ───────────────────────────────────────────────── */
+.editorial-head {
+    flex:           0 0 auto;
+    display:        flex;
+    align-items:    baseline;
+    justify-content: space-between;
+    padding-bottom: 1rem;
+    border-bottom:  1px solid rgba(17, 17, 17, .14);
+    margin-bottom:  0;
+}
+
+.editorial-head__title {
     font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:      clamp(2rem, 4.5vw, 4.2rem);
+    font-size:      clamp(1.8rem, 3.5vw, 3rem);
     font-weight:    700;
-    letter-spacing: -.028em;
-    line-height:    1.08;
-    color:          var(--light-1);
-    margin:         0 0 2.8rem;
+    letter-spacing: -.03em;
+    line-height:    1.05;
+    color:          var(--ink-1);
+    margin:         0;
 }
 
-.bintro-s3-forms {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap:     2rem;
+.editorial-head__meta {
+    font-size:      0.72rem;
+    font-weight:    500;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color:          var(--ink-2);
+    white-space:    nowrap;
 }
 
-.bintro-s3-form {
-    border-top: 1px solid rgba(240, 237, 232, .12);
-    padding-top: 1.25rem;
+/* ── editorial grid: 4 col × 3 row ─────────────────────────────── */
+.editorial-grid {
+    flex:             1 1 auto;
+    display:          grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows:    repeat(3, 1fr);
+    border-left:   1px solid rgba(17, 17, 17, .1);
+    border-top:    1px solid rgba(17, 17, 17, .1);
+    min-height:    0;
 }
 
-.bintro-s3-form__num {
+.editorial-item {
+    border-right:  1px solid rgba(17, 17, 17, .1);
+    border-bottom: 1px solid rgba(17, 17, 17, .1);
+    padding:       1.1rem 1.2rem 1.3rem;
+    display:       flex;
+    flex-direction: column;
+    gap:            .4rem;
+    overflow:       hidden;
+}
+
+.editorial-item--wide {
+    grid-column: span 2;
+}
+
+/* numero categoria */
+.editorial-item__num {
     display:        block;
     font-size:      .6rem;
     font-weight:    600;
     letter-spacing: .1em;
     text-transform: uppercase;
     color:          var(--accent);
-    margin-bottom:  .65rem;
+    flex:           0 0 auto;
 }
 
-.bintro-s3-form__name {
-    display:     block;
-    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:   clamp(1.3rem, 2.2vw, 1.8rem);
-    font-weight: 600;
-    color:       var(--light-1);
-    line-height: 1.2;
-    margin-bottom: .6rem;
+/* titolo — normale */
+.editorial-item__title {
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      clamp(.9rem, 1.15vw, 1.05rem);
+    font-weight:    700;
+    letter-spacing: -.015em;
+    line-height:    1.2;
+    color:          var(--ink-1);
+    flex:           0 0 auto;
+    margin:         0;
 }
 
-.bintro-s3-form__desc {
-    display:     block;
-    font-size:   .85rem;
-    line-height: 1.75;
-    color:       var(--light-2);
+/* titolo — item wide (×2) */
+.editorial-item--wide .editorial-item__title {
+    font-size: clamp(1.1rem, 1.6vw, 1.5rem);
 }
 
-/* dark orb for screen 3 */
-.bintro-s3-orb {
-    position:      absolute;
-    left:          -10%;
-    bottom:        -20%;
-    width:         60vw;
-    height:        60vw;
-    border-radius: 50%;
-    background:    radial-gradient(circle, hsl(8,50%,28%), transparent 70%);
-    opacity:       .4;
-    filter:        blur(5rem);
-    pointer-events: none;
-    z-index:       0;
+/* corpo */
+.editorial-item__body {
+    font-size:   .78rem;
+    line-height: 1.65;
+    color:       var(--ink-2);
+    flex:        1 1 auto;
+    margin:      0;
+    overflow:    hidden;
+    display:     -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+}
+
+.editorial-item--wide .editorial-item__body {
+    -webkit-line-clamp: 5;
 }
 
 /* ================================================================
@@ -489,15 +530,6 @@
     transform:  scale(1.5);
 }
 
-/* on dark screen (screen 3) dots lighten */
-.bintro-stage[data-active-screen="3"] .bintro-progress__dot {
-    background: rgba(240, 237, 232, .25);
-}
-
-.bintro-stage[data-active-screen="3"] .bintro-progress__dot.is-active {
-    background: var(--accent);
-}
-
 /* ================================================================
    Screen nav label (small, bottom-left of pin)
    ================================================================ */
@@ -512,11 +544,6 @@
     color:          rgba(17, 17, 17, .22);
     pointer-events: none;
     z-index:        2;
-    transition:     color .4s ease;
-}
-
-.bintro-stage[data-active-screen="3"] .bintro-screen-label {
-    color: rgba(240, 237, 232, .25);
 }
 
 /* ================================================================
@@ -602,8 +629,13 @@
         grid-template-columns: 1fr;
     }
 
-    .bintro-s3-forms {
-        grid-template-columns: 1fr;
+    .editorial-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: auto;
+    }
+
+    .editorial-item--wide {
+        grid-column: span 2;
     }
 
     .bintro-progress {
