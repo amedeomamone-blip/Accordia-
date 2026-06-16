@@ -81,13 +81,9 @@
     flex-direction:  column;
 }
 
-/* ── header: rientro = 7u (metà tile) → allineato ai pin estremi ─ */
+/* ── header: nascosto per pulizia visiva ─────────────────────── */
 .tl-head {
-    display:       flex;
-    align-items:   baseline;
-    gap:           1rem;
-    padding:       0 calc(7 * var(--u));
-    margin-bottom: clamp(.35rem, .7vh, .6rem);
+    display: none;
 }
 
 .tl-head__eyebrow {
@@ -112,15 +108,16 @@
     flex:     0 0 auto;
 }
 
-/* linea unica, spessa e grigio scura, da margine a margine */
+/* linea unica, tenue, da margine a margine */
 .tl-line {
     position:   absolute;
     left:       0;
     right:      0;
     top:        50%;
-    height:     3px;
-    background: #555555;
+    height:     2px;
+    background: rgba(17, 17, 17, .16);
     transform:  translateY(-50%);
+    z-index:    0;
 }
 
 /* area dei pin: respiro di 7u da ogni bordo → pin 0% = centro tile 1 */
@@ -131,6 +128,7 @@
     top:      0;
     bottom:   0;
     overflow: visible;
+    z-index:  2;   /* i quadrati coprono la linea */
 }
 
 /* ogni pin = quadrato, centrato (tagliato a metà) sulla linea */
@@ -187,8 +185,7 @@
     transition:     opacity .18s ease;
 }
 
-.tl-pin.is-active .tl-pin__label,
-.tl-pin:hover .tl-pin__label { opacity: 1; }
+.tl-pin.is-active .tl-pin__label { opacity: 1; }
 
 .tl-pin__name {
     font-size:      .72rem;
@@ -506,9 +503,9 @@
     transition:     opacity .3s ease;
 }
 
-/* nasconde l'etichetta sulla slide 3 (la composizione riempie la slide) */
-.bintro-stage[data-active-screen="3"] .bintro-screen-label {
-    opacity: 0;
+/* etichetta schermata nascosta */
+.bintro-screen-label {
+    display: none;
 }
 
 /* ================================================================
