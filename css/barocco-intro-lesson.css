@@ -63,249 +63,226 @@
 }
 
 /* ================================================================
-   SCREEN 1 — Timeline (Gantt a cascata)
+   SCREEN 1 — Timeline (mini-map + tile strip)
    ================================================================ */
 
-/* la slide 1 riempie l'altezza, non centrata */
 .bintro-screen[data-screen="1"] {
+    flex-direction:  column;
     align-items:     stretch;
     justify-content: flex-start;
 }
 
-.bintro-screen[data-screen="1"] .bintro-inner {
-    width:          min(calc(100% - 4rem), 1180px);
-    height:         100%;
-    display:        flex;
-    flex-direction: column;
-    /* extra bottom padding so content clears the .bintro-screen-label */
-    padding:        clamp(1.25rem, 3vh, 2.5rem) 0 clamp(3rem, 5vh, 4rem);
+/* padded zone containing header + mini-map */
+.tl-shell {
+    flex:    0 0 auto;
+    padding: clamp(1.5rem, 3vh, 2.25rem) 2rem clamp(.75rem, 1.5vh, 1.25rem);
 }
 
-/* header strip */
-.gantt-head {
-    display:        flex;
-    align-items:    baseline;
-    gap:            1rem;
-    margin-bottom:  clamp(1rem, 3vh, 2rem);
-    flex:           0 0 auto;
+/* ── header strip ─────────────────────────────────────────────── */
+.tl-head {
+    display:       flex;
+    align-items:   baseline;
+    gap:           1rem;
+    margin-bottom: clamp(.6rem, 1.2vh, 1rem);
 }
 
-.gantt-head__eyebrow {
-    font-size:      0.68rem;
+.tl-head__eyebrow {
+    font-size:      .68rem;
     font-weight:    600;
     letter-spacing: .12em;
     text-transform: uppercase;
     color:          var(--accent);
 }
 
-.gantt-head__range {
-    font-size:      0.72rem;
+.tl-head__range {
+    font-size:      .72rem;
     font-weight:    500;
     letter-spacing: .06em;
     color:          var(--ink-2);
 }
 
-/* ── chart area ─────────────────────────────────────────────────── */
-.gantt-chart {
-    position:   relative;
-    flex:       1 1 auto;
-    min-height: 380px;
+/* ── mini-map (the single horizontal line + pins) ─────────────── */
+.tl-minimap {
+    position: relative;
+    height:   7rem;
 }
 
-/* faint vertical gridlines */
-.gantt-grid {
-    position: absolute;
-    inset:    0 0 2.4rem 0;          /* leave room for axis labels */
-    pointer-events: none;
-    z-index:  0;
-}
-
-.gantt-grid__line {
-    position:    absolute;
-    top:         0;
-    bottom:      0;
-    width:       0;
-    border-left: 1px dashed rgba(17, 17, 17, .10);
-}
-
-/* baseline axis */
-.gantt-axis {
-    position: absolute;
-    left:     0;
-    right:    0;
-    bottom:   2.4rem;
-    height:   1px;
-    background: rgba(17, 17, 17, .18);
-    z-index:  1;
-}
-
-.gantt-axis__tick {
+.tl-line {
     position:   absolute;
-    bottom:     -2.1rem;
-    transform:  translateX(-50%);
-    font-size:  0.62rem;
-    font-weight: 500;
-    letter-spacing: .04em;
-    color:      var(--ink-2);
-    white-space: nowrap;
+    left:       0;
+    right:      0;
+    top:        50%;
+    height:     1px;
+    background: rgba(17, 17, 17, .22);
+    transform:  translateY(-50%);
 }
 
-.gantt-axis__tick::before {
-    content:    "";
-    position:   absolute;
-    top:        -0.55rem;
-    left:       50%;
-    width:      1px;
-    height:     0.4rem;
-    background: rgba(17, 17, 17, .25);
+.tl-line__cap {
+    position:       absolute;
+    bottom:         5px;
+    font-size:      .52rem;
+    font-weight:    600;
+    letter-spacing: .05em;
+    color:          var(--ink-2);
+    white-space:    nowrap;
 }
+.tl-line__cap--start { left:  0; }
+.tl-line__cap--end   { right: 0; }
 
-/* ── bars ───────────────────────────────────────────────────────── */
-.gantt-bars {
-    position: absolute;
-    inset:    0 0 2.4rem 0;
-    z-index:  2;
-}
-
-.gantt-bar {
-    position:   absolute;
-    left:       var(--x);
-    width:      max(var(--w), 14px);
-    top:        calc(var(--row) * var(--row-h, 38px));
-    height:     var(--bar-h, 24px);
-    padding:    0;
-    margin:     0;
-    border:     none;
-    background: transparent;
-    cursor:     pointer;
-    overflow:   visible;
-    font-family: inherit;
-    text-align: left;
-}
-
-/* the visible colored rectangle (sharp corners) */
-.gantt-bar__fill {
+.tl-pins {
     position: absolute;
     inset:    0;
-    border-radius: 0;                /* angoli vivi */
-    transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    overflow: visible;
 }
 
-.gantt-bar--storia .gantt-bar__fill { background: #2b2622; }
-.gantt-bar--musica .gantt-bar__fill { background: var(--accent); }
-
-/* label sits to the RIGHT of the bar by default */
-.gantt-bar__label {
+/* each mini navigator pin (small colored bar) */
+.tl-pin {
     position:    absolute;
-    left:        100%;
-    top:         50%;
-    transform:   translateY(-50%);
-    margin-left: .55rem;
-    white-space: nowrap;
-    font-size:   0.78rem;
-    font-weight: 500;
-    color:       var(--ink-1);
-    line-height: 1;
-    transition:  color .18s ease;
+    left:        clamp(5px, var(--pos), calc(100% - 5px));
+    transform:   translateX(-50%);
+    display:     flex;
+    align-items: center;
+    background:  none;
+    border:      none;
+    padding:     0;
+    cursor:      pointer;
+    gap:         4px;
+    overflow:    visible;
+    transition:  opacity .2s ease;
 }
 
-.gantt-bar__year {
-    font-weight: 700;
-    color:       var(--ink-1);
-    margin-right: .4rem;
+/* above: bar grows up from line, bottom of pin touches line */
+.tl-pin--above {
+    flex-direction: column-reverse;
+    top:            auto;
+    bottom:         50%;
 }
 
-/* late events: label flips to the LEFT of the bar */
-.gantt-bar--right .gantt-bar__label {
-    left:        auto;
-    right:       100%;
-    margin-left: 0;
-    margin-right: .55rem;
-    text-align:  right;
+/* below: bar grows down from line, top of pin touches line */
+.tl-pin--below {
+    flex-direction: column;
+    top:            50%;
+    bottom:         auto;
 }
 
-/* hover + active */
-.gantt-bar:hover .gantt-bar__fill {
-    transform: scaleY(1.18);
+.tl-pin__bar {
+    display:    block;
+    width:      8px;
+    height:     22px;
+    background: var(--accent);
+    flex-shrink: 0;
+    transition: transform .2s ease, box-shadow .2s ease;
 }
 
-.gantt-bar.is-active .gantt-bar__fill {
-    transform:  scaleY(1.25);
-    box-shadow: 0 0 0 2px #fff, 0 0 0 3px var(--accent);
+.tl-pin--storia .tl-pin__bar {
+    width:      6px;
+    height:     15px;
+    background: #8A5248;
 }
 
-.gantt-bar.is-active .gantt-bar__label {
-    color: var(--accent);
+/* states */
+.tl-pin:not(.is-active) { opacity: .38; }
+.tl-pin:not(.is-active):hover { opacity: .65; }
+
+.tl-pin.is-active .tl-pin__bar {
+    transform:  scaleX(1.6);
+    box-shadow: 0 0 0 1px rgba(195, 122, 107, .45);
 }
 
-.gantt-bar.is-active .gantt-bar__year {
-    color: var(--accent);
+/* ── tile strip (full-bleed, horizontally scrollable) ─────────── */
+.tl-strip-wrap {
+    flex:       1 1 auto;
+    min-height: 0;
+    overflow:   hidden;
+    border-top: 1px solid rgba(17, 17, 17, .1);
 }
 
-/* ── detail panel (cambia al click) ─────────────────────────────── */
-.gantt-detail {
-    flex:        0 0 auto;
-    margin-top:  clamp(1rem, 3vh, 1.75rem);
-    padding-top: clamp(1rem, 3vh, 1.5rem);
-    border-top:  1px solid rgba(17, 17, 17, .12);
-    display:     grid;
-    grid-template-columns: auto 1fr;
-    column-gap:  2.5rem;
-    row-gap:     .4rem;
-    align-items: start;
+.tl-strip {
+    display:                    flex;
+    flex-direction:             row;
+    height:                     100%;
+    overflow-x:                 auto;
+    overflow-y:                 hidden;
+    scroll-snap-type:           x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width:            none;
+}
+.tl-strip::-webkit-scrollbar { display: none; }
+
+/* ── each large tile (same width as landing page tiles) ───────── */
+.tl-tile {
+    flex:              0 0 calc(100vw / 6);
+    height:            100%;
+    display:           flex;
+    flex-direction:    column;
+    border-right:      1px solid rgba(17, 17, 17, .08);
+    scroll-snap-align: start;
 }
 
-.gantt-detail__aside {
+/* image placeholder */
+.tl-tile__img {
+    flex:          1 1 auto;
+    min-height:    50px;
+    background:    var(--light-1);
+    border-bottom: 1px solid rgba(17, 17, 17, .08);
+    transition:    background .3s ease;
+}
+
+.tl-tile.is-active .tl-tile__img {
+    background: rgba(195, 122, 107, .1);
+}
+
+/* tile text body */
+.tl-tile__body {
+    flex:           0 0 auto;
+    padding:        .85rem .9rem .95rem;
     display:        flex;
     flex-direction: column;
-    gap:            .35rem;
+    gap:            .22rem;
 }
 
-.gantt-detail__cat {
-    align-self:     flex-start;
-    font-size:      0.6rem;
-    font-weight:    600;
+.tl-tile__meta {
+    display:     flex;
+    align-items: center;
+    gap:         .55rem;
+    margin-bottom: .1rem;
+}
+
+.tl-tile__cat {
+    font-size:      .52rem;
+    font-weight:    700;
     letter-spacing: .1em;
     text-transform: uppercase;
-    color:          var(--accent);
-    border:         1px solid rgba(195, 122, 107, .35);
-    padding:        .25em .7em;
+}
+.tl-tile__cat--musica { color: var(--accent); }
+.tl-tile__cat--storia { color: #8A5248; }
+
+.tl-tile__year {
+    font-size:      .58rem;
+    font-weight:    500;
+    letter-spacing: .05em;
+    color:          var(--ink-2);
 }
 
-.gantt-detail__year {
-    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:   clamp(2rem, 4vw, 3rem);
-    font-weight: 700;
-    letter-spacing: -.03em;
-    line-height: 1;
-    color:       var(--ink-1);
+.tl-tile__title {
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      clamp(.85rem, 1.1vw, 1rem);
+    font-weight:    700;
+    letter-spacing: -.018em;
+    line-height:    1.2;
+    color:          var(--ink-1);
+    margin:         0;
 }
 
-.gantt-detail__sub {
-    font-size: 0.78rem;
-    color:     var(--ink-2);
-}
-
-.gantt-detail__main {
-    min-width: 0;
-}
-
-.gantt-detail__title {
-    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:   clamp(1.2rem, 2.4vw, 1.7rem);
-    font-weight: 700;
-    letter-spacing: -.02em;
-    line-height: 1.15;
-    color:       var(--ink-1);
-    margin:      0 0 .6rem;
-}
-
-.gantt-detail__body {
-    font-size:   0.85rem;
-    line-height: 1.7;
-    color:       var(--ink-2);
-    margin:      0;
-    max-width:   62ch;
+.tl-tile__desc {
+    font-size:             .7rem;
+    line-height:           1.6;
+    color:                 var(--ink-2);
+    margin:                0;
+    display:               -webkit-box;
+    -webkit-line-clamp:    3;
+    -webkit-box-orient:    vertical;
+    overflow:              hidden;
 }
 
 
@@ -524,13 +501,12 @@
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .gantt-chart {
-        --row-h: 34px;
-        --bar-h: 20px;
+    .tl-tile {
+        flex-basis: calc(100vw / 4);
     }
 
-    .gantt-bar__label {
-        font-size: .72rem;
+    .tl-minimap {
+        height: 5.5rem;
     }
 }
 
@@ -539,60 +515,16 @@
         width: calc(100% - 2.5rem);
     }
 
-    /* Gantt → lista verticale su mobile */
-    .bintro-screen[data-screen="1"] .bintro-inner {
-        padding: 1.5rem 0;
-        overflow-y: auto;
+    .tl-shell {
+        padding: 1.25rem 1.25rem .75rem;
     }
 
-    .gantt-chart,
-    .gantt-grid,
-    .gantt-axis {
-        display: none;
+    .tl-tile {
+        flex-basis: calc(100vw / 2.5);
     }
 
-    .gantt-bars {
-        position: static;
-        inset:    auto;
-        display:  flex;
-        flex-direction: column;
-        gap:      .5rem;
-    }
-
-    .gantt-bar {
-        position: static;
-        left:     auto;
-        top:      auto;
-        width:    100%;
-        height:   auto;
-        display:  flex;
-        align-items: center;
-        gap:      .6rem;
-        padding:  .65rem .75rem;
-        border-left: 4px solid var(--accent);
-        background: var(--bg-2);
-    }
-
-    .gantt-bar--storia { border-left-color: #2b2622; }
-
-    .gantt-bar__fill { display: none; }
-
-    .gantt-bar__label {
-        position:  static;
-        transform: none;
-        margin:    0;
-        white-space: normal;
-        text-align: left;
-    }
-
-    .gantt-bar--right .gantt-bar__label {
-        margin-right: 0;
-        text-align:   left;
-    }
-
-    .gantt-detail {
-        grid-template-columns: 1fr;
-        row-gap: 1rem;
+    .tl-minimap {
+        height: 4.5rem;
     }
 
     .bintro-s2-grid {

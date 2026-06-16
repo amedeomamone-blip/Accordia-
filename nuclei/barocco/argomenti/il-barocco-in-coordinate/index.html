@@ -6,7 +6,7 @@
     <meta name="description" content="Introduzione al Barocco: un'epoca di contrasti, nuove forme musicali e trasformazioni profonde.">
     <title>Introduzione al Barocco | Il Barocco | Accordia</title>
     <link rel="stylesheet" href="../../../../css/style.css?v=1782390000">
-    <link rel="stylesheet" href="../../../../css/barocco-intro-lesson.css?v=1782800000">
+    <link rel="stylesheet" href="../../../../css/barocco-intro-lesson.css?v=1782910000">
 </head>
 <body data-nav="timeline" data-current-nucleus="barocco">
 
@@ -49,142 +49,180 @@
                 <div class="bintro-screens" id="bintro-screens">
 
                     <!-- ══════════════════════════════════════════
-                         SCREEN 1 · Timeline (Gantt a cascata)
+                         SCREEN 1 · Timeline (mini-map + tile strip)
                          ══════════════════════════════════════════ -->
                     <section class="bintro-screen" data-screen="1" aria-label="Schermata 1: Linea del tempo">
-                        <div class="bintro-inner">
 
-                            <div class="gantt-head">
-                                <span class="gantt-head__eyebrow">Linea del tempo</span>
-                                <span class="gantt-head__range">1607 — 1760</span>
+                        <!-- padded zone: header + mini-map navigatore -->
+                        <div class="tl-shell">
+
+                            <div class="tl-head">
+                                <span class="tl-head__eyebrow">Linea del tempo</span>
+                                <span class="tl-head__range">1607 — 1760</span>
                             </div>
 
-                            <div class="gantt-chart" id="gantt-chart">
-
-                                <!-- gridlines verticali -->
-                                <div class="gantt-grid" aria-hidden="true">
-                                    <span class="gantt-grid__line" style="left:0%"></span>
-                                    <span class="gantt-grid__line" style="left:12.12%"></span>
-                                    <span class="gantt-grid__line" style="left:24.24%"></span>
-                                    <span class="gantt-grid__line" style="left:36.36%"></span>
-                                    <span class="gantt-grid__line" style="left:48.48%"></span>
-                                    <span class="gantt-grid__line" style="left:60.61%"></span>
-                                    <span class="gantt-grid__line" style="left:72.73%"></span>
-                                    <span class="gantt-grid__line" style="left:84.85%"></span>
-                                    <span class="gantt-grid__line" style="left:96.97%"></span>
+                            <!-- linea unica + pin navigatori -->
+                            <div class="tl-minimap">
+                                <div class="tl-line" aria-hidden="true">
+                                    <span class="tl-line__cap tl-line__cap--start">1607</span>
+                                    <span class="tl-line__cap tl-line__cap--end">1760</span>
                                 </div>
-
-                                <!-- barre cliccabili -->
-                                <div class="gantt-bars" id="gantt-bars" role="list">
-
-                                    <button type="button" class="gantt-bar gantt-bar--musica is-active" style="--x:4.24%;--w:6.67%;--row:0" role="listitem"
-                                        data-year="1607" data-title="L'Orfeo" data-sub="Claudio Monteverdi" data-cat="Musica"
-                                        data-body="Va in scena a Mantova L'Orfeo di Claudio Monteverdi, una delle prime grandi opere della storia della musica. Monteverdi unisce parola, scena e suono con una forza espressiva nuova: l'opera diventa racconto teatrale in musica, non semplice accompagnamento del testo.">
-                                        <span class="gantt-bar__fill" aria-hidden="true"></span>
-                                        <span class="gantt-bar__label"><span class="gantt-bar__year">1607</span>L'Orfeo</span>
-                                    </button>
-
-                                    <button type="button" class="gantt-bar gantt-bar--storia" style="--x:10.91%;--w:7.27%;--row:1" role="listitem"
-                                        data-year="1618" data-title="Guerra dei Trent'anni" data-sub="Europa in conflitto" data-cat="Storia"
-                                        data-body="Inizia una guerra lunga e devastante che coinvolge molte potenze europee e modifica gli equilibri del continente. Il conflitto termina nel 1648 con la Pace di Westfalia: l'Europa esce profondamente trasformata, sia sul piano politico sia su quello religioso.">
-                                        <span class="gantt-bar__fill" aria-hidden="true"></span>
-                                        <span class="gantt-bar__label"><span class="gantt-bar__year">1618</span>Guerra dei Trent'anni</span>
-                                    </button>
-
-                                    <button type="button" class="gantt-bar gantt-bar--storia" style="--x:18.18%;--w:7.88%;--row:2" role="listitem"
-                                        data-year="1630" data-title="La peste in Europa" data-sub="Crisi sociale e sanitaria" data-cat="Storia"
-                                        data-body="Una grave epidemia colpisce vaste aree europee, aggravando gli effetti di guerre, carestie e instabilità economica. La peste del Seicento segna città e campagne, riduce la popolazione e lascia una traccia profonda nella memoria collettiva.">
-                                        <span class="gantt-bar__fill" aria-hidden="true"></span>
-                                        <span class="gantt-bar__label"><span class="gantt-bar__year">1630</span>La peste in Europa</span>
-                                    </button>
-
-                                    <button type="button" class="gantt-bar gantt-bar--storia" style="--x:26.06%;--w:3.03%;--row:3" role="listitem"
-                                        data-year="1643" data-title="Inizia il regno di Luigi XIV" data-sub="Il Re Sole" data-cat="Storia"
-                                        data-body="Luigi XIV sale al trono di Francia. Il suo regno diventerà il modello più celebre di monarchia assoluta. Versailles diventa il centro simbolico del potere monarchico e un riferimento europeo per arti, cerimoniale e spettacolo.">
-                                        <span class="gantt-bar__fill" aria-hidden="true"></span>
-                                        <span class="gantt-bar__label"><span class="gantt-bar__year">1643</span>Inizia il regno di Luigi XIV</span>
-                                    </button>
-
-                                    <button type="button" class="gantt-bar gantt-bar--storia" style="--x:29.09%;--w:20.61%;--row:4" role="listitem"
-                                        data-year="1648" data-title="Pace di Westfalia" data-sub="Fine della Guerra dei Trent'anni" data-cat="Storia"
-                                        data-body="I trattati di Westfalia pongono fine al conflitto iniziato nel 1618 e ridisegnano l'assetto politico europeo. Si consolida il principio della sovranità degli Stati, elemento decisivo nella nascita della diplomazia moderna.">
-                                        <span class="gantt-bar__fill" aria-hidden="true"></span>
-                                        <span class="gantt-bar__label"><span class="gantt-bar__year">1648</span>Pace di Westfalia</span>
-                                    </button>
-
-                                    <button type="button" class="gantt-bar gantt-bar--storia" style="--x:49.70%;--w:1.82%;--row:5" role="listitem"
-                                        data-year="1682" data-title="Pietro il Grande diventa zar" data-sub="La Russia si trasforma" data-cat="Storia"
-                                        data-body="Pietro I avvia una stagione di riforme che modernizza lo Stato russo e rafforza il suo ruolo internazionale. La Russia guarda sempre più all'Europa occidentale, adottando modelli tecnici, militari e amministrativi innovativi.">
-                                        <span class="gantt-bar__fill" aria-hidden="true"></span>
-                                        <span class="gantt-bar__label"><span class="gantt-bar__year">1682</span>Pietro il Grande diventa zar</span>
-                                    </button>
-
-                                    <button type="button" class="gantt-bar gantt-bar--musica" style="--x:51.52%;--w:15.76%;--row:6" role="listitem"
-                                        data-year="1685" data-title="Nascono Bach e Händel" data-sub="Due protagonisti del Barocco" data-cat="Musica"
-                                        data-body="Nello stesso anno nascono Johann Sebastian Bach e Georg Friedrich Händel, due figure centrali della musica europea. Bach porta al vertice il contrappunto e la scrittura strumentale; Händel domina opera, oratorio e musica celebrativa.">
-                                        <span class="gantt-bar__fill" aria-hidden="true"></span>
-                                        <span class="gantt-bar__label"><span class="gantt-bar__year">1685</span>Nascono Bach e Händel</span>
-                                    </button>
-
-                                    <button type="button" class="gantt-bar gantt-bar--musica gantt-bar--right" style="--x:67.27%;--w:2.42%;--row:7" role="listitem"
-                                        data-year="1711" data-title="Nasce il fortepiano" data-sub="Bartolomeo Cristofori" data-cat="Musica"
-                                        data-body="Cristofori mette a punto uno strumento capace di variare l'intensità del suono in base al tocco dell'esecutore. Il fortepiano apre la strada al pianoforte moderno e introduce una nuova gamma di sfumature espressive rispetto al clavicembalo.">
-                                        <span class="gantt-bar__fill" aria-hidden="true"></span>
-                                        <span class="gantt-bar__label"><span class="gantt-bar__year">1711</span>Nasce il fortepiano</span>
-                                    </button>
-
-                                    <button type="button" class="gantt-bar gantt-bar--storia gantt-bar--right" style="--x:69.70%;--w:6.06%;--row:8" role="listitem"
-                                        data-year="1715" data-title="Muore Luigi XIV" data-sub="Si chiude un'epoca" data-cat="Storia"
-                                        data-body="La morte del Re Sole conclude uno dei regni più lunghi e influenti dell'età moderna. Il suo modello di potere aveva inciso profondamente su politica, architettura, teatro, danza e vita musicale di corte.">
-                                        <span class="gantt-bar__fill" aria-hidden="true"></span>
-                                        <span class="gantt-bar__label"><span class="gantt-bar__year">1715</span>Muore Luigi XIV</span>
-                                    </button>
-
-                                    <button type="button" class="gantt-bar gantt-bar--musica gantt-bar--right" style="--x:75.76%;--w:21.21%;--row:9" role="listitem"
-                                        data-year="1725" data-title="Le quattro stagioni" data-sub="Antonio Vivaldi" data-cat="Musica"
-                                        data-body="Vengono pubblicati i quattro celebri concerti di Vivaldi, tra le pagine più riconoscibili del repertorio barocco. La musica suggerisce immagini precise: il canto degli uccelli, il temporale, il gelo, la quiete dei paesaggi stagionali.">
-                                        <span class="gantt-bar__fill" aria-hidden="true"></span>
-                                        <span class="gantt-bar__label"><span class="gantt-bar__year">1725</span>Le quattro stagioni</span>
-                                    </button>
-
-                                    <button type="button" class="gantt-bar gantt-bar--storia gantt-bar--right" style="--x:96.97%;--w:3.03%;--row:10" role="listitem"
-                                        data-year="1760" data-title="Rivoluzione industriale" data-sub="Inizia in Inghilterra" data-cat="Storia"
-                                        data-body="In Gran Bretagna prende avvio un processo di trasformazione produttiva e tecnologica destinato a cambiare il mondo. L'evento appartiene a una fase successiva al Barocco, ma aiuta a percepire il passaggio verso una società moderna e meccanizzata.">
-                                        <span class="gantt-bar__fill" aria-hidden="true"></span>
-                                        <span class="gantt-bar__label"><span class="gantt-bar__year">1760</span>Rivoluzione industriale</span>
-                                    </button>
-
-                                </div><!-- /.gantt-bars -->
-
-                                <!-- asse temporale -->
-                                <div class="gantt-axis" aria-hidden="true">
-                                    <span class="gantt-axis__tick" style="left:0%">1600</span>
-                                    <span class="gantt-axis__tick" style="left:12.12%">1620</span>
-                                    <span class="gantt-axis__tick" style="left:24.24%">1640</span>
-                                    <span class="gantt-axis__tick" style="left:36.36%">1660</span>
-                                    <span class="gantt-axis__tick" style="left:48.48%">1680</span>
-                                    <span class="gantt-axis__tick" style="left:60.61%">1700</span>
-                                    <span class="gantt-axis__tick" style="left:72.73%">1720</span>
-                                    <span class="gantt-axis__tick" style="left:84.85%">1740</span>
-                                    <span class="gantt-axis__tick" style="left:96.97%">1760</span>
-                                </div>
-
-                            </div><!-- /.gantt-chart -->
-
-                            <!-- pannello descrizione (cambia al click) -->
-                            <div class="gantt-detail" id="gantt-detail" aria-live="polite">
-                                <div class="gantt-detail__aside">
-                                    <span class="gantt-detail__cat" data-detail-cat>Musica</span>
-                                    <span class="gantt-detail__year" data-detail-year>1607</span>
-                                    <span class="gantt-detail__sub" data-detail-sub>Claudio Monteverdi</span>
-                                </div>
-                                <div class="gantt-detail__main">
-                                    <h3 class="gantt-detail__title" data-detail-title>L'Orfeo</h3>
-                                    <p class="gantt-detail__body" data-detail-body>Va in scena a Mantova L'Orfeo di Claudio Monteverdi, una delle prime grandi opere della storia della musica. Monteverdi unisce parola, scena e suono con una forza espressiva nuova: l'opera diventa racconto teatrale in musica, non semplice accompagnamento del testo.</p>
+                                <div class="tl-pins">
+                                    <button type="button" class="tl-pin tl-pin--musica tl-pin--above is-active" style="--pos:0%"    data-idx="0"  aria-label="L'Orfeo, 1607"></button>
+                                    <button type="button" class="tl-pin tl-pin--storia tl-pin--below"           style="--pos:7.19%"  data-idx="1"  aria-label="Guerra dei Trent'anni, 1618"></button>
+                                    <button type="button" class="tl-pin tl-pin--storia tl-pin--above"           style="--pos:15.03%" data-idx="2"  aria-label="La peste in Europa, 1630"></button>
+                                    <button type="button" class="tl-pin tl-pin--storia tl-pin--below"           style="--pos:23.53%" data-idx="3"  aria-label="Luigi XIV, 1643"></button>
+                                    <button type="button" class="tl-pin tl-pin--storia tl-pin--above"           style="--pos:26.80%" data-idx="4"  aria-label="Pace di Westfalia, 1648"></button>
+                                    <button type="button" class="tl-pin tl-pin--storia tl-pin--below"           style="--pos:49.02%" data-idx="5"  aria-label="Pietro il Grande, 1682"></button>
+                                    <button type="button" class="tl-pin tl-pin--musica tl-pin--above"           style="--pos:50.98%" data-idx="6"  aria-label="Nascono Bach e Händel, 1685"></button>
+                                    <button type="button" class="tl-pin tl-pin--musica tl-pin--below"           style="--pos:67.97%" data-idx="7"  aria-label="Nasce il fortepiano, 1711"></button>
+                                    <button type="button" class="tl-pin tl-pin--storia tl-pin--above"           style="--pos:70.59%" data-idx="8"  aria-label="Muore Luigi XIV, 1715"></button>
+                                    <button type="button" class="tl-pin tl-pin--musica tl-pin--below"           style="--pos:77.12%" data-idx="9"  aria-label="Le quattro stagioni, 1725"></button>
+                                    <button type="button" class="tl-pin tl-pin--storia tl-pin--above"           style="--pos:100%"   data-idx="10" aria-label="Rivoluzione industriale, 1760"></button>
                                 </div>
                             </div>
 
-                        </div>
+                        </div><!-- /.tl-shell -->
+
+                        <!-- full-bleed: grandi tile orizzontalmente scorrevoli -->
+                        <div class="tl-strip-wrap">
+                            <div class="tl-strip" id="tl-strip">
+
+                                <div class="tl-tile is-active" data-idx="0">
+                                    <div class="tl-tile__img" aria-hidden="true"></div>
+                                    <div class="tl-tile__body">
+                                        <div class="tl-tile__meta">
+                                            <span class="tl-tile__cat tl-tile__cat--musica">Musica</span>
+                                            <span class="tl-tile__year">1607</span>
+                                        </div>
+                                        <h3 class="tl-tile__title">L'Orfeo</h3>
+                                        <p class="tl-tile__desc">Va in scena a Mantova il capolavoro di Monteverdi. Musica, parola e teatro si uniscono in modo rivoluzionario: nasce l'opera.</p>
+                                    </div>
+                                </div>
+
+                                <div class="tl-tile" data-idx="1">
+                                    <div class="tl-tile__img" aria-hidden="true"></div>
+                                    <div class="tl-tile__body">
+                                        <div class="tl-tile__meta">
+                                            <span class="tl-tile__cat tl-tile__cat--storia">Storia</span>
+                                            <span class="tl-tile__year">1618</span>
+                                        </div>
+                                        <h3 class="tl-tile__title">Guerra dei Trent'anni</h3>
+                                        <p class="tl-tile__desc">Un conflitto devastante coinvolge tutta l'Europa. Terminerà nel 1648 con la Pace di Westfalia, ridisegnando il continente.</p>
+                                    </div>
+                                </div>
+
+                                <div class="tl-tile" data-idx="2">
+                                    <div class="tl-tile__img" aria-hidden="true"></div>
+                                    <div class="tl-tile__body">
+                                        <div class="tl-tile__meta">
+                                            <span class="tl-tile__cat tl-tile__cat--storia">Storia</span>
+                                            <span class="tl-tile__year">1630</span>
+                                        </div>
+                                        <h3 class="tl-tile__title">La peste in Europa</h3>
+                                        <p class="tl-tile__desc">Un'epidemia grave colpisce città e campagne, aggravando guerre e instabilità. Lascia una traccia profonda nella memoria collettiva.</p>
+                                    </div>
+                                </div>
+
+                                <div class="tl-tile" data-idx="3">
+                                    <div class="tl-tile__img" aria-hidden="true"></div>
+                                    <div class="tl-tile__body">
+                                        <div class="tl-tile__meta">
+                                            <span class="tl-tile__cat tl-tile__cat--storia">Storia</span>
+                                            <span class="tl-tile__year">1643</span>
+                                        </div>
+                                        <h3 class="tl-tile__title">Luigi XIV sale al trono</h3>
+                                        <p class="tl-tile__desc">Inizia il regno più lungo e celebre della storia francese. Versailles diventa il simbolo del potere assoluto e delle arti.</p>
+                                    </div>
+                                </div>
+
+                                <div class="tl-tile" data-idx="4">
+                                    <div class="tl-tile__img" aria-hidden="true"></div>
+                                    <div class="tl-tile__body">
+                                        <div class="tl-tile__meta">
+                                            <span class="tl-tile__cat tl-tile__cat--storia">Storia</span>
+                                            <span class="tl-tile__year">1648</span>
+                                        </div>
+                                        <h3 class="tl-tile__title">Pace di Westfalia</h3>
+                                        <p class="tl-tile__desc">I trattati ridisegnano l'assetto politico europeo e gettano le basi della diplomazia moderna tra stati sovrani.</p>
+                                    </div>
+                                </div>
+
+                                <div class="tl-tile" data-idx="5">
+                                    <div class="tl-tile__img" aria-hidden="true"></div>
+                                    <div class="tl-tile__body">
+                                        <div class="tl-tile__meta">
+                                            <span class="tl-tile__cat tl-tile__cat--storia">Storia</span>
+                                            <span class="tl-tile__year">1682</span>
+                                        </div>
+                                        <h3 class="tl-tile__title">Pietro il Grande</h3>
+                                        <p class="tl-tile__desc">Pietro I avvia riforme profonde che modernizzano la Russia e la aprono all'Europa occidentale in modo irreversibile.</p>
+                                    </div>
+                                </div>
+
+                                <div class="tl-tile" data-idx="6">
+                                    <div class="tl-tile__img" aria-hidden="true"></div>
+                                    <div class="tl-tile__body">
+                                        <div class="tl-tile__meta">
+                                            <span class="tl-tile__cat tl-tile__cat--musica">Musica</span>
+                                            <span class="tl-tile__year">1685</span>
+                                        </div>
+                                        <h3 class="tl-tile__title">Nascono Bach e Händel</h3>
+                                        <p class="tl-tile__desc">Nello stesso anno nascono i due grandi protagonisti del Barocco: Bach per il contrappunto, Händel per l'opera.</p>
+                                    </div>
+                                </div>
+
+                                <div class="tl-tile" data-idx="7">
+                                    <div class="tl-tile__img" aria-hidden="true"></div>
+                                    <div class="tl-tile__body">
+                                        <div class="tl-tile__meta">
+                                            <span class="tl-tile__cat tl-tile__cat--musica">Musica</span>
+                                            <span class="tl-tile__year">1711</span>
+                                        </div>
+                                        <h3 class="tl-tile__title">Nasce il fortepiano</h3>
+                                        <p class="tl-tile__desc">Bartolomeo Cristofori inventa uno strumento capace di variare l'intensità del suono. Apre la strada al pianoforte moderno.</p>
+                                    </div>
+                                </div>
+
+                                <div class="tl-tile" data-idx="8">
+                                    <div class="tl-tile__img" aria-hidden="true"></div>
+                                    <div class="tl-tile__body">
+                                        <div class="tl-tile__meta">
+                                            <span class="tl-tile__cat tl-tile__cat--storia">Storia</span>
+                                            <span class="tl-tile__year">1715</span>
+                                        </div>
+                                        <h3 class="tl-tile__title">Muore Luigi XIV</h3>
+                                        <p class="tl-tile__desc">La morte del Re Sole conclude un regno durato settant'anni. Il suo modello aveva segnato politica, teatro e musica di corte.</p>
+                                    </div>
+                                </div>
+
+                                <div class="tl-tile" data-idx="9">
+                                    <div class="tl-tile__img" aria-hidden="true"></div>
+                                    <div class="tl-tile__body">
+                                        <div class="tl-tile__meta">
+                                            <span class="tl-tile__cat tl-tile__cat--musica">Musica</span>
+                                            <span class="tl-tile__year">1725</span>
+                                        </div>
+                                        <h3 class="tl-tile__title">Le quattro stagioni</h3>
+                                        <p class="tl-tile__desc">I quattro concerti di Vivaldi diventano tra le pagine più celebri del Barocco. La musica dipinge immagini precise della natura.</p>
+                                    </div>
+                                </div>
+
+                                <div class="tl-tile" data-idx="10">
+                                    <div class="tl-tile__img" aria-hidden="true"></div>
+                                    <div class="tl-tile__body">
+                                        <div class="tl-tile__meta">
+                                            <span class="tl-tile__cat tl-tile__cat--storia">Storia</span>
+                                            <span class="tl-tile__year">1760</span>
+                                        </div>
+                                        <h3 class="tl-tile__title">Rivoluzione industriale</h3>
+                                        <p class="tl-tile__desc">In Gran Bretagna inizia la trasformazione produttiva che cambierà il mondo. Il Barocco musicale si chiude su questo orizzonte.</p>
+                                    </div>
+                                </div>
+
+                            </div><!-- /.tl-strip -->
+                        </div><!-- /.tl-strip-wrap -->
+
                     </section>
 
                     <!-- ══════════════════════════════════════════
@@ -321,7 +359,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 
-    <script src="../../../../js/barocco-intro-lesson.js?v=1782500000"></script>
+    <script src="../../../../js/barocco-intro-lesson.js?v=1782910000"></script>
 
 </body>
 </html>

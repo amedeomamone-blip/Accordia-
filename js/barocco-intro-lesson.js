@@ -14,30 +14,45 @@
     window.addEventListener('resize', syncH);
     window.addEventListener('load',   syncH);
 
-    /* ── Gantt timeline: click su barra → aggiorna pannello ─────── */
-    (function gantt() {
-        var bars   = document.querySelectorAll('.gantt-bar');
-        var detail = document.getElementById('gantt-detail');
-        if (!bars.length || !detail) return;
+    /* ── Timeline: pin click → scorri strip; scroll → aggiorna pin ─ */
+    (function timeline() {
+        var pins  = document.querySelectorAll('.tl-pin');
+        var tiles = document.querySelectorAll('.tl-tile');
+        var strip = document.getElementById('tl-strip');
+        if (!pins.length || !strip) return;
 
-        var elCat   = detail.querySelector('[data-detail-cat]');
-        var elYear  = detail.querySelector('[data-detail-year]');
-        var elSub   = detail.querySelector('[data-detail-sub]');
-        var elTitle = detail.querySelector('[data-detail-title]');
-        var elBody  = detail.querySelector('[data-detail-body]');
-
-        function select(bar) {
-            bars.forEach(function (b) { b.classList.remove('is-active'); });
-            bar.classList.add('is-active');
-            if (elCat)   elCat.textContent   = bar.dataset.cat   || '';
-            if (elYear)  elYear.textContent  = bar.dataset.year  || '';
-            if (elSub)   elSub.textContent   = bar.dataset.sub   || '';
-            if (elTitle) elTitle.textContent = bar.dataset.title || '';
-            if (elBody)  elBody.textContent  = bar.dataset.body  || '';
+        function tileW() {
+            var t = strip.querySelector('.tl-tile');
+            return t ? t.offsetWidth : 0;
         }
 
-        bars.forEach(function (bar) {
-            bar.addEventListener('click', function () { select(bar); });
+        function setActive(idx) {
+            pins.forEach(function (p) {
+                p.classList.toggle('is-active', +p.dataset.idx === idx);
+            });
+            tiles.forEach(function (t) {
+                t.classList.toggle('is-active', +t.dataset.idx === idx);
+            });
+        }
+
+        pins.forEach(function (pin) {
+            pin.addEventListener('click', function () {
+                var idx = +pin.dataset.idx;
+                strip.scrollTo({ left: idx * tileW(), behavior: 'smooth' });
+                setActive(idx);
+            });
+        });
+
+        var scrollT;
+        strip.addEventListener('scroll', function () {
+            clearTimeout(scrollT);
+            scrollT = setTimeout(function () {
+                var w = tileW();
+                if (!w) return;
+                var idx = Math.round(strip.scrollLeft / w);
+                idx = Math.max(0, Math.min(tiles.length - 1, idx));
+                setActive(idx);
+            }, 80);
         });
     })();
 
