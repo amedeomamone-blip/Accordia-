@@ -383,7 +383,7 @@
 }
 
 /* ================================================================
-   SCREEN 3 — Concetti chiave (collage editoriale, stile "Agenda")
+   SCREEN 3 — Concetti chiave (composizione bento, stile "Agenda")
    ================================================================ */
 .bintro-screen[data-screen="3"] {
     background:      var(--bg-1);
@@ -397,85 +397,64 @@
     display: block;
 }
 
-/* ── header ─────────────────────────────────────────────────────── */
-.kc-head {
-    text-align:    center;
-    margin-bottom: clamp(1.5rem, 4vh, 2.75rem);
+/* ── composizione: griglia 12×8, celle quadrate, nessuno spazio ── */
+.kc-comp {
+    width:       min(100%, 1180px);
+    margin:      0 auto;
+    display:     grid;
+    grid-template-columns: repeat(12, 1fr);
+    grid-template-rows:    repeat(8, 1fr);
+    aspect-ratio: 12 / 8;          /* celle quadrate */
+    gap:         0;
 }
 
-.kc-head__eyebrow {
-    display:        block;
-    font-size:      0.66rem;
-    font-weight:    600;
-    letter-spacing: .14em;
-    text-transform: uppercase;
-    color:          var(--accent);
-    margin-bottom:  .6rem;
+/* riquadro immagine (solo perimetro) — quadrato perché span uguali */
+.kc-cell {
+    position: relative;
+    min-width: 0;
+    min-height: 0;
 }
 
-.kc-head__title {
+.kc-cell--img {
+    border: 1px solid rgba(17, 17, 17, .42);
+}
+
+/* blocco testo — incastrato fra i quadrati, posizione variabile */
+.kc-cell--text {
+    display:         flex;
+    flex-direction:  column;
+    justify-content: center;
+    padding:         .55rem .8rem;
+    overflow:        hidden;
+}
+
+/* allineamenti variabili del testo (non sempre uguale) */
+.kc-cell--top    { justify-content: flex-start; }
+.kc-cell--bottom { justify-content: flex-end; }
+.kc-cell--right  { text-align: right; align-items: flex-end; }
+
+.kc-cell__title {
     font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:      clamp(1.8rem, 3.4vw, 2.9rem);
-    font-weight:    700;
-    letter-spacing: -.03em;
-    line-height:    1.04;
-    color:          var(--ink-1);
-    margin:         0;
-}
-
-/* ── collage masonry: cornici quadrate di varia misura ──────────── */
-.kc-collage {
-    column-count: 5;
-    column-gap:   clamp(1.1rem, 1.8vw, 1.8rem);
-    max-width:    1140px;
-    margin:       0 auto;
-}
-
-.kc-card {
-    break-inside:  avoid;
-    margin-bottom: clamp(1rem, 2vh, 1.5rem);
-    display:       inline-block;   /* evita tagli in colonna */
-    width:         100%;
-}
-
-/* la cornice quadrata vuota (solo perimetro, per future immagini) */
-.kc-frame {
-    aspect-ratio: 1 / 1;
-    border:       1px solid rgba(17, 17, 17, .28);
-    margin-bottom: .6rem;
-    background:    transparent;
-}
-
-/* dimensioni variabili: incastra grandi e piccole */
-.kc-card--lg .kc-frame { width: 100%; }
-.kc-card--md .kc-frame { width: 72%; }
-.kc-card--sm .kc-frame { width: 50%; }
-
-/* testo FUORI dal quadrato — stile Autore · Data */
-.kc-text { max-width: 100%; }
-
-.kc-text__title {
-    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:      clamp(.92rem, 1.15vw, 1.08rem);
+    font-size:      clamp(.82rem, 1.05vw, 1rem);
     font-weight:    700;
     letter-spacing: -.015em;
-    line-height:    1.18;
+    line-height:    1.16;
     color:          var(--ink-1);
-    margin:         0 0 .2rem;
+    margin:         0 0 .15rem;
 }
 
-.kc-text__sub {
+.kc-cell__sub {
     display:        block;
-    font-size:      .72rem;
+    font-size:      .66rem;
     font-weight:    500;
-    letter-spacing: .02em;
-    color:          var(--ink-2);
-    margin-bottom:  .5rem;
+    letter-spacing: .03em;
+    color:          var(--accent);
+    margin-bottom:  .4rem;
 }
 
-.kc-text__desc {
-    font-size:   .74rem;
-    line-height: 1.55;
+.kc-cell__desc {
+    font-size:   .7rem;
+    line-height: 1.5;
     color:       var(--ink-2);
     margin:      0;
     overflow:    hidden;
@@ -529,6 +508,12 @@
     color:          rgba(17, 17, 17, .22);
     pointer-events: none;
     z-index:        2;
+    transition:     opacity .3s ease;
+}
+
+/* nasconde l'etichetta sulla slide 3 (la composizione riempie la slide) */
+.bintro-stage[data-active-screen="3"] .bintro-screen-label {
+    opacity: 0;
 }
 
 /* ================================================================
@@ -537,10 +522,6 @@
 @media (max-width: 900px) {
     .bintro-s2-grid {
         grid-template-columns: repeat(2, 1fr);
-    }
-
-    .kc-collage {
-        column-count: 3;
     }
 
     .gantt-chart {
@@ -618,13 +599,23 @@
         grid-template-columns: 1fr;
     }
 
-    .kc-collage {
-        column-count: 2;
+    /* composizione bento → flusso semplice su mobile */
+    .kc-comp {
+        display:      block;
+        aspect-ratio: auto;
     }
 
-    .kc-card--md .kc-frame,
-    .kc-card--sm .kc-frame {
-        width: 100%;
+    .kc-cell {
+        margin-bottom: 1rem;
+    }
+
+    .kc-cell--img {
+        aspect-ratio: 16 / 10;
+    }
+
+    .kc-cell--right {
+        text-align: left;
+        align-items: flex-start;
     }
 
     .bintro-progress {
