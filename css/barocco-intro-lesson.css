@@ -73,36 +73,22 @@
     overflow:        hidden;
 }
 
-/* ── contenitore del quadrante: mezza ruota in alto ───────────── */
+/* ── contenitore: riempie la slide; il quadrante poggia sulla base ─ */
 .bc-dial {
     --full-circle:           360deg;
-    --radius:                28vw;
+    --radius:                min(50vh, 42vw);
     --duration:              200ms;
 
-    --dial-size:             calc(var(--radius) * 2);
-    --pad:                   2rem;
+    /* quanto il centro della ruota è sollevato rispetto al bordo
+       inferiore: ~0.18·R fa affiorare 7 punti sull'arco superiore */
+    --center-raise:          calc(.18 * var(--radius));
 
-    --label-offset:          calc(var(--radius) * -1 - 1rem);
-    --label-size:            54px;
-    --label-color:           rgba(17, 17, 17, .38);
+    --label-color:           rgba(17, 17, 17, .4);
     --label-color-hover:     var(--accent);
-    --label-line-h:          0;
-    --label-line-h-current:  3rem;
     --label-dot-size:        11px;
 
-    --title-top:             2.4rem;
-    --info-top:              5.6rem;
-    --info-width:            min(78%, 460px);
-
-    box-sizing: content-box;
-    position:   absolute;
-    top:        clamp(1.5rem, 5vh, 3.5rem);
-    left:       50%;
-    transform:  translateX(-50%);
-    width:      var(--dial-size);
-    height:     var(--dial-size);
-    padding:    var(--pad);
-    clip-path:  polygon(0 0, 100% 0, 100% 50%, 0 50%);
+    position: absolute;
+    inset:    0;
 }
 
 /* radio nascosti (controllo CSS-only) */
@@ -118,13 +104,63 @@
     border-width: 0;
 }
 
+/* ── titolo + descrizione: area fissa in alto, dritti ─────────── */
+.bc-dial__heads {
+    position:   absolute;
+    top:        clamp(2rem, 8vh, 5rem);
+    left:       50%;
+    transform:  translateX(-50%);
+    width:      min(90%, 620px);
+    text-align: center;
+    pointer-events: none;
+}
+
+.bc-dial__head {
+    position:   absolute;
+    top:        0;
+    left:       50%;
+    transform:  translateX(-50%);
+    width:      100%;
+    opacity:    0;
+    translate:  0 18px;
+    transition: opacity .28s ease, translate .28s ease;
+}
+
+.bc-dial__title {
+    margin:         0 0 1rem;
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      clamp(1.7rem, 3.6vw, 3rem);
+    font-weight:    700;
+    letter-spacing: -.025em;
+    line-height:    1.08;
+    text-transform: none;
+    color:          var(--ink-1);
+}
+
+.bc-dial__info {
+    margin:      0 auto;
+    width:       min(100%, 480px);
+    font-size:   clamp(.88rem, 1.15vw, 1rem);
+    line-height: 1.65;
+    color:       var(--ink-2);
+}
+
+/* ── posizionamento della ruota: centro sollevato dalla base ──── */
+.bc-dial__wheelwrap {
+    position:  absolute;
+    left:      50%;
+    top:       calc(100% - var(--center-raise));
+    width:     calc(2 * var(--radius));
+    height:    calc(2 * var(--radius));
+    transform: translate(-50%, -50%);
+}
+
 /* ── ruota circolare che ruota al click ───────────────────────── */
 .bc-dial__wheel {
     position:      absolute;
-    inset:         var(--pad);
-    aspect-ratio:  1;
+    inset:         0;
     border-radius: 50%;
-    border:        1px solid rgba(17, 17, 17, .1);
+    border:        1px solid rgba(17, 17, 17, .12);
     transition:    transform .55s cubic-bezier(.22, 1, .36, 1) var(--duration);
     list-style:    none;
     margin:        0;
@@ -137,40 +173,33 @@
     margin:          0;
     padding:         0;
     transform-origin: center;
-    display:         grid;
-    place-content:   center;
     transform:       rotate(calc(var(--i) * var(--full-circle) / var(--items)));
     pointer-events:  none;
 }
 
-/* etichetta = anno, sul perimetro */
+/* etichetta = anno, ancorata in cima al cerchio (sulla linea) */
 .bc-dial__wheel > li > label {
     position:       absolute;
-    inset:          0;
-    margin:         auto;
-    transform:      translateY(var(--label-offset));
-    width:          var(--label-size);
-    height:         var(--label-size);
-    display:        grid;
-    place-content:  center;
+    left:           50%;
+    top:            50%;
+    transform:      translate(-50%, calc(-1 * var(--radius)));
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+    gap:            .4rem;
     cursor:         pointer;
     pointer-events: initial;
-    text-align:     center;
     color:          var(--label-color);
-    font-size:      .82rem;
+    font-size:      .8rem;
     font-weight:    600;
     letter-spacing: .02em;
     font-variant-numeric: tabular-nums;
     transition:     color var(--duration) ease-in-out;
 }
 
-/* puntino sul cerchio */
+/* puntino: centrato esattamente sulla linea del cerchio */
 .bc-dial__wheel > li > label::before {
     content:       '';
-    position:      absolute;
-    top:           -.65rem;
-    left:          50%;
-    translate:     -50% 0;
     width:         var(--label-dot-size);
     height:        var(--label-dot-size);
     border-radius: 50%;
@@ -178,83 +207,36 @@
     transition:    background var(--duration) ease-in-out, transform var(--duration) ease-in-out;
 }
 
-/* linea che collega il puntino al centro (solo attivo) */
-.bc-dial__wheel > li > label::after {
-    content:    '';
-    position:   absolute;
-    top:        100%;
-    left:       50%;
-    translate:  -50% 5px;
-    width:      2px;
-    height:     var(--label-line-h);
-    background: var(--accent);
-    transition: height .3s ease-in-out var(--label-line-delay, 0ms);
-}
-
 .bc-dial__wheel > li > label:hover { --label-color: var(--label-color-hover); }
 
-/* titolo + descrizione dell'evento selezionato (in alto, dritti) */
-.bc-dial__title,
-.bc-dial__info {
-    position:         absolute;
-    left:             50%;
-    text-align:       center;
-    transform:        translate(-50%, 0);
-    transform-origin: center;
-}
-
-.bc-dial__title {
-    top:            var(--title-top);
-    width:          min(90%, 560px);
-    margin:         0;
-    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:      clamp(1.6rem, 3.4vw, 2.8rem);
-    font-weight:    700;
-    letter-spacing: -.025em;
-    line-height:    1.1;
-    text-transform: none;
-    color:          var(--ink-1);
-    opacity:        var(--title-opacity, 0);
-    translate:      0 var(--title-offset-y, 24px);
-    transition:     opacity var(--duration) ease-in-out var(--title-delay, 0ms),
-                    translate var(--duration) ease-in-out var(--title-delay, 0ms);
-}
-
-.bc-dial__info {
-    top:         var(--info-top);
-    width:       var(--info-width);
-    margin:      0;
-    font-size:   clamp(.85rem, 1.1vw, .95rem);
-    line-height: 1.6;
-    color:       var(--ink-2);
-    opacity:     var(--info-opacity, 0);
-    translate:   0 var(--info-offset-y, 24px);
-    transition:  opacity var(--duration) ease-in-out var(--info-delay, 0ms),
-                 translate var(--duration) ease-in-out var(--info-delay, 0ms);
-}
-
-/* ── stato selezionato: aggiorna le custom property dell'elemento ── */
+/* ── stato selezionato ────────────────────────────────────────── */
 .bc-dial__wheel > li:has(input:checked) {
-    --label-color:        var(--accent);
-    --label-line-h:       var(--label-line-h-current);
-    --label-line-delay:   calc(var(--duration) * 2);
-
-    --title-opacity:      1;
-    --title-offset-y:     0;
-    --title-delay:        calc(var(--duration) * 3);
-
-    --info-opacity:       1;
-    --info-offset-y:      0;
-    --info-delay:         calc(var(--duration) * 4);
+    --label-color: var(--accent);
 }
 
 .bc-dial__wheel > li:has(input:checked) > label {
-    font-size:   .95rem;
+    font-size:   .92rem;
     font-weight: 700;
 }
 
 .bc-dial__wheel > li:has(input:checked) > label::before {
-    transform: scale(1.35);
+    transform: scale(1.4);
+}
+
+/* mostra il titolo/descrizione corrispondente al punto selezionato */
+.bc-dial:has(.bc-dial__wheel > li:nth-child(1)  > input:checked) .bc-dial__head:nth-child(1),
+.bc-dial:has(.bc-dial__wheel > li:nth-child(2)  > input:checked) .bc-dial__head:nth-child(2),
+.bc-dial:has(.bc-dial__wheel > li:nth-child(3)  > input:checked) .bc-dial__head:nth-child(3),
+.bc-dial:has(.bc-dial__wheel > li:nth-child(4)  > input:checked) .bc-dial__head:nth-child(4),
+.bc-dial:has(.bc-dial__wheel > li:nth-child(5)  > input:checked) .bc-dial__head:nth-child(5),
+.bc-dial:has(.bc-dial__wheel > li:nth-child(6)  > input:checked) .bc-dial__head:nth-child(6),
+.bc-dial:has(.bc-dial__wheel > li:nth-child(7)  > input:checked) .bc-dial__head:nth-child(7),
+.bc-dial:has(.bc-dial__wheel > li:nth-child(8)  > input:checked) .bc-dial__head:nth-child(8),
+.bc-dial:has(.bc-dial__wheel > li:nth-child(9)  > input:checked) .bc-dial__head:nth-child(9),
+.bc-dial:has(.bc-dial__wheel > li:nth-child(10) > input:checked) .bc-dial__head:nth-child(10),
+.bc-dial:has(.bc-dial__wheel > li:nth-child(11) > input:checked) .bc-dial__head:nth-child(11) {
+    opacity:   1;
+    translate: 0 0;
 }
 
 /* ── rotazione della ruota in base al radio selezionato ───────── */
@@ -491,8 +473,7 @@
     }
 
     .bc-dial {
-        --radius:     38vw;
-        --label-size: 46px;
+        --radius: min(46vh, 58vw);
     }
 }
 
@@ -502,11 +483,7 @@
     }
 
     .bc-dial {
-        --radius:               46vw;
-        --label-size:           40px;
-        --label-line-h-current: 2rem;
-        --title-top:            1.5rem;
-        --info-top:             4.2rem;
+        --radius: min(42vh, 80vw);
     }
 
     .bc-dial__title { font-size: clamp(1.3rem, 6vw, 1.8rem); }
