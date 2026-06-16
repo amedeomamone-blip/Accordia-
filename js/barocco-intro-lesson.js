@@ -14,6 +14,33 @@
     window.addEventListener('resize', syncH);
     window.addEventListener('load',   syncH);
 
+    /* ── Gantt timeline: click su barra → aggiorna pannello ─────── */
+    (function gantt() {
+        var bars   = document.querySelectorAll('.gantt-bar');
+        var detail = document.getElementById('gantt-detail');
+        if (!bars.length || !detail) return;
+
+        var elCat   = detail.querySelector('[data-detail-cat]');
+        var elYear  = detail.querySelector('[data-detail-year]');
+        var elSub   = detail.querySelector('[data-detail-sub]');
+        var elTitle = detail.querySelector('[data-detail-title]');
+        var elBody  = detail.querySelector('[data-detail-body]');
+
+        function select(bar) {
+            bars.forEach(function (b) { b.classList.remove('is-active'); });
+            bar.classList.add('is-active');
+            if (elCat)   elCat.textContent   = bar.dataset.cat   || '';
+            if (elYear)  elYear.textContent  = bar.dataset.year  || '';
+            if (elSub)   elSub.textContent   = bar.dataset.sub   || '';
+            if (elTitle) elTitle.textContent = bar.dataset.title || '';
+            if (elBody)  elBody.textContent  = bar.dataset.body  || '';
+        }
+
+        bars.forEach(function (bar) {
+            bar.addEventListener('click', function () { select(bar); });
+        });
+    })();
+
     /* ── guard: GSAP, ScrollTrigger, Lenis must be loaded ──────── */
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || typeof Lenis === 'undefined') {
         console.warn('[bintro] GSAP / ScrollTrigger / Lenis not found. Scroll animation disabled.');
@@ -51,7 +78,7 @@
     });
 
     /* ── progress dots + stage class ───────────────────────────── */
-    var LABELS = ['01 — Introduzione', '02 — Il Contesto', '03 — La Musica'];
+    var LABELS = ['01 — Linea del tempo', '02 — Il Contesto', '03 — La Musica'];
 
     function onScrollUpdate(self) {
         var p   = self.progress;                          // 0 → 1
