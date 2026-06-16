@@ -202,31 +202,40 @@
     transition:    background var(--duration) ease, transform var(--duration) ease;
 }
 
-/* testo radiale: anno */
-.bc-dial__yr {
-    font-size:            .62rem;
-    font-weight:          700;
-    letter-spacing:       .01em;
-    font-variant-numeric: tabular-nums;
-    color:                var(--label-color);
-    white-space:          nowrap;
-    transition:           opacity var(--duration) ease, color var(--duration) ease;
+/* testo "per lungo": disposto lungo il raggio (come nel riferimento) */
+.bc-dial__yr,
+.bc-dial__ev {
+    writing-mode:     vertical-lr;   /* il testo scorre lungo il raggio */
+    text-orientation: mixed;
+    white-space:      nowrap;
+    line-height:      1;
 }
 
-/* testo radiale: nome evento */
+/* nome evento: vicino al pallino, sul filo della circonferenza */
 .bc-dial__ev {
-    font-size:   .58rem;
-    font-weight: 500;
-    line-height: 1.15;
-    text-align:  center;
-    max-width:   8ch;
-    color:       rgba(17, 17, 17, .38);
-    transition:  opacity var(--duration) ease;
+    order:       0;
+    font-size:   .68rem;
+    font-weight: 600;
+    letter-spacing: -.01em;
+    color:       rgba(17, 17, 17, .55);
+    transition:  opacity var(--duration) ease, color var(--duration) ease;
+}
+
+/* anno: più verso il centro */
+.bc-dial__yr {
+    order:                1;
+    font-size:            .62rem;
+    font-weight:          700;
+    letter-spacing:       .02em;
+    font-variant-numeric: tabular-nums;
+    color:                var(--label-color);
+    transition:           opacity var(--duration) ease, color var(--duration) ease;
 }
 
 /* hover */
 .bc-dial__wheel > li > label:hover::before { background: #b8b8b8; }
-.bc-dial__wheel > li > label:hover .bc-dial__yr { color: var(--accent); }
+.bc-dial__wheel > li > label:hover .bc-dial__yr,
+.bc-dial__wheel > li > label:hover .bc-dial__ev { color: var(--accent); }
 
 /* ── selezionato: pallino terracotta, testo radiale nascosto ─── */
 .bc-dial__wheel > li:has(input:checked) > label::before {
