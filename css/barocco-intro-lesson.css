@@ -84,7 +84,9 @@
 
     --label-color:           rgba(17, 17, 17, .42);
     --label-color-hover:     var(--accent);
-    --label-dot-size:        12px;
+    --tile-size:             16px;
+    --tile-off:              rgba(17, 17, 17, .26);
+    --glow:                  rgba(195, 122, 107, .75);
 
     position: absolute;
     inset:    0;
@@ -176,50 +178,79 @@
     pointer-events:  none;
 }
 
-/* etichetta = anno, ancorata in cima al cerchio (sulla linea) */
+/* etichetta = quadratino + anno + titolo, ancorata sulla linea */
 .bc-dial__wheel > li > label {
     position:       absolute;
     left:           50%;
     top:            50%;
-    transform:      translate(-50%, calc(-1 * var(--radius)));
+    transform:      translate(-50%, calc(-1 * var(--radius) - var(--tile-size) / 2));
     display:        flex;
     flex-direction: column;
     align-items:    center;
     gap:            .4rem;
+    width:          max-content;
     cursor:         pointer;
     pointer-events: initial;
-    color:          var(--label-color);
-    font-size:      1.05rem;
-    font-weight:    600;
-    letter-spacing: .02em;
-    font-variant-numeric: tabular-nums;
-    transition:     color var(--duration) ease-in-out;
 }
 
-/* puntino: centrato esattamente sulla linea del cerchio */
+/* quadratino "spento": piccolo tile con bordo tenue, sul filo del cerchio */
 .bc-dial__wheel > li > label::before {
     content:       '';
-    width:         var(--label-dot-size);
-    height:        var(--label-dot-size);
-    border-radius: 50%;
-    background:    var(--label-color);
-    transition:    background var(--duration) ease-in-out, transform var(--duration) ease-in-out;
+    width:         var(--tile-size);
+    height:        var(--tile-size);
+    border-radius: 2px;
+    background:    transparent;
+    border:        1.5px solid var(--tile-off);
+    box-shadow:    0 0 0 0 rgba(195, 122, 107, 0);
+    transition:    background var(--duration) ease, border-color var(--duration) ease,
+                   box-shadow var(--duration) ease, transform var(--duration) ease;
 }
 
-.bc-dial__wheel > li > label:hover { --label-color: var(--label-color-hover); }
-
-/* ── stato selezionato ────────────────────────────────────────── */
-.bc-dial__wheel > li:has(input:checked) {
-    --label-color: var(--accent);
+.bc-dial__yr {
+    font-size:            1rem;
+    font-weight:          600;
+    letter-spacing:       .02em;
+    font-variant-numeric: tabular-nums;
+    color:                var(--label-color);
+    transition:           color var(--duration) ease, font-size var(--duration) ease;
 }
 
-.bc-dial__wheel > li:has(input:checked) > label {
-    font-size:   1.25rem;
+.bc-dial__ev {
+    max-width:      12ch;
+    font-size:      .8rem;
+    font-weight:    600;
+    line-height:    1.12;
+    letter-spacing: -.01em;
+    text-align:     center;
+    color:          rgba(17, 17, 17, .5);
+    transition:     color var(--duration) ease, font-size var(--duration) ease;
+}
+
+/* hover: il tile si "accende" leggermente */
+.bc-dial__wheel > li > label:hover::before {
+    border-color: var(--accent);
+    box-shadow:   0 0 11px 1px rgba(195, 122, 107, .45);
+}
+.bc-dial__wheel > li > label:hover .bc-dial__yr { color: var(--accent); }
+
+/* ── selezionato: riempimento + bagliore (lampadina accesa) ───── */
+.bc-dial__wheel > li:has(input:checked) > label::before {
+    background:    var(--accent);
+    border-color:  var(--accent);
+    box-shadow:    0 0 24px 3px var(--glow), 0 0 8px rgba(195, 122, 107, .9);
+    transform:     scale(1.3);
+}
+
+.bc-dial__wheel > li:has(input:checked) .bc-dial__yr {
+    color:       var(--accent);
+    font-size:   1.2rem;
     font-weight: 700;
 }
 
-.bc-dial__wheel > li:has(input:checked) > label::before {
-    transform: scale(1.4);
+.bc-dial__wheel > li:has(input:checked) .bc-dial__ev {
+    color:       var(--ink-1);
+    font-size:   .95rem;
+    font-weight: 700;
 }
 
 /* mostra il titolo/descrizione corrispondente al punto selezionato */
