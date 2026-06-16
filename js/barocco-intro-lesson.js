@@ -36,9 +36,9 @@
 
     if (!scrollEl || !screensEl) return;
 
-    /* ── scrubbed horizontal slide ──────────────────────────────── */
+    /* ── scrubbed vertical slide ────────────────────────────────── */
     gsap.to(screensEl, {
-        x: function () { return -(window.innerWidth * 2); },
+        y: function () { return -((window.innerHeight - (header ? header.offsetHeight : 0)) * 2); },
         ease: 'none',
         scrollTrigger: {
             trigger:            scrollEl,
