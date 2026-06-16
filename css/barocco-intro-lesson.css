@@ -76,16 +76,15 @@
 /* ── contenitore: riempie la slide; il quadrante poggia sulla base ─ */
 .bc-dial {
     --full-circle:           360deg;
-    --radius:                min(50vh, 42vw);
+    --radius:                min(54vh, 46vw);
     --duration:              200ms;
 
-    /* quanto il centro della ruota è sollevato rispetto al bordo
-       inferiore: ~0.18·R fa affiorare 7 punti sull'arco superiore */
-    --center-raise:          calc(.18 * var(--radius));
+    /* centro della ruota esattamente sulla base → semicirconferenza esatta */
+    --center-raise:          0px;
 
-    --label-color:           rgba(17, 17, 17, .4);
+    --label-color:           rgba(17, 17, 17, .42);
     --label-color-hover:     var(--accent);
-    --label-dot-size:        11px;
+    --label-dot-size:        12px;
 
     position: absolute;
     inset:    0;
@@ -107,10 +106,10 @@
 /* ── titolo + descrizione: area fissa in alto, dritti ─────────── */
 .bc-dial__heads {
     position:   absolute;
-    top:        clamp(2rem, 8vh, 5rem);
+    top:        clamp(2rem, 7vh, 4.5rem);
     left:       50%;
     transform:  translateX(-50%);
-    width:      min(90%, 620px);
+    width:      min(92%, 820px);
     text-align: center;
     pointer-events: none;
 }
@@ -127,21 +126,21 @@
 }
 
 .bc-dial__title {
-    margin:         0 0 1rem;
+    margin:         0 0 1.25rem;
     font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:      clamp(1.7rem, 3.6vw, 3rem);
+    font-size:      clamp(2.4rem, 5vw, 4.4rem);
     font-weight:    700;
-    letter-spacing: -.025em;
-    line-height:    1.08;
+    letter-spacing: -.03em;
+    line-height:    1.05;
     text-transform: none;
     color:          var(--ink-1);
 }
 
 .bc-dial__info {
     margin:      0 auto;
-    width:       min(100%, 480px);
-    font-size:   clamp(.88rem, 1.15vw, 1rem);
-    line-height: 1.65;
+    width:       min(100%, 540px);
+    font-size:   clamp(1rem, 1.4vw, 1.2rem);
+    line-height: 1.6;
     color:       var(--ink-2);
 }
 
@@ -190,7 +189,7 @@
     cursor:         pointer;
     pointer-events: initial;
     color:          var(--label-color);
-    font-size:      .8rem;
+    font-size:      1.05rem;
     font-weight:    600;
     letter-spacing: .02em;
     font-variant-numeric: tabular-nums;
@@ -215,7 +214,7 @@
 }
 
 .bc-dial__wheel > li:has(input:checked) > label {
-    font-size:   .92rem;
+    font-size:   1.25rem;
     font-weight: 700;
 }
 
