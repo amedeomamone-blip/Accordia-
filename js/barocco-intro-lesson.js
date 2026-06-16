@@ -21,6 +21,8 @@
         var strip = document.getElementById('tl-strip');
         if (!pins.length || !strip) return;
 
+        var lockUntil = 0;   // ignora lo scroll-sync durante uno scroll programmato
+
         function tileW() {
             var t = strip.querySelector('.tl-tile');
             return t ? t.offsetWidth : 0;
@@ -38,21 +40,28 @@
         pins.forEach(function (pin) {
             pin.addEventListener('click', function () {
                 var idx = +pin.dataset.idx;
-                strip.scrollTo({ left: idx * tileW(), behavior: 'smooth' });
+                var w   = tileW();
+                // centra il tile nello strip, con clamp agli estremi
+                var max = strip.scrollWidth - strip.clientWidth;
+                var target = Math.max(0, Math.min(max, idx * w - (strip.clientWidth - w) / 2));
+                lockUntil = Date.now() + 900;
                 setActive(idx);
+                strip.scrollTo({ left: target, behavior: 'smooth' });
             });
         });
 
         var scrollT;
         strip.addEventListener('scroll', function () {
+            if (Date.now() < lockUntil) return;   // scroll programmato: non sovrascrivere
             clearTimeout(scrollT);
             scrollT = setTimeout(function () {
                 var w = tileW();
                 if (!w) return;
-                var idx = Math.round(strip.scrollLeft / w);
+                // tile più vicino al centro del viewport dello strip
+                var idx = Math.round((strip.scrollLeft + strip.clientWidth / 2 - w / 2) / w);
                 idx = Math.max(0, Math.min(tiles.length - 1, idx));
                 setActive(idx);
-            }, 80);
+            }, 90);
         });
     })();
 

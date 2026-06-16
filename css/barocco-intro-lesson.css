@@ -72,17 +72,18 @@
     justify-content: flex-start;
 }
 
-/* padded zone containing header + mini-map */
+/* zone containing header + mini-map (mini-map full-bleed) */
 .tl-shell {
     flex:    0 0 auto;
-    padding: clamp(1.5rem, 3vh, 2.25rem) 2rem clamp(.75rem, 1.5vh, 1.25rem);
+    padding: clamp(1.5rem, 3vh, 2.25rem) 0 clamp(.75rem, 1.5vh, 1.25rem);
 }
 
-/* ── header strip ─────────────────────────────────────────────── */
+/* ── header strip (inset) ─────────────────────────────────────── */
 .tl-head {
     display:       flex;
     align-items:   baseline;
     gap:           1rem;
+    padding:       0 2rem;
     margin-bottom: clamp(.6rem, 1.2vh, 1rem);
 }
 
@@ -117,76 +118,47 @@
     transform:  translateY(-50%);
 }
 
-.tl-line__cap {
-    position:       absolute;
-    bottom:         5px;
-    font-size:      .52rem;
-    font-weight:    600;
-    letter-spacing: .05em;
-    color:          var(--ink-2);
-    white-space:    nowrap;
-}
-.tl-line__cap--start { left:  0; }
-.tl-line__cap--end   { right: 0; }
-
 .tl-pins {
     position: absolute;
     inset:    0;
     overflow: visible;
 }
 
-/* each mini navigator pin (small colored bar) */
+/* each mini navigator pin = a small colored bar on the line */
 .tl-pin {
     position:    absolute;
-    left:        clamp(5px, var(--pos), calc(100% - 5px));
+    left:        clamp(8px, var(--pos), calc(100% - 8px));
     transform:   translateX(-50%);
-    display:     flex;
-    align-items: center;
-    background:  none;
-    border:      none;
+    width:       8px;
+    height:      22px;
+    margin:      0;
     padding:     0;
+    border:      none;
+    background:  var(--accent);
     cursor:      pointer;
-    gap:         4px;
-    overflow:    visible;
-    transition:  opacity .2s ease;
+    transition:  opacity .2s ease, transform .2s ease, box-shadow .2s ease;
 }
 
-/* above: bar grows up from line, bottom of pin touches line */
-.tl-pin--above {
-    flex-direction: column-reverse;
-    top:            auto;
-    bottom:         50%;
-}
+/* above: bar sits above the line (its bottom touches the line) */
+.tl-pin--above { bottom: 50%; top: auto; }
 
-/* below: bar grows down from line, top of pin touches line */
-.tl-pin--below {
-    flex-direction: column;
-    top:            50%;
-    bottom:         auto;
-}
+/* below: bar sits below the line (its top touches the line) */
+.tl-pin--below { top: 50%; bottom: auto; }
 
-.tl-pin__bar {
-    display:    block;
-    width:      8px;
-    height:     22px;
-    background: var(--accent);
-    flex-shrink: 0;
-    transition: transform .2s ease, box-shadow .2s ease;
-}
-
-.tl-pin--storia .tl-pin__bar {
+/* storia: bar più piccolo e in tonalità terracotta scura */
+.tl-pin--storia {
     width:      6px;
     height:     15px;
     background: #8A5248;
 }
 
 /* states */
-.tl-pin:not(.is-active) { opacity: .38; }
-.tl-pin:not(.is-active):hover { opacity: .65; }
+.tl-pin:not(.is-active) { opacity: .4; }
+.tl-pin:not(.is-active):hover { opacity: .7; }
 
-.tl-pin.is-active .tl-pin__bar {
-    transform:  scaleX(1.6);
-    box-shadow: 0 0 0 1px rgba(195, 122, 107, .45);
+.tl-pin.is-active {
+    transform:  translateX(-50%) scaleX(1.7);
+    box-shadow: 0 0 0 1px rgba(195, 122, 107, .5);
 }
 
 /* ── tile strip (full-bleed, horizontally scrollable) ─────────── */
@@ -198,87 +170,72 @@
 }
 
 .tl-strip {
+    --u:                        calc(100vw / 84);   /* stessa unità della landing */
     display:                    flex;
     flex-direction:             row;
+    align-items:                center;             /* tile centrati in verticale */
     height:                     100%;
     overflow-x:                 auto;
     overflow-y:                 hidden;
-    scroll-snap-type:           x mandatory;
+    scroll-snap-type:           x proximity;
     -webkit-overflow-scrolling: touch;
     scrollbar-width:            none;
 }
 .tl-strip::-webkit-scrollbar { display: none; }
 
-/* ── each large tile (same width as landing page tiles) ───────── */
+/* ── each large tile (stessa dimensione dei tile della landing: 14u) ── */
 .tl-tile {
-    flex:              0 0 calc(100vw / 6);
-    height:            100%;
+    flex:              0 0 calc(14 * var(--u));   /* = 100vw/6 */
     display:           flex;
     flex-direction:    column;
-    border-right:      1px solid rgba(17, 17, 17, .08);
     scroll-snap-align: start;
 }
 
-/* image placeholder */
+/* placeholder immagine quadrato (come la faccia dei tile landing) */
 .tl-tile__img {
-    flex:          1 1 auto;
-    min-height:    50px;
-    background:    var(--light-1);
-    border-bottom: 1px solid rgba(17, 17, 17, .08);
+    width:         100%;
+    aspect-ratio:  1;                              /* quadrato */
+    background:    #e8e8e8;
     transition:    background .3s ease;
 }
 
 .tl-tile.is-active .tl-tile__img {
-    background: rgba(195, 122, 107, .1);
+    background: var(--accent);
 }
 
-/* tile text body */
+/* testo sotto la faccia quadrata */
 .tl-tile__body {
-    flex:           0 0 auto;
-    padding:        .85rem .9rem .95rem;
     display:        flex;
     flex-direction: column;
-    gap:            .22rem;
-}
-
-.tl-tile__meta {
-    display:     flex;
-    align-items: center;
-    gap:         .55rem;
-    margin-bottom: .1rem;
-}
-
-.tl-tile__cat {
-    font-size:      .52rem;
-    font-weight:    700;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-}
-.tl-tile__cat--musica { color: var(--accent); }
-.tl-tile__cat--storia { color: #8A5248; }
-
-.tl-tile__year {
-    font-size:      .58rem;
-    font-weight:    500;
-    letter-spacing: .05em;
-    color:          var(--ink-2);
+    padding:        calc(.55 * var(--u)) calc(1.1 * var(--u)) 0 0;
 }
 
 .tl-tile__title {
     font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:      clamp(.85rem, 1.1vw, 1rem);
+    font-size:      calc(.85 * var(--u));
     font-weight:    700;
-    letter-spacing: -.018em;
-    line-height:    1.2;
+    letter-spacing: -.03em;
+    line-height:    1.15;
+    text-transform: none;                          /* override globale h3 uppercase */
     color:          var(--ink-1);
     margin:         0;
 }
 
+/* data SOTTO il titolo */
+.tl-tile__year {
+    font-size:      calc(.55 * var(--u));
+    font-weight:    400;
+    letter-spacing: .04em;
+    color:          var(--ink-2);
+    font-variant-numeric: tabular-nums;
+    margin-top:     calc(.2 * var(--u));
+}
+
 .tl-tile__desc {
-    font-size:             .7rem;
-    line-height:           1.6;
+    font-size:             calc(.58 * var(--u));
+    line-height:           1.55;
     color:                 var(--ink-2);
-    margin:                0;
+    margin:                calc(.4 * var(--u)) 0 0;
     display:               -webkit-box;
     -webkit-line-clamp:    3;
     -webkit-box-orient:    vertical;
