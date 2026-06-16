@@ -63,242 +63,216 @@
 }
 
 /* ================================================================
-   SCREEN 1 — Timeline (mini-map + tile strip)
+   SCREEN 1 — Timeline (quadrante rotante · rotary dial)
    ================================================================ */
 
 .bintro-screen[data-screen="1"] {
-    --u:             calc(100vw / 84);   /* stessa unità della landing */
-    flex-direction:  column;
-    align-items:     stretch;
-    justify-content: center;             /* centrato verticalmente */
-    gap:             clamp(3rem, 9vh, 7rem);
+    background:      var(--bg-1);   /* slide bianca */
+    align-items:     center;
+    justify-content: center;
+    overflow:        hidden;
 }
 
-/* Shell: altezza naturale (header + minimap) */
-.tl-shell {
-    flex:            0 0 auto;
-    display:         flex;
-    flex-direction:  column;
-}
+/* ── contenitore del quadrante: mezza ruota in alto ───────────── */
+.bc-dial {
+    --full-circle:           360deg;
+    --radius:                28vw;
+    --duration:              200ms;
 
-/* ── header: nascosto per pulizia visiva ─────────────────────── */
-.tl-head {
-    display: none;
-}
+    --dial-size:             calc(var(--radius) * 2);
+    --pad:                   2rem;
 
-.tl-head__eyebrow {
-    font-size:      .68rem;
-    font-weight:    600;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color:          var(--ink-1);
-}
+    --label-offset:          calc(var(--radius) * -1 - 1rem);
+    --label-size:            54px;
+    --label-color:           rgba(17, 17, 17, .38);
+    --label-color-hover:     var(--accent);
+    --label-line-h:          0;
+    --label-line-h-current:  3rem;
+    --label-dot-size:        11px;
 
-.tl-head__range {
-    font-size:      .72rem;
-    font-weight:    500;
-    letter-spacing: .06em;
-    color:          var(--ink-2);
-}
+    --title-top:             2.4rem;
+    --info-top:              5.6rem;
+    --info-width:            min(78%, 460px);
 
-/* ── mini-map ─────────────────────────────────────────────────── */
-.tl-minimap {
-    position: relative;
-    height:   7rem;
-    flex:     0 0 auto;
-}
-
-/* linea unica, tenue, da margine a margine */
-.tl-line {
+    box-sizing: content-box;
     position:   absolute;
-    left:       0;
-    right:      0;
-    top:        50%;
-    height:     2px;
-    background: rgba(17, 17, 17, .16);
-    transform:  translateY(-50%);
-    z-index:    0;
+    top:        clamp(1.5rem, 5vh, 3.5rem);
+    left:       50%;
+    transform:  translateX(-50%);
+    width:      var(--dial-size);
+    height:     var(--dial-size);
+    padding:    var(--pad);
+    clip-path:  polygon(0 0, 100% 0, 100% 50%, 0 50%);
 }
 
-/* area dei pin: respiro di 7u da ogni bordo → pin 0% = centro tile 1 */
-.tl-pins {
+/* radio nascosti (controllo CSS-only) */
+.bc-dial input[type="radio"] {
     position: absolute;
-    left:     calc(7 * var(--u));
-    right:    calc(7 * var(--u));
-    top:      0;
-    bottom:   0;
-    overflow: visible;
-    z-index:  2;   /* i quadrati coprono la linea */
-}
-
-/* ogni pin = quadrato, centrato (tagliato a metà) sulla linea */
-.tl-pin {
-    position:   absolute;
-    left:       var(--pos);
-    top:        50%;
-    transform:  translate(-50%, -50%);
-    margin:     0;
-    padding:    0;
-    border:     none;
-    cursor:     pointer;
-    transition: opacity .2s ease, transform .2s ease, box-shadow .2s ease;
-}
-
-/* musica → quadrato grande, terracotta scuro */
-.tl-pin--musica {
-    width:      calc(1.35 * var(--u));
-    height:     calc(1.35 * var(--u));
-    background: #7D3B30;
-}
-
-/* storia → quadrato piccolo, terracotta standard */
-.tl-pin--storia {
-    width:      calc(0.82 * var(--u));
-    height:     calc(0.82 * var(--u));
-    background: #C37A6B;
-}
-
-.tl-pin:not(.is-active) { opacity: .4; }
-.tl-pin:not(.is-active):hover { opacity: .72; }
-
-.tl-pin.is-active {
-    opacity:    1;
-    transform:  translate(-50%, -50%) scale(1.2);
-    box-shadow: 0 0 0 2px rgba(17, 17, 17, .12);
-    z-index:    3;
-}
-
-/* etichetta evento (nome + data) sopra il pin — solo attivo / hover */
-.tl-pin__label {
-    position:       absolute;
-    bottom:         calc(100% + .5rem);
-    left:           50%;
-    transform:      translateX(-50%);
-    display:        flex;
-    flex-direction: column;
-    align-items:    center;
-    gap:            1px;
-    white-space:    nowrap;
-    text-align:     center;
-    opacity:        0;
-    pointer-events: none;
-    transition:     opacity .18s ease;
-}
-
-.tl-pin.is-active .tl-pin__label { opacity: 1; }
-
-.tl-pin__name {
-    font-size:      .72rem;
-    font-weight:    600;
-    letter-spacing: -.01em;
-    color:          var(--ink-1);
-}
-
-.tl-pin__year {
-    font-size:            .6rem;
-    font-weight:          500;
-    letter-spacing:       .03em;
-    color:                var(--ink-2);
-    font-variant-numeric: tabular-nums;
-}
-
-/* ── strip-wrap: altezza naturale, full-bleed ─────────────────── */
-.tl-strip-wrap {
-    flex:     0 0 auto;
+    width:    1px;
+    height:   1px;
+    padding:  0;
+    margin:   -1px;
     overflow: hidden;
+    clip:     rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }
 
-.tl-strip {
-    display:                    flex;
-    flex-direction:             row;
-    align-items:                flex-start;   /* tile allineati in cima, fascia continua */
-    overflow-x:                 auto;
-    overflow-y:                 hidden;
-    scroll-snap-type:           x proximity;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width:            none;
-}
-.tl-strip::-webkit-scrollbar { display: none; }
-
-/* ── ogni tile: larghezza 14u = 100vw/6 (identica alla landing) ── */
-.tl-tile {
-    flex:              0 0 calc(14 * var(--u));
-    display:           flex;
-    flex-direction:    column;
-    scroll-snap-align: start;
-}
-
-/* faccia quadrata */
-.tl-tile__img {
-    position:      relative;
-    width:         100%;
+/* ── ruota circolare che ruota al click ───────────────────────── */
+.bc-dial__wheel {
+    position:      absolute;
+    inset:         var(--pad);
     aspect-ratio:  1;
-    background:    #e8e8e8;
-    flex-shrink:   0;
-    transition:    background .3s ease;
+    border-radius: 50%;
+    border:        1px solid rgba(17, 17, 17, .1);
+    transition:    transform .55s cubic-bezier(.22, 1, .36, 1) var(--duration);
+    list-style:    none;
+    margin:        0;
+    padding:       0;
 }
 
-.tl-tile.is-active .tl-tile__img {
-    background: #7D3B30;   /* stesso scuro del pin musica */
+.bc-dial__wheel > li {
+    position:        absolute;
+    inset:           0;
+    margin:          0;
+    padding:         0;
+    transform-origin: center;
+    display:         grid;
+    place-content:   center;
+    transform:       rotate(calc(var(--i) * var(--full-circle) / var(--items)));
+    pointer-events:  none;
 }
 
-/* numero in basso a sinistra della faccia — come i tile scelta lezioni */
-.tl-tile__num {
-    position:             absolute;
-    left:                 calc(1.1 * var(--u));
-    bottom:               calc(1.1 * var(--u));
-    font-size:            calc(.6 * var(--u));
-    font-weight:          700;
-    letter-spacing:       .07em;
-    color:                rgba(17, 17, 17, .4);
+/* etichetta = anno, sul perimetro */
+.bc-dial__wheel > li > label {
+    position:       absolute;
+    inset:          0;
+    margin:         auto;
+    transform:      translateY(var(--label-offset));
+    width:          var(--label-size);
+    height:         var(--label-size);
+    display:        grid;
+    place-content:  center;
+    cursor:         pointer;
+    pointer-events: initial;
+    text-align:     center;
+    color:          var(--label-color);
+    font-size:      .82rem;
+    font-weight:    600;
+    letter-spacing: .02em;
     font-variant-numeric: tabular-nums;
-    transition:           color .3s ease;
+    transition:     color var(--duration) ease-in-out;
 }
 
-.tl-tile.is-active .tl-tile__num {
-    color: rgba(255, 255, 255, .85);
+/* puntino sul cerchio */
+.bc-dial__wheel > li > label::before {
+    content:       '';
+    position:      absolute;
+    top:           -.65rem;
+    left:          50%;
+    translate:     -50% 0;
+    width:         var(--label-dot-size);
+    height:        var(--label-dot-size);
+    border-radius: 50%;
+    background:    var(--label-color);
+    transition:    background var(--duration) ease-in-out, transform var(--duration) ease-in-out;
 }
 
-/* testo: padding 1.1u a sinistra e destra — come la pagina lezioni */
-.tl-tile__body {
-    display:        flex;
-    flex-direction: column;
-    padding:        calc(.55 * var(--u)) calc(1.1 * var(--u)) 0;
+/* linea che collega il puntino al centro (solo attivo) */
+.bc-dial__wheel > li > label::after {
+    content:    '';
+    position:   absolute;
+    top:        100%;
+    left:       50%;
+    translate:  -50% 5px;
+    width:      2px;
+    height:     var(--label-line-h);
+    background: var(--accent);
+    transition: height .3s ease-in-out var(--label-line-delay, 0ms);
 }
 
-.tl-tile__title {
+.bc-dial__wheel > li > label:hover { --label-color: var(--label-color-hover); }
+
+/* titolo + descrizione dell'evento selezionato (in alto, dritti) */
+.bc-dial__title,
+.bc-dial__info {
+    position:         absolute;
+    left:             50%;
+    text-align:       center;
+    transform:        translate(-50%, 0);
+    transform-origin: center;
+}
+
+.bc-dial__title {
+    top:            var(--title-top);
+    width:          min(90%, 560px);
+    margin:         0;
     font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:      calc(.85 * var(--u));
+    font-size:      clamp(1.6rem, 3.4vw, 2.8rem);
     font-weight:    700;
-    letter-spacing: -.03em;
-    line-height:    1.15;
+    letter-spacing: -.025em;
+    line-height:    1.1;
     text-transform: none;
     color:          var(--ink-1);
-    margin:         0;
-    white-space:    nowrap;
-    overflow:       hidden;
-    text-overflow:  ellipsis;
+    opacity:        var(--title-opacity, 0);
+    translate:      0 var(--title-offset-y, 24px);
+    transition:     opacity var(--duration) ease-in-out var(--title-delay, 0ms),
+                    translate var(--duration) ease-in-out var(--title-delay, 0ms);
 }
 
-.tl-tile__year {
-    font-size:            calc(.55 * var(--u));
-    font-weight:          400;
-    letter-spacing:       .04em;
-    color:                var(--ink-2);
-    font-variant-numeric: tabular-nums;
-    margin-top:           calc(.2 * var(--u));
+.bc-dial__info {
+    top:         var(--info-top);
+    width:       var(--info-width);
+    margin:      0;
+    font-size:   clamp(.85rem, 1.1vw, .95rem);
+    line-height: 1.6;
+    color:       var(--ink-2);
+    opacity:     var(--info-opacity, 0);
+    translate:   0 var(--info-offset-y, 24px);
+    transition:  opacity var(--duration) ease-in-out var(--info-delay, 0ms),
+                 translate var(--duration) ease-in-out var(--info-delay, 0ms);
 }
 
-.tl-tile__desc {
-    font-size:             calc(.58 * var(--u));
-    line-height:           1.55;
-    color:                 var(--ink-2);
-    margin:                calc(.4 * var(--u)) 0 0;
-    display:               -webkit-box;
-    -webkit-line-clamp:    3;
-    -webkit-box-orient:    vertical;
-    overflow:              hidden;
+/* ── stato selezionato: aggiorna le custom property dell'elemento ── */
+.bc-dial__wheel > li:has(input:checked) {
+    --label-color:        var(--accent);
+    --label-line-h:       var(--label-line-h-current);
+    --label-line-delay:   calc(var(--duration) * 2);
+
+    --title-opacity:      1;
+    --title-offset-y:     0;
+    --title-delay:        calc(var(--duration) * 3);
+
+    --info-opacity:       1;
+    --info-offset-y:      0;
+    --info-delay:         calc(var(--duration) * 4);
 }
+
+.bc-dial__wheel > li:has(input:checked) > label {
+    font-size:   .95rem;
+    font-weight: 700;
+}
+
+.bc-dial__wheel > li:has(input:checked) > label::before {
+    transform: scale(1.35);
+}
+
+/* ── rotazione della ruota in base al radio selezionato ───────── */
+.bc-dial__wheel:has(input:checked) {
+    transform: rotate(calc(0deg - (var(--index) * var(--full-circle) / var(--items))));
+}
+
+.bc-dial__wheel:has(li:nth-child(1)  > input:checked) { --index: 0; }
+.bc-dial__wheel:has(li:nth-child(2)  > input:checked) { --index: 1; }
+.bc-dial__wheel:has(li:nth-child(3)  > input:checked) { --index: 2; }
+.bc-dial__wheel:has(li:nth-child(4)  > input:checked) { --index: 3; }
+.bc-dial__wheel:has(li:nth-child(5)  > input:checked) { --index: 4; }
+.bc-dial__wheel:has(li:nth-child(6)  > input:checked) { --index: 5; }
+.bc-dial__wheel:has(li:nth-child(7)  > input:checked) { --index: 6; }
+.bc-dial__wheel:has(li:nth-child(8)  > input:checked) { --index: 7; }
+.bc-dial__wheel:has(li:nth-child(9)  > input:checked) { --index: 8; }
+.bc-dial__wheel:has(li:nth-child(10) > input:checked) { --index: 9; }
+.bc-dial__wheel:has(li:nth-child(11) > input:checked) { --index: 10; }
 
 
 /* ================================================================
@@ -516,12 +490,9 @@
         grid-template-columns: repeat(2, 1fr);
     }
 
-    .tl-tile {
-        flex-basis: calc(100vw / 4);
-    }
-
-    .tl-minimap {
-        height: 5.5rem;
+    .bc-dial {
+        --radius:     38vw;
+        --label-size: 46px;
     }
 }
 
@@ -530,17 +501,15 @@
         width: calc(100% - 2.5rem);
     }
 
-    .tl-shell {
-        padding: 1.25rem 1.25rem .75rem;
+    .bc-dial {
+        --radius:               46vw;
+        --label-size:           40px;
+        --label-line-h-current: 2rem;
+        --title-top:            1.5rem;
+        --info-top:             4.2rem;
     }
 
-    .tl-tile {
-        flex-basis: calc(100vw / 2.5);
-    }
-
-    .tl-minimap {
-        height: 4.5rem;
-    }
+    .bc-dial__title { font-size: clamp(1.3rem, 6vw, 1.8rem); }
 
     .bintro-s2-grid {
         grid-template-columns: 1fr;
