@@ -71,7 +71,7 @@
     flex-direction:  column;
     align-items:     stretch;
     justify-content: center;             /* centrato verticalmente */
-    gap:             clamp(1.25rem, 2.5vh, 2rem);
+    gap:             clamp(3rem, 9vh, 7rem);
 }
 
 /* Shell: altezza naturale (header + minimap) */
@@ -108,18 +108,18 @@
 /* ── mini-map ─────────────────────────────────────────────────── */
 .tl-minimap {
     position: relative;
-    height:   6rem;
+    height:   7rem;
     flex:     0 0 auto;
 }
 
-/* linea unica nera da margine a margine */
+/* linea unica, spessa e grigio scura, da margine a margine */
 .tl-line {
     position:   absolute;
     left:       0;
     right:      0;
     top:        50%;
-    height:     1px;
-    background: #111111;
+    height:     3px;
+    background: #555555;
     transform:  translateY(-50%);
 }
 
@@ -133,22 +133,18 @@
     overflow: visible;
 }
 
-/* ogni pin = quadrato */
+/* ogni pin = quadrato, centrato (tagliato a metà) sulla linea */
 .tl-pin {
     position:   absolute;
     left:       var(--pos);
-    transform:  translateX(-50%);
+    top:        50%;
+    transform:  translate(-50%, -50%);
     margin:     0;
     padding:    0;
     border:     none;
     cursor:     pointer;
     transition: opacity .2s ease, transform .2s ease, box-shadow .2s ease;
 }
-
-/* sopra la linea: base del quadrato sulla linea */
-.tl-pin--above { bottom: 50%; top: auto; }
-/* sotto la linea: cima del quadrato sulla linea */
-.tl-pin--below { top: 50%; bottom: auto; }
 
 /* musica → quadrato grande, terracotta scuro */
 .tl-pin--musica {
@@ -164,20 +160,55 @@
     background: #C37A6B;
 }
 
-.tl-pin:not(.is-active) { opacity: .38; }
-.tl-pin:not(.is-active):hover { opacity: .68; }
+.tl-pin:not(.is-active) { opacity: .4; }
+.tl-pin:not(.is-active):hover { opacity: .72; }
 
 .tl-pin.is-active {
     opacity:    1;
-    transform:  translateX(-50%) scale(1.25);
+    transform:  translate(-50%, -50%) scale(1.2);
     box-shadow: 0 0 0 2px rgba(17, 17, 17, .12);
+    z-index:    3;
+}
+
+/* etichetta evento (nome + data) sopra il pin — solo attivo / hover */
+.tl-pin__label {
+    position:       absolute;
+    bottom:         calc(100% + .5rem);
+    left:           50%;
+    transform:      translateX(-50%);
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+    gap:            1px;
+    white-space:    nowrap;
+    text-align:     center;
+    opacity:        0;
+    pointer-events: none;
+    transition:     opacity .18s ease;
+}
+
+.tl-pin.is-active .tl-pin__label,
+.tl-pin:hover .tl-pin__label { opacity: 1; }
+
+.tl-pin__name {
+    font-size:      .72rem;
+    font-weight:    600;
+    letter-spacing: -.01em;
+    color:          var(--ink-1);
+}
+
+.tl-pin__year {
+    font-size:            .6rem;
+    font-weight:          500;
+    letter-spacing:       .03em;
+    color:                var(--ink-2);
+    font-variant-numeric: tabular-nums;
 }
 
 /* ── strip-wrap: altezza naturale, full-bleed ─────────────────── */
 .tl-strip-wrap {
-    flex:       0 0 auto;
-    overflow:   hidden;
-    border-top: 1px solid #111111;
+    flex:     0 0 auto;
+    overflow: hidden;
 }
 
 .tl-strip {
@@ -202,6 +233,7 @@
 
 /* faccia quadrata */
 .tl-tile__img {
+    position:      relative;
     width:         100%;
     aspect-ratio:  1;
     background:    #e8e8e8;
@@ -211,6 +243,23 @@
 
 .tl-tile.is-active .tl-tile__img {
     background: #7D3B30;   /* stesso scuro del pin musica */
+}
+
+/* numero in basso a sinistra della faccia — come i tile scelta lezioni */
+.tl-tile__num {
+    position:             absolute;
+    left:                 calc(1.1 * var(--u));
+    bottom:               calc(1.1 * var(--u));
+    font-size:            calc(.6 * var(--u));
+    font-weight:          700;
+    letter-spacing:       .07em;
+    color:                rgba(17, 17, 17, .4);
+    font-variant-numeric: tabular-nums;
+    transition:           color .3s ease;
+}
+
+.tl-tile.is-active .tl-tile__num {
+    color: rgba(255, 255, 255, .85);
 }
 
 /* testo: padding 1.1u a sinistra e destra — come la pagina lezioni */
