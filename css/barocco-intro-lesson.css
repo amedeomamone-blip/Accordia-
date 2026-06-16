@@ -67,24 +67,27 @@
    ================================================================ */
 
 .bintro-screen[data-screen="1"] {
+    --u:             calc(100vw / 84);   /* stessa unità della landing */
     flex-direction:  column;
     align-items:     stretch;
-    justify-content: flex-start;
+    justify-content: center;             /* centrato verticalmente */
+    gap:             clamp(1.25rem, 2.5vh, 2rem);
 }
 
-/* zone containing header + mini-map (mini-map full-bleed) */
+/* Shell: altezza naturale (header + minimap) */
 .tl-shell {
-    flex:    0 0 auto;
-    padding: clamp(1.5rem, 3vh, 2.25rem) 0 clamp(.75rem, 1.5vh, 1.25rem);
+    flex:            0 0 auto;
+    display:         flex;
+    flex-direction:  column;
 }
 
-/* ── header strip (inset) ─────────────────────────────────────── */
+/* ── header: rientro = 7u (metà tile) → allineato ai pin estremi ─ */
 .tl-head {
     display:       flex;
     align-items:   baseline;
     gap:           1rem;
-    padding:       0 2rem;
-    margin-bottom: clamp(.6rem, 1.2vh, 1rem);
+    padding:       0 calc(7 * var(--u));
+    margin-bottom: clamp(.35rem, .7vh, .6rem);
 }
 
 .tl-head__eyebrow {
@@ -92,7 +95,7 @@
     font-weight:    600;
     letter-spacing: .12em;
     text-transform: uppercase;
-    color:          var(--accent);
+    color:          var(--ink-1);
 }
 
 .tl-head__range {
@@ -102,79 +105,85 @@
     color:          var(--ink-2);
 }
 
-/* ── mini-map (the single horizontal line + pins) ─────────────── */
+/* ── mini-map ─────────────────────────────────────────────────── */
 .tl-minimap {
     position: relative;
-    height:   7rem;
+    height:   6rem;
+    flex:     0 0 auto;
 }
 
+/* linea unica nera da margine a margine */
 .tl-line {
     position:   absolute;
     left:       0;
     right:      0;
     top:        50%;
     height:     1px;
-    background: rgba(17, 17, 17, .22);
+    background: #111111;
     transform:  translateY(-50%);
 }
 
+/* area dei pin: respiro di 7u da ogni bordo → pin 0% = centro tile 1 */
 .tl-pins {
     position: absolute;
-    inset:    0;
+    left:     calc(7 * var(--u));
+    right:    calc(7 * var(--u));
+    top:      0;
+    bottom:   0;
     overflow: visible;
 }
 
-/* each mini navigator pin = a small colored bar on the line */
+/* ogni pin = quadrato */
 .tl-pin {
-    position:    absolute;
-    left:        clamp(8px, var(--pos), calc(100% - 8px));
-    transform:   translateX(-50%);
-    width:       8px;
-    height:      22px;
-    margin:      0;
-    padding:     0;
-    border:      none;
-    background:  var(--accent);
-    cursor:      pointer;
-    transition:  opacity .2s ease, transform .2s ease, box-shadow .2s ease;
+    position:   absolute;
+    left:       var(--pos);
+    transform:  translateX(-50%);
+    margin:     0;
+    padding:    0;
+    border:     none;
+    cursor:     pointer;
+    transition: opacity .2s ease, transform .2s ease, box-shadow .2s ease;
 }
 
-/* above: bar sits above the line (its bottom touches the line) */
+/* sopra la linea: base del quadrato sulla linea */
 .tl-pin--above { bottom: 50%; top: auto; }
-
-/* below: bar sits below the line (its top touches the line) */
+/* sotto la linea: cima del quadrato sulla linea */
 .tl-pin--below { top: 50%; bottom: auto; }
 
-/* storia: bar più piccolo e in tonalità terracotta scura */
-.tl-pin--storia {
-    width:      6px;
-    height:     15px;
-    background: #8A5248;
+/* musica → quadrato grande, terracotta scuro */
+.tl-pin--musica {
+    width:      calc(1.35 * var(--u));
+    height:     calc(1.35 * var(--u));
+    background: #7D3B30;
 }
 
-/* states */
-.tl-pin:not(.is-active) { opacity: .4; }
-.tl-pin:not(.is-active):hover { opacity: .7; }
+/* storia → quadrato piccolo, terracotta standard */
+.tl-pin--storia {
+    width:      calc(0.82 * var(--u));
+    height:     calc(0.82 * var(--u));
+    background: #C37A6B;
+}
+
+.tl-pin:not(.is-active) { opacity: .38; }
+.tl-pin:not(.is-active):hover { opacity: .68; }
 
 .tl-pin.is-active {
-    transform:  translateX(-50%) scaleX(1.7);
-    box-shadow: 0 0 0 1px rgba(195, 122, 107, .5);
+    opacity:    1;
+    transform:  translateX(-50%) scale(1.25);
+    box-shadow: 0 0 0 2px rgba(17, 17, 17, .12);
 }
 
-/* ── tile strip (full-bleed, horizontally scrollable) ─────────── */
+/* ── strip-wrap: altezza naturale, full-bleed ─────────────────── */
 .tl-strip-wrap {
-    flex:       1 1 auto;
-    min-height: 0;
+    flex:       0 0 auto;
     overflow:   hidden;
-    border-top: 1px solid rgba(17, 17, 17, .1);
+    border-top: 1px solid #111111;
 }
 
 .tl-strip {
-    --u:                        calc(100vw / 84);   /* stessa unità della landing */
     display:                    flex;
     flex-direction:             row;
-    align-items:                center;             /* tile centrati in verticale */
-    height:                     100%;
+    align-items:                flex-start;   /* tile allineati in cima, fascia continua */
     overflow-x:                 auto;
     overflow-y:                 hidden;
     scroll-snap-type:           x proximity;
@@ -183,31 +192,32 @@
 }
 .tl-strip::-webkit-scrollbar { display: none; }
 
-/* ── each large tile (stessa dimensione dei tile della landing: 14u) ── */
+/* ── ogni tile: larghezza 14u = 100vw/6 (identica alla landing) ── */
 .tl-tile {
-    flex:              0 0 calc(14 * var(--u));   /* = 100vw/6 */
+    flex:              0 0 calc(14 * var(--u));
     display:           flex;
     flex-direction:    column;
     scroll-snap-align: start;
 }
 
-/* placeholder immagine quadrato (come la faccia dei tile landing) */
+/* faccia quadrata */
 .tl-tile__img {
     width:         100%;
-    aspect-ratio:  1;                              /* quadrato */
+    aspect-ratio:  1;
     background:    #e8e8e8;
+    flex-shrink:   0;
     transition:    background .3s ease;
 }
 
 .tl-tile.is-active .tl-tile__img {
-    background: var(--accent);
+    background: #7D3B30;   /* stesso scuro del pin musica */
 }
 
-/* testo sotto la faccia quadrata */
+/* testo: padding 1.1u a sinistra e destra — come la pagina lezioni */
 .tl-tile__body {
     display:        flex;
     flex-direction: column;
-    padding:        calc(.55 * var(--u)) calc(1.1 * var(--u)) 0 0;
+    padding:        calc(.55 * var(--u)) calc(1.1 * var(--u)) 0;
 }
 
 .tl-tile__title {
@@ -216,19 +226,21 @@
     font-weight:    700;
     letter-spacing: -.03em;
     line-height:    1.15;
-    text-transform: none;                          /* override globale h3 uppercase */
+    text-transform: none;
     color:          var(--ink-1);
     margin:         0;
+    white-space:    nowrap;
+    overflow:       hidden;
+    text-overflow:  ellipsis;
 }
 
-/* data SOTTO il titolo */
 .tl-tile__year {
-    font-size:      calc(.55 * var(--u));
-    font-weight:    400;
-    letter-spacing: .04em;
-    color:          var(--ink-2);
+    font-size:            calc(.55 * var(--u));
+    font-weight:          400;
+    letter-spacing:       .04em;
+    color:                var(--ink-2);
     font-variant-numeric: tabular-nums;
-    margin-top:     calc(.2 * var(--u));
+    margin-top:           calc(.2 * var(--u));
 }
 
 .tl-tile__desc {
