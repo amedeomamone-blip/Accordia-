@@ -104,43 +104,69 @@
     border-width: 0;
 }
 
-/* ── titolo + descrizione: area fissa in alto, dritti ─────────── */
-.bc-dial__heads {
-    position:   absolute;
-    top:        clamp(2rem, 7vh, 4.5rem);
-    left:       50%;
-    transform:  translateX(-50%);
-    width:      min(92%, 820px);
-    text-align: center;
+/* ── area in alto: eyebrow fisso + stack titoli dinamici ─────── */
+.bc-dial__toparea {
+    position:       absolute;
+    top:            clamp(3rem, 10vh, 6rem);
+    left:           50%;
+    transform:      translateX(-50%);
+    width:          min(92%, 820px);
+    text-align:     left;
     pointer-events: none;
+}
+
+/* eyebrow "Linea del tempo" — come "Introduzione" sulla landing */
+.bc-dial__eyebrow {
+    display:        block;
+    font-size:      clamp(.68rem, .65vw, .8rem);
+    font-weight:    600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color:          var(--ink-2);
+    margin-bottom:  .9rem;
+}
+
+/* contenitore stack dei titoli (tutti sovrapposti, solo uno visibile) */
+.bc-dial__heads {
+    position:   relative;
+    min-height: 12rem;
 }
 
 .bc-dial__head {
     position:   absolute;
     top:        0;
-    left:       50%;
-    transform:  translateX(-50%);
+    left:       0;
     width:      100%;
     opacity:    0;
-    translate:  0 18px;
+    translate:  0 14px;
     transition: opacity .28s ease, translate .28s ease;
 }
 
+/* data nel titolo */
+.bc-dial__head-yr {
+    margin:               0 0 .4rem;
+    font-size:            .82rem;
+    font-weight:          600;
+    letter-spacing:       .04em;
+    font-variant-numeric: tabular-nums;
+    color:                var(--accent);
+}
+
 .bc-dial__title {
-    margin:         0 0 1rem;
+    margin:         0 0 .75rem;
     font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:      clamp(2rem, 4.5vw, 4rem);
-    font-weight:    700;
-    letter-spacing: -.03em;
-    line-height:    1.05;
+    font-size:      clamp(1.4rem, 3vw, 3.2rem);
+    font-weight:    800;
+    letter-spacing: -.04em;
+    line-height:    1.1;
     text-transform: none;
     color:          var(--ink-1);
 }
 
 .bc-dial__info {
-    margin:      0 auto;
+    margin:      0;
     max-width:   54ch;
-    font-size:   clamp(.9rem, calc(100vw / 84 * 0.85), 1.4rem);
+    font-size:   clamp(.88rem, calc(100vw / 84 * 0.85), 1.2rem);
     font-weight: 400;
     line-height: 1.85;
     color:       rgba(17, 17, 17, .52);
@@ -236,16 +262,16 @@
     transform:  scale(1.5);
 }
 
-/* la data resta visibile anche sul tile centrale */
+/* pallino attivo: anno + titolo entrambi visibili, in evidenza */
 .bc-dial__wheel > li:has(input:checked) .bc-dial__yr {
     color:       var(--accent);
-    font-size:   .85rem;
+    font-size:   .8rem;
     font-weight: 700;
 }
 
-/* il nome evento sul centrale sparisce (è già nel titolo in alto) */
 .bc-dial__wheel > li:has(input:checked) .bc-dial__ev {
-    opacity: 0;
+    color:   var(--accent);
+    opacity: 1;
 }
 
 /* mostra il titolo/descrizione corrispondente al punto selezionato */
