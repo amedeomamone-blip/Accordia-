@@ -16,12 +16,13 @@
 
     /* ── HTL: barra scroll-aware + anno centrato sulla punta ───── */
     (function htl() {
-        var htlEl  = document.querySelector('.htl');
-        var scroll = document.querySelector('.htl__scroll');
-        var label  = document.querySelector('.htl__year-label');
+        var htlEl     = document.querySelector('.htl');
+        var scroll    = document.querySelector('.htl__scroll');
+        var label     = document.querySelector('.htl__year-label');
         if (!htlEl || !scroll || !label) return;
 
-        var items = htlEl.querySelectorAll('.htl__item');
+        var items     = htlEl.querySelectorAll('.htl__item');
+        var yearSpans = Array.prototype.slice.call(label.querySelectorAll('span'));
 
         function checkedIdx() {
             var checked = htlEl.querySelector('input[name="htl"]:checked');
@@ -46,24 +47,39 @@
             }
         }
 
+        /* Anno: solo la span attiva è visibile — JS override sufficiente */
+        function updateYearSpan() {
+            var idx = checkedIdx();
+            yearSpans.forEach(function (span, i) {
+                span.style.opacity = i === idx ? '1' : '0';
+            });
+        }
+
         /* Anno centrato sulla punta della barra */
         function updateLabel() {
             var itemW = items[0] ? items[0].offsetWidth : 0;
             if (!itemW) return;
-            var barTip   = (checkedIdx() + 0.5) * itemW - scroll.scrollLeft;
-            var halfSelf = label.offsetWidth / 2 || 20;
-            var leftEdge = barTip - halfSelf;
-            var clamped  = Math.max(0, Math.min(leftEdge, scroll.clientWidth - label.offsetWidth));
+            var activeSpan = yearSpans[checkedIdx()];
+            var halfSelf   = activeSpan ? activeSpan.offsetWidth / 2 : 20;
+            var barTip     = (checkedIdx() + 0.5) * itemW - scroll.scrollLeft;
+            var leftEdge   = barTip - halfSelf;
+            var maxLeft    = scroll.clientWidth - (activeSpan ? activeSpan.offsetWidth : 40);
+            var clamped    = Math.max(0, Math.min(leftEdge, maxLeft));
             label.style.left      = clamped + 'px';
             label.style.transform = 'none';
         }
 
         htlEl.querySelectorAll('input[name="htl"]').forEach(function (r) {
-            r.addEventListener('change', function () { updateBar(true);  updateLabel(); });
+            r.addEventListener('change', function () {
+                updateYearSpan();
+                updateBar(true);
+                updateLabel();
+            });
         });
         scroll.addEventListener('scroll', function () { updateBar(false); updateLabel(); }, { passive: true });
         window.addEventListener('resize', function () { updateBar(false); updateLabel(); });
-        window.addEventListener('load',   function () { updateBar(false); updateLabel(); });
+        window.addEventListener('load',   function () { updateYearSpan(); updateBar(false); updateLabel(); });
+        updateYearSpan();
         updateBar(false);
         updateLabel();
     })();
