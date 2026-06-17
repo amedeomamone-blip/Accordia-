@@ -156,9 +156,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 .barocco-tile__sub {
     display: block;
     padding: calc(.2 * var(--u)) calc(1.1 * var(--u)) calc(.6 * var(--u));
-    font-size: calc(.85 * var(--u));
+    font-size: calc(.55 * var(--u));
     font-weight: 400;
-    line-height: var(--lh-body, 1.85);
     letter-spacing: .04em;
     color: rgba(17,17,17,.38);
     font-variant-numeric: tabular-nums;
