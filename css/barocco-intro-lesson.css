@@ -63,88 +63,74 @@
 }
 
 /* ================================================================
-   SCREEN 1 — Timeline (quadrante rotante · rotary dial)
+   SCREEN 1 — Linea del tempo orizzontale
    ================================================================ */
 
 .bintro-screen[data-screen="1"] {
-    background:      var(--bg-1);   /* slide bianca */
-    align-items:     center;
-    justify-content: center;
-    overflow:        hidden;
+    background: var(--bg-1);
+    overflow:   hidden;
 }
 
-/* ── contenitore: riempie la slide; il quadrante poggia sulla base ─ */
-.bc-dial {
-    --full-circle:           360deg;
-    --step:                  24deg;   /* passo angolare: più piccolo → più pallini visibili nella semicirconferenza */
-    --radius:                min(54vh, 46vw);
-    --duration:              200ms;
+/* ── contenitore: flex colonna, timeline spinata in basso ──────── */
+.htl {
+    --row-h:    clamp(52px, 7.5vw, 90px);   /* altezza righe sopra/sotto la linea */
+    --img-size: calc(var(--row-h) - .5rem); /* quadrati leggermente più piccoli della riga */
+    --dot-size: 10px;
+    --duration: 200ms;
 
-    /* centro della ruota esattamente sulla base → semicirconferenza esatta */
-    --center-raise:          0px;
-
-    --label-color:           rgba(17, 17, 17, .42);
-    --label-color-hover:     var(--accent);
-    --dot-size:              10px;
-
-    position: absolute;
-    inset:    0;
+    position:       absolute;
+    inset:          0;
+    display:        flex;
+    flex-direction: column;
+    padding:        clamp(2.5rem, 8vh, 5rem)
+                    clamp(2rem,   5vw, 4rem)
+                    clamp(2rem,   6vh, 3.5rem);
 }
 
-/* radio nascosti (controllo CSS-only) */
-.bc-dial input[type="radio"] {
-    position: absolute;
-    width:    1px;
-    height:   1px;
-    padding:  0;
-    margin:   -1px;
-    overflow: hidden;
-    clip:     rect(0, 0, 0, 0);
+.htl input[type="radio"] {
+    position:    absolute;
+    width:       1px;
+    height:      1px;
+    margin:      -1px;
+    overflow:    hidden;
+    clip:        rect(0, 0, 0, 0);
     white-space: nowrap;
     border-width: 0;
 }
 
-/* ── area in alto: eyebrow fisso + stack titoli dinamici ─────── */
-.bc-dial__toparea {
-    position:       absolute;
-    top:            clamp(3rem, 10vh, 6rem);
-    left:           50%;
-    transform:      translateX(-50%);
-    width:          min(92%, 820px);
-    text-align:     left;
-    pointer-events: none;
+/* ── info dinamica (eyebrow + stack titoli) ─────────────────────── */
+.htl__top {
+    flex:       0 0 auto;
+    text-align: left;
 }
 
-/* eyebrow "Linea del tempo" — come "Introduzione" sulla landing */
-.bc-dial__eyebrow {
+.htl__eyebrow {
     display:        block;
     font-size:      clamp(.68rem, .65vw, .8rem);
     font-weight:    600;
     letter-spacing: .12em;
     text-transform: uppercase;
     color:          var(--ink-2);
-    margin-bottom:  .9rem;
+    margin-bottom:  .85rem;
 }
 
-/* contenitore stack dei titoli (tutti sovrapposti, solo uno visibile) */
-.bc-dial__heads {
+.htl__heads {
     position:   relative;
-    min-height: 12rem;
+    min-height: 8.5rem;
 }
 
-.bc-dial__head {
+.htl__head {
     position:   absolute;
     top:        0;
     left:       0;
     width:      100%;
     opacity:    0;
-    translate:  0 14px;
+    translate:  0 12px;
     transition: opacity .28s ease, translate .28s ease;
 }
 
-/* data nel titolo */
-.bc-dial__head-yr {
-    margin:               0 0 .4rem;
+.htl__head-yr {
+    margin:               0 0 .3rem;
     font-size:            .82rem;
     font-weight:          600;
     letter-spacing:       .04em;
@@ -152,8 +138,8 @@
     color:                var(--accent);
 }
 
-.bc-dial__title {
-    margin:         0 0 .75rem;
+.htl__title {
+    margin:         0 0 .55rem;
     font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
     font-size:      clamp(1.4rem, 3vw, 3.2rem);
     font-weight:    800;
@@ -163,149 +149,165 @@
     color:          var(--ink-1);
 }
 
-.bc-dial__info {
+.htl__info {
     margin:      0;
-    max-width:   54ch;
-    font-size:   clamp(.88rem, calc(100vw / 84 * 0.85), 1.2rem);
+    max-width:   52ch;
+    font-size:   clamp(.88rem, calc(100vw / 84 * 0.85), 1.15rem);
     font-weight: 400;
     line-height: 1.85;
     color:       rgba(17, 17, 17, .52);
 }
 
-/* ── posizionamento della ruota: centro sollevato dalla base ──── */
-.bc-dial__wheelwrap {
-    position:  absolute;
-    left:      50%;
-    top:       calc(100% - var(--center-raise));
-    width:     calc(2 * var(--radius));
-    height:    calc(2 * var(--radius));
-    transform: translate(-50%, -50%);
+/* ── track (linea + eventi), spinato in fondo ──────────────────── */
+.htl__track {
+    flex:      0 0 auto;
+    margin-top: auto;
+    position:  relative;
 }
 
-/* ── ruota circolare che ruota al click ───────────────────────── */
-.bc-dial__wheel {
-    position:      absolute;
-    inset:         0;
-    border-radius: 50%;
-    border:        1px solid rgba(17, 17, 17, .12);
-    transition:    transform .55s cubic-bezier(.22, 1, .36, 1) var(--duration);
-    list-style:    none;
-    margin:        0;
-    padding:       0;
+/* linea orizzontale: passa al centro del dot-row */
+.htl__line {
+    position:   absolute;
+    left:       0;
+    right:      0;
+    height:     1px;
+    background: rgba(17, 17, 17, .14);
+    top:        calc(var(--row-h) + var(--dot-size) / 2);
+    pointer-events: none;
 }
 
-.bc-dial__wheel > li {
-    position:        absolute;
-    inset:           0;
+/* lista degli 11 eventi */
+.htl__items {
+    display:         flex;
+    justify-content: space-between;
+    align-items:     stretch;
+    list-style:      none;
     margin:          0;
     padding:         0;
-    transform-origin: center;
-    transform:       rotate(calc(var(--i) * var(--step)));
-    pointer-events:  none;
+    position:        relative;
+    z-index:         1;
 }
 
-/* etichetta = pallino + testo radiale, ancorata sulla circonferenza */
-.bc-dial__wheel > li > label {
-    position:       absolute;
-    left:           50%;
-    top:            50%;
-    transform:      translate(-50%, calc(-1 * var(--radius) - var(--dot-size) / 2));
-    display:        flex;
-    flex-direction: column;
-    align-items:    center;
-    gap:            .35rem;
-    cursor:         pointer;
-    pointer-events: initial;
+.htl__item {
+    flex:            1;
+    display:         flex;
+    justify-content: center;
+    min-width:       0;
 }
 
-/* pallino "spento": cerchio grigio */
-.bc-dial__wheel > li > label::before {
-    content:       '';
+/* griglia a 3 righe [sopra-linea | dot | sotto-linea]:
+   tutti i dot si allineano alla stessa Y indipendentemente dall'alternanza */
+.htl__item > label {
+    display:            grid;
+    grid-template-rows: var(--row-h) var(--dot-size) var(--row-h);
+    justify-items:      center;
+    cursor:             pointer;
+}
+
+/* riga 1 (default, item dispari): riquadro immagine quadrato */
+.htl__img {
+    grid-row:      1;
+    align-self:    end;
+    width:         var(--img-size);
+    height:        var(--img-size);
+    border:        1px solid rgba(17, 17, 17, .12);
+    background:    #f7f5f2;
+    margin-bottom: .35rem;
+    transition:    border-color var(--duration) ease, background var(--duration) ease;
+}
+
+/* riga 2: dot sulla linea */
+.htl__dot {
+    grid-row:      2;
+    align-self:    center;
     width:         var(--dot-size);
     height:        var(--dot-size);
     border-radius: 50%;
     background:    #d4d4d4;
-    flex-shrink:   0;
     transition:    background var(--duration) ease, transform var(--duration) ease;
 }
 
-/* anno sotto il pallino */
-.bc-dial__yr {
-    font-size:            .7rem;
+/* riga 3 (default): anno + nome evento */
+.htl__meta {
+    grid-row:       3;
+    align-self:     start;
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+    gap:            .16rem;
+    padding-top:    .35rem;
+    text-align:     center;
+}
+
+.htl__item-yr {
+    font-size:            .62rem;
     font-weight:          700;
     letter-spacing:       .02em;
     font-variant-numeric: tabular-nums;
-    color:                var(--label-color);
+    color:                rgba(17, 17, 17, .42);
     white-space:          nowrap;
-    transition:           color var(--duration) ease, font-size var(--duration) ease;
+    transition:           color var(--duration) ease;
 }
 
-/* nome evento sotto l'anno */
-.bc-dial__ev {
-    font-size:   .6rem;
+.htl__item-ev {
+    font-size:   .54rem;
     font-weight: 500;
-    line-height: 1.15;
-    text-align:  center;
-    max-width:   9ch;
-    color:       rgba(17, 17, 17, .4);
-    transition:  opacity var(--duration) ease, color var(--duration) ease;
+    line-height: 1.2;
+    max-width:   8ch;
+    color:       rgba(17, 17, 17, .33);
+    transition:  color var(--duration) ease;
 }
 
-/* hover */
-.bc-dial__wheel > li > label:hover::before { background: #b8b8b8; }
-.bc-dial__wheel > li > label:hover .bc-dial__yr,
-.bc-dial__wheel > li > label:hover .bc-dial__ev { color: var(--accent); }
+/* alternanza: item pari → immagine in row 3, meta in row 1 */
+.htl__item:nth-child(even) .htl__img {
+    grid-row:    3;
+    align-self:  start;
+    margin-bottom: 0;
+    margin-top:  .35rem;
+}
+.htl__item:nth-child(even) .htl__meta {
+    grid-row:       1;
+    align-self:     end;
+    padding-top:    0;
+    padding-bottom: .35rem;
+}
 
-/* ── selezionato: pallino terracotta + data evidenziata ───────── */
-.bc-dial__wheel > li:has(input:checked) > label::before {
+/* ── hover ─────────────────────────────────────────────────────── */
+.htl__item > label:hover .htl__dot     { background: #b8b8b8; }
+.htl__item > label:hover .htl__img     { border-color: rgba(17, 17, 17, .28); }
+.htl__item > label:hover .htl__item-yr,
+.htl__item > label:hover .htl__item-ev { color: var(--accent); }
+
+/* ── selezionato ─────────────────────────────────────────────── */
+.htl__item:has(input:checked) .htl__dot {
     background: var(--accent);
-    transform:  scale(1.5);
+    transform:  scale(1.6);
 }
-
-/* pallino attivo: anno + titolo entrambi visibili, in evidenza */
-.bc-dial__wheel > li:has(input:checked) .bc-dial__yr {
-    color:       var(--accent);
-    font-size:   .8rem;
-    font-weight: 700;
+.htl__item:has(input:checked) .htl__img {
+    border-color: var(--accent);
+    background:   rgba(195, 122, 107, .06);
 }
-
-.bc-dial__wheel > li:has(input:checked) .bc-dial__ev {
-    color:   var(--accent);
-    opacity: 1;
+.htl__item:has(input:checked) .htl__item-yr {
+    color:     var(--accent);
+    font-size: .7rem;
 }
+.htl__item:has(input:checked) .htl__item-ev { color: var(--ink-1); }
 
-/* mostra il titolo/descrizione corrispondente al punto selezionato */
-.bc-dial:has(.bc-dial__wheel > li:nth-child(1)  > input:checked) .bc-dial__head:nth-child(1),
-.bc-dial:has(.bc-dial__wheel > li:nth-child(2)  > input:checked) .bc-dial__head:nth-child(2),
-.bc-dial:has(.bc-dial__wheel > li:nth-child(3)  > input:checked) .bc-dial__head:nth-child(3),
-.bc-dial:has(.bc-dial__wheel > li:nth-child(4)  > input:checked) .bc-dial__head:nth-child(4),
-.bc-dial:has(.bc-dial__wheel > li:nth-child(5)  > input:checked) .bc-dial__head:nth-child(5),
-.bc-dial:has(.bc-dial__wheel > li:nth-child(6)  > input:checked) .bc-dial__head:nth-child(6),
-.bc-dial:has(.bc-dial__wheel > li:nth-child(7)  > input:checked) .bc-dial__head:nth-child(7),
-.bc-dial:has(.bc-dial__wheel > li:nth-child(8)  > input:checked) .bc-dial__head:nth-child(8),
-.bc-dial:has(.bc-dial__wheel > li:nth-child(9)  > input:checked) .bc-dial__head:nth-child(9),
-.bc-dial:has(.bc-dial__wheel > li:nth-child(10) > input:checked) .bc-dial__head:nth-child(10),
-.bc-dial:has(.bc-dial__wheel > li:nth-child(11) > input:checked) .bc-dial__head:nth-child(11) {
+/* ── rivela il titolo corrispondente ─────────────────────────── */
+.htl:has(.htl__item:nth-child(1)  input:checked) .htl__head:nth-child(1),
+.htl:has(.htl__item:nth-child(2)  input:checked) .htl__head:nth-child(2),
+.htl:has(.htl__item:nth-child(3)  input:checked) .htl__head:nth-child(3),
+.htl:has(.htl__item:nth-child(4)  input:checked) .htl__head:nth-child(4),
+.htl:has(.htl__item:nth-child(5)  input:checked) .htl__head:nth-child(5),
+.htl:has(.htl__item:nth-child(6)  input:checked) .htl__head:nth-child(6),
+.htl:has(.htl__item:nth-child(7)  input:checked) .htl__head:nth-child(7),
+.htl:has(.htl__item:nth-child(8)  input:checked) .htl__head:nth-child(8),
+.htl:has(.htl__item:nth-child(9)  input:checked) .htl__head:nth-child(9),
+.htl:has(.htl__item:nth-child(10) input:checked) .htl__head:nth-child(10),
+.htl:has(.htl__item:nth-child(11) input:checked) .htl__head:nth-child(11) {
     opacity:   1;
     translate: 0 0;
 }
-
-/* ── rotazione della ruota in base al radio selezionato ───────── */
-.bc-dial__wheel:has(input:checked) {
-    transform: rotate(calc(0deg - (var(--index) * var(--step))));
-}
-
-.bc-dial__wheel:has(li:nth-child(1)  > input:checked) { --index: 0; }
-.bc-dial__wheel:has(li:nth-child(2)  > input:checked) { --index: 1; }
-.bc-dial__wheel:has(li:nth-child(3)  > input:checked) { --index: 2; }
-.bc-dial__wheel:has(li:nth-child(4)  > input:checked) { --index: 3; }
-.bc-dial__wheel:has(li:nth-child(5)  > input:checked) { --index: 4; }
-.bc-dial__wheel:has(li:nth-child(6)  > input:checked) { --index: 5; }
-.bc-dial__wheel:has(li:nth-child(7)  > input:checked) { --index: 6; }
-.bc-dial__wheel:has(li:nth-child(8)  > input:checked) { --index: 7; }
-.bc-dial__wheel:has(li:nth-child(9)  > input:checked) { --index: 8; }
-.bc-dial__wheel:has(li:nth-child(10) > input:checked) { --index: 9; }
-.bc-dial__wheel:has(li:nth-child(11) > input:checked) { --index: 10; }
 
 
 /* ================================================================
