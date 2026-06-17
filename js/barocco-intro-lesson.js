@@ -14,7 +14,7 @@
     window.addEventListener('resize', syncH);
     window.addEventListener('load',   syncH);
 
-    /* ── HTL: anno segue il bordo nero della barra (scroll-aware) ── */
+    /* ── HTL: barra scroll-aware + anno centrato sulla punta ───── */
     (function htl() {
         var htlEl  = document.querySelector('.htl');
         var scroll = document.querySelector('.htl__scroll');
@@ -23,15 +23,34 @@
 
         var items = htlEl.querySelectorAll('.htl__item');
 
-        /* L'anno si posiziona centrato sulla punta della barra:
-           prime 2 cifre sul colore, ultime 2 sul grigio. */
-        function updateLabel() {
+        function checkedIdx() {
             var checked = htlEl.querySelector('input[name="htl"]:checked');
             var idx = 0;
             items.forEach(function (item, i) { if (item.contains(checked)) idx = i; });
+            return idx;
+        }
+
+        function barTarget() {
+            var itemW = items[0] ? items[0].offsetWidth : 0;
+            if (!itemW) return 0;
+            return Math.max(0, (checkedIdx() + 0.5) * itemW - scroll.scrollLeft);
+        }
+
+        /* Barra: animata su change, istantanea su scroll/resize */
+        function updateBar(animate) {
+            var w = barTarget();
+            if (animate && typeof gsap !== 'undefined') {
+                gsap.to(htlEl, { '--bar-vis-w': w + 'px', duration: 0.5, ease: 'power3.out' });
+            } else {
+                htlEl.style.setProperty('--bar-vis-w', w + 'px');
+            }
+        }
+
+        /* Anno centrato sulla punta della barra */
+        function updateLabel() {
             var itemW = items[0] ? items[0].offsetWidth : 0;
             if (!itemW) return;
-            var barTip   = (idx + 0.5) * itemW - scroll.scrollLeft;
+            var barTip   = (checkedIdx() + 0.5) * itemW - scroll.scrollLeft;
             var halfSelf = label.offsetWidth / 2 || 20;
             var leftEdge = barTip - halfSelf;
             var clamped  = Math.max(0, Math.min(leftEdge, scroll.clientWidth - label.offsetWidth));
@@ -40,11 +59,12 @@
         }
 
         htlEl.querySelectorAll('input[name="htl"]').forEach(function (r) {
-            r.addEventListener('change', updateLabel);
+            r.addEventListener('change', function () { updateBar(true);  updateLabel(); });
         });
-        scroll.addEventListener('scroll',  updateLabel, { passive: true });
-        window.addEventListener('resize',  updateLabel);
-        window.addEventListener('load',    updateLabel);
+        scroll.addEventListener('scroll', function () { updateBar(false); updateLabel(); }, { passive: true });
+        window.addEventListener('resize', function () { updateBar(false); updateLabel(); });
+        window.addEventListener('load',   function () { updateBar(false); updateLabel(); });
+        updateBar(false);
         updateLabel();
     })();
 
