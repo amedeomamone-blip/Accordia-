@@ -71,20 +71,22 @@
     overflow:   hidden;
 }
 
-/* ── contenitore: flex colonna, timeline spinata in basso ──────── */
+/* ── contenitore: flex colonna centrata verticalmente ─────────── */
 .htl {
-    --row-h:    clamp(52px, 7.5vw, 90px);   /* altezza righe sopra/sotto la linea */
-    --img-size: calc(var(--row-h) - .5rem); /* quadrati leggermente più piccoli della riga */
+    --row-h:    110px;   /* altezza fissa — item a larghezza fissa, scroll orizzontale */
+    --img-size: 90px;    /* quadrato immagine */
+    --item-w:   150px;   /* larghezza fissa per item — 11×150 = 1650px → scroll */
     --dot-size: 10px;
     --duration: 200ms;
 
-    position:       absolute;
-    inset:          0;
-    display:        flex;
-    flex-direction: column;
-    padding:        clamp(2.5rem, 8vh, 5rem)
-                    clamp(2rem,   5vw, 4rem)
-                    clamp(2rem,   6vh, 3.5rem);
+    position:        absolute;
+    inset:           0;
+    display:         flex;
+    flex-direction:  column;
+    justify-content: center;   /* centrato verticalmente */
+    gap:             clamp(2rem, 5vh, 3.5rem);
+    padding-top:     clamp(2rem, 6vh, 4rem);
+    padding-bottom:  clamp(2rem, 6vh, 4rem);
 }
 
 .htl input[type="radio"] {
@@ -100,8 +102,8 @@
 
 /* ── info dinamica (eyebrow + stack titoli) ─────────────────────── */
 .htl__top {
-    flex:       0 0 auto;
-    text-align: left;
+    flex:    0 0 auto;
+    padding: 0 clamp(2rem, 5vw, 4rem);
 }
 
 .htl__eyebrow {
@@ -158,41 +160,46 @@
     color:       rgba(17, 17, 17, .52);
 }
 
-/* ── track (linea + eventi), spinato in fondo ──────────────────── */
+/* ── track scrollabile orizzontalmente ─────────────────────────── */
 .htl__track {
-    flex:      0 0 auto;
-    margin-top: auto;
-    position:  relative;
+    flex: 0 0 auto;
 }
 
-/* linea orizzontale: passa al centro del dot-row */
-.htl__line {
-    position:   absolute;
-    left:       0;
-    right:      0;
-    height:     1px;
-    background: rgba(17, 17, 17, .14);
-    top:        calc(var(--row-h) + var(--dot-size) / 2);
+/* wrapper scroll: nasconde la scrollbar, lascia scorrere */
+.htl__scroll {
+    overflow-x:      auto;
+    overflow-y:      hidden;
+    scrollbar-width: none;          /* Firefox */
+    padding:         0 clamp(2rem, 5vw, 4rem);  /* primo/ultimo item allineato al testo sopra */
+}
+.htl__scroll::-webkit-scrollbar { display: none; }
+
+/* lista degli 11 eventi — larghezza totale = n × item-w → scroll */
+.htl__items {
+    display:  flex;
+    list-style: none;
+    margin:   0;
+    padding:  0;
+    width:    max-content;
+    position: relative;
+}
+
+/* linea orizzontale come ::before su items: si estende su tutto il contenuto */
+.htl__items::before {
+    content:        '';
+    position:       absolute;
+    left:           0;
+    right:          0;
+    height:         1px;
+    background:     rgba(17, 17, 17, .14);
+    top:            calc(var(--row-h) + var(--dot-size) / 2);
     pointer-events: none;
 }
 
-/* lista degli 11 eventi */
-.htl__items {
-    display:         flex;
-    justify-content: space-between;
-    align-items:     stretch;
-    list-style:      none;
-    margin:          0;
-    padding:         0;
-    position:        relative;
-    z-index:         1;
-}
-
 .htl__item {
-    flex:            1;
+    flex:            0 0 var(--item-w);   /* larghezza fissa, no shrink */
     display:         flex;
     justify-content: center;
-    min-width:       0;
 }
 
 /* griglia a 3 righe [sopra-linea | dot | sotto-linea]:
