@@ -137,7 +137,7 @@
     font-weight:          600;
     letter-spacing:       .04em;
     font-variant-numeric: tabular-nums;
-    color:                var(--accent);
+    color:                rgba(17, 17, 17, .52);
 }
 
 .htl__title {
@@ -203,7 +203,7 @@
     left:       0;
     width:      calc((var(--progress-idx, 0) + 0.5) * var(--item-w));
     height:     3px;
-    background: var(--accent);
+    background: #111111;
     top:        calc(var(--row-h) + var(--dot-size) / 2 - 1px);
     transition: width .5s cubic-bezier(.22, 1, .36, 1);
     pointer-events: none;
@@ -306,23 +306,23 @@
 }
 
 /* ── hover ─────────────────────────────────────────────────────── */
-.htl__item > label:hover .htl__dot     { background: #b8b8b8; }
-.htl__item > label:hover .htl__img     { border-color: rgba(17, 17, 17, .28); }
+.htl__item > label:hover .htl__dot     { background: #888888; }
+.htl__item > label:hover .htl__img     { border-color: rgba(17, 17, 17, .35); }
 .htl__item > label:hover .htl__item-yr,
-.htl__item > label:hover .htl__item-ev { color: var(--accent); }
+.htl__item > label:hover .htl__item-ev { color: #111111; }
 
 /* ── selezionato ─────────────────────────────────────────────── */
 .htl__item:has(input:checked) .htl__dot {
-    background: var(--accent);
+    background: #111111;
     transform:  scale(1.6);
 }
 .htl__item:has(input:checked) .htl__img {
-    border-color: var(--accent);
-    background:   rgba(195, 122, 107, .06);
+    border-color: rgba(17, 17, 17, .55);
+    background:   rgba(17, 17, 17, .04);
 }
 .htl__item:has(input:checked) .htl__item-yr {
-    color:     var(--accent);
-    font-size: .7rem;
+    color:     rgba(17, 17, 17, .52);
+    font-size: .62rem;
 }
 .htl__item:has(input:checked) .htl__item-ev { color: var(--ink-1); }
 
@@ -556,9 +556,10 @@
    ================================================================ */
 @media (min-width: 601px) {
 
-    /* variabili: --u uguale a barocco-bento, --item-w = 14u (un tile) */
+    /* --u uguale a barocco-bento; --item-w = 14u (una tile); nessun pallino */
     .htl {
         --u:             calc(100vw / 84);
+        --dot-size:      2px;
         --item-w:        calc(14 * var(--u));
         --row-h:         calc((14 * var(--u) - var(--dot-size)) / 2);
         --img-size:      calc(var(--row-h) - 0.5rem);
@@ -567,6 +568,9 @@
         padding-bottom:  0;
         justify-content: flex-start;
     }
+
+    /* nessun pallino */
+    .htl__dot { display: none; }
 
     /* track: stessa posizione verticale di .barocco-lower in barocco/index.html */
     .htl__track {
@@ -594,9 +598,17 @@
         padding:        calc(1.1 * var(--u)) calc(1.1 * var(--u)) 0 calc(14 * var(--u));
     }
 
+    /* grid stacking: tutte le heads si sovrappongono nella stessa cella →
+       il contenitore prende l'altezza della più alta, nessun overlap con la track */
     .htl__heads {
+        display:    grid;
         min-height: auto;
         padding:    0 calc(1.1 * var(--u));
+    }
+    .htl__head {
+        grid-area: 1 / 1;
+        position:  static;
+        width:     auto;
     }
 
     /* titolo: identico a .barocco-intro__title */
@@ -616,10 +628,51 @@
         max-width:   calc(28 * var(--u));
     }
 
+    /* linea di sfondo: nera leggera */
+    .htl__items::before { background: rgba(17, 17, 17, .18); }
+    /* linea progresso: nera */
+    .htl__items::after  { background: #111111; }
+
     /* scroll senza padding: gli item partono dal bordo come i tile */
-    .htl__scroll {
-        padding: 0;
+    .htl__scroll { padding: 0; }
+
+    /* ── Testo item: come .barocco-tile__name / .barocco-tile__sub ── */
+
+    /* nome evento = tile__name: nero, grassetto */
+    .htl__item-ev {
+        display:        block;
+        font-size:      calc(.85 * var(--u));
+        font-weight:    700;
+        letter-spacing: -.03em;
+        line-height:    1.05;
+        color:          #111111;
+        max-width:      none;
+        width:          calc(var(--item-w) - 1rem);
+        white-space:    nowrap;
+        overflow:       hidden;
+        text-overflow:  ellipsis;
+        text-align:     center;
     }
+
+    /* anno = tile__sub: grigio, piccolo */
+    .htl__item-yr {
+        display:        block;
+        font-size:      calc(.55 * var(--u));
+        font-weight:    400;
+        letter-spacing: .04em;
+        color:          rgba(17, 17, 17, .38);
+        white-space:    nowrap;
+    }
+
+    /* selezionato: solo bordo più deciso, nessun accento */
+    .htl__item:has(input:checked) .htl__img     { border-color: rgba(17, 17, 17, .55); background: rgba(17, 17, 17, .04); }
+    .htl__item:has(input:checked) .htl__item-ev { color: #111111; }
+    .htl__item:has(input:checked) .htl__item-yr { color: rgba(17, 17, 17, .38); font-size: calc(.55 * var(--u)); }
+
+    /* hover: nessun accento */
+    .htl__item > label:hover .htl__item-ev,
+    .htl__item > label:hover .htl__item-yr { color: #111111; }
+    .htl__item > label:hover .htl__img     { border-color: rgba(17, 17, 17, .35); }
 }
 
 /* ================================================================
