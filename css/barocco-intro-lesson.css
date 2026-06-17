@@ -196,43 +196,18 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     position: relative;
 }
 
-/* linea di sfondo: tutta la larghezza */
-.htl__items::before {
-    content:        '';
-    position:       absolute;
-    left:           0;
-    right:          0;
-    height:         3px;
-    background:     rgba(17, 17, 17, .10);
-    top:            calc(var(--row-h) + var(--dot-size) / 2 - 1px);
-    pointer-events: none;
-}
-
-/* linea progresso: avanza fino al centro dell'item selezionato */
-.htl__items::after {
-    content:    '';
-    position:   absolute;
-    left:       0;
-    width:      calc((var(--progress-idx, 0) + 0.5) * var(--item-w));
-    height:     3px;
-    background: #111111;
-    top:        calc(var(--row-h) + var(--dot-size) / 2 - 1px);
-    transition: width .5s cubic-bezier(.22, 1, .36, 1);
-    pointer-events: none;
-}
-
-/* indice del progresso in base all'item selezionato */
-.htl:has(.htl__item:nth-child(1)  input:checked) .htl__items { --progress-idx: 0; }
-.htl:has(.htl__item:nth-child(2)  input:checked) .htl__items { --progress-idx: 1; }
-.htl:has(.htl__item:nth-child(3)  input:checked) .htl__items { --progress-idx: 2; }
-.htl:has(.htl__item:nth-child(4)  input:checked) .htl__items { --progress-idx: 3; }
-.htl:has(.htl__item:nth-child(5)  input:checked) .htl__items { --progress-idx: 4; }
-.htl:has(.htl__item:nth-child(6)  input:checked) .htl__items { --progress-idx: 5; }
-.htl:has(.htl__item:nth-child(7)  input:checked) .htl__items { --progress-idx: 6; }
-.htl:has(.htl__item:nth-child(8)  input:checked) .htl__items { --progress-idx: 7; }
-.htl:has(.htl__item:nth-child(9)  input:checked) .htl__items { --progress-idx: 8; }
-.htl:has(.htl__item:nth-child(10) input:checked) .htl__items { --progress-idx: 9; }
-.htl:has(.htl__item:nth-child(11) input:checked) .htl__items { --progress-idx: 10; }
+/* indice del progresso — impostato su .htl, ereditato da .htl__track */
+.htl:has(.htl__item:nth-child(1)  input:checked) { --progress-idx: 0; }
+.htl:has(.htl__item:nth-child(2)  input:checked) { --progress-idx: 1; }
+.htl:has(.htl__item:nth-child(3)  input:checked) { --progress-idx: 2; }
+.htl:has(.htl__item:nth-child(4)  input:checked) { --progress-idx: 3; }
+.htl:has(.htl__item:nth-child(5)  input:checked) { --progress-idx: 4; }
+.htl:has(.htl__item:nth-child(6)  input:checked) { --progress-idx: 5; }
+.htl:has(.htl__item:nth-child(7)  input:checked) { --progress-idx: 6; }
+.htl:has(.htl__item:nth-child(8)  input:checked) { --progress-idx: 7; }
+.htl:has(.htl__item:nth-child(9)  input:checked) { --progress-idx: 8; }
+.htl:has(.htl__item:nth-child(10) input:checked) { --progress-idx: 9; }
+.htl:has(.htl__item:nth-child(11) input:checked) { --progress-idx: 10; }
 
 .htl__item {
     flex:            0 0 var(--item-w);   /* larghezza fissa, no shrink */
@@ -337,6 +312,17 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     font-size: .62rem;
 }
 .htl__item:has(input:checked) .htl__item-ev { color: var(--ink-1); }
+
+/* ── animazione intermittenza tile (stesso principio della home) ── */
+@keyframes htl-blink {
+    0%, 100% { background-color: #e8e8e8; }
+    6%, 11%  { background-color: #111111; }
+    17%      { background-color: #e8e8e8; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .htl__img { animation: none !important; }
+}
 
 /* ── rivela il titolo corrispondente ─────────────────────────── */
 .htl:has(.htl__item:nth-child(1)  input:checked) .htl__head:nth-child(1),
@@ -591,20 +577,30 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         top:      calc(50svh - (100vw / 12) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw));
     }
 
-    /* barra sfondo: sotto le facce, 4px, grigio leggero */
-    .htl__items::before {
-        top:        var(--row-h);
-        height:     4px;
-        background: rgba(17, 17, 17, .12);
+    /* ── barra di progresso sopra i tile ── */
+    .htl__track::before {
+        content:        '';
+        position:       absolute;
+        left:           0;
+        right:          0;
+        top:            -8px;
+        height:         4px;
+        background:     rgba(17, 17, 17, .12);
+        pointer-events: none;
     }
-    /* barra progresso: avanza/regredisce con la selezione, nera */
-    .htl__items::after {
-        top:        var(--row-h);
-        height:     4px;
-        background: #111111;
+    .htl__track::after {
+        content:        '';
+        position:       absolute;
+        left:           0;
+        top:            -8px;
+        height:         4px;
+        width:          calc((var(--progress-idx, 0) + 0.5) * var(--item-w));
+        background:     #111111;
+        transition:     width .5s cubic-bezier(.22, 1, .36, 1);
+        pointer-events: none;
     }
 
-    /* label: colonna verticale — faccia → barra (assoluta) → testo */
+    /* label: colonna verticale */
     .htl__item > label {
         display:        flex;
         flex-direction: column;
@@ -617,22 +613,35 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 
     .htl__scroll { padding: 0; }
 
-    /* ── faccia tile: quadrato 14u × 14u, senza bordo né contorno ── */
+    /* ── faccia tile: quadrato 14u × 14u, intermittente come i tile home ── */
     .htl__img {
-        display:    block;
-        width:      var(--item-w);
-        height:     var(--row-h);
-        background: #e8e8e8;
-        border:     none;
-        outline:    none;
-        margin:     0;
-        flex:       0 0 auto;
-        transition: background var(--duration) ease;
+        display:         block;
+        width:           var(--item-w);
+        height:          var(--row-h);
+        border:          none;
+        outline:         none;
+        margin:          0;
+        flex:            0 0 auto;
+        background:      #e8e8e8;
+        animation:       htl-blink 12s ease-in-out infinite;
+        animation-delay: var(--blink-delay, 0s);
+        transition:      background .3s ease;
     }
 
-    /* ── testo sotto: uguale a barocco-tile__name / __sub ── */
+    /* stagger: 11 tile su 12s, ~1.1s di distanza */
+    .htl__item:nth-child(1)  { --blink-delay: 0s; }
+    .htl__item:nth-child(2)  { --blink-delay: 1.1s; }
+    .htl__item:nth-child(3)  { --blink-delay: 2.2s; }
+    .htl__item:nth-child(4)  { --blink-delay: 3.3s; }
+    .htl__item:nth-child(5)  { --blink-delay: 4.4s; }
+    .htl__item:nth-child(6)  { --blink-delay: 5.5s; }
+    .htl__item:nth-child(7)  { --blink-delay: 6.6s; }
+    .htl__item:nth-child(8)  { --blink-delay: 7.7s; }
+    .htl__item:nth-child(9)  { --blink-delay: 8.8s; }
+    .htl__item:nth-child(10) { --blink-delay: 9.9s; }
+    .htl__item:nth-child(11) { --blink-delay: 11s; }
 
-    /* titolo = tile__name */
+    /* ── testo sotto: uguale a barocco-tile__name / __sub ── */
     .htl__card-title {
         display:        block;
         font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
@@ -650,7 +659,6 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         box-sizing:     border-box;
     }
 
-    /* anno = tile__sub */
     .htl__card-yr {
         display:              block;
         font-size:            calc(.55 * var(--u));
@@ -663,7 +671,6 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         white-space:          nowrap;
     }
 
-    /* descrizione: testo completo, nessun taglio */
     .htl__card-desc {
         display:     block;
         font-size:   calc(.6 * var(--u));
@@ -676,12 +683,18 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         box-sizing:  border-box;
     }
 
-    /* selezionato: faccia più scura */
-    .htl__item:has(input:checked) .htl__img  { background: #d4d4d4; }
+    /* selezionato: stop animazione, rivela immagine (placeholder scuro) */
+    .htl__item:has(input:checked) .htl__img {
+        animation:  none;
+        background: #111111;
+    }
     .htl__item:has(input:checked) .htl__card-title { color: #111111; }
 
-    /* hover */
-    .htl__item > label:hover .htl__img { background: #dcdcdc; }
+    /* hover: anteprima stato "acceso" */
+    .htl__item > label:hover .htl__img {
+        animation:  none;
+        background: #111111;
+    }
 }
 
 /* ================================================================
@@ -766,21 +779,58 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     .htl__scroll { padding: 0; overflow-x: auto; scrollbar-width: none; }
     .htl__scroll::-webkit-scrollbar { display: none; }
 
-    /* faccia tile: quadrato 50vw × 50vw, nessun bordo */
-    .htl__img {
-        display:    block;
-        width:      var(--item-w);
-        height:     var(--row-h);
-        background: #e8e8e8;
-        border:     none;
-        margin:     0;
-        flex:       0 0 auto;
-        transition: background var(--duration) ease;
+    /* ── track: position relative per ancorare la barra sopra ── */
+    .htl__track { position: relative; }
+
+    /* ── barra di progresso sopra i tile ── */
+    .htl__track::before {
+        content:        '';
+        position:       absolute;
+        left:           0;
+        right:          0;
+        top:            -4px;
+        height:         3px;
+        background:     rgba(17, 17, 17, .12);
+        pointer-events: none;
+    }
+    .htl__track::after {
+        content:        '';
+        position:       absolute;
+        left:           0;
+        top:            -4px;
+        height:         3px;
+        width:          calc((var(--progress-idx, 0) + 0.5) * var(--item-w));
+        background:     #111111;
+        transition:     width .5s cubic-bezier(.22, 1, .36, 1);
+        pointer-events: none;
     }
 
-    /* barra progresso sotto i tile */
-    .htl__items::before { top: var(--row-h); height: 3px; background: rgba(17, 17, 17, .12); }
-    .htl__items::after  { top: var(--row-h); height: 3px; background: #111111; }
+    /* faccia tile: quadrato 50vw × 50vw, intermittente */
+    .htl__img {
+        display:         block;
+        width:           var(--item-w);
+        height:          var(--row-h);
+        border:          none;
+        margin:          0;
+        flex:            0 0 auto;
+        background:      #e8e8e8;
+        animation:       htl-blink 12s ease-in-out infinite;
+        animation-delay: var(--blink-delay, 0s);
+        transition:      background .3s ease;
+    }
+
+    /* stagger identico al desktop */
+    .htl__item:nth-child(1)  { --blink-delay: 0s; }
+    .htl__item:nth-child(2)  { --blink-delay: 1.1s; }
+    .htl__item:nth-child(3)  { --blink-delay: 2.2s; }
+    .htl__item:nth-child(4)  { --blink-delay: 3.3s; }
+    .htl__item:nth-child(5)  { --blink-delay: 4.4s; }
+    .htl__item:nth-child(6)  { --blink-delay: 5.5s; }
+    .htl__item:nth-child(7)  { --blink-delay: 6.6s; }
+    .htl__item:nth-child(8)  { --blink-delay: 7.7s; }
+    .htl__item:nth-child(9)  { --blink-delay: 8.8s; }
+    .htl__item:nth-child(10) { --blink-delay: 9.9s; }
+    .htl__item:nth-child(11) { --blink-delay: 11s; }
 
     /* testo sotto la faccia */
     .htl__card-title {
@@ -800,15 +850,15 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     }
 
     .htl__card-yr {
-        display:    block;
-        font-size:  calc(.55 * var(--u));
-        font-weight: 400;
-        letter-spacing: .04em;
+        display:              block;
+        font-size:            calc(.55 * var(--u));
+        font-weight:          400;
+        letter-spacing:       .04em;
         font-variant-numeric: tabular-nums;
-        color:      rgba(17, 17, 17, .38);
-        padding:    calc(.2 * var(--u)) calc(1.1 * var(--u)) 0;
-        margin:     0;
-        white-space: nowrap;
+        color:                rgba(17, 17, 17, .38);
+        padding:              calc(.2 * var(--u)) calc(1.1 * var(--u)) 0;
+        margin:               0;
+        white-space:          nowrap;
     }
 
     .htl__card-desc {
@@ -823,5 +873,15 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         box-sizing:  border-box;
     }
 
-    .htl__item:has(input:checked) .htl__img { background: #d4d4d4; }
+    /* selezionato: stop animazione, rivela immagine */
+    .htl__item:has(input:checked) .htl__img {
+        animation:  none;
+        background: #111111;
+    }
+
+    /* hover */
+    .htl__item > label:hover .htl__img {
+        animation:  none;
+        background: #111111;
+    }
 }
