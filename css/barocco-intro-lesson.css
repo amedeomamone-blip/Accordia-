@@ -327,7 +327,6 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 /* ── anno sopra la barra: appare man mano che si seleziona ── */
 .htl__year-label {
     position:       absolute;
-    left:           0;
     pointer-events: none;
 }
 .htl__year-label > span {
@@ -632,10 +631,14 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         pointer-events: none;
     }
 
-    /* ── anno sopra la barra ── */
+    /* ── anno: si sposta con la barra, allineato al suo bordo nero ── */
     .htl__year-label {
-        top:         -26px;
+        top:       -26px;
+        left:      calc((var(--progress-idx, 0) + 0.5) * var(--item-w));
+        transform: translateX(-50%);
+        transition: left .5s cubic-bezier(.22, 1, .36, 1);
         font-size:   calc(.65 * var(--u));
+        font-weight: 700;
         line-height: 1;
     }
     .htl__year-label > span { font-size: inherit; }
@@ -845,10 +848,14 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         pointer-events: none;
     }
 
-    /* ── anno sopra la barra ── */
+    /* ── anno: si sposta con la barra, allineato al suo bordo nero ── */
     .htl__year-label {
-        top:         -20px;
-        font-size:   calc(.65 * var(--u));
+        top:        -20px;
+        left:       calc((var(--progress-idx, 0) + 0.5) * var(--item-w));
+        transform:  translateX(-50%);
+        transition: left .5s cubic-bezier(.22, 1, .36, 1);
+        font-size:  calc(.65 * var(--u));
+        font-weight: 700;
         line-height: 1;
     }
     .htl__year-label > span { font-size: inherit; }
