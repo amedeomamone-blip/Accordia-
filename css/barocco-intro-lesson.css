@@ -321,6 +321,12 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     17%      { background-color: #e8e8e8; }
 }
 
+/* ── glow barra: stessi colori blob del titolo barocco ── */
+@keyframes htl-bar-glow {
+    from { background-position: 0% 50%; }
+    to   { background-position: 100% 50%; }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .htl__img { animation: none !important; }
 }
@@ -621,15 +627,24 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         pointer-events: none;
     }
     .htl__track::after {
-        content:        '';
-        position:       absolute;
-        left:           0;
-        top:            -6px;
-        height:         6px;
-        width:          calc((var(--progress-idx, 0) + 0.5) * var(--item-w));
-        background:     #111111;
-        transition:     width .5s cubic-bezier(.22, 1, .36, 1);
-        pointer-events: none;
+        content:          '';
+        position:         absolute;
+        left:             0;
+        top:              -6px;
+        height:           6px;
+        width:            calc((var(--progress-idx, 0) + 0.5) * var(--item-w));
+        background:       linear-gradient(to right,
+                              hsl(2,  58%, 48%),
+                              hsl(8,  62%, 58%),
+                              hsl(18, 70%, 64%),
+                              hsl(26, 65%, 60%),
+                              hsl(8,  62%, 52%));
+        background-size:  300% 100%;
+        animation:        htl-bar-glow 4s ease-in-out infinite alternate;
+        box-shadow:       0 0 10px hsla(8, 62%, 60%, .55),
+                          0 0  3px hsla(8, 62%, 60%, .35);
+        transition:       width .5s cubic-bezier(.22, 1, .36, 1);
+        pointer-events:   none;
     }
 
     /* posizione verticale fissa; left è gestito da JS */
@@ -838,15 +853,24 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         pointer-events: none;
     }
     .htl__track::after {
-        content:        '';
-        position:       absolute;
-        left:           0;
-        top:            -5px;
-        height:         5px;
-        width:          calc((var(--progress-idx, 0) + 0.5) * var(--item-w));
-        background:     #111111;
-        transition:     width .5s cubic-bezier(.22, 1, .36, 1);
-        pointer-events: none;
+        content:          '';
+        position:         absolute;
+        left:             0;
+        top:              -5px;
+        height:           5px;
+        width:            calc((var(--progress-idx, 0) + 0.5) * var(--item-w));
+        background:       linear-gradient(to right,
+                              hsl(2,  58%, 48%),
+                              hsl(8,  62%, 58%),
+                              hsl(18, 70%, 64%),
+                              hsl(26, 65%, 60%),
+                              hsl(8,  62%, 52%));
+        background-size:  300% 100%;
+        animation:        htl-bar-glow 4s ease-in-out infinite alternate;
+        box-shadow:       0 0 8px hsla(8, 62%, 60%, .5),
+                          0 0 3px hsla(8, 62%, 60%, .3);
+        transition:       width .5s cubic-bezier(.22, 1, .36, 1);
+        pointer-events:   none;
     }
 
     /* posizione verticale fissa; left è gestito da JS */
