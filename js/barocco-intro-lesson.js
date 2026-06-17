@@ -23,17 +23,18 @@
 
         var items = htlEl.querySelectorAll('.htl__item');
 
-        /* L'anno si posiziona al centro del tile selezionato rispetto
-           all'area visibile, restando sempre dentro la viewport. */
+        /* L'anno si posiziona centrato sulla punta della barra:
+           prime 2 cifre sul colore, ultime 2 sul grigio. */
         function updateLabel() {
             var checked = htlEl.querySelector('input[name="htl"]:checked');
             var idx = 0;
             items.forEach(function (item, i) { if (item.contains(checked)) idx = i; });
             var itemW = items[0] ? items[0].offsetWidth : 0;
             if (!itemW) return;
-            var center   = (idx + 0.5) * itemW - scroll.scrollLeft;
+            var barTip   = (idx + 0.5) * itemW - scroll.scrollLeft;
             var halfSelf = label.offsetWidth / 2 || 20;
-            var clamped  = Math.max(halfSelf, Math.min(center, scroll.clientWidth - halfSelf));
+            var leftEdge = barTip - halfSelf;
+            var clamped  = Math.max(0, Math.min(leftEdge, scroll.clientWidth - label.offsetWidth));
             label.style.left      = clamped + 'px';
             label.style.transform = 'none';
         }
