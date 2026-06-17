@@ -651,20 +651,17 @@
         white-space:          nowrap;
     }
 
-    /* descrizione: piccola, max 3 righe */
+    /* descrizione: testo completo, nessun taglio */
     .htl__card-desc {
-        display:            -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 3;
-        overflow:           hidden;
-        font-size:          calc(.6 * var(--u));
-        font-weight:        400;
-        line-height:        1.5;
-        color:              rgba(17, 17, 17, .45);
-        padding:            calc(.15 * var(--u)) calc(1.1 * var(--u)) calc(.6 * var(--u));
-        margin:             0;
-        width:              var(--item-w);
-        box-sizing:         border-box;
+        display:     block;
+        font-size:   calc(.6 * var(--u));
+        font-weight: 400;
+        line-height: 1.5;
+        color:       rgba(17, 17, 17, .45);
+        padding:     calc(.15 * var(--u)) calc(1.1 * var(--u)) calc(.6 * var(--u));
+        margin:      0;
+        width:       var(--item-w);
+        box-sizing:  border-box;
     }
 
     /* selezionato: faccia più scura */
@@ -729,4 +726,90 @@
     .bintro-screen-label {
         display: none;
     }
+
+    /* ── HTL mobile: tile orizzontali, stessa grandezza della pagina lezioni ──
+       --u = 100vw/28 → 14u = 50vw, 2 tile visibili per volta (come barocco mobile) */
+    .htl {
+        --u:        calc(100vw / 28);
+        --item-w:   calc(14 * var(--u));
+        --row-h:    calc(14 * var(--u));
+        --dot-size: 0px;
+        gap:        0;
+        padding:    0;
+    }
+
+    .htl__top { display: none; }
+    .htl__dot { display: none; }
+
+    .htl__item > label {
+        display:        flex;
+        flex-direction: column;
+        width:          var(--item-w);
+        cursor:         pointer;
+    }
+
+    /* reset alternanza pari: non serve su mobile */
+    .htl__item:nth-child(even) .htl__img { grid-row: auto; margin-top: 0; }
+
+    .htl__scroll { padding: 0; overflow-x: auto; scrollbar-width: none; }
+    .htl__scroll::-webkit-scrollbar { display: none; }
+
+    /* faccia tile: quadrato 50vw × 50vw, nessun bordo */
+    .htl__img {
+        display:    block;
+        width:      var(--item-w);
+        height:     var(--row-h);
+        background: #e8e8e8;
+        border:     none;
+        margin:     0;
+        flex:       0 0 auto;
+        transition: background var(--duration) ease;
+    }
+
+    /* barra progresso sotto i tile */
+    .htl__items::before { top: var(--row-h); height: 3px; background: rgba(17, 17, 17, .12); }
+    .htl__items::after  { top: var(--row-h); height: 3px; background: #111111; }
+
+    /* testo sotto la faccia */
+    .htl__card-title {
+        display:        block;
+        font-size:      calc(.85 * var(--u));
+        font-weight:    700;
+        letter-spacing: -.03em;
+        line-height:    1.05;
+        color:          #111111;
+        padding:        calc(.55 * var(--u)) calc(1.1 * var(--u)) 0;
+        margin:         0;
+        white-space:    nowrap;
+        overflow:       hidden;
+        text-overflow:  ellipsis;
+        width:          var(--item-w);
+        box-sizing:     border-box;
+    }
+
+    .htl__card-yr {
+        display:    block;
+        font-size:  calc(.55 * var(--u));
+        font-weight: 400;
+        letter-spacing: .04em;
+        font-variant-numeric: tabular-nums;
+        color:      rgba(17, 17, 17, .38);
+        padding:    calc(.2 * var(--u)) calc(1.1 * var(--u)) 0;
+        margin:     0;
+        white-space: nowrap;
+    }
+
+    .htl__card-desc {
+        display:     block;
+        font-size:   calc(.6 * var(--u));
+        font-weight: 400;
+        line-height: 1.5;
+        color:       rgba(17, 17, 17, .45);
+        padding:     calc(.15 * var(--u)) calc(1.1 * var(--u)) calc(.6 * var(--u));
+        margin:      0;
+        width:       var(--item-w);
+        box-sizing:  border-box;
+    }
+
+    .htl__item:has(input:checked) .htl__img { background: #d4d4d4; }
 }
