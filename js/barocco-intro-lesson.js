@@ -14,55 +14,71 @@
     window.addEventListener('resize', syncH);
     window.addEventListener('load',   syncH);
 
-    /* ── Timeline: pin click → scorri strip; scroll → aggiorna pin ─ */
-    (function timeline() {
-        var pins  = document.querySelectorAll('.tl-pin');
-        var tiles = document.querySelectorAll('.tl-tile');
-        var strip = document.getElementById('tl-strip');
-        if (!pins.length || !strip) return;
+    /* ── HTL: anno segue la barra + auto-scroll al tile selezionato ── */
+    (function htl() {
+        var htlEl  = document.querySelector('.htl');
+        var scroll = document.querySelector('.htl__scroll');
+        var label  = document.querySelector('.htl__year-label');
+        if (!htlEl || !scroll) return;
 
-        var lockUntil = 0;   // ignora lo scroll-sync durante uno scroll programmato
+        var items = htlEl.querySelectorAll('.htl__item');
+        var lockScroll = false;
 
-        function tileW() {
-            var t = strip.querySelector('.tl-tile');
-            return t ? t.offsetWidth : 0;
+        /* posiziona il label anno al centro del tile selezionato,
+           restando sempre dentro l'area visibile dello scroll */
+        function updateLabel() {
+            if (!label) return;
+            var checked = htlEl.querySelector('input[name="htl"]:checked');
+            if (!checked) return;
+            var idx = 0;
+            items.forEach(function (item, i) {
+                if (item.contains(checked)) idx = i;
+            });
+            var itemW   = items[0] ? items[0].offsetWidth : 0;
+            if (!itemW) return;
+            /* posizione del centro del tile rispetto all'area visibile */
+            var rawLeft  = (idx + 0.5) * itemW - scroll.scrollLeft;
+            var halfSelf = label.offsetWidth / 2 || 20;
+            var clamped  = Math.max(halfSelf, Math.min(rawLeft, scroll.clientWidth - halfSelf));
+            label.style.left      = clamped + 'px';
+            label.style.transform = 'none';
         }
 
-        function setActive(idx) {
-            pins.forEach(function (p) {
-                p.classList.toggle('is-active', +p.dataset.idx === idx);
+        /* scorre lo strip per centrare il tile selezionato */
+        function scrollToSelected() {
+            var checked = htlEl.querySelector('input[name="htl"]:checked');
+            if (!checked) return;
+            var idx = 0;
+            items.forEach(function (item, i) {
+                if (item.contains(checked)) idx = i;
             });
-            tiles.forEach(function (t) {
-                t.classList.toggle('is-active', +t.dataset.idx === idx);
-            });
+            var itemW  = items[0] ? items[0].offsetWidth : 0;
+            if (!itemW) return;
+            var max    = scroll.scrollWidth - scroll.clientWidth;
+            var target = Math.max(0, Math.min(max, idx * itemW - (scroll.clientWidth - itemW) / 2));
+            lockScroll = true;
+            scroll.scrollTo({ left: target, behavior: 'smooth' });
+            setTimeout(function () { lockScroll = false; }, 600);
         }
 
-        pins.forEach(function (pin) {
-            pin.addEventListener('click', function () {
-                var idx = +pin.dataset.idx;
-                var w   = tileW();
-                // centra il tile nello strip, con clamp agli estremi
-                var max = strip.scrollWidth - strip.clientWidth;
-                var target = Math.max(0, Math.min(max, idx * w - (strip.clientWidth - w) / 2));
-                lockUntil = Date.now() + 900;
-                setActive(idx);
-                strip.scrollTo({ left: target, behavior: 'smooth' });
+        /* radio change: aggiorna etichetta + centra tile */
+        htlEl.querySelectorAll('input[name="htl"]').forEach(function (radio) {
+            radio.addEventListener('change', function () {
+                scrollToSelected();
+                /* aggiorna subito la label, poi di nuovo a fine scroll */
+                updateLabel();
+                setTimeout(updateLabel, 620);
             });
         });
 
-        var scrollT;
-        strip.addEventListener('scroll', function () {
-            if (Date.now() < lockUntil) return;   // scroll programmato: non sovrascrivere
-            clearTimeout(scrollT);
-            scrollT = setTimeout(function () {
-                var w = tileW();
-                if (!w) return;
-                // tile più vicino al centro del viewport dello strip
-                var idx = Math.round((strip.scrollLeft + strip.clientWidth / 2 - w / 2) / w);
-                idx = Math.max(0, Math.min(tiles.length - 1, idx));
-                setActive(idx);
-            }, 90);
-        });
+        /* scroll manuale: aggiorna solo l'etichetta */
+        scroll.addEventListener('scroll', function () {
+            updateLabel();
+        }, { passive: true });
+
+        window.addEventListener('resize', function () { updateLabel(); });
+        window.addEventListener('load',   function () { updateLabel(); });
+        updateLabel();
     })();
 
     /* ── guard: GSAP, ScrollTrigger, Lenis must be loaded ──────── */
