@@ -316,13 +316,45 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 /* ── animazione intermittenza tile (stesso principio della home) ── */
 @keyframes htl-blink {
     0%, 100% { background-color: #e8e8e8; }
-    6%, 11%  { background-color: #111111; }
+    6%, 11%  { background-color: var(--accent, #C37A6B); }
     17%      { background-color: #e8e8e8; }
 }
 
 @media (prefers-reduced-motion: reduce) {
     .htl__img { animation: none !important; }
 }
+
+/* ── anno sopra la barra: appare man mano che si seleziona ── */
+.htl__year-label {
+    position:       absolute;
+    left:           0;
+    pointer-events: none;
+}
+.htl__year-label > span {
+    display:              block;
+    position:             absolute;
+    left:                 0;
+    top:                  0;
+    opacity:              0;
+    font-family:          var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-weight:          700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing:       .04em;
+    color:                #111111;
+    white-space:          nowrap;
+    transition:           opacity .18s ease;
+}
+.htl:has(.htl__item:nth-child(1)  input:checked) .htl__year-label > span:nth-child(1)  { opacity: 1; }
+.htl:has(.htl__item:nth-child(2)  input:checked) .htl__year-label > span:nth-child(2)  { opacity: 1; }
+.htl:has(.htl__item:nth-child(3)  input:checked) .htl__year-label > span:nth-child(3)  { opacity: 1; }
+.htl:has(.htl__item:nth-child(4)  input:checked) .htl__year-label > span:nth-child(4)  { opacity: 1; }
+.htl:has(.htl__item:nth-child(5)  input:checked) .htl__year-label > span:nth-child(5)  { opacity: 1; }
+.htl:has(.htl__item:nth-child(6)  input:checked) .htl__year-label > span:nth-child(6)  { opacity: 1; }
+.htl:has(.htl__item:nth-child(7)  input:checked) .htl__year-label > span:nth-child(7)  { opacity: 1; }
+.htl:has(.htl__item:nth-child(8)  input:checked) .htl__year-label > span:nth-child(8)  { opacity: 1; }
+.htl:has(.htl__item:nth-child(9)  input:checked) .htl__year-label > span:nth-child(9)  { opacity: 1; }
+.htl:has(.htl__item:nth-child(10) input:checked) .htl__year-label > span:nth-child(10) { opacity: 1; }
+.htl:has(.htl__item:nth-child(11) input:checked) .htl__year-label > span:nth-child(11) { opacity: 1; }
 
 /* ── rivela il titolo corrispondente ─────────────────────────── */
 .htl:has(.htl__item:nth-child(1)  input:checked) .htl__head:nth-child(1),
@@ -577,13 +609,13 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         top:      calc(50svh - (100vw / 12) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw));
     }
 
-    /* ── barra di progresso sopra i tile ── */
+    /* ── barra di progresso poggiata esattamente sopra i tile ── */
     .htl__track::before {
         content:        '';
         position:       absolute;
         left:           0;
         right:          0;
-        top:            -8px;
+        top:            -4px;
         height:         4px;
         background:     rgba(17, 17, 17, .12);
         pointer-events: none;
@@ -592,13 +624,21 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         content:        '';
         position:       absolute;
         left:           0;
-        top:            -8px;
+        top:            -4px;
         height:         4px;
         width:          calc((var(--progress-idx, 0) + 0.5) * var(--item-w));
         background:     #111111;
         transition:     width .5s cubic-bezier(.22, 1, .36, 1);
         pointer-events: none;
     }
+
+    /* ── anno sopra la barra ── */
+    .htl__year-label {
+        top:         -26px;
+        font-size:   calc(.65 * var(--u));
+        line-height: 1;
+    }
+    .htl__year-label > span { font-size: inherit; }
 
     /* label: colonna verticale */
     .htl__item > label {
@@ -683,17 +723,17 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         box-sizing:  border-box;
     }
 
-    /* selezionato: stop animazione, rivela immagine (placeholder scuro) */
+    /* selezionato: stop animazione, tile nel colore accent (placeholder immagine) */
     .htl__item:has(input:checked) .htl__img {
         animation:  none;
-        background: #111111;
+        background: var(--accent, #C37A6B);
     }
     .htl__item:has(input:checked) .htl__card-title { color: #111111; }
 
     /* hover: anteprima stato "acceso" */
     .htl__item > label:hover .htl__img {
         animation:  none;
-        background: #111111;
+        background: var(--accent, #C37A6B);
     }
 }
 
@@ -782,13 +822,13 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     /* ── track: position relative per ancorare la barra sopra ── */
     .htl__track { position: relative; }
 
-    /* ── barra di progresso sopra i tile ── */
+    /* ── barra di progresso poggiata esattamente sopra i tile ── */
     .htl__track::before {
         content:        '';
         position:       absolute;
         left:           0;
         right:          0;
-        top:            -4px;
+        top:            -3px;
         height:         3px;
         background:     rgba(17, 17, 17, .12);
         pointer-events: none;
@@ -797,13 +837,21 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         content:        '';
         position:       absolute;
         left:           0;
-        top:            -4px;
+        top:            -3px;
         height:         3px;
         width:          calc((var(--progress-idx, 0) + 0.5) * var(--item-w));
         background:     #111111;
         transition:     width .5s cubic-bezier(.22, 1, .36, 1);
         pointer-events: none;
     }
+
+    /* ── anno sopra la barra ── */
+    .htl__year-label {
+        top:         -20px;
+        font-size:   calc(.65 * var(--u));
+        line-height: 1;
+    }
+    .htl__year-label > span { font-size: inherit; }
 
     /* faccia tile: quadrato 50vw × 50vw, intermittente */
     .htl__img {
@@ -873,15 +921,15 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         box-sizing:  border-box;
     }
 
-    /* selezionato: stop animazione, rivela immagine */
+    /* selezionato: stop animazione, tile nel colore accent */
     .htl__item:has(input:checked) .htl__img {
         animation:  none;
-        background: #111111;
+        background: var(--accent, #C37A6B);
     }
 
     /* hover */
     .htl__item > label:hover .htl__img {
         animation:  none;
-        background: #111111;
+        background: var(--accent, #C37A6B);
     }
 }
