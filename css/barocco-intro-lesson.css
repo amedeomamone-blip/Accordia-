@@ -551,128 +551,101 @@
 }
 
 /* ================================================================
-   SCREEN 1 — Desktop: track posizionata alla stessa Y dei tile della
-   pagina lezioni (barocco/index.html), stessa altezza, stessa tipografia.
+   SCREEN 1 — Desktop: card grandi, centrate verticalmente.
+   Titolo e descrizione rimossi dall'alto: tutto il contenuto è dentro
+   le card sulla linea del tempo.
    ================================================================ */
 @media (min-width: 601px) {
 
-    /* --u uguale a barocco-bento; --item-w = 14u (una tile); nessun pallino */
+    /* card grandi: 20u × 16u; linea = 2px; item occupa 20u orizzontali */
     .htl {
         --u:             calc(100vw / 84);
         --dot-size:      2px;
-        --item-w:        calc(14 * var(--u));
-        --row-h:         calc((14 * var(--u) - var(--dot-size)) / 2);
-        --img-size:      calc(var(--row-h) - 0.5rem);
+        --item-w:        calc(20 * var(--u));
+        --row-h:         calc(16 * var(--u));
         gap:             0;
         padding-top:     0;
         padding-bottom:  0;
         justify-content: flex-start;
     }
 
+    /* testo sopra nascosto: non usato */
+    .htl__top { display: none; }
+
     /* nessun pallino */
     .htl__dot { display: none; }
 
-    /* track: stessa posizione verticale di .barocco-lower in barocco/index.html */
+    /* track centrata verticalmente nello schermo */
     .htl__track {
         position: absolute;
         left:     0;
         right:    0;
-        top:      calc(50svh - (100vw / 12) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw));
+        top:      calc((100svh - var(--bintro-header-h, 4rem) - 32 * var(--u)) / 2);
     }
 
-    /* blocco testo: ancorato dalla parte inferiore, termina 2u sopra la track */
-    .htl__top {
-        position: absolute;
-        left:     0;
-        right:    0;
-        bottom:   calc(50svh + (100vw / 12) - min(16px, 1.6vw) + 2 * var(--u));
-        padding:  0;
-    }
-
-    /* eyebrow: identico a .barocco-intro__eyebrow su desktop */
-    .htl__eyebrow {
-        font-size:      clamp(0.7rem, calc(0.65 * var(--u)), 0.85rem);
-        letter-spacing: .1em;
-        color:          rgba(17, 17, 17, .35);
-        margin-bottom:  calc(0.5 * var(--u));
-        padding:        calc(1.1 * var(--u)) calc(1.1 * var(--u)) 0 calc(14 * var(--u));
-    }
-
-    /* grid stacking: tutte le heads si sovrappongono nella stessa cella →
-       il contenitore prende l'altezza della più alta, nessun overlap con la track */
-    .htl__heads {
-        display:    grid;
-        min-height: auto;
-        padding:    0 calc(1.1 * var(--u));
-    }
-    .htl__head {
-        grid-area: 1 / 1;
-        position:  static;
-        width:     auto;
-    }
-
-    /* titolo: identico a .barocco-intro__title */
-    .htl__title {
-        font-size:      clamp(1.4rem, 3vw, 3.2rem);
-        font-weight:    800;
-        letter-spacing: -.04em;
-        line-height:    1.1;
-        margin-bottom:  calc(0.4 * var(--u));
-    }
-
-    /* descrizione: identica a .barocco-intro__body — rientro a 28u dal bordo */
-    .htl__info {
-        font-size:   calc(0.85 * var(--u));
-        margin:      0;
-        margin-left: calc(27 * var(--u));   /* heads padding 1.1u + 27u ≈ 28u totali */
-        max-width:   calc(28 * var(--u));
-    }
-
-    /* linea di sfondo: nera leggera */
+    /* linea di sfondo: nera leggera; linea progresso: nera */
     .htl__items::before { background: rgba(17, 17, 17, .18); }
-    /* linea progresso: nera */
     .htl__items::after  { background: #111111; }
 
-    /* scroll senza padding: gli item partono dal bordo come i tile */
+    /* scroll senza padding: card partono dal bordo */
     .htl__scroll { padding: 0; }
 
-    /* ── Testo item: come .barocco-tile__name / .barocco-tile__sub ── */
+    /* ── card: .htl__img diventa un riquadro con contenuto ── */
+    .htl__img {
+        display:        flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        width:          var(--item-w);
+        height:         var(--row-h);
+        padding:        calc(1.1 * var(--u));
+        background:     #f0ede8;
+        border:         1px solid rgba(17, 17, 17, .10);
+        margin:         0;
+        overflow:       hidden;
+        transition:     border-color var(--duration) ease, background var(--duration) ease;
+    }
 
-    /* nome evento = tile__name: nero, grassetto */
-    .htl__item-ev {
+    .htl__card-yr {
+        display:              block;
+        font-size:            calc(.55 * var(--u));
+        font-weight:          500;
+        letter-spacing:       .06em;
+        font-variant-numeric: tabular-nums;
+        color:                rgba(17, 17, 17, .38);
+        margin-bottom:        calc(.3 * var(--u));
+    }
+
+    .htl__card-title {
         display:        block;
+        font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
         font-size:      calc(.85 * var(--u));
         font-weight:    700;
         letter-spacing: -.03em;
-        line-height:    1.05;
+        line-height:    1.1;
         color:          #111111;
-        max-width:      none;
-        width:          calc(var(--item-w) - 1rem);
-        white-space:    nowrap;
-        overflow:       hidden;
-        text-overflow:  ellipsis;
-        text-align:     center;
+        margin:         0 0 calc(.5 * var(--u));
     }
 
-    /* anno = tile__sub: grigio, piccolo */
-    .htl__item-yr {
-        display:        block;
-        font-size:      calc(.55 * var(--u));
-        font-weight:    400;
-        letter-spacing: .04em;
-        color:          rgba(17, 17, 17, .38);
-        white-space:    nowrap;
+    .htl__card-desc {
+        display:     block;
+        font-size:   calc(.65 * var(--u));
+        font-weight: 400;
+        line-height: 1.65;
+        color:       rgba(17, 17, 17, .55);
+        margin:      0;
     }
 
-    /* selezionato: solo bordo più deciso, nessun accento */
-    .htl__item:has(input:checked) .htl__img     { border-color: rgba(17, 17, 17, .55); background: rgba(17, 17, 17, .04); }
-    .htl__item:has(input:checked) .htl__item-ev { color: #111111; }
-    .htl__item:has(input:checked) .htl__item-yr { color: rgba(17, 17, 17, .38); font-size: calc(.55 * var(--u)); }
+    /* selezionato: bordo più deciso, sfondo leggermente più scuro */
+    .htl__item:has(input:checked) .htl__img {
+        border-color: rgba(17, 17, 17, .45);
+        background:   #e8e4de;
+    }
 
-    /* hover: nessun accento */
-    .htl__item > label:hover .htl__item-ev,
-    .htl__item > label:hover .htl__item-yr { color: #111111; }
-    .htl__item > label:hover .htl__img     { border-color: rgba(17, 17, 17, .35); }
+    /* hover */
+    .htl__item > label:hover .htl__img {
+        border-color: rgba(17, 17, 17, .28);
+        background:   #ebe7e2;
+    }
 }
 
 /* ================================================================
