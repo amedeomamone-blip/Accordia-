@@ -14,7 +14,7 @@
     window.addEventListener('resize', syncH);
     window.addEventListener('load',   syncH);
 
-    /* ── HTL: anno segue la barra + auto-scroll al tile selezionato ── */
+    /* ── HTL: barra + anno JS-driven, sincronizzati con lo scroll ── */
     (function htl() {
         var htlEl  = document.querySelector('.htl');
         var scroll = document.querySelector('.htl__scroll');
@@ -22,63 +22,57 @@
         if (!htlEl || !scroll) return;
 
         var items = htlEl.querySelectorAll('.htl__item');
-        var lockScroll = false;
 
-        /* posiziona il label anno al centro del tile selezionato,
-           restando sempre dentro l'area visibile dello scroll */
-        function updateLabel() {
-            if (!label) return;
+        function checkedIdx() {
             var checked = htlEl.querySelector('input[name="htl"]:checked');
-            if (!checked) return;
             var idx = 0;
-            items.forEach(function (item, i) {
-                if (item.contains(checked)) idx = i;
-            });
-            var itemW   = items[0] ? items[0].offsetWidth : 0;
-            if (!itemW) return;
-            /* posizione del centro del tile rispetto all'area visibile */
-            var rawLeft  = (idx + 0.5) * itemW - scroll.scrollLeft;
-            var halfSelf = label.offsetWidth / 2 || 20;
-            var clamped  = Math.max(halfSelf, Math.min(rawLeft, scroll.clientWidth - halfSelf));
-            label.style.left      = clamped + 'px';
-            label.style.transform = 'none';
+            items.forEach(function (item, i) { if (item.contains(checked)) idx = i; });
+            return idx;
         }
 
-        /* scorre lo strip per centrare il tile selezionato */
+        /*  Aggiorna BARRA e LABEL usando la stessa formula:
+            larghezza visibile = centro_tile − scrollLeft.
+            Chiamato ad ogni scroll e ad ogni cambio radio → mai fuori sincronia. */
+        function updateAll() {
+            var idx   = checkedIdx();
+            var itemW = items[0] ? items[0].offsetWidth : 0;
+            if (!itemW) return;
+
+            var center = (idx + 0.5) * itemW - scroll.scrollLeft;
+
+            /* barra nera: larghezza = posizione visibile del centro tile (≥ 0) */
+            htlEl.style.setProperty('--bar-w', Math.max(0, center) + 'px');
+
+            /* label anno: centrato sul punto, clampato dentro lo strip visibile */
+            if (label) {
+                var halfSelf = label.offsetWidth / 2 || 20;
+                var clamped  = Math.max(halfSelf, Math.min(center, scroll.clientWidth - halfSelf));
+                label.style.left      = clamped + 'px';
+                label.style.transform = 'none';
+            }
+        }
+
+        /* scorre lo strip per centrare il tile; scroll events → updateAll */
         function scrollToSelected() {
-            var checked = htlEl.querySelector('input[name="htl"]:checked');
-            if (!checked) return;
-            var idx = 0;
-            items.forEach(function (item, i) {
-                if (item.contains(checked)) idx = i;
-            });
-            var itemW  = items[0] ? items[0].offsetWidth : 0;
+            var idx   = checkedIdx();
+            var itemW = items[0] ? items[0].offsetWidth : 0;
             if (!itemW) return;
             var max    = scroll.scrollWidth - scroll.clientWidth;
             var target = Math.max(0, Math.min(max, idx * itemW - (scroll.clientWidth - itemW) / 2));
-            lockScroll = true;
             scroll.scrollTo({ left: target, behavior: 'smooth' });
-            setTimeout(function () { lockScroll = false; }, 600);
         }
 
-        /* radio change: aggiorna etichetta + centra tile */
         htlEl.querySelectorAll('input[name="htl"]').forEach(function (radio) {
             radio.addEventListener('change', function () {
-                scrollToSelected();
-                /* aggiorna subito la label, poi di nuovo a fine scroll */
-                updateLabel();
-                setTimeout(updateLabel, 620);
+                updateAll();          /* aggiorna subito (scrollLeft attuale) */
+                scrollToSelected();   /* avvia lo scroll — updateAll ricalcola frame per frame */
             });
         });
 
-        /* scroll manuale: aggiorna solo l'etichetta */
-        scroll.addEventListener('scroll', function () {
-            updateLabel();
-        }, { passive: true });
-
-        window.addEventListener('resize', function () { updateLabel(); });
-        window.addEventListener('load',   function () { updateLabel(); });
-        updateLabel();
+        scroll.addEventListener('scroll', updateAll, { passive: true });
+        window.addEventListener('resize', updateAll);
+        window.addEventListener('load',   updateAll);
+        updateAll();
     })();
 
     /* ── guard: GSAP, ScrollTrigger, Lenis must be loaded ──────── */
