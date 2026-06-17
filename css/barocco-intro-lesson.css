@@ -15,6 +15,18 @@
     --bintro-header-h: 4rem;   /* overwritten by JS */
 }
 
+/* ── wordmark: stessa dimensione della landing page ─────────────── */
+body[data-current-nucleus="barocco"] .brand--wordmark {
+    font-family:     var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:       1.45rem;
+    font-weight:     800;
+    letter-spacing:  0;
+    line-height:     1;
+    color:           #18191b;
+    text-transform:  none;
+    text-decoration: none;
+}
+
 /* ── scroll container – creates the 3-screen scroll height ─────── */
 .bintro-scroll {
     height: 300svh;
