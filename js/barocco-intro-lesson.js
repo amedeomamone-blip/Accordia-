@@ -69,6 +69,43 @@
             label.style.transform = 'none';
         }
 
+        function imageUrl(value) {
+            return 'url("' + String(value).replace(/"/g, '\\"') + '")';
+        }
+
+        function revealItemImage(item) {
+            if (!item || !item.dataset.timelineImage) return;
+            item.classList.add('is-image-revealed');
+            item.setAttribute('aria-pressed', 'true');
+        }
+
+        items.forEach(function (item) {
+            var input = item.querySelector('input[name="htl"]');
+            var itemLabel = item.querySelector('label');
+
+            if (!item.dataset.timelineImage) return;
+
+            item.style.setProperty('--htl-tile-image', imageUrl(item.dataset.timelineImage));
+
+            if (item.dataset.timelineImagePosition) {
+                item.style.setProperty('--htl-tile-image-position', item.dataset.timelineImagePosition);
+            }
+
+            item.setAttribute('aria-pressed', 'false');
+
+            if (input) {
+                input.addEventListener('change', function () {
+                    if (input.checked) revealItemImage(item);
+                });
+            }
+
+            if (itemLabel) {
+                itemLabel.addEventListener('click', function () {
+                    revealItemImage(item);
+                });
+            }
+        });
+
         htlEl.querySelectorAll('input[name="htl"]').forEach(function (r) {
             r.addEventListener('change', function () {
                 updateYearSpan();

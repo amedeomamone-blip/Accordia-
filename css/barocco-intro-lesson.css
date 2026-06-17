@@ -279,6 +279,48 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     transition:  color var(--duration) ease;
 }
 
+.htl__item[data-timeline-image] .htl__img {
+    position:  relative;
+    overflow:  hidden;
+    isolation: isolate;
+}
+
+.htl__item[data-timeline-image] .htl__img::before,
+.htl__item[data-timeline-image] .htl__img::after {
+    content:        "";
+    position:       absolute;
+    inset:          0;
+    opacity:        0;
+    pointer-events: none;
+    transition:     opacity .36s ease, transform .72s ease;
+}
+
+.htl__item[data-timeline-image] .htl__img::before {
+    z-index:             0;
+    background-image:    var(--htl-tile-image);
+    background-size:     cover;
+    background-position: var(--htl-tile-image-position, center center);
+    transform:           scale(1.025);
+}
+
+.htl__item[data-timeline-image] .htl__img::after {
+    z-index:    1;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 42%, rgba(0, 0, 0, .34) 100%);
+}
+
+.htl__item[data-timeline-image].is-image-revealed .htl__img {
+    animation: none;
+}
+
+.htl__item[data-timeline-image].is-image-revealed .htl__img::before,
+.htl__item[data-timeline-image].is-image-revealed .htl__img::after {
+    opacity: 1;
+}
+
+.htl__item[data-timeline-image].is-image-revealed .htl__img::before {
+    transform: scale(1);
+}
+
 /* alternanza: item pari → immagine in row 3, meta in row 1 */
 .htl__item:nth-child(even) .htl__img {
     grid-row:    3;
@@ -962,6 +1004,18 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         animation:  none;
         background: var(--accent, #C37A6B);
     }
+}
+
+.htl__item[data-timeline-image]:not(.is-image-revealed):has(input:checked) .htl__img,
+.htl__item[data-timeline-image]:not(.is-image-revealed) > label:hover .htl__img {
+    background:      #e8e8e8;
+    animation:       htl-blink 12s ease-in-out infinite;
+    animation-delay: var(--blink-delay, 0s);
+}
+
+.htl__item[data-timeline-image].is-image-revealed .htl__img,
+.htl__item[data-timeline-image].is-image-revealed > label:hover .htl__img {
+    animation: none;
 }
 
 /* ================================================================
