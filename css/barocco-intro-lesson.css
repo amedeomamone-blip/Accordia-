@@ -184,17 +184,43 @@
     position: relative;
 }
 
-/* linea orizzontale come ::before su items: si estende su tutto il contenuto */
+/* linea di sfondo: tutta la larghezza */
 .htl__items::before {
     content:        '';
     position:       absolute;
     left:           0;
     right:          0;
-    height:         1px;
-    background:     rgba(17, 17, 17, .14);
-    top:            calc(var(--row-h) + var(--dot-size) / 2);
+    height:         3px;
+    background:     rgba(17, 17, 17, .10);
+    top:            calc(var(--row-h) + var(--dot-size) / 2 - 1px);
     pointer-events: none;
 }
+
+/* linea progresso: avanza fino al centro dell'item selezionato */
+.htl__items::after {
+    content:    '';
+    position:   absolute;
+    left:       0;
+    width:      calc((var(--progress-idx, 0) + 0.5) * var(--item-w));
+    height:     3px;
+    background: var(--accent);
+    top:        calc(var(--row-h) + var(--dot-size) / 2 - 1px);
+    transition: width .5s cubic-bezier(.22, 1, .36, 1);
+    pointer-events: none;
+}
+
+/* indice del progresso in base all'item selezionato */
+.htl:has(.htl__item:nth-child(1)  input:checked) .htl__items { --progress-idx: 0; }
+.htl:has(.htl__item:nth-child(2)  input:checked) .htl__items { --progress-idx: 1; }
+.htl:has(.htl__item:nth-child(3)  input:checked) .htl__items { --progress-idx: 2; }
+.htl:has(.htl__item:nth-child(4)  input:checked) .htl__items { --progress-idx: 3; }
+.htl:has(.htl__item:nth-child(5)  input:checked) .htl__items { --progress-idx: 4; }
+.htl:has(.htl__item:nth-child(6)  input:checked) .htl__items { --progress-idx: 5; }
+.htl:has(.htl__item:nth-child(7)  input:checked) .htl__items { --progress-idx: 6; }
+.htl:has(.htl__item:nth-child(8)  input:checked) .htl__items { --progress-idx: 7; }
+.htl:has(.htl__item:nth-child(9)  input:checked) .htl__items { --progress-idx: 8; }
+.htl:has(.htl__item:nth-child(10) input:checked) .htl__items { --progress-idx: 9; }
+.htl:has(.htl__item:nth-child(11) input:checked) .htl__items { --progress-idx: 10; }
 
 .htl__item {
     flex:            0 0 var(--item-w);   /* larghezza fissa, no shrink */
