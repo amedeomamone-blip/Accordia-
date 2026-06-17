@@ -551,16 +551,15 @@
 }
 
 /* ================================================================
-   SCREEN 1 — Desktop: card grandi, centrate verticalmente.
-   Titolo e descrizione rimossi dall'alto: tutto il contenuto è dentro
-   le card sulla linea del tempo.
+   SCREEN 1 — Desktop: tile in fila piana alla stessa posizione e
+   grandezza dei tile su barocco/index.html. Barra progresso sotto.
    ================================================================ */
 @media (min-width: 601px) {
 
-    /* card grandi: 20u × 16u; linea = 2px; item occupa 20u orizzontali */
+    /* stesse variabili di barocco-bento: --u = 100vw/84, tile = 14u × 14u */
     .htl {
         --u:             calc(100vw / 84);
-        --dot-size:      2px;
+        --dot-size:      0px;
         --item-w:        calc(14 * var(--u));
         --row-h:         calc(14 * var(--u));
         gap:             0;
@@ -569,40 +568,57 @@
         justify-content: flex-start;
     }
 
-    /* testo sopra nascosto: non usato */
     .htl__top { display: none; }
-
-    /* nessun pallino */
     .htl__dot { display: none; }
 
-    /* track centrata verticalmente nello schermo */
+    /* stessa posizione di .barocco-lower su barocco/index.html */
     .htl__track {
         position: absolute;
         left:     0;
         right:    0;
-        top:      calc((100svh - var(--bintro-header-h, 4rem) - 28 * var(--u)) / 2);
+        top:      calc(50svh - (100vw / 12) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw));
     }
 
-    /* linea di sfondo: nera leggera; linea progresso: nera */
-    .htl__items::before { background: rgba(17, 17, 17, .18); }
-    .htl__items::after  { background: #111111; }
+    /* barra di sfondo e progresso: staccate SOTTO i tile */
+    .htl__items::before {
+        top:        var(--row-h);
+        background: rgba(17, 17, 17, .12);
+        height:     4px;
+    }
+    .htl__items::after {
+        top:        var(--row-h);
+        background: #111111;
+        height:     4px;
+    }
 
-    /* scroll senza padding: card partono dal bordo */
+    /* label: non più griglia a 3 righe — solo il tile */
+    .htl__item > label {
+        display: block;
+        cursor:  pointer;
+    }
+
+    /* reset alternanza pari: non serve più lo swap di grid-row */
+    .htl__item:nth-child(even) .htl__img {
+        grid-row:   auto;
+        margin-top: 0;
+    }
+
+    /* scroll senza padding: i tile partono dal bordo sinistro come nella pagina lezioni */
     .htl__scroll { padding: 0; }
 
-    /* ── card: .htl__img diventa un riquadro con contenuto ── */
+    /* ── tile: quadrato 14u × 14u con contenuto ── */
     .htl__img {
-        display:        flex;
-        flex-direction: column;
+        display:         flex;
+        flex-direction:  column;
         justify-content: flex-start;
-        width:          var(--item-w);
-        height:         var(--row-h);
-        padding:        calc(1.1 * var(--u));
-        background:     #f0ede8;
-        border:         1px solid rgba(17, 17, 17, .10);
-        margin:         0;
-        overflow:       hidden;
-        transition:     border-color var(--duration) ease, background var(--duration) ease;
+        width:           var(--item-w);
+        height:          var(--row-h);
+        padding:         calc(1.1 * var(--u));
+        background:      #f0ede8;
+        border:          1px solid rgba(17, 17, 17, .10);
+        margin:          0;
+        overflow:        hidden;
+        transition:      border-color var(--duration) ease, background var(--duration) ease;
     }
 
     .htl__card-yr {
@@ -635,7 +651,7 @@
         margin:      0;
     }
 
-    /* selezionato: bordo più deciso, sfondo leggermente più scuro */
+    /* selezionato */
     .htl__item:has(input:checked) .htl__img {
         border-color: rgba(17, 17, 17, .45);
         background:   #e8e4de;
