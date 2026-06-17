@@ -551,12 +551,12 @@
 }
 
 /* ================================================================
-   SCREEN 1 — Desktop: tile in fila piana alla stessa posizione e
-   grandezza dei tile su barocco/index.html. Barra progresso sotto.
+   SCREEN 1 — Desktop: tile in fila piana, testo sotto la faccia,
+   nessun bordo, barra progresso tra faccia e testo.
    ================================================================ */
 @media (min-width: 601px) {
 
-    /* stesse variabili di barocco-bento: --u = 100vw/84, tile = 14u × 14u */
+    /* 14u × 14u come i tile della pagina lezioni */
     .htl {
         --u:             calc(100vw / 84);
         --dot-size:      0px;
@@ -579,89 +579,100 @@
         top:      calc(50svh - (100vw / 12) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw));
     }
 
-    /* barra di sfondo e progresso: staccate SOTTO i tile */
+    /* barra sfondo: sotto le facce, 4px, grigio leggero */
     .htl__items::before {
         top:        var(--row-h);
-        background: rgba(17, 17, 17, .12);
         height:     4px;
+        background: rgba(17, 17, 17, .12);
     }
+    /* barra progresso: avanza/regredisce con la selezione, nera */
     .htl__items::after {
         top:        var(--row-h);
-        background: #111111;
         height:     4px;
+        background: #111111;
     }
 
-    /* label: non più griglia a 3 righe — solo il tile */
+    /* label: colonna verticale — faccia → barra (assoluta) → testo */
     .htl__item > label {
-        display: block;
-        cursor:  pointer;
+        display:        flex;
+        flex-direction: column;
+        cursor:         pointer;
+        width:          var(--item-w);
     }
 
-    /* reset alternanza pari: non serve più lo swap di grid-row */
-    .htl__item:nth-child(even) .htl__img {
-        grid-row:   auto;
-        margin-top: 0;
-    }
+    /* reset alternanza pari */
+    .htl__item:nth-child(even) .htl__img { grid-row: auto; margin-top: 0; }
 
-    /* scroll senza padding: i tile partono dal bordo sinistro come nella pagina lezioni */
     .htl__scroll { padding: 0; }
 
-    /* ── tile: quadrato 14u × 14u con contenuto ── */
+    /* ── faccia tile: quadrato 14u × 14u, senza bordo né contorno ── */
     .htl__img {
-        display:         flex;
-        flex-direction:  column;
-        justify-content: flex-start;
-        width:           var(--item-w);
-        height:          var(--row-h);
-        padding:         calc(1.1 * var(--u));
-        background:      #f0ede8;
-        border:          1px solid rgba(17, 17, 17, .10);
-        margin:          0;
-        overflow:        hidden;
-        transition:      border-color var(--duration) ease, background var(--duration) ease;
+        display:    block;
+        width:      var(--item-w);
+        height:     var(--row-h);
+        background: #e8e8e8;
+        border:     none;
+        outline:    none;
+        margin:     0;
+        flex:       0 0 auto;
+        transition: background var(--duration) ease;
     }
 
-    .htl__card-yr {
-        display:              block;
-        font-size:            calc(.55 * var(--u));
-        font-weight:          500;
-        letter-spacing:       .06em;
-        font-variant-numeric: tabular-nums;
-        color:                rgba(17, 17, 17, .38);
-        margin-bottom:        calc(.3 * var(--u));
-    }
+    /* ── testo sotto: uguale a barocco-tile__name / __sub ── */
 
+    /* titolo = tile__name */
     .htl__card-title {
         display:        block;
         font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
         font-size:      calc(.85 * var(--u));
         font-weight:    700;
         letter-spacing: -.03em;
-        line-height:    1.1;
+        line-height:    1.05;
         color:          #111111;
-        margin:         0 0 calc(.5 * var(--u));
+        padding:        calc(.55 * var(--u)) calc(1.1 * var(--u)) 0;
+        margin:         0;
+        white-space:    nowrap;
+        overflow:       hidden;
+        text-overflow:  ellipsis;
+        width:          var(--item-w);
+        box-sizing:     border-box;
     }
 
+    /* anno = tile__sub */
+    .htl__card-yr {
+        display:              block;
+        font-size:            calc(.55 * var(--u));
+        font-weight:          400;
+        letter-spacing:       .04em;
+        font-variant-numeric: tabular-nums;
+        color:                rgba(17, 17, 17, .38);
+        padding:              calc(.2 * var(--u)) calc(1.1 * var(--u)) 0;
+        margin:               0;
+        white-space:          nowrap;
+    }
+
+    /* descrizione: piccola, max 3 righe */
     .htl__card-desc {
-        display:     block;
-        font-size:   calc(.65 * var(--u));
-        font-weight: 400;
-        line-height: 1.65;
-        color:       rgba(17, 17, 17, .55);
-        margin:      0;
+        display:            -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+        overflow:           hidden;
+        font-size:          calc(.6 * var(--u));
+        font-weight:        400;
+        line-height:        1.5;
+        color:              rgba(17, 17, 17, .45);
+        padding:            calc(.15 * var(--u)) calc(1.1 * var(--u)) calc(.6 * var(--u));
+        margin:             0;
+        width:              var(--item-w);
+        box-sizing:         border-box;
     }
 
-    /* selezionato */
-    .htl__item:has(input:checked) .htl__img {
-        border-color: rgba(17, 17, 17, .45);
-        background:   #e8e4de;
-    }
+    /* selezionato: faccia più scura */
+    .htl__item:has(input:checked) .htl__img  { background: #d4d4d4; }
+    .htl__item:has(input:checked) .htl__card-title { color: #111111; }
 
     /* hover */
-    .htl__item > label:hover .htl__img {
-        border-color: rgba(17, 17, 17, .28);
-        background:   #ebe7e2;
-    }
+    .htl__item > label:hover .htl__img { background: #dcdcdc; }
 }
 
 /* ================================================================
