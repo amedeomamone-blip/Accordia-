@@ -561,8 +561,8 @@
     .htl {
         --u:             calc(100vw / 84);
         --dot-size:      2px;
-        --item-w:        calc(20 * var(--u));
-        --row-h:         calc(16 * var(--u));
+        --item-w:        calc(14 * var(--u));
+        --row-h:         calc(14 * var(--u));
         gap:             0;
         padding-top:     0;
         padding-bottom:  0;
@@ -580,7 +580,7 @@
         position: absolute;
         left:     0;
         right:    0;
-        top:      calc((100svh - var(--bintro-header-h, 4rem) - 32 * var(--u)) / 2);
+        top:      calc((100svh - var(--bintro-header-h, 4rem) - 28 * var(--u)) / 2);
     }
 
     /* linea di sfondo: nera leggera; linea progresso: nera */
