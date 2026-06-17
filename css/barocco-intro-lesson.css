@@ -893,7 +893,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         letter-spacing: -.03em;
         line-height:    1.05;
         color:          #111111;
-        padding:        calc(.55 * var(--u)) calc(1.1 * var(--u)) 0;
+        padding:        calc(1.4 * var(--u)) calc(1.1 * var(--u)) 0;
         margin:         0;
         white-space:    nowrap;
         overflow:       hidden;
