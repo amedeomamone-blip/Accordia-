@@ -209,6 +209,19 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 .htl:has(.htl__item:nth-child(10) input:checked) { --progress-idx: 9; }
 .htl:has(.htl__item:nth-child(11) input:checked) { --progress-idx: 10; }
 
+/* ── colori affini per tile: gamma calda terracotta-ambra-ocra ── */
+.htl__item:nth-child(1)  { --tile-accent: #C37A6B; }  /* Autumn Blush   */
+.htl__item:nth-child(2)  { --tile-accent: #B87068; }  /* Sienna rose     */
+.htl__item:nth-child(3)  { --tile-accent: #C4906A; }  /* Warm amber      */
+.htl__item:nth-child(4)  { --tile-accent: #9C7060; }  /* Dusty sienna    */
+.htl__item:nth-child(5)  { --tile-accent: #D4856A; }  /* Coral sand      */
+.htl__item:nth-child(6)  { --tile-accent: #A87860; }  /* Muted clay      */
+.htl__item:nth-child(7)  { --tile-accent: #C8A47A; }  /* Golden ochre    */
+.htl__item:nth-child(8)  { --tile-accent: #B86B68; }  /* Deep rose       */
+.htl__item:nth-child(9)  { --tile-accent: #D49878; }  /* Apricot         */
+.htl__item:nth-child(10) { --tile-accent: #8B6B5A; }  /* Dark umber      */
+.htl__item:nth-child(11) { --tile-accent: #C08478; }  /* Blush clay      */
+
 .htl__item {
     flex:            0 0 var(--item-w);   /* larghezza fissa, no shrink */
     display:         flex;
@@ -316,7 +329,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 /* ── animazione intermittenza tile (stesso principio della home) ── */
 @keyframes htl-blink {
     0%, 100% { background-color: #e8e8e8; }
-    6%, 11%  { background-color: var(--accent, #C37A6B); }
+    6%, 11%  { background-color: var(--tile-accent, var(--accent, #C37A6B)); }
     17%      { background-color: #e8e8e8; }
 }
 
@@ -726,17 +739,20 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         box-sizing:  border-box;
     }
 
-    /* selezionato: stop animazione, tile nel colore accent (placeholder immagine) */
+    /* anno tolto da sotto il tile — è ora sopra la barra */
+    .htl__card-yr { display: none; }
+
+    /* selezionato: stop animazione, tile nel colore proprio */
     .htl__item:has(input:checked) .htl__img {
         animation:  none;
-        background: var(--accent, #C37A6B);
+        background: var(--tile-accent, var(--accent, #C37A6B));
     }
     .htl__item:has(input:checked) .htl__card-title { color: #111111; }
 
     /* hover: anteprima stato "acceso" */
     .htl__item > label:hover .htl__img {
         animation:  none;
-        background: var(--accent, #C37A6B);
+        background: var(--tile-accent, var(--accent, #C37A6B));
     }
 }
 
@@ -928,15 +944,18 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         box-sizing:  border-box;
     }
 
-    /* selezionato: stop animazione, tile nel colore accent */
+    /* anno tolto da sotto il tile */
+    .htl__card-yr { display: none; }
+
+    /* selezionato: stop animazione, tile nel colore proprio */
     .htl__item:has(input:checked) .htl__img {
         animation:  none;
-        background: var(--accent, #C37A6B);
+        background: var(--tile-accent, var(--accent, #C37A6B));
     }
 
     /* hover */
     .htl__item > label:hover .htl__img {
         animation:  none;
-        background: var(--accent, #C37A6B);
+        background: var(--tile-accent, var(--accent, #C37A6B));
     }
 }
