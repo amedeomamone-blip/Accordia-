@@ -422,6 +422,146 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 
 
 /* ================================================================
+   SCREEN 1 — Titolo (eyebrow + titolo con glow)
+   Replica esatta di .barocco-header / .barocco-intro__title in
+   nuclei/barocco/index.html (barocco-bento.css): stessa typografia,
+   stesso glow e — grazie a .htl__track allineato a .barocco-lower —
+   stessa identica posizione sullo schermo.
+   ================================================================ */
+.bintro-screen[data-screen="1"] .barocco-header {
+    --u:           calc(100vw / 84);
+    position:      absolute;
+    left:          0;
+    right:         0;
+    display:       flex;
+    align-items:   flex-start;
+    z-index:       2;
+    animation:     barocco-label-in .6s ease .2s both;
+}
+.bintro-screen[data-screen="1"] .barocco-intro__eyebrow {
+    flex:           0 0 calc(28 * var(--u));
+    display:        flex;
+    align-items:    flex-start;
+    justify-content:flex-start;
+    font-size:      clamp(0.7rem, 0.65 * var(--u), 0.85rem);
+    font-weight:    600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color:          rgba(17, 17, 17, .35);
+    padding:        calc(1.1 * var(--u));
+}
+.bintro-screen[data-screen="1"] .barocco-intro__title-wrap {
+    flex:       1;
+    position:   relative;
+    display:    block;
+    overflow:   hidden;
+    background: #ffffff;
+    padding:    calc(1.1 * var(--u)) calc(1.1 * var(--u)) calc(0.7 * var(--u)) 0;
+}
+.bintro-screen[data-screen="1"] .barocco-intro__title {
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      clamp(1.4rem, 3vw, 3.2rem);
+    font-weight:    800;
+    letter-spacing: -0.04em;
+    line-height:    1.1;
+    color:          #000000;
+    margin:         0;
+    position:       relative;
+    z-index:        0;
+}
+
+/* ── glow: blob terracotta dietro il titolo (mix-blend, identico a barocco-bento) ── */
+.bintro-screen[data-screen="1"] .barocco-ticker__overlay {
+    pointer-events: none;
+    position:       absolute;
+    inset:          0;
+    mix-blend-mode: lighten;
+}
+.bintro-screen[data-screen="1"] .barocco-ticker__blob {
+    pointer-events: none;
+    position:       absolute;
+    width:          30vw;
+    height:         30vw;
+    mix-blend-mode: overlay;
+    filter:         blur(1rem);
+}
+.bintro-screen[data-screen="1"] .barocco-ticker__blob--1 {
+    top: -50%; left: 0;
+    background: hsl(8, 62%, 60%);
+    animation: barocco-blob-drift 6s ease-in-out infinite,
+               barocco-blob-move-1 12s ease-in-out infinite alternate;
+}
+.bintro-screen[data-screen="1"] .barocco-ticker__blob--2 {
+    top: 0; right: 0;
+    background: hsl(18, 70%, 72%);
+    animation: barocco-blob-drift 6s ease-in-out infinite,
+               barocco-blob-move-2 12s ease-in-out infinite alternate;
+}
+.bintro-screen[data-screen="1"] .barocco-ticker__blob--3 {
+    bottom: 0; left: 0;
+    background: hsl(2, 58%, 55%);
+    animation: barocco-blob-drift 6s ease-in-out infinite,
+               barocco-blob-move-3 12s ease-in-out infinite alternate;
+}
+.bintro-screen[data-screen="1"] .barocco-ticker__blob--4 {
+    bottom: -50%; right: 0;
+    background: hsl(26, 65%, 68%);
+    animation: barocco-blob-drift 6s ease-in-out infinite,
+               barocco-blob-move-4 12s ease-in-out infinite alternate;
+}
+
+@keyframes barocco-label-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes barocco-blob-drift {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: 0.7; }
+}
+@keyframes barocco-blob-move-1 { from { transform: translate(0, 0); } to { transform: translate(35%,  60%); } }
+@keyframes barocco-blob-move-2 { from { transform: translate(0, 0); } to { transform: translate(-40%, 30%); } }
+@keyframes barocco-blob-move-3 { from { transform: translate(0, 0); } to { transform: translate(25%, -40%); } }
+@keyframes barocco-blob-move-4 { from { transform: translate(0, 0); } to { transform: translate(-30%, -25%); } }
+
+/* ── Desktop ≥601px: titolo a destra (28u), bottom 2u sopra i tile —
+   identico alla pagina scelta lezioni. ── */
+@media (min-width: 601px) {
+    .bintro-screen[data-screen="1"] .barocco-header {
+        bottom: calc(50svh + (100vw / 12) - min(16px, 1.6vw) + 2 * var(--u));
+    }
+    .bintro-screen[data-screen="1"] .barocco-intro__eyebrow {
+        padding-left: calc(14 * var(--u));
+    }
+}
+
+/* ── Mobile ≤600px: eyebrow + titolo impilati in alto, come scelta lezioni ── */
+@media (max-width: 600px) {
+    .bintro-screen[data-screen="1"] .barocco-header {
+        --u:     calc(100vw / 28);
+        display: block;
+        top:     0;
+        bottom:  auto;
+    }
+    .bintro-screen[data-screen="1"] .barocco-intro__eyebrow {
+        flex:    none;
+        display: block;
+        padding: 1.6rem 1rem .4rem;
+    }
+    .bintro-screen[data-screen="1"] .barocco-intro__title-wrap {
+        flex:    none;
+        padding: 0 1rem 2rem;
+    }
+    .bintro-screen[data-screen="1"] .barocco-intro__title {
+        font-size: clamp(1.4rem, 7vw, 2.4rem);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .bintro-screen[data-screen="1"] .barocco-ticker__blob { animation: none; }
+    .bintro-screen[data-screen="1"] .barocco-header        { animation: none; }
+}
+
+/* ================================================================
    SCREEN 2 — Il Contesto
    ================================================================ */
 .bintro-s2-label {
