@@ -965,3 +965,82 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         background: var(--accent, #C37A6B);
     }
 }
+
+/* ================================================================
+   SCREEN 2 — Globe split layout (desktop)
+   ================================================================ */
+@media (min-width: 601px) {
+    .bintro-screen[data-screen="2"] {
+        align-items:     stretch;
+        justify-content: flex-start;
+    }
+
+    .bintro-s2-layout {
+        display:     flex;
+        align-items: center;
+        width:       100%;
+        height:      100%;
+    }
+
+    .bintro-s2-layout .bintro-inner {
+        flex:       0 0 50%;
+        width:      50%;
+        max-width:  none;
+        padding:    0 2rem 0 clamp(2rem, 4vw, 5rem);
+        box-sizing: border-box;
+    }
+
+    .bintro-globe-wrap {
+        flex:     1 1 0;
+        position: relative;
+        height:   100%;
+        overflow: hidden;
+        min-width: 0;
+    }
+
+    .bintro-globe-canvas {
+        display:  block;
+        position: absolute;
+        inset:    0;
+        width:    100%;
+        height:   100%;
+    }
+
+    .bgl {
+        position:       absolute;
+        pointer-events: none;
+        transform:      translate(-50%, -50%);
+        text-align:     center;
+        transition:     opacity .25s ease;
+        z-index:        2;
+    }
+
+    .bgl__name {
+        display:        block;
+        font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+        font-size:      calc(.55 * var(--u));
+        font-weight:    700;
+        letter-spacing: -.01em;
+        color:          #111111;
+        background:     rgba(255, 255, 255, .88);
+        padding:        .1rem .4rem .06rem;
+        border-radius:  3px 3px 0 0;
+        white-space:    nowrap;
+    }
+
+    .bgl__work {
+        display:        block;
+        font-size:      calc(.44 * var(--u));
+        font-weight:    400;
+        letter-spacing: .02em;
+        color:          rgba(17, 17, 17, .52);
+        background:     rgba(255, 255, 255, .72);
+        padding:        0 .4rem .1rem;
+        border-radius:  0 0 3px 3px;
+        white-space:    nowrap;
+    }
+}
+
+@media (max-width: 600px) {
+    .bintro-globe-wrap { display: none; }
+}
