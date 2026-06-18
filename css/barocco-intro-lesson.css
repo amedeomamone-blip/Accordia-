@@ -308,16 +308,16 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 42%, rgba(0, 0, 0, .34) 100%);
 }
 
-.htl__item[data-timeline-image].is-image-revealed .htl__img {
+.htl__item[data-timeline-image]:has(input:checked) .htl__img {
     animation: none;
 }
 
-.htl__item[data-timeline-image].is-image-revealed .htl__img::before,
-.htl__item[data-timeline-image].is-image-revealed .htl__img::after {
+.htl__item[data-timeline-image]:has(input:checked) .htl__img::before,
+.htl__item[data-timeline-image]:has(input:checked) .htl__img::after {
     opacity: 1;
 }
 
-.htl__item[data-timeline-image].is-image-revealed .htl__img::before {
+.htl__item[data-timeline-image]:has(input:checked) .htl__img::before {
     transform: scale(1);
 }
 
@@ -1214,17 +1214,6 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     }
 }
 
-.htl__item[data-timeline-image]:not(.is-image-revealed):has(input:checked) .htl__img,
-.htl__item[data-timeline-image]:not(.is-image-revealed) > label:hover .htl__img {
-    background:      #e8e8e8;
-    animation:       htl-blink 12s ease-in-out infinite;
-    animation-delay: var(--blink-delay, 0s);
-}
-
-.htl__item[data-timeline-image].is-image-revealed .htl__img,
-.htl__item[data-timeline-image].is-image-revealed > label:hover .htl__img {
-    animation: none;
-}
 
 /* ================================================================
    SCREEN 2 — Globe split layout (desktop)
