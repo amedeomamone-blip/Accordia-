@@ -724,16 +724,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     box-sizing:     border-box;
 }
 
-.kctl__card-sub {
-    display:              block;
-    font-size:            calc(.55 * var(--u));
-    font-weight:          400;
-    letter-spacing:       .04em;
-    color:                var(--accent, #C37A6B);
-    padding:              calc(.2 * var(--u)) calc(1.1 * var(--u)) 0;
-    margin:               0;
-    white-space:          nowrap;
-}
+.kctl__card-sub { display: none; }
 
 .kctl__card-desc {
     display:     block;
