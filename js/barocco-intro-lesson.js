@@ -119,14 +119,24 @@
     /* ── elements ───────────────────────────────────────────────── */
     var scrollEl  = document.querySelector('.bintro-scroll');
     var screensEl = document.querySelector('.bintro-screens');
+    var pinEl     = document.getElementById('bintro-pin');
     var dots      = document.querySelectorAll('.bintro-progress__dot');
     var label     = document.querySelector('.bintro-screen-label');
 
     if (!scrollEl || !screensEl) return;
 
+    /* Altezza di una schermata: misurata dal pin (in CSS è calc(100svh - header)).
+       NON usiamo window.innerHeight: su iOS cambia quando la barra di Safari si
+       comprime, disallineando le schermate 2 e 3 (la 1 sta a y:0 e resta a posto).
+       svh è stabile → pinEl.offsetHeight è stabile → schermate sempre allineate. */
+    function screenH() {
+        if (pinEl && pinEl.offsetHeight) return pinEl.offsetHeight;
+        return window.innerHeight - (header ? header.offsetHeight : 0);
+    }
+
     /* ── scrubbed vertical slide ────────────────────────────────── */
-    gsap.to(screensEl, {
-        y: function () { return -((window.innerHeight - (header ? header.offsetHeight : 0)) * 2); },
+    var slideTween = gsap.to(screensEl, {
+        y: function () { return -(screenH() * 2); },
         ease: 'none',
         scrollTrigger: {
             trigger:            scrollEl,
@@ -137,6 +147,7 @@
             onUpdate:           onScrollUpdate,
         }
     });
+    var slideST = slideTween.scrollTrigger;
 
     /* ── progress dots + stage class ───────────────────────────── */
     var LABELS = ['01 — Linea del tempo', '02 — Ascolti guidati', '03 — Concetti chiave'];
@@ -154,11 +165,18 @@
     }
 
     /* ── dot click → scroll to that screen ─────────────────────── */
+    /* Posizione precisa ricavata dal range reale della ScrollTrigger:
+       screen 0 → start, screen 1 → metà, screen 2 → fine. */
     dots.forEach(function (dot, i) {
         dot.addEventListener('click', function () {
-            var svh       = window.innerHeight;
-            var startY    = scrollEl.getBoundingClientRect().top + window.scrollY;
-            lenis.scrollTo(startY + i * svh, { duration: 1.2, easing: function (t) { return t < .5 ? 2*t*t : -1+(4-2*t)*t; } });
+            var target;
+            if (slideST) {
+                target = slideST.start + (i / 2) * (slideST.end - slideST.start);
+            } else {
+                var startY = scrollEl.getBoundingClientRect().top + window.scrollY;
+                target = startY + i * screenH();
+            }
+            lenis.scrollTo(target, { duration: 1.2, easing: function (t) { return t < .5 ? 2*t*t : -1+(4-2*t)*t; } });
         });
     });
 

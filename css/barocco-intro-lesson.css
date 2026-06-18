@@ -1649,46 +1649,85 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     font-weight:  500;
 }
 
-/* ── Screen 2 mobile ── */
+/* ── Screen 2 mobile portrait: layout a colonna flessibile ──
+   Niente più posizionamento assoluto fragile con calc(svh/vw):
+   .asc diventa una colonna flex che riempie lo schermo.
+   • pannello quiz/hint in alto → occupa lo spazio flessibile, centrato
+   • striscia tile in basso → altezza fissa, sempre interamente visibile
+   Così il testo non viene mai tagliato e gli elementi restano centrati
+   anche con la barra dinamica di Safari su iPhone. */
 @media (max-width: 600px) {
     .asc {
         --u:      calc(100vw / 28);
         --item-w: calc(14 * var(--u));
         --row-h:  calc(14 * var(--u));
+        display:        flex;
+        flex-direction: column;
     }
 
-    .asc__track {
-        position: absolute;
-        top:      auto;
-        bottom:   0;
-        left:     0;
-        right:    0;
-    }
-
+    /* pannello quiz/hint: in alto, prende lo spazio rimanente */
     .asc__panel {
-        bottom: calc(20 * var(--u));
+        position:   relative;
+        inset:      auto;
+        order:      1;
+        flex:       1 1 auto;
+        min-height: 0;
     }
 
+    /* striscia tile: in basso, altezza dettata dal contenuto */
+    .asc__track {
+        position:       relative;
+        inset:          auto;
+        order:          2;
+        flex:           0 0 auto;
+        padding-bottom: 1.5rem;
+    }
+    .asc__track::before { display: none; }
+
+    /* idle e quiz: centrati verticalmente; "safe center" ripiega in alto
+       e resta scrollabile se il contenuto supera l'altezza disponibile */
     .asc__panel-idle,
     .asc__quiz {
-        padding:         1.25rem 1rem;
-        justify-content: flex-start;
-        padding-top:     1.5rem;
+        padding:         1.5rem 1.35rem;
+        justify-content: safe center;
+        overflow-y:      auto;
     }
 
     .asc__opts {
         grid-template-columns: 1fr;
         max-width:             none;
+        gap:                   .5rem;
     }
 
+    .asc__eyebrow,
+    .asc__quiz-eyebrow { margin-bottom: .7rem; }
+
     .asc__hint {
-        font-size: clamp(1.3rem, 6.5vw, 2rem);
+        font-size: clamp(1.4rem, 6.8vw, 2.1rem);
     }
 
     .asc__quiz-q {
-        font-size:     clamp(.95rem, 4.5vw, 1.5rem);
-        margin-bottom: .75rem;
+        font-size:     clamp(1.05rem, 5vw, 1.6rem);
+        margin-bottom: 1rem;
+        max-width:     none;
     }
+
+    .asc__opt label {
+        font-size: clamp(.85rem, 3.8vw, 1.05rem);
+        padding:   .6rem .85rem;
+        line-height: 1.3;
+    }
+
+    /* testo sotto i tile: più leggibile su mobile */
+    .asc__name {
+        font-size:   calc(1 * var(--u));
+        padding-top: calc(.85 * var(--u));
+    }
+    .asc__composer {
+        font-size: calc(.72 * var(--u));
+    }
+
+    .asc__tema-title { font-size: calc(1.7 * var(--u)); }
 }
 
 /* ================================================================
