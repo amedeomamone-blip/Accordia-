@@ -101,103 +101,57 @@
                          ══════════════════════════════════════════ -->
                     <section class="bintro-screen" data-screen="2" aria-label="Schermata 2: Ascolti guidati">
 
-                        <div class="asc">
+                        <div class="barocco-header">
+                            <span class="barocco-intro__eyebrow">Ascolti guidati</span>
+                            <div class="barocco-intro__title-wrap">
+                                <h2 class="barocco-intro__title">Ascolta i brani<br>e rispondi alle domande</h2>
+                                <span class="barocco-ticker__overlay">
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--1"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--2"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--3"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--4"></span>
+                                </span>
+                            </div>
+                        </div>
 
-                            <!-- panel superiore: hint iniziale o domanda attiva -->
-                            <div class="asc__panel">
+                        <div class="guided-listening">
+                            <div class="guided-listening__tiles" aria-label="Ascolti guidati su YouTube">
+                                <a class="guided-listening__tile" href="https://www.youtube.com/watch?v=2sPC8HsXxik" target="_blank" rel="noreferrer" style="--guided-thumb: url('https://i.ytimg.com/vi/2sPC8HsXxik/hqdefault.jpg');">
+                                    <span class="guided-listening__thumb" aria-hidden="true"></span>
+                                    <span class="guided-listening__meta">
+                                        <span>01 · Rameau</span>
+                                        <strong>Forêts Paisibles</strong>
+                                    </span>
+                                </a>
+                                <a class="guided-listening__tile" href="https://www.youtube.com/watch?v=ECZQUg6-TlU" target="_blank" rel="noreferrer" style="--guided-thumb: url('https://i.ytimg.com/vi/ECZQUg6-TlU/hqdefault.jpg');">
+                                    <span class="guided-listening__thumb" aria-hidden="true"></span>
+                                    <span class="guided-listening__meta">
+                                        <span>02 · Vivaldi</span>
+                                        <strong>L'Estate - Tempesta</strong>
+                                    </span>
+                                </a>
+                                <a class="guided-listening__tile" href="https://www.youtube.com/watch?v=Kl6R4Ui9blc" target="_blank" rel="noreferrer" style="--guided-thumb: url('https://i.ytimg.com/vi/Kl6R4Ui9blc/hqdefault.jpg');">
+                                    <span class="guided-listening__thumb" aria-hidden="true"></span>
+                                    <span class="guided-listening__meta">
+                                        <span>03 · Bach</span>
+                                        <strong>Badinerie</strong>
+                                    </span>
+                                </a>
+                            </div>
 
-                                <!-- stato idle: nessun tile selezionato -->
-                                <div class="asc__panel-idle">
-                                    <span class="asc__eyebrow">Ascolti guidati</span>
-                                    <p class="asc__hint">Scegli un brano<br>e rispondi alla domanda.</p>
-                                </div>
-
-                                <!-- quiz 1 — Bach Badinerie -->
-                                <div class="asc__quiz" data-quiz="1">
-                                    <span class="asc__quiz-eyebrow">J. S. Bach — Badinerie · Suite n. 2 in si minore</span>
-                                    <p class="asc__quiz-q">Che cosa significa il termine <em>Badinerie</em>?</p>
-                                    <ul class="asc__opts">
-                                        <li class="asc__opt"><input type="radio" name="q1" id="q1-a"><label for="q1-a">Una danza solenne di corte</label></li>
-                                        <li class="asc__opt" data-correct><input type="radio" name="q1" id="q1-b"><label for="q1-b">Giocosità, scherzo leggero</label></li>
-                                        <li class="asc__opt"><input type="radio" name="q1" id="q1-c"><label for="q1-c">Tema con variazioni</label></li>
-                                        <li class="asc__opt"><input type="radio" name="q1" id="q1-d"><label for="q1-d">Aria funebre</label></li>
-                                    </ul>
-                                </div>
-
-                                <!-- quiz 2 — Vivaldi Le Quattro Stagioni -->
-                                <div class="asc__quiz" data-quiz="2">
-                                    <span class="asc__quiz-eyebrow">A. Vivaldi — La Primavera · Le Quattro Stagioni</span>
-                                    <p class="asc__quiz-q">Quale immagine della natura Vivaldi descrive nel primo concerto?</p>
-                                    <ul class="asc__opts">
-                                        <li class="asc__opt" data-correct><input type="radio" name="q2" id="q2-a"><label for="q2-a">Il canto degli uccelli e un ruscello che mormora</label></li>
-                                        <li class="asc__opt"><input type="radio" name="q2" id="q2-b"><label for="q2-b">Una bufera di neve con vento gelido</label></li>
-                                        <li class="asc__opt"><input type="radio" name="q2" id="q2-c"><label for="q2-c">Una caccia al cervo in autunno</label></li>
-                                        <li class="asc__opt"><input type="radio" name="q2" id="q2-d"><label for="q2-d">Il calore opprimente di mezzogiorno</label></li>
-                                    </ul>
-                                </div>
-
-                                <!-- quiz 3 — Rameau Tambourin -->
-                                <div class="asc__quiz" data-quiz="3">
-                                    <span class="asc__quiz-eyebrow">J.-P. Rameau — Tambourin · Pièces de clavecin</span>
-                                    <p class="asc__quiz-q">Quale strumento popolare imita il ritmo del Tambourin di Rameau?</p>
-                                    <ul class="asc__opts">
-                                        <li class="asc__opt"><input type="radio" name="q3" id="q3-a"><label for="q3-a">Il liuto rinascimentale</label></li>
-                                        <li class="asc__opt"><input type="radio" name="q3" id="q3-b"><label for="q3-b">Il violoncello da gamba</label></li>
-                                        <li class="asc__opt" data-correct><input type="radio" name="q3" id="q3-c"><label for="q3-c">Il tamburo provenzale</label></li>
-                                        <li class="asc__opt"><input type="radio" name="q3" id="q3-d"><label for="q3-d">Il clavicembalo a due manuali</label></li>
-                                    </ul>
-                                </div>
-
-                            </div><!-- /.asc__panel -->
-
-                            <!-- striscia tile: tema + 3 ascolti -->
-                            <div class="asc__track">
-                                <div class="asc__scroll">
-                                    <ul class="asc__items">
-
-                                        <!-- tile tema centrale -->
-                                        <li class="asc__item asc__item--tema">
-                                            <span class="asc__tile">
-                                                <span class="asc__tema-title">Ascolti<br>guidati</span>
-                                                <span class="asc__tema-num">02</span>
-                                            </span>
-                                        </li>
-
-                                        <!-- Bach Badinerie -->
-                                        <li class="asc__item" data-asc="1">
-                                            <input type="radio" name="asc" id="asc-1">
-                                            <label for="asc-1">
-                                                <span class="asc__tile"></span>
-                                                <strong class="asc__name">Badinerie</strong>
-                                                <span class="asc__composer">J. S. Bach · 1738</span>
-                                            </label>
-                                        </li>
-
-                                        <!-- Vivaldi Quattro Stagioni -->
-                                        <li class="asc__item" data-asc="2">
-                                            <input type="radio" name="asc" id="asc-2">
-                                            <label for="asc-2">
-                                                <span class="asc__tile"></span>
-                                                <strong class="asc__name">Le Quattro Stagioni</strong>
-                                                <span class="asc__composer">A. Vivaldi · 1725</span>
-                                            </label>
-                                        </li>
-
-                                        <!-- Rameau Tambourin -->
-                                        <li class="asc__item" data-asc="3">
-                                            <input type="radio" name="asc" id="asc-3">
-                                            <label for="asc-3">
-                                                <span class="asc__tile"></span>
-                                                <strong class="asc__name">Tambourin</strong>
-                                                <span class="asc__composer">J.-P. Rameau · 1724</span>
-                                            </label>
-                                        </li>
-
-                                    </ul>
-                                </div>
-                            </div><!-- /.asc__track -->
-
-                        </div><!-- /.asc -->
+                            <ol class="guided-listening__questions" aria-label="Domande sugli ascolti guidati">
+                                <li>Quale brano ti sembra più legato alla danza e quali indizi ritmici te lo fanno capire?</li>
+                                <li>In quale ascolto il contrasto tra energia e pausa è più evidente? Descrivi un momento preciso.</li>
+                                <li>Che differenza noti tra il ruolo del ritmo in Rameau e quello in Vivaldi?</li>
+                                <li>Nel brano di Vivaldi, quali elementi musicali suggeriscono l'idea della tempesta?</li>
+                                <li>Quale strumento o gruppo strumentale riconosci come protagonista nella Badinerie?</li>
+                                <li>Quale ascolto ti sembra più teatrale? Motiva la risposta usando almeno due parole musicali.</li>
+                                <li>Come cambia il movimento musicale tra un brano descrittivo e un brano più danzante?</li>
+                                <li>Quale brano usa maggiormente il virtuosismo? Da quali passaggi lo capisci?</li>
+                                <li>Individua un elemento barocco comune ai tre ascolti e spiega come si manifesta.</li>
+                                <li>Se dovessi associare ogni brano a una scena, quale sceglieresti e perché?</li>
+                            </ol>
+                        </div>
 
                     </section>
 

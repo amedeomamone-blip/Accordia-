@@ -15,6 +15,294 @@
     --bintro-header-h: 4rem;   /* overwritten by JS */
 }
 
+/* ================================================================
+   SCREEN 2 — Ascolti guidati: tre tile + domande
+   ================================================================ */
+.bintro-screen[data-screen="2"] {
+    background: #ffffff;
+}
+
+.bintro-screen[data-screen="2"] .barocco-header {
+    --u:       calc(100vw / 84);
+    position:  absolute;
+    left:      0;
+    right:     0;
+    bottom:    calc(50svh + (100vw / 12) - min(16px, 1.6vw));
+    z-index:   2;
+    padding:   0 calc(14 * var(--u));
+    box-sizing: border-box;
+}
+
+.bintro-screen[data-screen="2"] .barocco-intro__eyebrow {
+    display:        block;
+    font-size:      clamp(.65rem, calc(.65 * var(--u)), .8rem);
+    font-weight:    600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color:          rgba(17, 17, 17, .35);
+    margin-bottom:  .85rem;
+}
+
+.bintro-screen[data-screen="2"] .barocco-intro__title-wrap {
+    position: relative;
+    display:  inline-block;
+}
+
+.bintro-screen[data-screen="2"] .barocco-intro__title {
+    position:       relative;
+    z-index:        2;
+    margin:         0;
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      clamp(1.5rem, calc(3.15 * var(--u)), 3.45rem);
+    font-weight:    800;
+    line-height:    .96;
+    letter-spacing: -.05em;
+    color:          #111111;
+}
+
+.bintro-screen[data-screen="2"] .barocco-ticker__overlay {
+    position:       absolute;
+    inset:          -12% -7%;
+    z-index:        1;
+    pointer-events: none;
+    overflow:       hidden;
+    mix-blend-mode: multiply;
+    filter:         saturate(1.04);
+}
+
+.bintro-screen[data-screen="2"] .barocco-ticker__blob {
+    position:      absolute;
+    top:           50%;
+    left:          50%;
+    display:       block;
+    border-radius: 999px;
+    opacity:       .72;
+    filter:        blur(5px);
+    transform:     translate(-50%, -50%);
+}
+
+.guided-listening {
+    --guided-u:    calc(100vw / 84);
+    --guided-tile: min(calc(14 * var(--guided-u)), 178px);
+    position:      absolute;
+    inset:         0;
+    z-index:       1;
+    pointer-events: none;
+}
+
+.guided-listening__tiles {
+    position:        absolute;
+    left:            50%;
+    top:             calc(50svh - (var(--guided-tile) / 2) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw));
+    display:         grid;
+    grid-template-columns: repeat(3, var(--guided-tile));
+    gap:             clamp(1.25rem, 4vw, 4rem);
+    transform:       translateX(-50%);
+    pointer-events:  auto;
+}
+
+.guided-listening__tile {
+    position:        relative;
+    display:         block;
+    width:           var(--guided-tile);
+    aspect-ratio:    1;
+    overflow:        hidden;
+    color:           #ffffff;
+    text-decoration: none;
+    background:      #e8e8e8;
+    box-shadow:      0 1px 0 rgba(17, 17, 17, .08);
+}
+
+.guided-listening__tile::after {
+    content:        "";
+    position:       absolute;
+    inset:          0;
+    z-index:        1;
+    background:     linear-gradient(180deg, rgba(0, 0, 0, 0) 36%, rgba(0, 0, 0, .58) 100%);
+    pointer-events: none;
+}
+
+.guided-listening__thumb {
+    position:            absolute;
+    inset:               0;
+    z-index:             0;
+    display:             block;
+    background-image:    var(--guided-thumb);
+    background-size:     cover;
+    background-position: center center;
+    transform:           scale(1.04);
+    transition:          transform .42s ease, filter .42s ease;
+}
+
+.guided-listening__tile:hover .guided-listening__thumb,
+.guided-listening__tile:focus-visible .guided-listening__thumb {
+    transform: scale(1);
+    filter:    saturate(1.05) contrast(1.04);
+}
+
+.guided-listening__tile:focus-visible {
+    outline:        2px solid #111111;
+    outline-offset: 4px;
+}
+
+.guided-listening__meta {
+    position:       absolute;
+    left:           clamp(.65rem, 1vw, .95rem);
+    right:          clamp(.65rem, 1vw, .95rem);
+    bottom:         clamp(.65rem, 1vw, .95rem);
+    z-index:        2;
+    display:        flex;
+    flex-direction: column;
+    gap:            .28rem;
+}
+
+.guided-listening__meta span {
+    font-size:      clamp(.58rem, .72vw, .72rem);
+    font-weight:    650;
+    letter-spacing: .12em;
+    line-height:    1.05;
+    text-transform: uppercase;
+    color:          rgba(255, 255, 255, .72);
+}
+
+.guided-listening__meta strong {
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      clamp(.9rem, 1.2vw, 1.2rem);
+    font-weight:    800;
+    letter-spacing: -.04em;
+    line-height:    1;
+    color:          #ffffff;
+}
+
+.guided-listening__questions {
+    position:              absolute;
+    left:                  calc(14 * var(--guided-u));
+    right:                 calc(14 * var(--guided-u));
+    top:                   calc(50svh - var(--bintro-header-h, 4rem) + (var(--guided-tile) / 2) + clamp(1.2rem, 2vw, 2rem));
+    display:               grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap:                   .65rem 1rem;
+    margin:                0;
+    padding:               0;
+    list-style-position:   inside;
+    pointer-events:        auto;
+}
+
+.guided-listening__questions li {
+    min-width:   0;
+    color:       rgba(17, 17, 17, .58);
+    font-size:   clamp(.68rem, .82vw, .9rem);
+    font-weight: 450;
+    line-height: 1.28;
+}
+
+@media (max-width: 900px) {
+    .guided-listening {
+        --guided-u:    calc(100vw / 48);
+        --guided-tile: min(calc(14 * var(--guided-u)), 154px);
+    }
+
+    .bintro-screen[data-screen="2"] .barocco-header {
+        --u:    calc(100vw / 48);
+        padding: 0 calc(4 * var(--u));
+    }
+
+    .guided-listening__tiles {
+        gap: clamp(.8rem, 2.4vw, 1.4rem);
+    }
+
+    .guided-listening__questions {
+        left:                  calc(4 * var(--guided-u));
+        right:                 calc(4 * var(--guided-u));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+@media (max-width: 600px) {
+    .bintro-screen[data-screen="2"] {
+        overflow: hidden;
+    }
+
+    .bintro-screen[data-screen="2"] .barocco-header {
+        --u:     calc(100vw / 28);
+        top:     clamp(1.4rem, 8svh, 4.5rem);
+        bottom:  auto;
+        padding: 0 1.25rem;
+    }
+
+    .bintro-screen[data-screen="2"] .barocco-intro__eyebrow {
+        margin-bottom: .65rem;
+    }
+
+    .bintro-screen[data-screen="2"] .barocco-intro__title {
+        font-size: clamp(1.45rem, 9vw, 2.35rem);
+    }
+
+    .guided-listening {
+        --guided-tile: min(28vw, 112px);
+    }
+
+    .guided-listening__tiles {
+        top:       33svh;
+        gap:       .55rem;
+        grid-template-columns: repeat(3, var(--guided-tile));
+    }
+
+    .guided-listening__meta {
+        left:   .48rem;
+        right:  .48rem;
+        bottom: .48rem;
+    }
+
+    .guided-listening__meta span {
+        font-size: .5rem;
+    }
+
+    .guided-listening__meta strong {
+        font-size: .78rem;
+    }
+
+    .guided-listening__questions {
+        left:                  1.25rem;
+        right:                 1.25rem;
+        top:                   calc(33svh + var(--guided-tile) + .95rem);
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap:                   .38rem .7rem;
+    }
+
+    .guided-listening__questions li {
+        font-size:   clamp(.58rem, 2.65vw, .68rem);
+        line-height: 1.14;
+    }
+}
+
+@media (min-width: 601px) and (max-height: 500px) {
+    .bintro-screen[data-screen="2"] .barocco-header {
+        --u:    calc(100svh / 50);
+        bottom: calc(50svh + 7 * var(--u));
+    }
+
+    .guided-listening {
+        --guided-u:    calc(100svh / 50);
+        --guided-tile: calc(13 * var(--guided-u));
+    }
+
+    .guided-listening__tiles {
+        top: calc(50svh - (var(--guided-tile) / 2) - var(--bintro-header-h, 4rem));
+    }
+
+    .guided-listening__questions {
+        top:                   calc(50svh - var(--bintro-header-h, 4rem) + (var(--guided-tile) / 2) + .7rem);
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        gap:                   .35rem .7rem;
+    }
+
+    .guided-listening__questions li {
+        font-size:   clamp(.54rem, 1.7svh, .7rem);
+        line-height: 1.12;
+    }
+}
+
 /* ── wordmark: stessa dimensione della landing page ─────────────── */
 body[data-current-nucleus="barocco"] .brand--wordmark {
     font-family:     var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
@@ -1851,4 +2139,10 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 
     /* Anno sopra la barra: leggermente più piccolo */
     .htl__year-label { top: -22px; }
+}
+
+/* Final override: la nuova seconda diapositiva degli ascolti guidati
+   usa lo stesso fondo chiaro della timeline. */
+.bintro-screen[data-screen="2"] {
+    background: #ffffff;
 }
