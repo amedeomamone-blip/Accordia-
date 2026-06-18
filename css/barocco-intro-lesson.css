@@ -546,25 +546,34 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     }
 }
 
-/* ── Mobile ≤600px: eyebrow + titolo impilati in alto, come scelta lezioni ── */
+/* ── Mobile ≤600px: Schermata 1 come colonna flessibile ──
+   Titolo in alto (in-flow), timeline centrata nello spazio rimanente.
+   Niente più titolo assoluto + tile schiacciati in fondo con vuoto al centro. */
 @media (max-width: 600px) {
+    .bintro-screen[data-screen="1"] {
+        flex-direction:  column;
+        align-items:     stretch;
+        justify-content: flex-start;
+    }
     .bintro-screen[data-screen="1"] .barocco-header {
-        --u:     calc(100vw / 28);
-        display: block;
-        top:     0;
-        bottom:  auto;
+        --u:      calc(100vw / 28);
+        position: relative;
+        display:  block;
+        top:      auto;
+        bottom:   auto;
+        flex:     0 0 auto;
     }
     .bintro-screen[data-screen="1"] .barocco-intro__eyebrow {
         flex:    none;
         display: block;
-        padding: 1.6rem 1rem .4rem;
+        padding: 1.4rem 1rem .35rem;
     }
     .bintro-screen[data-screen="1"] .barocco-intro__title-wrap {
         flex:    none;
-        padding: 0 1rem 2rem;
+        padding: 0 1rem 1.2rem;
     }
     .bintro-screen[data-screen="1"] .barocco-intro__title {
-        font-size: clamp(1.4rem, 7vw, 2.4rem);
+        font-size: clamp(1.3rem, 6vw, 2.1rem);
     }
 }
 
@@ -1073,14 +1082,22 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     }
 
     /* ── HTL mobile: tile orizzontali, stessa grandezza della pagina lezioni ──
-       --u = 100vw/28 → 14u = 50vw, 2 tile visibili per volta (come barocco mobile) */
+       --u = 100vw/28 → 14u = 50vw, 2 tile visibili per volta (come barocco mobile)
+       .htl prende lo spazio sotto al titolo e centra verticalmente la striscia. */
     .htl {
         --u:        calc(100vw / 28);
         --item-w:   calc(14 * var(--u));
         --row-h:    calc(14 * var(--u));
         --dot-size: 0px;
+        position:        relative;
+        inset:           auto;
+        flex:            1 1 auto;
+        min-height:      0;
+        display:         flex;
+        flex-direction:  column;
+        justify-content: safe center;
         gap:        0;
-        padding:    0;
+        padding:    0 0 1rem;
     }
 
     .htl__top { display: none; }
@@ -1099,13 +1116,12 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     .htl__scroll { padding: 0; overflow-x: auto; scrollbar-width: none; }
     .htl__scroll::-webkit-scrollbar { display: none; }
 
-    /* ── track: ancorato al fondo della schermata — i tile restano
-       sempre visibili sotto il titolo, senza sovrapposizioni ── */
+    /* ── track: in-flow dentro .htl (centrato), niente più bottom:0 ── */
     .htl__track {
-        position: absolute;
-        bottom:   0;
-        left:     0;
-        right:    0;
+        position: relative;
+        bottom:   auto;
+        left:     auto;
+        right:    auto;
     }
 
     /* ── barra di progresso poggiata esattamente sopra i tile ── */
@@ -1205,18 +1221,17 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     }
 
     .htl__card-desc {
-        display:              block;
         font-size:            calc(.85 * var(--u));
         font-weight:          400;
-        line-height:          var(--lh-body, 1.85);
+        line-height:          1.5;
         color:                rgba(17, 17, 17, .45);
-        padding:              calc(.15 * var(--u)) calc(1.1 * var(--u)) calc(.6 * var(--u));
+        padding:              calc(.35 * var(--u)) calc(1.1 * var(--u)) calc(.6 * var(--u));
         margin:               0;
         width:                var(--item-w);
         box-sizing:           border-box;
         overflow:             hidden;
         display:              -webkit-box;
-        -webkit-line-clamp:   2;
+        -webkit-line-clamp:   3;
         -webkit-box-orient:   vertical;
     }
 
