@@ -139,7 +139,7 @@
     });
 
     /* ── progress dots + stage class ───────────────────────────── */
-    var LABELS = ['01 — Linea del tempo', '02 — Il Contesto', '03 — La Musica'];
+    var LABELS = ['01 — Linea del tempo', '02 — Ascolti guidati', '03 — Concetti chiave'];
 
     function onScrollUpdate(self) {
         var p   = self.progress;                          // 0 → 1

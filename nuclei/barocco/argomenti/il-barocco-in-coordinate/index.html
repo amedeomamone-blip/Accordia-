@@ -6,7 +6,7 @@
     <meta name="description" content="Introduzione al Barocco: un'epoca di contrasti, nuove forme musicali e trasformazioni profonde.">
     <title>Introduzione al Barocco | Il Barocco | Accordia</title>
     <link rel="stylesheet" href="../../../../css/style.css?v=1782390000">
-    <link rel="stylesheet" href="../../../../css/barocco-intro-lesson.css?v=1783380000">
+    <link rel="stylesheet" href="../../../../css/barocco-intro-lesson.css?v=1783400000">
 </head>
 <body data-nav="timeline" data-current-nucleus="barocco">
 
@@ -35,7 +35,7 @@
         <!-- ── progress dots (fixed) ─────────────────────────── -->
         <nav class="bintro-progress" aria-label="Navigazione schermate">
             <button class="bintro-progress__dot is-active" aria-label="Schermata 1: Linea del tempo"></button>
-            <button class="bintro-progress__dot" aria-label="Schermata 2: Il Contesto"></button>
+            <button class="bintro-progress__dot" aria-label="Schermata 2: Ascolti guidati"></button>
             <button class="bintro-progress__dot" aria-label="Schermata 3: Concetti chiave"></button>
         </nav>
 
@@ -97,9 +97,108 @@
                     </section>
 
                     <!-- ══════════════════════════════════════════
-                         SCREEN 2 · Il Contesto
+                         SCREEN 2 · Ascolti guidati
                          ══════════════════════════════════════════ -->
-                    <section class="bintro-screen" data-screen="2" aria-label="Schermata 2: Il Contesto">
+                    <section class="bintro-screen" data-screen="2" aria-label="Schermata 2: Ascolti guidati">
+
+                        <div class="asc">
+
+                            <!-- panel superiore: hint iniziale o domanda attiva -->
+                            <div class="asc__panel">
+
+                                <!-- stato idle: nessun tile selezionato -->
+                                <div class="asc__panel-idle">
+                                    <span class="asc__eyebrow">Ascolti guidati</span>
+                                    <p class="asc__hint">Scegli un brano<br>e rispondi alla domanda.</p>
+                                </div>
+
+                                <!-- quiz 1 — Bach Badinerie -->
+                                <div class="asc__quiz" data-quiz="1">
+                                    <span class="asc__quiz-eyebrow">J. S. Bach — Badinerie · Suite n. 2 in si minore</span>
+                                    <p class="asc__quiz-q">Che cosa significa il termine <em>Badinerie</em>?</p>
+                                    <ul class="asc__opts">
+                                        <li class="asc__opt"><input type="radio" name="q1" id="q1-a"><label for="q1-a">Una danza solenne di corte</label></li>
+                                        <li class="asc__opt" data-correct><input type="radio" name="q1" id="q1-b"><label for="q1-b">Giocosità, scherzo leggero</label></li>
+                                        <li class="asc__opt"><input type="radio" name="q1" id="q1-c"><label for="q1-c">Tema con variazioni</label></li>
+                                        <li class="asc__opt"><input type="radio" name="q1" id="q1-d"><label for="q1-d">Aria funebre</label></li>
+                                    </ul>
+                                </div>
+
+                                <!-- quiz 2 — Vivaldi Le Quattro Stagioni -->
+                                <div class="asc__quiz" data-quiz="2">
+                                    <span class="asc__quiz-eyebrow">A. Vivaldi — La Primavera · Le Quattro Stagioni</span>
+                                    <p class="asc__quiz-q">Quale immagine della natura Vivaldi descrive nel primo concerto?</p>
+                                    <ul class="asc__opts">
+                                        <li class="asc__opt" data-correct><input type="radio" name="q2" id="q2-a"><label for="q2-a">Il canto degli uccelli e un ruscello che mormora</label></li>
+                                        <li class="asc__opt"><input type="radio" name="q2" id="q2-b"><label for="q2-b">Una bufera di neve con vento gelido</label></li>
+                                        <li class="asc__opt"><input type="radio" name="q2" id="q2-c"><label for="q2-c">Una caccia al cervo in autunno</label></li>
+                                        <li class="asc__opt"><input type="radio" name="q2" id="q2-d"><label for="q2-d">Il calore opprimente di mezzogiorno</label></li>
+                                    </ul>
+                                </div>
+
+                                <!-- quiz 3 — Rameau Tambourin -->
+                                <div class="asc__quiz" data-quiz="3">
+                                    <span class="asc__quiz-eyebrow">J.-P. Rameau — Tambourin · Pièces de clavecin</span>
+                                    <p class="asc__quiz-q">Quale strumento popolare imita il ritmo del Tambourin di Rameau?</p>
+                                    <ul class="asc__opts">
+                                        <li class="asc__opt"><input type="radio" name="q3" id="q3-a"><label for="q3-a">Il liuto rinascimentale</label></li>
+                                        <li class="asc__opt"><input type="radio" name="q3" id="q3-b"><label for="q3-b">Il violoncello da gamba</label></li>
+                                        <li class="asc__opt" data-correct><input type="radio" name="q3" id="q3-c"><label for="q3-c">Il tamburo provenzale</label></li>
+                                        <li class="asc__opt"><input type="radio" name="q3" id="q3-d"><label for="q3-d">Il clavicembalo a due manuali</label></li>
+                                    </ul>
+                                </div>
+
+                            </div><!-- /.asc__panel -->
+
+                            <!-- striscia tile: tema + 3 ascolti -->
+                            <div class="asc__track">
+                                <div class="asc__scroll">
+                                    <ul class="asc__items">
+
+                                        <!-- tile tema centrale -->
+                                        <li class="asc__item asc__item--tema">
+                                            <span class="asc__tile">
+                                                <span class="asc__tema-title">Ascolti<br>guidati</span>
+                                                <span class="asc__tema-num">02</span>
+                                            </span>
+                                        </li>
+
+                                        <!-- Bach Badinerie -->
+                                        <li class="asc__item" data-asc="1">
+                                            <input type="radio" name="asc" id="asc-1">
+                                            <label for="asc-1">
+                                                <span class="asc__tile"></span>
+                                                <strong class="asc__name">Badinerie</strong>
+                                                <span class="asc__composer">J. S. Bach · 1738</span>
+                                            </label>
+                                        </li>
+
+                                        <!-- Vivaldi Quattro Stagioni -->
+                                        <li class="asc__item" data-asc="2">
+                                            <input type="radio" name="asc" id="asc-2">
+                                            <label for="asc-2">
+                                                <span class="asc__tile"></span>
+                                                <strong class="asc__name">Le Quattro Stagioni</strong>
+                                                <span class="asc__composer">A. Vivaldi · 1725</span>
+                                            </label>
+                                        </li>
+
+                                        <!-- Rameau Tambourin -->
+                                        <li class="asc__item" data-asc="3">
+                                            <input type="radio" name="asc" id="asc-3">
+                                            <label for="asc-3">
+                                                <span class="asc__tile"></span>
+                                                <strong class="asc__name">Tambourin</strong>
+                                                <span class="asc__composer">J.-P. Rameau · 1724</span>
+                                            </label>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div><!-- /.asc__track -->
+
+                        </div><!-- /.asc -->
+
                     </section>
 
                     <!-- ══════════════════════════════════════════
@@ -207,7 +306,7 @@
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-    <script src="../../../../js/barocco-intro-lesson.js?v=1783380000"></script>
+    <script src="../../../../js/barocco-intro-lesson.js?v=1783400000"></script>
     <script src="../../../../js/barocco-intro-globe.js?v=1783280000"></script>
 
 </body>

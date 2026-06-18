@@ -1349,3 +1349,341 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         padding-top: calc(1.4 * var(--u));
     }
 }
+
+
+/* ================================================================
+   SCREEN 2 — Ascolti guidati (tile strip + quiz a risposta multipla)
+   ================================================================ */
+
+.asc {
+    --u:      calc(100vw / 84);
+    --item-w: calc(14 * var(--u));
+    --row-h:  calc(14 * var(--u));
+    position: absolute;
+    inset:    0;
+}
+
+/* ── tile track: stessa posizione verticale di .htl__track ── */
+.asc__track {
+    position: absolute;
+    left:     0;
+    right:    0;
+    top:      calc(50svh - (100vw / 12) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw));
+}
+
+.asc__track::before {
+    content:        '';
+    position:       absolute;
+    left:  0; right: 0; top: -5px; height: 5px;
+    background:     rgba(17, 17, 17, .08);
+    pointer-events: none;
+}
+
+.asc__scroll {
+    overflow-x:      auto;
+    overflow-y:      hidden;
+    scrollbar-width: none;
+    padding:         0;
+}
+.asc__scroll::-webkit-scrollbar { display: none; }
+
+.asc__items {
+    display:    flex;
+    list-style: none;
+    margin:     0;
+    padding:    0;
+    width:      max-content;
+}
+
+.asc__item {
+    flex:           0 0 var(--item-w);
+    display:        flex;
+    flex-direction: column;
+}
+
+.asc__item input[type="radio"] {
+    position: absolute; width: 1px; height: 1px;
+    margin: -1px; overflow: hidden;
+    clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
+}
+
+.asc__item > label {
+    display:        flex;
+    flex-direction: column;
+    cursor:         pointer;
+    width:          var(--item-w);
+}
+
+/* ── tile face ── */
+.asc__tile {
+    display:    block;
+    width:      var(--item-w);
+    height:     var(--row-h);
+    flex:       0 0 auto;
+    background: #e8e8e8;
+    animation:  htl-blink 12s ease-in-out infinite;
+    transition: background .3s ease;
+}
+
+.asc__item:nth-child(2) .asc__tile { animation-delay: 0s; }
+.asc__item:nth-child(3) .asc__tile { animation-delay: 1.8s; }
+.asc__item:nth-child(4) .asc__tile { animation-delay: 3.6s; }
+
+/* ── tile tema centrale (primo, statico, scuro) ── */
+.asc__item--tema .asc__tile {
+    background:      #111111;
+    animation:       none;
+    display:         flex;
+    flex-direction:  column;
+    justify-content: space-between;
+    padding:         calc(1.1 * var(--u));
+    box-sizing:      border-box;
+}
+
+.asc__tema-title {
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      calc(1.5 * var(--u));
+    font-weight:    800;
+    letter-spacing: -.04em;
+    line-height:    1.05;
+    color:          #ffffff;
+}
+
+.asc__tema-num {
+    font-family:          var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:            calc(.55 * var(--u));
+    font-weight:          600;
+    letter-spacing:       .08em;
+    color:                rgba(255, 255, 255, .28);
+    font-variant-numeric: tabular-nums;
+    align-self:           flex-end;
+}
+
+/* ── testo sotto tile ── */
+.asc__name {
+    display:        block;
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      calc(.85 * var(--u));
+    font-weight:    700;
+    letter-spacing: -.03em;
+    line-height:    1.05;
+    color:          #111111;
+    padding:        calc(.55 * var(--u)) calc(1.1 * var(--u)) 0;
+    margin:         0;
+    white-space:    nowrap;
+    overflow:       hidden;
+    text-overflow:  ellipsis;
+    width:          var(--item-w);
+    box-sizing:     border-box;
+}
+
+.asc__composer {
+    display:        block;
+    font-size:      calc(.55 * var(--u));
+    font-weight:    400;
+    letter-spacing: .04em;
+    color:          rgba(17, 17, 17, .38);
+    padding:        calc(.2 * var(--u)) calc(1.1 * var(--u)) 0;
+    white-space:    nowrap;
+}
+
+/* ── selezionato ── */
+.asc__item:has(input:checked) .asc__tile {
+    animation:  none;
+    background: var(--accent);
+}
+
+/* ── hover ── */
+.asc__item:not(.asc__item--tema) > label:hover .asc__tile {
+    animation:  none;
+    background: var(--accent);
+    opacity:    .7;
+}
+
+/* ── panel: area sopra i tile ── */
+.asc__panel {
+    position: absolute;
+    left:     0;
+    right:    0;
+    top:      0;
+    bottom:   calc(50svh + (100vw / 12) - min(16px, 1.6vw));
+}
+
+.asc__panel-idle,
+.asc__quiz {
+    position:        absolute;
+    inset:           0;
+    display:         flex;
+    flex-direction:  column;
+    justify-content: center;
+    padding:         0 calc(14 * var(--u));
+    opacity:         0;
+    transition:      opacity .28s ease;
+    pointer-events:  none;
+}
+
+.asc__panel-idle {
+    opacity:        1;
+    pointer-events: auto;
+}
+
+/* nasconde idle quando qualcosa è selezionato */
+.asc:has(input[name="asc"]:checked) .asc__panel-idle {
+    opacity:        0;
+    pointer-events: none;
+}
+
+/* mostra il quiz corrispondente */
+.asc:has(#asc-1:checked) .asc__quiz[data-quiz="1"],
+.asc:has(#asc-2:checked) .asc__quiz[data-quiz="2"],
+.asc:has(#asc-3:checked) .asc__quiz[data-quiz="3"] {
+    opacity:        1;
+    pointer-events: auto;
+}
+
+/* ── eyebrow + titolo idle ── */
+.asc__eyebrow {
+    display:        block;
+    font-size:      clamp(.65rem, calc(.65 * var(--u)), .8rem);
+    font-weight:    600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color:          rgba(17, 17, 17, .35);
+    margin-bottom:  1rem;
+}
+
+.asc__hint {
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      clamp(1.4rem, calc(3 * var(--u)), 3.2rem);
+    font-weight:    800;
+    letter-spacing: -.04em;
+    line-height:    1.1;
+    color:          #111111;
+    margin:         0;
+}
+
+/* ── quiz: eyebrow terracotta + domanda ── */
+.asc__quiz-eyebrow {
+    display:        block;
+    font-size:      clamp(.62rem, calc(.65 * var(--u)), .78rem);
+    font-weight:    600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color:          var(--accent);
+    margin-bottom:  .75rem;
+}
+
+.asc__quiz-q {
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      clamp(1.1rem, calc(2 * var(--u)), 2.2rem);
+    font-weight:    700;
+    letter-spacing: -.03em;
+    line-height:    1.15;
+    color:          #111111;
+    margin:         0 0 1.1rem;
+    max-width:      36ch;
+}
+
+.asc__quiz-q em { font-style: italic; }
+
+/* ── opzioni: griglia 2×2 ── */
+.asc__opts {
+    list-style:            none;
+    margin:                0;
+    padding:               0;
+    display:               grid;
+    grid-template-columns: 1fr 1fr;
+    gap:                   .45rem;
+    max-width:             calc(40 * var(--u));
+}
+
+.asc__opt { display: block; }
+
+.asc__opt input[type="radio"] {
+    position: absolute; width: 1px; height: 1px;
+    margin: -1px; overflow: hidden;
+    clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
+}
+
+.asc__opt label {
+    display:       block;
+    font-size:     clamp(.75rem, calc(.82 * var(--u)), .98rem);
+    font-weight:   400;
+    line-height:   1.35;
+    color:         rgba(17, 17, 17, .65);
+    padding:       calc(.38 * var(--u)) calc(.7 * var(--u));
+    border:        1.5px solid rgba(17, 17, 17, .12);
+    border-radius: 3px;
+    cursor:        pointer;
+    transition:    background .18s ease, color .18s ease, border-color .18s ease;
+}
+
+.asc__opt label:hover {
+    border-color: rgba(17, 17, 17, .28);
+    color:        #111111;
+}
+
+/* risposta selezionata: riempi con accent */
+.asc__opt:has(input:checked) label {
+    background:   var(--accent);
+    border-color: var(--accent);
+    color:        #ffffff;
+    font-weight:  500;
+}
+
+/* risposta sbagliata: dimmi */
+.asc__opts:has(input:checked) .asc__opt:not([data-correct]):has(input:checked) label {
+    background:   rgba(17, 17, 17, .05);
+    border-color: rgba(17, 17, 17, .15);
+    color:        rgba(17, 17, 17, .38);
+    font-weight:  400;
+}
+
+/* dopo risposta sbagliata: evidenzia la corretta con bordo accent */
+.asc__opts:has(input:checked) .asc__opt[data-correct]:not(:has(input:checked)) label {
+    border-color: var(--accent);
+    color:        var(--accent);
+    font-weight:  500;
+}
+
+/* ── Screen 2 mobile ── */
+@media (max-width: 600px) {
+    .asc {
+        --u:      calc(100vw / 28);
+        --item-w: calc(14 * var(--u));
+        --row-h:  calc(14 * var(--u));
+    }
+
+    .asc__track {
+        position: absolute;
+        top:      auto;
+        bottom:   0;
+        left:     0;
+        right:    0;
+    }
+
+    .asc__panel {
+        bottom: calc(18 * var(--u));
+    }
+
+    .asc__panel-idle,
+    .asc__quiz {
+        padding:         1.25rem 1rem;
+        justify-content: flex-start;
+        padding-top:     1.5rem;
+    }
+
+    .asc__opts {
+        grid-template-columns: 1fr;
+        max-width:             none;
+    }
+
+    .asc__hint {
+        font-size: clamp(1.3rem, 6.5vw, 2rem);
+    }
+
+    .asc__quiz-q {
+        font-size:     clamp(.95rem, 4.5vw, 1.5rem);
+        margin-bottom: .75rem;
+    }
+}
