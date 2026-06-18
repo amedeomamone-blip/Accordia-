@@ -71,8 +71,10 @@
 
         items.forEach(function (item) {
             if (!item.dataset.timelineImage) return;
-            var url = 'url("' + item.dataset.timelineImage.replace(/"/g, '\\"') + '")';
-            item.style.setProperty('--htl-tile-image', url);
+            /* Resolve to absolute URL — relative paths in CSS custom properties
+               are resolved against the stylesheet, not the document. */
+            var abs = new URL(item.dataset.timelineImage, document.baseURI).href;
+            item.style.setProperty('--htl-tile-image', 'url("' + abs.replace(/"/g, '\\"') + '")');
             if (item.dataset.timelineImagePosition) {
                 item.style.setProperty('--htl-tile-image-position', item.dataset.timelineImagePosition);
             }
