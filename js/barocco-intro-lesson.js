@@ -14,60 +14,15 @@
     window.addEventListener('resize', syncH);
     window.addEventListener('load',   syncH);
 
-    /* ── HTL: barra scroll-aware + anno centrato sulla punta ───── */
+    /* ── HTL: barra scroll-aware + reveal cumulativo + date sui tile ── */
     (function htl() {
         var htlEl     = document.querySelector('.htl');
         var scroll    = document.querySelector('.htl__scroll');
         var label     = document.querySelector('.htl__year-label');
         if (!htlEl || !scroll || !label) return;
 
-        var items     = htlEl.querySelectorAll('.htl__item');
+        var items     = Array.prototype.slice.call(htlEl.querySelectorAll('.htl__item'));
         var yearSpans = Array.prototype.slice.call(label.querySelectorAll('span'));
-
-        function checkedIdx() {
-            var checked = htlEl.querySelector('input[name="htl"]:checked');
-            var idx = 0;
-            items.forEach(function (item, i) { if (item.contains(checked)) idx = i; });
-            return idx;
-        }
-
-        function barTarget() {
-            var itemW = items[0] ? items[0].offsetWidth : 0;
-            if (!itemW) return 0;
-            return Math.max(0, (checkedIdx() + 0.5) * itemW - scroll.scrollLeft);
-        }
-
-        /* Barra: animata su change, istantanea su scroll/resize */
-        function updateBar(animate) {
-            var w = barTarget();
-            if (animate && typeof gsap !== 'undefined') {
-                gsap.to(htlEl, { '--bar-vis-w': w + 'px', duration: 0.5, ease: 'power3.out' });
-            } else {
-                htlEl.style.setProperty('--bar-vis-w', w + 'px');
-            }
-        }
-
-        /* Anno: solo la span attiva è visibile — JS override sufficiente */
-        function updateYearSpan() {
-            var idx = checkedIdx();
-            yearSpans.forEach(function (span, i) {
-                span.style.opacity = i === idx ? '1' : '0';
-            });
-        }
-
-        /* Anno centrato sulla punta della barra */
-        function updateLabel() {
-            var itemW = items[0] ? items[0].offsetWidth : 0;
-            if (!itemW) return;
-            var activeSpan = yearSpans[checkedIdx()];
-            var halfSelf   = activeSpan ? activeSpan.offsetWidth / 2 : 20;
-            var barTip     = (checkedIdx() + 0.5) * itemW - scroll.scrollLeft;
-            var leftEdge   = barTip - halfSelf;
-            var maxLeft    = scroll.clientWidth - (activeSpan ? activeSpan.offsetWidth : 40);
-            var clamped    = Math.max(0, Math.min(leftEdge, maxLeft));
-            label.style.left      = clamped + 'px';
-            label.style.transform = 'none';
-        }
 
         items.forEach(function (item) {
             if (!item.dataset.timelineImage) return;
@@ -80,19 +35,71 @@
             }
         });
 
-        htlEl.querySelectorAll('input[name="htl"]').forEach(function (r) {
-            r.addEventListener('change', function () {
-                updateYearSpan();
-                updateBar(true);
-                updateLabel();
+        function checkedIdx() {
+            var checked = htlEl.querySelector('input[name="htl"]:checked');
+            var idx = 0;
+            items.forEach(function (item, i) { if (item.contains(checked)) idx = i; });
+            return idx;
+        }
+
+        function itemW() { return items[0] ? items[0].offsetWidth : 0; }
+
+        function barTarget() {
+            var w = itemW();
+            if (!w) return 0;
+            return Math.max(0, (checkedIdx() + 0.5) * w - scroll.scrollLeft);
+        }
+
+        /* Barra: animata su change, istantanea su scroll/resize */
+        function updateBar(animate) {
+            var w = barTarget();
+            if (animate && typeof gsap !== 'undefined') {
+                gsap.to(htlEl, { '--bar-vis-w': w + 'px', duration: 0.5, ease: 'power3.out' });
+            } else {
+                htlEl.style.setProperty('--bar-vis-w', w + 'px');
+            }
+        }
+
+        /* Reveal cumulativo: il tile cliccato e tutti i precedenti restano
+           accesi con immagine e testo visibili. */
+        function updateReveal() {
+            var idx = checkedIdx();
+            items.forEach(function (item, i) {
+                item.classList.toggle('is-revealed', i <= idx);
             });
+        }
+
+        /* Ogni data rivelata resta visibile sulla timeline, centrata sul
+           proprio tile (non solo quella attiva). */
+        function updateYears() {
+            var idx = checkedIdx();
+            var w   = itemW();
+            label.style.left      = '0px';
+            label.style.transform = 'none';
+            yearSpans.forEach(function (span, i) {
+                if (i <= idx && w) {
+                    span.style.opacity = '1';
+                    var center = (i + 0.5) * w - scroll.scrollLeft;
+                    span.style.left = (center - span.offsetWidth / 2) + 'px';
+                } else {
+                    span.style.opacity = '0';
+                }
+            });
+        }
+
+        function updateAll(animate) {
+            updateReveal();
+            updateBar(animate);
+            updateYears();
+        }
+
+        htlEl.querySelectorAll('input[name="htl"]').forEach(function (r) {
+            r.addEventListener('change', function () { updateAll(true); });
         });
-        scroll.addEventListener('scroll', function () { updateBar(false); updateLabel(); }, { passive: true });
-        window.addEventListener('resize', function () { updateBar(false); updateLabel(); });
-        window.addEventListener('load',   function () { updateYearSpan(); updateBar(false); updateLabel(); });
-        updateYearSpan();
-        updateBar(false);
-        updateLabel();
+        scroll.addEventListener('scroll', function () { updateBar(false); updateYears(); }, { passive: true });
+        window.addEventListener('resize', function () { updateBar(false); updateYears(); });
+        window.addEventListener('load',   function () { updateAll(false); });
+        updateAll(false);
     })();
 
     /* ── guard: GSAP, ScrollTrigger, Lenis must be loaded ──────── */

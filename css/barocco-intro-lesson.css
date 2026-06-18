@@ -308,17 +308,29 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 42%, rgba(0, 0, 0, .34) 100%);
 }
 
-.htl__item[data-timeline-image]:has(input:checked) .htl__img {
+.htl__item[data-timeline-image].is-revealed .htl__img {
     animation: none;
 }
 
-.htl__item[data-timeline-image]:has(input:checked) .htl__img::before,
-.htl__item[data-timeline-image]:has(input:checked) .htl__img::after {
+.htl__item[data-timeline-image].is-revealed .htl__img::before,
+.htl__item[data-timeline-image].is-revealed .htl__img::after {
     opacity: 1;
 }
 
-.htl__item[data-timeline-image]:has(input:checked) .htl__img::before {
+.htl__item[data-timeline-image].is-revealed .htl__img::before {
     transform: scale(1);
+}
+
+/* ── testo (titolo + descrizione): compare al click, resta visibile sui
+   tile rivelati (0 → tile cliccato) ── */
+.htl__card-title,
+.htl__card-desc {
+    opacity:    0;
+    transition: opacity .32s ease;
+}
+.htl__item.is-revealed .htl__card-title,
+.htl__item.is-revealed .htl__card-desc {
+    opacity: 1;
 }
 
 /* alternanza: item pari → immagine in row 3, meta in row 1 */
@@ -991,12 +1003,12 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     /* anno tolto da sotto il tile — è ora sopra la barra */
     .htl__card-yr { display: none; }
 
-    /* selezionato: stop animazione, tile nel colore proprio */
-    .htl__item:has(input:checked) .htl__img {
+    /* rivelato (tile cliccato + precedenti): stop animazione, colore pieno */
+    .htl__item.is-revealed .htl__img {
         animation:  none;
         background: var(--accent, #C37A6B);
     }
-    .htl__item:has(input:checked) .htl__card-title { color: #111111; }
+    .htl__item.is-revealed .htl__card-title { color: #111111; }
 
     /* hover: anteprima stato "acceso" */
     .htl__item > label:hover .htl__img {
@@ -1211,8 +1223,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     /* anno tolto da sotto il tile */
     .htl__card-yr { display: none; }
 
-    /* selezionato: stop animazione, tile nel colore proprio */
-    .htl__item:has(input:checked) .htl__img {
+    /* rivelato (tile cliccato + precedenti): stop animazione, colore pieno */
+    .htl__item.is-revealed .htl__img {
         animation:  none;
         background: var(--accent, #C37A6B);
     }
