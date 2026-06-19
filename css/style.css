@@ -21,6 +21,15 @@
     --signal-red: #dc5d50;
     --shell-max: 1320px;
     --shell-gutter: 3rem;
+    --layout-column: min(calc(100% - var(--shell-gutter)), var(--shell-max));
+    --layout-gutter: 1.5rem;
+    --touch-target: 44px;
+    --breakpoint-mobile-max: 767px;
+    --breakpoint-tablet-min: 768px;
+    --breakpoint-tablet-max: 1023px;
+    --breakpoint-laptop-min: 1024px;
+    --breakpoint-laptop-max: 1279px;
+    --breakpoint-desktop-min: 1280px;
     --accordia-card-ratio: 0.78 / 1;
     --accordia-card-ratio-value: 0.78;
 }
@@ -80,7 +89,7 @@ p {
 }
 
 .shell {
-    width: min(calc(100% - var(--shell-gutter)), var(--shell-max));
+    width: var(--layout-column);
     margin: 0 auto;
 }
 
@@ -6089,4 +6098,179 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
     .timeline-editorial-track__scroll {
         grid-auto-columns: clamp(14rem, 35vw, 16rem);
     }
+}
+
+/* Responsive behavior system */
+@media (min-width: 1280px) {
+    :root {
+        --shell-max: 1200px;
+        --shell-gutter: 3rem;
+        --layout-column: min(calc(100% - var(--shell-gutter)), var(--shell-max));
+        --layout-gutter: 1.5rem;
+    }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+    :root {
+        --shell-max: 1120px;
+        --shell-gutter: 2rem;
+        --layout-column: min(calc(100% - var(--shell-gutter)), var(--shell-max));
+        --layout-gutter: 1.15rem;
+    }
+
+    .content-grid,
+    .contributor-grid,
+    .lesson-flow,
+    .lesson-panel-grid,
+    .student-panel .materials-grid,
+    .student-panel .main-grid,
+    .student-panel .reflection-grid,
+    .nucleus-card-grid,
+    .timeline-editorial-grid {
+        gap: var(--layout-gutter);
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+    :root {
+        --shell-max: 920px;
+        --shell-gutter: 2rem;
+        --layout-column: min(calc(100% - var(--shell-gutter)), var(--shell-max));
+        --layout-gutter: 1rem;
+    }
+
+    .site-nav {
+        max-width: min(62vw, 34rem);
+        justify-content: flex-end;
+        gap: 0.35rem;
+    }
+
+    .site-nav a,
+    .site-nav button {
+        padding-inline: 0.85rem;
+    }
+
+    .content-grid,
+    .contributor-grid,
+    .lesson-flow,
+    .lesson-panel-grid,
+    .student-panel .materials-grid,
+    .student-panel .main-grid,
+    .student-panel .reflection-grid,
+    .nucleus-index,
+    .nucleus-phase-nav {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--layout-gutter);
+    }
+
+    .page-grid,
+    .split-grid,
+    .student-panel .hero-grid,
+    .nucleus-phase {
+        grid-template-columns: 1fr;
+        gap: var(--layout-gutter);
+    }
+}
+
+@media (max-width: 767px) {
+    :root {
+        --shell-gutter: 1.5rem;
+        --layout-column: calc(100% - var(--shell-gutter));
+        --layout-gutter: 0.9rem;
+    }
+
+    .site-header__inner {
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .site-nav {
+        max-width: min(52vw, 18rem);
+        justify-content: flex-end;
+        gap: 0.35rem;
+    }
+
+    .site-nav a:not(.is-active):not([aria-current="page"]) {
+        display: none;
+    }
+
+    .site-nav__dropdown {
+        display: block;
+    }
+
+    .site-nav__trigger {
+        min-width: var(--touch-target);
+        justify-content: center;
+    }
+
+    .site-nav__menu {
+        right: 0;
+        width: min(20rem, calc(100vw - 1.5rem));
+        max-height: min(26rem, calc(100svh - 5.5rem));
+        overflow-y: auto;
+    }
+
+    .hero__cta,
+    .button-row,
+    .lesson-button-row {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .hero__cta > *,
+    .button-row > *,
+    .lesson-button-row > * {
+        width: 100%;
+    }
+
+    .content-grid,
+    .contributor-grid,
+    .page-grid,
+    .split-grid,
+    .lesson-flow,
+    .lesson-panel-grid,
+    .student-panel .hero-grid,
+    .student-panel .main-grid,
+    .student-panel .reflection-grid,
+    .student-panel .materials-grid,
+    .nucleus-index,
+    .nucleus-phase,
+    .nucleus-phase-nav,
+    .nucleus-card-grid,
+    .site-footer__grid {
+        grid-template-columns: 1fr;
+        gap: var(--layout-gutter);
+    }
+}
+
+.button,
+.site-nav a,
+.site-nav button,
+.site-nav__menu a,
+.nucleus-index a,
+.nucleus-phase-nav a,
+.lesson-text-button,
+.lesson-button,
+.lesson-phase-panel__mode-switch button,
+.lesson-media-carousel__dots button,
+.student-workspace .lesson-media-carousel__dots button,
+.vivaldi-link-button,
+.vivaldi-globe-switch__button {
+    min-height: var(--touch-target);
+}
+
+pre,
+code,
+.code-editor,
+.node-graph,
+.nucleus-topic-map,
+.nucleus-topic-map__canvas,
+.lesson-floating-map {
+    max-width: 100%;
+}
+
+pre,
+.code-editor,
+.node-graph {
+    overflow: auto;
 }
