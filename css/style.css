@@ -61,10 +61,11 @@
     --layout-gutter:    1.5rem;
     --touch-target:     44px;
 
-    /* ── Breakpoint reference ── */
-    --bp-mobile:  600px;
-    --bp-tablet:  960px;
-    --bp-desktop: 1280px;
+    /* ── Breakpoint reference — mobile-first (min-width) ── */
+    --bp-sm:      640px;   /* tablet sm  — @media (min-width: 640px)  */
+    --bp-md:      768px;   /* tablet     — @media (min-width: 768px)  */
+    --bp-lg:      1024px;  /* laptop     — @media (min-width: 1024px) */
+    --bp-xl:      1200px;  /* desktop    — @media (min-width: 1200px) */
 
     /* ── Alias di compatibilità (usati dai fogli esistenti) ── */
     --bg-primary:     var(--canvas);
