@@ -884,7 +884,7 @@ body[data-nav="home"] .button {
 body[data-nav="home"] .button--primary {
     background: #18191b;
     color: #ffffff;
-    box-shadow: 0 10px 24px rgba(24, 25, 27, 0.12);
+    box-shadow: var(--el-4);
 }
 
 body[data-nav="home"] .button--secondary {
@@ -969,7 +969,7 @@ body[data-nav="home"] .button--secondary:hover {
     transform: translateX(6px);
     border-color: #18191b;
     background: #f8f8fa;
-    box-shadow: 0 12px 22px rgba(15, 23, 42, 0.07);
+    box-shadow: var(--el-4);
 }
 
 .home-reveal__item-order,
@@ -1014,7 +1014,7 @@ body[data-nav="home"] .button--secondary:hover {
 .home-reveal--method .home-reveal__item.is-active {
     border-color: var(--method-accent);
     background: var(--method-accent);
-    box-shadow: 0 14px 28px rgba(0, 113, 227, 0.18);
+    box-shadow: var(--el-4);
 }
 
 .home-reveal--method .home-reveal__item:hover .home-reveal__item-order,
@@ -1033,9 +1033,9 @@ body[data-nav="home"] .button--secondary:hover {
     min-height: 27rem;
     padding: 2rem;
     border: 1px solid #e8e8ea;
-    border-radius: 1.9rem;
+    border-radius: var(--r-lg);
     background: #ffffff;
-    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.05);
+    box-shadow: var(--el-4);
 }
 
 .home-reveal__detail-order {
@@ -1141,10 +1141,10 @@ body[data-nav="home"] .button--secondary:hover {
     gap: 0.58rem;
     padding: 3.7rem 1.42rem 1.42rem;
     border: 1px solid #e8e8ea;
-    border-radius: 1.5rem;
+    border-radius: var(--r-lg);
     background: #ffffff;
     scroll-snap-align: start;
-    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.04);
+    box-shadow: var(--el-4);
     overflow: hidden;
     transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease, background-color 180ms ease;
 }
@@ -1164,7 +1164,7 @@ body[data-nav="home"] .button--secondary:hover {
     transform: translateY(-5px);
     background: var(--card-line);
     border-color: var(--card-line);
-    box-shadow: 0 14px 26px rgba(15, 23, 42, 0.08);
+    box-shadow: var(--el-4);
 }
 
 .home-era-card:hover::before {
@@ -1524,20 +1524,20 @@ body[data-nav="home"] .site-footer__label {
 .contributor-card {
     border: 1px solid #e8ebf0;
     background: #ffffff;
-    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.05);
+    box-shadow: var(--el-4);
 }
 
 .page-hero__copy,
 .timeline-page__intro,
 .panel {
     padding: 1.6rem;
-    border-radius: 1.5rem;
+    border-radius: var(--r-lg);
 }
 
 .content-card,
 .contributor-card {
     padding: 1.35rem;
-    border-radius: 1.35rem;
+    border-radius: var(--r-lg);
 }
 
 .content-card,
@@ -1737,14 +1737,14 @@ body[data-nav="home"] .site-footer__label {
 .nucleus-phase-nav {
     border: 1px solid #e8ebf0;
     background: #ffffff;
-    box-shadow: 0 14px 30px rgba(15, 23, 42, 0.05);
+    box-shadow: var(--el-4);
 }
 
 .timeline-editorial-hero__panel,
 .nucleus-hero__panel,
 .timeline-editorial-framework__card,
 .nucleus-card {
-    border-radius: 1.5rem;
+    border-radius: var(--r-lg);
 }
 
 .timeline-editorial-framework__card,
@@ -1824,10 +1824,10 @@ body[data-nav="home"] .site-footer__label {
     gap: 0.62rem;
     padding: 3.75rem 1.35rem 1.35rem;
     border: 1px solid #e6e9ee;
-    border-radius: 1.6rem;
+    border-radius: var(--r-lg);
     background: #ffffff;
     scroll-snap-align: start;
-    box-shadow: 0 12px 26px rgba(15, 23, 42, 0.04);
+    box-shadow: var(--el-4);
     overflow: hidden;
     transition: transform 180ms ease, border-color 180ms ease, box-shadow 180ms ease, background-color 180ms ease;
 }
@@ -2041,7 +2041,7 @@ body[data-nav="home"] .site-footer__label {
     padding: clamp(1.4rem, 2.1vw, 2rem);
     border-color: #d8dee6;
     background: linear-gradient(180deg, #fdfefe 0%, #f7f9fb 100%);
-    box-shadow: 0 18px 36px rgba(15, 23, 42, 0.07);
+    box-shadow: var(--el-4);
 }
 
 .nucleus-page--map-only .nucleus-topic-map::after {
@@ -2086,13 +2086,13 @@ body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-map 
     min-height: clamp(28rem, 54vh, 36rem);
     padding: clamp(1.15rem, 2vw, 1.6rem);
     border-color: rgba(17, 17, 17, 0.1);
-    border-radius: 1.38rem;
+    border-radius: var(--r-lg);
     background:
         linear-gradient(rgba(193, 79, 64, 0.026) 1px, transparent 1px),
         linear-gradient(90deg, rgba(193, 79, 64, 0.026) 1px, transparent 1px),
         rgba(255, 255, 255, 0.92);
     background-size: 4.25rem 4.25rem, 4.25rem 4.25rem, auto;
-    box-shadow: 0 1rem 3rem rgba(17, 17, 17, 0.055);
+    box-shadow: var(--el-2);
 }
 
 body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-map__canvas {
@@ -2118,7 +2118,7 @@ body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node
     gap: 0.55rem;
     padding: 1rem;
     border-color: rgba(17, 17, 17, 0.12);
-    border-radius: 1.38rem;
+    border-radius: var(--r-lg);
     background: rgba(255, 255, 255, 0.98);
     box-shadow: 0 0.75rem 1.9rem rgba(17, 17, 17, 0.045);
 }
@@ -2141,14 +2141,14 @@ body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node
     background: rgba(245, 244, 239, 0.92);
     color: #7a6359;
     font-size: 0.68rem;
-    font-weight: 760;
+    font-weight: 700;
     letter-spacing: 0.15em;
 }
 
 body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node strong {
     max-width: 13.5ch;
     font-size: 1.08rem;
-    font-weight: 760;
+    font-weight: 700;
     line-height: 1.12;
     letter-spacing: -0.035em;
 }
@@ -2159,7 +2159,7 @@ body[data-current-nucleus="barocco"] .nucleus-page--map-only .nucleus-topic-node
     border-top: 1px solid rgba(17, 17, 17, 0.08);
     color: #5d6570;
     font-size: 0.88rem;
-    font-weight: 620;
+    font-weight: 600;
     line-height: 1.35;
 }
 
@@ -2288,7 +2288,7 @@ body[data-current-nucleus="barocco"] .nucleus-page--barocco-single + .site-foote
     margin: 0;
     color: var(--barocco-ink);
     font-size: 7.7rem;
-    font-weight: 860;
+    font-weight: 800;
     letter-spacing: 0;
     line-height: 0.76;
 }
@@ -2298,7 +2298,7 @@ body[data-current-nucleus="barocco"] .nucleus-page--barocco-single + .site-foote
     margin: 0;
     color: #3f3c38;
     font-size: 0.98rem;
-    font-weight: 620;
+    font-weight: 600;
     line-height: 1.26;
 }
 
@@ -2363,7 +2363,7 @@ body[data-current-nucleus="barocco"] .nucleus-page--barocco-single + .site-foote
     margin-top: 3rem;
     color: inherit;
     font-size: 2.12rem;
-    font-weight: 860;
+    font-weight: 800;
     letter-spacing: 0;
     line-height: 0.84;
 }
@@ -2641,10 +2641,10 @@ body[data-current-nucleus="barocco"] .nucleus-page--barocco-single + .site-foote
     min-height: 3.55rem;
     padding: 0.82rem 0.9rem 0.72rem;
     border: 1px solid #e4e8ee;
-    border-radius: 1rem;
+    border-radius: var(--r-lg);
     background: rgba(255, 255, 255, 0.78);
     color: #18191b;
-    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.03);
+    box-shadow: var(--el-2);
     overflow: hidden;
     scroll-snap-align: center;
     transition: min-height 220ms ease, padding 220ms ease, border-color 180ms ease, background-color 180ms ease, transform 180ms ease, color 180ms ease, opacity 220ms ease, box-shadow 220ms ease;
@@ -2750,7 +2750,7 @@ body[data-current-nucleus="barocco"] .nucleus-page--barocco-single + .site-foote
     background: rgba(255, 255, 255, 0.36);
     border-top-color: rgba(236, 238, 242, 0.26);
     border-bottom-color: rgba(236, 238, 242, 0.26);
-    box-shadow: 0 8px 20px rgba(15, 23, 42, 0.03);
+    box-shadow: var(--el-4);
 }
 
 .nucleus-mini-timeline.is-condensed .nucleus-mini-timeline__track {
@@ -2823,7 +2823,7 @@ body[data-current-nucleus="barocco"] .nucleus-page--barocco-single + .site-foote
     justify-content: flex-start;
     border-color: color-mix(in srgb, var(--mini-accent) 42%, #d4dae1);
     background: rgba(255, 255, 255, 0.72);
-    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.05);
+    box-shadow: var(--el-2);
 }
 
 .nucleus-mini-timeline.is-condensed:not(:hover):not(:focus-within) .nucleus-mini-timeline__track a:hover,
@@ -2851,7 +2851,7 @@ body[data-current-nucleus="barocco"] .nucleus-page--barocco-single + .site-foote
     background: rgba(255, 255, 255, 0.78);
     border-top-color: rgba(236, 238, 242, 0.58);
     border-bottom-color: rgba(236, 238, 242, 0.58);
-    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.05);
+    box-shadow: var(--el-4);
 }
 
 .nucleus-mini-timeline.is-condensed:hover .nucleus-mini-timeline__track a,
@@ -2870,7 +2870,7 @@ body[data-current-nucleus="barocco"] .nucleus-page--barocco-single + .site-foote
     transform: translateY(-1px);
     border-color: color-mix(in srgb, var(--mini-accent) 48%, #d1d8e0);
     background: color-mix(in srgb, var(--mini-accent) 10%, #ffffff);
-    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.07);
+    box-shadow: var(--el-4);
 }
 
 .nucleus-mini-timeline.is-condensed:hover .nucleus-mini-timeline__track a:hover span,
@@ -2917,7 +2917,7 @@ body[data-current-nucleus="barocco"] .nucleus-page--barocco-single + .site-foote
     grid-template-columns: repeat(7, minmax(0, 1fr));
     gap: 0.75rem;
     padding: 1rem;
-    border-radius: 1.4rem;
+    border-radius: var(--r-lg);
 }
 
 .nucleus-index a,
@@ -2943,7 +2943,7 @@ body[data-current-nucleus="barocco"] .nucleus-page--barocco-single + .site-foote
     grid-template-columns: repeat(8, minmax(0, 1fr));
     gap: 0.75rem;
     padding: 1rem;
-    border-radius: 1.4rem;
+    border-radius: var(--r-lg);
 }
 
 .nucleus-phase-stack {
@@ -2957,7 +2957,7 @@ body[data-current-nucleus="barocco"] .nucleus-page--barocco-single + .site-foote
     grid-template-columns: auto 1fr;
     gap: 1rem;
     padding: 1.35rem;
-    border-radius: 1.5rem;
+    border-radius: var(--r-lg);
 }
 
 .nucleus-phase__order {
@@ -3034,9 +3034,9 @@ body[data-current-nucleus="barocco"] .nucleus-page--barocco-single + .site-foote
     min-height: clamp(60rem, 86vh, 78rem);
     padding: clamp(2.25rem, 3vw, 3.4rem);
     border: 1px solid #e8ebf0;
-    border-radius: 2rem;
+    border-radius: var(--r-lg);
     background: #fbfcfd;
-    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.05);
+    box-shadow: var(--el-4);
     overflow: hidden;
     isolation: isolate;
 }
@@ -3079,9 +3079,9 @@ body[data-current-nucleus="barocco"] .nucleus-page--barocco-single + .site-foote
     gap: 0.55rem;
     padding: 1.15rem 1.2rem 1.25rem;
     border: 1px solid #e2e7ec;
-    border-radius: 1.5rem;
+    border-radius: var(--r-lg);
     background: #ffffff;
-    box-shadow: 0 18px 34px rgba(15, 23, 42, 0.06);
+    box-shadow: var(--el-4);
     will-change: left, top, transform;
     transition: border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease, color 180ms ease;
     z-index: 1;
@@ -3106,7 +3106,7 @@ body[data-current-nucleus="barocco"] .nucleus-page--barocco-single + .site-foote
 .nucleus-topic-node.is-floating-hover {
     border-color: var(--nucleus-accent);
     background: var(--nucleus-accent);
-    box-shadow: 0 26px 44px rgba(15, 23, 42, 0.16);
+    box-shadow: var(--el-4);
     z-index: 4;
 }
 
@@ -3286,7 +3286,7 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     border-bottom: 1px solid rgba(236, 238, 242, 0.82);
     background: rgba(255, 255, 255, 0.94);
     backdrop-filter: blur(14px);
-    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.04);
+    box-shadow: var(--el-4);
     transition: background-color 220ms ease, border-color 220ms ease, box-shadow 220ms ease, opacity 220ms ease, transform 220ms ease;
 }
 
@@ -3348,7 +3348,7 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     border: 1px solid #e2e7ed;
     border-radius: 999px;
     background: rgba(255, 255, 255, 0.88);
-    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.035);
+    box-shadow: var(--el-2);
     overflow: hidden;
     transition: width 220ms ease, padding 220ms ease, transform 180ms ease, border-color 180ms ease, background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
 }
@@ -3390,7 +3390,7 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     gap: 0.68rem;
     border-color: color-mix(in srgb, var(--nucleus-accent) 38%, #d7dde4);
     background: #ffffff;
-    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.055);
+    box-shadow: var(--el-4);
 }
 
 .topic-rail__track a.is-active span {
@@ -3419,7 +3419,7 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     transform: translateY(-1px);
     border-color: color-mix(in srgb, var(--nucleus-accent) 42%, #d6dde4);
     background: color-mix(in srgb, var(--nucleus-accent) 8%, #ffffff);
-    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.055);
+    box-shadow: var(--el-4);
 }
 
 .topic-rail:hover .topic-rail__track a:hover span,
@@ -3527,7 +3527,7 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
 .lesson-disclosure {
     border: 1px solid #e8ebf0;
     background: #ffffff;
-    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.03);
+    box-shadow: var(--el-2);
 }
 
 .lesson-overview-card,
@@ -3536,7 +3536,7 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
 .lesson-explorer__detail,
 .lesson-phase-panel,
 .lesson-disclosure {
-    border-radius: 1.5rem;
+    border-radius: var(--r-lg);
 }
 
 .lesson-overview-card,
@@ -3668,9 +3668,9 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     gap: 15px;
     padding: 28px 28px 30px;
     border: 1px solid #e5e5ea;
-    border-radius: 24px;
+    border-radius: var(--r-lg);
     background: rgba(255, 255, 255, 0.88);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.028);
+    box-shadow: var(--el-2);
     transition: border-color 220ms ease, background-color 220ms ease, box-shadow 220ms ease;
 }
 
@@ -3684,7 +3684,7 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
 .phase-card.active .phase-card-shell {
     border-color: #c66a18;
     background: #ffffff;
-    box-shadow: 0 10px 28px rgba(198, 106, 24, 0.08);
+    box-shadow: var(--el-4);
 }
 
 .phase-rail {
@@ -3732,7 +3732,7 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     font-size: 13px;
     font-weight: 700;
     letter-spacing: 0.08em;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.03);
+    box-shadow: var(--el-2);
     transition: border-color 220ms ease, background-color 220ms ease, color 220ms ease, box-shadow 220ms ease, opacity 220ms ease;
 }
 
@@ -3743,7 +3743,7 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
 .phase-card.active .phase-marker {
     border-color: #c66a18;
     background: #fffaf5;
-    box-shadow: 0 8px 20px rgba(198, 106, 24, 0.12);
+    box-shadow: var(--el-4);
 }
 
 .phase-card-head {
@@ -3850,9 +3850,9 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     gap: 0.55rem;
     padding: 0.7rem 0;
     border: 1px solid #e8ebf0;
-    border-radius: 2rem;
+    border-radius: var(--r-lg);
     background: rgba(255, 255, 255, 0.94);
-    box-shadow: 0 6px 16px rgba(15, 23, 42, 0.03);
+    box-shadow: var(--el-2);
 }
 
 .lesson-explorer__steps::before {
@@ -3919,9 +3919,9 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     min-width: 0;
     padding: 0.7rem 0.9rem;
     border: 1px solid #e6ebf0;
-    border-radius: 1.15rem;
+    border-radius: var(--r-lg);
     background: rgba(255, 255, 255, 0.98);
-    box-shadow: 0 16px 32px rgba(15, 23, 42, 0.08);
+    box-shadow: var(--el-4);
     opacity: 0;
     transform: translateX(-50%);
     pointer-events: none;
@@ -4070,16 +4070,16 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     margin-top: 1.15rem;
     padding: 1.2rem;
     border: 1px solid #e5e7eb;
-    border-radius: 1.75rem;
+    border-radius: var(--r-lg);
     background: #ffffff;
     transition: background-color 150ms ease, border-color 150ms ease, box-shadow 150ms ease;
-    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.04);
+    box-shadow: var(--el-4);
 }
 
 .lesson-phase-panel__stage[data-lesson-active-mode="student"] {
     background: #ffffff;
     border-color: #e5e7eb;
-    box-shadow: 0 14px 32px rgba(15, 23, 42, 0.045);
+    box-shadow: var(--el-4);
 }
 
 .lesson-phase-panel__stage-head {
@@ -4134,7 +4134,7 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     max-width: 1120px;
     margin: 0 auto;
     padding: 28px;
-    border-radius: 28px;
+    border-radius: var(--r-lg);
     background: #f8f8f8;
     border: 1px solid var(--student-border);
     display: grid;
@@ -4192,10 +4192,10 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     display: flex;
     flex-direction: column;
     padding: 22px;
-    border-radius: 22px;
+    border-radius: var(--r-lg);
     border: 1px solid var(--student-border);
     background: var(--student-card);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.035);
+    box-shadow: var(--el-4);
 }
 
 .student-panel .card-primary {
@@ -4286,9 +4286,9 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
 .student-workspace .lesson-panel-card {
     padding: 22px;
     border: 1px solid var(--student-border);
-    border-radius: 24px;
+    border-radius: var(--r-lg);
     background: var(--student-card);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.035);
+    box-shadow: var(--el-4);
 }
 
 .student-workspace .lesson-panel-card__head h4 {
@@ -4311,7 +4311,7 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
 
 .student-workspace .lesson-media-carousel__viewport {
     border: 1px solid var(--student-border);
-    border-radius: 20px;
+    border-radius: var(--r-lg);
     background: var(--student-chip);
 }
 
@@ -4365,7 +4365,7 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     min-height: clamp(40rem, 72vh, 52rem);
     padding: 1.35rem;
     border: 1px solid #ededf2;
-    border-radius: 20px;
+    border-radius: var(--r-lg);
     background: var(--student-surface);
 }
 
@@ -4375,8 +4375,8 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
 
 .student-workspace .nucleus-topic-node {
     border: 1px solid #e6e8ee;
-    border-radius: 22px;
-    box-shadow: 0 8px 18px rgba(15, 23, 42, 0.04);
+    border-radius: var(--r-lg);
+    box-shadow: var(--el-2);
 }
 
 .student-workspace .nucleus-topic-node strong,
@@ -4415,10 +4415,10 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
 
 .student-panel .materials-dock {
     padding: 20px;
-    border-radius: 24px;
+    border-radius: var(--r-lg);
     border: 1px solid var(--student-border);
     background: #ffffff;
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
+    box-shadow: var(--el-4);
 }
 
 .student-panel .materials-dock h3 {
@@ -4441,7 +4441,7 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     display: flex;
     align-items: center;
     padding: 14px;
-    border-radius: 18px;
+    border-radius: var(--r-lg);
     background: var(--student-surface);
     border: 1px solid var(--student-border);
     color: var(--student-muted);
@@ -4461,9 +4461,9 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     flex-direction: column;
     padding: 1.25rem 1.3rem;
     border: 1px solid #e8ebf0;
-    border-radius: 1.35rem;
+    border-radius: var(--r-lg);
     background: #ffffff;
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.035);
+    box-shadow: var(--el-4);
     transition: border-color 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
 }
 
@@ -4523,7 +4523,7 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     min-width: 0;
     padding: 0.75rem 0.9rem;
     border: 1px solid #e2e7ee;
-    border-radius: 1rem;
+    border-radius: var(--r-lg);
     background: #f9fafc;
     color: #4f5660;
     font-size: 0.88rem;
@@ -4568,7 +4568,7 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     border: 1px solid #e3e9f0;
-    border-radius: 1.25rem;
+    border-radius: var(--r-lg);
     background: #f4f7fa;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
@@ -4767,7 +4767,7 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
 .lesson-floating-map .nucleus-topic-node {
     width: clamp(9.75rem, 11vw, 11.15rem);
     padding: 0.95rem 0.95rem 1rem;
-    box-shadow: 0 10px 22px rgba(15, 23, 42, 0.05);
+    box-shadow: var(--el-4);
 }
 
 .lesson-floating-map .nucleus-topic-node strong {
@@ -4799,9 +4799,9 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     min-height: clamp(42rem, 72vh, 54rem);
     padding: clamp(1.35rem, 2.8vw, 2rem);
     border: 1px solid #e8ecef;
-    border-radius: 2rem;
+    border-radius: var(--r-lg);
     background: #fcfbf8;
-    box-shadow: 0 14px 34px rgba(15, 23, 42, 0.04);
+    box-shadow: var(--el-4);
 }
 
 .accordia-lesson-page .lesson-floating-map .nucleus-topic-map__canvas {
@@ -4822,9 +4822,9 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
     gap: 0.48rem;
     padding: 1rem 1rem 1.08rem;
     border: 1px solid #e5e9ee;
-    border-radius: 1.35rem;
+    border-radius: var(--r-lg);
     background: rgba(255, 255, 255, 0.96);
-    box-shadow: 0 10px 24px rgba(15, 23, 42, 0.045);
+    box-shadow: var(--el-4);
 }
 
 .accordia-lesson-page .lesson-floating-map .nucleus-topic-node::before {
@@ -4873,7 +4873,7 @@ body[data-current-nucleus="origini-del-suono"] .nucleus-topic-node strong {
 .accordia-lesson-page .lesson-floating-map .nucleus-topic-node.is-floating-hover {
     border-color: color-mix(in srgb, var(--nucleus-accent) 28%, #dce3ea);
     background: #fffaf5;
-    box-shadow: 0 18px 34px rgba(15, 23, 42, 0.08);
+    box-shadow: var(--el-4);
 }
 
 .accordia-lesson-page .lesson-floating-map .nucleus-topic-node:hover::before,
@@ -4970,7 +4970,7 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
 .lesson-phase-panel__objective {
     margin-top: 1.35rem;
     padding: 1.25rem 1.3rem;
-    border-radius: 1.2rem;
+    border-radius: var(--r-lg);
     background: color-mix(in srgb, var(--nucleus-accent) 7%, #f9fafc);
     border: 1px solid color-mix(in srgb, var(--nucleus-accent) 16%, #e5e9ef);
 }
@@ -4999,7 +4999,7 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
 .lesson-phase-panel__block {
     min-height: 100%;
     padding: 1.2rem;
-    border-radius: 1.2rem;
+    border-radius: var(--r-lg);
     background: #f9fafc;
     border: 1px solid #eaedf2;
 }
@@ -5064,7 +5064,7 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
 .lesson-code {
     margin: 0;
     padding: 1rem 1.1rem;
-    border-radius: 1rem;
+    border-radius: var(--r-lg);
     background: #18191b;
     color: #f4f5f7;
     font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
@@ -5130,7 +5130,7 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
 .lesson-visual {
     min-height: 100%;
     padding: 1.15rem;
-    border-radius: 1.2rem;
+    border-radius: var(--r-lg);
     border: 1px solid #eaedf2;
     background: #f9fafc;
 }
@@ -5173,7 +5173,7 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
     display: block;
     margin-top: 0.8rem;
     padding: 0.85rem 0.95rem;
-    border-radius: 1rem;
+    border-radius: var(--r-lg);
     background: #ffffff;
     color: #18191b;
     font-size: 0.92rem;
@@ -5186,10 +5186,10 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
 
 .lesson-reference-list li {
     padding: 1rem 1.1rem;
-    border-radius: 1.2rem;
+    border-radius: var(--r-lg);
     border: 1px solid #e8ebf0;
     background: #ffffff;
-    box-shadow: 0 12px 24px rgba(15, 23, 42, 0.04);
+    box-shadow: var(--el-4);
 }
 
 .timeline-editorial-framework,
@@ -5248,9 +5248,9 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
         min-height: 0;
         padding: 1rem 1.05rem;
         border: 1px solid #e8ebf0;
-        border-radius: 1.35rem;
+        border-radius: var(--r-lg);
         background: #ffffff;
-        box-shadow: 0 6px 16px rgba(15, 23, 42, 0.03);
+        box-shadow: var(--el-2);
     }
 
     .lesson-phase-step:hover,
@@ -5259,7 +5259,7 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
         transform: translateY(-2px);
         border-color: color-mix(in srgb, var(--nucleus-accent) 50%, #d4dae2);
         background: color-mix(in srgb, var(--nucleus-accent) 7%, #ffffff);
-        box-shadow: 0 8px 18px rgba(15, 23, 42, 0.05);
+        box-shadow: var(--el-2);
     }
 
     .lesson-phase-step__number {
@@ -5323,7 +5323,7 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
         --lesson-card-height: calc(var(--lesson-card-width) / var(--accordia-card-ratio-value));
         min-height: 0;
         padding: 22px 18px 28px;
-        border-radius: 24px;
+        border-radius: var(--r-lg);
         grid-template-rows: auto auto;
     }
 
@@ -5340,7 +5340,7 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
 
     .student-panel {
         padding: 20px;
-        border-radius: 24px;
+        border-radius: var(--r-lg);
     }
 
     .student-panel .hero-grid,
@@ -5484,7 +5484,7 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
 @media (max-width: 640px) {
     .student-lesson-board {
         padding: 18px;
-        border-radius: 22px;
+        border-radius: var(--r-lg);
     }
 
     .lesson-board-header h2 {
@@ -5510,7 +5510,7 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
     .phase-card-shell {
         min-height: 0;
         padding: 18px 20px;
-        border-radius: 20px;
+        border-radius: var(--r-lg);
     }
 
     .phase-rail::after {
@@ -5534,7 +5534,7 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
 
     .student-panel {
         padding: 18px;
-        border-radius: 22px;
+        border-radius: var(--r-lg);
         gap: 16px;
     }
 
@@ -6034,7 +6034,7 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
 .lesson-media-carousel__viewport,
 .student-workspace .lesson-media-carousel__viewport {
     border: 1px solid #e6e0d6;
-    border-radius: 28px;
+    border-radius: var(--r-lg);
     background: #fffefa;
 }
 
@@ -6085,7 +6085,7 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
     min-height: auto;
     padding: 1.25rem;
     border: 1px solid #e6e0d6;
-    border-radius: 28px;
+    border-radius: var(--r-lg);
     background: #fffefa;
     box-shadow: none;
 }
@@ -6101,7 +6101,7 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
 .lesson-phase-panel__objective,
 .lesson-phase-panel__block,
 .lesson-disclosure {
-    border-radius: 24px;
+    border-radius: var(--r-lg);
     border: 1px solid #e6e0d6;
     background: #fffefa;
     box-shadow: none;
@@ -6132,7 +6132,7 @@ body[data-current-nucleus="origini-del-suono"] .lesson-floating-map--concepts .n
     }
 
     .student-workspace .lesson-floating-map {
-        border-radius: 24px;
+        border-radius: var(--r-lg);
     }
 }
 
