@@ -101,418 +101,129 @@
                          ══════════════════════════════════════════ -->
                     <section class="bintro-screen" data-screen="2" aria-label="Schermata 2: Ascolti guidati">
 
-                        <!-- radio switchers per navigazione brani (CSS-only) -->
-                        <input class="asc2-radio" type="radio" name="asc2" id="asc2-t1" checked>
-                        <input class="asc2-radio" type="radio" name="asc2" id="asc2-t2">
-                        <input class="asc2-radio" type="radio" name="asc2" id="asc2-t3">
+                        <div class="asc2" id="asc2" data-track="0">
 
-                        <div class="asc2">
+                            <!-- ── SINISTRA: brano in ascolto ──────────── -->
+                            <div class="asc2__left">
 
-                            <!-- ── SINISTRA: player ─────────────────────── -->
-                            <div class="asc2__player">
+                                <span class="asc2__eyebrow">Ascolti guidati</span>
 
-                                <div class="asc2__player-head">
-                                    <span class="asc2__eyebrow">Ascolti guidati</span>
-                                    <h2 class="asc2__title">Ascolta,<br>poi rispondi</h2>
+                                <!-- selettore brani -->
+                                <div class="asc2__tabs" role="tablist" aria-label="Scegli un brano">
+                                    <button class="asc2__tab is-active" type="button" role="tab" data-track="0" aria-selected="true">
+                                        <span class="asc2__tab-n">01</span>
+                                        <span class="asc2__tab-name">Rameau</span>
+                                    </button>
+                                    <button class="asc2__tab" type="button" role="tab" data-track="1" aria-selected="false">
+                                        <span class="asc2__tab-n">02</span>
+                                        <span class="asc2__tab-name">Vivaldi</span>
+                                    </button>
+                                    <button class="asc2__tab" type="button" role="tab" data-track="2" aria-selected="false">
+                                        <span class="asc2__tab-n">03</span>
+                                        <span class="asc2__tab-name">Bach</span>
+                                    </button>
                                 </div>
 
-                                <div class="asc2__slides">
-
-                                    <!-- slide 01 · Rameau -->
-                                    <div class="asc2__slide" data-slide="1">
-                                        <div class="asc2__cover-row">
-                                            <label class="asc2__arr asc2__arr--hidden" for="asc2-t3" aria-hidden="true">
-                                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2.5L4.5 7 9 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                            </label>
-                                            <a class="asc2__cover" href="https://www.youtube.com/watch?v=2sPC8HsXxik" target="_blank" rel="noreferrer noopener" aria-label="Apri Rameau – Forêts Paisibles su YouTube">
-                                                <img class="asc2__cover-img" src="https://i.ytimg.com/vi/2sPC8HsXxik/hqdefault.jpg" alt="Rameau – Forêts Paisibles">
-                                                <span class="asc2__play" aria-hidden="true">
-                                                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="20.5" fill="rgba(0,0,0,.52)" stroke="rgba(255,255,255,.9)" stroke-width="1.5"/><path d="M18 15l14 7-14 7V15z" fill="white"/></svg>
-                                                </span>
-                                            </a>
-                                            <label class="asc2__arr" for="asc2-t2" aria-label="Brano successivo">
-                                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2.5L9.5 7 5 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                            </label>
-                                        </div>
-                                        <div class="asc2__track-meta">
-                                            <div class="asc2__track-info">
-                                                <span class="asc2__track-n">01</span>
-                                                <span class="asc2__track-sep" aria-hidden="true">·</span>
-                                                <span class="asc2__track-composer">Rameau</span>
-                                            </div>
-                                            <strong class="asc2__track-title">Forêts Paisibles</strong>
-                                        </div>
-                                    </div>
-
-                                    <!-- slide 02 · Vivaldi -->
-                                    <div class="asc2__slide" data-slide="2">
-                                        <div class="asc2__cover-row">
-                                            <label class="asc2__arr" for="asc2-t1" aria-label="Brano precedente">
-                                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2.5L4.5 7 9 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                            </label>
-                                            <a class="asc2__cover" href="https://www.youtube.com/watch?v=ECZQUg6-TlU" target="_blank" rel="noreferrer noopener" aria-label="Apri Vivaldi – L'Estate, Tempesta su YouTube">
-                                                <img class="asc2__cover-img" src="https://i.ytimg.com/vi/ECZQUg6-TlU/hqdefault.jpg" alt="Vivaldi – L'Estate, Tempesta">
-                                                <span class="asc2__play" aria-hidden="true">
-                                                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="20.5" fill="rgba(0,0,0,.52)" stroke="rgba(255,255,255,.9)" stroke-width="1.5"/><path d="M18 15l14 7-14 7V15z" fill="white"/></svg>
-                                                </span>
-                                            </a>
-                                            <label class="asc2__arr" for="asc2-t3" aria-label="Brano successivo">
-                                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2.5L9.5 7 5 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                            </label>
-                                        </div>
-                                        <div class="asc2__track-meta">
-                                            <div class="asc2__track-info">
-                                                <span class="asc2__track-n">02</span>
-                                                <span class="asc2__track-sep" aria-hidden="true">·</span>
-                                                <span class="asc2__track-composer">Vivaldi</span>
-                                            </div>
-                                            <strong class="asc2__track-title">L'Estate – Tempesta</strong>
-                                        </div>
-                                    </div>
-
-                                    <!-- slide 03 · Bach -->
-                                    <div class="asc2__slide" data-slide="3">
-                                        <div class="asc2__cover-row">
-                                            <label class="asc2__arr" for="asc2-t2" aria-label="Brano precedente">
-                                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M9 2.5L4.5 7 9 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                            </label>
-                                            <a class="asc2__cover" href="https://www.youtube.com/watch?v=Kl6R4Ui9blc" target="_blank" rel="noreferrer noopener" aria-label="Apri Bach – Badinerie su YouTube">
-                                                <img class="asc2__cover-img" src="https://i.ytimg.com/vi/Kl6R4Ui9blc/hqdefault.jpg" alt="Bach – Badinerie">
-                                                <span class="asc2__play" aria-hidden="true">
-                                                    <svg width="44" height="44" viewBox="0 0 44 44" fill="none"><circle cx="22" cy="22" r="20.5" fill="rgba(0,0,0,.52)" stroke="rgba(255,255,255,.9)" stroke-width="1.5"/><path d="M18 15l14 7-14 7V15z" fill="white"/></svg>
-                                                </span>
-                                            </a>
-                                            <label class="asc2__arr asc2__arr--hidden" for="asc2-t1" aria-hidden="true">
-                                                <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M5 2.5L9.5 7 5 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                            </label>
-                                        </div>
-                                        <div class="asc2__track-meta">
-                                            <div class="asc2__track-info">
-                                                <span class="asc2__track-n">03</span>
-                                                <span class="asc2__track-sep" aria-hidden="true">·</span>
-                                                <span class="asc2__track-composer">Bach</span>
-                                            </div>
-                                            <strong class="asc2__track-title">Badinerie</strong>
-                                        </div>
-                                    </div>
-
-                                </div><!-- /.asc2__slides -->
-
-                                <div class="asc2__dots" aria-hidden="true">
-                                    <label class="asc2__dot" for="asc2-t1"></label>
-                                    <label class="asc2__dot" for="asc2-t2"></label>
-                                    <label class="asc2__dot" for="asc2-t3"></label>
+                                <!-- dettaglio brano corrente (uno visibile alla volta) -->
+                                <div class="asc2__now" data-track="0">
+                                    <span class="asc2__now-composer">Jean-Philippe Rameau</span>
+                                    <h2 class="asc2__now-title">Forêts Paisibles</h2>
+                                    <p class="asc2__now-desc">Un'aria-danza da <em>Les Indes galantes</em> (1735): linee morbide e pastorali che evocano la quiete della natura, sostenute dal basso continuo.</p>
+                                    <a class="asc2__listen" href="https://www.youtube.com/watch?v=2sPC8HsXxik" target="_blank" rel="noreferrer noopener">
+                                        <span class="asc2__listen-ic" aria-hidden="true"><svg width="11" height="12" viewBox="0 0 11 12" fill="none"><path d="M1 1.2v9.6L10 6 1 1.2z" fill="currentColor"/></svg></span>
+                                        Ascolta su YouTube
+                                    </a>
+                                </div>
+                                <div class="asc2__now" data-track="1" hidden>
+                                    <span class="asc2__now-composer">Antonio Vivaldi</span>
+                                    <h2 class="asc2__now-title">L'Estate — Tempesta</h2>
+                                    <p class="asc2__now-desc">Il temporale estivo da <em>Le Quattro Stagioni</em> (1725): scale rapide, tremoli e contrasti violenti tra il violino solista e l'orchestra.</p>
+                                    <a class="asc2__listen" href="https://www.youtube.com/watch?v=ECZQUg6-TlU" target="_blank" rel="noreferrer noopener">
+                                        <span class="asc2__listen-ic" aria-hidden="true"><svg width="11" height="12" viewBox="0 0 11 12" fill="none"><path d="M1 1.2v9.6L10 6 1 1.2z" fill="currentColor"/></svg></span>
+                                        Ascolta su YouTube
+                                    </a>
+                                </div>
+                                <div class="asc2__now" data-track="2" hidden>
+                                    <span class="asc2__now-composer">Johann Sebastian Bach</span>
+                                    <h2 class="asc2__now-title">Badinerie</h2>
+                                    <p class="asc2__now-desc">Una danza brillante dalla <em>Suite orchestrale n. 2 in si minore</em>: il flauto traverso domina con virtuosismo, sostenuto da archi e basso continuo.</p>
+                                    <a class="asc2__listen" href="https://www.youtube.com/watch?v=Kl6R4Ui9blc" target="_blank" rel="noreferrer noopener">
+                                        <span class="asc2__listen-ic" aria-hidden="true"><svg width="11" height="12" viewBox="0 0 11 12" fill="none"><path d="M1 1.2v9.6L10 6 1 1.2z" fill="currentColor"/></svg></span>
+                                        Ascolta su YouTube
+                                    </a>
                                 </div>
 
-                            </div><!-- /.asc2__player -->
+                            </div><!-- /.asc2__left -->
 
-                            <!-- ── separatore colonne ─────────────────── -->
                             <div class="asc2__sep" aria-hidden="true"></div>
 
-                            <!-- ── DESTRA: domande ───────────────────── -->
-                            <div class="asc2__qpanel">
+                            <!-- ── DESTRA: una domanda alla volta ───────── -->
+                            <div class="asc2__right">
 
-                                <!-- domande 01 · Rameau – Forêts Paisibles -->
-                                <ol class="asc2__qset" data-qset="1" aria-label="Domande su Rameau – Forêts Paisibles">
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">01</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">Che tipo di brano è "Forêts Paisibles"?</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q1-01"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Un concerto per orchestra</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-01"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Un'aria d'opera</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-01"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Una danza strumentale</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-01"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Un brano sacro</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">02</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">Quale carattere espressivo prevale nell'ascolto?</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q1-02"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Tempestoso e agitato</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-02"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Sereno e pastorale</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-02"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Solenne e marziale</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-02"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Rapido e virtuosistico</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">03</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">Quale strumento guida la melodia principale?</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q1-03"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Flauto traverso</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-03"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Violino solista</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-03"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Voce cantante</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-03"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Clavicembalo</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">04</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">Come si può descrivere il ritmo del brano?</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q1-04"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Irregolare e libero</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-04"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Regolare e danzante</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-04"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Sincopato e imprevedibile</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-04"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Frenetico e incalzante</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">05</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">A quale paese appartiene il compositore Rameau?</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q1-05"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Italia</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-05"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Germania</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-05"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Francia</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-05"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Inghilterra</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">06</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">Il titolo "Forêts Paisibles" significa:</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q1-06"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Foreste tempestose</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-06"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Boschi silenziosi</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-06"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Foreste tranquille</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-06"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Boschi oscuri</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">07</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">Quale elemento barocco riconosci in questo brano?</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q1-07"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Il basso continuo</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-07"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Il pianoforte moderno</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-07"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">La musica concreta</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-07"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">La forma sonata</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">08</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">La melodia di questo brano ti sembra:</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q1-08"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Spezzettata e frammentaria</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-08"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Continua e cantabile</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-08"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Parlata e ritmica</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q1-08"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Molto rapida e virtuosistica</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ol>
+                                <div class="asc2__quiz-head">
+                                    <span class="asc2__quiz-step">Domanda <b class="asc2__quiz-cur">1</b> <span class="asc2__quiz-of">di</span> <span class="asc2__quiz-total">8</span></span>
+                                    <div class="asc2__bar" aria-hidden="true"><span class="asc2__bar-fill"></span></div>
+                                </div>
 
-                                <!-- domande 02 · Vivaldi – L'Estate, Tempesta -->
-                                <ol class="asc2__qset" data-qset="2" aria-label="Domande su Vivaldi – L'Estate">
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">01</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">A quale raccolta appartiene "L'Estate" di Vivaldi?</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q2-01"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">L'Estro Armonico</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-01"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">La Stravaganza</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-01"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Le Quattro Stagioni</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-01"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Il Cimento dell'Armonia</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">02</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">Quale tecnica evoca la tempesta negli archi?</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q2-02"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Melodia lenta e cantabile</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-02"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Lunghe pause di silenzio</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-02"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Rapide scale e tremoli</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-02"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Accordi arpeggiati lenti</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">03</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">Quale strumento ha il ruolo di solista?</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q2-03"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Flauto traverso</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-03"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Violoncello</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-03"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Violino</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-03"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Oboe</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">04</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">Come cambia il carattere del brano nel corso dell'ascolto?</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q2-04"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Rimane sempre calmo</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-04"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Diventa progressivamente più agitato</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-04"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Inizia agitato e si calma</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-04"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Alterna calma e agitazione</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">05</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">Quale anno vide la pubblicazione delle Quattro Stagioni?</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q2-05"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">1700</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-05"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">1725</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-05"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">1741</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-05"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">1750</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">06</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">Le Quattro Stagioni di Vivaldi sono ispirate a:</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q2-06"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Quattro città italiane</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-06"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Quattro pittori fiamminghi</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-06"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Quattro sonetti poetici</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-06"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Quattro re europei</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">07</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">Quale principio barocco è centrale in questo brano?</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q2-07"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Il contrasto tra calma e agitazione</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-07"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">La ripetizione identica di un tema</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-07"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">L'armonia modale</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-07"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Il canto gregoriano</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">08</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">La forma musicale delle Quattro Stagioni è:</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q2-08"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">La suite</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-08"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Il concerto per violino</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-08"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">L'oratorio</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q2-08"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">La fuga</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ol>
+                                <div class="asc2__quiz-body"><!-- domande iniettate per brano da JS, qui la sorgente -->
 
-                                <!-- domande 03 · Bach – Badinerie -->
-                                <ol class="asc2__qset" data-qset="3" aria-label="Domande su Bach – Badinerie">
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">01</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">"Badinerie" in francese significa:</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q3-01"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Lamento</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-01"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Preghiera</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-01"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Scherzo, gioco</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-01"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Battaglia</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">02</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">Da quale opera proviene la Badinerie di Bach?</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q3-02"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Suite per violoncello n. 1</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-02"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Le Variazioni Goldberg</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-02"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Suite orchestrale n. 2 in si minore</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-02"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Il Clavicembalo Ben Temperato</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">03</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">Quale strumento è protagonista della Badinerie?</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q3-03"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Oboe</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-03"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Flauto traverso</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-03"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Violino solista</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-03"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Clavicembalo</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">04</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">Come si può descrivere il carattere del brano?</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q3-04"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Grave e solenne</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-04"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Lento e malinconico</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-04"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Leggero, vivace e virtuosistico</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-04"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Misterioso e oscuro</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">05</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">Quale tipo di ensemble accompagna il solista?</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q3-05"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Coro e organo</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-05"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Solo clavicembalo</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-05"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Ensemble di fiati</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-05"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Archi e basso continuo</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">06</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">Bach è considerato maestro di quale tecnica?</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q3-06"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Il madrigale rinascimentale</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-06"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">La sinfonia classica</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-06"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Il contrappunto e la fuga</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-06"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Il jazz improvvisato</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">07</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">Quale elemento barocco è evidente nella Badinerie?</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q3-07"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">La musica atonale</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-07"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Il virtuosismo solistico</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-07"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">L'improvvisazione libera</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-07"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Il ritmo sincopato</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="asc2__q">
-                                        <span class="asc2__q-num">08</span>
-                                        <div class="asc2__q-body">
-                                            <p class="asc2__q-text">La Suite orchestrale n. 2 di Bach è in quale tonalità?</p>
-                                            <div class="asc2__opts" role="group">
-                                                <label class="asc2__opt"><input type="radio" name="q3-08"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Do maggiore</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-08"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Re minore</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-08"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Si minore</span></label>
-                                                <label class="asc2__opt"><input type="radio" name="q3-08"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">La maggiore</span></label>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ol>
+                                    <!-- domande 01 · Rameau -->
+                                    <div class="asc2__quiz" data-quiz="0">
+                                        <div class="asc2__q" data-q="0"><p class="asc2__q-text">Che tipo di brano è "Forêts Paisibles"?</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Un concerto per orchestra</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Un'aria d'opera</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Una danza strumentale</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Un brano sacro</span></button></div></div>
+                                        <div class="asc2__q" data-q="1"><p class="asc2__q-text">Quale carattere espressivo prevale nell'ascolto?</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Tempestoso e agitato</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Sereno e pastorale</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Solenne e marziale</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Rapido e virtuosistico</span></button></div></div>
+                                        <div class="asc2__q" data-q="2"><p class="asc2__q-text">Quale famiglia di strumenti sostiene l'armonia?</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Le percussioni</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Gli ottoni</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Il basso continuo</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">I sintetizzatori</span></button></div></div>
+                                        <div class="asc2__q" data-q="3"><p class="asc2__q-text">Come si può descrivere il ritmo del brano?</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Irregolare e libero</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Regolare e danzante</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Sincopato e imprevedibile</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Frenetico e incalzante</span></button></div></div>
+                                        <div class="asc2__q" data-q="4"><p class="asc2__q-text">A quale paese appartiene il compositore Rameau?</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Italia</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Germania</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Francia</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Inghilterra</span></button></div></div>
+                                        <div class="asc2__q" data-q="5"><p class="asc2__q-text">Il titolo "Forêts Paisibles" significa:</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Foreste tempestose</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Boschi rumorosi</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Foreste tranquille</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Boschi oscuri</span></button></div></div>
+                                        <div class="asc2__q" data-q="6"><p class="asc2__q-text">Quale elemento barocco riconosci in questo brano?</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Il basso continuo</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Il pianoforte moderno</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">La musica elettronica</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">La batteria jazz</span></button></div></div>
+                                        <div class="asc2__q" data-q="7"><p class="asc2__q-text">La melodia di questo brano ti sembra:</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Spezzettata e frammentaria</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Continua e cantabile</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Parlata e ritmica</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Dissonante e aspra</span></button></div></div>
+                                    </div>
 
-                            </div><!-- /.asc2__qpanel -->
+                                    <!-- domande 02 · Vivaldi -->
+                                    <div class="asc2__quiz" data-quiz="1" hidden>
+                                        <div class="asc2__q" data-q="0"><p class="asc2__q-text">A quale raccolta appartiene "L'Estate" di Vivaldi?</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">L'Estro Armonico</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">La Stravaganza</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Le Quattro Stagioni</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Il Cimento dell'Armonia</span></button></div></div>
+                                        <div class="asc2__q" data-q="1"><p class="asc2__q-text">Quale tecnica evoca la tempesta negli archi?</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Melodia lenta e cantabile</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Lunghe pause di silenzio</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Rapide scale e tremoli</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Accordi arpeggiati lenti</span></button></div></div>
+                                        <div class="asc2__q" data-q="2"><p class="asc2__q-text">Quale strumento ha il ruolo di solista?</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Flauto traverso</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Violoncello</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Violino</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Oboe</span></button></div></div>
+                                        <div class="asc2__q" data-q="3"><p class="asc2__q-text">Come cambia il carattere nel corso dell'ascolto?</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Rimane sempre calmo</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Da quiete a tempesta</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Sempre identico</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Lento e immobile</span></button></div></div>
+                                        <div class="asc2__q" data-q="4"><p class="asc2__q-text">In quale anno furono pubblicate Le Quattro Stagioni?</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">1607</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">1725</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">1685</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">1760</span></button></div></div>
+                                        <div class="asc2__q" data-q="5"><p class="asc2__q-text">Le Quattro Stagioni sono ispirate a:</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Quattro città italiane</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Quattro pittori</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Quattro sonetti poetici</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Quattro re europei</span></button></div></div>
+                                        <div class="asc2__q" data-q="6"><p class="asc2__q-text">Quale principio barocco è centrale in questo brano?</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Il contrasto fra calma e furia</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">La ripetizione identica</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Il canto gregoriano</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Il silenzio assoluto</span></button></div></div>
+                                        <div class="asc2__q" data-q="7"><p class="asc2__q-text">La forma musicale delle Quattro Stagioni è:</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">La suite per liuto</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Il concerto per violino</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">L'oratorio sacro</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">La sinfonia classica</span></button></div></div>
+                                    </div>
+
+                                    <!-- domande 03 · Bach -->
+                                    <div class="asc2__quiz" data-quiz="2" hidden>
+                                        <div class="asc2__q" data-q="0"><p class="asc2__q-text">"Badinerie" in francese significa:</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Lamento</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Preghiera</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Scherzo, gioco</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Battaglia</span></button></div></div>
+                                        <div class="asc2__q" data-q="1"><p class="asc2__q-text">Da quale opera proviene la Badinerie di Bach?</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Suite per violoncello n. 1</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Variazioni Goldberg</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Suite orchestrale n. 2</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Clavicembalo Ben Temperato</span></button></div></div>
+                                        <div class="asc2__q" data-q="2"><p class="asc2__q-text">Quale strumento è protagonista della Badinerie?</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Oboe</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Flauto traverso</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Violino solista</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Tromba</span></button></div></div>
+                                        <div class="asc2__q" data-q="3"><p class="asc2__q-text">Come si può descrivere il carattere del brano?</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Grave e solenne</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Lento e malinconico</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Leggero, vivace e virtuosistico</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Misterioso e oscuro</span></button></div></div>
+                                        <div class="asc2__q" data-q="4"><p class="asc2__q-text">Quale ensemble accompagna il solista?</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Coro e organo</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Solo clavicembalo</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Banda di ottoni</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Archi e basso continuo</span></button></div></div>
+                                        <div class="asc2__q" data-q="5"><p class="asc2__q-text">Bach è considerato maestro di quale tecnica?</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Il madrigale rinascimentale</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">La sinfonia classica</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Il contrappunto e la fuga</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">L'improvvisazione jazz</span></button></div></div>
+                                        <div class="asc2__q" data-q="6"><p class="asc2__q-text">Quale elemento barocco è evidente nella Badinerie?</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">La musica atonale</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Il virtuosismo solistico</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Il canto corale</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">Il ritmo sincopato</span></button></div></div>
+                                        <div class="asc2__q" data-q="7"><p class="asc2__q-text">La Suite orchestrale n. 2 di Bach è in quale tonalità?</p><div class="asc2__opts" role="group"><button class="asc2__opt" type="button"><span class="asc2__opt-key">A</span><span class="asc2__opt-val">Do maggiore</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">B</span><span class="asc2__opt-val">Re minore</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">C</span><span class="asc2__opt-val">Si minore</span></button><button class="asc2__opt" type="button"><span class="asc2__opt-key">D</span><span class="asc2__opt-val">La maggiore</span></button></div></div>
+                                    </div>
+
+                                    <!-- stato finale -->
+                                    <div class="asc2__done" hidden>
+                                        <span class="asc2__done-ic" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="11" r="10" stroke="currentColor" stroke-width="1.5"/><path d="M6.5 11.2l3 3 6-6.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+                                        <p class="asc2__done-text">Hai completato tutte le domande di questo ascolto.</p>
+                                        <button class="asc2__restart" type="button">Ricomincia</button>
+                                    </div>
+
+                                </div><!-- /.asc2__quiz-body -->
+
+                                <div class="asc2__quiz-nav">
+                                    <button class="asc2__nav asc2__nav--prev" type="button" disabled>
+                                        <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M9 2.5L4.5 7 9 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                        Indietro
+                                    </button>
+                                    <button class="asc2__nav asc2__nav--next" type="button">
+                                        Avanti
+                                        <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M5 2.5L9.5 7 5 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                                    </button>
+                                </div>
+
+                            </div><!-- /.asc2__right -->
 
                         </div><!-- /.asc2 -->
 

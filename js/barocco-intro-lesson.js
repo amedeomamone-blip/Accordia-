@@ -102,6 +102,127 @@
         updateAll(false);
     })();
 
+    /* ── Screen 2: ascolti guidati — una domanda alla volta ──────── */
+    (function asc2() {
+        var root = document.getElementById('asc2');
+        if (!root) return;
+
+        var tabs    = Array.prototype.slice.call(root.querySelectorAll('.asc2__tab'));
+        var nows    = Array.prototype.slice.call(root.querySelectorAll('.asc2__now'));
+        var quizzes = Array.prototype.slice.call(root.querySelectorAll('.asc2__quiz'));
+        var done    = root.querySelector('.asc2__done');
+        var curEl   = root.querySelector('.asc2__quiz-cur');
+        var totalEl = root.querySelector('.asc2__quiz-total');
+        var barFill = root.querySelector('.asc2__bar-fill');
+        var prevBtn = root.querySelector('.asc2__nav--prev');
+        var nextBtn = root.querySelector('.asc2__nav--next');
+        var restart = root.querySelector('.asc2__restart');
+
+        /* domande per ogni brano + risposta memorizzata */
+        var sets = quizzes.map(function (q) {
+            return Array.prototype.slice.call(q.querySelectorAll('.asc2__q'));
+        });
+        var answers = sets.map(function (qs) { return qs.map(function () { return -1; }); });
+
+        var track = 0;   // brano corrente
+        var idx   = 0;   // indice domanda nel brano (sets[track].length = fine → schermata done)
+        var advanceTimer = null;
+
+        function total() { return sets[track].length; }
+        function atDone() { return idx >= total(); }
+
+        function render() {
+            /* tab + brano attivi */
+            tabs.forEach(function (t, i) {
+                var on = i === track;
+                t.classList.toggle('is-active', on);
+                t.setAttribute('aria-selected', on ? 'true' : 'false');
+            });
+            nows.forEach(function (n, i) { n.hidden = i !== track; });
+            quizzes.forEach(function (q, i) { q.hidden = i !== track; });
+
+            /* domanda attiva (o stato finale) */
+            sets[track].forEach(function (q, i) {
+                q.classList.toggle('is-active', !atDone() && i === idx);
+            });
+            if (done) done.hidden = !atDone();
+
+            /* opzioni selezionate riflesse dallo stato memorizzato */
+            if (!atDone()) {
+                var opts = sets[track][idx].querySelectorAll('.asc2__opt');
+                Array.prototype.forEach.call(opts, function (o, i) {
+                    o.classList.toggle('is-selected', answers[track][idx] === i);
+                });
+            }
+
+            /* testata + barra */
+            var shown = Math.min(idx + 1, total());
+            if (curEl)   curEl.textContent   = String(shown);
+            if (totalEl) totalEl.textContent = String(total());
+            if (barFill) barFill.style.width = (((atDone() ? total() : idx + 1) / total()) * 100) + '%';
+
+            /* nav */
+            if (prevBtn) prevBtn.disabled = idx === 0;
+            if (nextBtn) {
+                nextBtn.disabled = atDone();
+                nextBtn.textContent = (idx >= total() - 1) ? 'Concludi' : 'Avanti';
+                /* re-inserisci la freccia (textContent l'ha rimossa) */
+                if (!nextBtn.querySelector('svg')) {
+                    nextBtn.insertAdjacentHTML('beforeend',
+                        ' <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M5 2.5L9.5 7 5 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>');
+                }
+            }
+        }
+
+        function goTo(i) {
+            clearTimeout(advanceTimer);
+            idx = Math.max(0, Math.min(i, total()));
+            render();
+        }
+
+        function selectTrack(t) {
+            clearTimeout(advanceTimer);
+            track = t;
+            idx   = 0;
+            render();
+        }
+
+        /* click su un'opzione: memorizza e avanza */
+        quizzes.forEach(function (quiz, qt) {
+            quiz.addEventListener('click', function (e) {
+                var opt = e.target.closest('.asc2__opt');
+                if (!opt || qt !== track) return;
+                var q = opt.closest('.asc2__q');
+                var qi = sets[track].indexOf(q);
+                if (qi < 0) return;
+                var opts = Array.prototype.slice.call(q.querySelectorAll('.asc2__opt'));
+                var oi = opts.indexOf(opt);
+
+                answers[track][qi] = oi;
+                opts.forEach(function (o, i) { o.classList.toggle('is-selected', i === oi); });
+
+                clearTimeout(advanceTimer);
+                advanceTimer = setTimeout(function () { goTo(qi + 1); }, 340);
+            });
+        });
+
+        tabs.forEach(function (t, i) {
+            t.addEventListener('click', function () { selectTrack(i); });
+        });
+        if (prevBtn) prevBtn.addEventListener('click', function () { goTo(idx - 1); });
+        if (nextBtn) nextBtn.addEventListener('click', function () { goTo(idx + 1); });
+        if (restart) restart.addEventListener('click', function () {
+            answers[track] = sets[track].map(function () { return -1; });
+            sets[track].forEach(function (q) {
+                Array.prototype.forEach.call(q.querySelectorAll('.asc2__opt'),
+                    function (o) { o.classList.remove('is-selected'); });
+            });
+            goTo(0);
+        });
+
+        render();
+    })();
+
     /* ── guard: GSAP, ScrollTrigger, Lenis must be loaded ──────── */
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || typeof Lenis === 'undefined') {
         console.warn('[bintro] GSAP / ScrollTrigger / Lenis not found. Scroll animation disabled.');

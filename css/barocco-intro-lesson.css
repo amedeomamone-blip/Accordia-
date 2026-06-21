@@ -16,23 +16,12 @@
 }
 
 /* ================================================================
-   SCREEN 2 — Ascolti guidati (player ← | → domande a scelta multipla)
+   SCREEN 2 — Ascolti guidati
+   Sinistra: brano in ascolto (autore · titolo · descrizione · play)
+   Destra:   una domanda alla volta, avanza alla risposta
    ================================================================ */
 .bintro-screen[data-screen="2"] {
     background: #ffffff;
-}
-
-/* radio switchers nascosti */
-.asc2-radio {
-    position:    absolute;
-    width:       1px;
-    height:      1px;
-    opacity:     0;
-    overflow:    hidden;
-    clip:        rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border:      0;
-    pointer-events: none;
 }
 
 /* ── griglia 2 colonne ───────────────────────────────────────────── */
@@ -40,383 +29,411 @@
     position:              absolute;
     inset:                 0;
     display:               grid;
-    grid-template-columns: 1fr 1px 1fr;
+    grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1.05fr);
+    background:            #ffffff;
 }
 
-/* ── SINISTRA: player ────────────────────────────────────────────── */
-.asc2__player {
+/* ── separatore colonne ──────────────────────────────────────────── */
+.asc2__sep {
+    background: rgba(17, 17, 17, .08);
+    align-self: stretch;
+}
+
+/* ════════════════════════════════════════════════════════════════
+   SINISTRA — brano in ascolto
+   ════════════════════════════════════════════════════════════════ */
+.asc2__left {
     display:         flex;
     flex-direction:  column;
     justify-content: center;
-    padding:         clamp(2rem, 5vw, 4rem) clamp(2rem, 4.5vw, 3.5rem);
-    gap:             clamp(.85rem, 2vh, 1.5rem);
+    gap:             clamp(1.25rem, 3vh, 2.25rem);
+    padding:         clamp(1.75rem, 4.5vw, 4rem);
     min-width:       0;
 }
-
-.asc2__player-head { flex: 0 0 auto; }
 
 .asc2__eyebrow {
     display:        block;
-    font-size:      clamp(.6rem, .7vw, .76rem);
+    font-size:      clamp(.62rem, .72vw, .74rem);
     font-weight:    600;
-    letter-spacing: .12em;
+    letter-spacing: .14em;
     text-transform: uppercase;
-    color:          rgba(17, 17, 17, .32);
-    margin-bottom:  .55rem;
+    color:          rgba(17, 17, 17, .34);
 }
 
-.asc2__title {
-    margin:         0;
-    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:      clamp(1.65rem, 3vw, 3.2rem);
-    font-weight:    800;
-    letter-spacing: -.05em;
-    line-height:    .92;
-    color:          #111111;
+/* ── selettore brani (tab) ───────────────────────────────────────── */
+.asc2__tabs {
+    display: flex;
+    gap:     .4rem;
+    flex-wrap: wrap;
 }
 
-/* ── area slides (prende lo spazio rimanente) ────────────────────── */
-.asc2__slides {
-    flex:        1 1 auto;
-    min-height:  0;
-    display:     flex;
-    align-items: center;
+.asc2__tab {
+    display:        inline-flex;
+    align-items:    baseline;
+    gap:            .4rem;
+    padding:        .42rem .7rem;
+    border:         1px solid rgba(17, 17, 17, .12);
+    border-radius:  0;
+    background:     transparent;
+    cursor:         pointer;
+    font-family:    inherit;
+    color:          rgba(17, 17, 17, .5);
+    transition:     border-color .16s ease, color .16s ease, background-color .16s ease;
 }
 
-.asc2__slide {
-    display:        none;
-    width:          100%;
-    flex-direction: column;
-    gap:            clamp(.5rem, 1.4vh, 1rem);
+.asc2__tab:hover {
+    border-color: rgba(17, 17, 17, .3);
+    color:        #111111;
 }
 
-#asc2-t1:checked ~ .asc2 .asc2__slide[data-slide="1"] { display: flex; }
-#asc2-t2:checked ~ .asc2 .asc2__slide[data-slide="2"] { display: flex; }
-#asc2-t3:checked ~ .asc2 .asc2__slide[data-slide="3"] { display: flex; }
-
-/* ── riga copertina: freccia + thumbnail + freccia ───────────────── */
-.asc2__cover-row {
-    display:     flex;
-    align-items: center;
-    gap:         clamp(.55rem, 1.2vw, 1rem);
+.asc2__tab.is-active {
+    background:   #111111;
+    border-color: #111111;
+    color:        #ffffff;
 }
 
-.asc2__arr {
-    flex:            0 0 auto;
-    display:         flex;
-    align-items:     center;
-    justify-content: center;
-    width:           clamp(1.75rem, 2.5vw, 2.35rem);
-    height:          clamp(1.75rem, 2.5vw, 2.35rem);
-    border-radius:   50%;
-    border:          1.5px solid rgba(17, 17, 17, .13);
-    color:           rgba(17, 17, 17, .5);
-    cursor:          pointer;
-    user-select:     none;
-    -webkit-user-select: none;
-    transition:      border-color .16s ease, color .16s ease, background-color .16s ease;
-}
-
-.asc2__arr:hover {
-    border-color:     rgba(17, 17, 17, .6);
-    color:            #111111;
-    background-color: rgba(17, 17, 17, .04);
-}
-
-.asc2__arr--hidden {
-    visibility:     hidden;
-    pointer-events: none;
-}
-
-/* ── thumbnail YouTube ───────────────────────────────────────────── */
-.asc2__cover {
-    flex:            1 1 auto;
-    min-width:       0;
-    position:        relative;
-    display:         block;
-    aspect-ratio:    4 / 3;
-    overflow:        hidden;
-    background:      #e5e2dd;
-    text-decoration: none;
-}
-
-.asc2__cover:focus-visible {
-    outline:        2px solid #111111;
-    outline-offset: 2px;
-}
-
-.asc2__cover-img {
-    position:        absolute;
-    inset:           0;
-    width:           100%;
-    height:          100%;
-    object-fit:      cover;
-    object-position: center;
-    transform:       scale(1.03);
-    transition:      transform .36s ease;
-}
-
-.asc2__cover:hover .asc2__cover-img,
-.asc2__cover:focus-visible .asc2__cover-img { transform: scale(1); }
-
-.asc2__play {
-    position:        absolute;
-    inset:           0;
-    z-index:         2;
-    display:         flex;
-    align-items:     center;
-    justify-content: center;
-    opacity:         0;
-    transition:      opacity .2s ease;
-}
-
-.asc2__cover:hover .asc2__play,
-.asc2__cover:focus-visible .asc2__play { opacity: 1; }
-
-/* ── meta brano (sotto copertina) ────────────────────────────────── */
-.asc2__track-meta {
-    display:        flex;
-    flex-direction: column;
-    gap:            .15rem;
-}
-
-.asc2__track-info {
-    display:     flex;
-    align-items: baseline;
-    gap:         .38rem;
-}
-
-.asc2__track-n {
-    font-size:            clamp(.56rem, .66vw, .7rem);
+.asc2__tab-n {
+    font-size:            .58rem;
     font-weight:          650;
     letter-spacing:       .06em;
     font-variant-numeric: tabular-nums;
-    color:                rgba(17, 17, 17, .28);
+    opacity:              .6;
 }
 
-.asc2__track-sep { color: rgba(17, 17, 17, .14); font-size: .72rem; }
+.asc2__tab-name {
+    font-size:      .78rem;
+    font-weight:    560;
+    letter-spacing: -.01em;
+}
 
-.asc2__track-composer {
-    font-size:      clamp(.66rem, .78vw, .82rem);
+/* ── dettaglio brano corrente ────────────────────────────────────── */
+.asc2__now { display: flex; flex-direction: column; }
+.asc2__now[hidden] { display: none; }
+
+.asc2__now-composer {
+    font-size:      clamp(.72rem, .9vw, .9rem);
     font-weight:    500;
     letter-spacing: -.01em;
-    color:          rgba(17, 17, 17, .46);
+    color:          rgba(17, 17, 17, .5);
+    margin-bottom:  .5rem;
 }
 
-.asc2__track-title {
+.asc2__now-title {
+    margin:         0 0 .85rem;
     font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:      clamp(.9rem, 1.5vw, 1.5rem);
+    font-size:      clamp(1.85rem, 3.4vw, 3.4rem);
     font-weight:    800;
-    letter-spacing: -.04em;
+    letter-spacing: -.045em;
     line-height:    1;
     color:          #111111;
 }
 
-/* ── punti di navigazione ────────────────────────────────────────── */
-.asc2__dots {
-    display:    flex;
-    gap:        .38rem;
-    align-self: flex-start;
+.asc2__now-desc {
+    margin:      0 0 1.4rem;
+    max-width:   42ch;
+    font-size:   clamp(.82rem, 1vw, .98rem);
+    font-weight: 400;
+    line-height: 1.65;
+    color:       rgba(17, 17, 17, .56);
 }
 
-.asc2__dot {
-    display:       block;
-    width:         .32rem;
-    height:        .32rem;
-    border-radius: 50%;
-    background:    rgba(17, 17, 17, .15);
-    cursor:        pointer;
-    transition:    background .2s ease;
+.asc2__now-desc em { font-style: italic; color: rgba(17, 17, 17, .72); }
+
+.asc2__listen {
+    align-self:      flex-start;
+    display:         inline-flex;
+    align-items:     center;
+    gap:             .5rem;
+    padding:         .62rem 1.1rem;
+    border:          1px solid rgba(17, 17, 17, .16);
+    border-radius:   0;
+    font-size:       .82rem;
+    font-weight:     550;
+    letter-spacing:  -.01em;
+    color:           #111111;
+    text-decoration: none;
+    transition:      background-color .16s ease, border-color .16s ease, color .16s ease;
 }
 
-#asc2-t1:checked ~ .asc2 .asc2__dots .asc2__dot:nth-child(1) { background: #111111; }
-#asc2-t2:checked ~ .asc2 .asc2__dots .asc2__dot:nth-child(2) { background: #111111; }
-#asc2-t3:checked ~ .asc2 .asc2__dots .asc2__dot:nth-child(3) { background: #111111; }
-
-/* ── separatore colonne ──────────────────────────────────────────── */
-.asc2__sep {
-    background: rgba(17, 17, 17, .07);
-    align-self: stretch;
+.asc2__listen:hover {
+    background:   #111111;
+    border-color: #111111;
+    color:        #ffffff;
 }
 
-/* ── DESTRA: pannello domande ────────────────────────────────────── */
-.asc2__qpanel {
-    display:         flex;
-    flex-direction:  column;
-    justify-content: center;
-    padding:         clamp(2rem, 4vw, 3.5rem) clamp(2rem, 4vw, 3.5rem);
-    overflow-y:      auto;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(17, 17, 17, .1) transparent;
-    min-width:       0;
+.asc2__listen-ic {
+    display:     inline-flex;
+    align-items: center;
+    color:       var(--accent);
+    transition:  color .16s ease;
 }
+.asc2__listen:hover .asc2__listen-ic { color: #ffffff; }
 
-.asc2__qpanel::-webkit-scrollbar        { width: 3px; }
-.asc2__qpanel::-webkit-scrollbar-thumb  { background: rgba(17, 17, 17, .1); border-radius: 2px; }
-.asc2__qpanel::-webkit-scrollbar-track  { background: transparent; }
-
-/* ── set domande (uno per brano) ─────────────────────────────────── */
-.asc2__qset {
-    display:        none;
-    list-style:     none;
-    margin:         0;
-    padding:        0;
-    flex-direction: column;
-}
-
-#asc2-t1:checked ~ .asc2 .asc2__qset[data-qset="1"] { display: flex; }
-#asc2-t2:checked ~ .asc2 .asc2__qset[data-qset="2"] { display: flex; }
-#asc2-t3:checked ~ .asc2 .asc2__qset[data-qset="3"] { display: flex; }
-
-/* ── singola domanda ─────────────────────────────────────────────── */
-.asc2__q {
-    display:    flex;
-    gap:        .5rem;
-    padding:    clamp(.5rem, 1vh, .8rem) 0;
-    border-top: 1px solid rgba(17, 17, 17, .07);
-}
-
-.asc2__q:first-child { border-top: none; padding-top: 0; }
-
-.asc2__q-num {
-    flex:                 0 0 auto;
-    width:                1.35rem;
-    padding-top:          .15rem;
-    font-size:            clamp(.52rem, .6vw, .65rem);
-    font-weight:          650;
-    letter-spacing:       .05em;
-    font-variant-numeric: tabular-nums;
-    color:                rgba(17, 17, 17, .22);
-}
-
-.asc2__q-body {
-    flex:           1 1 auto;
-    min-width:      0;
+/* ════════════════════════════════════════════════════════════════
+   DESTRA — quiz (una domanda alla volta)
+   ════════════════════════════════════════════════════════════════ */
+.asc2__right {
     display:        flex;
     flex-direction: column;
-    gap:            .3rem;
+    padding:        clamp(1.75rem, 4vw, 3.5rem);
+    min-width:      0;
+    min-height:     0;
+}
+
+/* ── testata: progressione + barra ───────────────────────────────── */
+.asc2__quiz-head {
+    flex: 0 0 auto;
+    display:        flex;
+    flex-direction: column;
+    gap:            .7rem;
+    margin-bottom:  clamp(1.25rem, 3vh, 2rem);
+}
+
+.asc2__quiz-step {
+    font-size:      .72rem;
+    font-weight:    500;
+    letter-spacing: .03em;
+    color:          rgba(17, 17, 17, .42);
+}
+.asc2__quiz-step b { color: #111111; font-weight: 650; }
+.asc2__quiz-of    { color: rgba(17, 17, 17, .3); }
+
+.asc2__bar {
+    height:        2px;
+    border-radius: 2px;
+    background:    rgba(17, 17, 17, .1);
+    overflow:      hidden;
+}
+.asc2__bar-fill {
+    display:       block;
+    height:        100%;
+    width:         12.5%;
+    border-radius: 2px;
+    background:    var(--accent);
+    transition:    width .32s cubic-bezier(.4, 0, .2, 1);
+}
+
+/* ── corpo: la domanda attiva è centrata nello spazio ────────────── */
+.asc2__quiz-body {
+    flex:           1 1 auto;
+    min-height:     0;
+    display:        flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.asc2__quiz { display: contents; }
+.asc2__quiz[hidden] { display: none; }
+
+.asc2__q { display: none; }
+.asc2__q.is-active {
+    display:        flex;
+    flex-direction: column;
+    gap:            clamp(1rem, 2.5vh, 1.6rem);
+    animation:      asc2-q-in .32s ease both;
+}
+
+@keyframes asc2-q-in {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
 }
 
 .asc2__q-text {
-    margin:      0;
-    font-size:   clamp(.68rem, .8vw, .85rem);
-    font-weight: 600;
-    line-height: 1.35;
-    color:       #111111;
+    margin:         0;
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      clamp(1.1rem, 1.9vw, 1.7rem);
+    font-weight:    700;
+    letter-spacing: -.025em;
+    line-height:    1.2;
+    color:          #111111;
+    max-width:      26ch;
 }
 
 /* ── opzioni a risposta multipla ─────────────────────────────────── */
 .asc2__opts {
     display:        flex;
     flex-direction: column;
-    gap:            .18rem;
+    gap:            .5rem;
 }
 
 .asc2__opt {
-    display:     flex;
-    align-items: baseline;
-    gap:         .38rem;
-    cursor:      pointer;
-    padding:     .1rem 0;
+    display:       flex;
+    align-items:   center;
+    gap:           .8rem;
+    width:         100%;
+    text-align:    left;
+    padding:       clamp(.7rem, 1.5vh, .95rem) 1rem;
+    border:        1px solid rgba(17, 17, 17, .13);
+    border-radius: 0;
+    background:    #ffffff;
+    cursor:        pointer;
+    font-family:   inherit;
+    transition:    border-color .16s ease, background-color .16s ease, transform .12s ease;
 }
 
-.asc2__opt input[type="radio"] {
-    position:    absolute;
-    width:       1px;
-    height:      1px;
-    margin:      -1px;
-    overflow:    hidden;
-    clip:        rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border:      0;
+.asc2__opt:hover {
+    border-color: rgba(17, 17, 17, .34);
+    background:   rgba(17, 17, 17, .015);
 }
+.asc2__opt:active { transform: scale(.992); }
 
 .asc2__opt-key {
     flex:            0 0 auto;
     display:         inline-flex;
     align-items:     center;
     justify-content: center;
-    width:           1.1rem;
-    height:          1.1rem;
-    border:          1.5px solid rgba(17, 17, 17, .13);
+    width:           1.65rem;
+    height:          1.65rem;
+    border:          1px solid rgba(17, 17, 17, .16);
     border-radius:   2px;
-    font-size:       .52rem;
+    font-size:       .72rem;
     font-weight:     700;
-    letter-spacing:  .04em;
-    color:           rgba(17, 17, 17, .36);
+    color:           rgba(17, 17, 17, .42);
     line-height:     1;
-    flex-shrink:     0;
-    transition:      background .14s ease, border-color .14s ease, color .14s ease;
+    transition:      background-color .16s ease, border-color .16s ease, color .16s ease;
 }
 
 .asc2__opt-val {
-    font-size:   clamp(.61rem, .72vw, .76rem);
-    font-weight: 400;
-    line-height: 1.3;
-    color:       rgba(17, 17, 17, .48);
-    transition:  color .14s ease;
+    font-size:   clamp(.82rem, 1vw, .95rem);
+    font-weight: 450;
+    line-height: 1.35;
+    color:       rgba(17, 17, 17, .72);
+    transition:  color .16s ease;
 }
 
-.asc2__opt:hover .asc2__opt-key {
-    border-color: rgba(17, 17, 17, .36);
-    color:        rgba(17, 17, 17, .62);
-}
-.asc2__opt:hover .asc2__opt-val { color: rgba(17, 17, 17, .72); }
+.asc2__opt:hover .asc2__opt-key { border-color: rgba(17, 17, 17, .4); color: #111111; }
 
-.asc2__opt:has(input:checked) .asc2__opt-key {
+/* selezionata */
+.asc2__opt.is-selected {
+    border-color: #111111;
+    background:   #111111;
+}
+.asc2__opt.is-selected .asc2__opt-key {
+    background:   #ffffff;
+    border-color: #ffffff;
+    color:        #111111;
+}
+.asc2__opt.is-selected .asc2__opt-val { color: #ffffff; font-weight: 500; }
+
+/* ── stato finale ────────────────────────────────────────────────── */
+.asc2__done {
+    display:        flex;
+    flex-direction: column;
+    align-items:    flex-start;
+    gap:            1rem;
+}
+.asc2__done[hidden] { display: none; }
+
+.asc2__done-ic { color: var(--accent); }
+
+.asc2__done-text {
+    margin:         0;
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      clamp(1.1rem, 1.7vw, 1.5rem);
+    font-weight:    700;
+    letter-spacing: -.025em;
+    line-height:    1.25;
+    color:          #111111;
+    max-width:      24ch;
+}
+
+.asc2__restart {
+    display:       inline-flex;
+    padding:       .55rem 1.1rem;
+    border:        1px solid rgba(17, 17, 17, .16);
+    border-radius: 0;
+    background:    transparent;
+    font-family:   inherit;
+    font-size:     .8rem;
+    font-weight:   550;
+    color:         #111111;
+    cursor:        pointer;
+    transition:    background-color .16s ease, border-color .16s ease, color .16s ease;
+}
+.asc2__restart:hover { background: #111111; border-color: #111111; color: #ffffff; }
+
+/* ── navigazione prev / next ─────────────────────────────────────── */
+.asc2__quiz-nav {
+    flex: 0 0 auto;
+    display:         flex;
+    justify-content: space-between;
+    gap:             .75rem;
+    margin-top:      clamp(1.25rem, 3vh, 2rem);
+}
+
+.asc2__nav {
+    display:       inline-flex;
+    align-items:   center;
+    gap:           .4rem;
+    padding:       .55rem 1rem;
+    border:        1px solid rgba(17, 17, 17, .14);
+    border-radius: 0;
+    background:    transparent;
+    font-family:   inherit;
+    font-size:     .8rem;
+    font-weight:   550;
+    color:         #111111;
+    cursor:        pointer;
+    transition:    background-color .16s ease, border-color .16s ease, color .16s ease, opacity .16s ease;
+}
+.asc2__nav:hover:not(:disabled) { background: rgba(17, 17, 17, .04); border-color: rgba(17, 17, 17, .34); }
+.asc2__nav:disabled { opacity: .32; cursor: default; }
+
+.asc2__nav--next {
     background:   #111111;
     border-color: #111111;
     color:        #ffffff;
 }
-.asc2__opt:has(input:checked) .asc2__opt-val {
-    color:       #111111;
-    font-weight: 550;
-}
+.asc2__nav--next:hover:not(:disabled) { background: #2a2a2a; border-color: #2a2a2a; }
 
-/* ── mobile portrait: colonna verticale ─────────────────────────── */
-@media (max-width: 700px) {
+/* ════════════════════════════════════════════════════════════════
+   MOBILE — colonna singola, una domanda visibile, tap target ampi
+   Il contenuto deve stare nella schermata senza bisogno di scroll
+   (Lenis intercetta il touch-scroll sui contenitori annidati).
+   ════════════════════════════════════════════════════════════════ */
+@media (max-width: 760px) {
     .asc2 {
         grid-template-columns: 1fr;
-        grid-template-rows:    auto 1px 1fr;
+        grid-template-rows:    auto 1px minmax(0, 1fr);
+        overflow:              hidden;
     }
 
-    .asc2__player {
-        padding:         1.25rem 1.25rem .85rem;
+    /* ── sinistra: compatta — descrizione nascosta su mobile ── */
+    .asc2__left {
+        justify-content: flex-start;
         gap:             .65rem;
-        justify-content: flex-start;
+        padding:         1.1rem 1.25rem 1rem;
     }
+    .asc2__now-composer { font-size: .75rem; margin-bottom: .25rem; }
+    .asc2__now-title    { font-size: clamp(1.35rem, 6.5vw, 1.9rem); margin-bottom: .5rem; }
+    .asc2__now-desc     { display: none; }  /* nascosta: troppo lunga su mobile */
+    .asc2__listen       { padding: .5rem .9rem; font-size: .78rem; }
 
-    .asc2__title { font-size: clamp(1.35rem, 5.5vw, 2rem); }
-
-    .asc2__slides {
-        flex: 0 0 auto;
+    /* ── destra: compatta ── */
+    .asc2__right {
+        padding: 1rem 1.25rem 1.1rem;
     }
-
-    .asc2__sep {
-        background: rgba(17, 17, 17, .07);
-        align-self: auto;
-        height:     1px;
-    }
-
-    .asc2__qpanel {
-        padding:         1.25rem 1.25rem;
-        justify-content: flex-start;
-    }
+    .asc2__quiz-head { margin-bottom: .85rem; gap: .5rem; }
+    .asc2__quiz-body { justify-content: flex-start; }
+    .asc2__q.is-active { gap: .75rem; }
+    .asc2__q-text    { font-size: clamp(1rem, 5vw, 1.35rem); max-width: none; }
+    .asc2__opts      { gap: .35rem; }
+    .asc2__opt       { padding: .72rem .9rem; gap: .65rem; }
+    .asc2__opt-val   { font-size: clamp(.84rem, 3.8vw, .95rem); }
+    .asc2__quiz-nav  { margin-top: .85rem; }
 }
 
-/* ── landscape compatto (iPhone landscape) ───────────────────────── */
-@media (min-width: 601px) and (max-height: 500px) {
-    .asc2__player {
-        padding: .85rem 1.5rem;
-        gap:     .5rem;
-    }
-    .asc2__title { font-size: clamp(1rem, 4svh, 1.75rem); }
-    .asc2__cover { aspect-ratio: 16 / 9; max-height: calc(48svh - 3rem); }
-    .asc2__arr   { width: 1.65rem; height: 1.65rem; }
-    .asc2__qpanel { padding: .85rem 1.5rem; }
-    .asc2__q { padding: .28rem 0; }
-    .asc2__q-text  { font-size: clamp(.6rem, 1.7svh, .8rem); }
-    .asc2__opt-val { font-size: clamp(.56rem, 1.55svh, .72rem); }
+/* ── landscape molto basso: comprimi spazi verticali ─────────────── */
+@media (min-width: 601px) and (max-height: 460px) {
+    .asc2__left  { gap: .9rem; padding: 1rem 1.6rem; }
+    .asc2__right { padding: 1rem 1.6rem; }
+    .asc2__now-title { font-size: clamp(1.4rem, 5svh, 2rem); }
+    .asc2__now-desc  { margin-bottom: .8rem; font-size: .82rem; }
+    .asc2__q.is-active { gap: .8rem; }
+    .asc2__q-text { font-size: clamp(1rem, 4svh, 1.4rem); }
+    .asc2__opt { padding: .5rem .85rem; }
+    .asc2__quiz-head { margin-bottom: 1rem; }
+    .asc2__quiz-nav  { margin-top: 1rem; }
 }
 
 /* ── wordmark: stessa dimensione della landing page ─────────────── */
@@ -951,14 +968,16 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 }
 
 /* ── Mobile ≤600px: Schermata 1 come colonna flessibile ──
-   Titolo in alto (in-flow), timeline centrata nello spazio rimanente.
-   Niente più titolo assoluto + tile schiacciati in fondo con vuoto al centro. */
+   Titolo in alto (in-flow), timeline in-flow nello spazio rimanente.
+   .htl passa da position:absolute a flex item per evitare l'overlap col titolo. */
 @media (max-width: 600px) {
     .bintro-screen[data-screen="1"] {
         flex-direction:  column;
         align-items:     stretch;
         justify-content: flex-start;
     }
+
+    /* Titolo: in-flow, in cima */
     .bintro-screen[data-screen="1"] .barocco-header {
         --u:      calc(100vw / 28);
         position: relative;
@@ -966,18 +985,84 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         top:      auto;
         bottom:   auto;
         flex:     0 0 auto;
+        z-index:  1;
     }
     .bintro-screen[data-screen="1"] .barocco-intro__eyebrow {
         flex:    none;
         display: block;
-        padding: 1.4rem 1rem .35rem;
+        padding: 1.2rem 1rem .3rem;
     }
     .bintro-screen[data-screen="1"] .barocco-intro__title-wrap {
         flex:    none;
-        padding: 0 1rem 1.2rem;
+        padding: 0 1rem 1rem;
     }
     .bintro-screen[data-screen="1"] .barocco-intro__title {
-        font-size: clamp(1.3rem, 6vw, 2.1rem);
+        font-size: clamp(1.25rem, 5.5vw, 1.9rem);
+    }
+
+    /* Timeline: diventa un flex item che occupa lo spazio sotto il titolo */
+    .htl {
+        position:        relative;
+        inset:           auto;
+        flex:            1 1 auto;
+        min-height:      0;
+        justify-content: center;
+        padding-top:     0;
+        padding-bottom:  1rem;
+        gap:             0;
+    }
+
+    /* Label: flex colonna (non grid) — card-title/yr/desc si vedono */
+    .htl__item > label {
+        display:        flex;
+        flex-direction: column;
+        align-items:    center;
+        cursor:         pointer;
+        width:          var(--item-w);
+    }
+
+    /* Reset alternanza pari — non si applica su mobile */
+    .htl__item:nth-child(even) .htl__img {
+        grid-row:    auto;
+        align-self:  auto;
+        margin-top:  0;
+        margin-bottom: .35rem;
+    }
+    .htl__item:nth-child(even) .htl__meta {
+        grid-row:       auto;
+        align-self:     auto;
+        padding-top:    .35rem;
+        padding-bottom: 0;
+    }
+
+    /* Dot: nascosto — non è nell'HTML */
+    .htl__dot { display: none; }
+
+    /* Testi sotto l'immagine: sempre visibili su mobile (niente hover desktop) */
+    .htl__card-title {
+        opacity:        1;
+        font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif);
+        font-size:      .6rem;
+        font-weight:    700;
+        letter-spacing: -.02em;
+        line-height:    1.1;
+        color:          #111111;
+        text-align:     center;
+        max-width:      var(--item-w);
+        padding:        .3rem .4rem 0;
+        white-space:    nowrap;
+        overflow:       hidden;
+        text-overflow:  ellipsis;
+    }
+    .htl__card-desc { display: none; } /* troppo lungo su mobile */
+    .htl__card-yr {
+        font-size:            .54rem;
+        font-weight:          600;
+        letter-spacing:       .03em;
+        font-variant-numeric: tabular-nums;
+        color:                rgba(17, 17, 17, .4);
+        text-align:           center;
+        padding-top:          .15rem;
     }
 }
 
@@ -1617,442 +1702,6 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     .kctl__card-title {
         padding-top: calc(1.4 * var(--u));
     }
-}
-
-
-/* ================================================================
-   SCREEN 2 — Ascolti guidati (tile strip + quiz a risposta multipla)
-   ================================================================ */
-
-.asc {
-    --u:      calc(100vw / 84);
-    --item-w: calc(14 * var(--u));
-    --row-h:  calc(14 * var(--u));
-    position: absolute;
-    inset:    0;
-}
-
-/* ── tile track: stessa posizione verticale di .htl__track ── */
-.asc__track {
-    position: absolute;
-    left:     0;
-    right:    0;
-    top:      calc(50svh - (100vw / 12) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw));
-}
-
-.asc__track::before {
-    content:        '';
-    position:       absolute;
-    left:  0; right: 0; top: -5px; height: 5px;
-    background:     rgba(17, 17, 17, .08);
-    pointer-events: none;
-}
-
-.asc__scroll {
-    overflow-x:      auto;
-    overflow-y:      hidden;
-    scrollbar-width: none;
-    padding:         0;
-}
-.asc__scroll::-webkit-scrollbar { display: none; }
-
-.asc__items {
-    display:    flex;
-    list-style: none;
-    margin:     0;
-    padding:    0;
-    width:      max-content;
-}
-
-.asc__item {
-    flex:           0 0 var(--item-w);
-    display:        flex;
-    flex-direction: column;
-}
-
-.asc__item input[type="radio"] {
-    position: absolute; width: 1px; height: 1px;
-    margin: -1px; overflow: hidden;
-    clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
-}
-
-.asc__item > label {
-    display:        flex;
-    flex-direction: column;
-    cursor:         pointer;
-    width:          var(--item-w);
-}
-
-/* ── tile face ── */
-.asc__tile {
-    display:    block;
-    width:      var(--item-w);
-    height:     var(--row-h);
-    flex:       0 0 auto;
-    background: var(--tile-gray, #e8e8e8);
-    animation:  htl-blink 12s ease-in-out infinite;
-    transition: background .3s ease;
-}
-
-.asc__item:nth-child(2) { --tile-gray: #d8d8d8; }
-.asc__item:nth-child(2) .asc__tile { animation-delay: 0s; }
-.asc__item:nth-child(3) { --tile-gray: #e0e0e0; }
-.asc__item:nth-child(3) .asc__tile { animation-delay: 1.8s; }
-.asc__item:nth-child(4) { --tile-gray: #e8e8e8; }
-.asc__item:nth-child(4) .asc__tile { animation-delay: 3.6s; }
-
-/* ── tile tema centrale (primo, statico, scuro) ── */
-.asc__item--tema .asc__tile {
-    background:      #111111;
-    animation:       none;
-    display:         flex;
-    flex-direction:  column;
-    justify-content: space-between;
-    padding:         calc(1.1 * var(--u));
-    box-sizing:      border-box;
-}
-
-.asc__tema-title {
-    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:      calc(1.5 * var(--u));
-    font-weight:    800;
-    letter-spacing: -.04em;
-    line-height:    1.05;
-    color:          #ffffff;
-}
-
-.asc__tema-num {
-    font-family:          var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:            calc(.55 * var(--u));
-    font-weight:          600;
-    letter-spacing:       .08em;
-    color:                rgba(255, 255, 255, .28);
-    font-variant-numeric: tabular-nums;
-    align-self:           flex-end;
-}
-
-/* ── testo sotto tile ── */
-.asc__name {
-    display:        block;
-    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:      calc(.85 * var(--u));
-    font-weight:    700;
-    letter-spacing: -.03em;
-    line-height:    1.05;
-    color:          #111111;
-    padding:        calc(.55 * var(--u)) calc(1.1 * var(--u)) 0;
-    margin:         0;
-    white-space:    nowrap;
-    overflow:       hidden;
-    text-overflow:  ellipsis;
-    width:          var(--item-w);
-    box-sizing:     border-box;
-}
-
-.asc__composer {
-    display:        block;
-    font-size:      calc(.55 * var(--u));
-    font-weight:    400;
-    letter-spacing: .04em;
-    color:          rgba(17, 17, 17, .38);
-    padding:        calc(.2 * var(--u)) calc(1.1 * var(--u)) 0;
-    white-space:    nowrap;
-}
-
-/* ── selezionato ── */
-.asc__item:has(input:checked) .asc__tile {
-    animation:  none;
-    background: var(--accent);
-}
-
-/* ── hover ── */
-.asc__item:not(.asc__item--tema) > label:hover .asc__tile {
-    animation:  none;
-    background: var(--accent);
-    opacity:    .7;
-}
-
-/* ── panel: area sopra i tile ── */
-.asc__panel {
-    position: absolute;
-    left:     0;
-    right:    0;
-    top:      0;
-    bottom:   calc(50svh + (100vw / 12) - min(16px, 1.6vw));
-}
-
-.asc__panel-idle,
-.asc__quiz {
-    position:        absolute;
-    inset:           0;
-    display:         flex;
-    flex-direction:  column;
-    justify-content: center;
-    padding:         0 calc(14 * var(--u));
-    opacity:         0;
-    transition:      opacity .28s ease;
-    pointer-events:  none;
-}
-
-.asc__panel-idle {
-    opacity:        1;
-    pointer-events: auto;
-}
-
-/* nasconde idle quando qualcosa è selezionato */
-.asc:has(input[name="asc"]:checked) .asc__panel-idle {
-    opacity:        0;
-    pointer-events: none;
-}
-
-/* mostra il quiz corrispondente */
-.asc:has(#asc-1:checked) .asc__quiz[data-quiz="1"],
-.asc:has(#asc-2:checked) .asc__quiz[data-quiz="2"],
-.asc:has(#asc-3:checked) .asc__quiz[data-quiz="3"] {
-    opacity:        1;
-    pointer-events: auto;
-}
-
-/* ── eyebrow + titolo idle ── */
-.asc__eyebrow {
-    display:        block;
-    font-size:      clamp(.65rem, calc(.65 * var(--u)), .8rem);
-    font-weight:    600;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color:          rgba(17, 17, 17, .35);
-    margin-bottom:  1rem;
-}
-
-.asc__hint {
-    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:      clamp(1.4rem, calc(3 * var(--u)), 3.2rem);
-    font-weight:    800;
-    letter-spacing: -.04em;
-    line-height:    1.1;
-    color:          #111111;
-    margin:         0;
-}
-
-/* ── quiz: eyebrow terracotta + domanda ── */
-.asc__quiz-eyebrow {
-    display:        block;
-    font-size:      clamp(.62rem, calc(.65 * var(--u)), .78rem);
-    font-weight:    600;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color:          var(--accent);
-    margin-bottom:  .75rem;
-}
-
-.asc__quiz-q {
-    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:      clamp(1.1rem, calc(2 * var(--u)), 2.2rem);
-    font-weight:    700;
-    letter-spacing: -.03em;
-    line-height:    1.15;
-    color:          #111111;
-    margin:         0 0 1.1rem;
-    max-width:      36ch;
-}
-
-.asc__quiz-q em { font-style: italic; }
-
-/* ── opzioni: griglia 2×2 ── */
-.asc__opts {
-    list-style:            none;
-    margin:                0;
-    padding:               0;
-    display:               grid;
-    grid-template-columns: 1fr 1fr;
-    gap:                   .45rem;
-    max-width:             calc(40 * var(--u));
-}
-
-.asc__opt { display: block; }
-
-.asc__opt input[type="radio"] {
-    position: absolute; width: 1px; height: 1px;
-    margin: -1px; overflow: hidden;
-    clip: rect(0, 0, 0, 0); white-space: nowrap; border-width: 0;
-}
-
-.asc__opt label {
-    display:       block;
-    font-size:     clamp(.75rem, calc(.82 * var(--u)), .98rem);
-    font-weight:   400;
-    line-height:   1.35;
-    color:         rgba(17, 17, 17, .65);
-    padding:       calc(.38 * var(--u)) calc(.7 * var(--u));
-    border:        1.5px solid rgba(17, 17, 17, .12);
-    border-radius: 3px;
-    cursor:        pointer;
-    transition:    background .18s ease, color .18s ease, border-color .18s ease;
-}
-
-.asc__opt label:hover {
-    border-color: rgba(17, 17, 17, .28);
-    color:        #111111;
-}
-
-/* risposta selezionata: riempi con accent */
-.asc__opt:has(input:checked) label {
-    background:   var(--accent);
-    border-color: var(--accent);
-    color:        #ffffff;
-    font-weight:  500;
-}
-
-/* risposta sbagliata: dimmi */
-.asc__opts:has(input:checked) .asc__opt:not([data-correct]):has(input:checked) label {
-    background:   rgba(17, 17, 17, .05);
-    border-color: rgba(17, 17, 17, .15);
-    color:        rgba(17, 17, 17, .38);
-    font-weight:  400;
-}
-
-/* dopo risposta sbagliata: evidenzia la corretta con bordo accent */
-.asc__opts:has(input:checked) .asc__opt[data-correct]:not(:has(input:checked)) label {
-    border-color: var(--accent);
-    color:        var(--accent);
-    font-weight:  500;
-}
-
-/* ── Screen 2 mobile portrait: layout a colonna flessibile ──
-   Niente più posizionamento assoluto fragile con calc(svh/vw):
-   .asc diventa una colonna flex che riempie lo schermo.
-   • pannello quiz/hint in alto → occupa lo spazio flessibile, centrato
-   • striscia tile in basso → altezza fissa, sempre interamente visibile
-   Così il testo non viene mai tagliato e gli elementi restano centrati
-   anche con la barra dinamica di Safari su iPhone. */
-@media (max-width: 600px) {
-    .asc {
-        --u:      calc(100vw / 28);
-        --item-w: calc(14 * var(--u));
-        --row-h:  calc(14 * var(--u));
-        display:        flex;
-        flex-direction: column;
-    }
-
-    /* pannello quiz/hint: in alto, prende lo spazio rimanente */
-    .asc__panel {
-        position:   relative;
-        inset:      auto;
-        order:      1;
-        flex:       1 1 auto;
-        min-height: 0;
-    }
-
-    /* striscia tile: in basso, altezza dettata dal contenuto */
-    .asc__track {
-        position:       relative;
-        inset:          auto;
-        order:          2;
-        flex:           0 0 auto;
-        padding-bottom: 1.5rem;
-    }
-    .asc__track::before { display: none; }
-
-    /* idle e quiz: centrati verticalmente; "safe center" ripiega in alto
-       e resta scrollabile se il contenuto supera l'altezza disponibile */
-    .asc__panel-idle,
-    .asc__quiz {
-        padding:         1.5rem 1.35rem;
-        justify-content: safe center;
-        overflow-y:      auto;
-    }
-
-    .asc__opts {
-        grid-template-columns: 1fr;
-        max-width:             none;
-        gap:                   .5rem;
-    }
-
-    .asc__eyebrow,
-    .asc__quiz-eyebrow { margin-bottom: .7rem; }
-
-    .asc__hint {
-        font-size: clamp(1.4rem, 6.8vw, 2.1rem);
-    }
-
-    .asc__quiz-q {
-        font-size:     clamp(1.05rem, 5vw, 1.6rem);
-        margin-bottom: 1rem;
-        max-width:     none;
-    }
-
-    .asc__opt label {
-        font-size: clamp(.85rem, 3.8vw, 1.05rem);
-        padding:   .6rem .85rem;
-        line-height: 1.3;
-    }
-
-    /* testo sotto i tile: più leggibile su mobile */
-    .asc__name {
-        font-size:   calc(1 * var(--u));
-        padding-top: calc(.85 * var(--u));
-    }
-    .asc__composer {
-        font-size: calc(.72 * var(--u));
-    }
-
-    .asc__tema-title { font-size: calc(1.7 * var(--u)); }
-}
-
-/* ================================================================
-   SCREEN 2 — colori su sfondo terracotta
-   ================================================================ */
-.bintro-screen[data-screen="2"] .asc__eyebrow        { color: rgba(255, 255, 255, .55); }
-.bintro-screen[data-screen="2"] .asc__hint           { color: #ffffff; }
-.bintro-screen[data-screen="2"] .asc__quiz-eyebrow   { color: rgba(255, 255, 255, .65); }
-.bintro-screen[data-screen="2"] .asc__quiz-q         { color: #ffffff; }
-.bintro-screen[data-screen="2"] .asc__name           { color: #111111; }
-.bintro-screen[data-screen="2"] .asc__composer       { color: rgba(17, 17, 17, .55); }
-.bintro-screen[data-screen="2"] .asc__track::before  { background: rgba(0, 0, 0, .12); }
-
-.bintro-screen[data-screen="2"] .asc__opt label {
-    color:        rgba(255, 255, 255, .82);
-    border-color: rgba(255, 255, 255, .3);
-}
-.bintro-screen[data-screen="2"] .asc__opt label:hover {
-    border-color: #ffffff;
-    color:        #ffffff;
-}
-.bintro-screen[data-screen="2"] .asc__opt:has(input:checked) label {
-    background:   #111111;
-    border-color: #111111;
-    color:        #ffffff;
-    font-weight:  500;
-}
-.bintro-screen[data-screen="2"] .asc__opts:has(input:checked) .asc__opt:not([data-correct]):has(input:checked) label {
-    background:   rgba(0, 0, 0, .2);
-    border-color: rgba(0, 0, 0, .15);
-    color:        rgba(255, 255, 255, .35);
-    font-weight:  400;
-}
-.bintro-screen[data-screen="2"] .asc__opts:has(input:checked) .asc__opt[data-correct]:not(:has(input:checked)) label {
-    border-color: #ffffff;
-    color:        #ffffff;
-    font-weight:  600;
-}
-
-/* tile selezionato su terracotta → scuro (evita mimetismo col bg) */
-.bintro-screen[data-screen="2"] .asc__item:has(input:checked) .asc__tile {
-    background: #111111;
-}
-.bintro-screen[data-screen="2"] .asc__item:not(.asc__item--tema) > label:hover .asc__tile {
-    background: rgba(0, 0, 0, .28);
-    opacity:    1;
-}
-
-/* intermittenza tile su terracotta: grigio → scuro semi-trasparente */
-@keyframes asc-blink {
-    0%, 100% { background-color: var(--tile-gray, #e8e8e8); }
-    6%, 11%  { background-color: rgba(0, 0, 0, .22); }
-    17%      { background-color: var(--tile-gray, #e8e8e8); }
-}
-.bintro-screen[data-screen="2"] .asc__tile {
-    animation-name: asc-blink;
 }
 
 /* ================================================================
