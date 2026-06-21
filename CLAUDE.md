@@ -165,23 +165,29 @@ Gap tra elementi inline (bottoni, chip): `var(--sp-2)` (8px).
 - **Gutter**: `clamp(1rem, 4vw, 3rem)` — si adatta dal mobile al desktop
 - **Touch target**: `44px` minimo per ogni elemento interattivo
 
-### Breakpoints
+### Breakpoints — mobile-first (min-width)
 
-| Nome | Width | Comportamento |
-|---|---|---|
-| Mobile | `< 600px` | Colonna singola, nav collassata |
-| Tablet | `600–960px` | 2 colonne se possibile |
-| Desktop | `> 960px` | Layout completo, tile full-width |
+| Nome | Min-width | Query | Comportamento |
+|---|---|---|---|
+| Mobile | — | base | Colonna singola, nav → menu trigger, CTA full-width |
+| Tablet sm | `640px` | `@media (min-width: 640px)` | 2 colonne, nav condensata |
+| Tablet | `768px` | `@media (min-width: 768px)` | 2–3 colonne, layout intermedio |
+| Laptop | `1024px` | `@media (min-width: 1024px)` | 3–4 colonne, nav completa |
+| Desktop | `1200px` | `@media (min-width: 1200px)` | Container max-width centrato, griglie complete |
+
+**Regola fondamentale**: scrivere sempre gli stili base per mobile, poi aggiungere `min-width` per schermi più grandi. Mai partire dal desktop e "rompere" con `max-width`.
 
 ---
 
 ## Responsive — regole
 
-1. **Non usare mai** `overflow: auto` su contenitori annidati dentro Lenis. Fare stare il contenuto nella schermata ridimensionando.
-2. **Immagini**: `max-width: 100%; height: auto` sempre.
-3. **Tile**: su mobile le tile scalano con `vw` o `%`, mai `px` fissi che creano overflow.
-4. **Font size**: usare sempre `clamp()` per i display: `clamp(min, vw-based, max)`.
-5. **Touch targets**: nessun bottone sotto `44px` di altezza su mobile.
+1. **Mobile-first**: stili base = mobile. Usare `@media (min-width: ...)` per espandere verso il desktop, mai `max-width` come punto di partenza.
+2. **Collapsing strategy**: nav collassa dietro menu trigger su mobile; griglie multi-colonna diventano singola colonna; illustrazioni scalano fluide, non si restringono fino all'illeggibilità.
+3. **Non usare mai** `overflow: auto` su contenitori annidati dentro Lenis. Fare stare il contenuto nella schermata ridimensionando.
+4. **Immagini**: `max-width: 100%; height: auto` sempre.
+5. **Tile**: su mobile le tile scalano con `vw` o `%`, mai `px` fissi che creano overflow.
+6. **Font size**: usare sempre `clamp()` per i display: `clamp(min, vw-based, max)`.
+7. **Touch targets**: nessun elemento interattivo sotto `44px` di altezza/larghezza su mobile.
 
 ---
 
