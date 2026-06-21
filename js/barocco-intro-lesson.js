@@ -147,11 +147,18 @@
             });
             if (done) done.hidden = !atDone();
 
-            /* opzioni selezionate riflesse dallo stato memorizzato */
+            /* opzioni riflesse dallo stato memorizzato (no flash per domande già viste) */
             if (!atDone()) {
-                var opts = sets[track][idx].querySelectorAll('.asc2__opt');
+                var q2    = sets[track][idx];
+                var opts  = q2.querySelectorAll('.asc2__opt');
+                var corr  = parseInt(q2.getAttribute('data-correct') || '-1', 10);
+                var saved = answers[track][idx];
                 Array.prototype.forEach.call(opts, function (o, i) {
-                    o.classList.toggle('is-selected', answers[track][idx] === i);
+                    o.classList.remove('is-correct', 'is-wrong', 'is-selected', 'no-flash');
+                    if (saved >= 0) {
+                        if (i === corr)                         o.classList.add('is-correct', 'no-flash');
+                        else if (i === saved && saved !== corr) o.classList.add('is-wrong',   'no-flash');
+                    }
                 });
             }
 
@@ -187,22 +194,35 @@
             render();
         }
 
-        /* click su un'opzione: memorizza e avanza */
+        /* click su un'opzione: valuta, mostra feedback e avanza */
         quizzes.forEach(function (quiz, qt) {
             quiz.addEventListener('click', function (e) {
                 var opt = e.target.closest('.asc2__opt');
                 if (!opt || qt !== track) return;
-                var q = opt.closest('.asc2__q');
+                var q  = opt.closest('.asc2__q');
                 var qi = sets[track].indexOf(q);
-                if (qi < 0) return;
-                var opts = Array.prototype.slice.call(q.querySelectorAll('.asc2__opt'));
-                var oi = opts.indexOf(opt);
+                if (qi < 0 || answers[track][qi] >= 0) return; /* già risposta */
+
+                var opts      = Array.prototype.slice.call(q.querySelectorAll('.asc2__opt'));
+                var oi        = opts.indexOf(opt);
+                var corr      = parseInt(q.getAttribute('data-correct') || '-1', 10);
+                var isCorrect = (oi === corr);
 
                 answers[track][qi] = oi;
-                opts.forEach(function (o, i) { o.classList.toggle('is-selected', i === oi); });
+
+                /* rimuovi stato precedente */
+                opts.forEach(function (o) { o.classList.remove('is-correct', 'is-wrong', 'is-selected', 'no-flash'); });
+
+                /* feedback: scelta sbagliata → rosso; risposta giusta → sempre verde */
+                if (isCorrect) {
+                    opts[oi].classList.add('is-correct');
+                } else {
+                    opts[oi].classList.add('is-wrong');
+                    if (corr >= 0 && corr < opts.length) opts[corr].classList.add('is-correct');
+                }
 
                 clearTimeout(advanceTimer);
-                advanceTimer = setTimeout(function () { goTo(qi + 1); }, 340);
+                advanceTimer = setTimeout(function () { goTo(qi + 1); }, 900);
             });
         });
 
