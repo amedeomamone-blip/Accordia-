@@ -107,7 +107,7 @@
         var root = document.getElementById('asc2');
         if (!root) return;
 
-        var tabs    = Array.prototype.slice.call(root.querySelectorAll('.asc2__tab'));
+        var tabs    = Array.prototype.slice.call(root.querySelectorAll('.asc2__tile'));
         var nows    = Array.prototype.slice.call(root.querySelectorAll('.asc2__now'));
         var quizzes = Array.prototype.slice.call(root.querySelectorAll('.asc2__quiz'));
         var done    = root.querySelector('.asc2__done');
@@ -116,6 +116,18 @@
         var prevBtn = root.querySelector('.asc2__nav--prev');
         var nextBtn = root.querySelector('.asc2__nav--next');
         var restart = root.querySelector('.asc2__restart');
+
+        /* immagine opzionale sui tile: data-asc2-image="..." → sfondo faccia.
+           Le immagini verranno aggiunte in seguito; senza attributo resta il
+           lampeggio terracotta con l'anello-hint. */
+        tabs.forEach(function (tile) {
+            var src = tile.getAttribute('data-asc2-image');
+            if (!src) return;
+            var abs  = new URL(src, document.baseURI).href;
+            var face = tile.querySelector('.asc2__tile-face');
+            if (face) face.style.backgroundImage = 'url("' + abs.replace(/"/g, '\\"') + '")';
+            tile.classList.add('has-image');
+        });
 
         /* domande per ogni brano + risposta memorizzata */
         var sets = quizzes.map(function (q) {
