@@ -1813,3 +1813,293 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     .htl__year-label { top: -22px; }
 }
 
+/* ================================================================
+   Mobile clarity override — natural vertical flow
+   ================================================================ */
+@media (max-width: 700px) {
+    .bintro-stage {
+        --bintro-mobile-gutter: 1rem;
+        overflow-x: hidden;
+        background: #ffffff;
+    }
+
+    .bintro-progress,
+    .bintro-screen-label {
+        display: none !important;
+    }
+
+    .bintro-scroll,
+    .bintro-pin,
+    .bintro-screens {
+        position: relative !important;
+        inset: auto !important;
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+        transform: none !important;
+    }
+
+    .bintro-screen {
+        position: relative !important;
+        display: block !important;
+        flex: none !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+        padding: 0 0 clamp(2.6rem, 8svh, 4rem) !important;
+    }
+
+    .bintro-screen[data-screen="1"] .barocco-header,
+    .bintro-screen[data-screen="3"] .barocco-header {
+        --u: 1rem !important;
+        position: relative !important;
+        inset: auto !important;
+        display: block !important;
+        padding: clamp(1.35rem, 6svh, 2.4rem) var(--bintro-mobile-gutter) 1.25rem !important;
+    }
+
+    .bintro-screen[data-screen="1"] .barocco-intro__eyebrow,
+    .bintro-screen[data-screen="3"] .barocco-intro__eyebrow {
+        display: block !important;
+        padding: 0 !important;
+        margin: 0 0 .65rem !important;
+        font-size: .72rem !important;
+        line-height: 1 !important;
+        letter-spacing: .13em !important;
+    }
+
+    .bintro-screen[data-screen="1"] .barocco-intro__title-wrap,
+    .bintro-screen[data-screen="3"] .barocco-intro__title-wrap {
+        display: inline-block !important;
+        padding: 0 !important;
+    }
+
+    .barocco-ticker__overlay {
+        display: none !important;
+    }
+
+    .bintro-screen[data-screen="1"] .barocco-intro__title,
+    .bintro-screen[data-screen="3"] .barocco-intro__title {
+        font-size: clamp(2rem, 10.2vw, 3rem) !important;
+        line-height: .95 !important;
+        letter-spacing: -.055em !important;
+    }
+
+    .htl {
+        --item-w: 100% !important;
+        --row-h: var(--item-w) !important;
+        --dot-size: 0px !important;
+        position: relative !important;
+        inset: auto !important;
+        display: block !important;
+        min-height: 0 !important;
+        padding: 0 0 .75rem !important;
+    }
+
+    .htl__top,
+    .htl__dot,
+    .htl__year-label {
+        display: none !important;
+    }
+
+    .htl__track,
+    .kctl__track {
+        position: relative !important;
+        inset: auto !important;
+        top: auto !important;
+        left: auto !important;
+        right: auto !important;
+        bottom: auto !important;
+    }
+
+    .htl__track::before,
+    .htl__track::after {
+        display: none !important;
+    }
+
+    .htl__scroll,
+    .kctl__scroll {
+        padding: 0 var(--bintro-mobile-gutter) 1rem !important;
+        overflow: visible !important;
+        scroll-snap-type: none !important;
+        scrollbar-width: none !important;
+    }
+
+    .htl__scroll::-webkit-scrollbar,
+    .kctl__scroll::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    .htl__items,
+    .kctl__items {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        gap: 1.15rem !important;
+        align-items: stretch !important;
+    }
+
+    .htl__item,
+    .kctl__item {
+        flex: none !important;
+        width: 100% !important;
+        justify-content: flex-start !important;
+        scroll-snap-align: none !important;
+    }
+
+    .htl__item > label {
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        min-height: 100% !important;
+    }
+
+    .htl__item:nth-child(even) .htl__img,
+    .htl__item:nth-child(even) .htl__meta {
+        grid-row: auto !important;
+        align-self: auto !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    .htl__img,
+    .kctl__img {
+        display: block !important;
+        width: 100% !important;
+        height: auto !important;
+        aspect-ratio: 1 !important;
+        flex: 0 0 auto !important;
+        border: 0 !important;
+        margin: 0 !important;
+    }
+
+    .htl__card-title,
+    .kctl__card-title {
+        display: block !important;
+        width: 100% !important;
+        padding: .95rem .95rem 0 !important;
+        font-size: clamp(1.25rem, 5.8vw, 1.75rem) !important;
+        font-weight: 800 !important;
+        line-height: .98 !important;
+        letter-spacing: -.05em !important;
+        white-space: normal !important;
+        overflow: visible !important;
+        text-overflow: clip !important;
+        opacity: 1 !important;
+    }
+
+    .htl__card-yr {
+        display: block !important;
+        width: 100% !important;
+        padding: .35rem .95rem 0 !important;
+        font-size: .78rem !important;
+        font-weight: 650 !important;
+        letter-spacing: .05em !important;
+        color: rgba(17, 17, 17, .42) !important;
+        opacity: 1 !important;
+    }
+
+    .htl__card-desc,
+    .kctl__card-desc {
+        display: block !important;
+        width: 100% !important;
+        padding: .55rem .95rem 1.15rem !important;
+        font-size: clamp(.96rem, 4vw, 1.08rem) !important;
+        font-weight: 430 !important;
+        line-height: 1.45 !important;
+        color: rgba(17, 17, 17, .6) !important;
+        opacity: 1 !important;
+        overflow: visible !important;
+        -webkit-line-clamp: unset !important;
+        -webkit-box-orient: initial !important;
+    }
+
+    .kctl {
+        --item-w: 100% !important;
+        --row-h: var(--item-w) !important;
+        position: relative !important;
+        inset: auto !important;
+        display: block !important;
+        padding: 0 !important;
+    }
+
+    .asc2 {
+        position: relative !important;
+        inset: auto !important;
+        display: flex !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        height: auto !important;
+        min-height: 0 !important;
+        overflow: visible !important;
+        padding: 0 var(--bintro-mobile-gutter) !important;
+        gap: 1rem !important;
+        background: #ffffff !important;
+    }
+
+    .asc2__sep {
+        display: none !important;
+    }
+
+    .asc2__left,
+    .asc2__right {
+        min-height: 0 !important;
+        padding: 1rem !important;
+        border: 1px solid rgba(17, 17, 17, .08) !important;
+    }
+
+    .asc2__eyebrow {
+        font-size: .72rem !important;
+        letter-spacing: .13em !important;
+    }
+
+    .asc2__tabs {
+        grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+        gap: .45rem !important;
+    }
+
+    .asc2__tab {
+        min-height: 3rem !important;
+        padding: .65rem .55rem !important;
+    }
+
+    .asc2__now-title {
+        font-size: clamp(1.75rem, 8vw, 2.35rem) !important;
+        line-height: .96 !important;
+        letter-spacing: -.055em !important;
+    }
+
+    .asc2__now-desc {
+        display: block !important;
+        font-size: .95rem !important;
+        line-height: 1.45 !important;
+        color: rgba(17, 17, 17, .6) !important;
+    }
+
+    .asc2__quiz-head,
+    .asc2__quiz-body {
+        min-height: 0 !important;
+    }
+
+    .asc2__q-text {
+        font-size: clamp(1.18rem, 5.8vw, 1.55rem) !important;
+        line-height: 1.08 !important;
+    }
+
+    .asc2__opts {
+        grid-template-columns: 1fr !important;
+        gap: .55rem !important;
+    }
+
+    .asc2__opt {
+        min-height: 3rem !important;
+        padding: .8rem .9rem !important;
+    }
+
+    .asc2__quiz-nav {
+        margin-top: 1rem !important;
+    }
+}

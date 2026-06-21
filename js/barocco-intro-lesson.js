@@ -237,6 +237,11 @@
         render();
     })();
 
+    if (window.matchMedia && window.matchMedia('(max-width: 700px)').matches) {
+        if (stage) stage.classList.add('bintro-stage--mobile-flow');
+        return;
+    }
+
     /* ── guard: GSAP, ScrollTrigger, Lenis must be loaded ──────── */
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || typeof Lenis === 'undefined') {
         console.warn('[bintro] GSAP / ScrollTrigger / Lenis not found. Scroll animation disabled.');
