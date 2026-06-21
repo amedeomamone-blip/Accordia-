@@ -837,8 +837,15 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     to   { background-position: 100% 50%; }
 }
 
+/* ── "+" hint: pulsazione in trasparenza per invitare al click ── */
+@keyframes htl-plus-pulse {
+    0%, 100% { opacity: .42; }
+    50%      { opacity: .08; }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .htl__img { animation: none !important; }
+    .htl__item:not(.is-revealed)::after { animation: none !important; opacity: .28; }
 }
 
 /* ── anno sopra la barra: appare man mano che si seleziona ── */
@@ -1450,35 +1457,41 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     /* ── tile: position: relative per l'hint ── */
     .htl__item { position: relative; }
 
-    /* ── hint click: "+" centrato sul tile, sparisce al hover/reveal ── */
+    /* ── hint click: "+" centrato sul tile, pulsa in trasparenza ── */
     .htl__item:not(.is-revealed)::after {
-        content:        "+";
-        position:       absolute;
-        top:            calc(var(--row-h) / 2);
-        left:           calc(var(--item-w) / 2);
-        transform:      translate(-50%, -50%);
-        font-size:      calc(1.6 * var(--u));
-        font-weight:    300;
-        line-height:    1;
-        color:          rgba(17, 17, 17, .22);
-        pointer-events: none;
-        z-index:        3;
-        transition:     opacity .18s ease;
+        content:         "+";
+        position:        absolute;
+        top:             calc(var(--row-h) / 2);
+        left:            calc(var(--item-w) / 2);
+        transform:       translate(-50%, -50%);
+        font-size:       calc(1.7 * var(--u));
+        font-weight:     300;
+        line-height:     1;
+        color:           #111111;
+        pointer-events:  none;
+        z-index:         3;
+        animation:       htl-plus-pulse 2.4s ease-in-out infinite;
+        animation-delay: var(--blink-delay, 0s);
+        transition:      opacity .18s ease;
     }
-    .htl__item:not(.is-revealed):hover::after { opacity: 0; }
+    /* al hover il tile si accende: il "+" sfuma via */
+    .htl__item:not(.is-revealed):hover::after {
+        animation: none;
+        opacity:   0;
+    }
 
-    /* stagger: alternanza scura/chiara ben visibile invece del gradiente lineare */
-    .htl__item:nth-child(1)  { --blink-delay: 0s;   --tile-gray: #c4c4c4; }
-    .htl__item:nth-child(2)  { --blink-delay: 1.1s; --tile-gray: #e8e8e8; }
-    .htl__item:nth-child(3)  { --blink-delay: 2.2s; --tile-gray: #c8c8c8; }
-    .htl__item:nth-child(4)  { --blink-delay: 3.3s; --tile-gray: #eaeaea; }
-    .htl__item:nth-child(5)  { --blink-delay: 4.4s; --tile-gray: #c5c5c5; }
-    .htl__item:nth-child(6)  { --blink-delay: 5.5s; --tile-gray: #e5e5e5; }
-    .htl__item:nth-child(7)  { --blink-delay: 6.6s; --tile-gray: #cccccc; }
-    .htl__item:nth-child(8)  { --blink-delay: 7.7s; --tile-gray: #ececec; }
-    .htl__item:nth-child(9)  { --blink-delay: 8.8s; --tile-gray: #c6c6c6; }
-    .htl__item:nth-child(10) { --blink-delay: 9.9s; --tile-gray: #e7e7e7; }
-    .htl__item:nth-child(11) { --blink-delay: 11s;  --tile-gray: #c9c9c9; }
+    /* grigi distinti, non alternati: gamma variata per ogni tile */
+    .htl__item:nth-child(1)  { --blink-delay: 0s;   --tile-gray: #d2d2d2; }
+    .htl__item:nth-child(2)  { --blink-delay: 1.1s; --tile-gray: #c4c4c4; }
+    .htl__item:nth-child(3)  { --blink-delay: 2.2s; --tile-gray: #dedede; }
+    .htl__item:nth-child(4)  { --blink-delay: 3.3s; --tile-gray: #cbcbcb; }
+    .htl__item:nth-child(5)  { --blink-delay: 4.4s; --tile-gray: #e2e2e2; }
+    .htl__item:nth-child(6)  { --blink-delay: 5.5s; --tile-gray: #c0c0c0; }
+    .htl__item:nth-child(7)  { --blink-delay: 6.6s; --tile-gray: #d8d8d8; }
+    .htl__item:nth-child(8)  { --blink-delay: 7.7s; --tile-gray: #c7c7c7; }
+    .htl__item:nth-child(9)  { --blink-delay: 8.8s; --tile-gray: #dbdbdb; }
+    .htl__item:nth-child(10) { --blink-delay: 9.9s; --tile-gray: #cecece; }
+    .htl__item:nth-child(11) { --blink-delay: 11s;  --tile-gray: #d5d5d5; }
 
     /* ── testo sotto: uguale a barocco-tile__name / __sub ── */
     .htl__card-title {
