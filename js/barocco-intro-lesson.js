@@ -125,7 +125,6 @@
 
         var track = 0;   // brano corrente
         var idx   = 0;   // indice domanda nel brano (sets[track].length = fine → schermata done)
-        var advanceTimer = null;
 
         function total() { return sets[track].length; }
         function atDone() { return idx >= total(); }
@@ -180,13 +179,11 @@
         }
 
         function goTo(i) {
-            clearTimeout(advanceTimer);
             idx = Math.max(0, Math.min(i, total()));
             render();
         }
 
         function selectTrack(t) {
-            clearTimeout(advanceTimer);
             track = t;
             idx   = 0;
             render();
@@ -211,16 +208,15 @@
                 /* rimuovi stato precedente */
                 opts.forEach(function (o) { o.classList.remove('is-correct', 'is-wrong', 'is-selected', 'no-flash'); });
 
-                /* feedback: scelta sbagliata → rosso; risposta giusta → sempre verde */
+                /* feedback: scelta sbagliata → rosso; risposta giusta → sempre verde.
+                   Nessun avanzamento automatico: si resta sulla domanda finché
+                   l'utente non preme "Avanti". */
                 if (isCorrect) {
                     opts[oi].classList.add('is-correct');
                 } else {
                     opts[oi].classList.add('is-wrong');
                     if (corr >= 0 && corr < opts.length) opts[corr].classList.add('is-correct');
                 }
-
-                clearTimeout(advanceTimer);
-                advanceTimer = setTimeout(function () { goTo(qi + 1); }, 900);
             });
         });
 
