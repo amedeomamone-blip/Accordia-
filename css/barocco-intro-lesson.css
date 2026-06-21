@@ -837,8 +837,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     to   { background-position: 100% 50%; }
 }
 
-/* ── "+" hint: pulsazione in trasparenza per invitare al click ── */
-@keyframes htl-plus-pulse {
+/* ── hint anello: pulsazione in trasparenza per invitare al click ── */
+@keyframes htl-hint-pulse {
     0%, 100% { opacity: .42; }
     50%      { opacity: .08; }
 }
@@ -1457,24 +1457,25 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     /* ── tile: position: relative per l'hint ── */
     .htl__item { position: relative; }
 
-    /* ── hint click: "+" centrato sul tile, pulsa in trasparenza ── */
+    /* ── hint click: anello sottile centrato sul tile, pulsa in trasparenza ── */
     .htl__item:not(.is-revealed)::after {
-        content:         "+";
+        content:         "";
         position:        absolute;
         top:             calc(var(--row-h) / 2);
         left:            calc(var(--item-w) / 2);
         transform:       translate(-50%, -50%);
-        font-size:       calc(1.7 * var(--u));
-        font-weight:     300;
-        line-height:     1;
-        color:           #111111;
+        width:           calc(1.7 * var(--u));
+        height:          calc(1.7 * var(--u));
+        border:          1px solid #111111;
+        border-radius:   50%;
+        box-sizing:      border-box;
         pointer-events:  none;
         z-index:         3;
-        animation:       htl-plus-pulse 2.4s ease-in-out infinite;
+        animation:       htl-hint-pulse 2.4s ease-in-out infinite;
         animation-delay: var(--blink-delay, 0s);
         transition:      opacity .18s ease;
     }
-    /* al hover il tile si accende: il "+" sfuma via */
+    /* al hover il tile si accende: l'anello sfuma via */
     .htl__item:not(.is-revealed):hover::after {
         animation: none;
         opacity:   0;
