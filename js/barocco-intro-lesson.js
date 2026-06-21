@@ -113,7 +113,6 @@
         var done    = root.querySelector('.asc2__done');
         var curEl   = root.querySelector('.asc2__quiz-cur');
         var totalEl = root.querySelector('.asc2__quiz-total');
-        var barFill = root.querySelector('.asc2__bar-fill');
         var prevBtn = root.querySelector('.asc2__nav--prev');
         var nextBtn = root.querySelector('.asc2__nav--next');
         var restart = root.querySelector('.asc2__restart');
@@ -162,11 +161,10 @@
                 });
             }
 
-            /* testata + barra */
+            /* testata */
             var shown = Math.min(idx + 1, total());
             if (curEl)   curEl.textContent   = String(shown);
             if (totalEl) totalEl.textContent = String(total());
-            if (barFill) barFill.style.width = (((atDone() ? total() : idx + 1) / total()) * 100) + '%';
 
             /* nav */
             if (prevBtn) prevBtn.disabled = idx === 0;
