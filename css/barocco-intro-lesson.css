@@ -307,7 +307,7 @@
     gap:             .5rem;
     padding:         .62rem 1.1rem;
     border:          1px solid rgba(17, 17, 17, .16);
-    border-radius:   100px;
+    border-radius:   0;
     font-size:       .82rem;
     font-weight:     550;
     letter-spacing:  -.01em;
@@ -542,7 +542,7 @@
     display:       inline-flex;
     padding:       .55rem 1.1rem;
     border:        1px solid rgba(17, 17, 17, .16);
-    border-radius: 100px;
+    border-radius: 0;
     background:    transparent;
     font-family:   inherit;
     font-size:     .8rem;
@@ -568,7 +568,7 @@
     gap:           .4rem;
     padding:       .55rem 1rem;
     border:        1px solid rgba(17, 17, 17, .14);
-    border-radius: 100px;
+    border-radius: 0;
     background:    transparent;
     font-family:   inherit;
     font-size:     .8rem;
@@ -589,6 +589,8 @@
 
 /* ════════════════════════════════════════════════════════════════
    MOBILE — colonna singola, una domanda visibile, tap target ampi
+   Il contenuto deve stare nella schermata senza bisogno di scroll
+   (Lenis intercetta il touch-scroll sui contenitori annidati).
    ════════════════════════════════════════════════════════════════ */
 @media (max-width: 760px) {
     /* header screen 2: compatto su mobile */
@@ -610,30 +612,50 @@
     .asc2 {
         grid-template-columns: 1fr;
         grid-template-rows:    auto 1px minmax(0, 1fr);
+        overflow:              hidden;
         background:            var(--accent) !important;
-        overflow-y:            auto;
-        -webkit-overflow-scrolling: touch;
     }
 
+    /* ── sinistra: compatta — descrizione nascosta su mobile ── */
     .asc2__left {
         justify-content: flex-start;
-        gap:             1rem;
-        padding:         1.5rem 1.35rem 1.35rem;
+        gap:             .55rem;
+        padding:         .9rem 1.25rem .75rem;
     }
+    /* stacked cards mobile: stack più compatto */
+    .asc2__cards {
+        transform:     skewY(-4deg);
+        margin-bottom: .5rem;
+    }
+    .asc2__card {
+        height:  clamp(90px, 13vh, 116px);
+        padding: .6rem .85rem .65rem;
+    }
+    .asc2__card[data-rank="0"] { transform: translateX(-10px) translateY(6px) rotate(-3deg); }
+    .asc2__card[data-rank="1"] { transform: translateX(-5px) translateY(3px) rotate(-1.5deg); }
+    .asc2__card[data-rank="2"] { transform: none; }
+    .asc2__card[data-rank="0"]:hover { transform: translateX(-8px) translateY(4px) rotate(-2.5deg); }
+    .asc2__card[data-rank="1"]:hover { transform: translateX(-3px) translateY(1.5px) rotate(-1deg); }
+    .asc2__card-title    { font-size: clamp(.82rem, 4vw, 1rem); }
+    .asc2__card-composer { font-size: clamp(.65rem, 3vw, .76rem); }
 
-    .asc2__now-title  { font-size: clamp(1.6rem, 8vw, 2.3rem); }
-    .asc2__now-desc   { margin-bottom: 1.1rem; font-size: .9rem; }
+    .asc2__now-title    { font-size: clamp(1.2rem, 6vw, 1.7rem); margin-bottom: .3rem; }
+    .asc2__now-composer { font-size: .78rem; margin-bottom: .2rem; }
+    .asc2__now-desc     { display: none; }
+    .asc2__listen       { padding: .5rem .9rem; font-size: .78rem; }
 
+    /* ── destra: compatta ── */
     .asc2__right {
-        padding: 1.35rem 1.35rem 1.6rem;
+        padding: 1rem 1.25rem 1.1rem;
     }
-
-    .asc2__quiz-head { margin-bottom: 1.25rem; }
+    .asc2__quiz-head { margin-bottom: .85rem; gap: .5rem; }
     .asc2__quiz-body { justify-content: flex-start; }
-    .asc2__q-text    { font-size: clamp(1.15rem, 5.5vw, 1.5rem); max-width: none; }
-    .asc2__opt-val   { font-size: clamp(.88rem, 4vw, 1rem); }
-    .asc2__opt       { padding: .85rem 1rem; }
-    .asc2__quiz-nav  { margin-top: 1.5rem; }
+    .asc2__q.is-active { gap: .75rem; }
+    .asc2__q-text    { font-size: clamp(1rem, 5vw, 1.35rem); max-width: none; }
+    .asc2__opts      { gap: .35rem; }
+    .asc2__opt       { padding: .72rem .9rem; gap: .65rem; }
+    .asc2__opt-val   { font-size: clamp(.84rem, 3.8vw, .95rem); }
+    .asc2__quiz-nav  { margin-top: .85rem; }
 }
 
 /* ── landscape molto basso: comprimi spazi verticali ─────────────── */
@@ -1191,14 +1213,16 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 }
 
 /* ── Mobile ≤600px: Schermata 1 come colonna flessibile ──
-   Titolo in alto (in-flow), timeline centrata nello spazio rimanente.
-   Niente più titolo assoluto + tile schiacciati in fondo con vuoto al centro. */
+   Titolo in alto (in-flow), timeline in-flow nello spazio rimanente.
+   .htl passa da position:absolute a flex item per evitare l'overlap col titolo. */
 @media (max-width: 600px) {
     .bintro-screen[data-screen="1"] {
         flex-direction:  column;
         align-items:     stretch;
         justify-content: flex-start;
     }
+
+    /* Titolo: in-flow, in cima */
     .bintro-screen[data-screen="1"] .barocco-header {
         --u:      calc(100vw / 28);
         position: relative;
@@ -1206,18 +1230,84 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         top:      auto;
         bottom:   auto;
         flex:     0 0 auto;
+        z-index:  1;
     }
     .bintro-screen[data-screen="1"] .barocco-intro__eyebrow {
         flex:    none;
         display: block;
-        padding: 1.4rem 1rem .35rem;
+        padding: 1.2rem 1rem .3rem;
     }
     .bintro-screen[data-screen="1"] .barocco-intro__title-wrap {
         flex:    none;
-        padding: 0 1rem 1.2rem;
+        padding: 0 1rem 1rem;
     }
     .bintro-screen[data-screen="1"] .barocco-intro__title {
-        font-size: clamp(1.3rem, 6vw, 2.1rem);
+        font-size: clamp(1.25rem, 5.5vw, 1.9rem);
+    }
+
+    /* Timeline: diventa un flex item che occupa lo spazio sotto il titolo */
+    .htl {
+        position:        relative;
+        inset:           auto;
+        flex:            1 1 auto;
+        min-height:      0;
+        justify-content: center;
+        padding-top:     0;
+        padding-bottom:  1rem;
+        gap:             0;
+    }
+
+    /* Label: flex colonna (non grid) — card-title/yr/desc si vedono */
+    .htl__item > label {
+        display:        flex;
+        flex-direction: column;
+        align-items:    center;
+        cursor:         pointer;
+        width:          var(--item-w);
+    }
+
+    /* Reset alternanza pari — non si applica su mobile */
+    .htl__item:nth-child(even) .htl__img {
+        grid-row:    auto;
+        align-self:  auto;
+        margin-top:  0;
+        margin-bottom: .35rem;
+    }
+    .htl__item:nth-child(even) .htl__meta {
+        grid-row:       auto;
+        align-self:     auto;
+        padding-top:    .35rem;
+        padding-bottom: 0;
+    }
+
+    /* Dot: nascosto — non è nell'HTML */
+    .htl__dot { display: none; }
+
+    /* Testi sotto l'immagine: sempre visibili su mobile (niente hover desktop) */
+    .htl__card-title {
+        opacity:        1;
+        font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, sans-serif);
+        font-size:      .6rem;
+        font-weight:    700;
+        letter-spacing: -.02em;
+        line-height:    1.1;
+        color:          #111111;
+        text-align:     center;
+        max-width:      var(--item-w);
+        padding:        .3rem .4rem 0;
+        white-space:    nowrap;
+        overflow:       hidden;
+        text-overflow:  ellipsis;
+    }
+    .htl__card-desc { display: none; } /* troppo lungo su mobile */
+    .htl__card-yr {
+        font-size:            .54rem;
+        font-weight:          600;
+        letter-spacing:       .03em;
+        font-variant-numeric: tabular-nums;
+        color:                rgba(17, 17, 17, .4);
+        text-align:           center;
+        padding-top:          .15rem;
     }
 }
 
@@ -1237,7 +1327,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 
 /* ── striscia concetti: stessa struttura di .htl ── */
 .kctl {
-    --u:      calc(100vw / 84);
+    /* cap --u by height so tiles don't overflow on 21:9+ ultrawide (3440×1080 etc.) */
+    --u:      min(calc(100vw / 84), calc(100svh / 36));
     --item-w: calc(14 * var(--u));
     --row-h:  calc(14 * var(--u));
 
@@ -1252,7 +1343,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     position: absolute;
     left:     0;
     right:    0;
-    top:      calc(50svh - (100vw / 12) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw));
+    top:      calc(50svh - 7 * var(--u) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw));
 }
 
 .kctl__scroll {
@@ -1333,14 +1424,14 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 
 /* ── header Screen 3: stessa posizione e glow di Screen 1 ── */
 .bintro-screen[data-screen="3"] .barocco-header {
-    --u:         calc(100vw / 84);
+    --u:         min(calc(100vw / 84), calc(100svh / 36));
     position:    absolute;
     left:        0;
     right:       0;
     display:     flex;
     align-items: flex-start;
     z-index:     2;
-    bottom:      calc(50svh + (100vw / 12) - min(16px, 1.6vw) + 2 * var(--u));
+    bottom:      calc(50svh + 7 * var(--u) - min(16px, 1.6vw) + 2 * var(--u));
     animation:   barocco-label-in .6s ease .2s both;
 }
 .bintro-screen[data-screen="3"] .barocco-intro__eyebrow {
@@ -1905,8 +1996,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
    ================================================================ */
 @media (min-width: 601px) and (max-height: 500px) {
 
-    /* Ridimensioniamo strip Timeline e Concetti chiave */
-    .htl, .kctl {
+    /* Ridimensioniamo strip Timeline (kctl gestito da min() nella regola principale) */
+    .htl {
         --u:      calc(100svh / 50);
         --item-w: calc(14 * var(--u));
         --row-h:  calc(14 * var(--u));
@@ -1915,14 +2006,14 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     .htl__track {
         top: calc(50svh - 7 * var(--u) - var(--bintro-header-h, 4rem));
     }
-    .kctl__track {
-        top: calc(50svh - 7 * var(--u) - var(--bintro-header-h, 4rem));
-    }
 
-    .bintro-screen[data-screen="1"] .barocco-header,
-    .bintro-screen[data-screen="3"] .barocco-header {
+    .bintro-screen[data-screen="1"] .barocco-header {
         --u:    calc(100svh / 50);
         bottom: calc(50svh + 7 * var(--u));
+    }
+    .bintro-screen[data-screen="3"] .barocco-header {
+        --u:    min(calc(100svh / 50), calc(100svh / 36));
+        bottom: calc(50svh + 9 * var(--u));
     }
 
     .bintro-screen[data-screen="1"] .barocco-intro__title,
@@ -1932,3 +2023,4 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 
     .htl__year-label { top: -22px; }
 }
+
