@@ -650,6 +650,9 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     position: relative;
 }
 
+/* nav sequenza: visibile solo su mobile (vedi @media max-width:700px) */
+.htl__seq { display: none; }
+
 /* indice del progresso — impostato su .htl, ereditato da .htl__track */
 .htl:has(.htl__item:nth-child(1)  input:checked) { --progress-idx: 0; }
 .htl:has(.htl__item:nth-child(2)  input:checked) { --progress-idx: 1; }
@@ -2119,4 +2122,77 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     .asc2__quiz-nav {
         margin-top: 1rem !important;
     }
+
+    /* ════════════════════════════════════════════════════════════
+       Timeline (Slide 1) su mobile: sequenza a swipe orizzontale
+       — un quadrato grande (~3/4 schermo) alla volta, con peek del
+       successivo, bottoni avanti/indietro e contatore di posizione.
+       ════════════════════════════════════════════════════════════ */
+    .htl__scroll {
+        display:                    block !important;
+        overflow-x:                 auto !important;
+        overflow-y:                 hidden !important;
+        scroll-snap-type:           x mandatory !important;
+        -webkit-overflow-scrolling: touch !important;
+        padding:                    0 0 .35rem !important;
+    }
+    .htl__items {
+        flex-direction: row !important;
+        width:          max-content !important;
+        gap:            4vw !important;
+        padding:        0 12vw !important;   /* primo/ultimo centrati */
+        align-items:    flex-start !important;
+    }
+    .htl__item {
+        flex:              0 0 76vw !important;
+        width:             76vw !important;
+        scroll-snap-align: center !important;
+    }
+    .htl__item > label { min-height: 0 !important; }
+
+    /* in sequenza le immagini sono sempre visibili: niente lampeggio né anello */
+    .htl__img { animation: none !important; }
+    .htl__item:not(.is-revealed)::after { content: none !important; }
+    .htl__item[data-timeline-image] .htl__img::before,
+    .htl__item[data-timeline-image] .htl__img::after { opacity: 1 !important; }
+    .htl__item[data-timeline-image] .htl__img::before { transform: scale(1) !important; }
+
+    /* testo più piccolo */
+    .htl__card-title { font-size: clamp(1.02rem, 4.6vw, 1.3rem) !important; padding: .7rem .1rem 0 !important; line-height: 1.08 !important; }
+    .htl__card-yr    { font-size: .7rem !important; padding: .3rem .1rem 0 !important; }
+    .htl__card-desc  { font-size: clamp(.8rem, 3.4vw, .92rem) !important; line-height: 1.4 !important; padding: .4rem .1rem .2rem !important; }
+
+    /* nav sequenza: bottoni + contatore (mostra che è una sequenza) */
+    .htl__seq {
+        display:         flex !important;
+        align-items:     center;
+        justify-content: center;
+        gap:             1.1rem;
+        padding:         .35rem var(--bintro-mobile-gutter) 0;
+    }
+    .htl__seq-btn {
+        width:           2.6rem;
+        height:          2.6rem;
+        display:         inline-flex;
+        align-items:     center;
+        justify-content: center;
+        padding:         0;
+        border:          1px solid rgba(17, 17, 17, .18);
+        border-radius:   0;
+        background:      #ffffff;
+        color:           #111111;
+        cursor:          pointer;
+        transition:      opacity .16s ease, border-color .16s ease;
+    }
+    .htl__seq-btn:disabled { opacity: .3; cursor: default; }
+    .htl__seq-pos {
+        min-width:            3.4rem;
+        text-align:           center;
+        font-size:            .8rem;
+        font-weight:          500;
+        letter-spacing:       .04em;
+        font-variant-numeric: tabular-nums;
+        color:                rgba(17, 17, 17, .5);
+    }
+    .htl__seq-cur { color: var(--accent); font-weight: 700; }
 }
