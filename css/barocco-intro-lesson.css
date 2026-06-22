@@ -87,22 +87,6 @@
     transition:      background-color .3s ease;
 }
 
-/* hint click: anello pulsante sui tile non attivi (coerente con Slide 1) */
-.asc2__tile:not(.is-active):not(.has-image) .asc2__tile-face::after {
-    content:         "";
-    position:        absolute;
-    top:             50%;
-    left:            50%;
-    width:           clamp(1.3rem, 2.4vw, 1.9rem);
-    height:          clamp(1.3rem, 2.4vw, 1.9rem);
-    transform:       translate(-50%, -50%);
-    border:          1px solid #111111;
-    border-radius:   50%;
-    box-sizing:      border-box;
-    pointer-events:  none;
-    animation:       htl-hint-pulse 2.4s ease-in-out infinite;
-    animation-delay: var(--blink-delay, 0s);
-}
 
 /* attivo / hover: faccia terracotta piena (o immagine quando presente) */
 .asc2__tile.is-active .asc2__tile-face,
@@ -838,15 +822,9 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     to   { background-position: 100% 50%; }
 }
 
-/* ── hint anello: pulsazione in trasparenza per invitare al click ── */
-@keyframes htl-hint-pulse {
-    0%, 100% { opacity: .42; }
-    50%      { opacity: .08; }
-}
 
 @media (prefers-reduced-motion: reduce) {
     .htl__img { animation: none !important; }
-    .htl__item:not(.is-revealed)::after { animation: none !important; opacity: .28; }
 }
 
 /* ── anno sopra la barra: appare man mano che si seleziona ── */
@@ -1455,32 +1433,6 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         transition:      background .3s ease;
     }
 
-    /* ── tile: position: relative per l'hint ── */
-    .htl__item { position: relative; }
-
-    /* ── hint click: anello sottile centrato sul tile, pulsa in trasparenza ── */
-    .htl__item:not(.is-revealed)::after {
-        content:         "";
-        position:        absolute;
-        top:             calc(var(--row-h) / 2);
-        left:            calc(var(--item-w) / 2);
-        transform:       translate(-50%, -50%);
-        width:           calc(1.7 * var(--u));
-        height:          calc(1.7 * var(--u));
-        border:          1px solid #111111;
-        border-radius:   50%;
-        box-sizing:      border-box;
-        pointer-events:  none;
-        z-index:         3;
-        animation:       htl-hint-pulse 2.4s ease-in-out infinite;
-        animation-delay: var(--blink-delay, 0s);
-        transition:      opacity .18s ease;
-    }
-    /* al hover il tile si accende: l'anello sfuma via */
-    .htl__item:not(.is-revealed):hover::after {
-        animation: none;
-        opacity:   0;
-    }
 
     /* grigi distinti, non alternati: gamma variata per ogni tile */
     .htl__item:nth-child(1)  { --blink-delay: 0s;   --tile-gray: #d2d2d2; }
@@ -2155,9 +2107,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     }
     .htl__item > label { min-height: 0 !important; }
 
-    /* in sequenza le immagini sono sempre visibili: niente lampeggio né anello */
+    /* in sequenza le immagini sono sempre visibili: niente lampeggio */
     .htl__img { animation: none !important; }
-    .htl__item:not(.is-revealed)::after { content: none !important; }
     .htl__item[data-timeline-image] .htl__img::before,
     .htl__item[data-timeline-image] .htl__img::after { opacity: 1 !important; }
     .htl__item[data-timeline-image] .htl__img::before { transform: scale(1) !important; }
