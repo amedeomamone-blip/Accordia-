@@ -1900,10 +1900,13 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     .bintro-screen[data-screen="3"] .barocco-intro__eyebrow {
         display: block !important;
         padding: 0 !important;
-        margin: 0 0 .65rem !important;
-        font-size: .72rem !important;
+        margin: 0 0 .55rem !important;
+        font-size: .68rem !important;
         line-height: 1 !important;
         letter-spacing: .13em !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
     }
 
     .bintro-screen[data-screen="1"] .barocco-intro__title-wrap,
@@ -1918,9 +1921,9 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 
     .bintro-screen[data-screen="1"] .barocco-intro__title,
     .bintro-screen[data-screen="3"] .barocco-intro__title {
-        font-size: clamp(2rem, 10.2vw, 3rem) !important;
-        line-height: .95 !important;
-        letter-spacing: -.055em !important;
+        font-size: clamp(1.4rem, 6.8vw, 2.1rem) !important;
+        line-height: .97 !important;
+        letter-spacing: -.05em !important;
     }
 
     .htl {
@@ -2030,11 +2033,13 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         display: block !important;
         width: 100% !important;
         padding: .35rem .95rem 0 !important;
-        font-size: .78rem !important;
-        font-weight: 650 !important;
-        letter-spacing: .05em !important;
+        font-size: .7rem !important;
+        font-weight: 600 !important;
+        letter-spacing: .07em !important;
         color: rgba(17, 17, 17, .42) !important;
         opacity: 1 !important;
+        order: -1 !important;
+        white-space: nowrap !important;
     }
 
     .htl__card-desc,
@@ -2139,13 +2144,13 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     .htl__items {
         flex-direction: row !important;
         width:          max-content !important;
-        gap:            4vw !important;
-        padding:        0 12vw !important;   /* primo/ultimo centrati */
+        gap:            0 !important;
+        padding:        0 !important;
         align-items:    flex-start !important;
     }
     .htl__item {
-        flex:              0 0 76vw !important;
-        width:             76vw !important;
+        flex:              0 0 82vw !important;
+        width:             82vw !important;
         scroll-snap-align: center !important;
     }
     .htl__item > label { min-height: 0 !important; }
@@ -2157,10 +2162,10 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     .htl__item[data-timeline-image] .htl__img::after { opacity: 1 !important; }
     .htl__item[data-timeline-image] .htl__img::before { transform: scale(1) !important; }
 
-    /* testo più piccolo */
-    .htl__card-title { font-size: clamp(1.02rem, 4.6vw, 1.3rem) !important; padding: .7rem .1rem 0 !important; line-height: 1.08 !important; }
-    .htl__card-yr    { font-size: .7rem !important; padding: .3rem .1rem 0 !important; }
-    .htl__card-desc  { font-size: clamp(.8rem, 3.4vw, .92rem) !important; line-height: 1.4 !important; padding: .4rem .1rem .2rem !important; }
+    /* testo: yr sopra come eyebrow, poi titolo, poi desc */
+    .htl__card-yr    { font-size: .68rem !important; padding: .65rem .9rem 0 !important; letter-spacing: .07em !important; }
+    .htl__card-title { font-size: clamp(.95rem, 4.2vw, 1.2rem) !important; padding: .2rem .9rem 0 !important; line-height: 1.08 !important; text-align: left !important; }
+    .htl__card-desc  { font-size: clamp(.78rem, 3.2vw, .88rem) !important; line-height: 1.4 !important; padding: .35rem .9rem .8rem !important; text-align: left !important; }
 
     /* nav sequenza: bottoni + contatore (mostra che è una sequenza) */
     .htl__seq {

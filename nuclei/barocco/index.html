@@ -6,7 +6,7 @@
     <meta name="description" content="Il Barocco in Accordia: contrasto, teatralità e potenza degli affetti.">
     <title>Il Barocco | Accordia</title>
     <link rel="stylesheet" href="../../css/style.css?v=1790000000">
-    <link rel="stylesheet" href="../../css/barocco-bento.css?v=1790100000">
+    <link rel="stylesheet" href="../../css/barocco-bento.css?v=1796200000">
 </head>
 <body data-nav="timeline" data-current-nucleus="barocco">
     <header class="site-header" id="site-header">
@@ -133,6 +133,17 @@
 
                 </div><!-- /.barocco-tiles-wrap -->
 
+                <!-- nav sequenza (solo mobile) -->
+                <div class="barocco__seq" aria-label="Naviga le lezioni">
+                    <button class="barocco__seq-btn" type="button" data-seq="prev" aria-label="Lezione precedente">
+                        <svg width="15" height="15" viewBox="0 0 14 14" fill="none"><path d="M9 2.5L4.5 7 9 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                    <span class="barocco__seq-pos"><b class="barocco__seq-cur">1</b> / <span class="barocco__seq-tot">6</span></span>
+                    <button class="barocco__seq-btn" type="button" data-seq="next" aria-label="Lezione successiva">
+                        <svg width="15" height="15" viewBox="0 0 14 14" fill="none"><path d="M5 2.5L9.5 7 5 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+                    </button>
+                </div>
+
                 <p class="barocco-intro__body">Tra Seicento e prima metà del Settecento, l'Europa vive grandi trasformazioni: guerre, scoperte, corti sfarzose e nuovi modi di osservare il mondo. Anche la musica cambia profondamente, diventando più espressiva, teatrale e ricca di contrasti, capace di stupire e commuovere.</p>
 
                 </div><!-- /.barocco-lower -->
@@ -159,6 +170,49 @@
                 window.addEventListener('resize', sync);
                 window.addEventListener('load', sync);
             }
+        })();
+    </script>
+    <script>
+        /* seq nav — solo mobile: bottoni prev/next per la striscia di tile */
+        (function () {
+            var wrap = document.querySelector('.barocco-tiles-wrap');
+            var tiles = Array.from(document.querySelectorAll('.barocco-tile'));
+            var cur  = document.querySelector('.barocco__seq-cur');
+            var tot  = document.querySelector('.barocco__seq-tot');
+            var prev = document.querySelector('[data-seq="prev"]');
+            var next = document.querySelector('[data-seq="next"]');
+            if (!wrap || !tiles.length) return;
+            if (tot) tot.textContent = tiles.length;
+
+            function seqIndex() {
+                var cx = wrap.scrollLeft + wrap.clientWidth / 2;
+                var best = 0, bestDist = Infinity;
+                tiles.forEach(function (t, i) {
+                    var tc = t.offsetLeft + t.offsetWidth / 2;
+                    var d = Math.abs(tc - cx);
+                    if (d < bestDist) { bestDist = d; best = i; }
+                });
+                return best;
+            }
+
+            function scrollToTile(i) {
+                i = Math.max(0, Math.min(tiles.length - 1, i));
+                var t = tiles[i];
+                var delta = (t.offsetLeft + t.offsetWidth / 2) - (wrap.scrollLeft + wrap.clientWidth / 2);
+                wrap.scrollBy({ left: delta, behavior: 'smooth' });
+            }
+
+            function updateSeq() {
+                var i = seqIndex();
+                if (cur) cur.textContent = i + 1;
+                if (prev) prev.disabled = (i === 0);
+                if (next) next.disabled = (i === tiles.length - 1);
+            }
+
+            if (prev) prev.addEventListener('click', function () { scrollToTile(seqIndex() - 1); });
+            if (next) next.addEventListener('click', function () { scrollToTile(seqIndex() + 1); });
+            wrap.addEventListener('scroll', updateSeq, { passive: true });
+            updateSeq();
         })();
     </script>
 </body>
