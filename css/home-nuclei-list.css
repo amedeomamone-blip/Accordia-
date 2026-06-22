@@ -315,3 +315,117 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__date {
     body[data-nav="home"] .nuclei-col__title { font-size: 3.4vw; padding: 2vw 4vw 0; }
     body[data-nav="home"] .nuclei-col__date  { font-size: 2.2vw; padding: .8vw 4vw 3vw; }
 }
+
+/* ============================================================
+   Mobile adaptive pass — larger, clearer landing
+   ============================================================ */
+@media (max-width: 700px) {
+    body[data-nav="home"] .scroll-scene {
+        height: auto;
+    }
+
+    body[data-nav="home"] .scroll-stage {
+        position: static;
+        height: auto;
+        min-height: 0;
+        overflow: visible;
+    }
+
+    body[data-nav="home"] .home-hero {
+        position: relative !important;
+        inset: auto !important;
+        min-height: clamp(16rem, calc(48svh - var(--home-header-height, 4rem)), 24rem) !important;
+    }
+
+    body[data-nav="home"] .home-hero__frame {
+        position: relative !important;
+        inset: auto !important;
+        min-height: clamp(16rem, calc(48svh - var(--home-header-height, 4rem)), 24rem) !important;
+    }
+
+    body[data-nav="home"] .home-hero__frame::before {
+        font-size: clamp(4.6rem, 21vw, 6.4rem);
+        line-height: .85;
+        top: 48%;
+    }
+
+    body[data-nav="home"] .home-hero__frame::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: clamp(1.2rem, 4svh, 2rem);
+        width: 2.25rem;
+        height: 2px;
+        border-radius: 999px;
+        background: rgba(17, 17, 17, .24);
+        transform: translateX(-50%);
+    }
+
+    body[data-nav="home"] .nuclei-grid-wrap {
+        position: static;
+        height: auto;
+        padding: 0 0 2.2rem;
+        overflow: visible;
+        --tiles-label-opacity: 1;
+        --tiles-label-y: 0px;
+        transform: none !important;
+    }
+
+    body[data-nav="home"] .nuclei-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 0;
+        width: 100%;
+    }
+
+    body[data-nav="home"] .nuclei-col {
+        overflow: visible;
+        min-width: 0;
+    }
+
+    body[data-nav="home"] .nuclei-col__tile {
+        padding: clamp(1.05rem, 5vw, 1.35rem);
+    }
+
+    body[data-nav="home"] .nuclei-col__num {
+        font-size: clamp(.86rem, 3.7vw, 1.05rem);
+        letter-spacing: .06em;
+    }
+
+    body[data-nav="home"] .nuclei-col__arrow {
+        width: clamp(2.45rem, 11vw, 2.9rem);
+        height: clamp(2.45rem, 11vw, 2.9rem);
+        font-size: clamp(1.05rem, 4.8vw, 1.25rem);
+    }
+
+    body[data-nav="home"] .nuclei-col__title {
+        padding: 1rem clamp(1.05rem, 5vw, 1.35rem) 0;
+        font-size: clamp(1.55rem, 7.8vw, 2.1rem);
+        line-height: .96;
+        letter-spacing: -.055em;
+        white-space: normal;
+        overflow: visible;
+    }
+
+    body[data-nav="home"] .nuclei-col__date {
+        padding: .42rem clamp(1.05rem, 5vw, 1.35rem) 1.45rem;
+        font-size: clamp(.9rem, 3.9vw, 1.05rem);
+        line-height: 1.15;
+    }
+
+    body[data-nav="home"] .site-footer {
+        position: static !important;
+        padding: 1.2rem 0 calc(1.2rem + env(safe-area-inset-bottom));
+        border-top: 1px solid rgba(17, 17, 17, .1);
+    }
+
+    body[data-nav="home"] .site-footer__grid {
+        gap: .35rem;
+        width: min(calc(100% - 2rem), var(--shell-max));
+    }
+
+    body[data-nav="home"] .site-footer__label {
+        font-size: .68rem;
+        line-height: 1.2;
+    }
+}
