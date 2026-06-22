@@ -6,7 +6,7 @@
     <meta name="description" content="Introduzione al Barocco: un'epoca di contrasti, nuove forme musicali e trasformazioni profonde.">
     <title>Introduzione al Barocco | Il Barocco | Accordia</title>
     <link rel="stylesheet" href="../../../../css/style.css?v=1790000000">
-    <link rel="stylesheet" href="../../../../css/barocco-intro-lesson.css?v=1796600000">
+    <link rel="stylesheet" href="../../../../css/barocco-intro-lesson.css?v=1796700000">
 </head>
 <body data-nav="timeline" data-current-nucleus="barocco">
 
@@ -92,17 +92,6 @@
                                 </div><!-- /.htl__scroll -->
                             </div><!-- /.htl__track -->
 
-                            <!-- nav sequenza (solo mobile): swipe + bottoni avanti/indietro -->
-                            <div class="htl__seq" aria-label="Naviga la sequenza">
-                                <button class="htl__seq-btn" type="button" data-seq="prev" aria-label="Evento precedente">
-                                    <svg width="15" height="15" viewBox="0 0 14 14" fill="none"><path d="M9 2.5L4.5 7 9 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                </button>
-                                <span class="htl__seq-pos"><b class="htl__seq-cur">1</b> / <span class="htl__seq-tot">11</span></span>
-                                <button class="htl__seq-btn" type="button" data-seq="next" aria-label="Evento successivo">
-                                    <svg width="15" height="15" viewBox="0 0 14 14" fill="none"><path d="M5 2.5L9.5 7 5 11.5" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                                </button>
-                            </div>
-
                         </div><!-- /.htl -->
 
                     </section>
@@ -125,27 +114,29 @@
                             <!-- ── SINISTRA: brano in ascolto ──────────── -->
                             <div class="asc2__left">
 
-                                <!-- selettore brani: 3 tile accordia (immagini aggiunte poi via data-asc2-image) -->
-                                <div class="asc2__tiles" role="tablist" aria-label="Scegli un brano">
-                                    <button class="asc2__tile is-active" type="button" role="tab" data-track="0" aria-selected="true">
-                                        <span class="asc2__tile-face" aria-hidden="true"></span>
-                                        <span class="asc2__tile-name">Forêts Paisibles</span>
-                                        <span class="asc2__tile-sub">Jean-Philippe Rameau</span>
+                                <!-- selettore brani: 3 card a mazzo (DisplayCards-style) -->
+                                <div class="asc2__cards" role="tablist" aria-label="Scegli un brano">
+                                    <button class="asc2__card" type="button" role="tab" data-track="0" aria-selected="true" data-rank="2">
+                                        <span class="asc2__card-eyebrow">01 · Danza</span>
+                                        <strong class="asc2__card-title">Forêts Paisibles</strong>
+                                        <span class="asc2__card-composer">Jean-Philippe Rameau</span>
                                     </button>
-                                    <button class="asc2__tile" type="button" role="tab" data-track="1" aria-selected="false">
-                                        <span class="asc2__tile-face" aria-hidden="true"></span>
-                                        <span class="asc2__tile-name">L'Estate — Tempesta</span>
-                                        <span class="asc2__tile-sub">Antonio Vivaldi</span>
+                                    <button class="asc2__card" type="button" role="tab" data-track="1" aria-selected="false" data-rank="1">
+                                        <span class="asc2__card-eyebrow">02 · Concerto</span>
+                                        <strong class="asc2__card-title">L&#x27;Estate — Tempesta</strong>
+                                        <span class="asc2__card-composer">Antonio Vivaldi</span>
                                     </button>
-                                    <button class="asc2__tile" type="button" role="tab" data-track="2" aria-selected="false">
-                                        <span class="asc2__tile-face" aria-hidden="true"></span>
-                                        <span class="asc2__tile-name">Badinerie</span>
-                                        <span class="asc2__tile-sub">Johann Sebastian Bach</span>
+                                    <button class="asc2__card" type="button" role="tab" data-track="2" aria-selected="false" data-rank="0">
+                                        <span class="asc2__card-eyebrow">03 · Danza</span>
+                                        <strong class="asc2__card-title">Badinerie</strong>
+                                        <span class="asc2__card-composer">J.S. Bach</span>
                                     </button>
                                 </div>
 
-                                <!-- dettaglio brano corrente (descrizione · ascolto) -->
+                                <!-- dettaglio brano corrente (titolo · compositore · descrizione) -->
                                 <div class="asc2__now" data-track="0">
+                                    <h2 class="asc2__now-title">Forêts Paisibles</h2>
+                                    <span class="asc2__now-composer">Jean-Philippe Rameau</span>
                                     <p class="asc2__now-desc">Un'aria-danza da <em>Les Indes galantes</em> (1735): linee morbide e pastorali che evocano la quiete della natura, sostenute dal basso continuo.</p>
                                     <a class="asc2__listen" href="https://www.youtube.com/watch?v=2sPC8HsXxik" target="_blank" rel="noreferrer noopener">
                                         <span class="asc2__listen-ic" aria-hidden="true"><svg width="11" height="12" viewBox="0 0 11 12" fill="none"><path d="M1 1.2v9.6L10 6 1 1.2z" fill="currentColor"/></svg></span>
@@ -153,6 +144,8 @@
                                     </a>
                                 </div>
                                 <div class="asc2__now" data-track="1" hidden>
+                                    <h2 class="asc2__now-title">L'Estate — Tempesta</h2>
+                                    <span class="asc2__now-composer">Antonio Vivaldi</span>
                                     <p class="asc2__now-desc">Il temporale estivo da <em>Le Quattro Stagioni</em> (1725): scale rapide, tremoli e contrasti violenti tra il violino solista e l'orchestra.</p>
                                     <a class="asc2__listen" href="https://www.youtube.com/watch?v=ECZQUg6-TlU" target="_blank" rel="noreferrer noopener">
                                         <span class="asc2__listen-ic" aria-hidden="true"><svg width="11" height="12" viewBox="0 0 11 12" fill="none"><path d="M1 1.2v9.6L10 6 1 1.2z" fill="currentColor"/></svg></span>
@@ -160,6 +153,8 @@
                                     </a>
                                 </div>
                                 <div class="asc2__now" data-track="2" hidden>
+                                    <h2 class="asc2__now-title">Badinerie</h2>
+                                    <span class="asc2__now-composer">Johann Sebastian Bach</span>
                                     <p class="asc2__now-desc">Una danza brillante dalla <em>Suite orchestrale n. 2 in si minore</em>: il flauto traverso domina con virtuosismo, sostenuto da archi e basso continuo.</p>
                                     <a class="asc2__listen" href="https://www.youtube.com/watch?v=Kl6R4Ui9blc" target="_blank" rel="noreferrer noopener">
                                         <span class="asc2__listen-ic" aria-hidden="true"><svg width="11" height="12" viewBox="0 0 11 12" fill="none"><path d="M1 1.2v9.6L10 6 1 1.2z" fill="currentColor"/></svg></span>
@@ -169,8 +164,15 @@
 
                             </div><!-- /.asc2__left -->
 
+                            <div class="asc2__sep" aria-hidden="true"></div>
+
                             <!-- ── DESTRA: una domanda alla volta ───────── -->
                             <div class="asc2__right">
+
+                                <div class="asc2__quiz-head">
+                                    <span class="asc2__quiz-step">Domanda <b class="asc2__quiz-cur">1</b> <span class="asc2__quiz-of">di</span> <span class="asc2__quiz-total">8</span></span>
+                                    <div class="asc2__bar" aria-hidden="true"><span class="asc2__bar-fill"></span></div>
+                                </div>
 
                                 <div class="asc2__quiz-body"><!-- domande iniettate per brano da JS, qui la sorgente -->
 
@@ -341,7 +343,7 @@
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-    <script src="../../../../js/barocco-intro-lesson.js?v=1795800000"></script>
+    <script src="../../../../js/barocco-intro-lesson.js?v=1795000000"></script>
     <script src="../../../../js/barocco-intro-globe.js?v=1783280000"></script>
 
 </body>

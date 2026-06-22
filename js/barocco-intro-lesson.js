@@ -100,46 +100,6 @@
         window.addEventListener('resize', function () { updateBar(false); updateYears(); });
         window.addEventListener('load',   function () { updateAll(false); });
         updateAll(false);
-
-        /* ── nav sequenza (mobile): swipe + bottoni avanti/indietro ── */
-        var seqPrev = htlEl.querySelector('.htl__seq-btn[data-seq="prev"]');
-        var seqNext = htlEl.querySelector('.htl__seq-btn[data-seq="next"]');
-        var seqCur  = htlEl.querySelector('.htl__seq-cur');
-        var seqTot  = htlEl.querySelector('.htl__seq-tot');
-        if (seqTot) seqTot.textContent = String(items.length);
-
-        /* indice del quadrato più vicino al centro del viewport di scroll */
-        function seqIndex() {
-            var sc = scroll.getBoundingClientRect();
-            var mid = sc.left + sc.width / 2;
-            var best = 0, bestD = Infinity;
-            items.forEach(function (it, i) {
-                var r = it.getBoundingClientRect();
-                var d = Math.abs((r.left + r.width / 2) - mid);
-                if (d < bestD) { bestD = d; best = i; }
-            });
-            return best;
-        }
-        function scrollToItem(i) {
-            i = Math.max(0, Math.min(i, items.length - 1));
-            var it = items[i];
-            if (!it) return;
-            var sc = scroll.getBoundingClientRect();
-            var r  = it.getBoundingClientRect();
-            var delta = (r.left + r.width / 2) - (sc.left + sc.width / 2);
-            scroll.scrollBy({ left: delta, behavior: 'smooth' });
-        }
-        function updateSeq() {
-            var i = seqIndex();
-            if (seqCur)  seqCur.textContent = String(i + 1);
-            if (seqPrev) seqPrev.disabled = (i <= 0);
-            if (seqNext) seqNext.disabled = (i >= items.length - 1);
-        }
-        if (seqPrev) seqPrev.addEventListener('click', function () { scrollToItem(seqIndex() - 1); });
-        if (seqNext) seqNext.addEventListener('click', function () { scrollToItem(seqIndex() + 1); });
-        scroll.addEventListener('scroll', updateSeq, { passive: true });
-        window.addEventListener('resize', updateSeq);
-        updateSeq();
     })();
 
     /* ── Screen 2: ascolti guidati — una domanda alla volta ──────── */
@@ -147,27 +107,16 @@
         var root = document.getElementById('asc2');
         if (!root) return;
 
-        var tabs    = Array.prototype.slice.call(root.querySelectorAll('.asc2__tile'));
+        var tabs    = Array.prototype.slice.call(root.querySelectorAll('.asc2__card'));
         var nows    = Array.prototype.slice.call(root.querySelectorAll('.asc2__now'));
         var quizzes = Array.prototype.slice.call(root.querySelectorAll('.asc2__quiz'));
         var done    = root.querySelector('.asc2__done');
         var curEl   = root.querySelector('.asc2__quiz-cur');
         var totalEl = root.querySelector('.asc2__quiz-total');
+        var barFill = root.querySelector('.asc2__bar-fill');
         var prevBtn = root.querySelector('.asc2__nav--prev');
         var nextBtn = root.querySelector('.asc2__nav--next');
         var restart = root.querySelector('.asc2__restart');
-
-        /* immagine opzionale sui tile: data-asc2-image="..." → sfondo faccia.
-           Le immagini verranno aggiunte in seguito; senza attributo resta il
-           lampeggio terracotta con l'anello-hint. */
-        tabs.forEach(function (tile) {
-            var src = tile.getAttribute('data-asc2-image');
-            if (!src) return;
-            var abs  = new URL(src, document.baseURI).href;
-            var face = tile.querySelector('.asc2__tile-face');
-            if (face) face.style.backgroundImage = 'url("' + abs.replace(/"/g, '\\"') + '")';
-            tile.classList.add('has-image');
-        });
 
         /* domande per ogni brano + risposta memorizzata */
         var sets = quizzes.map(function (q) {
@@ -177,6 +126,7 @@
 
         var track = 0;   // brano corrente
         var idx   = 0;   // indice domanda nel brano (sets[track].length = fine → schermata done)
+        var advanceTimer = null;
 
         function total() { return sets[track].length; }
         function atDone() { return idx >= total(); }
@@ -188,6 +138,7 @@
                 t.classList.toggle('is-active', on);
                 t.setAttribute('aria-selected', on ? 'true' : 'false');
             });
+            updateRanks();
             nows.forEach(function (n, i) { n.hidden = i !== track; });
             quizzes.forEach(function (q, i) { q.hidden = i !== track; });
 
@@ -212,10 +163,11 @@
                 });
             }
 
-            /* testata */
+            /* testata + barra */
             var shown = Math.min(idx + 1, total());
             if (curEl)   curEl.textContent   = String(shown);
             if (totalEl) totalEl.textContent = String(total());
+            if (barFill) barFill.style.width = (((atDone() ? total() : idx + 1) / total()) * 100) + '%';
 
             /* nav */
             if (prevBtn) prevBtn.disabled = idx === 0;
@@ -230,12 +182,23 @@
             }
         }
 
+        /* aggiorna data-rank su ogni card: 2=primo piano, 0=fondo */
+        function updateRanks() {
+            var n = tabs.length;
+            tabs.forEach(function (t, i) {
+                var pos = (i - track + n) % n; /* 0=attivo, 1=mid, 2=fondo */
+                t.setAttribute('data-rank', String(n - 1 - pos));
+            });
+        }
+
         function goTo(i) {
+            clearTimeout(advanceTimer);
             idx = Math.max(0, Math.min(i, total()));
             render();
         }
 
         function selectTrack(t) {
+            clearTimeout(advanceTimer);
             track = t;
             idx   = 0;
             render();
@@ -260,15 +223,16 @@
                 /* rimuovi stato precedente */
                 opts.forEach(function (o) { o.classList.remove('is-correct', 'is-wrong', 'is-selected', 'no-flash'); });
 
-                /* feedback: scelta sbagliata → rosso; risposta giusta → sempre verde.
-                   Nessun avanzamento automatico: si resta sulla domanda finché
-                   l'utente non preme "Avanti". */
+                /* feedback: scelta sbagliata → rosso; risposta giusta → sempre verde */
                 if (isCorrect) {
                     opts[oi].classList.add('is-correct');
                 } else {
                     opts[oi].classList.add('is-wrong');
                     if (corr >= 0 && corr < opts.length) opts[corr].classList.add('is-correct');
                 }
+
+                clearTimeout(advanceTimer);
+                advanceTimer = setTimeout(function () { goTo(qi + 1); }, 900);
             });
         });
 
@@ -288,11 +252,6 @@
 
         render();
     })();
-
-    if (window.matchMedia && window.matchMedia('(max-width: 700px)').matches) {
-        if (stage) stage.classList.add('bintro-stage--mobile-flow');
-        return;
-    }
 
     /* ── guard: GSAP, ScrollTrigger, Lenis must be loaded ──────── */
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || typeof Lenis === 'undefined') {
