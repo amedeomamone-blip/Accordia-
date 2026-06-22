@@ -107,7 +107,7 @@
         var root = document.getElementById('asc2');
         if (!root) return;
 
-        var tabs    = Array.prototype.slice.call(root.querySelectorAll('.asc2__tab'));
+        var tabs    = Array.prototype.slice.call(root.querySelectorAll('.asc2__card'));
         var nows    = Array.prototype.slice.call(root.querySelectorAll('.asc2__now'));
         var quizzes = Array.prototype.slice.call(root.querySelectorAll('.asc2__quiz'));
         var done    = root.querySelector('.asc2__done');
@@ -138,6 +138,7 @@
                 t.classList.toggle('is-active', on);
                 t.setAttribute('aria-selected', on ? 'true' : 'false');
             });
+            updateRanks();
             nows.forEach(function (n, i) { n.hidden = i !== track; });
             quizzes.forEach(function (q, i) { q.hidden = i !== track; });
 
@@ -179,6 +180,15 @@
                         ' <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M5 2.5L9.5 7 5 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>');
                 }
             }
+        }
+
+        /* aggiorna data-rank su ogni card: 2=primo piano, 0=fondo */
+        function updateRanks() {
+            var n = tabs.length;
+            tabs.forEach(function (t, i) {
+                var pos = (i - track + n) % n; /* 0=attivo, 1=mid, 2=fondo */
+                t.setAttribute('data-rank', String(n - 1 - pos));
+            });
         }
 
         function goTo(i) {

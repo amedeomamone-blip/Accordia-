@@ -64,49 +64,118 @@
     color:          rgba(17, 17, 17, .34);
 }
 
-/* ── selettore brani (tab) — pulsanti circolari con solo numero ── */
-.asc2__tabs {
-    display:  flex;
-    gap:      .55rem;
-    flex-wrap: wrap;
+/* ═══════════════════════════════════════════════════════════════
+   SCREEN 2 — stacked cards (DisplayCards-style)
+   3 brani selezionabili: si sovrappongono come un mazzo di carte.
+   JS gestisce data-rank="0|1|2" (0=fondo, 2=primo piano).
+   ═══════════════════════════════════════════════════════════════ */
+
+.asc2__cards {
+    display:          grid;
+    grid-template-areas: 'stack';
+    width:            100%;
+    margin-bottom:    clamp(.6rem, 1.4vh, 1rem);
+    transform:        skewY(-6deg);
+    transform-origin: top center;
+    user-select:      none;
 }
 
-.asc2__tab {
-    width:           2.1rem;
-    height:          2.1rem;
-    border-radius:   50%;
-    border:          1px solid rgba(17, 17, 17, .18);
-    background:      transparent;
-    cursor:          pointer;
-    font-family:     inherit;
-    display:         inline-flex;
-    align-items:     center;
-    justify-content: center;
-    padding:         0;
-    color:           rgba(17, 17, 17, .52);
-    transition:      border-color .16s ease, background-color .16s ease, color .16s ease;
+.asc2__card {
+    grid-area:        stack;
+    display:          flex;
+    flex-direction:   column;
+    justify-content:  flex-end;
+    position:         relative;
+    overflow:         hidden;
+    height:           clamp(116px, 16vh, 152px);
+    padding:          .85rem 1rem .9rem;
+    border:           1px solid rgba(255,255,255,.14);
+    background:       rgba(255,255,255,.11);
+    cursor:           pointer;
+    font-family:      inherit;
+    text-align:       left;
+    transition:       transform    0.52s cubic-bezier(.2,.8,.4,1),
+                      filter       0.52s ease,
+                      opacity      0.52s ease,
+                      background   0.28s ease,
+                      border-color 0.28s ease;
+    will-change:      transform;
 }
 
-.asc2__tab:hover {
-    border-color: rgba(17, 17, 17, .4);
-    color:        #111111;
+/* dark overlay — scompare sul front card */
+.asc2__card::before {
+    content:        '';
+    position:       absolute;
+    inset:          0;
+    background:     rgba(0,0,0,.13);
+    pointer-events: none;
+    transition:     opacity 0.52s ease;
+    opacity:        1;
 }
 
-.asc2__tab.is-active {
-    background:   #111111;
-    border-color: #111111;
-    color:        #ffffff;
+/* ── posizioni stack tramite data-rank assegnato da JS ── */
+.asc2__card[data-rank="0"] {
+    transform:    translateX(-14px) translateY(8px) rotate(-4deg);
+    z-index:      1;
+    filter:       grayscale(0.72);
+    opacity:      0.58;
+}
+.asc2__card[data-rank="1"] {
+    transform:    translateX(-7px) translateY(4px) rotate(-2deg);
+    z-index:      2;
+    filter:       grayscale(0.3);
+    opacity:      0.8;
+}
+.asc2__card[data-rank="2"] {
+    transform:    translateX(0) translateY(0) rotate(0deg);
+    z-index:      3;
+    filter:       none;
+    opacity:      1;
+    background:   rgba(255,255,255,.2);
+    border-color: rgba(255,255,255,.3);
+}
+.asc2__card[data-rank="2"]::before { opacity: 0; }
+
+/* hover: le card sullo sfondo si spostano in avanti (hint cliccabilità) */
+.asc2__card[data-rank="0"]:hover {
+    opacity:   0.72;
+    transform: translateX(-11px) translateY(5px) rotate(-3.5deg);
+}
+.asc2__card[data-rank="1"]:hover {
+    opacity:   0.9;
+    transform: translateX(-4px) translateY(2px) rotate(-1.5deg);
+}
+.asc2__card[data-rank="2"]:hover {
+    transform:  translateX(0) translateY(-3px) rotate(0deg) scale(1.01);
+    background: rgba(255,255,255,.26);
 }
 
-.asc2__tab-n {
-    font-size:            .62rem;
-    font-weight:          650;
-    letter-spacing:       .04em;
-    font-variant-numeric: tabular-nums;
-    line-height:          1;
+/* testi della card (su sfondo terracotta: sempre bianco/traslucido) */
+.asc2__card-eyebrow {
+    display:        block;
+    margin-bottom:  .3rem;
+    font-size:      clamp(.62rem, .72vw, .7rem);
+    font-weight:    600;
+    letter-spacing: .09em;
+    text-transform: uppercase;
+    color:          rgba(255,255,255,.5);
 }
-
-.asc2__tab-name { display: none; }
+.asc2__card-title {
+    display:        block;
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      clamp(.88rem, 1.2vw, 1.1rem);
+    font-weight:    700;
+    letter-spacing: -.025em;
+    line-height:    1.15;
+    color:          #ffffff;
+}
+.asc2__card-composer {
+    display:     block;
+    margin-top:  .2rem;
+    font-size:   clamp(.7rem, .82vw, .8rem);
+    font-weight: 400;
+    color:       rgba(255,255,255,.62);
+}
 
 /* ── dettaglio brano corrente ────────────────────────────────────── */
 .asc2__now { display: flex; flex-direction: column; }
@@ -462,6 +531,23 @@
         gap:             .55rem;
         padding:         .9rem 1.25rem .75rem;
     }
+    /* stacked cards mobile: stack più compatto */
+    .asc2__cards {
+        transform:     skewY(-4deg);
+        margin-bottom: .5rem;
+    }
+    .asc2__card {
+        height:  clamp(90px, 13vh, 116px);
+        padding: .6rem .85rem .65rem;
+    }
+    .asc2__card[data-rank="0"] { transform: translateX(-10px) translateY(6px) rotate(-3deg); }
+    .asc2__card[data-rank="1"] { transform: translateX(-5px) translateY(3px) rotate(-1.5deg); }
+    .asc2__card[data-rank="2"] { transform: none; }
+    .asc2__card[data-rank="0"]:hover { transform: translateX(-8px) translateY(4px) rotate(-2.5deg); }
+    .asc2__card[data-rank="1"]:hover { transform: translateX(-3px) translateY(1.5px) rotate(-1deg); }
+    .asc2__card-title    { font-size: clamp(.82rem, 4vw, 1rem); }
+    .asc2__card-composer { font-size: clamp(.65rem, 3vw, .76rem); }
+
     .asc2__now-title    { font-size: clamp(1.2rem, 6vw, 1.7rem); margin-bottom: .3rem; }
     .asc2__now-composer { font-size: .78rem; margin-bottom: .2rem; }
     .asc2__now-desc     { display: none; }
@@ -831,6 +917,16 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 .htl__item > label:hover .htl__img     { border-color: rgba(17, 17, 17, .35); }
 .htl__item > label:hover .htl__item-yr,
 .htl__item > label:hover .htl__item-ev { color: #111111; }
+
+/* hover: tile comes forward before click */
+.htl__item > label {
+    position:   relative;
+    transition: transform 0.18s cubic-bezier(.2,.6,.4,1);
+}
+.htl__item:hover > label {
+    transform: scale(1.05);
+    z-index:   5;
+}
 
 /* ── selezionato ─────────────────────────────────────────────── */
 .htl__item:has(input:checked) .htl__dot {
