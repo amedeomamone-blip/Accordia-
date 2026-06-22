@@ -100,6 +100,46 @@
         window.addEventListener('resize', function () { updateBar(false); updateYears(); });
         window.addEventListener('load',   function () { updateAll(false); });
         updateAll(false);
+
+        /* ── nav sequenza (mobile): swipe + bottoni avanti/indietro ── */
+        var seqPrev = htlEl.querySelector('.htl__seq-btn[data-seq="prev"]');
+        var seqNext = htlEl.querySelector('.htl__seq-btn[data-seq="next"]');
+        var seqCur  = htlEl.querySelector('.htl__seq-cur');
+        var seqTot  = htlEl.querySelector('.htl__seq-tot');
+        if (seqTot) seqTot.textContent = String(items.length);
+
+        /* indice del quadrato più vicino al centro del viewport di scroll */
+        function seqIndex() {
+            var sc = scroll.getBoundingClientRect();
+            var mid = sc.left + sc.width / 2;
+            var best = 0, bestD = Infinity;
+            items.forEach(function (it, i) {
+                var r = it.getBoundingClientRect();
+                var d = Math.abs((r.left + r.width / 2) - mid);
+                if (d < bestD) { bestD = d; best = i; }
+            });
+            return best;
+        }
+        function scrollToItem(i) {
+            i = Math.max(0, Math.min(i, items.length - 1));
+            var it = items[i];
+            if (!it) return;
+            var sc = scroll.getBoundingClientRect();
+            var r  = it.getBoundingClientRect();
+            var delta = (r.left + r.width / 2) - (sc.left + sc.width / 2);
+            scroll.scrollBy({ left: delta, behavior: 'smooth' });
+        }
+        function updateSeq() {
+            var i = seqIndex();
+            if (seqCur)  seqCur.textContent = String(i + 1);
+            if (seqPrev) seqPrev.disabled = (i <= 0);
+            if (seqNext) seqNext.disabled = (i >= items.length - 1);
+        }
+        if (seqPrev) seqPrev.addEventListener('click', function () { scrollToItem(seqIndex() - 1); });
+        if (seqNext) seqNext.addEventListener('click', function () { scrollToItem(seqIndex() + 1); });
+        scroll.addEventListener('scroll', updateSeq, { passive: true });
+        window.addEventListener('resize', updateSeq);
+        updateSeq();
     })();
 
     /* ── Screen 2: ascolti guidati — una domanda alla volta ──────── */
