@@ -1327,7 +1327,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 
 /* ── striscia concetti: stessa struttura di .htl ── */
 .kctl {
-    --u:      calc(100vw / 84);
+    /* cap --u by height so tiles don't overflow on 21:9+ ultrawide (3440×1080 etc.) */
+    --u:      min(calc(100vw / 84), calc(100svh / 36));
     --item-w: calc(14 * var(--u));
     --row-h:  calc(14 * var(--u));
 
@@ -1342,7 +1343,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     position: absolute;
     left:     0;
     right:    0;
-    top:      calc(50svh - (100vw / 12) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw));
+    top:      calc(50svh - 7 * var(--u) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw));
 }
 
 .kctl__scroll {
@@ -1423,14 +1424,14 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 
 /* ── header Screen 3: stessa posizione e glow di Screen 1 ── */
 .bintro-screen[data-screen="3"] .barocco-header {
-    --u:         calc(100vw / 84);
+    --u:         min(calc(100vw / 84), calc(100svh / 36));
     position:    absolute;
     left:        0;
     right:       0;
     display:     flex;
     align-items: flex-start;
     z-index:     2;
-    bottom:      calc(50svh + (100vw / 12) - min(16px, 1.6vw) + 2 * var(--u));
+    bottom:      calc(50svh + 7 * var(--u) - min(16px, 1.6vw) + 2 * var(--u));
     animation:   barocco-label-in .6s ease .2s both;
 }
 .bintro-screen[data-screen="3"] .barocco-intro__eyebrow {
@@ -1995,8 +1996,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
    ================================================================ */
 @media (min-width: 601px) and (max-height: 500px) {
 
-    /* Ridimensioniamo strip Timeline e Concetti chiave */
-    .htl, .kctl {
+    /* Ridimensioniamo strip Timeline (kctl gestito da min() nella regola principale) */
+    .htl {
         --u:      calc(100svh / 50);
         --item-w: calc(14 * var(--u));
         --row-h:  calc(14 * var(--u));
@@ -2005,14 +2006,14 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     .htl__track {
         top: calc(50svh - 7 * var(--u) - var(--bintro-header-h, 4rem));
     }
-    .kctl__track {
-        top: calc(50svh - 7 * var(--u) - var(--bintro-header-h, 4rem));
-    }
 
-    .bintro-screen[data-screen="1"] .barocco-header,
-    .bintro-screen[data-screen="3"] .barocco-header {
+    .bintro-screen[data-screen="1"] .barocco-header {
         --u:    calc(100svh / 50);
         bottom: calc(50svh + 7 * var(--u));
+    }
+    .bintro-screen[data-screen="3"] .barocco-header {
+        --u:    min(calc(100svh / 50), calc(100svh / 36));
+        bottom: calc(50svh + 9 * var(--u));
     }
 
     .bintro-screen[data-screen="1"] .barocco-intro__title,
