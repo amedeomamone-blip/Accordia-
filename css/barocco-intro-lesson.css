@@ -21,7 +21,7 @@
    Destra:   una domanda alla volta, avanza alla risposta
    ================================================================ */
 .bintro-screen[data-screen="2"] {
-    background:      #ffffff;
+    background:      var(--accent);
     flex-direction:  column;
     align-items:     stretch;
     justify-content: flex-start;
@@ -38,7 +38,7 @@
     column-gap:            clamp(2rem, 4.5vw, 4.5rem);
     align-items:           center;
     padding:               clamp(1.25rem, 3vh, 2.5rem) clamp(1.75rem, 4.5vw, 4.5rem);
-    background:            #ffffff;
+    background:            transparent;
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -386,6 +386,95 @@
     color:        #ffffff;
 }
 .asc2__nav--next:hover:not(:disabled) { background: #2a2a2a; border-color: #2a2a2a; }
+
+/* ================================================================
+   SCREEN 2 — Autumn theme: sfondo terracotta, testi bianchi
+   ================================================================ */
+
+/* header: eyebrow + titolo bianchi */
+.bintro-screen[data-screen="2"] .barocco-intro__eyebrow {
+    color: rgba(255, 255, 255, .55);
+}
+.bintro-screen[data-screen="2"] .barocco-intro__title-wrap {
+    background: transparent;
+}
+.bintro-screen[data-screen="2"] .barocco-intro__title {
+    color: #ffffff;
+}
+
+/* tile faces: frosted glass su terracotta, senza blink */
+.asc2__tile-face {
+    background: rgba(255, 255, 255, .16);
+    animation:  none;
+}
+.asc2__tile:nth-child(2) .asc2__tile-face { background: rgba(255, 255, 255, .12); }
+.asc2__tile:nth-child(3) .asc2__tile-face { background: rgba(255, 255, 255, .20); }
+.asc2__tile.is-active .asc2__tile-face,
+.asc2__tile:hover .asc2__tile-face {
+    background: rgba(255, 255, 255, .36);
+    animation:  none;
+}
+
+/* tile testi bianchi */
+.asc2__tile-name                          { color: rgba(255, 255, 255, .62); }
+.asc2__tile-sub                           { color: rgba(255, 255, 255, .4); }
+.asc2__tile.is-active .asc2__tile-name,
+.asc2__tile:hover .asc2__tile-name        { color: #ffffff; }
+
+/* descrizione brano */
+.asc2__now-desc      { color: rgba(255, 255, 255, .72); }
+.asc2__now-desc em   { color: rgba(255, 255, 255, .92); }
+
+/* pulsante ascolto */
+.asc2__listen {
+    border-color: rgba(255, 255, 255, .32);
+    color:        #ffffff;
+}
+.asc2__listen:hover {
+    background:   rgba(255, 255, 255, .16);
+    border-color: rgba(255, 255, 255, .55);
+    color:        #ffffff;
+}
+.asc2__listen-ic                       { color: rgba(255, 255, 255, .7); }
+.asc2__listen:hover .asc2__listen-ic   { color: #ffffff; }
+
+/* domanda */
+.asc2__q-text { color: #ffffff; }
+
+/* opzioni */
+.asc2__opt              { border-bottom-color: rgba(255, 255, 255, .15); }
+.asc2__opt:first-child  { border-top-color:    rgba(255, 255, 255, .15); }
+.asc2__opt:hover        { background: rgba(255, 255, 255, .1); }
+.asc2__opt-key          { color: rgba(255, 255, 255, .85); }
+.asc2__opt-val          { color: rgba(255, 255, 255, .72); }
+.asc2__opt:hover .asc2__opt-val { color: #ffffff; }
+
+/* selezionata */
+.asc2__opt.is-selected                  { border-color: rgba(255,255,255,.8); background: rgba(255,255,255,.2); }
+.asc2__opt.is-selected .asc2__opt-key  { background: transparent; border-color: transparent; color: #ffffff; }
+.asc2__opt.is-selected .asc2__opt-val  { color: #ffffff; }
+
+/* stato finale */
+.asc2__done-ic   { color: rgba(255, 255, 255, .9); }
+.asc2__done-text { color: #ffffff; }
+.asc2__restart {
+    border-color: rgba(255, 255, 255, .32);
+    color:        #ffffff;
+}
+.asc2__restart:hover { background: rgba(255, 255, 255, .16); border-color: rgba(255, 255, 255, .55); }
+
+/* nav prev/next */
+.asc2__nav {
+    border-color: rgba(255, 255, 255, .32);
+    color:        #ffffff;
+}
+.asc2__nav:hover:not(:disabled) { background: rgba(255, 255, 255, .1); border-color: rgba(255, 255, 255, .5); }
+.asc2__nav--next {
+    background:   rgba(255, 255, 255, .22);
+    border-color: rgba(255, 255, 255, .4);
+    color:        #ffffff;
+}
+.asc2__nav--next:hover:not(:disabled) { background: rgba(255, 255, 255, .32); border-color: rgba(255, 255, 255, .6); }
 
 /* ════════════════════════════════════════════════════════════════
    MOBILE — colonna singola, una domanda visibile, tap target ampi
@@ -1261,7 +1350,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     font-weight:     600;
     letter-spacing:  .1em;
     text-transform:  uppercase;
-    color:           rgba(17, 17, 17, .35);
+    color:           rgba(255, 255, 255, .55);
     padding:         calc(1.1 * var(--u));
     padding-left:    calc(14 * var(--u));
 }
@@ -1270,7 +1359,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     position:   relative;
     display:    block;
     overflow:   hidden;
-    background: #ffffff;
+    background: transparent;
     padding:    calc(1.1 * var(--u)) calc(1.1 * var(--u)) calc(0.7 * var(--u)) 0;
 }
 .bintro-screen[data-screen="2"] .barocco-intro__title {
@@ -1279,7 +1368,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     font-weight:    800;
     letter-spacing: -0.04em;
     line-height:    1.1;
-    color:          #000000;
+    color:          #ffffff;
     margin:         0;
 }
 
@@ -2029,14 +2118,14 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         overflow: visible !important;
         padding: 0 var(--bintro-mobile-gutter) !important;
         gap: 1rem !important;
-        background: #ffffff !important;
+        background: var(--accent) !important;
     }
 
     .asc2__left,
     .asc2__right {
         min-height: 0 !important;
         padding: 1rem !important;
-        border: 1px solid rgba(17, 17, 17, .08) !important;
+        border: 1px solid rgba(255, 255, 255, .15) !important;
     }
 
     .asc2__tiles {
