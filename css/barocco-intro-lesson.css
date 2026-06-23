@@ -21,7 +21,7 @@
    Destra:   una domanda alla volta, avanza alla risposta
    ================================================================ */
 .bintro-screen[data-screen="2"] {
-    background:      var(--accent);
+    background:      #ffffff;
     flex-direction:  column;
     align-items:     stretch;
     justify-content: flex-start;
@@ -34,104 +34,13 @@
     min-height:            0;
     display:               grid;
     grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1.05fr);
-    background:            var(--accent);
+    background:            #ffffff;
 }
 
 /* ── separatore colonne ──────────────────────────────────────────── */
 .asc2__sep {
-    background: rgba(255, 255, 255, .18);
+    background: #e8e8e8;
     align-self: stretch;
-}
-
-/* ════════════════════════════════════════════════════════════════
-   SCREEN 2 — AUTUMN THEME (terracotta bg, white text overrides)
-   ════════════════════════════════════════════════════════════════ */
-.bintro-screen[data-screen="2"] .barocco-intro__eyebrow { color: rgba(255,255,255,.6); }
-/* titolo nel box bianco, come Slide 1 e 3 (elemento-firma condiviso) */
-.bintro-screen[data-screen="2"] .barocco-intro__title-wrap { background: #ffffff; }
-.bintro-screen[data-screen="2"] .barocco-intro__title { color: #111111; }
-
-.asc2__now-title { color: #ffffff; }
-.asc2__now-composer { color: rgba(255,255,255,.72); }
-.asc2__now-desc { color: rgba(255,255,255,.72); }
-.asc2__now-desc em { color: rgba(255,255,255,.92); }
-
-.asc2__listen {
-    border-color: rgba(255,255,255,.32);
-    color:        #ffffff;
-}
-.asc2__listen:hover {
-    background:   rgba(255,255,255,.16);
-    border-color: rgba(255,255,255,.55);
-    color:        #ffffff;
-}
-.asc2__listen-ic { color: rgba(255,255,255,.72); }
-.asc2__listen:hover .asc2__listen-ic { color: #ffffff; }
-
-.asc2__quiz-step { color: rgba(255,255,255,.55); }
-.asc2__quiz-step b { color: #ffffff; }
-.asc2__quiz-of { color: rgba(255,255,255,.38); }
-
-.asc2__bar { background: rgba(255,255,255,.18); }
-.asc2__bar-fill { background: rgba(255,255,255,.85); }
-
-.asc2__q-text { color: #ffffff; }
-
-.asc2__opt {
-    border-color: rgba(255,255,255,.2);
-    background:   rgba(255,255,255,.08);
-}
-.asc2__opt:hover {
-    border-color: rgba(255,255,255,.45);
-    background:   rgba(255,255,255,.15);
-}
-.asc2__opt-key {
-    border-color: rgba(255,255,255,.3);
-    color:        rgba(255,255,255,.75);
-}
-.asc2__opt-val { color: rgba(255,255,255,.8); }
-.asc2__opt:hover .asc2__opt-key { border-color: rgba(255,255,255,.6); color: #ffffff; }
-
-.asc2__opt.is-selected {
-    border-color: rgba(255,255,255,.8);
-    background:   rgba(255,255,255,.22);
-}
-.asc2__opt.is-selected .asc2__opt-key {
-    background:   rgba(255,255,255,.9);
-    border-color: rgba(255,255,255,.9);
-    color:        var(--accent);
-}
-.asc2__opt.is-selected .asc2__opt-val { color: #ffffff; }
-
-.asc2__done-ic { color: rgba(255,255,255,.85); }
-.asc2__done-text { color: #ffffff; }
-
-.asc2__restart {
-    border-color: rgba(255,255,255,.32);
-    color:        #ffffff;
-}
-.asc2__restart:hover {
-    background:   rgba(255,255,255,.2);
-    border-color: rgba(255,255,255,.6);
-    color:        #ffffff;
-}
-
-.asc2__nav {
-    border-color: rgba(255,255,255,.28);
-    color:        #ffffff;
-}
-.asc2__nav:hover:not(:disabled) {
-    background:   rgba(255,255,255,.12);
-    border-color: rgba(255,255,255,.5);
-}
-.asc2__nav--next {
-    background:   rgba(255,255,255,.22);
-    border-color: rgba(255,255,255,.45);
-    color:        #ffffff;
-}
-.asc2__nav--next:hover:not(:disabled) {
-    background:   rgba(255,255,255,.32);
-    border-color: rgba(255,255,255,.65);
 }
 
 /* ════════════════════════════════════════════════════════════════
@@ -175,9 +84,9 @@
     flex-direction: column;
     width:          100%;
     padding:        clamp(.7rem, 1.5vh, .95rem) clamp(.9rem, 1.3vw, 1.15rem);
-    border:         1px solid rgba(255,255,255,.22);
+    border:         1px solid #e8e8e8;
     border-radius:  0;
-    background:     rgba(255,255,255,.08);
+    background:     transparent;
     cursor:         pointer;
     font-family:    inherit;
     text-align:     left;
@@ -185,17 +94,17 @@
                     background .2s ease, border-color .2s ease;
 }
 
-/* hover: la tile viene avanti (hint cliccabilità) */
+/* hover: tile viene avanti */
 .asc2__card:hover {
-    background:   rgba(255,255,255,.15);
-    border-color: rgba(255,255,255,.42);
+    background:   rgba(17, 17, 17, .03);
+    border-color: rgba(17, 17, 17, .22);
     transform:    translateX(4px);
 }
 
-/* selezionato: inversione netta — box bianco, testo ink */
+/* selezionato: inversione netta — box ink, testo bianco */
 .asc2__card.is-active {
-    background:   #ffffff;
-    border-color: #ffffff;
+    background:   #111111;
+    border-color: #111111;
     transform:    translateX(6px);
 }
 
@@ -206,7 +115,7 @@
     font-weight:    600;
     letter-spacing: .1em;
     text-transform: uppercase;
-    color:          rgba(255,255,255,.52);
+    color:          rgba(17, 17, 17, .38);
     transition:     color .2s ease;
 }
 .asc2__card-title {
@@ -216,7 +125,7 @@
     font-weight:    700;
     letter-spacing: -.025em;
     line-height:    1.12;
-    color:          #ffffff;
+    color:          #111111;
     transition:     color .2s ease;
 }
 .asc2__card-composer {
@@ -224,13 +133,13 @@
     margin-top:  .15rem;
     font-size:   clamp(.7rem, .82vw, .8rem);
     font-weight: 400;
-    color:       rgba(255,255,255,.6);
+    color:       rgba(17, 17, 17, .45);
     transition:  color .2s ease;
 }
 
-.asc2__card.is-active .asc2__card-eyebrow  { color: var(--accent); }
-.asc2__card.is-active .asc2__card-title    { color: #111111; }
-.asc2__card.is-active .asc2__card-composer { color: rgba(17,17,17,.55); }
+.asc2__card.is-active .asc2__card-eyebrow  { color: rgba(255, 255, 255, .45); }
+.asc2__card.is-active .asc2__card-title    { color: #ffffff; }
+.asc2__card.is-active .asc2__card-composer { color: rgba(255, 255, 255, .55); }
 
 /* ── dettaglio brano corrente ────────────────────────────────────── */
 .asc2__now { display: flex; flex-direction: column; }
@@ -578,7 +487,7 @@
         grid-template-columns: 1fr;
         grid-template-rows:    auto 1px minmax(0, 1fr);
         overflow:              hidden;
-        background:            var(--accent) !important;
+        background:            #ffffff !important;
     }
 
     /* ── sinistra: compatta — descrizione nascosta su mobile ── */
@@ -684,7 +593,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 }
 
 .bintro-screen[data-screen="1"] { background: var(--bg-1); }
-.bintro-screen[data-screen="2"] { background: var(--accent); }
+.bintro-screen[data-screen="2"] { background: #ffffff; }
 .bintro-screen[data-screen="3"] { background: var(--bg-3); }
 
 /* ── inner content shell ────────────────────────────────────────── */
