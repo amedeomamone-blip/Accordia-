@@ -233,20 +233,8 @@
 .asc2__quiz-step b { color: #111111; font-weight: 650; }
 .asc2__quiz-of    { color: rgba(17, 17, 17, .3); }
 
-.asc2__bar {
-    height:        2px;
-    border-radius: 2px;
-    background:    rgba(17, 17, 17, .1);
-    overflow:      hidden;
-}
-.asc2__bar-fill {
-    display:       block;
-    height:        100%;
-    width:         12.5%;
-    border-radius: 2px;
-    background:    var(--accent);
-    transition:    width .32s cubic-bezier(.4, 0, .2, 1);
-}
+.asc2__bar      { display: none; }
+.asc2__bar-fill { display: none; }
 
 /* ── corpo: la domanda attiva è centrata nello spazio ────────────── */
 .asc2__quiz-body {
@@ -284,111 +272,96 @@
     max-width:      26ch;
 }
 
-/* ── opzioni a risposta multipla ─────────────────────────────────── */
+/* ── opzioni: lista tipografica, nessun profilo bottone ─────────── */
 .asc2__opts {
     display:        flex;
     flex-direction: column;
-    gap:            .5rem;
 }
 
 .asc2__opt {
+    position:      relative;
     display:       flex;
-    align-items:   center;
-    gap:           .8rem;
+    align-items:   flex-start;
+    gap:           .65rem;
     width:         100%;
     text-align:    left;
-    padding:       clamp(.7rem, 1.5vh, .95rem) 1rem;
-    border:        1px solid rgba(17, 17, 17, .13);
+    padding:       .55rem 0 .55rem .85rem;
+    border:        none;
     border-radius: 0;
-    background:    #ffffff;
+    background:    transparent;
     cursor:        pointer;
     font-family:   inherit;
-    transition:    border-color .16s ease, background-color .16s ease, transform .12s ease;
+    transition:    background .12s ease;
 }
 
-.asc2__opt:hover {
-    border-color: rgba(17, 17, 17, .34);
-    background:   rgba(17, 17, 17, .015);
-}
-.asc2__opt:active { transform: scale(.992); }
-
-/* ── feedback risposta: verde (corretta) e rosso (errata) ── */
-@keyframes asc2-flash-correct {
-    0%,  50%  { background: #22c55e; border-color: #22c55e; }
-    25%, 75%  { background: #bbf7d0; border-color: #86efac; }
-    100%      { background: #22c55e; border-color: #22c55e; }
-}
-@keyframes asc2-flash-wrong {
-    0%,  50%  { background: #ef4444; border-color: #ef4444; }
-    25%, 75%  { background: #fee2e2; border-color: #fca5a5; }
-    100%      { background: #ef4444; border-color: #ef4444; }
+/* striscia indicatore (2px, a sinistra) — invisibile di default */
+.asc2__opt::before {
+    content:    '';
+    position:   absolute;
+    left:       0;
+    top:        .4rem;
+    bottom:     .4rem;
+    width:      2px;
+    background: transparent;
+    transition: background .15s ease;
 }
 
-.asc2__opt.is-correct {
-    border-color:   #22c55e;
-    background:     #22c55e;
-    pointer-events: none;
-}
-.asc2__opt.is-correct .asc2__opt-key {
-    background:   rgba(255,255,255,.25);
-    border-color: rgba(255,255,255,.5);
-    color:        #ffffff;
-}
-.asc2__opt.is-correct .asc2__opt-val { color: #ffffff; font-weight: 500; }
+.asc2__opt:hover { background: rgba(17, 17, 17, .03); }
 
-.asc2__opt.is-wrong {
-    border-color:   #ef4444;
-    background:     #ef4444;
-    pointer-events: none;
-}
-.asc2__opt.is-wrong .asc2__opt-key {
-    background:   rgba(255,255,255,.25);
-    border-color: rgba(255,255,255,.5);
-    color:        #ffffff;
-}
-.asc2__opt.is-wrong .asc2__opt-val { color: #ffffff; font-weight: 500; }
-
-/* flash solo al primo click; quando si ri-renderizza (no-flash) il colore rimane fisso */
-.asc2__opt.is-correct:not(.no-flash) { animation: asc2-flash-correct .5s ease forwards; }
-.asc2__opt.is-wrong:not(.no-flash)   { animation: asc2-flash-wrong   .5s ease forwards; }
-
+/* lettera A B C D — plain text, nessun box */
 .asc2__opt-key {
-    flex:            0 0 auto;
-    display:         inline-flex;
-    align-items:     center;
-    justify-content: center;
-    width:           1.65rem;
-    height:          1.65rem;
-    border:          1px solid rgba(17, 17, 17, .16);
-    border-radius:   2px;
-    font-size:       .72rem;
-    font-weight:     700;
-    color:           rgba(17, 17, 17, .42);
-    line-height:     1;
-    transition:      background-color .16s ease, border-color .16s ease, color .16s ease;
+    flex:        0 0 auto;
+    display:     inline-block;
+    width:       auto;
+    height:      auto;
+    border:      none;
+    background:  none;
+    border-radius: 0;
+    font-size:   .68rem;
+    font-weight: 600;
+    letter-spacing: .03em;
+    color:       rgba(17, 17, 17, .28);
+    line-height: 1.5;
+    transition:  color .15s ease;
 }
 
 .asc2__opt-val {
     font-size:   clamp(.82rem, 1vw, .95rem);
-    font-weight: 450;
-    line-height: 1.35;
-    color:       rgba(17, 17, 17, .72);
-    transition:  color .16s ease;
+    font-weight: 400;
+    line-height: 1.45;
+    color:       rgba(17, 17, 17, .58);
+    transition:  color .15s ease;
 }
 
-.asc2__opt:hover .asc2__opt-key { border-color: rgba(17, 17, 17, .4); color: #111111; }
+.asc2__opt:hover .asc2__opt-key { color: rgba(17, 17, 17, .5); }
+.asc2__opt:hover .asc2__opt-val  { color: rgba(17, 17, 17, .82); }
 
-/* selezionata */
-.asc2__opt.is-selected {
-    border-color: #111111;
-    background:   #111111;
+/* selezionata: striscia ink, testo ink */
+.asc2__opt.is-selected { background: transparent; }
+.asc2__opt.is-selected::before       { background: #111111; }
+.asc2__opt.is-selected .asc2__opt-key { color: #111111; font-weight: 700; }
+.asc2__opt.is-selected .asc2__opt-val { color: #111111; font-weight: 500; }
+
+/* corretta: striscia verde, testo verde */
+.asc2__opt.is-correct {
+    background:     transparent;
+    pointer-events: none;
 }
-.asc2__opt.is-selected .asc2__opt-key {
-    background:   #ffffff;
-    border-color: #ffffff;
-    color:        #111111;
+.asc2__opt.is-correct::before       { background: #22c55e; }
+.asc2__opt.is-correct .asc2__opt-key { color: #16a34a; font-weight: 700; }
+.asc2__opt.is-correct .asc2__opt-val { color: #15803d; font-weight: 500; }
+
+/* errata: striscia rossa, testo rosso */
+.asc2__opt.is-wrong {
+    background:     transparent;
+    pointer-events: none;
 }
-.asc2__opt.is-selected .asc2__opt-val { color: #ffffff; font-weight: 500; }
+.asc2__opt.is-wrong::before       { background: #ef4444; }
+.asc2__opt.is-wrong .asc2__opt-key { color: #ef4444; font-weight: 700; }
+.asc2__opt.is-wrong .asc2__opt-val { color: #dc2626; font-weight: 500; }
+
+.asc2__opt.is-correct:not(.no-flash),
+.asc2__opt.is-wrong:not(.no-flash)   { animation: none; }
 
 /* ── stato finale ────────────────────────────────────────────────── */
 .asc2__done {
@@ -525,8 +498,7 @@
     .asc2__quiz-body { justify-content: flex-start; }
     .asc2__q.is-active { gap: .75rem; }
     .asc2__q-text    { font-size: clamp(1rem, 5vw, 1.35rem); max-width: none; }
-    .asc2__opts      { gap: .35rem; }
-    .asc2__opt       { padding: .72rem .9rem; gap: .65rem; }
+    .asc2__opt       { padding: .5rem 0 .5rem .75rem; gap: .55rem; }
     .asc2__opt-val   { font-size: clamp(.84rem, 3.8vw, .95rem); }
     .asc2__quiz-nav  { margin-top: .85rem; }
 }
