@@ -105,16 +105,7 @@
 .asc2__card:hover { background: rgba(17, 17, 17, .03); }
 .asc2__card.is-active::before { background: #111111; }
 
-.asc2__card-eyebrow {
-    display:        block;
-    margin-bottom:  .2rem;
-    font-size:      clamp(.58rem, .68vw, .66rem);
-    font-weight:    600;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color:          rgba(17, 17, 17, .28);
-    transition:     color .15s ease;
-}
+.asc2__card-eyebrow { display: none; }
 .asc2__card-title {
     display:        block;
     font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
