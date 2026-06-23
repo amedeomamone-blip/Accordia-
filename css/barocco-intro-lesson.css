@@ -46,9 +46,10 @@
 /* ════════════════════════════════════════════════════════════════
    SCREEN 2 — AUTUMN THEME (terracotta bg, white text overrides)
    ════════════════════════════════════════════════════════════════ */
-.bintro-screen[data-screen="2"] .barocco-intro__eyebrow { color: rgba(255,255,255,.55); }
-.bintro-screen[data-screen="2"] .barocco-intro__title-wrap { background: transparent; }
-.bintro-screen[data-screen="2"] .barocco-intro__title { color: #ffffff; }
+.bintro-screen[data-screen="2"] .barocco-intro__eyebrow { color: rgba(255,255,255,.6); }
+/* titolo nel box bianco, come Slide 1 e 3 (elemento-firma condiviso) */
+.bintro-screen[data-screen="2"] .barocco-intro__title-wrap { background: #ffffff; }
+.bintro-screen[data-screen="2"] .barocco-intro__title { color: #111111; }
 
 .asc2__now-title { color: #ffffff; }
 .asc2__now-composer { color: rgba(255,255,255,.72); }
@@ -155,117 +156,81 @@
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   SCREEN 2 — stacked cards (DisplayCards-style)
-   3 brani selezionabili: si sovrappongono come un mazzo di carte.
-   JS gestisce data-rank="0|1|2" (0=fondo, 2=primo piano).
+   SCREEN 2 — selettore brani (tile angolari, linguaggio Accordia)
+   3 brani selezionabili come tile squadrate e piatte: niente mazzo
+   inclinato, niente glassmorphism. Quello attivo si inverte (box
+   bianco, testo ink) e viene avanti — coerente con Slide 1 e 3.
    ═══════════════════════════════════════════════════════════════ */
 
 .asc2__cards {
-    display:          grid;
-    grid-template-areas: 'stack';
-    width:            100%;
-    margin-bottom:    clamp(.6rem, 1.4vh, 1rem);
-    transform:        skewY(-6deg);
-    transform-origin: top center;
-    user-select:      none;
+    display:        flex;
+    flex-direction: column;
+    gap:            clamp(.5rem, 1.2vh, .75rem);
+    width:          100%;
+    margin-bottom:  clamp(.9rem, 2.2vh, 1.5rem);
 }
 
 .asc2__card {
-    grid-area:        stack;
-    display:          flex;
-    flex-direction:   column;
-    justify-content:  flex-end;
-    position:         relative;
-    overflow:         hidden;
-    height:           clamp(116px, 16vh, 152px);
-    padding:          .85rem 1rem .9rem;
-    border:           1px solid rgba(255,255,255,.14);
-    background:       rgba(255,255,255,.11);
-    cursor:           pointer;
-    font-family:      inherit;
-    text-align:       left;
-    transition:       transform    0.52s cubic-bezier(.2,.8,.4,1),
-                      filter       0.52s ease,
-                      opacity      0.52s ease,
-                      background   0.28s ease,
-                      border-color 0.28s ease;
-    will-change:      transform;
+    display:        flex;
+    flex-direction: column;
+    width:          100%;
+    padding:        clamp(.7rem, 1.5vh, .95rem) clamp(.9rem, 1.3vw, 1.15rem);
+    border:         1px solid rgba(255,255,255,.22);
+    border-radius:  0;
+    background:     rgba(255,255,255,.08);
+    cursor:         pointer;
+    font-family:    inherit;
+    text-align:     left;
+    transition:     transform .18s cubic-bezier(.2,.6,.4,1),
+                    background .2s ease, border-color .2s ease;
 }
 
-/* dark overlay — scompare sul front card */
-.asc2__card::before {
-    content:        '';
-    position:       absolute;
-    inset:          0;
-    background:     rgba(0,0,0,.13);
-    pointer-events: none;
-    transition:     opacity 0.52s ease;
-    opacity:        1;
+/* hover: la tile viene avanti (hint cliccabilità) */
+.asc2__card:hover {
+    background:   rgba(255,255,255,.15);
+    border-color: rgba(255,255,255,.42);
+    transform:    translateX(4px);
 }
 
-/* ── posizioni stack tramite data-rank assegnato da JS ── */
-.asc2__card[data-rank="0"] {
-    transform:    translateX(-14px) translateY(8px) rotate(-4deg);
-    z-index:      1;
-    filter:       grayscale(0.72);
-    opacity:      0.58;
-}
-.asc2__card[data-rank="1"] {
-    transform:    translateX(-7px) translateY(4px) rotate(-2deg);
-    z-index:      2;
-    filter:       grayscale(0.3);
-    opacity:      0.8;
-}
-.asc2__card[data-rank="2"] {
-    transform:    translateX(0) translateY(0) rotate(0deg);
-    z-index:      3;
-    filter:       none;
-    opacity:      1;
-    background:   rgba(255,255,255,.2);
-    border-color: rgba(255,255,255,.3);
-}
-.asc2__card[data-rank="2"]::before { opacity: 0; }
-
-/* hover: le card sullo sfondo si spostano in avanti (hint cliccabilità) */
-.asc2__card[data-rank="0"]:hover {
-    opacity:   0.72;
-    transform: translateX(-11px) translateY(5px) rotate(-3.5deg);
-}
-.asc2__card[data-rank="1"]:hover {
-    opacity:   0.9;
-    transform: translateX(-4px) translateY(2px) rotate(-1.5deg);
-}
-.asc2__card[data-rank="2"]:hover {
-    transform:  translateX(0) translateY(-3px) rotate(0deg) scale(1.01);
-    background: rgba(255,255,255,.26);
+/* selezionato: inversione netta — box bianco, testo ink */
+.asc2__card.is-active {
+    background:   #ffffff;
+    border-color: #ffffff;
+    transform:    translateX(6px);
 }
 
-/* testi della card (su sfondo terracotta: sempre bianco/traslucido) */
 .asc2__card-eyebrow {
     display:        block;
-    margin-bottom:  .3rem;
-    font-size:      clamp(.62rem, .72vw, .7rem);
+    margin-bottom:  .28rem;
+    font-size:      clamp(.58rem, .68vw, .66rem);
     font-weight:    600;
-    letter-spacing: .09em;
+    letter-spacing: .1em;
     text-transform: uppercase;
-    color:          rgba(255,255,255,.5);
+    color:          rgba(255,255,255,.52);
+    transition:     color .2s ease;
 }
 .asc2__card-title {
     display:        block;
     font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:      clamp(.88rem, 1.2vw, 1.1rem);
+    font-size:      clamp(.95rem, 1.2vw, 1.12rem);
     font-weight:    700;
     letter-spacing: -.025em;
-    line-height:    1.15;
+    line-height:    1.12;
     color:          #ffffff;
+    transition:     color .2s ease;
 }
 .asc2__card-composer {
     display:     block;
-    margin-top:  .2rem;
+    margin-top:  .15rem;
     font-size:   clamp(.7rem, .82vw, .8rem);
     font-weight: 400;
-    color:       rgba(255,255,255,.62);
+    color:       rgba(255,255,255,.6);
+    transition:  color .2s ease;
 }
+
+.asc2__card.is-active .asc2__card-eyebrow  { color: var(--accent); }
+.asc2__card.is-active .asc2__card-title    { color: #111111; }
+.asc2__card.is-active .asc2__card-composer { color: rgba(17,17,17,.55); }
 
 /* ── dettaglio brano corrente ────────────────────────────────────── */
 .asc2__now { display: flex; flex-direction: column; }
@@ -622,22 +587,21 @@
         gap:             .55rem;
         padding:         .9rem 1.25rem .75rem;
     }
-    /* stacked cards mobile: stack più compatto */
+    /* selettore brani mobile: riga compatta di 3 tile */
     .asc2__cards {
-        transform:     skewY(-4deg);
-        margin-bottom: .5rem;
+        display:               grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap:                   .4rem;
+        margin-bottom:         .6rem;
     }
     .asc2__card {
-        height:  clamp(90px, 13vh, 116px);
-        padding: .6rem .85rem .65rem;
+        padding: .55rem .6rem;
     }
-    .asc2__card[data-rank="0"] { transform: translateX(-10px) translateY(6px) rotate(-3deg); }
-    .asc2__card[data-rank="1"] { transform: translateX(-5px) translateY(3px) rotate(-1.5deg); }
-    .asc2__card[data-rank="2"] { transform: none; }
-    .asc2__card[data-rank="0"]:hover { transform: translateX(-8px) translateY(4px) rotate(-2.5deg); }
-    .asc2__card[data-rank="1"]:hover { transform: translateX(-3px) translateY(1.5px) rotate(-1deg); }
-    .asc2__card-title    { font-size: clamp(.82rem, 4vw, 1rem); }
-    .asc2__card-composer { font-size: clamp(.65rem, 3vw, .76rem); }
+    .asc2__card:hover      { transform: none; }
+    .asc2__card.is-active  { transform: none; }
+    .asc2__card-eyebrow  { font-size: clamp(.52rem, 2.4vw, .6rem); margin-bottom: .18rem; }
+    .asc2__card-title    { font-size: clamp(.8rem, 3.6vw, .98rem); }
+    .asc2__card-composer { font-size: clamp(.62rem, 2.8vw, .74rem); }
 
     .asc2__now-title    { font-size: clamp(1.2rem, 6vw, 1.7rem); margin-bottom: .3rem; }
     .asc2__now-composer { font-size: .78rem; margin-bottom: .2rem; }
