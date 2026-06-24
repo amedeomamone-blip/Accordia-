@@ -785,7 +785,9 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     content:        "";
     position:       absolute;
     inset:          0;
+    opacity:        0;
     pointer-events: none;
+    transition:     opacity .36s ease, transform .72s ease;
 }
 
 .htl__item[data-timeline-image] .htl__img::before {
@@ -793,30 +795,25 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     background-image:    var(--htl-tile-image);
     background-size:     cover;
     background-position: var(--htl-tile-image-position, center center);
-    opacity:             1;
-    filter:              blur(5px) saturate(.5);
-    transform:           scale(1.1);
-    transition:          filter .5s ease, transform .6s ease;
+    transform:           scale(1.025);
 }
 
 .htl__item[data-timeline-image] .htl__img::after {
     z-index:    1;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 42%, rgba(0, 0, 0, .34) 100%);
-    opacity:    0;
-    transition: opacity .36s ease;
 }
 
 .htl__item[data-timeline-image].is-revealed .htl__img {
     animation: none;
 }
 
-.htl__item[data-timeline-image].is-revealed .htl__img::before {
-    filter:    blur(0) saturate(1);
-    transform: scale(1);
-}
-
+.htl__item[data-timeline-image].is-revealed .htl__img::before,
 .htl__item[data-timeline-image].is-revealed .htl__img::after {
     opacity: 1;
+}
+
+.htl__item[data-timeline-image].is-revealed .htl__img::before {
+    transform: scale(1);
 }
 
 /* ── testo (titolo + descrizione): compare al click, resta visibile sui
