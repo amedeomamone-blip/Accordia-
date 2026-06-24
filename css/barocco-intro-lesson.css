@@ -123,8 +123,17 @@
 .asc2__now { display: flex; flex-direction: column; flex: 1 1 auto; justify-content: center; }
 .asc2__now[hidden] { display: none; }
 
+/* riga titolo + play: il play resta fisso a destra, stesso punto per ogni brano */
+.asc2__now-head {
+    display:         flex;
+    align-items:     center;
+    justify-content: space-between;
+    gap:             1rem;
+    margin-bottom:   .5rem;
+}
+
 .asc2__now-title {
-    margin:         0 0 .5rem;
+    margin:         0;
     font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
     font-size:      clamp(1.4rem, 3vw, 3.2rem);
     font-weight:    800;
@@ -153,7 +162,7 @@
 .asc2__now-desc em { font-style: italic; color: rgba(17, 17, 17, .72); }
 
 .asc2__listen {
-    align-self:      flex-start;
+    flex:            0 0 auto;
     display:         inline-flex;
     align-items:     center;
     justify-content: center;
@@ -192,13 +201,9 @@
     min-height:     0;
 }
 
-/* ── testata: progressione + barra ───────────────────────────────── */
+/* ── testata: progressione + barra (nascosta — non serve) ────────── */
 .asc2__quiz-head {
-    flex: 0 0 auto;
-    display:        flex;
-    flex-direction: column;
-    gap:            .7rem;
-    margin-bottom:  clamp(1.25rem, 3vh, 2rem);
+    display: none;
 }
 
 .asc2__quiz-step {
@@ -246,7 +251,6 @@
     letter-spacing: -.025em;
     line-height:    1.2;
     color:          #111111;
-    max-width:      26ch;
 }
 
 /* ── opzioni: lista tipografica, nessun profilo bottone ─────────── */
@@ -436,7 +440,7 @@
 
     .asc2 {
         grid-template-columns: 1fr;
-        grid-template-rows:    minmax(0, 2fr) 1px minmax(0, 3fr);
+        grid-template-rows:    minmax(0, 2fr) minmax(0, 3fr);
         overflow:              hidden;
         background:            #ffffff !important;
     }
@@ -448,7 +452,6 @@
         padding:         .9rem 1.25rem .75rem;
     }
     .asc2__now    { flex: 0 0 auto; }
-    .asc2__listen { margin-top: .65rem; }
     /* selettore brani mobile: riga compatta di 3 colonne */
     .asc2__cards {
         display:               grid;
@@ -463,10 +466,11 @@
     .asc2__card-title    { font-size: clamp(.8rem, 3.6vw, .98rem); }
     .asc2__card-composer { font-size: clamp(.62rem, 2.8vw, .74rem); }
 
-    .asc2__now-title    { font-size: clamp(1.2rem, 6vw, 1.7rem); margin-bottom: .3rem; }
+    .asc2__now-title    { font-size: clamp(1.2rem, 6vw, 1.7rem); }
     .asc2__now-composer { font-size: .78rem; margin-bottom: .2rem; }
     .asc2__now-desc     { display: none; }
-    .asc2__listen       { padding: .5rem .9rem; font-size: .78rem; }
+    .asc2__now-head     { margin-bottom: .3rem; }
+    .asc2__listen       { width: 2.4rem; height: 2.4rem; padding-left: .14rem; }
 
     /* ── destra: compatta ── */
     .asc2__right {
@@ -1361,12 +1365,6 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         left:          clamp(1.75rem, 4.5vw, 4rem);
         right:         clamp(1.75rem, 4.5vw, 4rem);
         margin-bottom: 0;
-    }
-    .bintro-screen[data-screen="2"] .asc2__quiz-head {
-        position: absolute;
-        top:      calc(var(--s2-hdr-h) + clamp(2rem, 4vw, 3.5rem));
-        left:     clamp(1.75rem, 4vw, 3.5rem);
-        right:    clamp(1.75rem, 4vw, 3.5rem);
     }
 }
 
