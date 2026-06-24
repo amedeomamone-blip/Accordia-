@@ -1340,6 +1340,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     line-height:    1.1;
     color:          #000000;
     margin:         0;
+    position:       relative;
+    z-index:        0;
 }
 
 /* ── Screen 2 — desktop ≥761px: header assoluto + layout sidebar eyebrow ── */
