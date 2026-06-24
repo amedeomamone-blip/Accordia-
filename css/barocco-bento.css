@@ -453,10 +453,19 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         padding: 1rem 1rem 0;
     }
     .barocco-tiles-wrap {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        display:                  flex;
+        overflow-x:               auto;
+        overflow-y:               hidden;
+        scroll-snap-type:         x proximity;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width:          none;
     }
+    .barocco-tiles-wrap::-webkit-scrollbar { display: none; }
     .barocco-row { display: contents; }
+    .barocco-tile {
+        flex:             0 0 calc(14 * var(--u));
+        scroll-snap-align: start;
+    }
 }
 
 /* ── Footer compatto, sempre visibile sotto la striscia ── */
