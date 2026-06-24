@@ -63,7 +63,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     background-color: #e8e8e8;
     animation:
         barocco-blink 12s ease-in-out var(--blink-delay, 0s) infinite,
-        barocco-tile-in .55s ease var(--enter-delay, 0s) both;
+        barocco-tile-in .55s ease 0s both;
     transition: background-color .3s ease;
 }
 
@@ -89,21 +89,16 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     from { opacity: 0; transform: scale(.94); }
     to   { opacity: 1; transform: scale(1); }
 }
-.barocco-tile:nth-child(1) { --enter-delay: 0s; }
-.barocco-tile:nth-child(2) { --enter-delay: .16s; }
-.barocco-tile:nth-child(3) { --enter-delay: .32s; }
-.barocco-tile:nth-child(4) { --enter-delay: .48s; }
-.barocco-tile:nth-child(5) { --enter-delay: .64s; }
-.barocco-tile:nth-child(6) { --enter-delay: .80s; }
+/* ── Tutti i tile compaiono simultaneamente ── */
 
-/* ── I titoli compaiono tutti insieme, come nella hero, a tile finiti ── */
+/* ── I titoli compaiono insieme ai tile ── */
 @keyframes barocco-label-in {
     from { opacity: 0; transform: translateY(6px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 .barocco-tile__name,
 .barocco-tile__sub {
-    animation: barocco-label-in .6s ease 1.4s both;
+    animation: barocco-label-in .55s ease 0s both;
 }
 
 /* ── Numero + freccia in fondo alla faccia ── */
