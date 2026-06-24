@@ -437,7 +437,8 @@
 @media (max-width: 760px) {
     /* header screen 2: compatto su mobile */
     .bintro-screen[data-screen="2"] .barocco-header {
-        --u: calc(100vw / 28);
+        --u:     calc(100vw / 28);
+        display: block;
     }
     .bintro-screen[data-screen="2"] .barocco-intro__eyebrow {
         flex:    none;
