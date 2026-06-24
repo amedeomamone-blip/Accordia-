@@ -1315,12 +1315,10 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
    SCREEN 2 — Header (eyebrow + titolo, stessa struttura di Screen 1/3)
    ================================================================ */
 .bintro-screen[data-screen="2"] .barocco-header {
-    --u:         calc(100vw / 84);
-    flex:        0 0 auto;
-    display:     flex;
-    align-items: flex-start;
-    z-index:     2;
-    animation:   barocco-label-in .6s ease .2s both;
+    --u:       calc(100vw / 84);
+    flex:      0 0 auto;
+    z-index:   2;
+    animation: barocco-label-in .6s ease .2s both;
 }
 .bintro-screen[data-screen="2"] .barocco-intro__eyebrow {
     flex:            0 0 calc(28 * var(--u));
@@ -1356,10 +1354,12 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 /* ── Screen 2 — desktop ≥761px: header assoluto come Screen 1 + Screen 3 ── */
 @media (min-width: 761px) {
     .bintro-screen[data-screen="2"] .barocco-header {
-        position: absolute;
-        top:      0;
-        left:     0;
-        right:    0;
+        display:     flex;
+        align-items: flex-start;
+        position:    absolute;
+        top:         0;
+        left:        0;
+        right:       0;
     }
     .bintro-screen[data-screen="2"] .asc2__left,
     .bintro-screen[data-screen="2"] .asc2__right {
