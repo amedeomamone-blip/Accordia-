@@ -21,6 +21,8 @@
    Destra:   una domanda alla volta, avanza alla risposta
    ================================================================ */
 .bintro-screen[data-screen="2"] {
+    --u:             calc(100vw / 84);
+    --s2-hdr-h:      calc(2.2 * var(--u) + calc(clamp(1.4rem, 3vw, 3.2rem) * 1.1));
     background:      #ffffff;
     flex-direction:  column;
     align-items:     stretch;
@@ -1154,6 +1156,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 @media (prefers-reduced-motion: reduce) {
     .bintro-screen[data-screen="1"] .barocco-ticker__blob { animation: none; }
     .bintro-screen[data-screen="1"] .barocco-header        { animation: none; }
+    .bintro-screen[data-screen="2"] .barocco-ticker__blob { animation: none; }
 }
 
 
@@ -1315,6 +1318,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     flex:        0 0 auto;
     display:     flex;
     align-items: flex-start;
+    z-index:     2;
     animation:   barocco-label-in .6s ease .2s both;
 }
 .bintro-screen[data-screen="2"] .barocco-intro__eyebrow {
@@ -1346,6 +1350,60 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     line-height:    1.1;
     color:          #000000;
     margin:         0;
+}
+
+/* ── Screen 2 — desktop ≥761px: header assoluto come Screen 1 + Screen 3 ── */
+@media (min-width: 761px) {
+    .bintro-screen[data-screen="2"] .barocco-header {
+        position: absolute;
+        top:      0;
+        left:     0;
+        right:    0;
+    }
+    .bintro-screen[data-screen="2"] .asc2__left,
+    .bintro-screen[data-screen="2"] .asc2__right {
+        padding-top: calc(var(--s2-hdr-h) + clamp(1rem, 2vw, 1.5rem));
+    }
+}
+
+/* ── Screen 2 — glow: blob terracotta identico a Screen 1 ── */
+.bintro-screen[data-screen="2"] .barocco-ticker__overlay {
+    pointer-events: none;
+    position:       absolute;
+    inset:          0;
+    mix-blend-mode: lighten;
+}
+.bintro-screen[data-screen="2"] .barocco-ticker__blob {
+    pointer-events: none;
+    position:       absolute;
+    width:          30vw;
+    height:         30vw;
+    mix-blend-mode: overlay;
+    filter:         blur(1rem);
+}
+.bintro-screen[data-screen="2"] .barocco-ticker__blob--1 {
+    top: -50%; left: 0;
+    background: hsl(8, 62%, 60%);
+    animation: barocco-blob-drift 6s ease-in-out infinite,
+               barocco-blob-move-1 12s ease-in-out infinite alternate;
+}
+.bintro-screen[data-screen="2"] .barocco-ticker__blob--2 {
+    top: 0; right: 0;
+    background: hsl(18, 70%, 72%);
+    animation: barocco-blob-drift 6s ease-in-out infinite,
+               barocco-blob-move-2 12s ease-in-out infinite alternate;
+}
+.bintro-screen[data-screen="2"] .barocco-ticker__blob--3 {
+    bottom: 0; left: 0;
+    background: hsl(2, 58%, 55%);
+    animation: barocco-blob-drift 6s ease-in-out infinite,
+               barocco-blob-move-3 12s ease-in-out infinite alternate;
+}
+.bintro-screen[data-screen="2"] .barocco-ticker__blob--4 {
+    bottom: -50%; right: 0;
+    background: hsl(26, 65%, 68%);
+    animation: barocco-blob-drift 6s ease-in-out infinite,
+               barocco-blob-move-4 12s ease-in-out infinite alternate;
 }
 
 /* ================================================================
