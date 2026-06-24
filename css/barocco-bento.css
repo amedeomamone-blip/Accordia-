@@ -49,7 +49,6 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     transition: transform 0.18s cubic-bezier(.2,.6,.4,1);
 }
 .barocco-tile:hover {
-    transform: translateY(-5px) scale(1.015);
     z-index: 5;
 }
 

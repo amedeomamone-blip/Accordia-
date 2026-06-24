@@ -855,12 +855,10 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 
 /* hover: tile comes forward before click */
 .htl__item > label {
-    position:   relative;
-    transition: transform 0.18s cubic-bezier(.2,.6,.4,1);
+    position: relative;
 }
 .htl__item:hover > label {
-    transform: scale(1.05);
-    z-index:   5;
+    z-index: 5;
 }
 
 /* ── selezionato ─────────────────────────────────────────────── */
