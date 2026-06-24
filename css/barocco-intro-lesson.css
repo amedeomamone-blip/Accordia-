@@ -1322,25 +1322,17 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     animation: barocco-label-in .6s ease .2s both;
 }
 .bintro-screen[data-screen="2"] .barocco-intro__eyebrow {
-    flex:            0 0 calc(28 * var(--u));
-    display:         flex;
-    align-items:     flex-start;
-    justify-content: flex-start;
-    font-size:       clamp(0.7rem, 0.65 * var(--u), 0.85rem);
-    font-weight:     600;
-    letter-spacing:  .1em;
-    text-transform:  uppercase;
-    color:           rgba(17, 17, 17, .35);
-    padding:         calc(1.1 * var(--u));
-    padding-left:    calc(14 * var(--u));
+    font-size:      clamp(0.7rem, 0.65 * var(--u), 0.85rem);
+    font-weight:    600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color:          rgba(17, 17, 17, .35);
 }
 .bintro-screen[data-screen="2"] .barocco-intro__title-wrap {
-    flex:       1;
     position:   relative;
     display:    block;
     overflow:   hidden;
     background: #ffffff;
-    padding:    calc(1.1 * var(--u)) calc(1.1 * var(--u)) calc(0.7 * var(--u)) 0;
 }
 .bintro-screen[data-screen="2"] .barocco-intro__title {
     font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
@@ -1352,7 +1344,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     margin:         0;
 }
 
-/* ── Screen 2 — desktop ≥761px: header assoluto come Screen 1 + Screen 3 ── */
+/* ── Screen 2 — desktop ≥761px: header assoluto + layout sidebar eyebrow ── */
 @media (min-width: 761px) {
     .bintro-screen[data-screen="2"] .barocco-header {
         display:     flex;
@@ -1361,6 +1353,18 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         top:         0;
         left:        0;
         right:       0;
+    }
+    .bintro-screen[data-screen="2"] .barocco-intro__eyebrow {
+        flex:            0 0 calc(28 * var(--u));
+        display:         flex;
+        align-items:     flex-start;
+        justify-content: flex-start;
+        padding:         calc(1.1 * var(--u));
+        padding-left:    calc(14 * var(--u));
+    }
+    .bintro-screen[data-screen="2"] .barocco-intro__title-wrap {
+        flex:    1;
+        padding: calc(1.1 * var(--u)) calc(1.1 * var(--u)) calc(0.7 * var(--u)) 0;
     }
     .bintro-screen[data-screen="2"] .asc2__left,
     .bintro-screen[data-screen="2"] .asc2__right {
