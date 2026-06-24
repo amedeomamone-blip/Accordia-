@@ -172,12 +172,8 @@
             if (prevBtn) prevBtn.disabled = idx === 0;
             if (nextBtn) {
                 nextBtn.disabled = atDone();
-                nextBtn.textContent = (idx >= total() - 1) ? 'Concludi' : 'Avanti';
-                /* re-inserisci la freccia (textContent l'ha rimossa) */
-                if (!nextBtn.querySelector('svg')) {
-                    nextBtn.insertAdjacentHTML('beforeend',
-                        ' <svg width="13" height="13" viewBox="0 0 14 14" fill="none"><path d="M5 2.5L9.5 7 5 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>');
-                }
+                /* solo freccia, nessun testo */
+                nextBtn.innerHTML = '→';
             }
         }
 
