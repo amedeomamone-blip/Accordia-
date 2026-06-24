@@ -446,7 +446,7 @@
         padding: .9rem .9rem .2rem;
     }
     .bintro-screen[data-screen="2"] .barocco-intro__title-wrap {
-        padding: .65rem .9rem .5rem 0;
+        padding: .65rem .9rem .5rem .9rem;
     }
     .bintro-screen[data-screen="2"] .barocco-intro__title {
         font-size: clamp(1.1rem, 5vw, 1.5rem);
