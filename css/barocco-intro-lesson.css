@@ -1207,15 +1207,19 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 }
 
 .kctl__item {
-    flex:     0 0 var(--item-w);
-    position: relative;
-    height:   var(--row-h);
-    overflow: hidden;
+    flex:            0 0 var(--item-w);
+    position:        relative;
+    height:          var(--row-h);
+    display:         flex;
+    flex-direction:  column;
+    justify-content: flex-end;
+    overflow:        hidden;
 }
 
 .kctl__img {
     position:   absolute;
     inset:      0;
+    z-index:    0;
     width:      100%;
     height:     100%;
     background: var(--tile-gray, #e8e8e8);
@@ -1237,28 +1241,37 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 .kctl__item .kctl__img { animation-delay: var(--kctl-delay, 0s); }
 
 .kctl__card-title {
-    position:       absolute;
-    bottom:         0;
-    left:           0;
-    right:          0;
+    position:       relative;
     z-index:        1;
     display:        block;
     font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
     font-size:      calc(.85 * var(--u));
     font-weight:    700;
     letter-spacing: -.03em;
-    line-height:    1.05;
+    line-height:    1.1;
     color:          #111111;
-    padding:        calc(.55 * var(--u)) calc(1.1 * var(--u));
+    padding:        0 calc(1.1 * var(--u)) calc(.3 * var(--u));
     margin:         0;
-    white-space:    nowrap;
-    overflow:       hidden;
-    text-overflow:  ellipsis;
     box-sizing:     border-box;
 }
 
-.kctl__card-sub  { display: none; }
-.kctl__card-desc { display: none; }
+.kctl__card-sub { display: none; }
+
+.kctl__card-desc {
+    position:           relative;
+    z-index:            1;
+    display:            -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow:           hidden;
+    font-size:          calc(.62 * var(--u));
+    font-weight:        400;
+    line-height:        1.35;
+    color:              rgba(17, 17, 17, .62);
+    padding:            0 calc(1.1 * var(--u)) calc(1.1 * var(--u));
+    margin:             0;
+    box-sizing:         border-box;
+}
 
 /* ── header Screen 3: stessa posizione e glow di Screen 1 ── */
 .bintro-screen[data-screen="3"] .barocco-header {
@@ -1599,17 +1612,28 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         box-sizing:     border-box;
     }
 
+    /* anno DENTRO il tile, angolo basso-sx, bianco — come .barocco-tile__num
+       sui tile foto della pagina index. Posizione assoluta sul tile (14u),
+       così segue lo zoom e non collide mai col titolo al ridimensionare. */
     .htl__card-yr {
         display:              block;
-        font-size:            calc(.55 * var(--u));
-        font-weight:          400;
-        letter-spacing:       .04em;
+        position:             absolute;
+        left:                 calc(1.1 * var(--u));
+        top:                  calc(11.9 * var(--u));
+        z-index:              2;
+        font-size:            calc(.62 * var(--u));
+        font-weight:          700;
+        letter-spacing:       .07em;
         font-variant-numeric: tabular-nums;
-        color:                rgba(17, 17, 17, .38);
-        padding:              calc(.2 * var(--u)) calc(1.1 * var(--u)) 0;
+        color:                rgba(255, 255, 255, .92);
+        padding:              0;
         margin:               0;
         white-space:          nowrap;
+        opacity:              0;
+        transition:           opacity .3s ease;
     }
+    /* compare solo quando il tile è rivelato (acceso) — leggibile sul terracotta */
+    .htl__item.is-revealed .htl__card-yr { opacity: 1; }
 
     .htl__card-desc {
         display:     block;
@@ -1623,8 +1647,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         box-sizing:  border-box;
     }
 
-    /* anno tolto da sotto il tile — è ora sopra la barra */
-    .htl__card-yr { display: none; }
+    /* anno fluttuante sopra la barra: rimosso — ora è dentro il tile */
+    .htl__year-label { display: none; }
 
     /* rivelato (tile cliccato + precedenti): stop animazione, colore pieno */
     .htl__item.is-revealed .htl__img {
@@ -1894,10 +1918,6 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     }
     .bintro-screen[data-screen="3"] .barocco-intro__title {
         font-size: clamp(1.4rem, 7vw, 2.4rem);
-    }
-
-    .kctl__card-title {
-        padding-top: calc(1.4 * var(--u));
     }
 }
 
