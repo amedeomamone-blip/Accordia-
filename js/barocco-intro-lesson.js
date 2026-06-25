@@ -114,9 +114,11 @@
         var curEl   = root.querySelector('.asc2__quiz-cur');
         var totalEl = root.querySelector('.asc2__quiz-total');
         var barFill = root.querySelector('.asc2__bar-fill');
-        var prevBtn = root.querySelector('.asc2__nav--prev');
-        var nextBtn = root.querySelector('.asc2__nav--next');
-        var restart = root.querySelector('.asc2__restart');
+        var prevBtn      = root.querySelector('.asc2__nav--prev');
+        var nextBtn      = root.querySelector('.asc2__nav--next');
+        var trackPrevBtn = root.querySelector('.asc2__nav--track-prev');
+        var trackNextBtn = root.querySelector('.asc2__nav--track-next');
+        var restart      = root.querySelector('.asc2__restart');
 
         /* domande per ogni brano + risposta memorizzata */
         var sets = quizzes.map(function (q) {
@@ -168,13 +170,17 @@
             if (totalEl) totalEl.textContent = String(total());
             if (barFill) barFill.style.width = (((atDone() ? total() : idx + 1) / total()) * 100) + '%';
 
-            /* nav */
+            /* nav quiz */
             if (prevBtn) prevBtn.disabled = idx === 0;
             if (nextBtn) {
                 nextBtn.disabled = atDone();
                 /* solo freccia, nessun testo */
                 nextBtn.innerHTML = '→';
             }
+
+            /* nav brano */
+            if (trackPrevBtn) trackPrevBtn.disabled = track === 0;
+            if (trackNextBtn) trackNextBtn.disabled = track === tabs.length - 1;
         }
 
         function goTo(i) {
@@ -225,8 +231,10 @@
         tabs.forEach(function (t, i) {
             t.addEventListener('click', function () { selectTrack(i); });
         });
-        if (prevBtn) prevBtn.addEventListener('click', function () { goTo(idx - 1); });
-        if (nextBtn) nextBtn.addEventListener('click', function () { goTo(idx + 1); });
+        if (prevBtn)      prevBtn.addEventListener('click',      function () { goTo(idx - 1); });
+        if (nextBtn)      nextBtn.addEventListener('click',      function () { goTo(idx + 1); });
+        if (trackPrevBtn) trackPrevBtn.addEventListener('click', function () { selectTrack(track - 1); });
+        if (trackNextBtn) trackNextBtn.addEventListener('click', function () { selectTrack(track + 1); });
         if (restart) restart.addEventListener('click', function () {
             answers[track] = sets[track].map(function () { return -1; });
             sets[track].forEach(function (q) {

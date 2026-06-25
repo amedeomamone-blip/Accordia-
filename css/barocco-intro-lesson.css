@@ -414,6 +414,21 @@
 }
 .asc2__nav--next:hover:not(:disabled) { background: #2a2a2a; }
 
+/* ── navigazione brano prev / next (colonna sinistra) ────────────── */
+.asc2__track-nav {
+    flex:            0 0 auto;
+    display:         flex;
+    justify-content: space-between;
+    gap:             .75rem;
+    margin-top:      clamp(1.25rem, 3vh, 2rem);
+}
+
+.asc2__nav--track-next {
+    background: #111111;
+    color:      #ffffff;
+}
+.asc2__nav--track-next:hover:not(:disabled) { background: #2a2a2a; }
+
 /* ════════════════════════════════════════════════════════════════
    MOBILE — colonna singola, una domanda visibile, tap target ampi
    Il contenuto deve stare nella schermata senza bisogno di scroll
@@ -481,8 +496,9 @@
     .asc2__q.is-active { gap: .75rem; }
     .asc2__q-text    { font-size: clamp(1rem, 5vw, 1.35rem); max-width: none; }
     .asc2__opt       { padding: .5rem 0 .5rem .75rem; gap: .55rem; }
-    .asc2__opt-val   { font-size: clamp(.84rem, 3.8vw, .95rem); }
-    .asc2__quiz-nav  { margin-top: .85rem; }
+    .asc2__opt-val     { font-size: clamp(.84rem, 3.8vw, .95rem); }
+    .asc2__quiz-nav    { margin-top: .85rem; }
+    .asc2__track-nav   { margin-top: .6rem; }
 }
 
 /* ── landscape molto basso: comprimi spazi verticali ─────────────── */
@@ -1191,16 +1207,17 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 }
 
 .kctl__item {
-    flex:           0 0 var(--item-w);
-    display:        flex;
-    flex-direction: column;
+    flex:     0 0 var(--item-w);
+    position: relative;
+    height:   var(--row-h);
+    overflow: hidden;
 }
 
 .kctl__img {
-    display:    block;
-    width:      var(--item-w);
-    height:     var(--row-h);
-    flex:       0 0 auto;
+    position:   absolute;
+    inset:      0;
+    width:      100%;
+    height:     100%;
     background: var(--tile-gray, #e8e8e8);
     animation:  htl-blink 12s ease-in-out infinite;
     transition: background .3s ease;
@@ -1220,6 +1237,11 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 .kctl__item .kctl__img { animation-delay: var(--kctl-delay, 0s); }
 
 .kctl__card-title {
+    position:       absolute;
+    bottom:         0;
+    left:           0;
+    right:          0;
+    z-index:        1;
     display:        block;
     font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
     font-size:      calc(.85 * var(--u));
@@ -1227,28 +1249,16 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     letter-spacing: -.03em;
     line-height:    1.05;
     color:          #111111;
-    padding:        calc(.55 * var(--u)) calc(1.1 * var(--u)) 0;
+    padding:        calc(.55 * var(--u)) calc(1.1 * var(--u));
     margin:         0;
     white-space:    nowrap;
     overflow:       hidden;
     text-overflow:  ellipsis;
-    width:          var(--item-w);
     box-sizing:     border-box;
 }
 
-.kctl__card-sub { display: none; }
-
-.kctl__card-desc {
-    display:     block;
-    font-size:   calc(.85 * var(--u));
-    font-weight: 400;
-    line-height: var(--lh-body, 1.85);
-    color:       rgba(17, 17, 17, .45);
-    padding:     calc(.15 * var(--u)) calc(1.1 * var(--u)) calc(.6 * var(--u));
-    margin:      0;
-    width:       var(--item-w);
-    box-sizing:  border-box;
-}
+.kctl__card-sub  { display: none; }
+.kctl__card-desc { display: none; }
 
 /* ── header Screen 3: stessa posizione e glow di Screen 1 ── */
 .bintro-screen[data-screen="3"] .barocco-header {
