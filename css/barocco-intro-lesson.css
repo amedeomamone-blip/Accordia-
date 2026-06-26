@@ -1208,126 +1208,62 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 
 .kctl__item {
     flex:           0 0 var(--item-w);
-    display:        grid;
-    grid-template-columns: var(--item-w);
-    grid-template-rows:    var(--row-h);
-    position:       relative;
-    isolation:      isolate;
+    display:        flex;
+    flex-direction: column;
 }
 
 .kctl__img {
     display:    block;
-    grid-area:  1 / 1;
     width:      var(--item-w);
     height:     var(--row-h);
     flex:       0 0 auto;
-    position:   relative;
-    overflow:   hidden;
-    background: #ffffff;
-    box-shadow: inset 0 0 0 1px rgba(195, 122, 107, .1);
+    background: var(--tile-gray, #e8e8e8);
+    animation:  htl-blink 12s ease-in-out infinite;
     transition: background .3s ease;
 }
 
-.kctl__img::before {
-    content:  '';
-    position: absolute;
-    inset:    -34%;
-    background:
-        radial-gradient(circle at 88% 48%, rgba(255, 207, 148, .86) 0 10%, rgba(195, 122, 107, .58) 22%, rgba(195, 122, 107, 0) 50%),
-        radial-gradient(circle at 62% 24%, rgba(195, 122, 107, .45) 0 16%, rgba(195, 122, 107, 0) 46%),
-        radial-gradient(circle at 13% 78%, rgba(58, 45, 56, .22) 0 18%, rgba(58, 45, 56, 0) 47%),
-        linear-gradient(90deg, rgba(20, 18, 27, .16), rgba(20, 18, 27, 0) 42%);
-    filter:           blur(calc(.72 * var(--u)));
-    opacity:          .92;
-    transform:        translate3d(var(--kctl-shape-x, 0), var(--kctl-shape-y, 0), 0) scale(var(--kctl-shape-scale, 1));
-    transform-origin: center;
-}
-
-.kctl__img::after {
-    content:  '';
-    position: absolute;
-    inset:    0;
-    background:
-        linear-gradient(90deg, rgba(255, 255, 255, .78) 0%, rgba(255, 255, 255, .32) 38%, rgba(255, 255, 255, .1) 68%, rgba(255, 255, 255, .28) 100%),
-        linear-gradient(180deg, rgba(255, 255, 255, .42), rgba(255, 255, 255, .08) 52%, rgba(255, 255, 255, .5));
-}
-
-.kctl__item:nth-child(1)  { --kctl-shape-x: -4%; --kctl-shape-y: 1%;  --kctl-shape-scale: 1.04; }
-.kctl__item:nth-child(2)  { --kctl-shape-x: 3%;  --kctl-shape-y: -2%; --kctl-shape-scale: .98; }
-.kctl__item:nth-child(3)  { --kctl-shape-x: 1%;  --kctl-shape-y: 4%;  --kctl-shape-scale: 1.06; }
-.kctl__item:nth-child(4)  { --kctl-shape-x: -2%; --kctl-shape-y: -3%; --kctl-shape-scale: 1; }
-.kctl__item:nth-child(5)  { --kctl-shape-x: 4%;  --kctl-shape-y: 0;   --kctl-shape-scale: 1.03; }
-.kctl__item:nth-child(6)  { --kctl-shape-x: -5%; --kctl-shape-y: 2%;  --kctl-shape-scale: .96; }
-.kctl__item:nth-child(7)  { --kctl-shape-x: 2%;  --kctl-shape-y: -4%; --kctl-shape-scale: 1.05; }
-.kctl__item:nth-child(8)  { --kctl-shape-x: -1%; --kctl-shape-y: 3%;  --kctl-shape-scale: 1; }
-.kctl__item:nth-child(9)  { --kctl-shape-x: 5%;  --kctl-shape-y: -1%; --kctl-shape-scale: .97; }
-.kctl__item:nth-child(10) { --kctl-shape-x: -3%; --kctl-shape-y: 4%;  --kctl-shape-scale: 1.04; }
-
-.kctl__copy {
-    grid-area:       1 / 1;
-    z-index:         3;
-    align-self:      stretch;
-    justify-self:    stretch;
-    display:         block;
-    position:        relative;
-    width:           var(--item-w);
-    height:          var(--row-h);
-    max-height:      none;
-    padding:         0;
-    box-sizing:      border-box;
-    text-align:      left;
-    pointer-events:  none;
-}
+/* stagger intermittenza + gradazione grigio */
+.kctl__item:nth-child(1)  { --kctl-delay: 0s;   --tile-gray: #d6d6d6; }
+.kctl__item:nth-child(2)  { --kctl-delay: 1.1s; --tile-gray: #d9d9d9; }
+.kctl__item:nth-child(3)  { --kctl-delay: 2.2s; --tile-gray: #dcdcdc; }
+.kctl__item:nth-child(4)  { --kctl-delay: 3.3s; --tile-gray: #dfdfdf; }
+.kctl__item:nth-child(5)  { --kctl-delay: 4.4s; --tile-gray: #e1e1e1; }
+.kctl__item:nth-child(6)  { --kctl-delay: 5.5s; --tile-gray: #e4e4e4; }
+.kctl__item:nth-child(7)  { --kctl-delay: 6.6s; --tile-gray: #e6e6e6; }
+.kctl__item:nth-child(8)  { --kctl-delay: 7.7s; --tile-gray: #e8e8e8; }
+.kctl__item:nth-child(9)  { --kctl-delay: 8.8s; --tile-gray: #eaeaea; }
+.kctl__item:nth-child(10) { --kctl-delay: 9.9s; --tile-gray: #ececec; }
+.kctl__item .kctl__img { animation-delay: var(--kctl-delay, 0s); }
 
 .kctl__card-title {
     display:        block;
-    position:       absolute;
-    z-index:        4;
-    top:            calc(3.25 * var(--u));
-    left:           calc(1.1 * var(--u));
-    right:          calc(1.1 * var(--u));
     font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
     font-size:      calc(.85 * var(--u));
     font-weight:    700;
     letter-spacing: -.03em;
     line-height:    1.05;
     color:          #111111;
-    padding:        0;
+    padding:        calc(.55 * var(--u)) calc(1.1 * var(--u)) 0;
     margin:         0;
-    white-space:    normal;
+    white-space:    nowrap;
     overflow:       hidden;
-    text-overflow:  clip;
-    width:          100%;
+    text-overflow:  ellipsis;
+    width:          var(--item-w);
     box-sizing:     border-box;
-    text-align:     left;
-    display:        -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    text-shadow:    0 1px 10px rgba(255, 255, 255, .62);
 }
 
 .kctl__card-sub { display: none; }
 
 .kctl__card-desc {
     display:     block;
-    position:    absolute;
-    z-index:     4;
-    top:         calc(5.3 * var(--u));
-    left:        calc(1.1 * var(--u));
-    right:       calc(1.1 * var(--u));
     font-size:   calc(.85 * var(--u));
     font-weight: 400;
     line-height: var(--lh-body, 1.85);
     color:       rgba(17, 17, 17, .45);
-    padding:     0;
+    padding:     calc(.15 * var(--u)) calc(1.1 * var(--u)) calc(.6 * var(--u));
     margin:      0;
-    width:       100%;
+    width:       var(--item-w);
     box-sizing:  border-box;
-    text-align:  left;
-    overflow:    hidden;
-    display:     -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
 }
 
 /* ── header Screen 3: stessa posizione e glow di Screen 1 ── */
@@ -1973,14 +1909,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     }
 
     .kctl__card-title {
-        top:   calc(3.1 * var(--u));
-        left:  calc(1.15 * var(--u));
-        right: calc(1.15 * var(--u));
-    }
-    .kctl__card-desc {
-        top:   calc(5.15 * var(--u));
-        left:  calc(1.15 * var(--u));
-        right: calc(1.15 * var(--u));
+        padding-top: calc(1.4 * var(--u));
     }
 }
 
