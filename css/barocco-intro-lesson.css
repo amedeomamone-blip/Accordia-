@@ -1222,6 +1222,17 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     transition: background .3s ease;
 }
 
+.kctl__item[data-concept-image] .kctl__img {
+    overflow:            hidden;
+    isolation:           isolate;
+    background-color:    var(--tile-gray, #e8e8e8);
+    background-image:    linear-gradient(180deg, rgba(0, 0, 0, 0) 48%, rgba(0, 0, 0, .24) 100%), var(--kctl-concept-image);
+    background-repeat:   no-repeat;
+    background-size:     cover;
+    background-position: var(--kctl-image-position, center center);
+    animation:           none;
+}
+
 /* stagger intermittenza + gradazione grigio */
 .kctl__item:nth-child(1)  { --kctl-delay: 0s;   --tile-gray: #d6d6d6; }
 .kctl__item:nth-child(2)  { --kctl-delay: 1.1s; --tile-gray: #d9d9d9; }
