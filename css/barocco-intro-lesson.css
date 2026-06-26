@@ -1223,22 +1223,23 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     flex:       0 0 auto;
     position:   relative;
     overflow:   hidden;
-    background:
-        linear-gradient(138deg, rgba(255, 255, 255, .98) 0%, rgba(255, 255, 255, .95) 50%, rgba(247, 239, 236, .96) 100%);
-    box-shadow: inset 0 0 0 1px rgba(195, 122, 107, .12);
+    background: #ffffff;
+    box-shadow: inset 0 0 0 1px rgba(195, 122, 107, .1);
     transition: background .3s ease;
 }
 
 .kctl__img::before {
     content:  '';
     position: absolute;
-    inset:    -18%;
+    inset:    -34%;
     background:
-        linear-gradient(128deg, transparent 0 11%, rgba(195, 122, 107, .78) 11% 34%, transparent 34% 100%),
-        linear-gradient(316deg, transparent 0 46%, rgba(195, 122, 107, .30) 46% 66%, transparent 66% 100%),
-        linear-gradient(24deg, transparent 0 63%, rgba(195, 122, 107, .18) 63% 100%);
-    opacity:          .95;
-    transform:        rotate(var(--kctl-shape-rot, 0deg)) translate3d(var(--kctl-shape-x, 0), var(--kctl-shape-y, 0), 0);
+        radial-gradient(circle at 88% 48%, rgba(255, 207, 148, .86) 0 10%, rgba(195, 122, 107, .58) 22%, rgba(195, 122, 107, 0) 50%),
+        radial-gradient(circle at 62% 24%, rgba(195, 122, 107, .45) 0 16%, rgba(195, 122, 107, 0) 46%),
+        radial-gradient(circle at 13% 78%, rgba(58, 45, 56, .22) 0 18%, rgba(58, 45, 56, 0) 47%),
+        linear-gradient(90deg, rgba(20, 18, 27, .16), rgba(20, 18, 27, 0) 42%);
+    filter:           blur(calc(.72 * var(--u)));
+    opacity:          .92;
+    transform:        translate3d(var(--kctl-shape-x, 0), var(--kctl-shape-y, 0), 0) scale(var(--kctl-shape-scale, 1));
     transform-origin: center;
 }
 
@@ -1247,39 +1248,44 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     position: absolute;
     inset:    0;
     background:
-        linear-gradient(180deg, rgba(255, 255, 255, .52), rgba(255, 255, 255, .18) 48%, rgba(255, 255, 255, .64));
+        linear-gradient(90deg, rgba(255, 255, 255, .78) 0%, rgba(255, 255, 255, .32) 38%, rgba(255, 255, 255, .1) 68%, rgba(255, 255, 255, .28) 100%),
+        linear-gradient(180deg, rgba(255, 255, 255, .42), rgba(255, 255, 255, .08) 52%, rgba(255, 255, 255, .5));
 }
 
-.kctl__item:nth-child(1)  { --kctl-shape-rot: -7deg;  --kctl-shape-x: -4%; --kctl-shape-y: 1%; }
-.kctl__item:nth-child(2)  { --kctl-shape-rot: 8deg;   --kctl-shape-x: 3%;  --kctl-shape-y: -2%; }
-.kctl__item:nth-child(3)  { --kctl-shape-rot: -13deg; --kctl-shape-x: 1%;  --kctl-shape-y: 4%; }
-.kctl__item:nth-child(4)  { --kctl-shape-rot: 13deg;  --kctl-shape-x: -2%; --kctl-shape-y: -3%; }
-.kctl__item:nth-child(5)  { --kctl-shape-rot: -3deg;  --kctl-shape-x: 4%;  --kctl-shape-y: 0; }
-.kctl__item:nth-child(6)  { --kctl-shape-rot: 17deg;  --kctl-shape-x: -5%; --kctl-shape-y: 2%; }
-.kctl__item:nth-child(7)  { --kctl-shape-rot: -18deg; --kctl-shape-x: 2%;  --kctl-shape-y: -4%; }
-.kctl__item:nth-child(8)  { --kctl-shape-rot: 5deg;   --kctl-shape-x: -1%; --kctl-shape-y: 3%; }
-.kctl__item:nth-child(9)  { --kctl-shape-rot: -9deg;  --kctl-shape-x: 5%;  --kctl-shape-y: -1%; }
-.kctl__item:nth-child(10) { --kctl-shape-rot: 11deg;  --kctl-shape-x: -3%; --kctl-shape-y: 4%; }
+.kctl__item:nth-child(1)  { --kctl-shape-x: -4%; --kctl-shape-y: 1%;  --kctl-shape-scale: 1.04; }
+.kctl__item:nth-child(2)  { --kctl-shape-x: 3%;  --kctl-shape-y: -2%; --kctl-shape-scale: .98; }
+.kctl__item:nth-child(3)  { --kctl-shape-x: 1%;  --kctl-shape-y: 4%;  --kctl-shape-scale: 1.06; }
+.kctl__item:nth-child(4)  { --kctl-shape-x: -2%; --kctl-shape-y: -3%; --kctl-shape-scale: 1; }
+.kctl__item:nth-child(5)  { --kctl-shape-x: 4%;  --kctl-shape-y: 0;   --kctl-shape-scale: 1.03; }
+.kctl__item:nth-child(6)  { --kctl-shape-x: -5%; --kctl-shape-y: 2%;  --kctl-shape-scale: .96; }
+.kctl__item:nth-child(7)  { --kctl-shape-x: 2%;  --kctl-shape-y: -4%; --kctl-shape-scale: 1.05; }
+.kctl__item:nth-child(8)  { --kctl-shape-x: -1%; --kctl-shape-y: 3%;  --kctl-shape-scale: 1; }
+.kctl__item:nth-child(9)  { --kctl-shape-x: 5%;  --kctl-shape-y: -1%; --kctl-shape-scale: .97; }
+.kctl__item:nth-child(10) { --kctl-shape-x: -3%; --kctl-shape-y: 4%;  --kctl-shape-scale: 1.04; }
 
 .kctl__copy {
     grid-area:       1 / 1;
-    z-index:         1;
-    align-self:      center;
+    z-index:         3;
+    align-self:      stretch;
     justify-self:    stretch;
-    display:         flex;
-    flex-direction:  column;
-    align-items:     flex-start;
-    justify-content: center;
-    gap:             calc(.28 * var(--u));
+    display:         block;
+    position:        relative;
     width:           var(--item-w);
-    max-height:      var(--row-h);
-    padding:         calc(1.1 * var(--u));
+    height:          var(--row-h);
+    max-height:      none;
+    padding:         0;
     box-sizing:      border-box;
     text-align:      left;
+    pointer-events:  none;
 }
 
 .kctl__card-title {
     display:        block;
+    position:       absolute;
+    z-index:        4;
+    top:            calc(3.25 * var(--u));
+    left:           calc(1.1 * var(--u));
+    right:          calc(1.1 * var(--u));
     font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
     font-size:      calc(.85 * var(--u));
     font-weight:    700;
@@ -1297,12 +1303,18 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     display:        -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
+    text-shadow:    0 1px 10px rgba(255, 255, 255, .62);
 }
 
 .kctl__card-sub { display: none; }
 
 .kctl__card-desc {
     display:     block;
+    position:    absolute;
+    z-index:     4;
+    top:         calc(5.3 * var(--u));
+    left:        calc(1.1 * var(--u));
+    right:       calc(1.1 * var(--u));
     font-size:   calc(.85 * var(--u));
     font-weight: 400;
     line-height: var(--lh-body, 1.85);
@@ -1969,7 +1981,16 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
         font-size: clamp(1.4rem, 7vw, 2.4rem);
     }
 
-    .kctl__copy { padding: calc(1.15 * var(--u)); }
+    .kctl__card-title {
+        top:   calc(3.1 * var(--u));
+        left:  calc(1.15 * var(--u));
+        right: calc(1.15 * var(--u));
+    }
+    .kctl__card-desc {
+        top:   calc(5.15 * var(--u));
+        left:  calc(1.15 * var(--u));
+        right: calc(1.15 * var(--u));
+    }
 }
 
 /* ================================================================
@@ -2004,4 +2025,3 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 
     .htl__year-label { top: -22px; }
 }
-
