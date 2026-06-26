@@ -120,6 +120,25 @@
                             <!-- ── SINISTRA: brano in ascolto ──────────── -->
                             <div class="asc2__left">
 
+                                <!-- selettore brani: 3 card a mazzo (DisplayCards-style) -->
+                                <div class="asc2__cards" role="tablist" aria-label="Scegli un brano">
+                                    <button class="asc2__card is-active" type="button" role="tab" data-track="0" aria-selected="true">
+                                        <span class="asc2__card-eyebrow">01 · Danza</span>
+                                        <strong class="asc2__card-title">Forêts Paisibles</strong>
+                                        <span class="asc2__card-composer">Jean-Philippe Rameau</span>
+                                    </button>
+                                    <button class="asc2__card" type="button" role="tab" data-track="1" aria-selected="false">
+                                        <span class="asc2__card-eyebrow">02 · Concerto</span>
+                                        <strong class="asc2__card-title">Tempesta</strong>
+                                        <span class="asc2__card-composer">Antonio Vivaldi</span>
+                                    </button>
+                                    <button class="asc2__card" type="button" role="tab" data-track="2" aria-selected="false">
+                                        <span class="asc2__card-eyebrow">03 · Danza</span>
+                                        <strong class="asc2__card-title">Badinerie</strong>
+                                        <span class="asc2__card-composer">J.S. Bach</span>
+                                    </button>
+                                </div>
+
                                 <!-- dettaglio brano corrente (titolo · compositore · descrizione) -->
                                 <div class="asc2__now" data-track="0">
                                     <div class="asc2__now-head">
@@ -330,7 +349,7 @@
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
-    <script src="../../../../js/barocco-intro-lesson.js?v=1799800000"></script>
+    <script src="../../../../js/barocco-intro-lesson.js?v=1800000000"></script>
     <script src="../../../../js/barocco-intro-globe.js?v=1783280000"></script>
 
 </body>

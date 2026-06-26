@@ -1381,8 +1381,17 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     .bintro-screen[data-screen="2"] .asc2__left,
     .bintro-screen[data-screen="2"] .asc2__right {
         position:       relative;
-        padding-top:    calc(var(--s2-hdr-h) + clamp(.75rem, 2vw, 1.5rem));
+        padding-top:    calc(var(--s2-hdr-h) + clamp(2rem, 4vw, 3.5rem));
         padding-bottom: clamp(1.75rem, 4vw, 3.5rem);
+    }
+    /* selettore brani e testata quiz flottano in cima, fuori dal flusso:
+       così descrizione e domanda si centrano sull'identica altezza colonna */
+    .bintro-screen[data-screen="2"] .asc2__cards {
+        position:      absolute;
+        top:           calc(var(--s2-hdr-h) + clamp(2rem, 4vw, 3.5rem));
+        left:          clamp(1.75rem, 4.5vw, 4rem);
+        right:         clamp(1.75rem, 4.5vw, 4rem);
+        margin-bottom: 0;
     }
 }
 
