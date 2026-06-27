@@ -1207,10 +1207,26 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 }
 
 .kctl__item {
+    position:       relative;
     flex:           0 0 var(--item-w);
     display:        flex;
     flex-direction: column;
 }
+
+/* separatore: overlay leggero traslucido tra un tile e l'altro — niente
+   linee bianche, solo una sottile velatura scura sul bordo destro */
+.kctl__item::after {
+    content:        '';
+    position:       absolute;
+    top:            0;
+    right:          0;
+    width:          calc(.12 * var(--u));
+    height:         var(--row-h);
+    background:     rgba(17, 17, 17, .06);
+    pointer-events: none;
+    z-index:        1;
+}
+.kctl__item:last-child::after { display: none; }
 
 .kctl__img {
     display:    block;
