@@ -1207,26 +1207,10 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
 }
 
 .kctl__item {
-    position:       relative;
     flex:           0 0 var(--item-w);
     display:        flex;
     flex-direction: column;
 }
-
-/* separatore: overlay leggero traslucido tra un tile e l'altro — niente
-   linee bianche, solo una sottile velatura scura sul bordo destro */
-.kctl__item::after {
-    content:        '';
-    position:       absolute;
-    top:            0;
-    right:          0;
-    width:          calc(.12 * var(--u));
-    height:         var(--row-h);
-    background:     rgba(17, 17, 17, .06);
-    pointer-events: none;
-    z-index:        1;
-}
-.kctl__item:last-child::after { display: none; }
 
 .kctl__img {
     display:    block;
@@ -1253,6 +1237,8 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     object-fit: cover;
 }
 
+/* separatore fra due tile concetto adiacenti: un filo scuro sottilissimo
+   sul bordo sinistro — niente più riga bianca/crema fra i tile */
 .kctl__item[data-concept-image] + .kctl__item[data-concept-image] .kctl__img::before {
     content:        "";
     position:       absolute;
@@ -1260,8 +1246,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     z-index:        2;
     width:          1px;
     pointer-events: none;
-    background:     linear-gradient(180deg, rgba(255, 248, 242, .18), rgba(255, 248, 242, .54) 44%, rgba(17, 17, 17, .16));
-    box-shadow:     -1px 0 0 rgba(17, 17, 17, .08);
+    background:     rgba(17, 17, 17, .14);
 }
 
 .kctl__item[data-concept-image] .kctl__img::after {
