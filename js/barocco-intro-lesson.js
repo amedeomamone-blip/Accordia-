@@ -118,7 +118,6 @@
         var nextBtn      = root.querySelector('.asc2__nav--next');
         var trackPrevBtn = root.querySelector('.asc2__nav--track-prev');
         var trackNextBtn = root.querySelector('.asc2__nav--track-next');
-        var listenBtns   = Array.prototype.slice.call(root.querySelectorAll('.asc2__track-nav .asc2__listen'));
         var restart      = root.querySelector('.asc2__restart');
 
         /* domande per ogni brano + risposta memorizzata */
@@ -182,7 +181,6 @@
             /* nav brano */
             if (trackPrevBtn) trackPrevBtn.disabled = track === 0;
             if (trackNextBtn) trackNextBtn.disabled = track === tabs.length - 1;
-            listenBtns.forEach(function (lb, i) { lb.hidden = i !== track; });
         }
 
         function goTo(i) {
