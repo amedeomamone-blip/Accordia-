@@ -212,6 +212,42 @@
   line-height: 1.55;
 }
 
+@media (min-width: 601px) {
+  .lesson-editorial-page[data-lesson-id="ritmo-pulsazione-tempo"] {
+    --lesson-choice-u: calc(100vw / 84);
+  }
+
+  .lesson-editorial-page[data-lesson-id="ritmo-pulsazione-tempo"] .lesson-hero {
+    padding: 0;
+  }
+
+  .lesson-editorial-page[data-lesson-id="ritmo-pulsazione-tempo"] .lesson-breadcrumb {
+    width: 100%;
+    margin: 0;
+    padding: calc(1.1 * var(--lesson-choice-u)) 0 0 calc(14 * var(--lesson-choice-u));
+    box-sizing: border-box;
+  }
+
+  .lesson-editorial-page[data-lesson-id="ritmo-pulsazione-tempo"] .lesson-hero__copy {
+    width: auto;
+    margin: 0 0 0 calc(28 * var(--lesson-choice-u));
+    padding: calc(0.35 * var(--lesson-choice-u)) calc(1.1 * var(--lesson-choice-u)) 0 0;
+    gap: 0;
+  }
+
+  .lesson-editorial-page[data-lesson-id="ritmo-pulsazione-tempo"] .lesson-hero__title {
+    max-width: 14ch;
+  }
+
+  .lesson-editorial-page[data-lesson-id="ritmo-pulsazione-tempo"] .lesson-meta-bar {
+    margin-top: clamp(1rem, calc(2 * var(--lesson-choice-u)), 2rem);
+  }
+
+  .lesson-editorial-page[data-lesson-id="ritmo-pulsazione-tempo"] .lesson-section:first-of-type {
+    padding-top: clamp(0.9rem, calc(1.4 * var(--lesson-choice-u)), 1.65rem);
+  }
+}
+
 .lesson-meta-bar {
   border-top: 1px solid rgba(17, 17, 17, 0.08);
   border-bottom: 1px solid rgba(17, 17, 17, 0.08);
@@ -468,6 +504,7 @@
 .lesson-card-grid {
   display: grid;
   gap: 1rem;
+  align-items: start;
 }
 
 .lesson-grid--two,
@@ -936,7 +973,8 @@
   background: var(--lesson-surface-soft);
   color: var(--lesson-text);
   display: grid;
-  align-content: space-between;
+  align-content: center;
+  gap: 0.55rem;
   text-align: left;
   cursor: pointer;
 }

@@ -58,7 +58,7 @@ function LessonBreadcrumb({ items }) {
   return /* @__PURE__ */ React.createElement("nav", { className: "lesson-breadcrumb", "aria-label": "Percorso della pagina" }, items.map((item, index) => /* @__PURE__ */ React.createElement(React.Fragment, { key: `${item.label}-${index}` }, item.href ? /* @__PURE__ */ React.createElement("a", { href: item.href }, item.label) : /* @__PURE__ */ React.createElement("span", { "aria-current": "page" }, item.label), index < items.length - 1 ? /* @__PURE__ */ React.createElement("span", { className: "lesson-breadcrumb__separator" }, "/") : null)));
 }
 function LessonHero({ title, question, breadcrumbs }) {
-  return /* @__PURE__ */ React.createElement("header", { className: "lesson-hero" }, /* @__PURE__ */ React.createElement(LessonBreadcrumb, { items: breadcrumbs }), /* @__PURE__ */ React.createElement("div", { className: "lesson-shell lesson-hero__copy" }, /* @__PURE__ */ React.createElement("h1", { className: "lesson-hero__title" }, title), /* @__PURE__ */ React.createElement("p", { className: "lesson-hero__question" }, question)));
+  return /* @__PURE__ */ React.createElement("header", { className: "lesson-hero" }, /* @__PURE__ */ React.createElement(LessonBreadcrumb, { items: breadcrumbs }), /* @__PURE__ */ React.createElement("div", { className: "lesson-shell lesson-hero__copy" }, /* @__PURE__ */ React.createElement("h1", { className: "lesson-hero__title" }, title), question ? /* @__PURE__ */ React.createElement("p", { className: "lesson-hero__question" }, question) : null));
 }
 function MetaStrip({ items }) {
   return /* @__PURE__ */ React.createElement("section", { className: "lesson-meta-bar", "aria-label": "Dati tecnici" }, /* @__PURE__ */ React.createElement("div", { className: "lesson-shell" }, /* @__PURE__ */ React.createElement("dl", { className: "lesson-meta-bar__list" }, items.map((item) => /* @__PURE__ */ React.createElement("div", { key: `${item.label}-${item.value}`, className: "lesson-meta-bar__item" }, /* @__PURE__ */ React.createElement("dt", null, item.label), /* @__PURE__ */ React.createElement("dd", null, item.value))))));
@@ -246,7 +246,7 @@ var lesson = {
     label: "Esperienza iniziale",
     title: "Trova il battito comune",
     intro: "All'inizio ognuno segue il proprio impulso. Poi il gruppo prova a entrare nello stesso battito.",
-    cardTitle: "Entra nello stesso tempo",
+    cardTitle: "",
     meta: [
       { label: "Durata", value: "30 secondi" },
       { label: "Ti serve", value: "corpo, banco o piccolo spazio libero" },
@@ -619,6 +619,7 @@ function RhythmSequencerBoard() {
       {
         key: `${state}-${index}`,
         type: "button",
+        "aria-label": `Tempo ${index + 1}: ${item.label}`,
         className: cn("lesson-sequence__cell", state === "pause" && "is-pause", state === "accent" && "is-accent"),
         onClick: () => setSequence((current) => {
           const next = [...current];
@@ -626,7 +627,6 @@ function RhythmSequencerBoard() {
           return next;
         })
       },
-      /* @__PURE__ */ React2.createElement("span", null, "tempo ", index + 1),
       /* @__PURE__ */ React2.createElement("strong", null, item.symbol),
       /* @__PURE__ */ React2.createElement("small", null, item.label.slice(0, 2).toUpperCase())
     );
@@ -664,11 +664,11 @@ function FollowupSection({ selected, onSelect }) {
 function RitmoPulsazioneTempoLesson() {
   const activeId = useActiveSection(["apertura", "esplorazione", "comprensione-attiva", "rielaborazione"]);
   const [selectedFollowup, setSelectedFollowup] = useState2(lesson.followupDefault);
-  return /* @__PURE__ */ React2.createElement("div", { className: "lesson-editorial-page", "data-lesson-model": lesson.model.id }, /* @__PURE__ */ React2.createElement(
+  return /* @__PURE__ */ React2.createElement("div", { className: "lesson-editorial-page", "data-lesson-model": lesson.model.id, "data-lesson-id": "ritmo-pulsazione-tempo" }, /* @__PURE__ */ React2.createElement(
     LessonHero,
     {
       title: lesson.title,
-      question: lesson.question,
+      question: null,
       subtitle: lesson.subtitle,
       heroNote: lesson.heroNote,
       breadcrumbs: lesson.breadcrumbs,

@@ -153,8 +153,8 @@ body[data-lesson="battito"] .brand--wordmark {
         --u: calc(100vw / 84);
         position: absolute;
         left: 0; right: 0;
-        /* titolo nella stessa fascia della pagina "scelta lezioni" (nucleo) */
-        bottom: calc(50svh + 13.5vw);
+        /* stessa fascia della pagina scelta lezioni: titolo 2u sopra i tile */
+        bottom: calc(50svh + (100vw / 12) - min(16px, 1.6vw) + (2 * var(--u)));
         display: flex;
         flex-direction: row;
         align-items: flex-start;
@@ -178,7 +178,7 @@ body[data-lesson="battito"] .brand--wordmark {
     .btt-slide--play .btt-tiles {
         position: absolute;
         left: 0; right: 0;
-        top: calc(50svh - var(--btt-hdr) - 34px);   /* tile alla stessa altezza del nucleo */
+        top: calc(50svh - var(--btt-hdr) + min(16px, 1.6vw));
         transform: translateY(-50%);
         width: 100%;
         margin: 0;
@@ -187,7 +187,7 @@ body[data-lesson="battito"] .brand--wordmark {
     .btt-slide--play .btt-foot {
         position: absolute;
         left: 0; right: 0;
-        top: calc(50svh - var(--btt-hdr) - 34px + (100vw / 12) + 1.3rem);
+        top: calc(50svh - var(--btt-hdr) + min(16px, 1.6vw) + (100vw / 12) + 1.3rem);
         padding: 0 clamp(1.2rem, 4vw, 3.5rem);
     }
 }

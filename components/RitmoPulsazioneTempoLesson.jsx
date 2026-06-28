@@ -65,7 +65,7 @@ const lesson = {
     label: "Esperienza iniziale",
     title: "Trova il battito comune",
     intro: "All'inizio ognuno segue il proprio impulso. Poi il gruppo prova a entrare nello stesso battito.",
-    cardTitle: "Entra nello stesso tempo",
+    cardTitle: "",
     meta: [
       { label: "Durata", value: "30 secondi" },
       { label: "Ti serve", value: "corpo, banco o piccolo spazio libero" },
@@ -507,6 +507,7 @@ function RhythmSequencerBoard() {
             <button
               key={`${state}-${index}`}
               type="button"
+              aria-label={`Tempo ${index + 1}: ${item.label}`}
               className={cn("lesson-sequence__cell", state === "pause" && "is-pause", state === "accent" && "is-accent")}
               onClick={() =>
                 setSequence((current) => {
@@ -516,7 +517,6 @@ function RhythmSequencerBoard() {
                 })
               }
             >
-              <span>tempo {index + 1}</span>
               <strong>{item.symbol}</strong>
               <small>{item.label.slice(0, 2).toUpperCase()}</small>
             </button>
@@ -633,10 +633,10 @@ export default function RitmoPulsazioneTempoLesson() {
   const [selectedFollowup, setSelectedFollowup] = useState(lesson.followupDefault);
 
   return (
-    <div className="lesson-editorial-page" data-lesson-model={lesson.model.id}>
+    <div className="lesson-editorial-page" data-lesson-model={lesson.model.id} data-lesson-id="ritmo-pulsazione-tempo">
       <LessonHero
         title={lesson.title}
-        question={lesson.question}
+        question={null}
         subtitle={lesson.subtitle}
         heroNote={lesson.heroNote}
         breadcrumbs={lesson.breadcrumbs}
