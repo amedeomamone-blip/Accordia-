@@ -1,0 +1,34 @@
+/* ============================================================
+   Ritmo (pratica strumentale) — stessa struttura del nucleo Barocco
+   (riusa barocco-bento.css), con tema verde-salvia coerente con la
+   tile "Ritmo" della home.
+   ============================================================ */
+
+/* Header wordmark e footer: stesse regole del Barocco, riportate sullo
+   scope "ritmo" (barocco-bento.css le applica solo a data-current-nucleus="barocco"). */
+body[data-current-nucleus="ritmo"] .brand--wordmark {
+    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1;
+    color: #18191b;
+    text-transform: none;
+    text-decoration: none;
+}
+body[data-current-nucleus="ritmo"] .site-footer {
+    padding: 1.1rem 0;
+}
+
+/* ── Tema: il blink delle mattonelle vira al verde-salvia ── */
+@keyframes barocco-blink {
+    0%, 100% { background-color: #e8e8e8; }
+    6%,  11% { background-color: #9DAE6E; }
+    17%      { background-color: #e8e8e8; }
+}
+
+/* ── Blob del titolo: gradiente verde-salvia (al posto del terracotta) ── */
+body[data-current-nucleus="ritmo"] .barocco-ticker__blob--1 { background: hsl(80, 38%, 55%); }
+body[data-current-nucleus="ritmo"] .barocco-ticker__blob--2 { background: hsl(96, 30%, 66%); }
+body[data-current-nucleus="ritmo"] .barocco-ticker__blob--3 { background: hsl(70, 42%, 47%); }
+body[data-current-nucleus="ritmo"] .barocco-ticker__blob--4 { background: hsl(105, 28%, 62%); }
