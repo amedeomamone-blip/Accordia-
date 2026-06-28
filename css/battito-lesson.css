@@ -134,16 +134,70 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 .btt-chip:hover { background: #9DAE6E; border-color: #9DAE6E; color: #fff; transform: translateY(-1px); }
 
-/* Slide 1: fila di otto battiti (cerchi) */
-.btt-dots { display: flex; gap: clamp(.5rem, 1.6vw, 1.1rem); }
-.btt-dot {
-    width: clamp(1.6rem, 3.2vw, 2.6rem);
-    height: clamp(1.6rem, 3.2vw, 2.6rem);
-    border-radius: 50%;
-    border: 2px solid rgba(17,17,17,.22);
-    background: transparent;
+/* ── Slide 1 "gioco a tempo": titolo ancorato sopra la striscia, come Barocco.
+   Il gruppo (testata + tile + controlli) è centrato verticalmente. ── */
+.btt-slide--play { justify-content: center; padding-top: clamp(1rem, 2vh, 2rem); }
+.btt-stage {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(1.3rem, 4vh, 2.8rem);
 }
-.btt-dot.is-on { background: #9DAE6E; border-color: #9DAE6E; }
+/* la testata torna a sinistra, sopra la striscia (non centrata) */
+.btt-slide--play .btt-head { text-align: left; }
+
+/* tempo selector + avvio */
+.btt-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .9rem 1.4rem;
+    justify-content: center;
+    align-items: center;
+}
+.btt-tempo { display: flex; gap: .5rem; }
+.btt-tempo-label {
+    font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
+    color: rgba(17,17,17,.4); align-self: center; margin-right: .2rem;
+}
+.btt-chip.is-active { background: #9DAE6E; border-color: #9DAE6E; color: #fff; }
+.btt-play {
+    appearance: none; cursor: pointer;
+    border: 0; border-radius: 999px;
+    background: #2a2a28; color: #fff;
+    padding: .6rem 1.5rem; font-size: .82rem; font-weight: 700;
+    letter-spacing: .06em; text-transform: uppercase;
+    transition: background .18s ease, transform .12s ease;
+}
+.btt-play:hover { background: #111; transform: translateY(-1px); }
+
+/* gli 8 tile che si accendono a tempo */
+.btt-tiles {
+    display: flex;
+    gap: clamp(.45rem, 1.4vw, 1rem);
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+.btt-tile {
+    flex: 0 0 auto;
+    width: clamp(2.4rem, 9vw, 6.2rem);
+    aspect-ratio: 1;
+    border: 0; padding: 0; margin: 0;
+    border-radius: clamp(10px, 1.4vw, 18px);
+    background: #eef0e9;
+    cursor: pointer;
+    transition: transform .1s ease, background-color .14s ease, box-shadow .14s ease;
+}
+.btt-tile.is-lit {
+    background: #d7e0c4;
+    box-shadow: 0 0 0 3px rgba(157, 174, 110, .55);
+    transform: scale(1.06);
+}
+.btt-tile.is-hit  { background: #7fa05a; box-shadow: none; transform: scale(1); }
+.btt-tile.is-miss { background: #d0685d; box-shadow: none; transform: scale(1); }
+@media (prefers-reduced-motion: reduce) {
+    .btt-tile, .btt-tile.is-lit { transition: background-color .1s ease; transform: none; }
+}
 
 /* Slide 2: griglia di 4 spazi = 4 battiti */
 .btt-grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; width: min(560px, 80vw); }

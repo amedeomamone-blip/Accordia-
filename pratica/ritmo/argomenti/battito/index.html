@@ -6,7 +6,7 @@
     <meta name="description" content="Battito: pulsazione e tempo. Lezione interattiva per la LIM in quattro slide.">
     <title>Battito · Pulsazione e tempo | Ritmo | Amedeo</title>
     <link rel="stylesheet" href="../../../../css/style.css?v=1782800000">
-    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1782900000">
+    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1783000000">
 </head>
 <body data-nav="home" data-current-nucleus="ritmo" data-lesson="battito">
     <header class="site-header" id="site-header">
@@ -39,37 +39,44 @@
     <main class="btt-deck" id="btt-deck">
 
         <!-- ── SLIDE 1 · Dentro o fuori? ─────────────────────────── -->
-        <section class="btt-slide" data-slide="0" aria-label="Slide 1: Dentro o fuori?">
-            <div class="btt-head">
-                <span class="btt-eyebrow">Arriva insieme al battito</span>
-                <div class="btt-title-wrap">
-                    <h2 class="btt-title">Dentro o fuori?</h2>
-                    <span class="btt-blobs" aria-hidden="true">
-                        <span class="btt-blob btt-blob--1"></span>
-                        <span class="btt-blob btt-blob--2"></span>
-                        <span class="btt-blob btt-blob--3"></span>
-                        <span class="btt-blob btt-blob--4"></span>
-                    </span>
+        <section class="btt-slide btt-slide--play" data-slide="0" aria-label="Slide 1: Dentro o fuori?">
+            <div class="btt-stage">
+                <div class="btt-head">
+                    <span class="btt-eyebrow">Arriva insieme al battito</span>
+                    <div class="btt-title-wrap">
+                        <h2 class="btt-title">Dentro o fuori?</h2>
+                        <span class="btt-blobs" aria-hidden="true">
+                            <span class="btt-blob btt-blob--1"></span>
+                            <span class="btt-blob btt-blob--2"></span>
+                            <span class="btt-blob btt-blob--3"></span>
+                            <span class="btt-blob btt-blob--4"></span>
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <div class="btt-body">
-                <div class="btt-dots" role="img" aria-label="Otto battiti regolari">
-                    <span class="btt-dot is-on"></span>
-                    <span class="btt-dot"></span>
-                    <span class="btt-dot"></span>
-                    <span class="btt-dot"></span>
-                    <span class="btt-dot"></span>
-                    <span class="btt-dot"></span>
-                    <span class="btt-dot"></span>
-                    <span class="btt-dot"></span>
+
+                <div class="btt-tiles" id="btt-tiles" aria-label="Otto battiti: tocca il tile quando si accende">
+                    <button class="btt-tile" type="button" aria-label="Battito 1"></button>
+                    <button class="btt-tile" type="button" aria-label="Battito 2"></button>
+                    <button class="btt-tile" type="button" aria-label="Battito 3"></button>
+                    <button class="btt-tile" type="button" aria-label="Battito 4"></button>
+                    <button class="btt-tile" type="button" aria-label="Battito 5"></button>
+                    <button class="btt-tile" type="button" aria-label="Battito 6"></button>
+                    <button class="btt-tile" type="button" aria-label="Battito 7"></button>
+                    <button class="btt-tile" type="button" aria-label="Battito 8"></button>
                 </div>
+
+                <div class="btt-controls">
+                    <div class="btt-tempo" role="group" aria-label="Velocità">
+                        <span class="btt-tempo-label">Tempo</span>
+                        <button class="btt-chip" type="button" data-bpm="lento">Lento</button>
+                        <button class="btt-chip is-active" type="button" data-bpm="andante">Andante</button>
+                        <button class="btt-chip" type="button" data-bpm="allegro">Allegro</button>
+                    </div>
+                    <button class="btt-play" type="button" id="btt-play">Avvia</button>
+                </div>
+
                 <p class="btt-phrase">Stare a tempo significa non anticipare e non ritardare.</p>
-                <div class="btt-chips">
-                    <button class="btt-chip" type="button">Dentro</button>
-                    <button class="btt-chip" type="button">Prima</button>
-                    <button class="btt-chip" type="button">Dopo</button>
-                </div>
-                <p class="btt-note">Uno studente tocca i cerchi sul battito: la classe osserva e sceglie se il gesto è arrivato dentro, prima o dopo.</p>
+                <p class="btt-note">Tocca ogni tile <strong>nel momento esatto in cui si accende</strong>: a tempo diventa verde, fuori tempo diventa rosso.</p>
             </div>
         </section>
 
@@ -208,6 +215,83 @@
                     if (slides[i]) slides[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
                 });
             });
+        })();
+
+        /* ── Slide 1: gioco "a tempo" — i tile si accendono in sequenza al BPM
+              scelto; click in sincrono con l'accensione = verde, fuori tempo = rosso. */
+        (function battitoGame() {
+            var wrap  = document.getElementById('btt-tiles');
+            var play  = document.getElementById('btt-play');
+            if (!wrap) return;
+            var tiles = Array.prototype.slice.call(wrap.querySelectorAll('.btt-tile'));
+            var n     = tiles.length;
+
+            var TEMPI = { lento: 60, andante: 92, allegro: 132 };
+            var bpm       = TEMPI.andante;
+            var beatMs    = 60000 / bpm;
+            var active    = -1;
+            var beatStart = 0;
+            var timer     = null;
+            var playing   = false;
+
+            function clearMark(t) { t.classList.remove('is-hit', 'is-miss'); }
+
+            function tick() {
+                if (active >= 0) tiles[active].classList.remove('is-lit');
+                active = (active + 1) % n;
+                var t = tiles[active];
+                clearMark(t);                 // azzera l'esito quando il battito ripassa
+                t.classList.add('is-lit');
+                beatStart = performance.now();
+            }
+
+            function start() {
+                stop();
+                beatMs  = 60000 / bpm;
+                playing = true;
+                active  = -1;
+                tick();
+                timer = window.setInterval(tick, beatMs);
+                if (play) play.textContent = 'Pausa';
+            }
+            function stop() {
+                playing = false;
+                if (timer) { window.clearInterval(timer); timer = null; }
+                if (active >= 0) tiles[active].classList.remove('is-lit');
+                active = -1;
+                if (play) play.textContent = 'Avvia';
+            }
+
+            tiles.forEach(function (tile, i) {
+                tile.addEventListener('click', function () {
+                    if (!playing) return;     // si valuta solo mentre scorre il battito
+                    var now = performance.now();
+                    var tol = Math.min(beatMs * 0.38, 200);
+                    var inSync = false;
+                    if (i === active && (now - beatStart) <= tol) {
+                        inSync = true;                                  // a tempo (sull'accensione)
+                    } else if (i === (active + 1) % n && (beatStart + beatMs - now) <= tol) {
+                        inSync = true;                                  // lieve anticipo accettato
+                    }
+                    clearMark(tile);
+                    tile.classList.add(inSync ? 'is-hit' : 'is-miss');
+                });
+            });
+
+            document.querySelectorAll('[data-bpm]').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var key = btn.getAttribute('data-bpm');
+                    if (!TEMPI[key]) return;
+                    bpm = TEMPI[key];
+                    document.querySelectorAll('[data-bpm]').forEach(function (b) {
+                        b.classList.toggle('is-active', b === btn);
+                    });
+                    if (playing) start();      // riparte al nuovo tempo
+                    else beatMs = 60000 / bpm;
+                });
+            });
+
+            if (play) play.addEventListener('click', function () { playing ? stop() : start(); });
         })();
     </script>
 </body>
