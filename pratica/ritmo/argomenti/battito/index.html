@@ -232,11 +232,11 @@
             function clearMark(t) { t.classList.remove('is-hit', 'is-miss'); }
 
             function tick() {
-                if (active >= 0) tiles[active].classList.remove('is-lit');
+                // a ogni battito azzero tutto: nessun tile resta acceso/colorato
+                // oltre il suo tempo (verde/rosso spariscono al battito successivo)
+                tiles.forEach(function (t) { t.classList.remove('is-lit', 'is-hit', 'is-miss'); });
                 active = (active + 1) % n;
-                var t = tiles[active];
-                clearMark(t);                 // azzera l'esito quando il battito ripassa
-                t.classList.add('is-lit');
+                tiles[active].classList.add('is-lit');
                 beatStart = performance.now();
             }
 
