@@ -6,7 +6,7 @@
     <meta name="description" content="Battito: pulsazione e tempo. Lezione interattiva per la LIM in quattro slide.">
     <title>Battito · Pulsazione e tempo | Ritmo | Amedeo</title>
     <link rel="stylesheet" href="../../../../css/style.css?v=1782800000">
-    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1783100000">
+    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1783400000">
 </head>
 <body data-nav="home" data-current-nucleus="ritmo" data-lesson="battito">
     <header class="site-header" id="site-header">
@@ -40,31 +40,31 @@
 
         <!-- ── SLIDE 1 · Dentro o fuori? ─────────────────────────── -->
         <section class="btt-slide btt-slide--play" data-slide="0" aria-label="Slide 1: Dentro o fuori?">
-            <div class="btt-stage">
-                <div class="btt-head">
-                    <span class="btt-eyebrow">Arriva insieme al battito</span>
-                    <div class="btt-title-wrap">
-                        <h2 class="btt-title">Dentro o fuori?</h2>
-                        <span class="btt-blobs" aria-hidden="true">
-                            <span class="btt-blob btt-blob--1"></span>
-                            <span class="btt-blob btt-blob--2"></span>
-                            <span class="btt-blob btt-blob--3"></span>
-                            <span class="btt-blob btt-blob--4"></span>
-                        </span>
-                    </div>
+            <div class="btt-head">
+                <span class="btt-eyebrow">Arriva insieme al battito</span>
+                <div class="btt-title-wrap">
+                    <h2 class="btt-title">Dentro o fuori?</h2>
+                    <span class="btt-blobs" aria-hidden="true">
+                        <span class="btt-blob btt-blob--1"></span>
+                        <span class="btt-blob btt-blob--2"></span>
+                        <span class="btt-blob btt-blob--3"></span>
+                        <span class="btt-blob btt-blob--4"></span>
+                    </span>
                 </div>
+            </div>
 
-                <div class="btt-tiles" id="btt-tiles" aria-label="Otto battiti: tocca il tile quando si accende">
-                    <button class="btt-tile" type="button" aria-label="Battito 1"><span class="btt-tile__num">1</span></button>
-                    <button class="btt-tile" type="button" aria-label="Battito 2"><span class="btt-tile__num">2</span></button>
-                    <button class="btt-tile" type="button" aria-label="Battito 3"><span class="btt-tile__num">3</span></button>
-                    <button class="btt-tile" type="button" aria-label="Battito 4"><span class="btt-tile__num">4</span></button>
-                    <button class="btt-tile" type="button" aria-label="Battito 5"><span class="btt-tile__num">5</span></button>
-                    <button class="btt-tile" type="button" aria-label="Battito 6"><span class="btt-tile__num">6</span></button>
-                    <button class="btt-tile" type="button" aria-label="Battito 7"><span class="btt-tile__num">7</span></button>
-                    <button class="btt-tile" type="button" aria-label="Battito 8"><span class="btt-tile__num">8</span></button>
-                </div>
+            <div class="btt-tiles" id="btt-tiles" aria-label="Otto battiti: tocca il tile quando si accende">
+                <button class="btt-tile" type="button" aria-label="Battito 1"><span class="btt-tile__num">1</span></button>
+                <button class="btt-tile" type="button" aria-label="Battito 2"><span class="btt-tile__num">2</span></button>
+                <button class="btt-tile" type="button" aria-label="Battito 3"><span class="btt-tile__num">3</span></button>
+                <button class="btt-tile" type="button" aria-label="Battito 4"><span class="btt-tile__num">4</span></button>
+                <button class="btt-tile" type="button" aria-label="Battito 5"><span class="btt-tile__num">5</span></button>
+                <button class="btt-tile" type="button" aria-label="Battito 6"><span class="btt-tile__num">6</span></button>
+                <button class="btt-tile" type="button" aria-label="Battito 7"><span class="btt-tile__num">7</span></button>
+                <button class="btt-tile" type="button" aria-label="Battito 8"><span class="btt-tile__num">8</span></button>
+            </div>
 
+            <div class="btt-foot">
                 <div class="btt-controls">
                     <div class="btt-tempo" role="group" aria-label="Velocità">
                         <span class="btt-tempo-label">Tempo</span>
@@ -74,7 +74,6 @@
                     </div>
                     <button class="btt-play" type="button" id="btt-play">Avvia</button>
                 </div>
-
                 <p class="btt-phrase">Stare a tempo significa non anticipare e non ritardare.</p>
                 <p class="btt-note">Tocca ogni tile <strong>nel momento esatto in cui si accende</strong>: a tempo diventa verde, fuori tempo diventa rosso.</p>
             </div>
@@ -292,6 +291,8 @@
             });
 
             if (play) play.addEventListener('click', function () { playing ? stop() : start(); });
+
+            start();   // i tile si accendono subito all'apertura della slide
         })();
     </script>
 </body>

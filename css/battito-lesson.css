@@ -134,17 +134,63 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 .btt-chip:hover { background: #9DAE6E; border-color: #9DAE6E; color: #fff; transform: translateY(-1px); }
 
-/* ── Slide 1 "gioco a tempo": titolo ancorato sopra la striscia, come Barocco.
-   Il gruppo (testata + tile + controlli) è centrato verticalmente. ── */
-.btt-slide--play { justify-content: center; padding-top: clamp(1rem, 2vh, 2rem); }
-.btt-stage {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: clamp(1.3rem, 4vh, 2.8rem);
+/* ── Slide 1 "gioco a tempo" ──────────────────────────────────────
+   Fallback / mobile: gruppo centrato in colonna. */
+.btt-slide--play { position: relative; justify-content: center; gap: clamp(1.1rem, 3.5vh, 2.4rem); }
+.btt-slide--play .btt-foot {
+    display: flex; flex-direction: column; align-items: center;
+    gap: clamp(.9rem, 2.5vh, 1.6rem);
+    text-align: center;
 }
-/* la testata torna a sinistra, sopra la striscia (non centrata) */
-.btt-slide--play .btt-head { text-align: left; }
+
+/* Desktop ≥601px: posizione di eyebrow + titolo IDENTICA alla lezione
+   "Introduzione al Barocco" (screen 1): eyebrow come colonna 28u, titolo 3vw,
+   header ancorato 2u sopra la striscia centrata a metà schermo. */
+@media (min-width: 601px) {
+    .btt-slide--play { display: block; padding: 0; }
+
+    .btt-slide--play .btt-head {
+        --u: calc(100vw / 84);
+        position: absolute;
+        left: 0; right: 0;
+        /* identico alla lezione Barocco (screen 1): titolo 2u sopra il centro */
+        bottom: calc(50svh + (100vw / 12) - min(16px, 1.6vw) + 2 * var(--u));
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 0;
+        z-index: 2;
+    }
+    .btt-slide--play .btt-eyebrow {
+        flex: 0 0 calc(28 * var(--u));
+        padding: calc(1.1 * var(--u));
+        padding-left: calc(14 * var(--u));
+        font-size: clamp(.7rem, calc(.65 * var(--u)), .85rem);
+    }
+    .btt-slide--play .btt-title-wrap {
+        flex: 1;
+        padding: calc(1.1 * var(--u)) calc(1.1 * var(--u)) calc(.7 * var(--u)) 0;
+    }
+    .btt-slide--play .btt-title {
+        font-size: clamp(1.4rem, 3vw, 3.2rem);
+    }
+
+    .btt-slide--play .btt-tiles {
+        position: absolute;
+        left: 0; right: 0;
+        top: calc(50svh - var(--btt-hdr));   /* striscia centrata a 50svh, come Barocco */
+        transform: translateY(-50%);
+        width: 100%;
+        margin: 0;
+    }
+
+    .btt-slide--play .btt-foot {
+        position: absolute;
+        left: 0; right: 0;
+        top: calc(50svh - var(--btt-hdr) + (100vw / 16) + 1.1rem);
+        padding: 0 clamp(1.2rem, 4vw, 3.5rem);
+    }
+}
 
 /* tempo selector + avvio */
 .btt-controls {
@@ -200,10 +246,10 @@ body[data-lesson="battito"] .brand--wordmark {
     color: rgba(17, 17, 17, .38);
     transition: color .14s ease;
 }
-.btt-tile.is-lit  { background: #c7d6a0; }   /* accensione: tocca ora */
-.btt-tile.is-hit  { background: #6f9646; }   /* click a tempo → verde, resta */
+.btt-tile.is-lit  { background: #6f9646; }   /* accensione: si accende di verde */
+.btt-tile.is-hit  { background: #6f9646; }   /* click a tempo → resta verde */
 .btt-tile.is-miss { background: #d0685d; }   /* click sbagliato o fuori tempo → rosso */
-.btt-tile.is-lit  .btt-tile__num { color: rgba(17, 17, 17, .6); }
+.btt-tile.is-lit  .btt-tile__num,
 .btt-tile.is-hit  .btt-tile__num,
 .btt-tile.is-miss .btt-tile__num { color: rgba(255, 255, 255, .92); }
 
