@@ -170,34 +170,42 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 .btt-play:hover { background: #111; transform: translateY(-1px); }
 
-/* gli 8 tile che si accendono a tempo */
+/* gli 8 tile: stessa estetica della striscia di scelta lezione —
+   attaccati, da margine a margine, quadrati, numero piccolo in basso a destra */
 .btt-tiles {
-    display: flex;
-    gap: clamp(.45rem, 1.4vw, 1rem);
-    justify-content: center;
-    align-items: center;
-    flex-wrap: nowrap;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);   /* full-bleed: esce dal padding della slide */
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 0;
 }
 .btt-tile {
-    flex: 0 0 auto;
-    width: clamp(2.4rem, 9vw, 6.2rem);
+    position: relative;
     aspect-ratio: 1;
+    width: 100%;
     border: 0; padding: 0; margin: 0;
-    border-radius: clamp(10px, 1.4vw, 18px);
-    background: #eef0e9;
+    border-radius: 0;
+    background: #e8e8e8;              /* spento = grigio */
     cursor: pointer;
-    transition: transform .1s ease, background-color .14s ease, box-shadow .14s ease;
+    transition: background-color .14s ease;
 }
-.btt-tile.is-lit {
-    background: #d7e0c4;
-    box-shadow: 0 0 0 3px rgba(157, 174, 110, .55);
-    transform: scale(1.06);
+.btt-tile__num {
+    position: absolute;
+    right: clamp(.45rem, .9vw, 1rem);
+    bottom: clamp(.35rem, .7vw, .85rem);
+    font-size: clamp(.6rem, .85vw, .9rem);
+    font-weight: 700;
+    letter-spacing: .06em;
+    font-variant-numeric: tabular-nums;
+    color: rgba(17, 17, 17, .38);
+    transition: color .14s ease;
 }
-.btt-tile.is-hit  { background: #7fa05a; box-shadow: none; transform: scale(1); }
-.btt-tile.is-miss { background: #d0685d; box-shadow: none; transform: scale(1); }
-@media (prefers-reduced-motion: reduce) {
-    .btt-tile, .btt-tile.is-lit { transition: background-color .1s ease; transform: none; }
-}
+.btt-tile.is-lit  { background: #c7d6a0; }   /* accensione: tocca ora */
+.btt-tile.is-hit  { background: #6f9646; }   /* click a tempo → verde, resta */
+.btt-tile.is-miss { background: #d0685d; }   /* click sbagliato o fuori tempo → rosso */
+.btt-tile.is-lit  .btt-tile__num { color: rgba(17, 17, 17, .6); }
+.btt-tile.is-hit  .btt-tile__num,
+.btt-tile.is-miss .btt-tile__num { color: rgba(255, 255, 255, .92); }
 
 /* Slide 2: griglia di 4 spazi = 4 battiti */
 .btt-grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; width: min(560px, 80vw); }
