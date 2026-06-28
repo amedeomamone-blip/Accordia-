@@ -6,7 +6,7 @@
     <meta name="description" content="Battito: pulsazione e tempo. Lezione interattiva per la LIM in quattro slide.">
     <title>Battito · Pulsazione e tempo | Ritmo | Amedeo</title>
     <link rel="stylesheet" href="../../../../css/style.css?v=1782800000">
-    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1783400000">
+    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1783500000">
 </head>
 <body data-nav="home" data-current-nucleus="ritmo" data-lesson="battito">
     <header class="site-header" id="site-header">
@@ -53,15 +53,11 @@
                 </div>
             </div>
 
-            <div class="btt-tiles" id="btt-tiles" aria-label="Otto battiti: tocca il tile quando si accende">
+            <div class="btt-tiles" id="btt-tiles" aria-label="Quattro battiti: tocca il tile quando si accende">
                 <button class="btt-tile" type="button" aria-label="Battito 1"><span class="btt-tile__num">1</span></button>
                 <button class="btt-tile" type="button" aria-label="Battito 2"><span class="btt-tile__num">2</span></button>
                 <button class="btt-tile" type="button" aria-label="Battito 3"><span class="btt-tile__num">3</span></button>
                 <button class="btt-tile" type="button" aria-label="Battito 4"><span class="btt-tile__num">4</span></button>
-                <button class="btt-tile" type="button" aria-label="Battito 5"><span class="btt-tile__num">5</span></button>
-                <button class="btt-tile" type="button" aria-label="Battito 6"><span class="btt-tile__num">6</span></button>
-                <button class="btt-tile" type="button" aria-label="Battito 7"><span class="btt-tile__num">7</span></button>
-                <button class="btt-tile" type="button" aria-label="Battito 8"><span class="btt-tile__num">8</span></button>
             </div>
 
             <div class="btt-foot">
@@ -263,17 +259,10 @@
 
             tiles.forEach(function (tile, i) {
                 tile.addEventListener('click', function () {
-                    if (!playing) return;     // si valuta solo mentre scorre il battito
-                    var now = performance.now();
-                    var tol = Math.min(beatMs * 0.38, 200);
-                    var inSync = false;
-                    if (i === active && (now - beatStart) <= tol) {
-                        inSync = true;                                  // a tempo (sull'accensione)
-                    } else if (i === (active + 1) % n && (beatStart + beatMs - now) <= tol) {
-                        inSync = true;                                  // lieve anticipo accettato
-                    }
+                    if (!playing) return;          // si valuta solo mentre scorre il battito
                     clearMark(tile);
-                    tile.classList.add(inSync ? 'is-hit' : 'is-miss');
+                    // Tile acceso quando lo clicco → verde (resta). Tile spento → rosso.
+                    tile.classList.add(i === active ? 'is-hit' : 'is-miss');
                 });
             });
 

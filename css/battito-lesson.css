@@ -153,8 +153,9 @@ body[data-lesson="battito"] .brand--wordmark {
         --u: calc(100vw / 84);
         position: absolute;
         left: 0; right: 0;
-        /* identico alla lezione Barocco (screen 1): titolo 2u sopra il centro */
-        bottom: calc(50svh + (100vw / 12) - min(16px, 1.6vw) + 2 * var(--u));
+        /* come la lezione Barocco (screen 1): titolo 2u sopra la striscia centrata.
+           Con 4 tile la mezza-altezza della striscia è 100vw/8 (tile = 100vw/4). */
+        bottom: calc(50svh + (100vw / 8) - min(16px, 1.6vw) + 2 * var(--u));
         display: flex;
         flex-direction: row;
         align-items: flex-start;
@@ -187,7 +188,7 @@ body[data-lesson="battito"] .brand--wordmark {
     .btt-slide--play .btt-foot {
         position: absolute;
         left: 0; right: 0;
-        top: calc(50svh - var(--btt-hdr) + (100vw / 16) + 1.1rem);
+        top: calc(50svh - var(--btt-hdr) + (100vw / 8) + 1.1rem);
         padding: 0 clamp(1.2rem, 4vw, 3.5rem);
     }
 }
@@ -222,7 +223,7 @@ body[data-lesson="battito"] .brand--wordmark {
     width: 100vw;
     margin-left: calc(50% - 50vw);   /* full-bleed: esce dal padding della slide */
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 0;
 }
 .btt-tile {
@@ -246,8 +247,8 @@ body[data-lesson="battito"] .brand--wordmark {
     color: rgba(17, 17, 17, .38);
     transition: color .14s ease;
 }
-.btt-tile.is-lit  { background: #6f9646; }   /* accensione: si accende di verde */
-.btt-tile.is-hit  { background: #6f9646; }   /* click a tempo → resta verde */
+.btt-tile.is-lit  { background: #9DAE6E; }   /* accensione: verde del nucleo */
+.btt-tile.is-hit  { background: #9DAE6E; }   /* click a tempo → resta verde */
 .btt-tile.is-miss { background: #d0685d; }   /* click sbagliato o fuori tempo → rosso */
 .btt-tile.is-lit  .btt-tile__num,
 .btt-tile.is-hit  .btt-tile__num,
