@@ -5,10 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Accordia e un ambiente didattico per insegnare la storia della musica nella scuola secondaria di primo grado, con timeline, nuclei storici, mappe degli argomenti, ascolti guidati, attivita laboratoriali e verifiche.">
     <title>Accordia | Storia della musica</title>
-    <link rel="stylesheet" href="css/style.css?v=1790000000">
-    <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1782300000">
-    <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1782300000">
-    <link rel="stylesheet" href="css/home-nuclei-list.css?v=1782300000">
+    <link rel="stylesheet" href="css/style.css?v=1782700000">
+    <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1782700000">
+    <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1782700000">
+    <link rel="stylesheet" href="css/home-nuclei-list.css?v=1782700000">
+    <link rel="stylesheet" href="css/home-pratica.css?v=1782700000">
 </head>
 <body data-nav="home">
     <header class="site-header">
@@ -103,29 +104,110 @@
                         </a>
                     </div>
                 </div>
+                <div class="nuclei-grid-wrap nuclei-grid-wrap--pratica">
+                    <div class="nuclei-grid" aria-label="Le sei aree della pratica strumentale">
+                        <a class="nuclei-col" data-practice-link="suono" tabindex="0" role="link" style="--accent:#E5B8A6">
+                            <span class="nuclei-col__tile">
+                                <span class="nuclei-col__bottom">
+                                    <span class="nuclei-col__num">01</span>
+                                    <span class="nuclei-col__arrow" aria-hidden="true">&#8599;</span>
+                                </span>
+                            </span>
+                            <h3 class="nuclei-col__title">Suono</h3>
+                            <span class="nuclei-col__date">Timbro e dinamica</span>
+                        </a>
+                        <a class="nuclei-col" data-practice-link="ritmo" tabindex="0" role="link" style="--accent:#E8D29A">
+                            <span class="nuclei-col__tile">
+                                <span class="nuclei-col__bottom">
+                                    <span class="nuclei-col__num">02</span>
+                                    <span class="nuclei-col__arrow" aria-hidden="true">&#8599;</span>
+                                </span>
+                            </span>
+                            <h3 class="nuclei-col__title">Ritmo</h3>
+                            <span class="nuclei-col__date">Tempo e metro</span>
+                        </a>
+                        <a class="nuclei-col" data-practice-link="lettura" tabindex="0" role="link" style="--accent:#A6C8E0">
+                            <span class="nuclei-col__tile">
+                                <span class="nuclei-col__bottom">
+                                    <span class="nuclei-col__num">03</span>
+                                    <span class="nuclei-col__arrow" aria-hidden="true">&#8599;</span>
+                                </span>
+                            </span>
+                            <h3 class="nuclei-col__title">Lettura</h3>
+                            <span class="nuclei-col__date">Notazione</span>
+                        </a>
+                        <a class="nuclei-col" data-practice-link="strumenti" tabindex="0" role="link" style="--accent:#A9CDB0">
+                            <span class="nuclei-col__tile">
+                                <span class="nuclei-col__bottom">
+                                    <span class="nuclei-col__num">04</span>
+                                    <span class="nuclei-col__arrow" aria-hidden="true">&#8599;</span>
+                                </span>
+                            </span>
+                            <h3 class="nuclei-col__title">Strumenti</h3>
+                            <span class="nuclei-col__date">Tecnica e postura</span>
+                        </a>
+                        <a class="nuclei-col" data-practice-link="repertorio" tabindex="0" role="link" style="--accent:#CDB4DD">
+                            <span class="nuclei-col__tile">
+                                <span class="nuclei-col__bottom">
+                                    <span class="nuclei-col__num">05</span>
+                                    <span class="nuclei-col__arrow" aria-hidden="true">&#8599;</span>
+                                </span>
+                            </span>
+                            <h3 class="nuclei-col__title">Repertorio</h3>
+                            <span class="nuclei-col__date">Brani e stili</span>
+                        </a>
+                        <a class="nuclei-col" data-practice-link="produzione" tabindex="0" role="link" style="--accent:#E0B4C4">
+                            <span class="nuclei-col__tile">
+                                <span class="nuclei-col__bottom">
+                                    <span class="nuclei-col__num">06</span>
+                                    <span class="nuclei-col__arrow" aria-hidden="true">&#8599;</span>
+                                </span>
+                            </span>
+                            <h3 class="nuclei-col__title">Produzione</h3>
+                            <span class="nuclei-col__date">Creare musica</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
 
-    <script src="js/main.js?v=1782300000"></script>
+    <script src="js/main.js?v=1782700000"></script>
     <script>
         (function () {
-            if ('scrollRestoration' in window.history) {
-                window.history.scrollRestoration = 'manual';
-            }
-            if (!window.location.hash) {
-                window.scrollTo(0, 0);
-            }
-
             const heroFrame   = document.querySelector('.home-hero__frame');
             const siteHeader  = document.querySelector('.site-header');
+            const scrollScene = document.querySelector('.scroll-scene');
             const scrollStage = document.querySelector('.scroll-stage');
             const tilesWrap   = document.querySelector('.nuclei-grid-wrap');
+            const praticaWrap = document.querySelector('.nuclei-grid-wrap--pratica');
             const reducedHeroMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
             const mobileHomeLayout = window.matchMedia('(max-width: 600px)');
 
             function clamp(value, min, max) {
                 return Math.max(min, Math.min(max, value));
+            }
+
+            // The sticky stage sits in the middle of the scene, so the hero word can be
+            // revealed by scrolling both up (Pratica, from the left) and down (Storia, from the right).
+            function sceneScrollable() {
+                return scrollScene ? Math.max(0, scrollScene.offsetHeight - window.innerHeight) : 0;
+            }
+            function sceneCenter() {
+                return sceneScrollable() / 2;
+            }
+
+            // Open the page centred on the hero (desktop only; mobile is a static stack).
+            if ('scrollRestoration' in window.history) {
+                window.history.scrollRestoration = 'manual';
+            }
+            if (!window.location.hash) {
+                const centerScene = function () {
+                    window.scrollTo(0, mobileHomeLayout.matches ? 0 : sceneCenter());
+                };
+                centerScene();
+                window.requestAnimationFrame(centerScene);
+                window.addEventListener('load', centerScene, { once: true });
             }
 
             if (siteHeader && scrollStage) {
@@ -138,6 +220,7 @@
             }
 
             if (heroFrame) {
+                // Signed progress: -1 = Pratica fully in (scrolled up), 0 = hero centred, +1 = Storia fully in (scrolled down).
                 let heroCurrentProgress = 0;
                 let heroTargetProgress  = 0;
                 let heroFrameRequest    = 0;
@@ -150,10 +233,27 @@
                     };
                 }
 
-                function getHeroScrollRange() {
-                    return reducedHeroMotion.matches
-                        ? window.innerHeight * 0.75
-                        : window.innerHeight * 1.05;
+                // Drive one tile strip. prog: 0 (off-screen) -> 1 (in place). offDir: +1 right, -1 left.
+                function applyTiles(wrap, prog, offDir) {
+                    if (!wrap) return;
+                    if (mobileHomeLayout.matches) {
+                        wrap.style.setProperty('--tiles-shift-x', '0vw');
+                        wrap.style.setProperty('--tiles-shift-y', '0px');
+                        wrap.style.setProperty('--tiles-label-opacity', '1');
+                        wrap.style.setProperty('--tiles-label-y', '0px');
+                        return;
+                    }
+                    const tp = reducedHeroMotion.matches ? prog : clamp((prog - 0.2) / 0.75, 0, 1);
+                    const te = 1 - Math.pow(1 - tp, 3);
+                    const labelProgress = clamp((tp - 0.82) / 0.18, 0, 1);
+                    const labelEased = 1 - Math.pow(1 - labelProgress, 2);
+                    const travel = getHeroTravel();
+                    const driftMag = 1 - Math.pow(1 - Math.abs(heroCurrentProgress), 3);
+
+                    wrap.style.setProperty('--tiles-shift-x', `${(offDir * (1 - te) * 120).toFixed(2)}vw`);
+                    wrap.style.setProperty('--tiles-shift-y', `${(travel.y * driftMag).toFixed(2)}px`);
+                    wrap.style.setProperty('--tiles-label-opacity', labelEased.toFixed(3));
+                    wrap.style.setProperty('--tiles-label-y', `${((1 - labelEased) * 0.6).toFixed(2)}vw`);
                 }
 
                 function renderHeroMotion() {
@@ -163,32 +263,17 @@
                     heroCurrentProgress += delta * smoothing;
                     if (Math.abs(delta) < 0.001) heroCurrentProgress = heroTargetProgress;
 
-                    const eased  = 1 - Math.pow(1 - heroCurrentProgress, 3);
+                    // Signed easing: scrolling down (progress > 0) moves the word left toward
+                    // Storia; scrolling up (progress < 0) moves it right toward Pratica.
+                    const mag = 1 - Math.pow(1 - Math.abs(heroCurrentProgress), 3);
+                    const easedSigned = Math.sign(heroCurrentProgress) * mag;
                     const travel = getHeroTravel();
 
-                    heroFrame.style.setProperty('--home-hero-title-shift-x', `${(-travel.x * eased).toFixed(2)}px`);
-                    heroFrame.style.setProperty('--home-hero-title-shift-y', `${(travel.y * eased).toFixed(2)}px`);
+                    heroFrame.style.setProperty('--home-hero-title-shift-x', `${(-travel.x * easedSigned).toFixed(2)}px`);
+                    heroFrame.style.setProperty('--home-hero-title-shift-y', `${(travel.y * mag).toFixed(2)}px`);
 
-                    if (tilesWrap) {
-                        if (mobileHomeLayout.matches) {
-                            tilesWrap.style.setProperty('--tiles-shift-x', '0vw');
-                            tilesWrap.style.setProperty('--tiles-shift-y', '0px');
-                            tilesWrap.style.setProperty('--tiles-label-opacity', '1');
-                            tilesWrap.style.setProperty('--tiles-label-y', '0px');
-                        } else {
-                            const tp = reducedHeroMotion.matches
-                                ? heroCurrentProgress
-                                : clamp((heroCurrentProgress - 0.2) / 0.75, 0, 1);
-                            const te = 1 - Math.pow(1 - tp, 3);
-                            const labelProgress = clamp((tp - 0.82) / 0.18, 0, 1);
-                            const labelEased = 1 - Math.pow(1 - labelProgress, 2);
-
-                            tilesWrap.style.setProperty('--tiles-shift-x', `${((1 - te) * 120).toFixed(2)}vw`);
-                            tilesWrap.style.setProperty('--tiles-shift-y', `${(travel.y * eased).toFixed(2)}px`);
-                            tilesWrap.style.setProperty('--tiles-label-opacity', labelEased.toFixed(3));
-                            tilesWrap.style.setProperty('--tiles-label-y', `${((1 - labelEased) * 0.6).toFixed(2)}vw`);
-                        }
-                    }
+                    applyTiles(tilesWrap,   clamp(heroCurrentProgress, 0, 1), 1);   // Storia: enters from the right
+                    applyTiles(praticaWrap, clamp(-heroCurrentProgress, 0, 1), -1); // Pratica: enters from the left
 
                     if (heroCurrentProgress !== heroTargetProgress) {
                         heroFrameRequest = window.requestAnimationFrame(renderHeroMotion);
@@ -198,7 +283,12 @@
                 }
 
                 function syncHeroMotion() {
-                    heroTargetProgress = clamp(window.scrollY / getHeroScrollRange(), 0, 1);
+                    if (mobileHomeLayout.matches) {
+                        heroTargetProgress = 0;
+                    } else {
+                        const range = sceneCenter() || 1;
+                        heroTargetProgress = clamp((window.scrollY - sceneCenter()) / range, -1, 1);
+                    }
                     if (!heroFrameRequest) heroFrameRequest = window.requestAnimationFrame(renderHeroMotion);
                 }
 

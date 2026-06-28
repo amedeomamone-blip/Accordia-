@@ -1,0 +1,28 @@
+/* ============================================================
+   Home — scena a doppia direzione
+   La hero "amedeo" sta al centro: scorrendo GIÙ entra "Storia della
+   musica" da destra; scorrendo SU entra "Pratica strumentale" da sinistra.
+   Estende il comportamento già presente in home-nuclei-list.css.
+   ============================================================ */
+
+/* Spazio di scorrimento extra sopra il centro, per rivelare la hero salendo. */
+body[data-nav="home"] .scroll-scene {
+    height: 340vh;
+}
+
+/* Striscia "Pratica": stessa banda verticale della striscia "Storia",
+   ma parte fuori schermo a SINISTRA (entra salendo). */
+body[data-nav="home"] .nuclei-grid-wrap--pratica {
+    --tiles-shift-x: -120vw;
+}
+
+/* ── Mobile: layout statico impilato, nessuno scroll-scene ── */
+@media (max-width: 600px) {
+    body[data-nav="home"] .scroll-scene {
+        height: auto;
+    }
+    body[data-nav="home"] .nuclei-grid-wrap--pratica {
+        --tiles-shift-x: 0vw;
+        padding-top: 0;
+    }
+}
