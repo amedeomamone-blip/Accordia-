@@ -294,7 +294,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     align-items: flex-start;
     width: 100%;
     /* Fase 3: titolo (+ eyebrow) compare dopo il testo dei tile. */
-    animation: barocco-label-in .6s ease 2.1s both;
+    animation: barocco-label-in .55s ease 0s both;
 }
 .barocco-intro__eyebrow {
     flex: 0 0 calc(28 * var(--u));
@@ -343,7 +343,7 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     margin: 0 0 0 calc(28 * var(--u));
     padding: calc(0.9 * var(--u)) calc(1.1 * var(--u)) 0 0;
     /* Fase 3: corpo testo compare insieme al titolo. */
-    animation: barocco-label-in .6s ease 2.1s both;
+    animation: barocco-label-in .55s ease 0s both;
 }
 
 /* ── Desktop ≥601px: unica fascia orizzontale centrata, scroll laterale.
