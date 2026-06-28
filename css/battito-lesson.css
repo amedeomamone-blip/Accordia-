@@ -153,9 +153,8 @@ body[data-lesson="battito"] .brand--wordmark {
         --u: calc(100vw / 84);
         position: absolute;
         left: 0; right: 0;
-        /* come la lezione Barocco (screen 1): titolo 2u sopra la striscia centrata.
-           Con 4 tile la mezza-altezza della striscia è 100vw/8 (tile = 100vw/4). */
-        bottom: calc(50svh + (100vw / 8) - min(16px, 1.6vw) + 2 * var(--u));
+        /* titolo nella stessa fascia della pagina "scelta lezioni" (nucleo) */
+        bottom: calc(50svh + 13.5vw);
         display: flex;
         flex-direction: row;
         align-items: flex-start;
@@ -179,7 +178,7 @@ body[data-lesson="battito"] .brand--wordmark {
     .btt-slide--play .btt-tiles {
         position: absolute;
         left: 0; right: 0;
-        top: calc(50svh - var(--btt-hdr));   /* striscia centrata a 50svh, come Barocco */
+        top: calc(50svh - var(--btt-hdr) - 34px);   /* tile alla stessa altezza del nucleo */
         transform: translateY(-50%);
         width: 100%;
         margin: 0;
@@ -188,7 +187,7 @@ body[data-lesson="battito"] .brand--wordmark {
     .btt-slide--play .btt-foot {
         position: absolute;
         left: 0; right: 0;
-        top: calc(50svh - var(--btt-hdr) + (100vw / 8) + 1.1rem);
+        top: calc(50svh - var(--btt-hdr) - 34px + (100vw / 12) + 1.3rem);
         padding: 0 clamp(1.2rem, 4vw, 3.5rem);
     }
 }
@@ -220,16 +219,14 @@ body[data-lesson="battito"] .brand--wordmark {
 /* gli 8 tile: stessa estetica della striscia di scelta lezione —
    attaccati, da margine a margine, quadrati, numero piccolo in basso a destra */
 .btt-tiles {
-    width: 100vw;
-    margin-left: calc(50% - 50vw);   /* full-bleed: esce dal padding della slide */
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    display: flex;
+    justify-content: center;          /* tile centrati nella pagina */
     gap: 0;
 }
 .btt-tile {
     position: relative;
+    flex: 0 0 calc(100vw / 6);        /* stessa dimensione dei tile del nucleo (14u) */
     aspect-ratio: 1;
-    width: 100%;
     border: 0; padding: 0; margin: 0;
     border-radius: 0;
     background: #e8e8e8;              /* spento = grigio */
