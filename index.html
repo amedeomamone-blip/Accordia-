@@ -8,8 +8,8 @@
     <link rel="stylesheet" href="css/style.css?v=1782700000">
     <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1782700000">
     <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1782700000">
-    <link rel="stylesheet" href="css/home-nuclei-list.css?v=1782700000">
-    <link rel="stylesheet" href="css/home-pratica.css?v=1782700000">
+    <link rel="stylesheet" href="css/home-nuclei-list.css?v=1782800000">
+    <link rel="stylesheet" href="css/home-pratica.css?v=1782800000">
 </head>
 <body data-nav="home">
     <header class="site-header">
@@ -197,13 +197,13 @@
                 return sceneScrollable() / 2;
             }
 
-            // Open the page centred on the hero (desktop only; mobile is a static stack).
+            // Open the page centred on the hero (same principle on desktop and mobile).
             if ('scrollRestoration' in window.history) {
                 window.history.scrollRestoration = 'manual';
             }
             if (!window.location.hash) {
                 const centerScene = function () {
-                    window.scrollTo(0, mobileHomeLayout.matches ? 0 : sceneCenter());
+                    window.scrollTo(0, sceneCenter());
                 };
                 centerScene();
                 window.requestAnimationFrame(centerScene);
@@ -236,13 +236,6 @@
                 // Drive one tile strip. prog: 0 (off-screen) -> 1 (in place). offDir: +1 right, -1 left.
                 function applyTiles(wrap, prog, offDir) {
                     if (!wrap) return;
-                    if (mobileHomeLayout.matches) {
-                        wrap.style.setProperty('--tiles-shift-x', '0vw');
-                        wrap.style.setProperty('--tiles-shift-y', '0px');
-                        wrap.style.setProperty('--tiles-label-opacity', '1');
-                        wrap.style.setProperty('--tiles-label-y', '0px');
-                        return;
-                    }
                     const tp = reducedHeroMotion.matches ? prog : clamp((prog - 0.2) / 0.75, 0, 1);
                     const te = 1 - Math.pow(1 - tp, 3);
                     const labelProgress = clamp((tp - 0.82) / 0.18, 0, 1);
@@ -283,12 +276,8 @@
                 }
 
                 function syncHeroMotion() {
-                    if (mobileHomeLayout.matches) {
-                        heroTargetProgress = 0;
-                    } else {
-                        const range = sceneCenter() || 1;
-                        heroTargetProgress = clamp((window.scrollY - sceneCenter()) / range, -1, 1);
-                    }
+                    const range = sceneCenter() || 1;
+                    heroTargetProgress = clamp((window.scrollY - sceneCenter()) / range, -1, 1);
                     if (!heroFrameRequest) heroFrameRequest = window.requestAnimationFrame(renderHeroMotion);
                 }
 

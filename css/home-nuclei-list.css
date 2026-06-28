@@ -263,38 +263,34 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__date {
     color: var(--accent, #111111);
 }
 
-/* ── Mobile: layout statico, nessuno scroll-scene sticky ── */
+/* ── Mobile: stesso principio scroll-scene, striscia leggibile e scorribile ──
+   La scena resta sticky e guidata dallo scroll (hero al centro, su = Pratica,
+   giù = Storia). Le tile diventano più grandi: la striscia è più larga dello
+   schermo ed entra di lato; si scorre lateralmente per vederle tutte. */
 @media (max-width: 600px) {
-    body[data-nav="home"] .scroll-scene { height: auto; }
-    body[data-nav="home"] .scroll-stage {
-        position: static;
-        height: auto;
-        overflow: visible;
-        background: transparent;
-    }
-    body[data-nav="home"] .home-hero {
-        position: relative !important;
-        inset: auto !important;
-        min-height: calc(100lvh - var(--home-header-height, 4.15rem)) !important;
-    }
-    body[data-nav="home"] .home-hero > .shell {
-        width: min(calc(100% - 2rem), var(--shell-max)) !important;
-        max-width: var(--shell-max) !important;
-    }
-    body[data-nav="home"] .home-hero__frame {
-        position: relative !important;
-        inset: auto !important;
-        min-height: calc(100lvh - var(--home-header-height, 4.15rem)) !important;
-    }
     body[data-nav="home"] .nuclei-grid-wrap {
-        position: static;
-        height: auto;
-        overflow: visible;
-        --tiles-label-opacity: 1;
-        --tiles-label-y: 0px;
-        transform: none !important;
-        padding: 3rem 0 calc(4.25rem + env(safe-area-inset-bottom));
+        height: calc(44vw + 18vw);
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
+        --tiles-align-y: calc(-1 * (44vw + 18vw) / 2);
     }
+    body[data-nav="home"] .nuclei-grid-wrap::-webkit-scrollbar { display: none; }
+
+    body[data-nav="home"] .nuclei-grid {
+        grid-template-columns: none;
+        grid-auto-flow: column;
+        grid-auto-columns: 44vw;
+        width: max-content;
+    }
+
+    body[data-nav="home"] .nuclei-col__tile  { padding: 3.2vw; }
+    body[data-nav="home"] .nuclei-col__num   { font-size: 3vw; }
+    body[data-nav="home"] .nuclei-col__arrow { width: 7vw; height: 7vw; font-size: 3.2vw; }
+    body[data-nav="home"] .nuclei-col__title { font-size: 4.4vw; padding: 2.4vw 3.2vw 0; line-height: 1.05; white-space: nowrap; }
+    body[data-nav="home"] .nuclei-col__date  { font-size: 3vw; padding: 1vw 3.2vw 2vw; }
+
     body[data-nav="home"] .site-footer {
         padding: .55rem 0 calc(.55rem + env(safe-area-inset-bottom));
     }
@@ -308,10 +304,4 @@ body[data-nav="home"] .nuclei-col:hover .nuclei-col__date {
         line-height: 1;
         letter-spacing: .08em;
     }
-    body[data-nav="home"] .nuclei-grid { grid-template-columns: repeat(2, 1fr); }
-    body[data-nav="home"] .nuclei-col__tile  { padding: 4vw; }
-    body[data-nav="home"] .nuclei-col__num   { font-size: 2.2vw; }
-    body[data-nav="home"] .nuclei-col__arrow { width: 4.5vw; height: 4.5vw; font-size: 2.1vw; }
-    body[data-nav="home"] .nuclei-col__title { font-size: 3.4vw; padding: 2vw 4vw 0; }
-    body[data-nav="home"] .nuclei-col__date  { font-size: 2.2vw; padding: .8vw 4vw 3vw; }
 }
