@@ -1,0 +1,218 @@
+/* ============================================================
+   Lezione 01 — Battito (pratica · Ritmo)
+   Prima bozza: 4 slide a tutta schermata, stessa impostazione
+   tipografica della lezione "Introduzione al Barocco"
+   (pre-titolo + titolo con glow), tema verde-salvia coerente con Ritmo.
+   ============================================================ */
+
+body[data-lesson="battito"] { background: #ffffff; }
+
+/* Wordmark header come nelle altre pagine */
+body[data-lesson="battito"] .brand--wordmark {
+    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1;
+    color: #18191b;
+    text-transform: none;
+    text-decoration: none;
+}
+
+/* ── Deck: contenitore a scorrimento con snap per slide ── */
+.btt-deck {
+    --btt-hdr: 4.2rem;
+    margin-top: var(--btt-hdr);
+    height: calc(100svh - var(--btt-hdr));
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    background: #ffffff;
+}
+.btt-deck::-webkit-scrollbar { display: none; }
+
+.btt-slide {
+    position: relative;
+    height: calc(100svh - var(--btt-hdr));
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    padding: clamp(1.2rem, 3vw, 2.4rem) clamp(1.2rem, 4vw, 3.5rem) clamp(1.6rem, 4vh, 3rem);
+    overflow: hidden;
+}
+
+/* ── Testata: pre-titolo a sinistra, titolo con glow (come Barocco) ── */
+.btt-head {
+    display: flex;
+    align-items: flex-start;
+    gap: clamp(0.5rem, 2vw, 1.5rem);
+    width: 100%;
+}
+.btt-eyebrow {
+    flex: 0 0 clamp(8rem, 26vw, 20rem);
+    font-size: clamp(0.68rem, 0.85vw, 0.85rem);
+    font-weight: 600;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: rgba(17, 17, 17, .38);
+    padding-top: .35rem;
+}
+.btt-title-wrap {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: #ffffff;
+}
+.btt-title {
+    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size: clamp(1.6rem, 4vw, 3.4rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    line-height: 1.06;
+    color: #000000;
+    margin: 0;
+    position: relative;
+    z-index: 0;
+}
+
+/* Glow verde-salvia dietro il titolo (mix-blend, come barocco-bento) */
+.btt-blobs { pointer-events: none; position: absolute; inset: 0; mix-blend-mode: lighten; }
+.btt-blob { pointer-events: none; position: absolute; width: 30vw; height: 30vw; mix-blend-mode: overlay; filter: blur(1rem); }
+.btt-blob--1 { top: -50%; left: 0;  background: hsl(80, 38%, 55%); animation: btt-drift 6s ease-in-out infinite, btt-move-1 12s ease-in-out infinite alternate; }
+.btt-blob--2 { top: 0; right: 0;    background: hsl(96, 30%, 66%); animation: btt-drift 6s ease-in-out infinite, btt-move-2 12s ease-in-out infinite alternate; }
+.btt-blob--3 { bottom: 0; left: 0;  background: hsl(70, 42%, 47%); animation: btt-drift 6s ease-in-out infinite, btt-move-3 12s ease-in-out infinite alternate; }
+.btt-blob--4 { bottom: -50%; right: 0; background: hsl(105, 28%, 62%); animation: btt-drift 6s ease-in-out infinite, btt-move-4 12s ease-in-out infinite alternate; }
+@keyframes btt-drift { 0%,100% { opacity: 1; } 50% { opacity: .7; } }
+@keyframes btt-move-1 { from { transform: translate(0,0); } to { transform: translate(35%,60%); } }
+@keyframes btt-move-2 { from { transform: translate(0,0); } to { transform: translate(-40%,30%); } }
+@keyframes btt-move-3 { from { transform: translate(0,0); } to { transform: translate(25%,-40%); } }
+@keyframes btt-move-4 { from { transform: translate(0,0); } to { transform: translate(-30%,-25%); } }
+
+/* ── Corpo slide: contenuto LIM centrato ── */
+.btt-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(1.2rem, 3.5vh, 2.4rem);
+    text-align: center;
+}
+.btt-phrase {
+    max-width: 40ch;
+    margin: 0;
+    font-size: clamp(1rem, 1.6vw, 1.45rem);
+    font-weight: 500;
+    line-height: 1.4;
+    color: #2a2a28;
+}
+.btt-note {
+    max-width: 52ch;
+    margin: 0;
+    font-size: .8rem;
+    color: rgba(17,17,17,.4);
+    letter-spacing: .01em;
+}
+
+/* Chip di risposta / pulsanti LIM (prima bozza: estetica, non ancora interattivi) */
+.btt-chips { display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center; }
+.btt-chip {
+    appearance: none;
+    border: 1px solid rgba(17,17,17,.16);
+    background: #f6f7f2;
+    color: #2a2a28;
+    border-radius: 999px;
+    padding: .55rem 1.2rem;
+    font-size: .82rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background .18s ease, border-color .18s ease, color .18s ease, transform .12s ease;
+}
+.btt-chip:hover { background: #9DAE6E; border-color: #9DAE6E; color: #fff; transform: translateY(-1px); }
+
+/* Slide 1: fila di otto battiti (cerchi) */
+.btt-dots { display: flex; gap: clamp(.5rem, 1.6vw, 1.1rem); }
+.btt-dot {
+    width: clamp(1.6rem, 3.2vw, 2.6rem);
+    height: clamp(1.6rem, 3.2vw, 2.6rem);
+    border-radius: 50%;
+    border: 2px solid rgba(17,17,17,.22);
+    background: transparent;
+}
+.btt-dot.is-on { background: #9DAE6E; border-color: #9DAE6E; }
+
+/* Slide 2: griglia di 4 spazi = 4 battiti */
+.btt-grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: .6rem; width: min(560px, 80vw); }
+.btt-cell {
+    aspect-ratio: 1;
+    border-radius: 14px;
+    background: #eef0e9;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5rem;
+}
+.btt-cell-n { font-size: 1.1rem; font-weight: 700; color: rgba(17,17,17,.45); }
+.btt-cell-dot { width: .7rem; height: .7rem; border-radius: 50%; background: #9DAE6E; }
+
+/* Slide 3: otto battiti, alcuni senza aiuto visivo */
+.btt-beats { display: flex; gap: clamp(.4rem, 1.4vw, 1rem); flex-wrap: wrap; justify-content: center; }
+.btt-beat {
+    width: clamp(2.2rem, 5vw, 3.4rem);
+    display: flex; flex-direction: column; align-items: center; gap: .45rem;
+}
+.btt-beat-n { font-size: .8rem; font-weight: 700; color: rgba(17,17,17,.4); }
+.btt-beat-dot { width: 1rem; height: 1rem; border-radius: 50%; background: #9DAE6E; }
+.btt-beat.is-ghost .btt-beat-dot { background: transparent; border: 2px dashed rgba(17,17,17,.2); }
+.btt-beat.is-ghost .btt-beat-n { color: rgba(17,17,17,.2); }
+
+/* Slide 4: tre livelli di guida */
+.btt-levels { display: grid; grid-template-columns: repeat(3, 1fr); gap: .9rem; width: min(880px, 92vw); }
+.btt-level {
+    text-align: left;
+    border: 1px solid rgba(17,17,17,.1);
+    border-radius: 16px;
+    padding: 1.1rem 1.2rem;
+    background: #f6f7f2;
+    display: flex; flex-direction: column; gap: .35rem;
+}
+.btt-level-n {
+    width: 1.9rem; height: 1.9rem; border-radius: 50%;
+    background: #9DAE6E; color: #fff; font-weight: 700;
+    display: flex; align-items: center; justify-content: center; font-size: .9rem;
+}
+.btt-level strong { font-size: 1rem; letter-spacing: -.01em; }
+.btt-level span:last-child { font-size: .85rem; color: rgba(17,17,17,.55); line-height: 1.4; }
+.btt-ask { font-size: 1rem; font-weight: 700; color: #2a2a28; }
+.btt-seq { font-size: .78rem; letter-spacing: .04em; color: rgba(17,17,17,.4); text-transform: uppercase; }
+
+/* ── Progress dots a destra ── */
+.btt-progress {
+    position: fixed;
+    right: clamp(.8rem, 1.6vw, 1.6rem);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 40;
+    display: flex; flex-direction: column; gap: .7rem;
+}
+.btt-pdot {
+    width: .7rem; height: .7rem; border-radius: 50%;
+    border: 0; padding: 0; cursor: pointer;
+    background: rgba(17,17,17,.18);
+    transition: background .2s ease, transform .2s ease;
+}
+.btt-pdot.is-active { background: #9DAE6E; transform: scale(1.35); }
+
+/* ── Mobile: testata impilata, contenuti compatti ── */
+@media (max-width: 640px) {
+    .btt-head { flex-direction: column; gap: .5rem; }
+    .btt-eyebrow { flex: none; padding-top: 0; }
+    .btt-levels { grid-template-columns: 1fr; }
+    .btt-progress { right: .6rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .btt-blob { animation: none; }
+    .btt-deck { scroll-behavior: auto; }
+}
