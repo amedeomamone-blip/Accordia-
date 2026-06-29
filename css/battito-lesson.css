@@ -154,10 +154,12 @@ body[data-lesson="battito"] .brand--wordmark {
     .btt-slide--play { display: block; }
 
     .btt-slide .btt-head {
-        --btt-head-gap: clamp(.2rem, .45vw, .55rem);
         position: absolute;
         left: 0; right: 0;
-        bottom: calc(50svh + (100vw / 12) - min(16px, 1.6vw) + var(--btt-head-gap));
+        /* pre-titolo + titolo ancorati dall'alto, alla stessa altezza della
+           pagina "scelta lezioni" (eyebrow ~ a 50svh - 22vw). */
+        top: calc(50svh - 22vw - var(--btt-hdr));
+        bottom: auto;
         display: flex;
         flex-direction: row;
         align-items: flex-start;
@@ -184,7 +186,7 @@ body[data-lesson="battito"] .brand--wordmark {
     .btt-slide--play .btt-tiles {
         position: absolute;
         left: 0; right: 0;
-        top: calc(50svh - var(--btt-hdr) + min(16px, 1.6vw));
+        top: calc(50svh - var(--btt-hdr) - 34px);   /* tile alla stessa altezza del nucleo */
         transform: translateY(-50%);
         width: 100%;
         margin: 0;
@@ -194,23 +196,24 @@ body[data-lesson="battito"] .brand--wordmark {
         --u: calc(100vw / 84);
         position: absolute;
         left: 0; right: 0;
-        top: calc(50svh - var(--btt-hdr) + min(16px, 1.6vw) + (100vw / 12) + 1.6rem);
-        flex-direction: row;
-        align-items: flex-start;
-        gap: calc(2 * var(--u));
+        top: calc(50svh - var(--btt-hdr) - 34px + (100vw / 12) + 2.2rem);
+        flex-direction: column;
+        align-items: stretch;
+        gap: clamp(1.1rem, 2.6vh, 2rem);
         padding: 0;
         text-align: left;
     }
     /* descrizione attività nella colonna del corpo testo del nucleo (28u) */
     .btt-slide--play .btt-activity {
-        flex: 0 0 calc(28 * var(--u));
         margin-left: calc(28 * var(--u));
+        width: calc(28 * var(--u));
         font-size: calc(.85 * var(--u));
         text-align: left;
     }
+    /* bottoni centrati */
     .btt-slide--play .btt-controls {
-        flex: 1;
-        align-items: flex-start;
+        align-self: center;
+        align-items: center;
     }
 }
 
