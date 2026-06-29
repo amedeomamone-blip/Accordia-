@@ -259,11 +259,12 @@ body[data-lesson="battito"] .brand--wordmark {
     text-align: center;
 }
 
-/* gli 8 tile: stessa estetica della striscia di scelta lezione —
-   attaccati, da margine a margine, quadrati, numero piccolo in basso a destra */
+/* i 4 tile: dimensione del nucleo, separati e distribuiti uniformemente
+   in orizzontale nella slide */
 .btt-tiles {
     display: flex;
-    justify-content: center;          /* tile centrati nella pagina */
+    justify-content: space-evenly;    /* spaziatura uniforme tra i tile e ai bordi */
+    align-items: center;
     gap: 0;
 }
 .btt-tile {
