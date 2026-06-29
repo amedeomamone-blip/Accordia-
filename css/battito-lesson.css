@@ -143,35 +143,41 @@ body[data-lesson="battito"] .brand--wordmark {
     text-align: center;
 }
 
-/* Desktop ≥601px: posizione di eyebrow + titolo IDENTICA alla lezione
-   "Introduzione al Barocco" (screen 1): eyebrow come colonna 28u, titolo 3vw,
-   header ancorato 2u sopra la striscia centrata a metà schermo. */
+/* Desktop ≥601px: eyebrow + titolo in asse con la scelta lezioni;
+   gap minimo sopra la fascia tile per rendere l'allineamento percepibile. */
 @media (min-width: 601px) {
-    .btt-slide--play { display: block; padding: 0; }
-
-    .btt-slide--play .btt-head {
+    .btt-slide {
         --u: calc(100vw / 84);
+        padding: 0;
+    }
+
+    .btt-slide--play { display: block; }
+
+    .btt-slide .btt-head {
+        --btt-head-gap: clamp(.2rem, .45vw, .55rem);
         position: absolute;
         left: 0; right: 0;
-        /* stessa fascia della pagina scelta lezioni: titolo 2u sopra i tile */
-        bottom: calc(50svh + (100vw / 12) - min(16px, 1.6vw) + (2 * var(--u)));
+        bottom: calc(50svh + (100vw / 12) - min(16px, 1.6vw) + var(--btt-head-gap));
         display: flex;
         flex-direction: row;
         align-items: flex-start;
         gap: 0;
         z-index: 2;
     }
-    .btt-slide--play .btt-eyebrow {
+
+    .btt-slide .btt-eyebrow {
         flex: 0 0 calc(28 * var(--u));
         padding: calc(1.1 * var(--u));
         padding-left: calc(14 * var(--u));
         font-size: clamp(.7rem, calc(.65 * var(--u)), .85rem);
     }
-    .btt-slide--play .btt-title-wrap {
+
+    .btt-slide .btt-title-wrap {
         flex: 1;
         padding: calc(1.1 * var(--u)) calc(1.1 * var(--u)) calc(.7 * var(--u)) 0;
     }
-    .btt-slide--play .btt-title {
+
+    .btt-slide .btt-title {
         font-size: clamp(1.4rem, 3vw, 3.2rem);
     }
 
