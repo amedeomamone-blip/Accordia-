@@ -269,6 +269,8 @@ body[data-lesson="battito"] .brand--wordmark {
     justify-content: space-evenly;    /* spaziatura uniforme tra i tile e ai bordi */
     align-items: center;
     gap: 0;
+    background: #f5f5f5;               /* fascia chiara che lega i tile (impaginazione classica) */
+    padding: clamp(.45rem, 1vw, .9rem) 0;
 }
 .btt-tile {
     position: relative;
