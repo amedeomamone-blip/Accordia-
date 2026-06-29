@@ -194,33 +194,37 @@ body[data-lesson="battito"] .brand--wordmark {
     .btt-slide--play .btt-foot {
         --u: calc(100vw / 84);
         position: absolute;
-        left: clamp(2rem, 3.2vw, 3.2rem);
-        right: clamp(2rem, 3.2vw, 3.2rem);
+        left: 0;
+        right: 0;
         top: calc(50svh - var(--btt-hdr) - 34px + (100vw / 12));
-        width: auto;
+        width: 100%;
         margin-left: 0;
-        padding: calc(2 * var(--u)) 0 0;
+        padding: 0;
         flex-direction: column;
         align-items: flex-start;
         gap: clamp(1rem, 2.4vh, 1.8rem);
         text-align: left;
     }
 
-    /* descrizione attività con respiro ampio, come nella pagina scelta lezioni */
+    /* descrizione attività: stessi valori tipografici e stessa colonna della scelta lezioni */
     .btt-slide--play .btt-activity {
-        margin: 0;
-        width: min(82vw, 58rem);
+        margin: 0 0 0 calc(28 * var(--u));
+        width: calc(28 * var(--u));
         max-width: none;
-        font-size: clamp(1.05rem, 1.55vw, 1.42rem);
-        line-height: 1.72;
+        padding: calc(2 * var(--u)) 0 0;
+        font-size: calc(.85 * var(--u));
+        font-weight: 400;
+        line-height: 1.85;
+        color: rgba(17, 17, 17, .52);
         text-align: left;
     }
 
     /* bottoni centrati */
     .btt-slide--play .btt-controls {
-        align-self: center;
+        align-self: flex-start;
         align-items: center;
-        width: 100%;
+        width: calc(28 * var(--u));
+        margin-left: calc(28 * var(--u));
     }
 }
 
