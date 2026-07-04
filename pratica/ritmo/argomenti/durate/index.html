@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Durate: lungo e breve. Le figure musicali sul pentagramma: ascoltarle, riconoscerle, scrivere una battuta.">
+    <title>Durate · Lungo e breve | Ritmo | Amedeo</title>
+    <link rel="stylesheet" href="../../../../css/style.css?v=1782800000">
+    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1800400000">
+    <link rel="stylesheet" href="../../../../css/corpo-lesson.css?v=1800400000">
+    <link rel="stylesheet" href="../../../../css/ritmo-lesson-extra.css?v=1800600000">
+</head>
+<body data-nav="home" data-current-nucleus="ritmo" data-lesson="durate">
+
+    <header class="site-header" id="site-header">
+        <div class="shell site-header__inner">
+            <a class="brand brand--wordmark" href="../../../../index.html">amedeo</a>
+            <nav class="site-nav" aria-label="Navigazione principale">
+                <div class="site-nav__dropdown">
+                    <button class="site-nav__trigger" type="button" data-nav-link="timeline" aria-haspopup="true" aria-expanded="false">
+                        <span>Nuclei</span>
+                        <span class="site-nav__caret" aria-hidden="true"></span>
+                    </button>
+                    <div class="site-nav__menu" aria-label="Elenco dei nuclei">
+                        <a href="../../../../nuclei/medioevo/index.html">01 Il Medioevo</a><a href="../../../../nuclei/rinascimento/index.html">02 Il Rinascimento</a><a href="../../../../nuclei/barocco/index.html">03 Il Barocco</a><a href="../../../../nuclei/settecento-classicismo/index.html">04 Settecento e Classicismo</a><a href="../../../../nuclei/ottocento/index.html">05 L&#x27;Ottocento</a><a href="../../../../nuclei/novecento/index.html">06 Il Novecento</a>
+                    </div>
+                </div>
+                <a href="../../../../compiti/index.html" data-nav-link="compiti">Compiti di realtà</a>
+                <a href="../../../../docente/index.html" data-nav-link="docenti">Docenti</a>
+                <a href="../../../../pages/risorse.html" data-nav-link="strumenti">Strumenti</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="bintro-stage" id="bintro-stage">
+
+        <!-- ── progress dots (fixed) ─────────────────────────── -->
+        <nav class="bintro-progress" aria-label="Navigazione schermate">
+            <button class="bintro-progress__dot is-active" aria-label="Schermata 1: Suoni lunghi, suoni brevi"></button>
+            <button class="bintro-progress__dot" aria-label="Schermata 2: Quanto dura questa nota?"></button>
+            <button class="bintro-progress__dot" aria-label="Schermata 3: Scrivi la battuta sul pentagramma"></button>
+        </nav>
+
+        <!-- ── 3 × 100svh scroll space + pinned viewport ─────── -->
+        <div class="bintro-scroll" id="bintro-scroll">
+            <div class="bintro-pin" id="bintro-pin">
+                <div class="bintro-screens" id="bintro-screens">
+
+                    <!-- ══════════════════════════════════════════
+                         SCREEN 1
+                         ══════════════════════════════════════════ -->
+                    <section class="bintro-screen" data-screen="1" aria-label="Schermata 1">
+
+                        <div class="barocco-header">
+                            <span class="barocco-intro__eyebrow">Attivit&agrave; 01 &middot; Scoprire</span>
+                            <div class="barocco-intro__title-wrap">
+                                <h2 class="barocco-intro__title">Suoni lunghi,<br>suoni brevi</h2>
+                                <span class="barocco-ticker__overlay">
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--1"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--2"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--3"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--4"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="btl crp" id="dur-1">
+                            <div class="btl__track"><div class="btl__row" aria-label="Le quattro figure: tocca per ascoltare">
+                                    <button class="btl__tile rl-staff-tile" type="button" data-val="semibreve" aria-label="Semibreve &middot; 4 tempi"><span class="crp__name">Semibreve &middot; 4 tempi</span></button>
+                                    <button class="btl__tile rl-staff-tile" type="button" data-val="minima" aria-label="Minima &middot; 2 tempi"><span class="crp__name">Minima &middot; 2 tempi</span></button>
+                                    <button class="btl__tile rl-staff-tile" type="button" data-val="semiminima" aria-label="Semiminima &middot; 1 tempo"><span class="crp__name">Semiminima &middot; 1 tempo</span></button>
+                                    <button class="btl__tile rl-staff-tile" type="button" data-val="crome" aria-label="Due crome &middot; &frac12;+&frac12;"><span class="crp__name">Due crome &middot; &frac12;+&frac12;</span></button>
+                            </div></div>
+                            <div class="btl__controls">
+                                <p class="btl__score">Ogni figura vive sopra lo stesso battito: 4 click, poi la nota</p>
+                            </div>
+                            <p class="btl__note">Le note non dicono solo <em>quale</em> suono, ma <strong>quanto dura</strong>. Tocca una figura: senti quattro battiti e poi la nota che li riempie. La <strong>semibreve</strong> dura 4 tempi, la <strong>minima</strong> 2, la <strong>semiminima</strong> 1, le <strong>crome</strong> mezzo tempo ciascuna.</p>
+                        </div>
+
+                    </section>
+
+                    <!-- ══════════════════════════════════════════
+                         SCREEN 2
+                         ══════════════════════════════════════════ -->
+                    <section class="bintro-screen" data-screen="2" aria-label="Schermata 2">
+
+                        <div class="barocco-header">
+                            <span class="barocco-intro__eyebrow">Attivit&agrave; 02 &middot; Riconoscere</span>
+                            <div class="barocco-intro__title-wrap">
+                                <h2 class="barocco-intro__title">Quanto dura<br>questa nota?</h2>
+                                <span class="barocco-ticker__overlay">
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--1"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--2"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--3"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--4"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="btl btl--static" id="dur-2">
+                            <div class="btl__track"><div class="rl-opts" id="dur2-opts" role="group" aria-label="Quanto dura la nota?">
+                                    <button class="rl-opt" type="button" data-val="semibreve"><div class="rl-opt__staff"></div><span>Semibreve &middot; 4 tempi</span></button>
+                                    <button class="rl-opt" type="button" data-val="minima"><div class="rl-opt__staff"></div><span>Minima &middot; 2 tempi</span></button>
+                                    <button class="rl-opt" type="button" data-val="semiminima"><div class="rl-opt__staff"></div><span>Semiminima &middot; 1 tempo</span></button>
+                                    <button class="rl-opt" type="button" data-val="crome"><div class="rl-opt__staff"></div><span>Due crome &middot; &frac12;+&frac12;</span></button>
+                            </div></div>
+                            <div class="btl__controls">
+                                <button class="btt-play" id="dur2-play" type="button" aria-label="Ascolta la nota">&#9654;</button>
+                                <p class="btl__phase" id="dur2-phase" data-live="0" aria-live="polite">Pronti?</p>
+                                <button class="btt-chip" id="dur2-new" type="button">Nuova nota</button>
+                                <p class="btl__score" id="dur2-score" aria-live="polite">Giro 1 &middot; Punti classe 0</p>
+                            </div>
+                            <p class="btl__note">Quattro click di preparazione, poi una nota misteriosa sopra altri quattro battiti. <strong>Contate quanto dura</strong> e toccate la figura giusta sul pentagramma.</p>
+                        </div>
+
+                    </section>
+
+                    <!-- ══════════════════════════════════════════
+                         SCREEN 3
+                         ══════════════════════════════════════════ -->
+                    <section class="bintro-screen" data-screen="3" aria-label="Schermata 3">
+
+                        <div class="barocco-header">
+                            <span class="barocco-intro__eyebrow">Attivit&agrave; 03 &middot; Scrivere</span>
+                            <div class="barocco-intro__title-wrap">
+                                <h2 class="barocco-intro__title">Scrivi la battuta<br>sul pentagramma</h2>
+                                <span class="barocco-ticker__overlay">
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--1"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--2"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--3"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--4"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="btl" id="dur-3">
+                            <div class="btl__track"><div class="btl__row" aria-label="Una battuta di quattro tempi: tocca per cambiare figura">
+                                    <button class="btl__tile rl-staff-tile" type="button" data-fig="semiminima" aria-label="Tempo 1"><span class="btl__num">01</span></button>
+                                    <button class="btl__tile rl-staff-tile" type="button" data-fig="semiminima" aria-label="Tempo 2"><span class="btl__num">02</span></button>
+                                    <button class="btl__tile rl-staff-tile" type="button" data-fig="semiminima" aria-label="Tempo 3"><span class="btl__num">03</span></button>
+                                    <button class="btl__tile rl-staff-tile" type="button" data-fig="semiminima" aria-label="Tempo 4"><span class="btl__num">04</span></button>
+                            </div></div>
+                            <div class="btl__controls">
+                                <button class="btt-play" id="dur3-play" type="button" aria-label="Suona la battuta">&#9654;</button>
+                                <div class="btt-chiprow" role="group" aria-label="Battute pronte">
+                                    <button class="btt-chip" type="button" data-preset="marcia">Marcia</button>
+                                    <button class="btt-chip" type="button" data-preset="galoppo">Galoppo</button>
+                                    <button class="btt-chip" type="button" data-preset="vuota">Svuota</button>
+                                </div>
+                            </div>
+                            <p class="btl__note">Questa &egrave; una <strong>battuta di 4/4</strong> scritta sul pentagramma. Tocca ogni tempo per scegliere: <strong>semiminima</strong> (un suono), <strong>due crome</strong> (due suoni veloci) o <strong>pausa</strong> (silenzio). Poi suonala e leggetela insieme: <em>ta</em> per la semiminima, <em>ti-ti</em> per le crome.</p>
+                        </div>
+
+                    </section>
+
+                </div><!-- /.bintro-screens -->
+            </div><!-- /.bintro-pin -->
+        </div><!-- /.bintro-scroll -->
+
+    </main>
+
+    <script src="../../../../js/main.js?v=1782800000"></script>
+
+    <!-- GSAP + ScrollTrigger + Lenis from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
+    <script src="../../../../js/ritmo-lesson-core.js?v=1800600000"></script>
+    <script src="../../../../js/durate-lesson.js?v=1800600000"></script>
+
+</body>
+</html>
