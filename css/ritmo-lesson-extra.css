@@ -1,0 +1,247 @@
+/* ================================================================
+   Ritmo — integrazioni condivise per le lezioni Accenti, Durate,
+   Incastri e Creazione. Si somma a battito-lesson.css (base) e
+   corpo-lesson.css (tile-gesto). Tema verde-salvia.
+   ================================================================ */
+
+/* ── wordmark per tutte le lezioni del modulo ───────────────────── */
+body[data-lesson="accenti"] .brand--wordmark,
+body[data-lesson="durate"] .brand--wordmark,
+body[data-lesson="incastri"] .brand--wordmark,
+body[data-lesson="creazione"] .brand--wordmark {
+    font-family:     var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:       1.45rem;
+    font-weight:     800;
+    letter-spacing:  0;
+    line-height:     1;
+    color:           #18191b;
+    text-transform:  none;
+    text-decoration: none;
+}
+
+/* ================================================================
+   Tile-interruttore (step on/off) — Accenti S3, Incastri
+   off: faccia grigia, simbolo appena visibile
+   on:  faccia ink, simbolo bianco — leggibile da fondo aula
+   ================================================================ */
+.rl-step .crp__sym  { color: rgba(17, 17, 17, .16); }
+.rl-step .crp__name { color: rgba(17, 17, 17, .18); }
+
+.rl-step.is-on { animation: none; background: #111111; }
+.rl-step.is-on .crp__sym  { color: #ffffff; }
+.rl-step.is-on .crp__name { color: rgba(255, 255, 255, .55); }
+
+.rl-step.is-live { background: var(--accent, #9DAE6E); }
+.rl-step.is-live .crp__sym  { color: #ffffff; }
+.rl-step.is-live .crp__name { color: #ffffff; }
+
+.rl-step.is-on .btl__num   { color: rgba(255, 255, 255, .55); }
+.rl-step.is-live .btl__num { color: #ffffff; }
+
+/* ── righe multiple dentro la striscia (2 o 3 voci) ─────────────── */
+.rl-rows {
+    display:        flex;
+    flex-direction: column;
+    width:          max-content;
+}
+.rl-rows .btl__row { width: max-content; }
+
+/* 2 voci: tile a mezza altezza */
+.rl-rows--2 .btl__tile { height: calc(5.25 * var(--u)); }
+.rl-rows--2 .crp__sym  { font-size: calc(1.4 * var(--u)); }
+.rl-rows--2 .crp__name { bottom: calc(.35 * var(--u)); left: calc(.55 * var(--u)); font-size: calc(.48 * var(--u)); }
+
+/* 3 voci: tile a un terzo */
+.rl-rows--3 .btl__tile { height: calc(3.5 * var(--u)); }
+.rl-rows--3 .crp__sym  { font-size: calc(1.1 * var(--u)); }
+.rl-rows--3 .crp__name { bottom: calc(.25 * var(--u)); left: calc(.45 * var(--u)); font-size: calc(.42 * var(--u)); }
+
+/* ================================================================
+   Tile-risposta (gioco a scelta) — grandi target LIM
+   ================================================================ */
+.rl-opts {
+    display: flex;
+    width:   max-content;
+    gap:     calc(1 * var(--u));
+}
+
+.rl-opt {
+    position:        relative;
+    display:         flex;
+    flex-direction:  column;
+    align-items:     center;
+    justify-content: center;
+    width:           calc(10.5 * var(--u));
+    height:          calc(10.5 * var(--u));
+    padding:         calc(.9 * var(--u));
+    border:          none;
+    border-radius:   0;
+    background:      var(--tile-gray, #e2e2e2);
+    font-family:     inherit;
+    cursor:          pointer;
+    animation:       btl-blink 12s ease-in-out infinite;
+    animation-delay: var(--blink-delay, 0s);
+    transition:      background .16s ease;
+}
+.rl-opt:nth-child(1) { --blink-delay: .6s;  --tile-gray: #dcdcdc; }
+.rl-opt:nth-child(2) { --blink-delay: 3.6s; --tile-gray: #e0e0e0; }
+.rl-opt:nth-child(3) { --blink-delay: 6.6s; --tile-gray: #e4e4e4; }
+.rl-opt:nth-child(4) { --blink-delay: 9.6s; --tile-gray: #e8e8e8; }
+
+.rl-opt:hover { animation: none; background: #d8d8d8; }
+
+.rl-opt strong {
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      calc(2.6 * var(--u));
+    font-weight:    800;
+    letter-spacing: -.04em;
+    line-height:    1;
+    color:          #111111;
+    transition:     color .16s ease;
+}
+
+.rl-opt span {
+    position:   absolute;
+    left:       calc(.75 * var(--u));
+    bottom:     calc(.6 * var(--u));
+    right:      calc(.75 * var(--u));
+    font-size:  calc(.55 * var(--u));
+    font-weight: 600;
+    line-height: 1.3;
+    text-align: left;
+    color:      rgba(17, 17, 17, .45);
+    transition: color .16s ease;
+}
+
+.rl-opt .rl-opt__staff { transition: opacity .16s ease; }
+
+.rl-opt.is-correct {
+    animation:      none;
+    background:     var(--hit, #22c55e);
+    pointer-events: none;
+}
+.rl-opt.is-correct strong,
+.rl-opt.is-correct span { color: #ffffff; }
+.rl-opt.is-correct .rl-opt__staff { filter: invert(1); }
+
+.rl-opt.is-wrong {
+    animation:      none;
+    background:     var(--miss, #ef4444);
+    pointer-events: none;
+}
+.rl-opt.is-wrong strong,
+.rl-opt.is-wrong span { color: #ffffff; }
+.rl-opt.is-wrong .rl-opt__staff { filter: invert(1); }
+
+.rl-opts.is-locked .rl-opt { pointer-events: none; }
+
+.rl-feedback {
+    margin:      0;
+    min-height:  1.4em;
+    font-size:   clamp(.82rem, 1vw, .95rem);
+    font-weight: 500;
+    color:       rgba(17, 17, 17, .56);
+}
+.rl-feedback.is-good { color: #15803d; }
+.rl-feedback.is-bad  { color: #dc2626; }
+
+/* ================================================================
+   Pentagramma — righi e note in SVG dentro i tile
+   Le linee attraversano tile adiacenti senza interruzioni.
+   ================================================================ */
+.rl-staff-tile { padding: 0; }
+
+.rl-staff {
+    position: absolute;
+    inset:    0;
+    width:    100%;
+    height:   100%;
+    display:  block;
+    pointer-events: none;
+}
+
+.rl-staff line { stroke: rgba(17, 17, 17, .35); stroke-width: 1; }
+.rl-staff .rl-note { fill: #111111; }
+.rl-staff .rl-note--stroke { fill: none; stroke: #111111; stroke-width: 2.6; }
+.rl-staff .rl-rest { fill: none; stroke: rgba(17, 17, 17, .55); stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+
+.btl__tile.is-live .rl-staff line { stroke: rgba(255, 255, 255, .5); }
+.btl__tile.is-live .rl-staff .rl-note { fill: #ffffff; }
+.btl__tile.is-live .rl-staff .rl-note--stroke { stroke: #ffffff; }
+.btl__tile.is-live .rl-staff .rl-rest { stroke: rgba(255, 255, 255, .8); }
+
+/* striscia-partitura live (Creazione S3): rigo bianco sotto i tile */
+.rl-score {
+    position:        absolute;
+    left:            0;
+    right:           0;
+    display:         flex;
+    justify-content: center;
+    pointer-events:  none;
+}
+
+/* schermata con partitura: unità più piccola per far entrare tutto,
+   blocco alzato, rigo attaccato sotto i tile, controlli e nota giù */
+.btl--score {
+    --u: min(calc(100vw / 84), calc(100svh / 44));
+}
+.btl--score .btl__track {
+    top: calc(50svh - 8.5 * var(--u) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw));
+}
+.btl--score .rl-score {
+    top: calc(50svh + 2 * var(--u) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw));
+}
+.btl--score .rl-score .rl-score__cell { height: calc(5 * var(--u)); }
+.btl--score .btl__controls {
+    top: calc(50svh + 8.2 * var(--u) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw));
+}
+.btl--score .btl__note {
+    top: calc(50svh + 11.8 * var(--u) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw));
+}
+.bintro-screen:has(.btl--score) .barocco-header {
+    --u:    min(calc(100vw / 84), calc(100svh / 44));
+    bottom: calc(50svh + 10.5 * var(--u) - min(16px, 1.6vw));
+}
+
+.rl-score__row {
+    display:    flex;
+    width:      max-content;
+    background: #ffffff;
+    box-shadow: inset 0 0 0 1px #e8e8e8;
+}
+
+.rl-score__cell {
+    display:  block;
+    position: relative;
+    width:    var(--tile);
+    height:   calc(5.5 * var(--u));
+}
+.rl-score__cell .rl-staff line { stroke: rgba(17, 17, 17, .28); }
+.rl-score__cell.is-live .rl-staff .rl-note        { fill: var(--accent, #9DAE6E); }
+.rl-score__cell.is-live .rl-staff .rl-rest        { stroke: var(--accent, #9DAE6E); }
+
+/* ── etichetta di fase / punteggio già in battito-lesson.css ── */
+
+@media (max-width: 760px) {
+    .rl-rows { width: 100%; }
+    .rl-rows .btl__row {
+        display:               grid;
+        grid-template-columns: repeat(8, 1fr);
+        width:                 100%;
+        gap:                   1vw;
+    }
+    .rl-rows--2 .btl__tile,
+    .rl-rows--3 .btl__tile { height: auto; aspect-ratio: 1; }
+    .rl-rows--2 .crp__sym  { font-size: clamp(.8rem, 4.5vw, 1.2rem); }
+    .rl-rows--3 .crp__sym  { font-size: clamp(.7rem, 4vw, 1rem); }
+    .rl-rows .crp__name    { display: none; }
+
+    .rl-opts { width: 100%; gap: 2.5vw; padding: 0 1rem; }
+    .rl-opt  { flex: 1 1 0; width: auto; height: auto; aspect-ratio: 1; padding: 2.5vw; }
+    .rl-opt strong { font-size: clamp(1.5rem, 8vw, 2.4rem); }
+    .rl-opt span   { font-size: clamp(.5rem, 2.4vw, .62rem); }
+
+    .rl-score { position: relative; }
+    .rl-score__row { width: 100%; display: grid; grid-template-columns: repeat(8, 1fr); }
+    .rl-score__cell { width: auto; height: 12vw; }
+}
