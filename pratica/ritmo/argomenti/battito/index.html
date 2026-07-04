@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Battito: pulsazione e tempo. Lezione interattiva per la LIM in quattro slide.">
+    <meta name="description" content="Battito: pulsazione e tempo. Lezione interattiva per la LIM in tre schermate: sincronizzarsi, interiorizzare, restare insieme.">
     <title>Battito · Pulsazione e tempo | Ritmo | Amedeo</title>
     <link rel="stylesheet" href="../../../../css/style.css?v=1782800000">
-    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1784700000">
+    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1800400000">
 </head>
 <body data-nav="home" data-current-nucleus="ritmo" data-lesson="battito">
+
     <header class="site-header" id="site-header">
         <div class="shell site-header__inner">
             <a class="brand brand--wordmark" href="../../../../index.html">amedeo</a>
@@ -29,258 +30,172 @@
         </div>
     </header>
 
-    <nav class="btt-progress" aria-label="Navigazione slide">
-        <button class="btt-pdot is-active" type="button" data-go="0" aria-label="Slide 1: Dentro o fuori?"></button>
-        <button class="btt-pdot" type="button" data-go="1" aria-label="Slide 2: Il battito nel tempo"></button>
-        <button class="btt-pdot" type="button" data-go="2" aria-label="Slide 3: Tieni il battito"></button>
-        <button class="btt-pdot" type="button" data-go="3" aria-label="Slide 4: La classe come metronomo"></button>
-    </nav>
+    <main class="bintro-stage" id="bintro-stage">
 
-    <main class="btt-deck" id="btt-deck">
+        <!-- ── progress dots (fixed) ─────────────────────────── -->
+        <nav class="bintro-progress" aria-label="Navigazione schermate">
+            <button class="bintro-progress__dot is-active" aria-label="Schermata 1: Dentro o fuori dal battito"></button>
+            <button class="bintro-progress__dot" aria-label="Schermata 2: Tieni il battito"></button>
+            <button class="bintro-progress__dot" aria-label="Schermata 3: La classe come metronomo"></button>
+        </nav>
 
-        <!-- ── SLIDE 1 · Dentro o fuori? ─────────────────────────── -->
-        <section class="btt-slide btt-slide--play" data-slide="0" aria-label="Slide 1: Dentro o fuori?">
-            <div class="btt-head">
-                <span class="btt-eyebrow">Attività</span>
-                <div class="btt-title-wrap">
-                    <h2 class="btt-title">Dentro o fuori<br>dal battito?</h2>
-                    <span class="btt-blobs" aria-hidden="true">
-                        <span class="btt-blob btt-blob--1"></span>
-                        <span class="btt-blob btt-blob--2"></span>
-                        <span class="btt-blob btt-blob--3"></span>
-                        <span class="btt-blob btt-blob--4"></span>
-                    </span>
-                </div>
-            </div>
+        <!-- ── 3 × 100svh scroll space + pinned viewport ─────── -->
+        <div class="bintro-scroll" id="bintro-scroll">
+            <div class="bintro-pin" id="bintro-pin">
+                <div class="bintro-screens" id="bintro-screens">
 
-            <div class="btt-tiles" id="btt-tiles" aria-label="Quattro battiti: tocca il tile quando si accende">
-                <button class="btt-tile" type="button" aria-label="Battito 1"><span class="btt-tile__num">1</span></button>
-                <button class="btt-tile" type="button" aria-label="Battito 2"><span class="btt-tile__num">2</span></button>
-                <button class="btt-tile" type="button" aria-label="Battito 3"><span class="btt-tile__num">3</span></button>
-                <button class="btt-tile" type="button" aria-label="Battito 4"><span class="btt-tile__num">4</span></button>
-            </div>
+                    <!-- ══════════════════════════════════════════
+                         SCREEN 1 · Dentro o fuori dal battito?
+                         ══════════════════════════════════════════ -->
+                    <section class="bintro-screen" data-screen="1" aria-label="Schermata 1: Dentro o fuori dal battito">
 
-            <div class="btt-foot">
-                <p class="btt-activity">I quattro tile si accendono uno alla volta seguendo il battito. Tocca ogni tile <strong>esattamente quando si illumina</strong>: se arrivi nel punto giusto resta verde, se anticipi o ritardi diventa rosso. Scegli una velocità e prova a restare dentro la pulsazione, tutti insieme.</p>
-                <div class="btt-controls">
-                    <div class="btt-tempo" role="group" aria-label="Velocità">
-                        <button class="btt-tempo-btn" type="button" data-bpm="lento">Lento</button>
-                        <button class="btt-tempo-btn is-active" type="button" data-bpm="andante">Andante</button>
-                        <button class="btt-tempo-btn" type="button" data-bpm="allegro">Allegro</button>
-                    </div>
-                    <button class="btt-play" type="button" id="btt-play">Avvia</button>
-                </div>
-            </div>
-        </section>
+                        <div class="barocco-header">
+                            <span class="barocco-intro__eyebrow">Attivit&agrave; 01 &middot; Sincronizzarsi</span>
+                            <div class="barocco-intro__title-wrap">
+                                <h2 class="barocco-intro__title">Dentro o fuori<br>dal battito?</h2>
+                                <span class="barocco-ticker__overlay">
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--1"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--2"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--3"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--4"></span>
+                                </span>
+                            </div>
+                        </div>
 
-        <!-- ── SLIDE 2 · Il battito nel tempo ────────────────────── -->
-        <section class="btt-slide" data-slide="1" aria-label="Slide 2: Il battito nel tempo">
-            <div class="btt-head">
-                <span class="btt-eyebrow">Ogni spazio vale un battito</span>
-                <div class="btt-title-wrap">
-                    <h2 class="btt-title">Il battito nel tempo</h2>
-                    <span class="btt-blobs" aria-hidden="true">
-                        <span class="btt-blob btt-blob--1"></span>
-                        <span class="btt-blob btt-blob--2"></span>
-                        <span class="btt-blob btt-blob--3"></span>
-                        <span class="btt-blob btt-blob--4"></span>
-                    </span>
-                </div>
-            </div>
-            <div class="btt-body">
-                <div class="btt-grid4" role="img" aria-label="Quattro battiti">
-                    <div class="btt-cell"><span class="btt-cell-n">1</span><span class="btt-cell-dot"></span></div>
-                    <div class="btt-cell"><span class="btt-cell-n">2</span><span class="btt-cell-dot"></span></div>
-                    <div class="btt-cell"><span class="btt-cell-n">3</span><span class="btt-cell-dot"></span></div>
-                    <div class="btt-cell"><span class="btt-cell-n">4</span><span class="btt-cell-dot"></span></div>
-                </div>
-                <p class="btt-phrase">Il battito è regolare: torna sempre al momento giusto.</p>
-                <div class="btt-chips">
-                    <button class="btt-chip" type="button">Conta</button>
-                    <button class="btt-chip" type="button">Batti</button>
-                    <button class="btt-chip" type="button">Senza voce</button>
-                </div>
-                <p class="btt-note">La classe conta 1&nbsp;-&nbsp;2&nbsp;-&nbsp;3&nbsp;-&nbsp;4, poi batte seguendo la griglia, infine mantiene il battito senza contare.</p>
-            </div>
-        </section>
+                        <div class="btl" id="btl-1">
+                            <div class="btl__track">
+                                <div class="btl__row" aria-label="Otto battiti: tocca il tile quando si accende">
+                                    <button class="btl__tile" type="button" aria-label="Battito 1"><span class="btl__num">01</span></button>
+                                    <button class="btl__tile" type="button" aria-label="Battito 2"><span class="btl__num">02</span></button>
+                                    <button class="btl__tile" type="button" aria-label="Battito 3"><span class="btl__num">03</span></button>
+                                    <button class="btl__tile" type="button" aria-label="Battito 4"><span class="btl__num">04</span></button>
+                                    <button class="btl__tile" type="button" aria-label="Battito 5"><span class="btl__num">05</span></button>
+                                    <button class="btl__tile" type="button" aria-label="Battito 6"><span class="btl__num">06</span></button>
+                                    <button class="btl__tile" type="button" aria-label="Battito 7"><span class="btl__num">07</span></button>
+                                    <button class="btl__tile" type="button" aria-label="Battito 8"><span class="btl__num">08</span></button>
+                                </div>
+                            </div>
+                            <div class="btl__controls">
+                                <button class="btt-play" id="btl1-play" type="button" aria-label="Avvia il battito">&#9654;</button>
+                                <div class="btt-chiprow" role="group" aria-label="Scegli il tempo">
+                                    <button class="btt-chip" type="button" data-bpm="60">Lento &middot; 60</button>
+                                    <button class="btt-chip is-active" type="button" data-bpm="92">Andante &middot; 92</button>
+                                    <button class="btt-chip" type="button" data-bpm="132">Allegro &middot; 132</button>
+                                </div>
+                                <p class="btl__score" id="btl1-score" aria-live="polite">A segno <b>0</b> &middot; Fuori <b>0</b></p>
+                            </div>
+                            <p class="btl__note">I tile si accendono uno alla volta seguendo il battito. Tocca il tile <strong>esattamente quando si illumina</strong>: verde se sei a tempo, rosso se anticipi o ritardi. La <strong>pulsazione</strong> &egrave; il battito regolare; il <strong>tempo</strong> &egrave; la sua velocit&agrave;.</p>
+                        </div>
 
-        <!-- ── SLIDE 3 · Tieni il battito ────────────────────────── -->
-        <section class="btt-slide" data-slide="2" aria-label="Slide 3: Tieni il battito">
-            <div class="btt-head">
-                <span class="btt-eyebrow">Continua anche quando non lo vedi</span>
-                <div class="btt-title-wrap">
-                    <h2 class="btt-title">Tieni il battito</h2>
-                    <span class="btt-blobs" aria-hidden="true">
-                        <span class="btt-blob btt-blob--1"></span>
-                        <span class="btt-blob btt-blob--2"></span>
-                        <span class="btt-blob btt-blob--3"></span>
-                        <span class="btt-blob btt-blob--4"></span>
-                    </span>
-                </div>
-            </div>
-            <div class="btt-body">
-                <div class="btt-beats" role="img" aria-label="Otto battiti, alcuni senza aiuto visivo">
-                    <div class="btt-beat"><span class="btt-beat-n">1</span><span class="btt-beat-dot"></span></div>
-                    <div class="btt-beat"><span class="btt-beat-n">2</span><span class="btt-beat-dot"></span></div>
-                    <div class="btt-beat"><span class="btt-beat-n">3</span><span class="btt-beat-dot"></span></div>
-                    <div class="btt-beat"><span class="btt-beat-n">4</span><span class="btt-beat-dot"></span></div>
-                    <div class="btt-beat is-ghost"><span class="btt-beat-n">5</span><span class="btt-beat-dot"></span></div>
-                    <div class="btt-beat"><span class="btt-beat-n">6</span><span class="btt-beat-dot"></span></div>
-                    <div class="btt-beat is-ghost"><span class="btt-beat-n">7</span><span class="btt-beat-dot"></span></div>
-                    <div class="btt-beat is-ghost"><span class="btt-beat-n">8</span><span class="btt-beat-dot"></span></div>
-                </div>
-                <p class="btt-phrase">Il battito non scompare: lo devi tenere dentro.</p>
-                <div class="btt-chips">
-                    <button class="btt-chip" type="button">Tutti</button>
-                    <button class="btt-chip" type="button">Meno aiuto</button>
-                    <button class="btt-chip" type="button">Senza aiuto</button>
-                </div>
-                <p class="btt-note">La classe batte tutti gli 8 battiti anche quando alcuni riferimenti visivi non compaiono: i vuoti non sono silenzi, tolgono solo l&rsquo;aiuto.</p>
-            </div>
-        </section>
+                    </section>
 
-        <!-- ── SLIDE 4 · La classe come metronomo ────────────────── -->
-        <section class="btt-slide" data-slide="3" aria-label="Slide 4: La classe come metronomo">
-            <div class="btt-head">
-                <span class="btt-eyebrow">Restare insieme nel tempo</span>
-                <div class="btt-title-wrap">
-                    <h2 class="btt-title">La classe come metronomo</h2>
-                    <span class="btt-blobs" aria-hidden="true">
-                        <span class="btt-blob btt-blob--1"></span>
-                        <span class="btt-blob btt-blob--2"></span>
-                        <span class="btt-blob btt-blob--3"></span>
-                        <span class="btt-blob btt-blob--4"></span>
-                    </span>
-                </div>
-            </div>
-            <div class="btt-body">
-                <div class="btt-levels">
-                    <div class="btt-level"><span class="btt-level-n">1</span><strong>Guida visiva</strong><span>La LIM mostra tutti i battiti.</span></div>
-                    <div class="btt-level"><span class="btt-level-n">2</span><strong>Guida parziale</strong><span>La LIM mostra solo alcuni battiti.</span></div>
-                    <div class="btt-level"><span class="btt-level-n">3</span><strong>Solo classe</strong><span>La LIM non mostra nulla: il gruppo continua da solo.</span></div>
-                </div>
-                <p class="btt-phrase">Quando tutti tengono lo stesso battito, nasce il gruppo.</p>
-                <div class="btt-ask">Siamo rimasti insieme?</div>
-                <div class="btt-chips">
-                    <button class="btt-chip" type="button">Sì</button>
-                    <button class="btt-chip" type="button">Quasi</button>
-                    <button class="btt-chip" type="button">No</button>
-                </div>
-                <p class="btt-seq">Sincronizzarsi · Visualizzare · Interiorizzare · Mantenere in gruppo</p>
-            </div>
-        </section>
+                    <!-- ══════════════════════════════════════════
+                         SCREEN 2 · Tieni il battito
+                         ══════════════════════════════════════════ -->
+                    <section class="bintro-screen" data-screen="2" aria-label="Schermata 2: Tieni il battito">
+
+                        <div class="barocco-header">
+                            <span class="barocco-intro__eyebrow">Attivit&agrave; 02 &middot; Interiorizzare</span>
+                            <div class="barocco-intro__title-wrap">
+                                <h2 class="barocco-intro__title">Tieni il battito<br>anche quando sparisce</h2>
+                                <span class="barocco-ticker__overlay">
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--1"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--2"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--3"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--4"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="btl btl--static" id="btl-2">
+                            <div class="btl__track">
+                                <div class="btl__row" role="img" aria-label="Otto battiti, alcuni senza aiuto visivo">
+                                    <span class="btl__tile"><span class="btl__num">01</span></span>
+                                    <span class="btl__tile"><span class="btl__num">02</span></span>
+                                    <span class="btl__tile"><span class="btl__num">03</span></span>
+                                    <span class="btl__tile"><span class="btl__num">04</span></span>
+                                    <span class="btl__tile"><span class="btl__num">05</span></span>
+                                    <span class="btl__tile"><span class="btl__num">06</span></span>
+                                    <span class="btl__tile"><span class="btl__num">07</span></span>
+                                    <span class="btl__tile"><span class="btl__num">08</span></span>
+                                </div>
+                            </div>
+                            <div class="btl__controls">
+                                <button class="btt-play" id="btl2-play" type="button" aria-label="Avvia il battito">&#9654;</button>
+                                <div class="btt-chiprow" role="group" aria-label="Quanto aiuto vi serve?">
+                                    <button class="btt-chip is-active" type="button" data-level="tutti">Tutti gli aiuti</button>
+                                    <button class="btt-chip" type="button" data-level="meno">Meno aiuto</button>
+                                    <button class="btt-chip" type="button" data-level="quasi">Quasi da soli</button>
+                                </div>
+                            </div>
+                            <p class="btl__note">I tile spenti non sono silenzi: <strong>il battito continua</strong>, semplicemente la LIM non lo mostra. La classe conta 1-2-3-4, poi batte le mani anche dove la LIM tace. Riduci gli aiuti finch&eacute; il battito vive solo dentro il gruppo.</p>
+                        </div>
+
+                    </section>
+
+                    <!-- ══════════════════════════════════════════
+                         SCREEN 3 · La classe come metronomo
+                         ══════════════════════════════════════════ -->
+                    <section class="bintro-screen" data-screen="3" aria-label="Schermata 3: La classe come metronomo">
+
+                        <div class="barocco-header">
+                            <span class="barocco-intro__eyebrow">Attivit&agrave; 03 &middot; Restare insieme</span>
+                            <div class="barocco-intro__title-wrap">
+                                <h2 class="barocco-intro__title">La classe<br>come metronomo</h2>
+                                <span class="barocco-ticker__overlay">
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--1"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--2"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--3"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--4"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="btl btl--static" id="btl-3">
+                            <div class="btl__track">
+                                <div class="btl__row" role="img" aria-label="Otto battiti della sfida">
+                                    <span class="btl__tile"><span class="btl__num">01</span></span>
+                                    <span class="btl__tile"><span class="btl__num">02</span></span>
+                                    <span class="btl__tile"><span class="btl__num">03</span></span>
+                                    <span class="btl__tile"><span class="btl__num">04</span></span>
+                                    <span class="btl__tile"><span class="btl__num">05</span></span>
+                                    <span class="btl__tile"><span class="btl__num">06</span></span>
+                                    <span class="btl__tile"><span class="btl__num">07</span></span>
+                                    <span class="btl__tile"><span class="btl__num">08</span></span>
+                                </div>
+                            </div>
+                            <div class="btl__controls">
+                                <button class="btt-play" id="btl3-play" type="button" aria-label="Avvia la sfida">&#9654;</button>
+                                <p class="btl__phase" id="btl3-phase" data-live="0" aria-live="polite">Pronti?</p>
+                            </div>
+                            <p class="btl__note" id="btl3-note">La sfida finale in quattro fasi: la LIM vi guida, poi toglie aiuti, poi <strong>tace del tutto</strong> mentre la classe continua a battere da sola. Quando il battito ritorna&hellip; siete ancora insieme?</p>
+                            <div class="btl__verdict" id="btl3-verdict" hidden>
+                                <p class="btl__verdict-q">Siamo rimasti insieme?</p>
+                                <div class="btt-chiprow" role="group" aria-label="Come &egrave; andata?">
+                                    <button class="btt-chip" type="button" data-verdict="si">S&igrave;</button>
+                                    <button class="btt-chip" type="button" data-verdict="quasi">Quasi</button>
+                                    <button class="btt-chip" type="button" data-verdict="no">No</button>
+                                </div>
+                                <p class="btl__verdict-feedback" id="btl3-feedback" aria-live="polite"></p>
+                            </div>
+                        </div>
+
+                    </section>
+
+                </div><!-- /.bintro-screens -->
+            </div><!-- /.bintro-pin -->
+        </div><!-- /.bintro-scroll -->
 
     </main>
 
     <script src="../../../../js/main.js?v=1782800000"></script>
-    <script>
-        (function () {
-            var header = document.getElementById('site-header');
-            var deck   = document.getElementById('btt-deck');
-            var dots   = Array.prototype.slice.call(document.querySelectorAll('.btt-pdot'));
-            var slides = Array.prototype.slice.call(document.querySelectorAll('.btt-slide'));
-            if (!deck || !slides.length) return;
 
-            function syncHeader() {
-                if (header) deck.style.setProperty('--btt-hdr', header.offsetHeight + 'px');
-            }
-            syncHeader();
-            window.addEventListener('resize', syncHeader);
-            window.addEventListener('load', syncHeader);
+    <!-- GSAP + ScrollTrigger + Lenis from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
 
-            // Pallino attivo in base alla slide visibile.
-            if ('IntersectionObserver' in window) {
-                var obs = new IntersectionObserver(function (entries) {
-                    entries.forEach(function (e) {
-                        if (e.isIntersecting) {
-                            var i = slides.indexOf(e.target);
-                            dots.forEach(function (d, k) { d.classList.toggle('is-active', k === i); });
-                        }
-                    });
-                }, { root: deck, threshold: 0.55 });
-                slides.forEach(function (s) { obs.observe(s); });
-            }
+    <script src="../../../../js/battito-lesson.js?v=1800400000"></script>
 
-            // Click sui pallini → vai alla slide.
-            dots.forEach(function (d) {
-                d.addEventListener('click', function () {
-                    var i = parseInt(d.getAttribute('data-go'), 10) || 0;
-                    if (slides[i]) slides[i].scrollIntoView({ behavior: 'smooth', block: 'start' });
-                });
-            });
-        })();
-
-        /* ── Slide 1: gioco "a tempo" — i tile si accendono in sequenza al BPM
-              scelto; click in sincrono con l'accensione = verde, fuori tempo = rosso. */
-        (function battitoGame() {
-            var wrap  = document.getElementById('btt-tiles');
-            var play  = document.getElementById('btt-play');
-            if (!wrap) return;
-            var tiles = Array.prototype.slice.call(wrap.querySelectorAll('.btt-tile'));
-            var n     = tiles.length;
-
-            var TEMPI = { lento: 60, andante: 92, allegro: 132 };
-            var bpm       = TEMPI.andante;
-            var beatMs    = 60000 / bpm;
-            var active    = -1;
-            var beatStart = 0;
-            var timer     = null;
-            var playing   = false;
-
-            function clearMark(t) { t.classList.remove('is-hit', 'is-miss'); }
-
-            function tick() {
-                // a ogni battito azzero tutto: nessun tile resta acceso/colorato
-                // oltre il suo tempo (verde/rosso spariscono al battito successivo)
-                tiles.forEach(function (t) { t.classList.remove('is-lit', 'is-hit', 'is-miss'); });
-                active = (active + 1) % n;
-                tiles[active].classList.add('is-lit');
-                beatStart = performance.now();
-            }
-
-            function start() {
-                stop();
-                beatMs  = 60000 / bpm;
-                playing = true;
-                active  = -1;
-                tick();
-                timer = window.setInterval(tick, beatMs);
-                if (play) play.textContent = 'Pausa';
-            }
-            function stop() {
-                playing = false;
-                if (timer) { window.clearInterval(timer); timer = null; }
-                if (active >= 0) tiles[active].classList.remove('is-lit');
-                active = -1;
-                if (play) play.textContent = 'Avvia';
-            }
-
-            tiles.forEach(function (tile, i) {
-                tile.addEventListener('click', function () {
-                    if (!playing) return;          // si valuta solo mentre scorre il battito
-                    clearMark(tile);
-                    // Tile acceso quando lo clicco → verde (resta). Tile spento → rosso.
-                    tile.classList.add(i === active ? 'is-hit' : 'is-miss');
-                });
-            });
-
-            document.querySelectorAll('[data-bpm]').forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    var key = btn.getAttribute('data-bpm');
-                    if (!TEMPI[key]) return;
-                    bpm = TEMPI[key];
-                    document.querySelectorAll('[data-bpm]').forEach(function (b) {
-                        b.classList.toggle('is-active', b === btn);
-                    });
-                    if (playing) start();      // riparte al nuovo tempo
-                    else beatMs = 60000 / bpm;
-                });
-            });
-
-            if (play) play.addEventListener('click', function () { playing ? stop() : start(); });
-
-            start();   // i tile si accendono subito all'apertura della slide
-        })();
-    </script>
 </body>
 </html>
