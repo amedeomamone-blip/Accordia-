@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Corpo: body percussion. Lezione interattiva per la LIM in tre schermate: scoprire i timbri del corpo, rispondere all'eco, comporre una frase.">
+    <title>Corpo · Body percussion | Ritmo | Amedeo</title>
+    <link rel="stylesheet" href="../../../../css/style.css?v=1782800000">
+    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1800400000">
+    <link rel="stylesheet" href="../../../../css/corpo-lesson.css?v=1800400000">
+</head>
+<body data-nav="home" data-current-nucleus="ritmo" data-lesson="corpo">
+
+    <header class="site-header" id="site-header">
+        <div class="shell site-header__inner">
+            <a class="brand brand--wordmark" href="../../../../index.html">amedeo</a>
+            <nav class="site-nav" aria-label="Navigazione principale">
+                <div class="site-nav__dropdown">
+                    <button class="site-nav__trigger" type="button" data-nav-link="timeline" aria-haspopup="true" aria-expanded="false">
+                        <span>Nuclei</span>
+                        <span class="site-nav__caret" aria-hidden="true"></span>
+                    </button>
+                    <div class="site-nav__menu" aria-label="Elenco dei nuclei">
+                        <a href="../../../../nuclei/medioevo/index.html">01 Il Medioevo</a><a href="../../../../nuclei/rinascimento/index.html">02 Il Rinascimento</a><a href="../../../../nuclei/barocco/index.html">03 Il Barocco</a><a href="../../../../nuclei/settecento-classicismo/index.html">04 Settecento e Classicismo</a><a href="../../../../nuclei/ottocento/index.html">05 L&#x27;Ottocento</a><a href="../../../../nuclei/novecento/index.html">06 Il Novecento</a>
+                    </div>
+                </div>
+                <a href="../../../../compiti/index.html" data-nav-link="compiti">Compiti di realtà</a>
+                <a href="../../../../docente/index.html" data-nav-link="docenti">Docenti</a>
+                <a href="../../../../pages/risorse.html" data-nav-link="strumenti">Strumenti</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="bintro-stage" id="bintro-stage">
+
+        <!-- ── progress dots (fixed) ─────────────────────────── -->
+        <nav class="bintro-progress" aria-label="Navigazione schermate">
+            <button class="bintro-progress__dot is-active" aria-label="Schermata 1: Quattro strumenti, un corpo"></button>
+            <button class="bintro-progress__dot" aria-label="Schermata 2: Eco, ascolta e rispondi"></button>
+            <button class="bintro-progress__dot" aria-label="Schermata 3: Componi la frase del corpo"></button>
+        </nav>
+
+        <!-- ── 3 × 100svh scroll space + pinned viewport ─────── -->
+        <div class="bintro-scroll" id="bintro-scroll">
+            <div class="bintro-pin" id="bintro-pin">
+                <div class="bintro-screens" id="bintro-screens">
+
+                    <!-- ══════════════════════════════════════════
+                         SCREEN 1 · Quattro strumenti, un corpo
+                         ══════════════════════════════════════════ -->
+                    <section class="bintro-screen" data-screen="1" aria-label="Schermata 1: Quattro strumenti, un corpo">
+
+                        <div class="barocco-header">
+                            <span class="barocco-intro__eyebrow">Attivit&agrave; 01 &middot; Scoprire</span>
+                            <div class="barocco-intro__title-wrap">
+                                <h2 class="barocco-intro__title">Quattro strumenti,<br>un corpo</h2>
+                                <span class="barocco-ticker__overlay">
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--1"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--2"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--3"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--4"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="btl crp" id="crp-1">
+                            <div class="btl__track">
+                                <div class="btl__row" aria-label="Quattro gesti del corpo: tocca per ascoltare">
+                                    <button class="btl__tile" type="button" data-g="mani" aria-label="Mani: battito di mani"><strong class="crp__sym">&#9679;</strong><span class="crp__name">Mani</span></button>
+                                    <button class="btl__tile" type="button" data-g="piedi" aria-label="Piedi: colpo di piede"><strong class="crp__sym">&#9650;</strong><span class="crp__name">Piedi</span></button>
+                                    <button class="btl__tile" type="button" data-g="cosce" aria-label="Cosce: mani sulle cosce"><strong class="crp__sym">&#9632;</strong><span class="crp__name">Cosce</span></button>
+                                    <button class="btl__tile" type="button" data-g="schiocco" aria-label="Schiocco di dita"><strong class="crp__sym">&#10022;</strong><span class="crp__name">Schiocco</span></button>
+                                </div>
+                            </div>
+                            <div class="btl__controls">
+                                <p class="btl__score">&#9679; mani &middot; &#9650; piedi &middot; &#9632; cosce &middot; &#10022; schiocco</p>
+                            </div>
+                            <p class="btl__note">Il corpo &egrave; il primo strumento musicale. <strong>Tocca ogni tile</strong> per ascoltare il suo timbro, poi prova il gesto vero: batti le mani, il piede, le cosce, schiocca le dita. Ogni gesto ha un suono diverso: <strong>grave</strong> (piedi), <strong>medio</strong> (cosce), <strong>chiaro</strong> (mani), <strong>acuto</strong> (schiocco).</p>
+                        </div>
+
+                    </section>
+
+                    <!-- ══════════════════════════════════════════
+                         SCREEN 2 · Eco: ascolta e rispondi
+                         ══════════════════════════════════════════ -->
+                    <section class="bintro-screen" data-screen="2" aria-label="Schermata 2: Eco, ascolta e rispondi">
+
+                        <div class="barocco-header">
+                            <span class="barocco-intro__eyebrow">Attivit&agrave; 02 &middot; Rispondere</span>
+                            <div class="barocco-intro__title-wrap">
+                                <h2 class="barocco-intro__title">Eco: ascolta<br>e rispondi col corpo</h2>
+                                <span class="barocco-ticker__overlay">
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--1"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--2"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--3"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--4"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="btl btl--static crp" id="crp-2">
+                            <div class="btl__track">
+                                <div class="btl__row" role="img" aria-label="La frase di otto gesti da ripetere">
+                                    <span class="btl__tile" data-g="mani"><strong class="crp__sym">&#9679;</strong><span class="crp__name">Mani</span></span>
+                                    <span class="btl__tile" data-g="mani"><strong class="crp__sym">&#9679;</strong><span class="crp__name">Mani</span></span>
+                                    <span class="btl__tile" data-g="mani"><strong class="crp__sym">&#9679;</strong><span class="crp__name">Mani</span></span>
+                                    <span class="btl__tile" data-g="mani"><strong class="crp__sym">&#9679;</strong><span class="crp__name">Mani</span></span>
+                                    <span class="btl__tile" data-g="mani"><strong class="crp__sym">&#9679;</strong><span class="crp__name">Mani</span></span>
+                                    <span class="btl__tile" data-g="mani"><strong class="crp__sym">&#9679;</strong><span class="crp__name">Mani</span></span>
+                                    <span class="btl__tile" data-g="mani"><strong class="crp__sym">&#9679;</strong><span class="crp__name">Mani</span></span>
+                                    <span class="btl__tile" data-g="mani"><strong class="crp__sym">&#9679;</strong><span class="crp__name">Mani</span></span>
+                                </div>
+                            </div>
+                            <div class="btl__controls">
+                                <button class="btt-play" id="crp2-play" type="button" aria-label="Avvia l&rsquo;eco">&#9654;</button>
+                                <p class="btl__phase" id="crp2-phase" data-live="0" aria-live="polite">Pronti?</p>
+                                <div class="btt-chiprow" role="group" aria-label="Difficolt&agrave;">
+                                    <button class="btt-chip is-active" type="button" data-pool="2">2 gesti</button>
+                                    <button class="btt-chip" type="button" data-pool="3">3 gesti</button>
+                                    <button class="btt-chip" type="button" data-pool="4">4 gesti</button>
+                                </div>
+                                <button class="btt-chip" id="crp2-new" type="button">Nuova frase</button>
+                            </div>
+                            <p class="btl__note">La LIM suona la frase di otto gesti (<strong>Ascoltate&hellip;</strong>), poi tiene solo il click (<strong>Tocca a voi!</strong>): la classe risponde eseguendo la frase con il corpo. L&rsquo;eco continua finch&eacute; non la fermi. Alza la difficolt&agrave; quando l&rsquo;eco torna precisa.</p>
+                        </div>
+
+                    </section>
+
+                    <!-- ══════════════════════════════════════════
+                         SCREEN 3 · Componi la frase del corpo
+                         ══════════════════════════════════════════ -->
+                    <section class="bintro-screen" data-screen="3" aria-label="Schermata 3: Componi la frase del corpo">
+
+                        <div class="barocco-header">
+                            <span class="barocco-intro__eyebrow">Attivit&agrave; 03 &middot; Creare</span>
+                            <div class="barocco-intro__title-wrap">
+                                <h2 class="barocco-intro__title">Componi la frase<br>del corpo</h2>
+                                <span class="barocco-ticker__overlay">
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--1"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--2"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--3"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--4"></span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="btl crp" id="crp-3">
+                            <div class="btl__track">
+                                <div class="btl__row" aria-label="Otto tempi: tocca un tile per cambiare gesto">
+                                    <button class="btl__tile" type="button" data-g="cosce" aria-label="Tempo 1"><strong class="crp__sym">&#9632;</strong><span class="crp__name">Cosce</span></button>
+                                    <button class="btl__tile" type="button" data-g="cosce" aria-label="Tempo 2"><strong class="crp__sym">&#9632;</strong><span class="crp__name">Cosce</span></button>
+                                    <button class="btl__tile" type="button" data-g="mani" aria-label="Tempo 3"><strong class="crp__sym">&#9679;</strong><span class="crp__name">Mani</span></button>
+                                    <button class="btl__tile" type="button" data-g="pausa" aria-label="Tempo 4"><strong class="crp__sym">&#9675;</strong><span class="crp__name">Pausa</span></button>
+                                    <button class="btl__tile" type="button" data-g="cosce" aria-label="Tempo 5"><strong class="crp__sym">&#9632;</strong><span class="crp__name">Cosce</span></button>
+                                    <button class="btl__tile" type="button" data-g="cosce" aria-label="Tempo 6"><strong class="crp__sym">&#9632;</strong><span class="crp__name">Cosce</span></button>
+                                    <button class="btl__tile" type="button" data-g="mani" aria-label="Tempo 7"><strong class="crp__sym">&#9679;</strong><span class="crp__name">Mani</span></button>
+                                    <button class="btl__tile" type="button" data-g="pausa" aria-label="Tempo 8"><strong class="crp__sym">&#9675;</strong><span class="crp__name">Pausa</span></button>
+                                </div>
+                            </div>
+                            <div class="btl__controls">
+                                <button class="btt-play" id="crp3-play" type="button" aria-label="Suona la frase">&#9654;</button>
+                                <div class="btt-chiprow" role="group" aria-label="Frasi pronte">
+                                    <button class="btt-chip" type="button" data-preset="rock">Rock</button>
+                                    <button class="btt-chip" type="button" data-preset="marcia">Marcia</button>
+                                    <button class="btt-chip" type="button" data-preset="vuota">Svuota</button>
+                                </div>
+                            </div>
+                            <p class="btl__note">Tocca un tile per cambiare gesto: &#9679; mani &middot; &#9650; piedi &middot; &#9632; cosce &middot; &#10022; schiocco &middot; &#9675; pausa. Componete la frase alla LIM, poi <strong>eseguitela tutti insieme</strong> con il corpo. Sfida: met&agrave; classe tiene il battito con i piedi, met&agrave; esegue la frase.</p>
+                        </div>
+
+                    </section>
+
+                </div><!-- /.bintro-screens -->
+            </div><!-- /.bintro-pin -->
+        </div><!-- /.bintro-scroll -->
+
+    </main>
+
+    <script src="../../../../js/main.js?v=1782800000"></script>
+
+    <!-- GSAP + ScrollTrigger + Lenis from CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
+
+    <script src="../../../../js/corpo-lesson.js?v=1800400000"></script>
+
+</body>
+</html>

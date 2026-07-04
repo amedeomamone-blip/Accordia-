@@ -1,0 +1,80 @@
+/* ================================================================
+   Corpo · Body percussion — integrazioni alla base battito-lesson.css
+   Stessa architettura (3 schermate pinnate, tile, tema verde-salvia);
+   qui solo le specificità dei tile-gesto e dell'eco ritmica.
+   ================================================================ */
+
+/* ── wordmark: stessa dimensione della landing page ─────────────── */
+body[data-lesson="corpo"] .brand--wordmark {
+    font-family:     var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:       1.45rem;
+    font-weight:     800;
+    letter-spacing:  0;
+    line-height:     1;
+    color:           #18191b;
+    text-transform:  none;
+    text-decoration: none;
+}
+
+/* ── tile-gesto: simbolo centrato + nome del gesto nel tile ─────── */
+.crp .btl__tile {
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+}
+
+.crp__sym {
+    font-size:   calc(2 * var(--u));
+    font-weight: 400;
+    line-height: 1;
+    color:       #111111;
+    transition:  color .1s ease;
+    pointer-events: none;
+}
+
+.crp__name {
+    position:       absolute;
+    left:           calc(.75 * var(--u));
+    bottom:         calc(.65 * var(--u));
+    font-size:      calc(.55 * var(--u));
+    font-weight:    700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color:          rgba(17, 17, 17, .35);
+    transition:     color .1s ease;
+    pointer-events: none;
+}
+
+.btl__tile.is-live .crp__sym,
+.btl__tile.is-live .crp__name { color: #ffffff; }
+
+/* pausa nel sequencer: faccia bianca, simbolo tenue */
+.btl__tile[data-g="pausa"] {
+    animation:  none;
+    background: #fafafa;
+    box-shadow: inset 0 0 0 1px #e8e8e8;
+}
+.btl__tile[data-g="pausa"] .crp__sym  { color: rgba(17, 17, 17, .28); }
+.btl__tile[data-g="pausa"] .crp__name { color: rgba(17, 17, 17, .18); }
+
+/* pausa attiva durante la riproduzione: bordo acceso, niente pieno */
+.btl__tile[data-g="pausa"].is-live {
+    background: #fafafa;
+    box-shadow: inset 0 0 0 2px var(--accent, #9DAE6E);
+}
+.btl__tile[data-g="pausa"].is-live .crp__sym  { color: var(--accent, #9DAE6E); }
+.btl__tile[data-g="pausa"].is-live .crp__name { color: var(--accent, #9DAE6E); }
+
+/* ── fase "tocca a voi": la luce passa ma il tile non suona ─────── */
+.btl__tile.is-echo {
+    animation:  none;
+    background: #f5f5f5;
+    box-shadow: inset 0 0 0 2px var(--accent, #9DAE6E);
+}
+.btl__tile.is-echo .crp__sym  { color: var(--accent, #9DAE6E); }
+.btl__tile.is-echo .crp__name { color: var(--accent, #9DAE6E); }
+
+@media (max-width: 760px) {
+    .crp__sym  { font-size: clamp(1.2rem, 7vw, 1.9rem); }
+    .crp__name { left: 10%; bottom: 8%; font-size: clamp(.44rem, 2.2vw, .58rem); }
+}
