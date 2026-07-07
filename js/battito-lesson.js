@@ -202,8 +202,8 @@
 
         var LEVELS = {
             tutti:  [],
-            meno:   [3, 5],
-            quasi:  [1, 2, 3, 4, 5]
+            meno:   [1, 3],
+            quasi:  [1, 2, 3]
         };
         var ghosts = LEVELS.tutti;
 
@@ -270,8 +270,8 @@
 
         var PHASES = [
             { label: 'La LIM vi guida',                ghosts: [] },
-            { label: 'Meno aiuti',                     ghosts: [3, 5] },
-            { label: 'Da soli!',                       ghosts: [0, 1, 2, 3, 4, 5] },
+            { label: 'Meno aiuti',                     ghosts: [1, 3] },
+            { label: 'Da soli!',                       ghosts: [0, 1, 2, 3] },
             { label: 'Il battito ritorna: ci siete?',  ghosts: [] }
         ];
         var FEEDBACK = {
@@ -293,8 +293,12 @@
             answers.forEach(function (a) { a.classList.remove('is-active'); });
         }
 
+        var REPEATS  = 2;   /* ogni fase ripete la battuta due volte */
+        var phaseLen = 0;   /* impostato a runtime: tiles.length * REPEATS */
+
         var pulse = makePulse(function (idx, when) {
-            var phaseIdx = Math.floor(idx / tiles.length);
+            phaseLen = tiles.length * REPEATS;
+            var phaseIdx = Math.floor(idx / phaseLen);
             if (phaseIdx >= PHASES.length) {
                 atAudioTime(when, function () { stop(); showVerdict(); });
                 pulse.stop();
@@ -306,7 +310,7 @@
             if (!ghost) click(when, i === 0);
             atAudioTime(when, function () {
                 if (!pulse.isRunning()) return;
-                if (i === 0) {
+                if (idx % phaseLen === 0) {
                     paintGhosts(phase.ghosts);
                     phaseEl.textContent = phase.label;
                     phaseEl.setAttribute('data-live', '1');
