@@ -506,31 +506,55 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 /* ================================================================
-   BATTITO — tile a 14u, stessa dimensione della scelta lezioni:
-   6 tile full-bleed (6 × 14u = 84u), geometria identica all'hub.
-   Scopato a body[data-lesson="battito"] per non toccare le altre
-   lezioni che condividono questa base.
+   BATTITO — tile a 14u come la scelta lezioni, otto battiti in due
+   file da quattro (due battute di 4/4), tile leggermente staccati,
+   nessun corpo di testo. Scopato a body[data-lesson="battito"].
    ================================================================ */
 body[data-lesson="battito"] .btl {
+    --u:    min(calc(100vw / 84), calc(100svh / 54));
     --tile: calc(14 * var(--u));
+    --gap:  calc(.35 * var(--u));
+}
+
+body[data-lesson="battito"] .btl__row {
+    display:               grid;
+    grid-template-columns: repeat(4, var(--tile));
+    gap:                   var(--gap);
+    width:                 max-content;
 }
 
 @media (min-width: 761px) {
+    /* mezzo blocco = (2 tile + gap) / 2 = 14.2u circa */
+    body[data-lesson="battito"] .btl__track {
+        top: calc(50svh - 14.2 * var(--u) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw));
+    }
+    body[data-lesson="battito"] .btl__controls {
+        top: calc(50svh + 14.2 * var(--u) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw) + 1.4 * var(--u));
+    }
+    body[data-lesson="battito"] .btl__verdict {
+        top: calc(50svh + 14.2 * var(--u) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw) + 5 * var(--u));
+    }
     body[data-lesson="battito"] .bintro-screen .barocco-header {
-        bottom: calc(50svh + 7 * var(--u) - min(16px, 1.6vw) + 2 * var(--u));
+        --u:    min(calc(100vw / 84), calc(100svh / 54));
+        bottom: calc(50svh + 14.2 * var(--u) - min(16px, 1.6vw) + 1.6 * var(--u));
     }
 }
 
-/* nota più compatta: lo spazio va ai tile */
-body[data-lesson="battito"] .btl__note {
-    max-width: 74ch;
-    font-size: clamp(.74rem, .9vw, .88rem);
-    line-height: 1.55;
+/* schermi bassi: titolo compatto, non deve toccare l'header del sito */
+@media (min-width: 761px) and (max-height: 800px) {
+    body[data-lesson="battito"] .bintro-screen .barocco-intro__title {
+        font-size: clamp(1rem, 3.2svh, 2.1rem);
+    }
+    body[data-lesson="battito"] .bintro-screen .barocco-intro__eyebrow {
+        font-size: clamp(.58rem, 1.6svh, .78rem);
+    }
 }
 
 @media (max-width: 760px) {
-    /* 4 battiti → griglia 2 × 2, proporzioni da hub mobile */
+    /* otto battiti → griglia 4 × 2 anche su mobile */
     body[data-lesson="battito"] .btl__row {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(4, 1fr);
+        gap:   1.5vw;
+        width: 100%;
     }
 }
