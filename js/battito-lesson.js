@@ -202,8 +202,8 @@
 
         var LEVELS = {
             tutti:  [],
-            meno:   [1, 3],
-            quasi:  [1, 2, 3]
+            meno:   [5, 7],
+            quasi:  [1, 2, 3, 5, 6, 7]
         };
         var ghosts = LEVELS.tutti;
 
@@ -216,7 +216,7 @@
         var pulse = makePulse(function (idx, when) {
             var i     = idx % tiles.length;
             var ghost = ghosts.indexOf(i) !== -1;
-            if (!ghost) click(when, i === 0);
+            if (!ghost) click(when, i % 4 === 0);
             atAudioTime(when, function () {
                 if (!pulse.isRunning()) return;
                 tiles.forEach(function (t, j) {
@@ -263,15 +263,15 @@
         var tiles    = Array.prototype.slice.call(root.querySelectorAll('.btl__tile'));
         var playBtn  = document.getElementById('btl3-play');
         var phaseEl  = document.getElementById('btl3-phase');
-        var note     = document.getElementById('btl3-note');
+        var note     = document.getElementById('btl3-note');   /* può non esserci */
         var verdict  = document.getElementById('btl3-verdict');
         var answers  = Array.prototype.slice.call(root.querySelectorAll('.btt-chip[data-verdict]'));
         var feedback = document.getElementById('btl3-feedback');
 
         var PHASES = [
             { label: 'La LIM vi guida',                ghosts: [] },
-            { label: 'Meno aiuti',                     ghosts: [1, 3] },
-            { label: 'Da soli!',                       ghosts: [0, 1, 2, 3] },
+            { label: 'Meno aiuti',                     ghosts: [1, 3, 5, 7] },
+            { label: 'Da soli!',                       ghosts: [0, 1, 2, 3, 4, 5, 6, 7] },
             { label: 'Il battito ritorna: ci siete?',  ghosts: [] }
         ];
         var FEEDBACK = {
@@ -287,13 +287,13 @@
         }
 
         function showVerdict() {
-            note.hidden    = true;
+            if (note) note.hidden = true;
             verdict.hidden = false;
             feedback.textContent = '';
             answers.forEach(function (a) { a.classList.remove('is-active'); });
         }
 
-        var REPEATS  = 2;   /* ogni fase ripete la battuta due volte */
+        var REPEATS  = 1;   /* la griglia copre già due battute */
         var phaseLen = 0;   /* impostato a runtime: tiles.length * REPEATS */
 
         var pulse = makePulse(function (idx, when) {
@@ -307,7 +307,7 @@
             var phase = PHASES[phaseIdx];
             var i     = idx % tiles.length;
             var ghost = phase.ghosts.indexOf(i) !== -1;
-            if (!ghost) click(when, i === 0);
+            if (!ghost) click(when, i % 4 === 0);
             atAudioTime(when, function () {
                 if (!pulse.isRunning()) return;
                 if (idx % phaseLen === 0) {
@@ -338,7 +338,7 @@
                 return;
             }
             stopAll();
-            note.hidden    = false;
+            if (note) note.hidden = false;
             verdict.hidden = true;
             paintGhosts([]);
             root.classList.add('is-playing');
