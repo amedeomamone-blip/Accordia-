@@ -202,8 +202,8 @@
 
         var LEVELS = {
             tutti:  [],
-            meno:   [4, 6, 7],
-            quasi:  [1, 2, 3, 4, 5, 6, 7]
+            meno:   [3, 5],
+            quasi:  [1, 2, 3, 4, 5]
         };
         var ghosts = LEVELS.tutti;
 
@@ -270,8 +270,8 @@
 
         var PHASES = [
             { label: 'La LIM vi guida',                ghosts: [] },
-            { label: 'Meno aiuti',                     ghosts: [4, 6, 7] },
-            { label: 'Da soli!',                       ghosts: [0, 1, 2, 3, 4, 5, 6, 7] },
+            { label: 'Meno aiuti',                     ghosts: [3, 5] },
+            { label: 'Da soli!',                       ghosts: [0, 1, 2, 3, 4, 5] },
             { label: 'Il battito ritorna: ci siete?',  ghosts: [] }
         ];
         var FEEDBACK = {

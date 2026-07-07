@@ -504,3 +504,34 @@ body[data-lesson="battito"] .brand--wordmark {
     .btl__note     { position: relative; top: auto; left: auto; transform: none; }
     .btl__verdict  { position: relative; top: auto; left: auto; transform: none; }
 }
+
+/* ================================================================
+   BATTITO — tile a 14u, stessa dimensione della scelta lezioni:
+   6 tile full-bleed (6 × 14u = 84u), geometria identica all'hub.
+   Scopato a body[data-lesson="battito"] per non toccare le altre
+   lezioni che condividono questa base.
+   ================================================================ */
+body[data-lesson="battito"] .btl {
+    --tile: calc(14 * var(--u));
+}
+
+@media (min-width: 761px) {
+    body[data-lesson="battito"] .bintro-screen .barocco-header {
+        bottom: calc(50svh + 7 * var(--u) - min(16px, 1.6vw) + 2 * var(--u));
+    }
+}
+
+/* nota più compatta: lo spazio va ai tile */
+body[data-lesson="battito"] .btl__note {
+    max-width: 74ch;
+    font-size: clamp(.74rem, .9vw, .88rem);
+    line-height: 1.55;
+}
+
+@media (max-width: 760px) {
+    /* 6 battiti → griglia 3 × 2 (i tile grandi dell'hub mobile
+       non entrano in una schermata pinnata) */
+    body[data-lesson="battito"] .btl__row {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
