@@ -529,9 +529,8 @@ body[data-lesson="battito"] .btl__note {
 }
 
 @media (max-width: 760px) {
-    /* 6 battiti → griglia 3 × 2 (i tile grandi dell'hub mobile
-       non entrano in una schermata pinnata) */
+    /* 4 battiti → griglia 2 × 2, proporzioni da hub mobile */
     body[data-lesson="battito"] .btl__row {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
     }
 }
