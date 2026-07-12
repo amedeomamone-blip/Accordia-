@@ -202,8 +202,8 @@
 
         var LEVELS = {
             tutti:  [],
-            meno:   [1, 3],
-            quasi:  [1, 2, 3]
+            meno:   [5, 7],
+            quasi:  [1, 2, 3, 5, 6, 7]
         };
         var ghosts = LEVELS.tutti;
 
@@ -270,8 +270,8 @@
 
         var PHASES = [
             { label: 'La LIM vi guida',                ghosts: [] },
-            { label: 'Meno aiuti',                     ghosts: [1, 3] },
-            { label: 'Da soli!',                       ghosts: [0, 1, 2, 3] },
+            { label: 'Meno aiuti',                     ghosts: [1, 3, 5, 7] },
+            { label: 'Da soli!',                       ghosts: [0, 1, 2, 3, 4, 5, 6, 7] },
             { label: 'Il battito ritorna: ci siete?',  ghosts: [] }
         ];
         var FEEDBACK = {
@@ -293,7 +293,7 @@
             answers.forEach(function (a) { a.classList.remove('is-active'); });
         }
 
-        var REPEATS  = 2;   /* ogni fase ripete la battuta due volte */
+        var REPEATS  = 1;   /* la griglia copre già due battute */
         var phaseLen = 0;   /* impostato a runtime: tiles.length * REPEATS */
 
         var pulse = makePulse(function (idx, when) {
