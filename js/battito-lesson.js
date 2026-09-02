@@ -115,13 +115,21 @@
         if (!root) return;
 
         var patterns = [
-            [['cosce'], ['cosce'], ['cosce'], ['cosce']],
-            [['mani'], ['mani'], ['mani'], ['mani']],
             [
+                ['cosce'], ['cosce'], ['cosce'], ['cosce'],
+                ['cosce'], ['cosce'], ['cosce'], ['cosce']
+            ],
+            [
+                ['mani'], ['mani'], ['mani'], ['mani'],
+                ['mani'], ['mani'], ['mani'], ['mani']
+            ],
+            [
+                ['cosce'], ['mani'], ['cosce'], ['mani'],
                 ['cosce'], ['mani'], ['cosce'], ['mani'],
                 ['cosce'], ['mani'], ['cosce'], ['mani']
             ],
             [
+                ['piedi'], ['cosce'], ['mani'], ['silenzio'],
                 ['piedi'], ['cosce'], ['mani'], ['silenzio'],
                 ['piedi'], ['cosce'], ['mani'], ['silenzio']
             ],
@@ -133,42 +141,115 @@
         ];
         var patternIndex = 0;
         var patternButtons = Array.prototype.slice.call(root.querySelectorAll('.brl__pattern'));
-        var grid = document.getElementById('brl-echo-grid');
+        var mainGrid = document.getElementById('brl-echo-grid');
+        var previewGrid = document.getElementById('brl-echo-preview-grid');
+        var preview = root.querySelector('.brl__preview');
         var playButton = document.getElementById('brl-echo-play');
         var status = document.getElementById('brl-echo-status');
-        var screen = root.closest('.bintro-screen');
 
-        function render() {
-            stopPlayback();
-            status.textContent = '';
-            grid.innerHTML = '';
+        function renderTiles(target, soundsList, startIndex) {
+            target.innerHTML = '';
 
-            var movementCount = patterns[patternIndex].length;
-            var rowCount = Math.ceil(movementCount / 4);
-            root.setAttribute('data-rows', String(rowCount));
-            grid.setAttribute('aria-label', 'Sequenza ritmica di ' + movementCount + ' movimenti');
-
-            if (screen) {
-                if (rowCount > 1) {
-                    screen.setAttribute('data-lenis-prevent-wheel', '');
-                    screen.setAttribute('data-lenis-prevent-touch', '');
-                } else {
-                    screen.removeAttribute('data-lenis-prevent-wheel');
-                    screen.removeAttribute('data-lenis-prevent-touch');
-                    screen.scrollTop = 0;
-                }
-            }
-
-            patterns[patternIndex].forEach(function (sounds, index) {
+            soundsList.forEach(function (sounds, index) {
                 var tile = document.createElement('div');
                 var label = document.createElement('span');
                 tile.className = 'brl__tile';
-                tile.setAttribute('aria-label', 'Movimento ' + (index + 1) + ': ' + sounds.join(', '));
+                tile.setAttribute('aria-label', 'Movimento ' + (startIndex + index + 1) + ': ' + sounds.join(', '));
                 label.className = 'brl__tile-label';
                 label.textContent = sounds.join(' · ');
                 tile.appendChild(label);
-                grid.appendChild(tile);
+                target.appendChild(tile);
             });
+        }
+
+        function renderChunk(chunkIndex) {
+            var sequence = patterns[patternIndex];
+            var currentStart = chunkIndex * 4;
+            var nextStart = currentStart + 4;
+            var currentSounds = sequence.slice(currentStart, currentStart + 4);
+            var nextSounds = sequence.slice(nextStart, nextStart + 4);
+
+            root.setAttribute('data-chunk', String(chunkIndex + 1));
+            mainGrid.setAttribute('aria-label', 'Frase in esecuzione, movimenti da ' + (currentStart + 1) + ' a ' + (currentStart + currentSounds.length));
+            previewGrid.setAttribute('aria-label', nextSounds.length ? 'Anteprima dei movimenti da ' + (nextStart + 1) + ' a ' + (nextStart + nextSounds.length) : 'Nessuna frase successiva');
+
+            renderTiles(mainGrid, currentSounds, currentStart);
+            renderTiles(previewGrid, nextSounds, nextStart);
+            preview.classList.toggle('is-blank', nextSounds.length === 0);
+            preview.setAttribute('aria-hidden', nextSounds.length ? 'false' : 'true');
+        }
+
+        function render() {
+            stopPlayback();
+            root.classList.remove('is-changing');
+            status.textContent = '';
+            renderChunk(0);
+        }
+
+        function playEchoSequence() {
+            stopPlayback();
+            getAudioContext();
+
+            var sequence = patterns[patternIndex];
+            var beatLength = 700;
+            var chunkCount = Math.ceil(sequence.length / 4);
+            var timers = [];
+            var stopped = false;
+
+            renderChunk(0);
+            playButton.disabled = true;
+            status.textContent = 'Ascolta';
+
+            function stop() {
+                if (stopped) return;
+                stopped = true;
+                timers.forEach(window.clearTimeout);
+                root.classList.remove('is-changing');
+                Array.prototype.slice.call(mainGrid.querySelectorAll('.brl__tile')).forEach(function (tile) {
+                    tile.classList.remove('is-live');
+                });
+                playButton.disabled = false;
+            }
+
+            currentPlaybackStop = stop;
+
+            for (var chunkIndex = 1; chunkIndex < chunkCount; chunkIndex += 1) {
+                (function (nextChunk) {
+                    var swapTime = nextChunk * 4 * beatLength;
+
+                    timers.push(window.setTimeout(function () {
+                        if (!stopped) root.classList.add('is-changing');
+                    }, swapTime - 340));
+
+                    timers.push(window.setTimeout(function () {
+                        if (!stopped) renderChunk(nextChunk);
+                    }, swapTime - 180));
+
+                    timers.push(window.setTimeout(function () {
+                        if (!stopped) root.classList.remove('is-changing');
+                    }, swapTime - 170));
+                })(chunkIndex);
+            }
+
+            sequence.forEach(function (sounds, index) {
+                timers.push(window.setTimeout(function () {
+                    if (stopped) return;
+
+                    Array.prototype.slice.call(mainGrid.querySelectorAll('.brl__tile')).forEach(function (tile, tileIndex) {
+                        tile.classList.toggle('is-live', tileIndex === index % 4);
+                    });
+
+                    sounds.forEach(function (sound, soundIndex) {
+                        playBodySound(sound, soundIndex * .2);
+                    });
+                }, index * beatLength));
+            });
+
+            timers.push(window.setTimeout(function () {
+                stop();
+                status.textContent = 'Ora rispondi';
+                currentPlaybackStop = null;
+            }, sequence.length * beatLength));
         }
 
         patternButtons.forEach(function (button) {
@@ -184,13 +265,7 @@
         });
 
         playButton.addEventListener('click', function () {
-            playSequence(
-                Array.prototype.slice.call(grid.querySelectorAll('.brl__tile')),
-                patterns[patternIndex],
-                playButton,
-                status,
-                'Ora rispondi'
-            );
+            playEchoSequence();
         });
 
         render();

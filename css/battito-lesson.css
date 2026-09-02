@@ -221,6 +221,13 @@ body[data-lesson="battito"] .brand--wordmark {
     width:           100%;
 }
 
+.brl__sequence {
+    display:        flex;
+    flex-direction: column;
+    align-items:    center;
+    width:          calc(4 * var(--tile));
+}
+
 .brl__row {
     display:               grid;
     grid-template-columns: repeat(4, var(--tile));
@@ -236,7 +243,7 @@ body[data-lesson="battito"] .brand--wordmark {
     padding:         calc(var(--tile) * .09);
     border:          0;
     border-right:    1px solid rgba(255, 255, 255, .72);
-    border-bottom:   1px solid rgba(255, 255, 255, .72);
+    border-bottom:   0;
     border-radius:   0;
     display:         flex;
     align-items:     center;
@@ -253,10 +260,51 @@ body[data-lesson="battito"] .brand--wordmark {
 .brl__tile:nth-child(4n + 3) { background: var(--rhythm-3); }
 .brl__tile:nth-child(4n)     { background: var(--rhythm-4); border-right: 0; }
 
-.brl[data-rows="1"] .brl__tile,
-.brl[data-rows="2"] .brl__tile:nth-last-child(-n + 4),
-.brl[data-rows="3"] .brl__tile:nth-last-child(-n + 4) {
-    border-bottom: 0;
+.brl__row--main,
+.brl__preview {
+    transition: opacity .18s ease, transform .18s ease;
+}
+
+.brl.is-changing .brl__row--main {
+    opacity:   0;
+    transform: translateY(-.4rem);
+}
+
+.brl.is-changing .brl__preview {
+    opacity:   0;
+    transform: translateY(-.65rem);
+}
+
+.brl__preview {
+    --preview-tile: clamp(2.75rem, calc(var(--tile) * .27), 3.5rem);
+    width:          calc(4 * var(--preview-tile));
+    min-height:     var(--preview-tile);
+    margin-top:     .75rem;
+}
+
+.brl__preview.is-blank {
+    visibility: hidden;
+}
+
+.brl__row--preview {
+    grid-template-columns: repeat(4, var(--preview-tile));
+}
+
+.brl__row--preview .brl__tile {
+    width:   var(--preview-tile);
+    height:  var(--preview-tile);
+    padding: calc(var(--preview-tile) * .06);
+    cursor:  default;
+}
+
+.brl--echo .brl__row--main .brl__tile {
+    cursor: default;
+}
+
+.brl__row--preview .brl__tile-label {
+    font-size:      clamp(.48rem, .62vw, .64rem);
+    font-weight:    700;
+    letter-spacing: -.025em;
 }
 
 .brl__tile-label {
@@ -298,6 +346,10 @@ body[data-lesson="battito"] .brand--wordmark {
     justify-items:   center;
     align-items:     start;
     gap:             .5rem;
+}
+
+.brl--echo .brl__controls {
+    margin-top: .85rem;
 }
 
 .brl__controls--composer {
@@ -368,7 +420,9 @@ body[data-lesson="battito"] .brand--wordmark {
 @media (prefers-reduced-motion: reduce) {
     .brl__tile,
     .brl__pattern,
-    .brl__sound { transition: none; }
+    .brl__sound,
+    .brl__row--main,
+    .brl__preview { transition: none; }
 }
 
 /* ── schermi bassi: preserva titolo, tile e controlli nella banda ─ */

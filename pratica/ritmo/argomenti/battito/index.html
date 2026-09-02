@@ -6,7 +6,7 @@
     <meta name="description" content="Gioco dell'eco e composizione di una battuta: attività interattive di body percussion per la LIM.">
     <title>Gioco dell’eco · Body percussion | Ritmo | Amedeo</title>
     <link rel="stylesheet" href="../../../../css/style.css?v=1782800000">
-    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1801200002">
+    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1801200003">
 </head>
 <body data-nav="home" data-current-nucleus="ritmo" data-lesson="battito">
 
@@ -49,7 +49,7 @@
                             </div>
                         </div>
 
-                        <div class="brl" id="brl-echo">
+                        <div class="brl brl--echo" id="brl-echo">
                             <div class="brl__patterns" role="tablist" aria-label="Scegli il ritmo">
                                 <button class="brl__pattern is-active" type="button" role="tab" aria-selected="true" data-pattern="0">1</button>
                                 <button class="brl__pattern" type="button" role="tab" aria-selected="false" data-pattern="1">2</button>
@@ -59,7 +59,12 @@
                             </div>
 
                             <div class="brl__track">
-                                <div class="brl__row" id="brl-echo-grid" aria-label="Sequenza ritmica di quattro movimenti"></div>
+                                <div class="brl__sequence">
+                                    <div class="brl__row brl__row--main" id="brl-echo-grid" aria-label="Frase in esecuzione"></div>
+                                    <div class="brl__preview">
+                                        <div class="brl__row brl__row--preview" id="brl-echo-preview-grid" aria-label="Anteprima della frase successiva"></div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="brl__controls">
@@ -113,7 +118,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-    <script src="../../../../js/battito-lesson.js?v=1801200002"></script>
+    <script src="../../../../js/battito-lesson.js?v=1801200003"></script>
 
 </body>
 </html>
