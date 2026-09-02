@@ -117,20 +117,47 @@
         var patterns = [
             [['cosce'], ['cosce'], ['cosce'], ['cosce']],
             [['mani'], ['mani'], ['mani'], ['mani']],
-            [['cosce'], ['mani'], ['cosce'], ['mani']],
-            [['piedi'], ['cosce'], ['mani'], ['silenzio']],
-            [['cosce'], ['petto'], ['mani'], ['mani']]
+            [
+                ['cosce'], ['mani'], ['cosce'], ['mani'],
+                ['cosce'], ['mani'], ['cosce'], ['mani']
+            ],
+            [
+                ['piedi'], ['cosce'], ['mani'], ['silenzio'],
+                ['piedi'], ['cosce'], ['mani'], ['silenzio']
+            ],
+            [
+                ['cosce'], ['petto'], ['mani'], ['mani'],
+                ['cosce'], ['petto'], ['mani'], ['mani'],
+                ['cosce'], ['petto'], ['mani'], ['mani']
+            ]
         ];
         var patternIndex = 0;
         var patternButtons = Array.prototype.slice.call(root.querySelectorAll('.brl__pattern'));
         var grid = document.getElementById('brl-echo-grid');
         var playButton = document.getElementById('brl-echo-play');
         var status = document.getElementById('brl-echo-status');
+        var screen = root.closest('.bintro-screen');
 
         function render() {
             stopPlayback();
             status.textContent = '';
             grid.innerHTML = '';
+
+            var movementCount = patterns[patternIndex].length;
+            var rowCount = Math.ceil(movementCount / 4);
+            root.setAttribute('data-rows', String(rowCount));
+            grid.setAttribute('aria-label', 'Sequenza ritmica di ' + movementCount + ' movimenti');
+
+            if (screen) {
+                if (rowCount > 1) {
+                    screen.setAttribute('data-lenis-prevent-wheel', '');
+                    screen.setAttribute('data-lenis-prevent-touch', '');
+                } else {
+                    screen.removeAttribute('data-lenis-prevent-wheel');
+                    screen.removeAttribute('data-lenis-prevent-touch');
+                    screen.scrollTop = 0;
+                }
+            }
 
             patterns[patternIndex].forEach(function (sounds, index) {
                 var tile = document.createElement('div');
