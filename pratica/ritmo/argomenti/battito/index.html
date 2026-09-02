@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Battito: pulsazione e tempo. Lezione interattiva per la LIM in tre schermate: sincronizzarsi, interiorizzare, restare insieme.">
-    <title>Battito · Pulsazione e tempo | Ritmo | Amedeo</title>
+    <meta name="description" content="Gioco dell'eco e composizione di una battuta: attività interattive di body percussion per la LIM.">
+    <title>Gioco dell’eco · Body percussion | Ritmo | Amedeo</title>
     <link rel="stylesheet" href="../../../../css/style.css?v=1782800000">
-    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1801100000">
+    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1801200000">
 </head>
 <body data-nav="home" data-current-nucleus="ritmo" data-lesson="battito">
 
@@ -32,167 +32,88 @@
 
     <main class="bintro-stage" id="bintro-stage">
 
-        <!-- ── progress dots (fixed) ─────────────────────────── -->
         <nav class="bintro-progress" aria-label="Navigazione schermate">
-            <button class="bintro-progress__dot is-active" aria-label="Schermata 1: Dentro o fuori dal battito"></button>
-            <button class="bintro-progress__dot" aria-label="Schermata 2: Tieni il battito"></button>
-            <button class="bintro-progress__dot" aria-label="Schermata 3: La classe come metronomo"></button>
+            <button class="bintro-progress__dot is-active" type="button" aria-label="Schermata 1: Gioco dell'eco"></button>
+            <button class="bintro-progress__dot" type="button" aria-label="Schermata 2: Componiamo una battuta"></button>
         </nav>
 
-        <!-- ── 3 × 100svh scroll space + pinned viewport ─────── -->
         <div class="bintro-scroll" id="bintro-scroll">
             <div class="bintro-pin" id="bintro-pin">
                 <div class="bintro-screens" id="bintro-screens">
 
-                    <!-- ══════════════════════════════════════════
-                         SCREEN 1 · Dentro o fuori dal battito?
-                         ══════════════════════════════════════════ -->
-                    <section class="bintro-screen" data-screen="1" aria-label="Schermata 1: Dentro o fuori dal battito">
-
+                    <section class="bintro-screen" data-screen="1" aria-label="Schermata 1: Gioco dell'eco">
                         <div class="barocco-header">
-                            <span class="barocco-intro__eyebrow">Attivit&agrave; 01 &middot; Sincronizzarsi</span>
+                            <span class="barocco-intro__eyebrow">Attivit&agrave; 01 &middot; Ascolto e risposta</span>
                             <div class="barocco-intro__title-wrap">
-                                <h2 class="barocco-intro__title">Dentro o fuori<br>dal battito?</h2>
-                                <span class="barocco-ticker__overlay">
-                                    <span class="barocco-ticker__blob barocco-ticker__blob--1"></span>
-                                    <span class="barocco-ticker__blob barocco-ticker__blob--2"></span>
-                                    <span class="barocco-ticker__blob barocco-ticker__blob--3"></span>
-                                    <span class="barocco-ticker__blob barocco-ticker__blob--4"></span>
-                                </span>
+                                <h2 class="barocco-intro__title">Gioco dell&rsquo;eco</h2>
                             </div>
                         </div>
 
-                        <div class="btl" id="btl-1">
-                            <div class="btl__track">
-                                <div class="btl__row" aria-label="Otto battiti su due battute: tocca il tile quando si accende">
-                                    <button class="btl__tile" type="button" aria-label="Battito 1"><span class="btl__num">01</span></button>
-                                    <button class="btl__tile" type="button" aria-label="Battito 2"><span class="btl__num">02</span></button>
-                                    <button class="btl__tile" type="button" aria-label="Battito 3"><span class="btl__num">03</span></button>
-                                    <button class="btl__tile" type="button" aria-label="Battito 4"><span class="btl__num">04</span></button>
-                                    <button class="btl__tile" type="button" aria-label="Battito 5"><span class="btl__num">05</span></button>
-                                    <button class="btl__tile" type="button" aria-label="Battito 6"><span class="btl__num">06</span></button>
-                                    <button class="btl__tile" type="button" aria-label="Battito 7"><span class="btl__num">07</span></button>
-                                    <button class="btl__tile" type="button" aria-label="Battito 8"><span class="btl__num">08</span></button>
-                                </div>
+                        <div class="brl" id="brl-echo">
+                            <div class="brl__patterns" role="tablist" aria-label="Scegli il ritmo">
+                                <button class="brl__pattern is-active" type="button" role="tab" aria-selected="true" data-pattern="0">1</button>
+                                <button class="brl__pattern" type="button" role="tab" aria-selected="false" data-pattern="1">2</button>
+                                <button class="brl__pattern" type="button" role="tab" aria-selected="false" data-pattern="2">3</button>
+                                <button class="brl__pattern" type="button" role="tab" aria-selected="false" data-pattern="3">4</button>
+                                <button class="brl__pattern" type="button" role="tab" aria-selected="false" data-pattern="4">5</button>
                             </div>
-                            <div class="btl__controls">
-                                <button class="btt-play" id="btl1-play" type="button" aria-label="Avvia il battito">&#9654;</button>
-                                <div class="btt-chiprow" role="group" aria-label="Scegli il tempo">
-                                    <button class="btt-chip" type="button" data-bpm="60">Lento &middot; 60</button>
-                                    <button class="btt-chip is-active" type="button" data-bpm="92">Andante &middot; 92</button>
-                                    <button class="btt-chip" type="button" data-bpm="132">Allegro &middot; 132</button>
-                                </div>
-                                <p class="btl__score" id="btl1-score" aria-live="polite">A segno <b>0</b> &middot; Fuori <b>0</b></p>
+
+                            <div class="brl__track">
+                                <div class="brl__row" id="brl-echo-grid" aria-label="Sequenza ritmica di quattro movimenti"></div>
+                            </div>
+
+                            <div class="brl__controls">
+                                <button class="brl__primary" id="brl-echo-play" type="button">Ascolta</button>
+                                <p class="brl__status" id="brl-echo-status" aria-live="polite"></p>
                             </div>
                         </div>
-
                     </section>
 
-                    <!-- ══════════════════════════════════════════
-                         SCREEN 2 · Tieni il battito
-                         ══════════════════════════════════════════ -->
-                    <section class="bintro-screen" data-screen="2" aria-label="Schermata 2: Tieni il battito">
-
+                    <section class="bintro-screen" data-screen="2" aria-label="Schermata 2: Componiamo una battuta">
                         <div class="barocco-header">
-                            <span class="barocco-intro__eyebrow">Attivit&agrave; 02 &middot; Interiorizzare</span>
+                            <span class="barocco-intro__eyebrow">Attivit&agrave; 02 &middot; Creazione</span>
                             <div class="barocco-intro__title-wrap">
-                                <h2 class="barocco-intro__title">Tieni il battito<br>anche quando sparisce</h2>
-                                <span class="barocco-ticker__overlay">
-                                    <span class="barocco-ticker__blob barocco-ticker__blob--1"></span>
-                                    <span class="barocco-ticker__blob barocco-ticker__blob--2"></span>
-                                    <span class="barocco-ticker__blob barocco-ticker__blob--3"></span>
-                                    <span class="barocco-ticker__blob barocco-ticker__blob--4"></span>
-                                </span>
+                                <h2 class="barocco-intro__title">Componiamo una battuta</h2>
                             </div>
                         </div>
 
-                        <div class="btl btl--static" id="btl-2">
-                            <div class="btl__track">
-                                <div class="btl__row" role="img" aria-label="Otto battiti, alcuni senza aiuto visivo">
-                                    <span class="btl__tile"><span class="btl__num">01</span></span>
-                                    <span class="btl__tile"><span class="btl__num">02</span></span>
-                                    <span class="btl__tile"><span class="btl__num">03</span></span>
-                                    <span class="btl__tile"><span class="btl__num">04</span></span>
-                                    <span class="btl__tile"><span class="btl__num">05</span></span>
-                                    <span class="btl__tile"><span class="btl__num">06</span></span>
-                                    <span class="btl__tile"><span class="btl__num">07</span></span>
-                                    <span class="btl__tile"><span class="btl__num">08</span></span>
+                        <div class="brl brl--composer" id="brl-composer">
+                            <div class="brl__sounds" aria-label="Suoni disponibili">
+                                <button class="brl__sound" type="button" data-sound="cosce">Cosce</button>
+                                <button class="brl__sound" type="button" data-sound="mani">Mani</button>
+                                <button class="brl__sound" type="button" data-sound="petto">Petto</button>
+                                <button class="brl__sound" type="button" data-sound="piedi">Piedi</button>
+                                <button class="brl__sound" type="button" data-sound="silenzio">Silenzio</button>
+                            </div>
+
+                            <div class="brl__track">
+                                <div class="brl__row" id="brl-compose-grid" aria-label="Battuta da comporre">
+                                    <button class="brl__tile is-empty is-selected" type="button" data-slot="0" aria-label="Primo movimento, vuoto"><span class="brl__tile-label">+</span></button>
+                                    <button class="brl__tile is-empty" type="button" data-slot="1" aria-label="Secondo movimento, vuoto"><span class="brl__tile-label">+</span></button>
+                                    <button class="brl__tile is-empty" type="button" data-slot="2" aria-label="Terzo movimento, vuoto"><span class="brl__tile-label">+</span></button>
+                                    <button class="brl__tile is-empty" type="button" data-slot="3" aria-label="Quarto movimento, vuoto"><span class="brl__tile-label">+</span></button>
                                 </div>
                             </div>
-                            <div class="btl__controls">
-                                <button class="btt-play" id="btl2-play" type="button" aria-label="Avvia il battito">&#9654;</button>
-                                <div class="btt-chiprow" role="group" aria-label="Quanto aiuto vi serve?">
-                                    <button class="btt-chip is-active" type="button" data-level="tutti">Tutti gli aiuti</button>
-                                    <button class="btt-chip" type="button" data-level="meno">Meno aiuto</button>
-                                    <button class="btt-chip" type="button" data-level="quasi">Quasi da soli</button>
-                                </div>
+
+                            <div class="brl__controls brl__controls--composer">
+                                <button class="brl__secondary" id="brl-compose-clear" type="button">Cancella</button>
+                                <button class="brl__primary" id="brl-compose-play" type="button">Suona</button>
+                                <p class="brl__status" id="brl-compose-status" aria-live="polite"></p>
                             </div>
                         </div>
-
                     </section>
 
-                    <!-- ══════════════════════════════════════════
-                         SCREEN 3 · La classe come metronomo
-                         ══════════════════════════════════════════ -->
-                    <section class="bintro-screen" data-screen="3" aria-label="Schermata 3: La classe come metronomo">
-
-                        <div class="barocco-header">
-                            <span class="barocco-intro__eyebrow">Attivit&agrave; 03 &middot; Restare insieme</span>
-                            <div class="barocco-intro__title-wrap">
-                                <h2 class="barocco-intro__title">La classe<br>come metronomo</h2>
-                                <span class="barocco-ticker__overlay">
-                                    <span class="barocco-ticker__blob barocco-ticker__blob--1"></span>
-                                    <span class="barocco-ticker__blob barocco-ticker__blob--2"></span>
-                                    <span class="barocco-ticker__blob barocco-ticker__blob--3"></span>
-                                    <span class="barocco-ticker__blob barocco-ticker__blob--4"></span>
-                                </span>
-                            </div>
-                        </div>
-
-                        <div class="btl btl--static" id="btl-3">
-                            <div class="btl__track">
-                                <div class="btl__row" role="img" aria-label="Otto battiti della sfida">
-                                    <span class="btl__tile"><span class="btl__num">01</span></span>
-                                    <span class="btl__tile"><span class="btl__num">02</span></span>
-                                    <span class="btl__tile"><span class="btl__num">03</span></span>
-                                    <span class="btl__tile"><span class="btl__num">04</span></span>
-                                    <span class="btl__tile"><span class="btl__num">05</span></span>
-                                    <span class="btl__tile"><span class="btl__num">06</span></span>
-                                    <span class="btl__tile"><span class="btl__num">07</span></span>
-                                    <span class="btl__tile"><span class="btl__num">08</span></span>
-                                </div>
-                            </div>
-                            <div class="btl__controls">
-                                <button class="btt-play" id="btl3-play" type="button" aria-label="Avvia la sfida">&#9654;</button>
-                                <p class="btl__phase" id="btl3-phase" data-live="0" aria-live="polite">Pronti?</p>
-                            </div>
-                            <div class="btl__verdict" id="btl3-verdict" hidden>
-                                <p class="btl__verdict-q">Siamo rimasti insieme?</p>
-                                <div class="btt-chiprow" role="group" aria-label="Come &egrave; andata?">
-                                    <button class="btt-chip" type="button" data-verdict="si">S&igrave;</button>
-                                    <button class="btt-chip" type="button" data-verdict="quasi">Quasi</button>
-                                    <button class="btt-chip" type="button" data-verdict="no">No</button>
-                                </div>
-                                <p class="btl__verdict-feedback" id="btl3-feedback" aria-live="polite"></p>
-                            </div>
-                        </div>
-
-                    </section>
-
-                </div><!-- /.bintro-screens -->
-            </div><!-- /.bintro-pin -->
-        </div><!-- /.bintro-scroll -->
+                </div>
+            </div>
+        </div>
 
     </main>
 
     <script src="../../../../js/main.js?v=1782800000"></script>
-
-    <!-- GSAP + ScrollTrigger + Lenis from CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-
-    <script src="../../../../js/battito-lesson.js?v=1801100000"></script>
+    <script src="../../../../js/battito-lesson.js?v=1801200000"></script>
 
 </body>
 </html>

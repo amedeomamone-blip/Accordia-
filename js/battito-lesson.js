@@ -1,429 +1,311 @@
 (function () {
     'use strict';
 
-    /* ── header-height sync ──────────────────────────────────────── */
     var stage  = document.querySelector('.bintro-stage');
     var header = document.getElementById('site-header');
 
-    function syncH() {
+    function syncHeaderHeight() {
         if (header && stage) {
             stage.style.setProperty('--bintro-header-h', header.offsetHeight + 'px');
         }
     }
-    syncH();
-    window.addEventListener('resize', syncH);
-    window.addEventListener('load',   syncH);
 
-    /* ════════════════════════════════════════════════════════════
-       Audio — Web Audio API: click di metronomo senza asset esterni.
-       LIM friendly: parte al primo gesto (play), nessun download.
-       ════════════════════════════════════════════════════════════ */
-    var AC = null;
+    syncHeaderHeight();
+    window.addEventListener('resize', syncHeaderHeight);
+    window.addEventListener('load', syncHeaderHeight);
 
-    function audioCtx() {
-        if (!AC) {
-            var Ctor = window.AudioContext || window.webkitAudioContext;
-            if (!Ctor) return null;
-            AC = new Ctor();
+    /* ── suoni sintetici, senza asset esterni ─────────────────── */
+    var audioContext = null;
+
+    function getAudioContext() {
+        if (!audioContext) {
+            var AudioCtor = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtor) return null;
+            audioContext = new AudioCtor();
         }
-        if (AC.state === 'suspended') AC.resume();
-        return AC;
+        if (audioContext.state === 'suspended') audioContext.resume();
+        return audioContext;
     }
 
-    function click(when, accent) {
-        var ac = audioCtx();
+    function playBodySound(name, delay) {
+        if (name === 'silenzio') return;
+
+        var ac = getAudioContext();
         if (!ac) return;
-        var osc  = ac.createOscillator();
+
+        var settings = {
+            cosce: { frequency: 210, type: 'sine',     gain: .34, duration: .13 },
+            mani:  { frequency: 980, type: 'triangle', gain: .28, duration: .08 },
+            petto: { frequency: 135, type: 'sine',     gain: .42, duration: .17 },
+            piedi: { frequency: 82,  type: 'square',   gain: .3,  duration: .12 }
+        }[name];
+
+        if (!settings) return;
+
+        var when = ac.currentTime + (delay || 0);
+        var oscillator = ac.createOscillator();
         var gain = ac.createGain();
-        osc.type            = 'triangle';
-        osc.frequency.value = accent ? 1318 : 880;
-        gain.gain.setValueAtTime(accent ? 0.6 : 0.34, when);
-        gain.gain.exponentialRampToValueAtTime(0.001, when + 0.09);
-        osc.connect(gain);
+
+        oscillator.type = settings.type;
+        oscillator.frequency.setValueAtTime(settings.frequency, when);
+        gain.gain.setValueAtTime(settings.gain, when);
+        gain.gain.exponentialRampToValueAtTime(.001, when + settings.duration);
+
+        oscillator.connect(gain);
         gain.connect(ac.destination);
-        osc.start(when);
-        osc.stop(when + 0.1);
+        oscillator.start(when);
+        oscillator.stop(when + settings.duration + .02);
     }
 
-    /* ── scheduler con lookahead: il battito non deriva mai ──────── */
-    function makePulse(onBeat) {
-        var timer     = null;
-        var nextTime  = 0;
-        var beatIdx   = 0;
-        var bpm       = 92;
-        var running   = false;
-        var LOOKAHEAD = 0.12;
-        var INTERVAL  = 25;
+    /* ── riproduzione condivisa ───────────────────────────────── */
+    var currentPlaybackStop = null;
 
-        function tick() {
-            var ac = audioCtx();
-            if (!ac) return;
-            while (running && nextTime < ac.currentTime + LOOKAHEAD) {
-                onBeat(beatIdx, nextTime);
-                beatIdx += 1;
-                nextTime += 60 / bpm;
-            }
+    function stopPlayback() {
+        if (currentPlaybackStop) currentPlaybackStop();
+        currentPlaybackStop = null;
+    }
+
+    function playSequence(tiles, sequence, button, status, doneText) {
+        stopPlayback();
+        getAudioContext();
+
+        var timers = [];
+        var stopped = false;
+        var beatLength = 700;
+
+        button.disabled = true;
+        status.textContent = 'Ascolta';
+
+        function stop() {
+            if (stopped) return;
+            stopped = true;
+            timers.forEach(window.clearTimeout);
+            tiles.forEach(function (tile) { tile.classList.remove('is-live'); });
+            button.disabled = false;
         }
 
-        return {
-            isRunning: function () { return running; },
-            setBpm:    function (value) { bpm = value; },
-            start: function () {
-                var ac = audioCtx();
-                if (!ac || running) return;
-                running  = true;
-                beatIdx  = 0;
-                nextTime = ac.currentTime + 0.15;
-                tick();
-                timer = window.setInterval(tick, INTERVAL);
-            },
-            stop: function () {
-                running = false;
-                if (timer) { window.clearInterval(timer); timer = null; }
-            }
-        };
+        currentPlaybackStop = stop;
+
+        sequence.forEach(function (sounds, index) {
+            timers.push(window.setTimeout(function () {
+                if (stopped) return;
+                tiles.forEach(function (tile, tileIndex) {
+                    tile.classList.toggle('is-live', tileIndex === index);
+                });
+                sounds.forEach(function (sound, soundIndex) {
+                    playBodySound(sound, soundIndex * .2);
+                });
+            }, index * beatLength));
+        });
+
+        timers.push(window.setTimeout(function () {
+            stop();
+            status.textContent = doneText;
+            currentPlaybackStop = null;
+        }, sequence.length * beatLength));
     }
 
-    /* visual allineata al click audio */
-    function atAudioTime(when, fn) {
-        var ac    = audioCtx();
-        var delay = ac ? Math.max(0, (when - ac.currentTime) * 1000) : 0;
-        window.setTimeout(fn, delay);
-    }
-
-    /* registro engines: cambiando schermata si ferma tutto */
-    var engines = [];
-    function stopAll() {
-        engines.forEach(function (stop) { stop(); });
-    }
     document.addEventListener('visibilitychange', function () {
-        if (document.hidden) stopAll();
+        if (document.hidden) stopPlayback();
     });
 
-    /* helper comuni */
-    function setPlay(btn, on, labelOn, labelOff) {
-        btn.classList.toggle('is-on', on);
-        btn.innerHTML = on ? '&#9632;' : '&#9654;';
-        btn.setAttribute('aria-label', on ? labelOn : labelOff);
-    }
-
-    /* ════════════════════════════════════════════════════════════
-       SCREEN 1 — Dentro o fuori dal battito?
-       I tile si accendono in sequenza col click del metronomo.
-       Tocca il tile acceso → verde (a segno), sbagliato → rosso.
-       ════════════════════════════════════════════════════════════ */
-    (function screen1() {
-        var root = document.getElementById('btl-1');
+    /* ── schermata 1: gioco dell'eco ──────────────────────────── */
+    (function setupEcho() {
+        var root = document.getElementById('brl-echo');
         if (!root) return;
 
-        var tiles   = Array.prototype.slice.call(root.querySelectorAll('.btl__tile'));
-        var playBtn = document.getElementById('btl1-play');
-        var chips   = Array.prototype.slice.call(root.querySelectorAll('.btt-chip[data-bpm]'));
-        var scoreEl = document.getElementById('btl1-score');
-
-        var hits = 0;
-        var miss = 0;
-        var live = -1;
-
-        var pulse = makePulse(function (idx, when) {
-            click(when, false);
-            atAudioTime(when, function () {
-                if (!pulse.isRunning()) return;
-                live = idx % tiles.length;
-                tiles.forEach(function (t, i) {
-                    t.classList.remove('is-hit', 'is-miss');
-                    t.classList.toggle('is-live', i === live);
-                });
-            });
-        });
-        pulse.setBpm(92);
-
-        function renderScore() {
-            scoreEl.innerHTML = 'A segno <b>' + hits + '</b> &middot; Fuori <b>' + miss + '</b>';
-        }
-
-        function stop() {
-            pulse.stop();
-            live = -1;
-            root.classList.remove('is-playing');
-            setPlay(playBtn, false, 'Ferma il battito', 'Avvia il battito');
-            tiles.forEach(function (t) { t.classList.remove('is-live', 'is-hit', 'is-miss'); });
-        }
-        engines.push(stop);
-
-        playBtn.addEventListener('click', function () {
-            if (pulse.isRunning()) { stop(); return; }
-            stopAll();
-            hits = 0;
-            miss = 0;
-            renderScore();
-            root.classList.add('is-playing');
-            setPlay(playBtn, true, 'Ferma il battito', 'Avvia il battito');
-            pulse.start();
-        });
-
-        tiles.forEach(function (tile, i) {
-            tile.addEventListener('click', function () {
-                if (!pulse.isRunning()) return;   /* si gioca solo col battito in corso */
-                tile.classList.remove('is-hit', 'is-miss');
-                if (i === live) {
-                    tile.classList.add('is-hit');
-                    hits += 1;
-                } else {
-                    tile.classList.add('is-miss');
-                    miss += 1;
-                }
-                renderScore();
-            });
-        });
-
-        chips.forEach(function (chip) {
-            chip.addEventListener('click', function () {
-                pulse.setBpm(parseInt(chip.getAttribute('data-bpm'), 10) || 92);
-                chips.forEach(function (c) { c.classList.toggle('is-active', c === chip); });
-            });
-        });
-
-        renderScore();
-    })();
-
-    /* ════════════════════════════════════════════════════════════
-       SCREEN 2 — Tieni il battito
-       Tre livelli di aiuto: i tile "spenti" non danno né luce né
-       click, ma il battito continua: la classe lo tiene dentro.
-       ════════════════════════════════════════════════════════════ */
-    (function screen2() {
-        var root = document.getElementById('btl-2');
-        if (!root) return;
-
-        var tiles   = Array.prototype.slice.call(root.querySelectorAll('.btl__tile'));
-        var playBtn = document.getElementById('btl2-play');
-        var chips   = Array.prototype.slice.call(root.querySelectorAll('.btt-chip[data-level]'));
-
-        var LEVELS = {
-            tutti:  [],
-            meno:   [5, 7],
-            quasi:  [1, 2, 3, 5, 6, 7]
-        };
-        var ghosts = LEVELS.tutti;
-
-        function paintGhosts() {
-            tiles.forEach(function (t, i) {
-                t.classList.toggle('is-ghost', ghosts.indexOf(i) !== -1);
-            });
-        }
-
-        var pulse = makePulse(function (idx, when) {
-            var i     = idx % tiles.length;
-            var ghost = ghosts.indexOf(i) !== -1;
-            if (!ghost) click(when, i % 4 === 0);
-            atAudioTime(when, function () {
-                if (!pulse.isRunning()) return;
-                tiles.forEach(function (t, j) {
-                    t.classList.toggle('is-live', j === i && !ghost);
-                });
-            });
-        });
-        pulse.setBpm(92);
-
-        function stop() {
-            pulse.stop();
-            root.classList.remove('is-playing');
-            setPlay(playBtn, false, 'Ferma il battito', 'Avvia il battito');
-            tiles.forEach(function (t) { t.classList.remove('is-live'); });
-        }
-        engines.push(stop);
-
-        playBtn.addEventListener('click', function () {
-            if (pulse.isRunning()) { stop(); return; }
-            stopAll();
-            root.classList.add('is-playing');
-            setPlay(playBtn, true, 'Ferma il battito', 'Avvia il battito');
-            pulse.start();
-        });
-
-        chips.forEach(function (chip) {
-            chip.addEventListener('click', function () {
-                ghosts = LEVELS[chip.getAttribute('data-level')] || [];
-                chips.forEach(function (c) { c.classList.toggle('is-active', c === chip); });
-                paintGhosts();
-            });
-        });
-    })();
-
-    /* ════════════════════════════════════════════════════════════
-       SCREEN 3 — La classe come metronomo (sfida a fasi)
-       Guida completa → meno aiuti → da soli → il battito ritorna.
-       Alla fine: "siamo rimasti insieme?"
-       ════════════════════════════════════════════════════════════ */
-    (function screen3() {
-        var root = document.getElementById('btl-3');
-        if (!root) return;
-
-        var tiles    = Array.prototype.slice.call(root.querySelectorAll('.btl__tile'));
-        var playBtn  = document.getElementById('btl3-play');
-        var phaseEl  = document.getElementById('btl3-phase');
-        var note     = document.getElementById('btl3-note');   /* può non esserci */
-        var verdict  = document.getElementById('btl3-verdict');
-        var answers  = Array.prototype.slice.call(root.querySelectorAll('.btt-chip[data-verdict]'));
-        var feedback = document.getElementById('btl3-feedback');
-
-        var PHASES = [
-            { label: 'La LIM vi guida',                ghosts: [] },
-            { label: 'Meno aiuti',                     ghosts: [1, 3, 5, 7] },
-            { label: 'Da soli!',                       ghosts: [0, 1, 2, 3, 4, 5, 6, 7] },
-            { label: 'Il battito ritorna: ci siete?',  ghosts: [] }
+        var patterns = [
+            [['cosce'], ['cosce'], ['cosce'], ['cosce']],
+            [['mani'], ['mani'], ['mani'], ['mani']],
+            [['cosce'], ['mani'], ['cosce'], ['mani']],
+            [['piedi'], ['cosce'], ['mani'], ['silenzio']],
+            [['cosce'], ['petto'], ['mani'], ['mani']]
         ];
-        var FEEDBACK = {
-            si:    'Grande: siete un metronomo umano. Provate ad alzare il tempo.',
-            quasi: 'Quasi: qualcuno ha accelerato. Riprovate contando 1-2-3-4 a voce.',
-            no:    'Il battito si è perso: riprovate più lenti e con la voce che conta.'
-        };
+        var patternIndex = 0;
+        var patternButtons = Array.prototype.slice.call(root.querySelectorAll('.brl__pattern'));
+        var grid = document.getElementById('brl-echo-grid');
+        var playButton = document.getElementById('brl-echo-play');
+        var status = document.getElementById('brl-echo-status');
 
-        function paintGhosts(ghosts) {
-            tiles.forEach(function (t, i) {
-                t.classList.toggle('is-ghost', ghosts.indexOf(i) !== -1);
+        function render() {
+            stopPlayback();
+            status.textContent = '';
+            grid.innerHTML = '';
+
+            patterns[patternIndex].forEach(function (sounds, index) {
+                var tile = document.createElement('div');
+                var label = document.createElement('span');
+                tile.className = 'brl__tile';
+                tile.setAttribute('aria-label', 'Movimento ' + (index + 1) + ': ' + sounds.join(', '));
+                label.className = 'brl__tile-label';
+                label.textContent = sounds.join(' · ');
+                tile.appendChild(label);
+                grid.appendChild(tile);
             });
         }
 
-        function showVerdict() {
-            if (note) note.hidden = true;
-            verdict.hidden = false;
-            feedback.textContent = '';
-            answers.forEach(function (a) { a.classList.remove('is-active'); });
-        }
-
-        var REPEATS  = 1;   /* la griglia copre già due battute */
-        var phaseLen = 0;   /* impostato a runtime: tiles.length * REPEATS */
-
-        var pulse = makePulse(function (idx, when) {
-            phaseLen = tiles.length * REPEATS;
-            var phaseIdx = Math.floor(idx / phaseLen);
-            if (phaseIdx >= PHASES.length) {
-                atAudioTime(when, function () { stop(); showVerdict(); });
-                pulse.stop();
-                return;
-            }
-            var phase = PHASES[phaseIdx];
-            var i     = idx % tiles.length;
-            var ghost = phase.ghosts.indexOf(i) !== -1;
-            if (!ghost) click(when, i % 4 === 0);
-            atAudioTime(when, function () {
-                if (!pulse.isRunning()) return;
-                if (idx % phaseLen === 0) {
-                    paintGhosts(phase.ghosts);
-                    phaseEl.textContent = phase.label;
-                    phaseEl.setAttribute('data-live', '1');
-                }
-                tiles.forEach(function (t, j) {
-                    t.classList.toggle('is-live', j === i && !ghost);
+        patternButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                patternIndex = parseInt(button.getAttribute('data-pattern'), 10) || 0;
+                patternButtons.forEach(function (item) {
+                    var active = item === button;
+                    item.classList.toggle('is-active', active);
+                    item.setAttribute('aria-selected', active ? 'true' : 'false');
                 });
+                render();
             });
         });
-        pulse.setBpm(92);
 
-        function stop() {
-            pulse.stop();
-            root.classList.remove('is-playing');
-            setPlay(playBtn, false, 'Ferma la sfida', 'Avvia la sfida');
-            phaseEl.setAttribute('data-live', '0');
-            tiles.forEach(function (t) { t.classList.remove('is-live'); });
-        }
-        engines.push(stop);
-
-        playBtn.addEventListener('click', function () {
-            if (pulse.isRunning()) {
-                stop();
-                phaseEl.textContent = 'Pronti?';
-                return;
-            }
-            stopAll();
-            if (note) note.hidden = false;
-            verdict.hidden = true;
-            paintGhosts([]);
-            root.classList.add('is-playing');
-            setPlay(playBtn, true, 'Ferma la sfida', 'Avvia la sfida');
-            pulse.start();
+        playButton.addEventListener('click', function () {
+            playSequence(
+                Array.prototype.slice.call(grid.querySelectorAll('.brl__tile')),
+                patterns[patternIndex],
+                playButton,
+                status,
+                'Ora rispondi'
+            );
         });
 
-        answers.forEach(function (chip) {
-            chip.addEventListener('click', function () {
-                answers.forEach(function (c) { c.classList.toggle('is-active', c === chip); });
-                feedback.textContent = FEEDBACK[chip.getAttribute('data-verdict')] || '';
-            });
-        });
+        render();
     })();
 
-    /* ── guard: GSAP, ScrollTrigger, Lenis must be loaded ──────── */
+    /* ── schermata 2: compositore ─────────────────────────────── */
+    (function setupComposer() {
+        var root = document.getElementById('brl-composer');
+        if (!root) return;
+
+        var slots = Array.prototype.slice.call(root.querySelectorAll('.brl__tile'));
+        var soundButtons = Array.prototype.slice.call(root.querySelectorAll('.brl__sound'));
+        var clearButton = document.getElementById('brl-compose-clear');
+        var playButton = document.getElementById('brl-compose-play');
+        var status = document.getElementById('brl-compose-status');
+        var composition = [[], [], [], []];
+        var selectedSlot = 0;
+
+        function render() {
+            slots.forEach(function (slot, index) {
+                var sounds = composition[index];
+                var label = slot.querySelector('.brl__tile-label');
+                var empty = sounds.length === 0;
+
+                slot.classList.toggle('is-selected', index === selectedSlot);
+                slot.classList.toggle('is-empty', empty);
+                slot.setAttribute('aria-label', 'Movimento ' + (index + 1) + ': ' + (empty ? 'vuoto' : sounds.join(', ')));
+                label.textContent = empty ? '+' : sounds.join(' · ');
+            });
+        }
+
+        slots.forEach(function (slot, index) {
+            slot.addEventListener('click', function () {
+                stopPlayback();
+                selectedSlot = index;
+                status.textContent = '';
+                render();
+            });
+        });
+
+        soundButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                stopPlayback();
+                var sound = button.getAttribute('data-sound');
+
+                if (sound === 'silenzio') {
+                    composition[selectedSlot] = ['silenzio'];
+                } else {
+                    if (composition[selectedSlot][0] === 'silenzio') composition[selectedSlot] = [];
+                    if (composition[selectedSlot].length < 2) composition[selectedSlot].push(sound);
+                }
+
+                if (composition[selectedSlot].length && selectedSlot < slots.length - 1) selectedSlot += 1;
+                status.textContent = '';
+                render();
+            });
+        });
+
+        clearButton.addEventListener('click', function () {
+            stopPlayback();
+            composition = [[], [], [], []];
+            selectedSlot = 0;
+            status.textContent = '';
+            render();
+        });
+
+        playButton.addEventListener('click', function () {
+            if (composition.some(function (slot) { return slot.length === 0; })) {
+                status.textContent = 'Completa le quattro caselle';
+                return;
+            }
+
+            playSequence(slots, composition, playButton, status, 'Ripeti quattro volte');
+        });
+
+        render();
+    })();
+
+    /* ── scorrimento tra le due schermate ─────────────────────── */
     if (typeof gsap === 'undefined' || typeof ScrollTrigger === 'undefined' || typeof Lenis === 'undefined') {
-        console.warn('[battito] GSAP / ScrollTrigger / Lenis not found. Scroll animation disabled.');
+        console.warn('[battito] GSAP / ScrollTrigger / Lenis non disponibili.');
         return;
     }
 
     gsap.registerPlugin(ScrollTrigger);
 
-    /* ── Lenis smooth scroll → GSAP ticker ─────────────────────── */
-    var lenis = new Lenis({ lerp: 0.08, smoothWheel: true });
+    var lenis = new Lenis({ lerp: .08, smoothWheel: true });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
     gsap.ticker.lagSmoothing(0);
 
-    /* ── elements ───────────────────────────────────────────────── */
-    var scrollEl  = document.querySelector('.bintro-scroll');
-    var screensEl = document.querySelector('.bintro-screens');
-    var pinEl     = document.getElementById('bintro-pin');
-    var dots      = document.querySelectorAll('.bintro-progress__dot');
+    var scrollElement = document.querySelector('.bintro-scroll');
+    var screensElement = document.querySelector('.bintro-screens');
+    var pinElement = document.getElementById('bintro-pin');
+    var dots = document.querySelectorAll('.bintro-progress__dot');
+    var screenCount = dots.length;
+    var currentScreen = 0;
 
-    if (!scrollEl || !screensEl) return;
+    if (!scrollElement || !screensElement || !screenCount) return;
 
-    function screenH() {
-        if (pinEl && pinEl.offsetHeight) return pinEl.offsetHeight;
+    function screenHeight() {
+        if (pinElement && pinElement.offsetHeight) return pinElement.offsetHeight;
         return window.innerHeight - (header ? header.offsetHeight : 0);
     }
 
-    /* ── scrubbed vertical slide ────────────────────────────────── */
-    var currentScreen = 0;
-
-    var slideTween = gsap.to(screensEl, {
-        y: function () { return -(screenH() * 2); },
+    var slideTween = gsap.to(screensElement, {
+        y: function () { return -(screenHeight() * (screenCount - 1)); },
         ease: 'none',
         scrollTrigger: {
-            trigger:             scrollEl,
-            start:               'top top',
-            end:                 'bottom bottom',
-            scrub:               1,
+            trigger: scrollElement,
+            start: 'top top',
+            end: 'bottom bottom',
+            scrub: 1,
             invalidateOnRefresh: true,
-            onUpdate:            onScrollUpdate,
+            onUpdate: function (self) {
+                var index = Math.min(screenCount - 1, Math.floor(self.progress * screenCount + .05));
+
+                dots.forEach(function (dot, dotIndex) {
+                    dot.classList.toggle('is-active', dotIndex === index);
+                });
+
+                if (index !== currentScreen) {
+                    currentScreen = index;
+                    stopPlayback();
+                }
+
+                if (stage) stage.dataset.activeScreen = String(index + 1);
+            }
         }
     });
-    var slideST = slideTween.scrollTrigger;
+    var slideTrigger = slideTween.scrollTrigger;
 
-    function onScrollUpdate(self) {
-        var p   = self.progress;
-        var idx = Math.min(2, Math.floor(p * 3 + 0.05));
-
-        dots.forEach(function (dot, i) {
-            dot.classList.toggle('is-active', i === idx);
-        });
-
-        if (idx !== currentScreen) {
-            currentScreen = idx;
-            stopAll();   /* cambiando schermata si ferma ogni battito */
-        }
-        if (stage) stage.dataset.activeScreen = String(idx + 1);
-    }
-
-    /* ── dot click → scroll to that screen ─────────────────────── */
-    dots.forEach(function (dot, i) {
+    dots.forEach(function (dot, index) {
         dot.addEventListener('click', function () {
-            var target;
-            if (slideST) {
-                target = slideST.start + (i / 2) * (slideST.end - slideST.start);
-            } else {
-                var startY = scrollEl.getBoundingClientRect().top + window.scrollY;
-                target = startY + i * screenH();
-            }
-            lenis.scrollTo(target, { duration: 1.2, easing: function (t) { return t < .5 ? 2*t*t : -1+(4-2*t)*t; } });
+            var ratio = screenCount > 1 ? index / (screenCount - 1) : 0;
+            var target = slideTrigger.start + ratio * (slideTrigger.end - slideTrigger.start);
+            lenis.scrollTo(target, {
+                duration: 1.2,
+                easing: function (time) {
+                    return time < .5 ? 2 * time * time : -1 + (4 - 2 * time) * time;
+                }
+            });
         });
     });
 

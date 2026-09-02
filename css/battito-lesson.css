@@ -1,23 +1,25 @@
 /* ================================================================
-   Battito · Pulsazione e tempo — Lezione interattiva LIM
-   3 schermate pinnate, stessa architettura grafica della lezione
-   "Introduzione al Barocco" (header eyebrow + titolo glow, tile
-   quadrati con lampeggio, controlli ad angoli vivi), con il tema
-   verde-salvia della pratica Ritmo al posto del terracotta.
+   Battito · Gioco dell'eco e composizione
+   Due schermate pinnate, tipografia e proporzioni Accordia.
    ================================================================ */
 
-/* ── variables ─────────────────────────────────────────────────── */
 .bintro-stage {
-    --accent:          #9DAE6E;   /* verde-salvia Ritmo */
-    --bg-1:            #ffffff;
-    --ink-1:           #111111;
-    --ink-2:           rgba(17, 17, 17, .48);
-    --hit:             #22c55e;   /* feedback: a tempo */
-    --miss:            #ef4444;   /* feedback: fuori tempo */
-    --bintro-header-h: 4rem;      /* overwritten by JS */
+    --rhythm-deep:     #34452a;
+    --rhythm-mid:      #718a4d;
+    --rhythm-1:        #b9c7a6;
+    --rhythm-2:        #a3c28e;
+    --rhythm-3:        #9bb861;
+    --rhythm-4:        #99aa46;
+    --rhythm-muted:    rgba(52, 69, 42, .5);
+    --bintro-header-h: 4rem;
+    color:             var(--rhythm-deep);
+    background:        #ffffff;
 }
 
-/* ── wordmark: stessa dimensione della landing page ─────────────── */
+body[data-lesson="battito"] {
+    background: #ffffff;
+}
+
 body[data-lesson="battito"] .brand--wordmark {
     font-family:     var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
     font-size:       1.45rem;
@@ -29,532 +31,394 @@ body[data-lesson="battito"] .brand--wordmark {
     text-decoration: none;
 }
 
-/* ── scroll container – creates the 3-screen scroll height ─────── */
+/* ── scroll verticale, identico al sistema delle lezioni ───────── */
 .bintro-scroll {
-    height:   300svh;
     position: relative;
+    height:   200svh;
 }
 
-/* ── sticky pinned viewport (one screen tall) ───────────────────── */
 .bintro-pin {
-    position:    sticky;
-    top:         var(--bintro-header-h, 4rem);
-    height:      calc(100svh - var(--bintro-header-h, 4rem));
-    overflow:    hidden;
-    will-change: transform;
+    position: sticky;
+    top:      var(--bintro-header-h, 4rem);
+    height:   calc(100svh - var(--bintro-header-h, 4rem));
+    overflow: hidden;
 }
 
-/* ── vertical screens track ─────────────────────────────────────── */
 .bintro-screens {
     display:        flex;
     flex-direction: column;
     width:          100%;
-    height:         calc(3 * (100svh - var(--bintro-header-h, 4rem)));
+    height:         calc(2 * (100svh - var(--bintro-header-h, 4rem)));
     will-change:    transform;
 }
 
-/* ── single screen ──────────────────────────────────────────────── */
 .bintro-screen {
+    position:        relative;
     flex:            0 0 calc(100svh - var(--bintro-header-h, 4rem));
     width:           100%;
     height:          calc(100svh - var(--bintro-header-h, 4rem));
-    position:        relative;
     overflow:        hidden;
-    display:         flex;
-    align-items:     center;
-    justify-content: center;
-    background:      var(--bg-1);
+    background:      #ffffff;
 }
 
-/* ================================================================
-   Progress dots (fixed, right edge)
-   ================================================================ */
+/* ── indicatori laterali ───────────────────────────────────────── */
 .bintro-progress {
     position:       fixed;
     right:          1.5rem;
     top:            50%;
-    transform:      translateY(-50%);
     z-index:        50;
     display:        flex;
     flex-direction: column;
     gap:            .55rem;
-    pointer-events: auto;
+    transform:      translateY(-50%);
 }
 
 .bintro-progress__dot {
     width:         6px;
     height:        6px;
-    border-radius: 50%;
-    background:    rgba(17, 17, 17, .18);
-    transition:    background .3s ease, transform .3s ease;
-    cursor:        pointer;
-    border:        none;
     padding:       0;
+    border:        0;
+    border-radius: 50%;
+    background:    rgba(52, 69, 42, .2);
+    cursor:        pointer;
+    transition:    background .3s ease, transform .3s ease;
 }
 
 .bintro-progress__dot.is-active {
-    background: var(--accent);
+    background: var(--rhythm-4);
     transform:  scale(1.5);
 }
 
-/* ================================================================
-   Header schermata — eyebrow + titolo con glow (come barocco intro)
-   ================================================================ */
+/* ── intestazione: stessa gabbia tipografica del testo esistente ─ */
 .bintro-screen .barocco-header {
     --u:         min(calc(100vw / 84), calc(100svh / 36));
     position:    absolute;
+    z-index:     3;
+    top:         clamp(2.4rem, 8.5svh, 4.5rem);
     left:        0;
     right:       0;
     display:     flex;
     align-items: flex-start;
-    z-index:     2;
-    animation:   barocco-label-in .6s ease .2s both;
-    bottom:      calc(50svh + 5.25 * var(--u) - min(16px, 1.6vw) + 2 * var(--u));
 }
+
 .bintro-screen .barocco-intro__eyebrow {
     flex:            0 0 calc(28 * var(--u));
     display:         flex;
     align-items:     flex-start;
     justify-content: flex-start;
-    font-size:       clamp(0.7rem, 0.65 * var(--u), 0.85rem);
+    padding:         calc(1.1 * var(--u));
+    padding-left:    calc(14 * var(--u));
+    color:           var(--rhythm-muted);
+    font-size:       clamp(.7rem, .65 * var(--u), .85rem);
     font-weight:     600;
     letter-spacing:  .1em;
     text-transform:  uppercase;
-    color:           rgba(17, 17, 17, .35);
-    padding:         calc(1.1 * var(--u));
-    padding-left:    calc(14 * var(--u));
 }
+
 .bintro-screen .barocco-intro__title-wrap {
     flex:       1;
-    position:   relative;
-    display:    block;
-    overflow:   hidden;
+    min-width:  0;
+    padding:    calc(1.1 * var(--u)) calc(1.1 * var(--u)) calc(.7 * var(--u)) 0;
     background: #ffffff;
-    padding:    calc(1.1 * var(--u)) calc(1.1 * var(--u)) calc(0.7 * var(--u)) 0;
 }
+
 .bintro-screen .barocco-intro__title {
+    max-width:      18ch;
+    margin:         0;
+    color:          var(--rhythm-deep);
     font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
     font-size:      clamp(1.4rem, 3vw, 3.2rem);
     font-weight:    800;
-    letter-spacing: -0.04em;
+    letter-spacing: -.04em;
     line-height:    1.1;
-    color:          #000000;
-    margin:         0;
-    position:       relative;
-    z-index:        0;
 }
 
-/* ── glow: blob verde-salvia dietro il titolo (hue da ritmo-bento) ── */
-.bintro-screen .barocco-ticker__overlay {
-    pointer-events: none;
-    position:       absolute;
-    inset:          0;
-    mix-blend-mode: lighten;
-}
-.bintro-screen .barocco-ticker__blob {
-    pointer-events: none;
-    position:       absolute;
-    width:          30vw;
-    height:         30vw;
-    mix-blend-mode: overlay;
-    filter:         blur(1rem);
-}
-.bintro-screen .barocco-ticker__blob--1 {
-    top: -50%; left: 0;
-    background: hsl(80, 38%, 55%);
-    animation: barocco-blob-drift 6s ease-in-out infinite,
-               barocco-blob-move-1 12s ease-in-out infinite alternate;
-}
-.bintro-screen .barocco-ticker__blob--2 {
-    top: 0; right: 0;
-    background: hsl(96, 30%, 66%);
-    animation: barocco-blob-drift 6s ease-in-out infinite,
-               barocco-blob-move-2 12s ease-in-out infinite alternate;
-}
-.bintro-screen .barocco-ticker__blob--3 {
-    bottom: 0; left: 0;
-    background: hsl(70, 42%, 47%);
-    animation: barocco-blob-drift 6s ease-in-out infinite,
-               barocco-blob-move-3 12s ease-in-out infinite alternate;
-}
-.bintro-screen .barocco-ticker__blob--4 {
-    bottom: -50%; right: 0;
-    background: hsl(105, 28%, 62%);
-    animation: barocco-blob-drift 6s ease-in-out infinite,
-               barocco-blob-move-4 12s ease-in-out infinite alternate;
-}
-
-@keyframes barocco-label-in {
-    from { opacity: 0; transform: translateY(6px); }
-    to   { opacity: 1; transform: translateY(0); }
-}
-@keyframes barocco-blob-drift {
-    0%, 100% { opacity: 1; }
-    50%      { opacity: 0.7; }
-}
-@keyframes barocco-blob-move-1 { from { transform: translate(0, 0); } to { transform: translate(35%,  60%); } }
-@keyframes barocco-blob-move-2 { from { transform: translate(0, 0); } to { transform: translate(-40%, 30%); } }
-@keyframes barocco-blob-move-3 { from { transform: translate(0, 0); } to { transform: translate(25%, -40%); } }
-@keyframes barocco-blob-move-4 { from { transform: translate(0, 0); } to { transform: translate(-30%, -25%); } }
-
-/* ── lampeggio tile (stesso principio della home, verde-salvia) ── */
-@keyframes btl-blink {
-    0%, 100% { background-color: var(--tile-gray, #e8e8e8); }
-    6%, 11%  { background-color: var(--accent, #9DAE6E); }
-    17%      { background-color: var(--tile-gray, #e8e8e8); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .bintro-screen .barocco-ticker__blob { animation: none; }
-    .bintro-screen .barocco-header       { animation: none; }
-}
-
-/* ================================================================
-   Layout condiviso schermate — striscia 8 tile + controlli + nota
-   ================================================================ */
-.btl {
-    --u:    min(calc(100vw / 84), calc(100svh / 36));
-    --tile: calc(10.5 * var(--u));
+/* ── area interattiva ──────────────────────────────────────────── */
+.brl {
+    --tile: min(calc(100vw / 6), calc((100svh - var(--bintro-header-h, 4rem)) / 3));
     position: absolute;
-    inset:    0;
+    z-index:  2;
+    top:      calc(50% - (var(--tile) / 2) - 4rem);
+    left:     0;
+    right:    0;
 }
 
-.btl__track {
-    position:        absolute;
-    left:            0;
-    right:           0;
-    top:             calc(50svh - (var(--tile) / 2) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw));
+.brl__patterns,
+.brl__sounds {
+    width:           calc(4 * var(--tile));
+    min-height:      2.5rem;
+    margin:          0 auto 1.35rem;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    gap:             1.4rem;
+}
+
+.brl__pattern,
+.brl__sound {
+    position:       relative;
+    min-width:      1.35rem;
+    padding:        .3rem 0;
+    border:         0;
+    border-radius:  0;
+    color:          rgba(52, 69, 42, .48);
+    background:     transparent;
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      .9rem;
+    font-weight:    700;
+    line-height:    1;
+    letter-spacing: -.02em;
+    cursor:         pointer;
+    transition:     color .18s ease;
+}
+
+.brl__pattern::after,
+.brl__sound::after {
+    content:    "";
+    position:   absolute;
+    right:      0;
+    bottom:     -.15rem;
+    left:       0;
+    height:     2px;
+    background: transparent;
+    transition: background .18s ease;
+}
+
+.brl__pattern:hover,
+.brl__pattern:focus-visible,
+.brl__pattern.is-active,
+.brl__sound:hover,
+.brl__sound:focus-visible {
+    color: var(--rhythm-deep);
+}
+
+.brl__pattern.is-active::after,
+.brl__pattern:focus-visible::after,
+.brl__sound:hover::after,
+.brl__sound:focus-visible::after {
+    background: var(--rhythm-4);
+}
+
+.brl__track {
     display:         flex;
     justify-content: center;
+    width:           100%;
 }
 
-.btl__row {
-    display: flex;
-    width:   max-content;
-}
-
-.btl__tile {
-    position:        relative;
-    display:         block;
-    width:           var(--tile);
-    height:          var(--tile);
-    padding:         0;
-    border:          none;
-    border-radius:   0;
-    background:      var(--tile-gray, #e8e8e8);
-    font-family:     inherit;
-    cursor:          pointer;
-    animation:       btl-blink 12s ease-in-out infinite;
-    animation-delay: var(--blink-delay, 0s);
-    transition:      background .1s ease, box-shadow .1s ease;
-}
-.btl__tile:nth-child(1) { --blink-delay: 0s;    --tile-gray: #d6d6d6; }
-.btl__tile:nth-child(2) { --blink-delay: 1.4s;  --tile-gray: #d9d9d9; }
-.btl__tile:nth-child(3) { --blink-delay: 2.8s;  --tile-gray: #dcdcdc; }
-.btl__tile:nth-child(4) { --blink-delay: 4.2s;  --tile-gray: #dfdfdf; }
-.btl__tile:nth-child(5) { --blink-delay: 5.6s;  --tile-gray: #e2e2e2; }
-.btl__tile:nth-child(6) { --blink-delay: 7s;    --tile-gray: #e5e5e5; }
-.btl__tile:nth-child(7) { --blink-delay: 8.4s;  --tile-gray: #e8e8e8; }
-.btl__tile:nth-child(8) { --blink-delay: 9.8s;  --tile-gray: #ebebeb; }
-
-/* durante la riproduzione: stop lampeggio idle */
-.btl.is-playing .btl__tile { animation: none; }
-
-/* schermate 2-3: i tile sono solo visivi, niente cursore pointer */
-.btl--static .btl__tile { cursor: default; }
-
-.btl__num {
-    position:             absolute;
-    left:                 calc(.75 * var(--u));
-    bottom:               calc(.65 * var(--u));
-    font-size:            calc(.55 * var(--u));
-    font-weight:          700;
-    letter-spacing:       .06em;
-    font-variant-numeric: tabular-nums;
-    color:                rgba(17, 17, 17, .35);
-    transition:           color .1s ease;
-    pointer-events:       none;
-}
-
-/* battito acceso */
-.btl__tile.is-live { background: var(--accent, #9DAE6E); }
-.btl__tile.is-live .btl__num { color: #ffffff; }
-
-/* aiuto visivo rimosso: il battito continua ma il tile tace */
-.btl__tile.is-ghost {
-    animation:  none;
-    background: #fafafa;
-    box-shadow: inset 0 0 0 1px #e8e8e8;
-}
-.btl__tile.is-ghost .btl__num { color: rgba(17, 17, 17, .18); }
-
-/* feedback gioco: a tempo / fuori tempo (si azzera al battito dopo) */
-.btl__tile.is-hit  { animation: none; background: var(--hit); }
-.btl__tile.is-hit .btl__num  { color: #ffffff; }
-.btl__tile.is-miss { animation: none; background: var(--miss); }
-.btl__tile.is-miss .btl__num { color: #ffffff; }
-
-/* ── controlli sotto la striscia ── */
-.btl__controls {
-    position:        absolute;
-    left:            0;
-    right:           0;
-    top:             calc(50svh + (var(--tile) / 2) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw) + 2.2 * var(--u));
-    display:         flex;
-    justify-content: center;
-    align-items:     center;
-    gap:             1rem;
-    flex-wrap:       wrap;
-    padding:         0 1rem;
-}
-
-.btl__score {
-    margin:               0;
-    font-size:            .78rem;
-    font-weight:          600;
-    letter-spacing:       .08em;
-    text-transform:       uppercase;
-    font-variant-numeric: tabular-nums;
-    color:                rgba(17, 17, 17, .35);
-}
-.btl__score b { color: #111111; font-weight: 700; }
-
-.btl__note {
-    position:    absolute;
-    left:        50%;
-    transform:   translateX(-50%);
-    top:         calc(50svh + (var(--tile) / 2) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw) + 6.4 * var(--u));
-    max-width:   62ch;
-    margin:      0;
-    padding:     0 1.25rem;
-    font-size:   clamp(.78rem, .95vw, .92rem);
-    line-height: 1.65;
-    text-align:  center;
-    color:       rgba(17, 17, 17, .45);
-}
-.btl__note strong { color: rgba(17, 17, 17, .72); font-weight: 600; }
-.btl__note[hidden] { display: none; }
-
-/* ── controlli: angoli vivi + play circolare ── */
-.btt-chiprow {
-    display:     flex;
-    gap:         .5rem;
-    flex-wrap:   wrap;
-    align-items: center;
-}
-
-.btt-chip {
-    display:         inline-flex;
-    align-items:     center;
-    justify-content: center;
-    min-height:      44px;
-    padding:         .55rem 1.1rem;
-    border:          1px solid rgba(17, 17, 17, .16);
-    border-radius:   0;
-    background:      transparent;
-    font-family:     inherit;
-    font-size:       .85rem;
-    font-weight:     550;
-    letter-spacing:  -.01em;
-    color:           #111111;
-    cursor:          pointer;
-    transition:      background-color .16s ease, border-color .16s ease, color .16s ease;
-}
-.btt-chip:hover { background: rgba(17, 17, 17, .05); }
-.btt-chip.is-active {
-    background:   #111111;
-    border-color: #111111;
-    color:        #ffffff;
-}
-
-.btt-play {
-    flex:            0 0 auto;
-    display:         inline-flex;
-    align-items:     center;
-    justify-content: center;
-    width:           3.2rem;
-    height:          3.2rem;
-    padding:         0;
-    border:          none;
-    border-radius:   50%;
-    background:      #111111;
-    font-size:       1.05rem;
-    line-height:     1;
-    color:           #ffffff;
-    cursor:          pointer;
-    transition:      background .16s ease;
-}
-.btt-play:hover { background: #2a2a2a; }
-.btt-play.is-on { background: var(--accent); }
-
-/* ================================================================
-   SCREEN 3 — sfida "la classe come metronomo"
-   ================================================================ */
-.btl__phase {
-    margin:         0;
-    min-width:      16ch;
-    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:      clamp(.95rem, 1.3vw, 1.25rem);
-    font-weight:    700;
-    letter-spacing: -.02em;
-    color:          #111111;
-}
-.btl__phase[data-live="1"] { color: var(--accent); }
-
-/* verifica finale: appare al termine della sfida, al posto della nota */
-.btl__verdict {
-    position:       absolute;
-    left:           50%;
-    transform:      translateX(-50%);
-    top:            calc(50svh + (var(--tile) / 2) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw) + 5.6 * var(--u));
-    display:        flex;
-    flex-direction: column;
-    align-items:    center;
-    gap:            .75rem;
-    padding:        0 1.25rem;
-}
-.btl__verdict[hidden] { display: none; }
-
-.btl__verdict-q {
-    margin:         0;
-    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
-    font-size:      clamp(1rem, 1.5vw, 1.35rem);
-    font-weight:    700;
-    letter-spacing: -.02em;
-    color:          #111111;
-}
-
-.btl__verdict-feedback {
-    margin:      0;
-    min-height:  1.5em;
-    font-size:   clamp(.8rem, 1vw, .95rem);
-    font-weight: 500;
-    text-align:  center;
-    max-width:   52ch;
-    line-height: 1.55;
-    color:       rgba(17, 17, 17, .56);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .btl__tile { animation: none !important; }
-}
-
-/* ================================================================
-   MOBILE ≤760px — colonna singola, tile che scalano, target ≥44px
-   ================================================================ */
-@media (max-width: 760px) {
-
-    .bintro-progress { display: none; }
-
-    .bintro-screen {
-        flex-direction:  column;
-        align-items:     stretch;
-        justify-content: flex-start;
-    }
-    .bintro-screen .barocco-header,
-    .bintro-screen[data-screen="1"] .barocco-header,
-    .bintro-screen[data-screen="2"] .barocco-header,
-    .bintro-screen[data-screen="3"] .barocco-header {
-        --u:      calc(100vw / 28);
-        position: relative;
-        display:  block;
-        top:      auto;
-        bottom:   auto;
-        flex:     0 0 auto;
-        z-index:  1;
-    }
-    .bintro-screen .barocco-intro__eyebrow {
-        flex:    none;
-        display: block;
-        padding: 1.2rem 1rem .3rem;
-    }
-    .bintro-screen .barocco-intro__title-wrap {
-        flex:    none;
-        padding: 0 1rem 1.4rem;
-    }
-    .bintro-screen .barocco-intro__title {
-        font-size: clamp(1.25rem, 5.5vw, 1.9rem);
-    }
-
-    .btl {
-        position:        relative;
-        inset:           auto;
-        flex:            1 1 auto;
-        min-height:      0;
-        display:         flex;
-        flex-direction:  column;
-        justify-content: center;
-        gap:             1.1rem;
-        padding:         0 0 1rem;
-    }
-    .btl__track {
-        position: relative;
-        top:      auto;
-        padding:  0 1rem;
-    }
-    .btl__row {
-        display:               grid;
-        grid-template-columns: repeat(4, 1fr);
-        width:                 100%;
-        gap:                   2vw;
-    }
-    .btl__tile { width: auto; height: auto; aspect-ratio: 1; }
-    .btl__num  { left: 10%; bottom: 8%; font-size: clamp(.5rem, 2.4vw, .62rem); }
-    .btl__controls { position: relative; top: auto; }
-    .btl__note     { position: relative; top: auto; left: auto; transform: none; }
-    .btl__verdict  { position: relative; top: auto; left: auto; transform: none; }
-}
-
-/* ================================================================
-   BATTITO — tile a 14u come la scelta lezioni, otto battiti in due
-   file da quattro (due battute di 4/4), tile leggermente staccati,
-   nessun corpo di testo. Scopato a body[data-lesson="battito"].
-   ================================================================ */
-body[data-lesson="battito"] .btl {
-    --u:    min(calc(100vw / 84), calc(100svh / 54));
-    --tile: calc(14 * var(--u));
-    --gap:  calc(.35 * var(--u));
-}
-
-body[data-lesson="battito"] .btl__row {
+.brl__row {
     display:               grid;
     grid-template-columns: repeat(4, var(--tile));
-    gap:                   var(--gap);
+    gap:                   0;
     width:                 max-content;
 }
 
-@media (min-width: 761px) {
-    /* mezzo blocco = (2 tile + gap) / 2 = 14.2u circa */
-    body[data-lesson="battito"] .btl__track {
-        top: calc(50svh - 14.2 * var(--u) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw));
-    }
-    body[data-lesson="battito"] .btl__controls {
-        top: calc(50svh + 14.2 * var(--u) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw) + 1.4 * var(--u));
-    }
-    body[data-lesson="battito"] .btl__verdict {
-        top: calc(50svh + 14.2 * var(--u) - var(--bintro-header-h, 4rem) + min(16px, 1.6vw) + 5 * var(--u));
-    }
-    body[data-lesson="battito"] .bintro-screen .barocco-header {
-        --u:    min(calc(100vw / 84), calc(100svh / 54));
-        bottom: calc(50svh + 14.2 * var(--u) - min(16px, 1.6vw) + 1.6 * var(--u));
-    }
+.brl__tile {
+    position:        relative;
+    width:           var(--tile);
+    height:          var(--tile);
+    aspect-ratio:    1;
+    padding:         calc(var(--tile) * .09);
+    border:          0;
+    border-right:    1px solid rgba(255, 255, 255, .72);
+    border-radius:   0;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    color:           var(--rhythm-deep);
+    background:      var(--rhythm-1);
+    font-family:     inherit;
+    cursor:          pointer;
+    transition:      filter .14s ease, box-shadow .14s ease;
 }
 
-/* schermi bassi: titolo compatto, non deve toccare l'header del sito */
+.brl__tile:nth-child(2) { background: var(--rhythm-2); }
+.brl__tile:nth-child(3) { background: var(--rhythm-3); }
+.brl__tile:nth-child(4) { background: var(--rhythm-4); border-right: 0; }
+
+.brl__tile-label {
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    flex-wrap:       wrap;
+    gap:             .25rem .55rem;
+    color:           inherit;
+    font-family:     var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:       clamp(.95rem, 1.45vw, 1.35rem);
+    font-weight:     750;
+    letter-spacing: -.035em;
+    line-height:     1.05;
+    text-align:      center;
+    pointer-events:  none;
+}
+
+.brl__tile.is-live {
+    filter:     saturate(1.25) brightness(.92);
+    box-shadow: inset 0 0 0 5px rgba(255, 255, 255, .88);
+}
+
+.brl__tile.is-selected {
+    box-shadow: inset 0 0 0 5px rgba(52, 69, 42, .82);
+}
+
+.brl__tile.is-empty .brl__tile-label {
+    opacity:     .46;
+    font-size:   clamp(1.4rem, 2.25vw, 2.2rem);
+    font-weight: 450;
+}
+
+.brl__controls {
+    min-height:      4.4rem;
+    margin-top:      1.35rem;
+    display:         grid;
+    grid-template-columns: 1fr;
+    justify-items:   center;
+    align-items:     start;
+    gap:             .5rem;
+}
+
+.brl__controls--composer {
+    grid-template-columns: auto auto;
+    justify-content: center;
+    column-gap:      0;
+}
+
+.brl__primary,
+.brl__secondary {
+    min-width:      7.25rem;
+    min-height:     2.85rem;
+    padding:        .65rem 1.3rem;
+    border-radius:  0;
+    font-family:    inherit;
+    font-size:      .82rem;
+    font-weight:    650;
+    cursor:         pointer;
+    transition:     background .16s ease, color .16s ease, border-color .16s ease;
+}
+
+.brl__primary {
+    border:     1px solid var(--rhythm-mid);
+    color:      #ffffff;
+    background: var(--rhythm-mid);
+}
+
+.brl__primary:hover,
+.brl__primary:focus-visible {
+    border-color: var(--rhythm-4);
+    color:        var(--rhythm-deep);
+    background:   var(--rhythm-4);
+}
+
+.brl__primary:disabled {
+    opacity: .5;
+    cursor:  default;
+}
+
+.brl__secondary {
+    border:       1px solid rgba(52, 69, 42, .28);
+    border-right: 0;
+    color:        var(--rhythm-deep);
+    background:   #ffffff;
+}
+
+.brl__secondary:hover,
+.brl__secondary:focus-visible {
+    background: var(--rhythm-1);
+}
+
+.brl__status {
+    min-height:     1rem;
+    margin:         0;
+    color:          var(--rhythm-muted);
+    font-size:      .68rem;
+    font-weight:    650;
+    letter-spacing: .08em;
+    line-height:    1.2;
+    text-align:     center;
+    text-transform: uppercase;
+}
+
+.brl__controls--composer .brl__status {
+    grid-column: 1 / -1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .brl__tile,
+    .brl__pattern,
+    .brl__sound { transition: none; }
+}
+
+/* ── schermi bassi: preserva titolo, tile e controlli nella banda ─ */
 @media (min-width: 761px) and (max-height: 800px) {
-    body[data-lesson="battito"] .bintro-screen .barocco-intro__title {
-        font-size: clamp(1rem, 3.2svh, 2.1rem);
+    .brl {
+        top: calc(50% - (var(--tile) / 2) - 3.2rem);
     }
-    body[data-lesson="battito"] .bintro-screen .barocco-intro__eyebrow {
-        font-size: clamp(.58rem, 1.6svh, .78rem);
+
+    .brl__patterns,
+    .brl__sounds {
+        margin-bottom: .85rem;
+    }
+
+    .brl__controls {
+        margin-top: .9rem;
     }
 }
 
+/* ── tablet e mobile ───────────────────────────────────────────── */
 @media (max-width: 760px) {
-    /* otto battiti → griglia 4 × 2 anche su mobile */
-    body[data-lesson="battito"] .btl__row {
-        grid-template-columns: repeat(4, 1fr);
-        gap:   1.5vw;
-        width: 100%;
+    .bintro-progress { display: none; }
+
+    .bintro-screen {
+        display:        flex;
+        flex-direction: column;
     }
+
+    .bintro-screen .barocco-header {
+        --u:      calc(100vw / 28);
+        position: relative;
+        top:      auto;
+        flex:     0 0 auto;
+        display:  block;
+    }
+
+    .bintro-screen .barocco-intro__eyebrow {
+        display: block;
+        padding: 1.2rem 1rem .3rem;
+    }
+
+    .bintro-screen .barocco-intro__title-wrap {
+        padding: 0 1rem 1rem;
+    }
+
+    .bintro-screen .barocco-intro__title {
+        max-width: none;
+        font-size: clamp(1.35rem, 6vw, 2rem);
+    }
+
+    .brl {
+        --tile: calc((100vw - 2rem) / 4);
+        position:       relative;
+        top:            auto;
+        left:           auto;
+        right:          auto;
+        flex:           1 1 auto;
+        width:          100%;
+        min-height:     0;
+        display:        flex;
+        flex-direction: column;
+        justify-content: center;
+        padding-bottom: 1rem;
+    }
+
+    .brl__patterns,
+    .brl__sounds {
+        width:         calc(100% - 2rem);
+        margin-bottom: 1rem;
+        gap:           1rem;
+    }
+
+    .brl__track { padding: 0 1rem; }
+    .brl__row   { width: 100%; grid-template-columns: repeat(4, 1fr); }
+    .brl__tile  { width: auto; height: auto; }
+    .brl__tile-label { font-size: clamp(.72rem, 3.2vw, 1rem); }
+    .brl__controls { margin-top: 1rem; }
 }
