@@ -436,12 +436,12 @@ body[data-current-nucleus="barocco"] .brand--wordmark {
     }
 }
 
-/* ── Mobile ≤600px: griglia a 2 colonne ordinata e a capo — come la home ── */
+/* ── Mobile ≤600px: striscia orizzontale scrollabile — come la home ── */
 @media (max-width: 600px) {
     .barocco-stage {
         min-height: 0;
         display: block;
-        --u: calc(100vw / 28); /* 2 tile per riga → ogni tile = 50vw = 14u */
+        --u: calc(100vw / 28); /* unità interna; i tile condivisi restano larghi 44vw */
     }
     .barocco-header {
         display: block;
