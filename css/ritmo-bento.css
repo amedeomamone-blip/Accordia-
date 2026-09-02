@@ -20,6 +20,18 @@ body[data-current-nucleus="ritmo"] .site-footer {
     padding: 1.1rem 0;
 }
 
+/* Titoli in grassetto delle tessere: stessa dimensione della striscia Pratica. */
+@media (min-width: 601px) {
+    body[data-current-nucleus="ritmo"] .barocco-tile__name {
+        font-size: 1.15vw;
+    }
+}
+@media (max-width: 600px) {
+    body[data-current-nucleus="ritmo"] .barocco-tile__name {
+        font-size: 4.4vw;
+    }
+}
+
 /* ── Tema: il blink delle mattonelle vira al verde-salvia ── */
 @keyframes barocco-blink {
     0%, 100% { background-color: #e8e8e8; }
