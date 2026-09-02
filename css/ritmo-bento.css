@@ -20,23 +20,13 @@ body[data-current-nucleus="ritmo"] .site-footer {
     padding: 1.1rem 0;
 }
 
-/* Titoli in grassetto delle tessere: stessa dimensione della striscia Pratica. */
-@media (min-width: 601px) {
-    body[data-current-nucleus="ritmo"] .barocco-tile__name {
-        font-size: 1.15vw;
-    }
-}
-@media (max-width: 600px) {
-    body[data-current-nucleus="ritmo"] .barocco-tile__name {
-        font-size: 4.4vw;
-    }
-}
-
-/* ── Tema: il blink delle mattonelle vira al verde-salvia ── */
-@keyframes barocco-blink {
-    0%, 100% { background-color: #e8e8e8; }
-    6%,  11% { background-color: #9DAE6E; }
-    17%      { background-color: #e8e8e8; }
+/* La pagina Ritmo eredita integralmente geometria e tipografia della striscia
+   principale; cambia soltanto l'accento, uguale alla tessera Ritmo della home. */
+body[data-current-nucleus="ritmo"] .barocco-stage {
+    --tile-strip-accent: #B9C7A6;
+    --tile-strip-lit-num: rgba(17,17,17,.85);
+    --tile-strip-lit-arrow-bg: rgba(17,17,17,.14);
+    --tile-strip-lit-arrow-fg: #18191b;
 }
 
 /* ── Blob del titolo: gradiente verde-salvia (al posto del terracotta) ── */
