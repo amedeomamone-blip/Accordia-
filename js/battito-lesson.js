@@ -14,8 +14,10 @@
     window.addEventListener('resize', syncHeaderHeight);
     window.addEventListener('load', syncHeaderHeight);
 
-    /* ── suoni sintetici, senza asset esterni ─────────────────── */
+    /* ── timbri corporei sintetici, senza asset esterni ───────── */
     var audioContext = null;
+    var bodyOutput = null;
+    var noiseBuffer = null;
 
     function getAudioContext() {
         if (!audioContext) {
@@ -27,34 +29,106 @@
         return audioContext;
     }
 
+    function getBodyOutput(ac) {
+        if (bodyOutput) return bodyOutput;
+
+        var compressor = ac.createDynamicsCompressor();
+        var master = ac.createGain();
+        compressor.threshold.value = -22;
+        compressor.knee.value = 18;
+        compressor.ratio.value = 5;
+        compressor.attack.value = .003;
+        compressor.release.value = .14;
+        master.gain.value = .72;
+        compressor.connect(master);
+        master.connect(ac.destination);
+        bodyOutput = compressor;
+        return bodyOutput;
+    }
+
+    function getNoiseBuffer(ac) {
+        if (noiseBuffer) return noiseBuffer;
+
+        var frameCount = Math.floor(ac.sampleRate * .24);
+        var buffer = ac.createBuffer(1, frameCount, ac.sampleRate);
+        var data = buffer.getChannelData(0);
+        for (var index = 0; index < frameCount; index += 1) {
+            data[index] = Math.random() * 2 - 1;
+        }
+        noiseBuffer = buffer;
+        return noiseBuffer;
+    }
+
+    function playNoiseLayer(ac, when, settings) {
+        var source = ac.createBufferSource();
+        var filter = ac.createBiquadFilter();
+        var gain = ac.createGain();
+        var start = when + (settings.offset || 0);
+        var end = start + settings.duration;
+
+        source.buffer = getNoiseBuffer(ac);
+        filter.type = settings.filter;
+        filter.frequency.setValueAtTime(settings.frequency, start);
+        filter.Q.value = settings.q || .7;
+        gain.gain.setValueAtTime(.0001, start);
+        gain.gain.linearRampToValueAtTime(settings.gain, start + .004);
+        gain.gain.exponentialRampToValueAtTime(.001, end);
+
+        source.connect(filter);
+        filter.connect(gain);
+        gain.connect(getBodyOutput(ac));
+        source.start(start);
+        source.stop(end + .02);
+    }
+
+    function playToneLayer(ac, when, settings) {
+        var oscillator = ac.createOscillator();
+        var gain = ac.createGain();
+        var end = when + settings.duration;
+
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(settings.from, when);
+        oscillator.frequency.exponentialRampToValueAtTime(settings.to, end);
+        gain.gain.setValueAtTime(settings.gain, when);
+        gain.gain.exponentialRampToValueAtTime(.001, end);
+
+        oscillator.connect(gain);
+        gain.connect(getBodyOutput(ac));
+        oscillator.start(when);
+        oscillator.stop(end + .02);
+    }
+
     function playBodySound(name, delay) {
         if (name === 'silenzio') return;
 
         var ac = getAudioContext();
         if (!ac) return;
 
-        var settings = {
-            cosce: { frequency: 210, type: 'sine',     gain: .34, duration: .13 },
-            mani:  { frequency: 980, type: 'triangle', gain: .28, duration: .08 },
-            petto: { frequency: 135, type: 'sine',     gain: .42, duration: .17 },
-            piedi: { frequency: 82,  type: 'square',   gain: .3,  duration: .12 }
-        }[name];
-
-        if (!settings) return;
-
         var when = ac.currentTime + (delay || 0);
-        var oscillator = ac.createOscillator();
-        var gain = ac.createGain();
 
-        oscillator.type = settings.type;
-        oscillator.frequency.setValueAtTime(settings.frequency, when);
-        gain.gain.setValueAtTime(settings.gain, when);
-        gain.gain.exponentialRampToValueAtTime(.001, when + settings.duration);
+        if (name === 'mani') {
+            playNoiseLayer(ac, when, { filter: 'bandpass', frequency: 1850, q: .75, gain: .2, duration: .065 });
+            playNoiseLayer(ac, when, { filter: 'highpass', frequency: 950, q: .55, gain: .12, duration: .055, offset: .016 });
+            playNoiseLayer(ac, when, { filter: 'highpass', frequency: 1250, q: .55, gain: .07, duration: .04, offset: .034 });
+            return;
+        }
 
-        oscillator.connect(gain);
-        gain.connect(ac.destination);
-        oscillator.start(when);
-        oscillator.stop(when + settings.duration + .02);
+        if (name === 'cosce') {
+            playNoiseLayer(ac, when, { filter: 'bandpass', frequency: 330, q: .7, gain: .28, duration: .105 });
+            playToneLayer(ac, when, { from: 105, to: 58, gain: .17, duration: .13 });
+            return;
+        }
+
+        if (name === 'petto') {
+            playNoiseLayer(ac, when, { filter: 'lowpass', frequency: 290, q: .65, gain: .25, duration: .125 });
+            playToneLayer(ac, when, { from: 78, to: 44, gain: .24, duration: .18 });
+            return;
+        }
+
+        if (name === 'piedi') {
+            playNoiseLayer(ac, when, { filter: 'lowpass', frequency: 190, q: .75, gain: .3, duration: .11 });
+            playToneLayer(ac, when, { from: 62, to: 38, gain: .22, duration: .15 });
+        }
     }
 
     function playMetronomeClick(accent) {
@@ -180,26 +254,23 @@
         var patterns = [
             [
                 ['cosce'], ['cosce'], ['cosce'], ['cosce'],
-                ['cosce'], ['cosce'], ['cosce'], ['cosce']
-            ],
-            [
-                ['mani'], ['mani'], ['mani'], ['mani'],
                 ['mani'], ['mani'], ['mani'], ['mani']
             ],
             [
-                ['cosce'], ['mani'], ['cosce'], ['mani'],
-                ['cosce'], ['mani'], ['cosce'], ['mani'],
-                ['cosce'], ['mani'], ['cosce'], ['mani']
+                ['cosce'], ['petto'], ['cosce'], ['mani'],
+                ['petto'], ['cosce'], ['mani'], ['mani']
             ],
             [
-                ['cosce'], ['petto'], ['cosce'], ['mani'],
-                ['cosce'], ['petto'], ['cosce'], ['mani'],
-                ['cosce'], ['petto'], ['cosce'], ['mani']
+                ['cosce'], ['mani'], ['cosce', 'petto'], ['mani'],
+                ['petto'], ['cosce', 'mani'], ['petto'], ['mani', 'mani']
+            ],
+            [
+                ['cosce', 'petto'], ['mani'], ['petto'], ['cosce', 'mani'],
+                ['mani', 'mani'], ['cosce'], ['petto', 'mani'], ['cosce']
             ],
             [
                 ['cosce', 'petto'], ['mani'], ['cosce', 'petto'], ['mani', 'mani'],
-                ['cosce', 'petto'], ['mani'], ['cosce', 'petto'], ['mani', 'mani'],
-                ['cosce', 'petto'], ['mani'], ['cosce', 'petto'], ['mani', 'mani']
+                ['mani', 'petto'], ['cosce', 'mani'], ['petto', 'mani'], ['cosce', 'petto']
             ]
         ];
         var patternIndex = 0;
@@ -214,6 +285,14 @@
         var beatLength = 714;
         var metronomeTimer = null;
         var metronomeBeat = 0;
+        var echoRunning = false;
+
+        function syncEchoButton(running) {
+            echoRunning = running;
+            playButton.classList.toggle('is-playing', running);
+            playButton.setAttribute('aria-pressed', running ? 'true' : 'false');
+            playButton.textContent = running ? 'Stop' : 'Ascolta';
+        }
 
         function syncMetronomeButton(running) {
             if (!metronomeButton) return;
@@ -261,28 +340,25 @@
             });
         }
 
-        function renderChunk(chunkIndex) {
+        function renderPattern() {
             var sequence = patterns[patternIndex];
-            var currentStart = chunkIndex * 4;
-            var nextStart = currentStart + 4;
-            var currentSounds = sequence.slice(currentStart, currentStart + 4);
-            var nextSounds = sequence.slice(nextStart, nextStart + 4);
+            var firstBlock = sequence.slice(0, 4);
+            var secondBlock = sequence.slice(4, 8);
 
-            root.setAttribute('data-chunk', String(chunkIndex + 1));
-            mainGrid.setAttribute('aria-label', 'Frase in esecuzione, movimenti da ' + (currentStart + 1) + ' a ' + (currentStart + currentSounds.length));
-            previewGrid.setAttribute('aria-label', nextSounds.length ? 'Anteprima dei movimenti da ' + (nextStart + 1) + ' a ' + (nextStart + nextSounds.length) : 'Nessuna frase successiva');
-
-            renderTiles(mainGrid, currentSounds, currentStart);
-            renderTiles(previewGrid, nextSounds, nextStart);
-            preview.classList.toggle('is-blank', nextSounds.length === 0);
-            preview.setAttribute('aria-hidden', nextSounds.length ? 'false' : 'true');
+            mainGrid.setAttribute('aria-label', 'Prima battuta, movimenti da 1 a 4');
+            previewGrid.setAttribute('aria-label', 'Seconda battuta, movimenti da 1 a 4');
+            renderTiles(mainGrid, firstBlock, 0);
+            renderTiles(previewGrid, secondBlock, 4);
+            preview.classList.remove('is-blank');
+            preview.setAttribute('aria-hidden', 'false');
         }
 
         function render() {
             stopPlayback();
             root.classList.remove('is-changing');
             status.textContent = '';
-            renderChunk(0);
+            syncEchoButton(false);
+            renderPattern();
         }
 
         function playEchoSequence() {
@@ -290,64 +366,51 @@
             getAudioContext();
 
             var sequence = patterns[patternIndex];
-            var chunkCount = Math.ceil(sequence.length / 4);
-            var timers = [];
+            var timer = null;
             var stopped = false;
+            var beatIndex = 0;
 
-            renderChunk(0);
-            playButton.disabled = true;
-            status.textContent = 'Ascolta';
+            renderPattern();
+            status.textContent = '';
+            syncEchoButton(true);
+
+            function clearHighlights() {
+                Array.prototype.slice.call(root.querySelectorAll('.brl__tile.is-live')).forEach(function (tile) {
+                    tile.classList.remove('is-live');
+                });
+            }
 
             function stop() {
                 if (stopped) return;
                 stopped = true;
-                timers.forEach(window.clearTimeout);
+                if (timer !== null) window.clearTimeout(timer);
                 root.classList.remove('is-changing');
-                Array.prototype.slice.call(mainGrid.querySelectorAll('.brl__tile')).forEach(function (tile) {
-                    tile.classList.remove('is-live');
-                });
-                playButton.disabled = false;
+                clearHighlights();
+                syncEchoButton(false);
+                status.textContent = '';
             }
 
             currentPlaybackStop = stop;
 
-            for (var chunkIndex = 1; chunkIndex < chunkCount; chunkIndex += 1) {
-                (function (nextChunk) {
-                    var swapTime = nextChunk * 4 * beatLength;
+            function pulse() {
+                if (stopped) return;
 
-                    timers.push(window.setTimeout(function () {
-                        if (!stopped) root.classList.add('is-changing');
-                    }, swapTime - 340));
+                var sequenceIndex = beatIndex % sequence.length;
+                var sounds = sequence[sequenceIndex];
+                var targetGrid = sequenceIndex < 4 ? mainGrid : previewGrid;
+                var targetTile = targetGrid.children[sequenceIndex % 4];
 
-                    timers.push(window.setTimeout(function () {
-                        if (!stopped) renderChunk(nextChunk);
-                    }, swapTime - 180));
+                clearHighlights();
+                if (targetTile) targetTile.classList.add('is-live');
+                sounds.forEach(function (sound, soundIndex) {
+                    playBodySound(sound, soundIndex * .18);
+                });
 
-                    timers.push(window.setTimeout(function () {
-                        if (!stopped) root.classList.remove('is-changing');
-                    }, swapTime - 170));
-                })(chunkIndex);
+                beatIndex += 1;
+                timer = window.setTimeout(pulse, beatLength);
             }
 
-            sequence.forEach(function (sounds, index) {
-                timers.push(window.setTimeout(function () {
-                    if (stopped) return;
-
-                    Array.prototype.slice.call(mainGrid.querySelectorAll('.brl__tile')).forEach(function (tile, tileIndex) {
-                        tile.classList.toggle('is-live', tileIndex === index % 4);
-                    });
-
-                    sounds.forEach(function (sound, soundIndex) {
-                        playBodySound(sound, soundIndex * .2);
-                    });
-                }, index * beatLength));
-            });
-
-            timers.push(window.setTimeout(function () {
-                stop();
-                status.textContent = 'Ora rispondi';
-                currentPlaybackStop = null;
-            }, sequence.length * beatLength));
+            pulse();
         }
 
         patternButtons.forEach(function (button) {
@@ -364,6 +427,7 @@
 
         tempoButtons.forEach(function (button) {
             button.addEventListener('click', function () {
+                var echoWasRunning = echoRunning;
                 stopPlayback();
                 var metronomeWasRunning = metronomeTimer !== null;
                 beatLength = parseInt(button.getAttribute('data-beat-length'), 10) || 714;
@@ -375,8 +439,9 @@
                 });
 
                 status.textContent = button.textContent + ' · ' + Math.round(60000 / beatLength) + ' BPM';
-                renderChunk(0);
+                renderPattern();
                 if (metronomeWasRunning) startMetronome();
+                if (echoWasRunning) playEchoSequence();
             });
         });
 
@@ -396,6 +461,10 @@
         });
 
         playButton.addEventListener('click', function () {
+            if (echoRunning) {
+                stopPlayback();
+                return;
+            }
             playEchoSequence();
         });
 

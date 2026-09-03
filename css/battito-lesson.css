@@ -271,8 +271,8 @@ body[data-lesson="battito"] .brand--wordmark {
 
 .brl__pattern-options {
     display:               grid;
-    grid-template-columns: repeat(5, 2.15rem);
-    gap:                   2px;
+    grid-template-columns: repeat(5, 2.2rem);
+    gap:                   .4rem;
 }
 
 .brl__sounds {
@@ -299,10 +299,11 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl__pattern {
-    width:      2.15rem;
-    min-width:  2.15rem;
-    height:     2.15rem;
+    width:         2.2rem;
+    min-width:     2.2rem;
+    height:        2.2rem;
     padding:    0;
+    border-radius: 50%;
     color:      rgba(52, 69, 42, .58);
     background: var(--rhythm-tile-idle);
     transition: color .16s ease, background .16s ease, transform .16s ease;
@@ -361,7 +362,7 @@ body[data-lesson="battito"] .brand--wordmark {
 .brl__pattern.is-active {
     color:      var(--rhythm-deep);
     background: var(--rhythm-active);
-    transform:  translateY(-2px);
+    transform:  translateY(-2px) scale(1.08);
 }
 
 .brl__track {
@@ -427,7 +428,7 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl__preview {
-    --preview-tile: clamp(5rem, calc(var(--tile) * .5), 6.75rem);
+    --preview-tile: clamp(6.25rem, calc(var(--tile) * .62), 8.5rem);
     width:          calc(4 * var(--preview-tile));
     min-height:     var(--preview-tile);
     margin-top:     .75rem;
@@ -561,31 +562,32 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl--echo .brl__controls {
-    margin-top: .75rem;
+    margin-top: .6rem;
 }
 
 .brl__tempo {
+    min-height:      2.45rem;
     display:         flex;
     align-items:     center;
     justify-content: center;
     flex-wrap:       wrap;
-    gap:             .45rem .8rem;
+    gap:             .5rem 1rem;
 }
 
 .brl__tempo-label {
     display:        inline-flex;
     align-items:    center;
-    gap:            .36rem;
+    gap:            .42rem;
     color:          rgba(17, 17, 17, .46);
-    font-size:      .68rem;
+    font-size:      .76rem;
     font-weight:    700;
     letter-spacing: .08em;
     text-transform: uppercase;
 }
 
 .brl__tempo-icon {
-    width:        1rem;
-    height:       1rem;
+    width:        1.15rem;
+    height:       1.15rem;
     fill:         none;
     stroke:       currentColor;
     stroke-width: 1.55;
@@ -598,12 +600,12 @@ body[data-lesson="battito"] .brand--wordmark {
 
 .brl__tempo-option {
     position:       relative;
-    padding:        .3rem .55rem .42rem;
+    padding:        .42rem .65rem .5rem;
     border:         0;
     color:          rgba(52, 69, 42, .48);
     background:     transparent;
     font-family:    inherit;
-    font-size:      .72rem;
+    font-size:      .8rem;
     font-weight:    650;
     line-height:    1;
     cursor:         pointer;
@@ -613,9 +615,9 @@ body[data-lesson="battito"] .brand--wordmark {
 .brl__tempo-option::after {
     content:    "";
     position:   absolute;
-    right:      .55rem;
+    right:      .65rem;
     bottom:     0;
-    left:       .55rem;
+    left:       .65rem;
     height:     2px;
     background: transparent;
 }
@@ -631,15 +633,15 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl__metronome-toggle {
-    min-width:      3.8rem;
-    min-height:     1.85rem;
+    min-width:      4.5rem;
+    min-height:     2.15rem;
     margin-left:    .15rem;
-    padding:        .35rem .65rem;
+    padding:        .45rem .8rem;
     border:         1px solid var(--rhythm-active);
     color:          var(--rhythm-deep);
     background:     #ffffff;
     font-family:    inherit;
-    font-size:      .68rem;
+    font-size:      .76rem;
     font-weight:    700;
     line-height:    1;
     cursor:         pointer;
@@ -684,6 +686,11 @@ body[data-lesson="battito"] .brand--wordmark {
     background:   var(--rhythm-4);
 }
 
+.brl__primary.is-playing {
+    border-color: var(--rhythm-deep);
+    background:   var(--rhythm-deep);
+}
+
 .brl__primary:disabled {
     opacity: .5;
     cursor:  default;
@@ -711,6 +718,12 @@ body[data-lesson="battito"] .brand--wordmark {
     line-height:    1.2;
     text-align:     center;
     text-transform: uppercase;
+}
+
+.brl--echo .brl__status {
+    height:     0;
+    min-height: 0;
+    overflow:   hidden;
 }
 
 .brl__controls--composer .brl__status {
@@ -750,7 +763,7 @@ body[data-lesson="battito"] .brand--wordmark {
     }
 
     .brl--echo .brl__controls {
-        margin-top: .45rem;
+        margin-top: .5rem;
         gap:        .35rem;
     }
 }
@@ -823,6 +836,7 @@ body[data-lesson="battito"] .brand--wordmark {
 
     .brl__pattern-options {
         grid-template-columns: repeat(5, 1.9rem);
+        gap:                   .28rem;
     }
 
     .brl__pattern {
@@ -860,20 +874,33 @@ body[data-lesson="battito"] .brand--wordmark {
     }
 
     .brl__preview {
-        --preview-tile: clamp(4.2rem, 22vw, 5.5rem);
+        --preview-tile: calc((100vw - 2rem) / 4);
+        width:          100%;
     }
 
     .brl__tempo {
+        min-height: 2.1rem;
         gap: .25rem .45rem;
     }
 
+    .brl__tempo-label {
+        gap:       .3rem;
+        font-size: .64rem;
+    }
+
+    .brl__tempo-icon {
+        width:  .95rem;
+        height: .95rem;
+    }
+
     .brl__tempo-option {
-        padding-inline: .4rem;
+        padding:       .32rem .4rem .4rem;
         font-size:      .68rem;
     }
 
     .brl__metronome-toggle {
         min-width:      3.45rem;
+        min-height:     1.9rem;
         padding-inline: .5rem;
         font-size:      .65rem;
     }
