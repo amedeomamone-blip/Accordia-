@@ -57,6 +57,25 @@
         oscillator.stop(when + settings.duration + .02);
     }
 
+    function playMetronomeClick(accent) {
+        var ac = getAudioContext();
+        if (!ac) return;
+
+        var when = ac.currentTime;
+        var oscillator = ac.createOscillator();
+        var gain = ac.createGain();
+
+        oscillator.type = 'square';
+        oscillator.frequency.setValueAtTime(accent ? 1320 : 980, when);
+        gain.gain.setValueAtTime(accent ? .075 : .045, when);
+        gain.gain.exponentialRampToValueAtTime(.001, when + .035);
+
+        oscillator.connect(gain);
+        gain.connect(ac.destination);
+        oscillator.start(when);
+        oscillator.stop(when + .045);
+    }
+
     var gestureImages = {
         mani:  '../../../../assets/lesson/body-percussion/mani.png',
         petto: '../../../../assets/lesson/body-percussion/petto.png',
@@ -109,13 +128,13 @@
         currentPlaybackStop = null;
     }
 
-    function playSequence(tiles, sequence, button, status, doneText) {
+    function playSequence(tiles, sequence, button, status, doneText, beatDuration) {
         stopPlayback();
         getAudioContext();
 
         var timers = [];
         var stopped = false;
-        var beatLength = 700;
+        var beatLength = beatDuration || 714;
 
         button.disabled = true;
         status.textContent = 'Ascolta';
@@ -190,6 +209,8 @@
         var preview = root.querySelector('.brl__preview');
         var playButton = document.getElementById('brl-echo-play');
         var status = document.getElementById('brl-echo-status');
+        var tempoButtons = Array.prototype.slice.call(root.querySelectorAll('.brl__tempo-option'));
+        var beatLength = 714;
 
         function renderTiles(target, soundsList, startIndex) {
             target.innerHTML = '';
@@ -239,7 +260,6 @@
             getAudioContext();
 
             var sequence = patterns[patternIndex];
-            var beatLength = 700;
             var chunkCount = Math.ceil(sequence.length / 4);
             var timers = [];
             var stopped = false;
@@ -287,6 +307,7 @@
                         tile.classList.toggle('is-live', tileIndex === index % 4);
                     });
 
+                    playMetronomeClick(index % 4 === 0);
                     sounds.forEach(function (sound, soundIndex) {
                         playBodySound(sound, soundIndex * .2);
                     });
@@ -309,6 +330,22 @@
                     item.setAttribute('aria-selected', active ? 'true' : 'false');
                 });
                 render();
+            });
+        });
+
+        tempoButtons.forEach(function (button) {
+            button.addEventListener('click', function () {
+                stopPlayback();
+                beatLength = parseInt(button.getAttribute('data-beat-length'), 10) || 714;
+
+                tempoButtons.forEach(function (item) {
+                    var active = item === button;
+                    item.classList.toggle('is-active', active);
+                    item.setAttribute('aria-pressed', active ? 'true' : 'false');
+                });
+
+                status.textContent = button.textContent + ' · ' + Math.round(60000 / beatLength) + ' BPM';
+                renderChunk(0);
             });
         });
 

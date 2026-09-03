@@ -11,6 +11,8 @@
     --rhythm-3:        #9bb861;
     --rhythm-4:        #99aa46;
     --rhythm-muted:    rgba(52, 69, 42, .5);
+    --rhythm-tile-idle: #d9ddda;
+    --rhythm-active:   #b9c7a6;
     --bintro-header-h: 4rem;
     color:             var(--rhythm-deep);
     background:        #ffffff;
@@ -123,7 +125,7 @@ body[data-lesson="battito"] .brand--wordmark {
     justify-content: flex-start;
     padding:         calc(1.1 * var(--u));
     padding-left:    calc(14 * var(--u));
-    color:           var(--rhythm-muted);
+    color:           rgba(17, 17, 17, .35);
     font-size:       clamp(.7rem, .65 * var(--u), .85rem);
     font-weight:     600;
     letter-spacing:  .1em;
@@ -131,21 +133,95 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .bintro-screen .barocco-intro__title-wrap {
+    position:   relative;
     flex:       1;
     min-width:  0;
+    overflow:   hidden;
     padding:    calc(1.1 * var(--u)) calc(1.1 * var(--u)) calc(.7 * var(--u)) 0;
     background: #ffffff;
 }
 
 .bintro-screen .barocco-intro__title {
+    position:       relative;
+    z-index:        0;
     max-width:      18ch;
     margin:         0;
-    color:          var(--rhythm-deep);
+    color:          #000000;
     font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
     font-size:      clamp(1.4rem, 3vw, 3.2rem);
     font-weight:    800;
     letter-spacing: -.04em;
     line-height:    1.1;
+}
+
+/* Effetto fluo: stessa tecnica e stessa palette della pagina Ritmo. */
+.bintro-screen .barocco-ticker__overlay {
+    position:       absolute;
+    inset:          0;
+    pointer-events: none;
+    mix-blend-mode: lighten;
+}
+
+.bintro-screen .barocco-ticker__blob {
+    position:       absolute;
+    width:          clamp(12rem, 30vw, 28rem);
+    height:         clamp(12rem, 30vw, 28rem);
+    pointer-events: none;
+    filter:         blur(1rem);
+    mix-blend-mode: overlay;
+}
+
+.bintro-screen .barocco-ticker__blob--1 {
+    top: -50%;
+    left: 0;
+    background: hsl(80, 38%, 55%);
+    animation: bintro-blob-drift 6s ease-in-out infinite, bintro-blob-move-1 12s ease-in-out infinite alternate;
+}
+
+.bintro-screen .barocco-ticker__blob--2 {
+    top: 0;
+    right: 0;
+    background: hsl(96, 30%, 66%);
+    animation: bintro-blob-drift 6s ease-in-out infinite, bintro-blob-move-2 12s ease-in-out infinite alternate;
+}
+
+.bintro-screen .barocco-ticker__blob--3 {
+    bottom: 0;
+    left: 0;
+    background: hsl(70, 42%, 47%);
+    animation: bintro-blob-drift 6s ease-in-out infinite, bintro-blob-move-3 12s ease-in-out infinite alternate;
+}
+
+.bintro-screen .barocco-ticker__blob--4 {
+    right: 0;
+    bottom: -50%;
+    background: hsl(105, 28%, 62%);
+    animation: bintro-blob-drift 6s ease-in-out infinite, bintro-blob-move-4 12s ease-in-out infinite alternate;
+}
+
+@keyframes bintro-blob-drift {
+    0%, 100% { opacity: 1; }
+    50%      { opacity: .7; }
+}
+
+@keyframes bintro-blob-move-1 {
+    from { transform: translate(0, 0); }
+    to   { transform: translate(35%, 60%); }
+}
+
+@keyframes bintro-blob-move-2 {
+    from { transform: translate(0, 0); }
+    to   { transform: translate(-40%, 30%); }
+}
+
+@keyframes bintro-blob-move-3 {
+    from { transform: translate(0, 0); }
+    to   { transform: translate(25%, -40%); }
+}
+
+@keyframes bintro-blob-move-4 {
+    from { transform: translate(0, 0); }
+    to   { transform: translate(-30%, -25%); }
 }
 
 .bintro-screen .barocco-intro__description {
@@ -277,16 +353,18 @@ body[data-lesson="battito"] .brand--wordmark {
     align-items:     center;
     justify-content: center;
     color:           var(--rhythm-deep);
-    background:      var(--rhythm-1);
+    background:      var(--rhythm-tile-idle);
     font-family:     inherit;
     cursor:          pointer;
-    transition:      filter .14s ease, box-shadow .14s ease;
+    transition:      background .14s ease, filter .14s ease, box-shadow .14s ease;
 }
 
-.brl__tile:nth-child(4n + 1) { background: var(--rhythm-1); }
-.brl__tile:nth-child(4n + 2) { background: var(--rhythm-2); }
-.brl__tile:nth-child(4n + 3) { background: var(--rhythm-3); }
-.brl__tile:nth-child(4n)     { background: var(--rhythm-4); border-right: 0; }
+.brl__tile:nth-child(4n + 1),
+.brl__tile:nth-child(4n + 2),
+.brl__tile:nth-child(4n + 3),
+.brl__tile:nth-child(4n) { background: var(--rhythm-tile-idle); }
+
+.brl__tile:nth-child(4n) { border-right: 0; }
 
 .brl__row--main,
 .brl__preview {
@@ -304,7 +382,7 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl__preview {
-    --preview-tile: clamp(2.75rem, calc(var(--tile) * .27), 3.5rem);
+    --preview-tile: clamp(3.5rem, calc(var(--tile) * .34), 4.5rem);
     width:          calc(4 * var(--preview-tile));
     min-height:     var(--preview-tile);
     margin-top:     .75rem;
@@ -399,7 +477,8 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl__tile.is-live {
-    filter:     saturate(1.25) brightness(.92);
+    background: var(--rhythm-active);
+    filter:     none;
     box-shadow: inset 0 0 0 5px rgba(255, 255, 255, .88);
 }
 
@@ -413,6 +492,19 @@ body[data-lesson="battito"] .brand--wordmark {
     font-weight: 450;
 }
 
+/* Testo descrittivo: come nella pagina Ritmo, centrato sotto i tile. */
+.brl__description {
+    width:          calc(2 * var(--tile));
+    max-width:      none;
+    margin:         clamp(.65rem, 1.5svh, 1rem) auto 0;
+    padding:        0;
+    color:          rgba(17, 17, 17, .52);
+    font-size:      clamp(.76rem, .85vw, .94rem);
+    font-weight:    400;
+    letter-spacing: -.01em;
+    line-height:    1.55;
+}
+
 .brl__controls {
     min-height:      4.4rem;
     margin-top:      1.35rem;
@@ -424,7 +516,73 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl--echo .brl__controls {
-    margin-top: .85rem;
+    margin-top: .75rem;
+}
+
+.brl__tempo {
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+    flex-wrap:       wrap;
+    gap:             .45rem .8rem;
+}
+
+.brl__tempo-label {
+    display:        inline-flex;
+    align-items:    center;
+    gap:            .36rem;
+    color:          rgba(17, 17, 17, .46);
+    font-size:      .68rem;
+    font-weight:    700;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+}
+
+.brl__tempo-icon {
+    width:        1rem;
+    height:       1rem;
+    fill:         none;
+    stroke:       currentColor;
+    stroke-width: 1.55;
+}
+
+.brl__tempo-options {
+    display:     inline-flex;
+    align-items: center;
+}
+
+.brl__tempo-option {
+    position:       relative;
+    padding:        .3rem .55rem .42rem;
+    border:         0;
+    color:          rgba(52, 69, 42, .48);
+    background:     transparent;
+    font-family:    inherit;
+    font-size:      .72rem;
+    font-weight:    650;
+    line-height:    1;
+    cursor:         pointer;
+    transition:     color .16s ease;
+}
+
+.brl__tempo-option::after {
+    content:    "";
+    position:   absolute;
+    right:      .55rem;
+    bottom:     0;
+    left:       .55rem;
+    height:     2px;
+    background: transparent;
+}
+
+.brl__tempo-option:hover,
+.brl__tempo-option:focus-visible,
+.brl__tempo-option.is-active {
+    color: var(--rhythm-deep);
+}
+
+.brl__tempo-option.is-active::after {
+    background: var(--rhythm-active);
 }
 
 .brl__controls--composer {
@@ -493,6 +651,7 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 @media (prefers-reduced-motion: reduce) {
+    .barocco-ticker__blob,
     .brl__tile,
     .brl__pattern,
     .brl__sound,
@@ -554,6 +713,11 @@ body[data-lesson="battito"] .brand--wordmark {
         line-height: 1.4;
     }
 
+    .bintro-screen .barocco-ticker__blob {
+        width:  65vw;
+        height: 65vw;
+    }
+
     .brl {
         --tile: calc((100vw - 2rem) / 4);
         position:       absolute;
@@ -592,4 +756,25 @@ body[data-lesson="battito"] .brand--wordmark {
     .brl__tile  { width: auto; height: auto; }
     .brl__tile-label { font-size: clamp(.72rem, 3.2vw, 1rem); }
     .brl__controls { margin-top: 1rem; }
+
+    .brl__description {
+        width:       calc(100% - 2rem);
+        max-width:   38ch;
+        margin-top:  .75rem;
+        font-size:   clamp(.74rem, 3.15vw, .88rem);
+        line-height: 1.42;
+    }
+
+    .brl__preview {
+        --preview-tile: clamp(3.1rem, 16vw, 4rem);
+    }
+
+    .brl__tempo {
+        gap: .25rem .45rem;
+    }
+
+    .brl__tempo-option {
+        padding-inline: .4rem;
+        font-size:      .68rem;
+    }
 }
