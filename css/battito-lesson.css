@@ -148,6 +148,16 @@ body[data-lesson="battito"] .brand--wordmark {
     line-height:    1.1;
 }
 
+.bintro-screen .barocco-intro__description {
+    max-width:      52ch;
+    margin:         .65rem 0 0;
+    color:          var(--rhythm-muted);
+    font-size:      clamp(.82rem, 1vw, 1rem);
+    font-weight:    450;
+    letter-spacing: -.01em;
+    line-height:    1.48;
+}
+
 /* ── area interattiva ──────────────────────────────────────────── */
 .brl {
     --tile: min(calc(100vw / 6), calc((100svh - var(--bintro-header-h, 4rem)) / 3));
@@ -170,6 +180,11 @@ body[data-lesson="battito"] .brand--wordmark {
     gap:             1.4rem;
 }
 
+.brl__sounds {
+    min-height: 3.6rem;
+    gap:        clamp(.8rem, 2vw, 1.7rem);
+}
+
 .brl__pattern,
 .brl__sound {
     position:       relative;
@@ -186,6 +201,19 @@ body[data-lesson="battito"] .brand--wordmark {
     letter-spacing: -.02em;
     cursor:         pointer;
     transition:     color .18s ease;
+}
+
+.brl__sound {
+    display:        inline-flex;
+    align-items:    center;
+    gap:            .4rem;
+    padding-bottom: .45rem;
+}
+
+.brl__sound-icon {
+    width:      clamp(2rem, 3vw, 2.8rem);
+    height:     clamp(2rem, 3vw, 2.8rem);
+    object-fit: contain;
 }
 
 .brl__pattern::after,
@@ -321,6 +349,53 @@ body[data-lesson="battito"] .brand--wordmark {
     line-height:     1.05;
     text-align:      center;
     pointer-events:  none;
+}
+
+.brl__beat {
+    position:             absolute;
+    z-index:              3;
+    left:                 calc(var(--tile) * .065);
+    bottom:               calc(var(--tile) * .055);
+    color:                rgba(52, 69, 42, .52);
+    font-size:            clamp(.6rem, calc(var(--tile) * .055), .78rem);
+    font-weight:          750;
+    font-variant-numeric: tabular-nums;
+    line-height:          1;
+    pointer-events:       none;
+}
+
+.brl__gesture-set {
+    width:           100%;
+    height:          100%;
+    display:         flex;
+    align-items:     center;
+    justify-content: center;
+}
+
+.brl__gesture-icon {
+    width:      92%;
+    height:     92%;
+    object-fit: contain;
+}
+
+.brl__gesture-set--multiple {
+    gap: calc(var(--tile) * .01);
+}
+
+.brl__gesture-set--multiple .brl__gesture-icon {
+    width:      52%;
+    height:     72%;
+    min-width:  0;
+}
+
+.brl__row--preview .brl__beat {
+    left:      calc(var(--preview-tile) * .08);
+    bottom:    calc(var(--preview-tile) * .07);
+    font-size: clamp(.45rem, calc(var(--preview-tile) * .12), .58rem);
+}
+
+.brl__row--preview .brl__gesture-set--multiple .brl__gesture-icon {
+    height: 78%;
 }
 
 .brl__tile.is-live {
@@ -472,6 +547,13 @@ body[data-lesson="battito"] .brand--wordmark {
         font-size: clamp(1.35rem, 6vw, 2rem);
     }
 
+    .bintro-screen .barocco-intro__description {
+        max-width: 44ch;
+        margin-top: .45rem;
+        font-size:  clamp(.76rem, 3.2vw, .9rem);
+        line-height: 1.4;
+    }
+
     .brl {
         --tile: calc((100vw - 2rem) / 4);
         position:       absolute;
@@ -489,6 +571,20 @@ body[data-lesson="battito"] .brand--wordmark {
         width:         calc(100% - 2rem);
         margin-bottom: 1rem;
         gap:           1rem;
+    }
+
+    .brl__sounds {
+        gap: .7rem;
+    }
+
+    .brl__sound {
+        gap:       .25rem;
+        font-size: .78rem;
+    }
+
+    .brl__sound-icon {
+        width:  2rem;
+        height: 2rem;
     }
 
     .brl__track { padding: 0 1rem; }

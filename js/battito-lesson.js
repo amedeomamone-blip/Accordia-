@@ -57,6 +57,50 @@
         oscillator.stop(when + settings.duration + .02);
     }
 
+    var gestureImages = {
+        mani:  '../../../../assets/lesson/body-percussion/mani.png',
+        petto: '../../../../assets/lesson/body-percussion/petto.png',
+        cosce: '../../../../assets/lesson/body-percussion/cosce.png'
+    };
+
+    var gestureNames = {
+        mani: 'Mani',
+        petto: 'Petto',
+        cosce: 'Cosce'
+    };
+
+    function renderGestureSet(target, sounds) {
+        target.textContent = '';
+
+        if (!sounds.length) {
+            target.textContent = '+';
+            return;
+        }
+
+        var visual = document.createElement('span');
+        visual.className = 'brl__gesture-set' + (sounds.length > 1 ? ' brl__gesture-set--multiple' : '');
+
+        sounds.forEach(function (sound) {
+            var source = gestureImages[sound];
+            if (!source) return;
+
+            var image = document.createElement('img');
+            image.className = 'brl__gesture-icon brl__gesture-icon--' + sound;
+            image.src = source;
+            image.alt = '';
+            image.setAttribute('aria-hidden', 'true');
+            visual.appendChild(image);
+        });
+
+        target.appendChild(visual);
+    }
+
+    function spokenGestureList(sounds) {
+        return sounds.map(function (sound) {
+            return gestureNames[sound] || sound;
+        }).join(', ');
+    }
+
     /* ── riproduzione condivisa ───────────────────────────────── */
     var currentPlaybackStop = null;
 
@@ -129,14 +173,14 @@
                 ['cosce'], ['mani'], ['cosce'], ['mani']
             ],
             [
-                ['piedi'], ['cosce'], ['mani'], ['silenzio'],
-                ['piedi'], ['cosce'], ['mani'], ['silenzio'],
-                ['piedi'], ['cosce'], ['mani'], ['silenzio']
+                ['cosce'], ['petto'], ['cosce'], ['mani'],
+                ['cosce'], ['petto'], ['cosce'], ['mani'],
+                ['cosce'], ['petto'], ['cosce'], ['mani']
             ],
             [
-                ['cosce'], ['petto'], ['mani'], ['mani'],
-                ['cosce'], ['petto'], ['mani'], ['mani'],
-                ['cosce'], ['petto'], ['mani'], ['mani']
+                ['cosce', 'petto'], ['mani'], ['cosce', 'petto'], ['mani', 'mani'],
+                ['cosce', 'petto'], ['mani'], ['cosce', 'petto'], ['mani', 'mani'],
+                ['cosce', 'petto'], ['mani'], ['cosce', 'petto'], ['mani', 'mani']
             ]
         ];
         var patternIndex = 0;
@@ -153,10 +197,14 @@
             soundsList.forEach(function (sounds, index) {
                 var tile = document.createElement('div');
                 var label = document.createElement('span');
+                var beat = document.createElement('span');
                 tile.className = 'brl__tile';
-                tile.setAttribute('aria-label', 'Movimento ' + (startIndex + index + 1) + ': ' + sounds.join(', '));
+                tile.setAttribute('aria-label', 'Movimento ' + ((startIndex + index) % 4 + 1) + ': ' + spokenGestureList(sounds));
+                beat.className = 'brl__beat';
+                beat.textContent = String((startIndex + index) % 4 + 1);
                 label.className = 'brl__tile-label';
-                label.textContent = sounds.join(' · ');
+                renderGestureSet(label, sounds);
+                tile.appendChild(beat);
                 tile.appendChild(label);
                 target.appendChild(tile);
             });
@@ -292,8 +340,8 @@
 
                 slot.classList.toggle('is-selected', index === selectedSlot);
                 slot.classList.toggle('is-empty', empty);
-                slot.setAttribute('aria-label', 'Movimento ' + (index + 1) + ': ' + (empty ? 'vuoto' : sounds.join(', ')));
-                label.textContent = empty ? '+' : sounds.join(' · ');
+                slot.setAttribute('aria-label', 'Movimento ' + (index + 1) + ': ' + (empty ? 'vuoto' : spokenGestureList(sounds)));
+                renderGestureSet(label, sounds);
             });
         }
 
@@ -311,12 +359,7 @@
                 stopPlayback();
                 var sound = button.getAttribute('data-sound');
 
-                if (sound === 'silenzio') {
-                    composition[selectedSlot] = ['silenzio'];
-                } else {
-                    if (composition[selectedSlot][0] === 'silenzio') composition[selectedSlot] = [];
-                    if (composition[selectedSlot].length < 2) composition[selectedSlot].push(sound);
-                }
+                if (composition[selectedSlot].length < 2) composition[selectedSlot].push(sound);
 
                 if (composition[selectedSlot].length && selectedSlot < slots.length - 1) selectedSlot += 1;
                 status.textContent = '';
