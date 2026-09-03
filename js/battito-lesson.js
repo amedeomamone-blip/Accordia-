@@ -210,7 +210,37 @@
         var playButton = document.getElementById('brl-echo-play');
         var status = document.getElementById('brl-echo-status');
         var tempoButtons = Array.prototype.slice.call(root.querySelectorAll('.brl__tempo-option'));
+        var metronomeButton = document.getElementById('brl-metronome-toggle');
         var beatLength = 714;
+        var metronomeTimer = null;
+        var metronomeBeat = 0;
+
+        function syncMetronomeButton(running) {
+            if (!metronomeButton) return;
+            metronomeButton.classList.toggle('is-active', running);
+            metronomeButton.setAttribute('aria-pressed', running ? 'true' : 'false');
+            metronomeButton.textContent = running ? 'Ferma' : 'Avvia';
+        }
+
+        function metronomePulse() {
+            playMetronomeClick(metronomeBeat % 4 === 0);
+            metronomeBeat += 1;
+        }
+
+        function stopMetronome() {
+            if (metronomeTimer !== null) window.clearInterval(metronomeTimer);
+            metronomeTimer = null;
+            metronomeBeat = 0;
+            syncMetronomeButton(false);
+        }
+
+        function startMetronome() {
+            stopMetronome();
+            getAudioContext();
+            metronomePulse();
+            metronomeTimer = window.setInterval(metronomePulse, beatLength);
+            syncMetronomeButton(true);
+        }
 
         function renderTiles(target, soundsList, startIndex) {
             target.innerHTML = '';
@@ -307,7 +337,6 @@
                         tile.classList.toggle('is-live', tileIndex === index % 4);
                     });
 
-                    playMetronomeClick(index % 4 === 0);
                     sounds.forEach(function (sound, soundIndex) {
                         playBodySound(sound, soundIndex * .2);
                     });
@@ -336,6 +365,7 @@
         tempoButtons.forEach(function (button) {
             button.addEventListener('click', function () {
                 stopPlayback();
+                var metronomeWasRunning = metronomeTimer !== null;
                 beatLength = parseInt(button.getAttribute('data-beat-length'), 10) || 714;
 
                 tempoButtons.forEach(function (item) {
@@ -346,7 +376,23 @@
 
                 status.textContent = button.textContent + ' · ' + Math.round(60000 / beatLength) + ' BPM';
                 renderChunk(0);
+                if (metronomeWasRunning) startMetronome();
             });
+        });
+
+        if (metronomeButton) {
+            metronomeButton.addEventListener('click', function () {
+                if (metronomeTimer !== null) {
+                    stopMetronome();
+                    return;
+                }
+
+                startMetronome();
+            });
+        }
+
+        document.addEventListener('visibilitychange', function () {
+            if (document.hidden) stopMetronome();
         });
 
         playButton.addEventListener('click', function () {

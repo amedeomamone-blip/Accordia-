@@ -6,7 +6,7 @@
     <meta name="description" content="Gioco dell'eco e composizione di una battuta: attività interattive di body percussion per la LIM.">
     <title>Gioco dell’eco · Body percussion | Ritmo | Amedeo</title>
     <link rel="stylesheet" href="../../../../css/style.css?v=1782800000">
-    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1801200005">
+    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1801200007">
 </head>
 <body data-nav="home" data-current-nucleus="ritmo" data-lesson="battito">
 
@@ -56,12 +56,15 @@
                         </div>
 
                         <div class="brl brl--echo" id="brl-echo">
-                            <div class="brl__patterns" role="tablist" aria-label="Scegli il ritmo">
-                                <button class="brl__pattern is-active" type="button" role="tab" aria-selected="true" data-pattern="0">1</button>
-                                <button class="brl__pattern" type="button" role="tab" aria-selected="false" data-pattern="1">2</button>
-                                <button class="brl__pattern" type="button" role="tab" aria-selected="false" data-pattern="2">3</button>
-                                <button class="brl__pattern" type="button" role="tab" aria-selected="false" data-pattern="3">4</button>
-                                <button class="brl__pattern" type="button" role="tab" aria-selected="false" data-pattern="4">5</button>
+                            <div class="brl__patterns">
+                                <span class="brl__patterns-label">Sequenza</span>
+                                <div class="brl__pattern-options" role="tablist" aria-label="Scegli la sequenza">
+                                    <button class="brl__pattern is-active" type="button" role="tab" aria-selected="true" data-pattern="0">1</button>
+                                    <button class="brl__pattern" type="button" role="tab" aria-selected="false" data-pattern="1">2</button>
+                                    <button class="brl__pattern" type="button" role="tab" aria-selected="false" data-pattern="2">3</button>
+                                    <button class="brl__pattern" type="button" role="tab" aria-selected="false" data-pattern="3">4</button>
+                                    <button class="brl__pattern" type="button" role="tab" aria-selected="false" data-pattern="4">5</button>
+                                </div>
                             </div>
 
                             <div class="brl__track">
@@ -91,6 +94,7 @@
                                         <button class="brl__tempo-option is-active" type="button" data-beat-length="714" aria-pressed="true" aria-label="Andante, 84 battiti al minuto">Andante</button>
                                         <button class="brl__tempo-option" type="button" data-beat-length="500" aria-pressed="false" aria-label="Allegro, 120 battiti al minuto">Allegro</button>
                                     </div>
+                                    <button class="brl__metronome-toggle" id="brl-metronome-toggle" type="button" aria-pressed="false">Avvia</button>
                                 </div>
                                 <button class="brl__primary" id="brl-echo-play" type="button">Ascolta</button>
                                 <p class="brl__status" id="brl-echo-status" aria-live="polite"></p>
@@ -141,7 +145,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-    <script src="../../../../js/battito-lesson.js?v=1801200005"></script>
+    <script src="../../../../js/battito-lesson.js?v=1801200007"></script>
 
 </body>
 </html>
