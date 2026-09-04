@@ -6,7 +6,7 @@
     <meta name="description" content="Gioco dell'eco e composizione di una battuta: attività interattive di body percussion per la LIM.">
     <title>Gioco dell’eco · Body percussion | Ritmo | Amedeo</title>
     <link rel="stylesheet" href="../../../../css/style.css?v=1782800000">
-    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1801200017">
+    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1801200018">
 </head>
 <body data-nav="home" data-current-nucleus="ritmo" data-lesson="battito">
 
@@ -56,6 +56,24 @@
                         </div>
 
                         <div class="brl brl--echo" id="brl-echo">
+                            <div class="brl__tempo" role="group" aria-label="Velocit&agrave; del metronomo">
+                                <span class="brl__tempo-label">
+                                    <svg class="brl__tempo-icon" viewBox="0 0 24 24" aria-hidden="true">
+                                        <path d="M7.1 20h9.8l-1.7-13H8.8L7.1 20Z"></path>
+                                        <path d="M12 6.5 14.4 2"></path>
+                                        <path d="M12 9.5v6"></path>
+                                        <circle cx="12" cy="16.5" r="1"></circle>
+                                    </svg>
+                                    <span>Metronomo</span>
+                                </span>
+                                <div class="brl__tempo-options">
+                                    <button class="brl__tempo-option" type="button" data-beat-length="1000" aria-pressed="false" aria-label="Lento, 60 battiti al minuto">Lento</button>
+                                    <button class="brl__tempo-option is-active" type="button" data-beat-length="714" aria-pressed="true" aria-label="Andante, 84 battiti al minuto">Andante</button>
+                                    <button class="brl__tempo-option" type="button" data-beat-length="500" aria-pressed="false" aria-label="Allegro, 120 battiti al minuto">Allegro</button>
+                                </div>
+                                <button class="brl__metronome-toggle" id="brl-metronome-toggle" type="button" aria-pressed="false">Avvia</button>
+                            </div>
+
                             <div class="brl__patterns">
                                 <div class="brl__pattern-options" role="tablist" aria-label="Scegli la sequenza">
                                     <button class="brl__pattern is-active" type="button" role="tab" aria-selected="true" data-pattern="0">1</button>
@@ -77,23 +95,6 @@
 
                             <div class="brl__controls">
                                 <button class="brl__primary" id="brl-echo-play" type="button" aria-pressed="false">Ascolta</button>
-                                <div class="brl__tempo" role="group" aria-label="Velocit&agrave; del metronomo">
-                                    <span class="brl__tempo-label">
-                                        <svg class="brl__tempo-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                            <path d="M7.1 20h9.8l-1.7-13H8.8L7.1 20Z"></path>
-                                            <path d="M12 6.5 14.4 2"></path>
-                                            <path d="M12 9.5v6"></path>
-                                            <circle cx="12" cy="16.5" r="1"></circle>
-                                        </svg>
-                                        <span>Metronomo</span>
-                                    </span>
-                                    <div class="brl__tempo-options">
-                                        <button class="brl__tempo-option" type="button" data-beat-length="1000" aria-pressed="false" aria-label="Lento, 60 battiti al minuto">Lento</button>
-                                        <button class="brl__tempo-option is-active" type="button" data-beat-length="714" aria-pressed="true" aria-label="Andante, 84 battiti al minuto">Andante</button>
-                                        <button class="brl__tempo-option" type="button" data-beat-length="500" aria-pressed="false" aria-label="Allegro, 120 battiti al minuto">Allegro</button>
-                                    </div>
-                                    <button class="brl__metronome-toggle" id="brl-metronome-toggle" type="button" aria-pressed="false">Avvia</button>
-                                </div>
                                 <p class="brl__status" id="brl-echo-status" aria-live="polite"></p>
                             </div>
                         </div>
