@@ -12,6 +12,7 @@
     --rhythm-4:        #99aa46;
     --rhythm-muted:    rgba(52, 69, 42, .5);
     --rhythm-tile-idle: #d9ddda;
+    --rhythm-tile-preview: #eef1ed;
     --rhythm-active:   #b9c7a6;
     --bintro-header-h: 4rem;
     color:             var(--rhythm-deep);
@@ -111,7 +112,7 @@ body[data-lesson="battito"] .brand--wordmark {
     --u:         min(calc(100vw / 84), calc(100svh / 36));
     position:    absolute;
     z-index:     3;
-    top:         calc(clamp(2.4rem, 10svh, 4.75rem) + .75rem);
+    top:         clamp(2.4rem, 10svh, 4.75rem);
     left:        0;
     right:       0;
     display:     flex;
@@ -449,6 +450,8 @@ body[data-lesson="battito"] .brand--wordmark {
     width:   var(--preview-tile);
     height:  var(--preview-tile);
     padding: calc(var(--preview-tile) * .06);
+    border-color: rgba(52, 69, 42, .08);
+    background: var(--rhythm-tile-preview);
     cursor:  default;
 }
 
@@ -565,16 +568,26 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl--echo .brl__controls {
-    margin-top: 1.2rem;
+    grid-template-columns: auto auto;
+    justify-content:      center;
+    justify-items:        stretch;
+    align-items:          center;
+    gap:                  .85rem;
+    margin-top:           2rem;
 }
 
 .brl__tempo {
-    min-height:      2.45rem;
+    min-height:      3rem;
+    padding:         .34rem .42rem .34rem .9rem;
+    border:          1px solid rgba(52, 69, 42, .12);
+    border-radius:   999px;
     display:         flex;
     align-items:     center;
     justify-content: center;
     flex-wrap:       wrap;
-    gap:             .5rem 1rem;
+    gap:             .55rem .75rem;
+    background:      #f4f6f2;
+    box-shadow:      0 .35rem 1rem rgba(52, 69, 42, .07);
 }
 
 .brl__tempo-label {
@@ -597,14 +610,22 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl__tempo-options {
-    display:     inline-flex;
-    align-items: center;
+    display:       inline-flex;
+    align-items:   center;
+    gap:           .15rem;
+    padding:       .18rem;
+    border:        1px solid rgba(52, 69, 42, .1);
+    border-radius: 999px;
+    background:    #ffffff;
 }
 
 .brl__tempo-option {
     position:       relative;
-    padding:        .42rem .65rem .5rem;
+    min-width:      4.5rem;
+    min-height:     2.15rem;
+    padding:        .48rem .72rem;
     border:         0;
+    border-radius:  999px;
     color:          rgba(52, 69, 42, .48);
     background:     transparent;
     font-family:    inherit;
@@ -612,48 +633,47 @@ body[data-lesson="battito"] .brand--wordmark {
     font-weight:    650;
     line-height:    1;
     cursor:         pointer;
-    transition:     color .16s ease;
+    transition:     color .16s ease, background .16s ease, box-shadow .16s ease;
 }
 
 .brl__tempo-option::after {
-    content:    "";
-    position:   absolute;
-    right:      .65rem;
-    bottom:     0;
-    left:       .65rem;
-    height:     2px;
-    background: transparent;
+    display: none;
 }
 
 .brl__tempo-option:hover,
 .brl__tempo-option:focus-visible,
 .brl__tempo-option.is-active {
     color: var(--rhythm-deep);
-}
-
-.brl__tempo-option.is-active::after {
     background: var(--rhythm-active);
+    box-shadow:  0 .2rem .55rem rgba(52, 69, 42, .13);
 }
 
 .brl__metronome-toggle {
-    min-width:      4.5rem;
-    min-height:     2.15rem;
-    margin-left:    .15rem;
-    padding:        .45rem .8rem;
-    border:         1px solid var(--rhythm-active);
-    color:          var(--rhythm-deep);
-    background:     #ffffff;
+    min-width:      4.9rem;
+    min-height:     2.5rem;
+    margin-left:    0;
+    padding:        .55rem .9rem;
+    border:         0;
+    border-radius:  999px;
+    color:          #ffffff;
+    background:     var(--rhythm-deep);
     font-family:    inherit;
     font-size:      .76rem;
     font-weight:    700;
     line-height:    1;
     cursor:         pointer;
-    transition:     background .16s ease, color .16s ease;
+    box-shadow:     0 .25rem .65rem rgba(52, 69, 42, .16);
+    transition:     background .16s ease, color .16s ease, transform .16s ease;
 }
 
 .brl__metronome-toggle:hover,
-.brl__metronome-toggle:focus-visible,
+.brl__metronome-toggle:focus-visible {
+    background: var(--rhythm-mid);
+    transform:  translateY(-1px);
+}
+
 .brl__metronome-toggle.is-active {
+    color:      var(--rhythm-deep);
     background: var(--rhythm-active);
 }
 
@@ -683,7 +703,10 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl--echo .brl__primary {
-    min-height: 2.5rem;
+    min-width:     8.5rem;
+    min-height:    3rem;
+    border-radius: 999px;
+    box-shadow:    0 .35rem 1rem rgba(52, 69, 42, .12);
 }
 
 .brl__primary:hover,
@@ -728,6 +751,7 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl--echo .brl__status {
+    grid-column: 1 / -1;
     height:     0;
     min-height: 0;
     overflow:   hidden;
@@ -749,7 +773,7 @@ body[data-lesson="battito"] .brand--wordmark {
 /* ── schermi bassi: preserva titolo, tile e controlli nella banda ─ */
 @media (min-width: 761px) and (max-height: 800px) {
     .brl {
-        top: calc(50% - (var(--tile) / 2) - 4.75rem);
+        top: calc(50% - (var(--tile) / 2) - 4.125rem);
     }
 
     .brl__patterns,
@@ -770,8 +794,17 @@ body[data-lesson="battito"] .brand--wordmark {
     }
 
     .brl--echo .brl__controls {
-        margin-top: 1.25rem;
-        gap:        .2rem;
+        margin-top: 1.75rem;
+        gap:        .75rem;
+    }    .brl__controls {
+        margin-top: 1rem;
+    }
+
+    .brl--echo .brl__controls {
+        grid-template-columns: 1fr;
+        justify-items:         center;
+        gap:                   .65rem;
+        margin-top:            1.25rem;
     }
 }
 
@@ -886,8 +919,10 @@ body[data-lesson="battito"] .brand--wordmark {
     }
 
     .brl__tempo {
-        min-height: 2.1rem;
-        gap: .25rem .45rem;
+        max-width:  calc(100% - 1rem);
+        min-height: 2.6rem;
+        padding:    .28rem .32rem .28rem .65rem;
+        gap:        .3rem .45rem;
     }
 
     .brl__tempo-label {
@@ -901,13 +936,15 @@ body[data-lesson="battito"] .brand--wordmark {
     }
 
     .brl__tempo-option {
-        padding:       .32rem .4rem .4rem;
-        font-size:      .68rem;
+        min-width:  0;
+        min-height: 1.85rem;
+        padding:    .38rem .48rem;
+        font-size:  .68rem;
     }
 
     .brl__metronome-toggle {
         min-width:      3.45rem;
-        min-height:     1.9rem;
+        min-height:     2rem;
         padding-inline: .5rem;
         font-size:      .65rem;
     }
