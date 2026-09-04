@@ -230,7 +230,7 @@
                         tile.classList.toggle('is-live', tileIndex === index);
                     });
                     sounds.forEach(function (sound, soundIndex) {
-                        playBodySound(sound, soundIndex * .2);
+                        playBodySound(sound, soundIndex * beatLength / sounds.length / 1000);
                     });
                 }, index * beatLength));
             });
@@ -413,7 +413,7 @@
                 clearHighlights();
                 if (targetTile) targetTile.classList.add('is-live');
                 sounds.forEach(function (sound, soundIndex) {
-                    playBodySound(sound, soundIndex * .18);
+                    playBodySound(sound, soundIndex * beatLength / sounds.length / 1000);
                 });
 
                 beatIndex += 1;
