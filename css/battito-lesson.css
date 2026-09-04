@@ -800,12 +800,7 @@ body[data-lesson="battito"] .brand--wordmark {
         margin-top: 1rem;
     }
 
-    .brl--echo .brl__controls {
-        grid-template-columns: 1fr;
-        justify-items:         center;
-        gap:                   .65rem;
-        margin-top:            1.25rem;
-    }
+
 }
 
 /* ── tablet e mobile ───────────────────────────────────────────── */
