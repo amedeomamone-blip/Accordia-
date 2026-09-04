@@ -771,7 +771,7 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 /* ── schermi bassi: preserva titolo, tile e controlli nella banda ─ */
-@media (min-width: 761px) and (max-height: 800px) {
+@media (min-width: 601px) and (max-height: 800px) {
     .brl {
         top: calc(50% - (var(--tile) / 2) - 4.125rem);
     }
@@ -803,8 +803,45 @@ body[data-lesson="battito"] .brand--wordmark {
 
 }
 
+/* ──     .brl--echo .brl__controls {
+        margin-top: 1.75rem;
+        gap:        .75rem;
+    }
+}: stessa gabbia dell'indice Ritmo ──────────
+   L'indice conserva qui la griglia a sei colonne. Il gioco dell'eco
+   usa le quattro colonne centrali e ancora titolo e tile alle stesse
+   coordinate; il selettore della sequenza scende sotto la battuta. */
+@media (min-width: 601px) and (max-width: 760px) {
+    .bintro-screen .barocco-header {
+        top: calc(
+            50svh - (100vw / 12) - var(--bintro-header-h, 4rem)
+            + min(16px, 1.6vw) - (9.57 * var(--u))
+        );
+    }
+
+    .brl--echo {
+        top: calc(
+            50svh - (100vw / 12) - var(--bintro-header-h, 4rem)
+            + min(16px, 1.6vw)
+        );
+    }
+
+    .brl--echo .brl__patterns {
+        position:      absolute;
+        z-index:       3;
+        top:           calc(var(--tile) + .75rem);
+        left:          0;
+        right:         0;
+        margin-bottom: 0;
+    }
+
+    .brl--echo .brl__preview {
+        margin-top: 4rem;
+    }
+}
+
 /* ── tablet e mobile ───────────────────────────────────────────── */
-@media (max-width: 760px) {
+@media (max-width: 600px) {
     .bintro-progress { display: none; }
 
     .bintro-screen {
