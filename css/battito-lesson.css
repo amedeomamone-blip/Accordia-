@@ -807,18 +807,36 @@ body[data-lesson="battito"] .brand--wordmark {
         margin-top: 1.75rem;
         gap:        .75rem;
     }
-}: stessa gabbia dell'indice Ritmo ──────────
+}/* ── desktop/tablet: stesse ancore geometriche dell'indice Ritmo ─
+   Evita moltiplicazioni dentro calc(): alcune versioni di WebKit le
+   scartano, facendo ricadere titolo e tile sulle vecchie coordinate. */
+@media (min-width: 601px) {
+    .bintro-screen[data-screen="1"] .barocco-header {
+        top: calc(
+            50svh - (100vw / 12) - var(--bintro-header-h, 4rem)
+            + min(16px, 1.6vw)
+            - clamp(3.08rem, 6.6vw, 7.04rem)
+            - min(4.52381vw, 10.5556svh)
+        );
+    }
+
+    .brl--echo {
+        top: calc(
+            50svh - (100vw / 12) - var(--bintro-header-h, 4rem)
+            + min(16px, 1.6vw) - 3.5rem
+        );
+    }
+
+    .brl--echo .brl__patterns {
+        margin-bottom: 1rem;
+    }
+}
+
+/* ── fascia 601–760 px: stessa gabbia dell'indice Ritmo ──────────: stessa gabbia dell'indice Ritmo ──────────
    L'indice conserva qui la griglia a sei colonne. Il gioco dell'eco
    usa le quattro colonne centrali e ancora titolo e tile alle stesse
    coordinate; il selettore della sequenza scende sotto la battuta. */
 @media (min-width: 601px) and (max-width: 760px) {
-    .bintro-screen .barocco-header {
-        top: calc(
-            50svh - (100vw / 12) - var(--bintro-header-h, 4rem)
-            + min(16px, 1.6vw) - (9.57 * var(--u))
-        );
-    }
-
     .brl--echo {
         top: calc(
             50svh - (100vw / 12) - var(--bintro-header-h, 4rem)
