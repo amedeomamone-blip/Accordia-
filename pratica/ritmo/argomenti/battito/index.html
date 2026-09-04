@@ -6,7 +6,7 @@
     <meta name="description" content="Gioco dell'eco e composizione di una battuta: attività interattive di body percussion per la LIM.">
     <title>Gioco dell’eco · Body percussion | Ritmo | Amedeo</title>
     <link rel="stylesheet" href="../../../../css/style.css?v=1782800000">
-    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1801200015">
+    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=1801200017">
 </head>
 <body data-nav="home" data-current-nucleus="ritmo" data-lesson="battito">
 
@@ -57,7 +57,6 @@
 
                         <div class="brl brl--echo" id="brl-echo">
                             <div class="brl__patterns">
-                                <span class="brl__patterns-label">Sequenza</span>
                                 <div class="brl__pattern-options" role="tablist" aria-label="Scegli la sequenza">
                                     <button class="brl__pattern is-active" type="button" role="tab" aria-selected="true" data-pattern="0">1</button>
                                     <button class="brl__pattern" type="button" role="tab" aria-selected="false" data-pattern="1">2</button>
@@ -77,6 +76,7 @@
                             </div>
 
                             <div class="brl__controls">
+                                <button class="brl__primary" id="brl-echo-play" type="button" aria-pressed="false">Ascolta</button>
                                 <div class="brl__tempo" role="group" aria-label="Velocit&agrave; del metronomo">
                                     <span class="brl__tempo-label">
                                         <svg class="brl__tempo-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -94,7 +94,6 @@
                                     </div>
                                     <button class="brl__metronome-toggle" id="brl-metronome-toggle" type="button" aria-pressed="false">Avvia</button>
                                 </div>
-                                <button class="brl__primary" id="brl-echo-play" type="button" aria-pressed="false">Ascolta</button>
                                 <p class="brl__status" id="brl-echo-status" aria-live="polite"></p>
                             </div>
                         </div>
@@ -105,7 +104,12 @@
                             <span class="barocco-intro__eyebrow">Attivit&agrave; 02 &middot; Creazione</span>
                             <div class="barocco-intro__title-wrap">
                                 <h2 class="barocco-intro__title">Componiamo una battuta</h2>
-                                <p class="barocco-intro__description">Scegli mani, petto o cosce per ogni movimento; poi suona e ripeti la tua battuta insieme alla classe.</p>
+                                <span class="barocco-ticker__overlay" aria-hidden="true">
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--1"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--2"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--3"></span>
+                                    <span class="barocco-ticker__blob barocco-ticker__blob--4"></span>
+                                </span>
                             </div>
                         </div>
 
@@ -118,12 +122,14 @@
 
                             <div class="brl__track">
                                 <div class="brl__row" id="brl-compose-grid" aria-label="Battuta da comporre">
-                                    <button class="brl__tile is-empty is-selected" type="button" data-slot="0" aria-label="Primo movimento, vuoto"><span class="brl__beat">1</span><span class="brl__tile-label">+</span></button>
-                                    <button class="brl__tile is-empty" type="button" data-slot="1" aria-label="Secondo movimento, vuoto"><span class="brl__beat">2</span><span class="brl__tile-label">+</span></button>
-                                    <button class="brl__tile is-empty" type="button" data-slot="2" aria-label="Terzo movimento, vuoto"><span class="brl__beat">3</span><span class="brl__tile-label">+</span></button>
-                                    <button class="brl__tile is-empty" type="button" data-slot="3" aria-label="Quarto movimento, vuoto"><span class="brl__beat">4</span><span class="brl__tile-label">+</span></button>
+                                    <button class="brl__tile is-empty is-selected" type="button" data-slot="0" aria-label="Primo movimento, vuoto"><span class="brl__beat">01</span><span class="brl__tile-label">+</span></button>
+                                    <button class="brl__tile is-empty" type="button" data-slot="1" aria-label="Secondo movimento, vuoto"><span class="brl__beat">02</span><span class="brl__tile-label">+</span></button>
+                                    <button class="brl__tile is-empty" type="button" data-slot="2" aria-label="Terzo movimento, vuoto"><span class="brl__beat">03</span><span class="brl__tile-label">+</span></button>
+                                    <button class="brl__tile is-empty" type="button" data-slot="3" aria-label="Quarto movimento, vuoto"><span class="brl__beat">04</span><span class="brl__tile-label">+</span></button>
                                 </div>
                             </div>
+
+                            <p class="brl__description">Scegli mani, petto o cosce per ogni movimento; poi suona e ripeti la tua battuta insieme alla classe.</p>
 
                             <div class="brl__controls brl__controls--composer">
                                 <button class="brl__secondary" id="brl-compose-clear" type="button">Cancella</button>
@@ -143,7 +149,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
     <script src="https://unpkg.com/lenis@1.1.13/dist/lenis.min.js"></script>
-    <script src="../../../../js/battito-lesson.js?v=1801200010"></script>
+    <script src="../../../../js/battito-lesson.js?v=1801200011"></script>
 
 </body>
 </html>

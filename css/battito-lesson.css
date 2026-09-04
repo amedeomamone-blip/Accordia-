@@ -258,22 +258,15 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl__patterns {
-    gap:           .75rem;
-    margin-bottom: 1rem;
-}
-
-.brl__patterns-label {
-    color:          rgba(17, 17, 17, .4);
-    font-size:      .66rem;
-    font-weight:    700;
-    letter-spacing: .09em;
-    text-transform: uppercase;
+    gap:             0;
+    margin-bottom:   1rem;
+    justify-content: center;
 }
 
 .brl__pattern-options {
     display:               grid;
-    grid-template-columns: repeat(5, 2.2rem);
-    gap:                   .4rem;
+    grid-template-columns: repeat(5, 2.5rem);
+    gap:                   .5rem;
 }
 
 .brl__sounds {
@@ -300,14 +293,15 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl__pattern {
-    width:         2.2rem;
-    min-width:     2.2rem;
-    height:        2.2rem;
+    width:         2.5rem;
+    min-width:     2.5rem;
+    height:        2.5rem;
     padding:       0;
     border:        1px solid rgba(52, 69, 42, .22);
     border-radius: 50%;
     color:         rgba(52, 69, 42, .58);
     background:    #ffffff;
+    font-size:     .95rem;
     transition:    color .16s ease, background .16s ease, border-color .16s ease, transform .16s ease;
 }
 
@@ -432,10 +426,10 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl__preview {
-    --preview-tile: clamp(6.25rem, calc(var(--tile) * .62), 8.5rem);
+    --preview-tile: clamp(6.75rem, calc(var(--tile) * .68), 9rem);
     width:          calc(4 * var(--preview-tile));
     min-height:     var(--preview-tile);
-    margin-top:     .75rem;
+    margin-top:     0;
 }
 
 .brl__preview.is-blank {
@@ -486,12 +480,29 @@ body[data-lesson="battito"] .brand--wordmark {
     z-index:              3;
     left:                 calc(var(--tile) * .065);
     bottom:               calc(var(--tile) * .055);
-    color:                rgba(52, 69, 42, .52);
-    font-size:            clamp(.6rem, calc(var(--tile) * .055), .78rem);
-    font-weight:          750;
+    color:                rgba(17, 17, 17, .35);
+    font-size:            clamp(.62rem, .8vw, .78rem);
+    font-weight:          700;
+    letter-spacing:       .07em;
     font-variant-numeric: tabular-nums;
     line-height:          1;
     pointer-events:       none;
+}
+
+.brl__gesture-name {
+    position:       absolute;
+    top:            calc(100% + .55rem);
+    left:           0;
+    width:          100%;
+    padding:        0 calc(var(--tile) * .065);
+    color:          #111111;
+    font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size:      clamp(.76rem, 1vw, 1rem);
+    font-weight:    700;
+    letter-spacing: -.03em;
+    line-height:    1.05;
+    text-align:     left;
+    pointer-events: none;
 }
 
 .brl__gesture-set {
@@ -568,19 +579,25 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl--echo .brl__controls {
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr;
     justify-content:      center;
-    justify-items:        stretch;
+    justify-items:        center;
     align-items:          center;
-    gap:                  .85rem;
-    margin-top:           2rem;
+    gap:                  var(--echo-stack-gap, .875rem);
+    margin-top:           var(--echo-stack-gap, .875rem);
 }
+
+.brl--echo .brl__row--main {
+    margin-bottom: calc(1.5rem + var(--echo-stack-gap, .875rem));
+}
+
+.brl--echo { padding-bottom: 0; }
 
 .brl__tempo {
     min-height:      3rem;
     padding:         .34rem .42rem .34rem .9rem;
     border:          1px solid rgba(52, 69, 42, .12);
-    border-radius:   999px;
+    border-radius:   0;
     display:         flex;
     align-items:     center;
     justify-content: center;
@@ -785,33 +802,48 @@ body[data-lesson="battito"] .brand--wordmark {
         margin-top: .9rem;
     }
 
-    .brl__preview {
-        margin-top: .3rem;
-    }
+    .brl__preview { margin-top: 0; }
 
     .brl__description {
         margin-top: .45rem;
     }
 
     .brl--echo .brl__controls {
-        margin-top: 1.75rem;
-        gap:        .75rem;
-    }    .brl__controls {
-        margin-top: 1rem;
+        margin-top: var(--echo-stack-gap);
+        gap:        var(--echo-stack-gap);
     }
 
+    .brl--echo {
+        --echo-stack-gap: .5rem;
+    }
 
+    .brl--echo .brl__row--main {
+        margin-bottom: calc(1rem + var(--echo-stack-gap));
+    }
+
+    .brl--echo .brl__gesture-name {
+        top:       calc(100% + .3rem);
+        font-size: .72rem;
+    }
+
+    .brl--echo .brl__preview {
+        --preview-tile: clamp(6.25rem, calc(var(--tile) * .62), 8rem);
+    }
+
+    .brl--echo .brl__primary {
+        min-height: 2.25rem;
+    }
+
+    .brl--echo .brl__tempo {
+        min-height: 2.5rem;
+    }
 }
 
-/* ──     .brl--echo .brl__controls {
-        margin-top: 1.75rem;
-        gap:        .75rem;
-    }
-}/* ── desktop/tablet: stesse ancore geometriche dell'indice Ritmo ─
+/* ── desktop/tablet: stesse ancore geometriche dell'indice Ritmo ─
    Evita moltiplicazioni dentro calc(): alcune versioni di WebKit le
    scartano, facendo ricadere titolo e tile sulle vecchie coordinate. */
 @media (min-width: 601px) {
-    .bintro-screen[data-screen="1"] .barocco-header {
+    .bintro-screen .barocco-header {
         top: calc(
             50svh - (100vw / 12) - var(--bintro-header-h, 4rem)
             + min(16px, 1.6vw)
@@ -830,9 +862,27 @@ body[data-lesson="battito"] .brand--wordmark {
     .brl--echo .brl__patterns {
         margin-bottom: 1rem;
     }
+
+    /* La fila componibile usa la stessa linea dei tile principali.
+       La tavolozza resta sopra, fuori dal flusso, come il selettore
+       di sequenza della prima slide. */
+    .brl--composer {
+        top: calc(
+            50svh - (100vw / 12) - var(--bintro-header-h, 4rem)
+            + min(16px, 1.6vw)
+        );
+    }
+
+    .brl--composer .brl__sounds {
+        position:      absolute;
+        right:         0;
+        bottom:        calc(100% + 1rem);
+        left:          0;
+        margin-bottom: 0;
+    }
 }
 
-/* ── fascia 601–760 px: stessa gabbia dell'indice Ritmo ──────────: stessa gabbia dell'indice Ritmo ──────────
+/* ── fascia 601–760 px: stessa gabbia dell'indice Ritmo ──────────
    L'indice conserva qui la griglia a sei colonne. Il gioco dell'eco
    usa le quattro colonne centrali e ancora titolo e tile alle stesse
    coordinate; il selettore della sequenza scende sotto la battuta. */
@@ -847,7 +897,7 @@ body[data-lesson="battito"] .brand--wordmark {
     .brl--echo .brl__patterns {
         position:      absolute;
         z-index:       3;
-        top:           calc(var(--tile) + .75rem);
+        top:           calc(var(--tile) + 2.25rem);
         left:          0;
         right:         0;
         margin-bottom: 0;
@@ -861,6 +911,8 @@ body[data-lesson="battito"] .brand--wordmark {
 /* ── tablet e mobile ───────────────────────────────────────────── */
 @media (max-width: 600px) {
     .bintro-progress { display: none; }
+
+    .brl--echo { --echo-stack-gap: .75rem; }
 
     .bintro-screen {
         display:        flex;
@@ -925,14 +977,14 @@ body[data-lesson="battito"] .brand--wordmark {
     }
 
     .brl__pattern-options {
-        grid-template-columns: repeat(5, 1.9rem);
-        gap:                   .28rem;
+        grid-template-columns: repeat(5, 2.1rem);
+        gap:                   .32rem;
     }
 
     .brl__pattern {
-        width:     1.9rem;
-        min-width: 1.9rem;
-        height:    1.9rem;
+        width:     2.1rem;
+        min-width: 2.1rem;
+        height:    2.1rem;
     }
 
     .brl__sounds {
@@ -958,8 +1010,8 @@ body[data-lesson="battito"] .brand--wordmark {
     .brl--echo .brl__controls {
         grid-template-columns: 1fr;
         justify-items:         center;
-        gap:                   .65rem;
-        margin-top:            1.25rem;
+        gap:                   var(--echo-stack-gap, .75rem);
+        margin-top:            var(--echo-stack-gap, .75rem);
     }
 
     .brl__description {

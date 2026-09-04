@@ -19,21 +19,11 @@
     var bodyOutput = null;
     var bodySampleData = {};
     var bodySampleBuffers = {};
-    var bodySampleCursor = { mani: 0, petto: 0, cosce: 0 };
     var bodySamplePromise = null;
     var bodySampleFiles = {
-        mani: [
-            '../../../../assets/audio/body-percussion/mani-1.wav',
-            '../../../../assets/audio/body-percussion/mani-2.wav'
-        ],
-        petto: [
-            '../../../../assets/audio/body-percussion/petto-1.wav',
-            '../../../../assets/audio/body-percussion/petto-2.wav'
-        ],
-        cosce: [
-            '../../../../assets/audio/body-percussion/cosce-1.wav',
-            '../../../../assets/audio/body-percussion/cosce-2.wav'
-        ]
+        mani:  ['../../../../assets/audio/body-percussion/mani-1.wav'],
+        petto: ['../../../../assets/audio/body-percussion/petto-1.wav'],
+        cosce: ['../../../../assets/audio/body-percussion/cosce-1.wav']
     };
 
     function getAudioContext() {
@@ -115,15 +105,18 @@
         var samples = bodySampleBuffers[name];
         if (!samples || !samples.length) return;
 
-        var sampleIndex = bodySampleCursor[name] % samples.length;
         var source = ac.createBufferSource();
         var gain = ac.createGain();
-        source.buffer = samples[sampleIndex];
-        bodySampleCursor[name] += 1;
+        source.buffer = samples[0];
         gain.gain.value = name === 'mani' ? .86 : 1;
         source.connect(gain);
         gain.connect(getBodyOutput(ac));
         source.start(ac.currentTime + (delay || 0));
+    }
+
+    function subdivisionDelay(soundIndex, soundCount, beatDuration) {
+        if (soundCount < 2) return 0;
+        return soundIndex * beatDuration / soundCount / 1000;
     }
 
     preloadBodySampleData();
@@ -230,7 +223,7 @@
                         tile.classList.toggle('is-live', tileIndex === index);
                     });
                     sounds.forEach(function (sound, soundIndex) {
-                        playBodySound(sound, soundIndex * beatLength / sounds.length / 1000);
+                        playBodySound(sound, subdivisionDelay(soundIndex, sounds.length, beatLength));
                     });
                 }, index * beatLength));
             });
@@ -329,14 +322,24 @@
                 var tile = document.createElement('div');
                 var label = document.createElement('span');
                 var beat = document.createElement('span');
+                var gestureName = document.createElement('strong');
                 tile.className = 'brl__tile';
                 tile.setAttribute('aria-label', 'Movimento ' + ((startIndex + index) % 4 + 1) + ': ' + spokenGestureList(sounds));
                 beat.className = 'brl__beat';
-                beat.textContent = String((startIndex + index) % 4 + 1);
+                beat.textContent = ('0' + ((startIndex + index) % 4 + 1)).slice(-2);
                 label.className = 'brl__tile-label';
                 renderGestureSet(label, sounds);
                 tile.appendChild(beat);
                 tile.appendChild(label);
+
+                if (target === mainGrid) {
+                    gestureName.className = 'brl__gesture-name';
+                    gestureName.textContent = sounds.map(function (sound) {
+                        return gestureNames[sound] || sound;
+                    }).join(' + ');
+                    tile.appendChild(gestureName);
+                }
+
                 target.appendChild(tile);
             });
         }
@@ -413,7 +416,7 @@
                 clearHighlights();
                 if (targetTile) targetTile.classList.add('is-live');
                 sounds.forEach(function (sound, soundIndex) {
-                    playBodySound(sound, soundIndex * beatLength / sounds.length / 1000);
+                    playBodySound(sound, subdivisionDelay(soundIndex, sounds.length, beatLength));
                 });
 
                 beatIndex += 1;
