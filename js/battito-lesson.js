@@ -14,10 +14,27 @@
     window.addEventListener('resize', syncHeaderHeight);
     window.addEventListener('load', syncHeaderHeight);
 
-    /* ── timbri corporei sintetici, senza asset esterni ───────── */
+    /* ── campioni reali di body percussion (CC0) ──────────────── */
     var audioContext = null;
     var bodyOutput = null;
-    var noiseBuffer = null;
+    var bodySampleData = {};
+    var bodySampleBuffers = {};
+    var bodySampleCursor = { mani: 0, petto: 0, cosce: 0 };
+    var bodySamplePromise = null;
+    var bodySampleFiles = {
+        mani: [
+            '../../../../assets/audio/body-percussion/mani-1.wav',
+            '../../../../assets/audio/body-percussion/mani-2.wav'
+        ],
+        petto: [
+            '../../../../assets/audio/body-percussion/petto-1.wav',
+            '../../../../assets/audio/body-percussion/petto-2.wav'
+        ],
+        cosce: [
+            '../../../../assets/audio/body-percussion/cosce-1.wav',
+            '../../../../assets/audio/body-percussion/cosce-2.wav'
+        ]
+    };
 
     function getAudioContext() {
         if (!audioContext) {
@@ -25,7 +42,7 @@
             if (!AudioCtor) return null;
             audioContext = new AudioCtor();
         }
-        if (audioContext.state === 'suspended') audioContext.resume();
+        if (audioContext.state === 'suspended') audioContext.resume().catch(function () {});
         return audioContext;
     }
 
@@ -39,63 +56,54 @@
         compressor.ratio.value = 5;
         compressor.attack.value = .003;
         compressor.release.value = .14;
-        master.gain.value = .72;
+        master.gain.value = .82;
         compressor.connect(master);
         master.connect(ac.destination);
         bodyOutput = compressor;
         return bodyOutput;
     }
 
-    function getNoiseBuffer(ac) {
-        if (noiseBuffer) return noiseBuffer;
+    function preloadBodySampleData() {
+        if (bodySamplePromise) return bodySamplePromise;
 
-        var frameCount = Math.floor(ac.sampleRate * .24);
-        var buffer = ac.createBuffer(1, frameCount, ac.sampleRate);
-        var data = buffer.getChannelData(0);
-        for (var index = 0; index < frameCount; index += 1) {
-            data[index] = Math.random() * 2 - 1;
-        }
-        noiseBuffer = buffer;
-        return noiseBuffer;
+        bodySamplePromise = Promise.all(Object.keys(bodySampleFiles).map(function (name) {
+            return Promise.all(bodySampleFiles[name].map(function (source) {
+                return window.fetch(source).then(function (response) {
+                    if (!response.ok) throw new Error('Campione non disponibile: ' + source);
+                    return response.arrayBuffer();
+                });
+            })).then(function (buffers) {
+                bodySampleData[name] = buffers;
+            });
+        })).catch(function (error) {
+            console.warn('[battito] Impossibile caricare i campioni corporei.', error);
+        });
+
+        return bodySamplePromise;
     }
 
-    function playNoiseLayer(ac, when, settings) {
-        var source = ac.createBufferSource();
-        var filter = ac.createBiquadFilter();
-        var gain = ac.createGain();
-        var start = when + (settings.offset || 0);
-        var end = start + settings.duration;
-
-        source.buffer = getNoiseBuffer(ac);
-        filter.type = settings.filter;
-        filter.frequency.setValueAtTime(settings.frequency, start);
-        filter.Q.value = settings.q || .7;
-        gain.gain.setValueAtTime(.0001, start);
-        gain.gain.linearRampToValueAtTime(settings.gain, start + .004);
-        gain.gain.exponentialRampToValueAtTime(.001, end);
-
-        source.connect(filter);
-        filter.connect(gain);
-        gain.connect(getBodyOutput(ac));
-        source.start(start);
-        source.stop(end + .02);
+    function decodeBodySample(ac, data) {
+        return new Promise(function (resolve, reject) {
+            ac.decodeAudioData(data.slice(0), resolve, reject);
+        });
     }
 
-    function playToneLayer(ac, when, settings) {
-        var oscillator = ac.createOscillator();
-        var gain = ac.createGain();
-        var end = when + settings.duration;
+    function prepareBodySamples(ac) {
+        if (!ac) return Promise.resolve();
+        if (bodySampleBuffers.mani) return Promise.resolve();
 
-        oscillator.type = 'sine';
-        oscillator.frequency.setValueAtTime(settings.from, when);
-        oscillator.frequency.exponentialRampToValueAtTime(settings.to, end);
-        gain.gain.setValueAtTime(settings.gain, when);
-        gain.gain.exponentialRampToValueAtTime(.001, end);
-
-        oscillator.connect(gain);
-        gain.connect(getBodyOutput(ac));
-        oscillator.start(when);
-        oscillator.stop(end + .02);
+        return preloadBodySampleData().then(function () {
+            return Promise.all(Object.keys(bodySampleFiles).map(function (name) {
+                var samples = bodySampleData[name] || [];
+                return Promise.all(samples.map(function (data) {
+                    return decodeBodySample(ac, data);
+                })).then(function (buffers) {
+                    bodySampleBuffers[name] = buffers;
+                });
+            }));
+        }).catch(function (error) {
+            console.warn('[battito] Impossibile preparare i campioni corporei.', error);
+        });
     }
 
     function playBodySound(name, delay) {
@@ -104,32 +112,21 @@
         var ac = getAudioContext();
         if (!ac) return;
 
-        var when = ac.currentTime + (delay || 0);
+        var samples = bodySampleBuffers[name];
+        if (!samples || !samples.length) return;
 
-        if (name === 'mani') {
-            playNoiseLayer(ac, when, { filter: 'bandpass', frequency: 1850, q: .75, gain: .2, duration: .065 });
-            playNoiseLayer(ac, when, { filter: 'highpass', frequency: 950, q: .55, gain: .12, duration: .055, offset: .016 });
-            playNoiseLayer(ac, when, { filter: 'highpass', frequency: 1250, q: .55, gain: .07, duration: .04, offset: .034 });
-            return;
-        }
-
-        if (name === 'cosce') {
-            playNoiseLayer(ac, when, { filter: 'bandpass', frequency: 330, q: .7, gain: .28, duration: .105 });
-            playToneLayer(ac, when, { from: 105, to: 58, gain: .17, duration: .13 });
-            return;
-        }
-
-        if (name === 'petto') {
-            playNoiseLayer(ac, when, { filter: 'lowpass', frequency: 290, q: .65, gain: .25, duration: .125 });
-            playToneLayer(ac, when, { from: 78, to: 44, gain: .24, duration: .18 });
-            return;
-        }
-
-        if (name === 'piedi') {
-            playNoiseLayer(ac, when, { filter: 'lowpass', frequency: 190, q: .75, gain: .3, duration: .11 });
-            playToneLayer(ac, when, { from: 62, to: 38, gain: .22, duration: .15 });
-        }
+        var sampleIndex = bodySampleCursor[name] % samples.length;
+        var source = ac.createBufferSource();
+        var gain = ac.createGain();
+        source.buffer = samples[sampleIndex];
+        bodySampleCursor[name] += 1;
+        gain.gain.value = name === 'mani' ? .86 : 1;
+        source.connect(gain);
+        gain.connect(getBodyOutput(ac));
+        source.start(ac.currentTime + (delay || 0));
     }
+
+    preloadBodySampleData();
 
     function playMetronomeClick(accent) {
         var ac = getAudioContext();
@@ -204,7 +201,7 @@
 
     function playSequence(tiles, sequence, button, status, doneText, beatDuration) {
         stopPlayback();
-        getAudioContext();
+        var ac = getAudioContext();
 
         var timers = [];
         var stopped = false;
@@ -223,23 +220,27 @@
 
         currentPlaybackStop = stop;
 
-        sequence.forEach(function (sounds, index) {
-            timers.push(window.setTimeout(function () {
-                if (stopped) return;
-                tiles.forEach(function (tile, tileIndex) {
-                    tile.classList.toggle('is-live', tileIndex === index);
-                });
-                sounds.forEach(function (sound, soundIndex) {
-                    playBodySound(sound, soundIndex * .2);
-                });
-            }, index * beatLength));
-        });
+        prepareBodySamples(ac).then(function () {
+            if (stopped) return;
 
-        timers.push(window.setTimeout(function () {
-            stop();
-            status.textContent = doneText;
-            currentPlaybackStop = null;
-        }, sequence.length * beatLength));
+            sequence.forEach(function (sounds, index) {
+                timers.push(window.setTimeout(function () {
+                    if (stopped) return;
+                    tiles.forEach(function (tile, tileIndex) {
+                        tile.classList.toggle('is-live', tileIndex === index);
+                    });
+                    sounds.forEach(function (sound, soundIndex) {
+                        playBodySound(sound, soundIndex * .2);
+                    });
+                }, index * beatLength));
+            });
+
+            timers.push(window.setTimeout(function () {
+                stop();
+                status.textContent = doneText;
+                currentPlaybackStop = null;
+            }, sequence.length * beatLength));
+        });
     }
 
     document.addEventListener('visibilitychange', function () {
@@ -340,15 +341,20 @@
             });
         }
 
-        function renderPattern() {
+        function renderPattern(activeBlock) {
             var sequence = patterns[patternIndex];
             var firstBlock = sequence.slice(0, 4);
             var secondBlock = sequence.slice(4, 8);
+            var mainBlock = activeBlock === 1 ? secondBlock : firstBlock;
+            var previewBlock = activeBlock === 1 ? firstBlock : secondBlock;
+            var mainLabel = activeBlock === 1 ? 'Seconda battuta in esecuzione' : 'Prima battuta in esecuzione';
+            var previewLabel = activeBlock === 1 ? 'Anteprima della prima battuta' : 'Anteprima della seconda battuta';
 
-            mainGrid.setAttribute('aria-label', 'Prima battuta, movimenti da 1 a 4');
-            previewGrid.setAttribute('aria-label', 'Seconda battuta, movimenti da 1 a 4');
-            renderTiles(mainGrid, firstBlock, 0);
-            renderTiles(previewGrid, secondBlock, 4);
+            root.setAttribute('data-active-block', String(activeBlock + 1));
+            mainGrid.setAttribute('aria-label', mainLabel + ', movimenti da 1 a 4');
+            previewGrid.setAttribute('aria-label', previewLabel + ', movimenti da 1 a 4');
+            renderTiles(mainGrid, mainBlock, 0);
+            renderTiles(previewGrid, previewBlock, 0);
             preview.classList.remove('is-blank');
             preview.setAttribute('aria-hidden', 'false');
         }
@@ -358,19 +364,19 @@
             root.classList.remove('is-changing');
             status.textContent = '';
             syncEchoButton(false);
-            renderPattern();
+            renderPattern(0);
         }
 
         function playEchoSequence() {
             stopPlayback();
-            getAudioContext();
+            var ac = getAudioContext();
 
             var sequence = patterns[patternIndex];
             var timer = null;
             var stopped = false;
             var beatIndex = 0;
 
-            renderPattern();
+            renderPattern(0);
             status.textContent = '';
             syncEchoButton(true);
 
@@ -386,6 +392,7 @@
                 if (timer !== null) window.clearTimeout(timer);
                 root.classList.remove('is-changing');
                 clearHighlights();
+                renderPattern(0);
                 syncEchoButton(false);
                 status.textContent = '';
             }
@@ -396,9 +403,12 @@
                 if (stopped) return;
 
                 var sequenceIndex = beatIndex % sequence.length;
+                var blockIndex = sequenceIndex < 4 ? 0 : 1;
                 var sounds = sequence[sequenceIndex];
-                var targetGrid = sequenceIndex < 4 ? mainGrid : previewGrid;
-                var targetTile = targetGrid.children[sequenceIndex % 4];
+                var targetTile;
+
+                if (sequenceIndex % 4 === 0) renderPattern(blockIndex);
+                targetTile = mainGrid.children[sequenceIndex % 4];
 
                 clearHighlights();
                 if (targetTile) targetTile.classList.add('is-live');
@@ -410,7 +420,9 @@
                 timer = window.setTimeout(pulse, beatLength);
             }
 
-            pulse();
+            prepareBodySamples(ac).then(function () {
+                if (!stopped) pulse();
+            });
         }
 
         patternButtons.forEach(function (button) {
@@ -439,7 +451,7 @@
                 });
 
                 status.textContent = button.textContent + ' · ' + Math.round(60000 / beatLength) + ' BPM';
-                renderPattern();
+                renderPattern(0);
                 if (metronomeWasRunning) startMetronome();
                 if (echoWasRunning) playEchoSequence();
             });
