@@ -20,6 +20,7 @@
     var bodySampleData = {};
     var bodySampleBuffers = {};
     var bodySamplePromise = null;
+    var activeBodySources = [];
     var bodySampleFiles = {
         mani:  ['../../../../assets/audio/body-percussion/mani-1.wav'],
         petto: ['../../../../assets/audio/body-percussion/petto-1.wav'],
@@ -96,7 +97,14 @@
         });
     }
 
-    function playBodySound(name, delay) {
+    function stopBodySounds() {
+        activeBodySources.slice().forEach(function (source) {
+            try { source.stop(); } catch (error) { /* Already ended. */ }
+        });
+        activeBodySources = [];
+    }
+
+    function playBodySound(name, delay, when) {
         if (name === 'silenzio') return;
 
         var ac = getAudioContext();
@@ -111,7 +119,13 @@
         gain.gain.value = name === 'mani' ? .86 : 1;
         source.connect(gain);
         gain.connect(getBodyOutput(ac));
-        source.start(ac.currentTime + (delay || 0));
+        activeBodySources.push(source);
+        source.onended = function () {
+            activeBodySources = activeBodySources.filter(function (item) { return item !== source; });
+            source.disconnect();
+            gain.disconnect();
+        };
+        source.start((when === undefined ? ac.currentTime : when) + (delay || 0));
     }
 
     function subdivisionDelay(soundIndex, soundCount, beatDuration) {
@@ -181,7 +195,7 @@
     function spokenGestureList(sounds) {
         return sounds.map(function (sound) {
             return gestureNames[sound] || sound;
-        }).join(', ');
+        }).join(', poi ');
     }
 
     /* ── riproduzione condivisa ───────────────────────────────── */
@@ -190,6 +204,7 @@
     function stopPlayback() {
         if (currentPlaybackStop) currentPlaybackStop();
         currentPlaybackStop = null;
+        stopBodySounds();
     }
 
     function playSequence(tiles, sequence, button, status, doneText, beatDuration) {
@@ -280,12 +295,27 @@
         var metronomeTimer = null;
         var metronomeBeat = 0;
         var echoRunning = false;
+        var tempoStrip = root.querySelector('.brl__tempo');
+        var tempoOptions = root.querySelector('.brl__tempo-options');
+        var metronomeVisualTimer = null;
+        var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        var visibleBlock = null;
+
+        function animateBlocks() {
+            if (reducedMotion.matches) return;
+            [mainGrid, previewGrid].forEach(function (grid) {
+                grid.classList.remove('is-arriving');
+                void grid.offsetWidth;
+                grid.classList.add('is-arriving');
+            });
+        }
 
         function syncEchoButton(running) {
             echoRunning = running;
             playButton.classList.toggle('is-playing', running);
             playButton.setAttribute('aria-pressed', running ? 'true' : 'false');
             playButton.textContent = running ? 'Stop' : 'Ascolta';
+            root.classList.toggle('is-playing', running);
         }
 
         function syncMetronomeButton(running) {
@@ -293,17 +323,27 @@
             metronomeButton.classList.toggle('is-active', running);
             metronomeButton.setAttribute('aria-pressed', running ? 'true' : 'false');
             metronomeButton.textContent = running ? 'Ferma' : 'Avvia';
+            if (tempoStrip) tempoStrip.classList.toggle('is-running', running);
         }
 
         function metronomePulse() {
             playMetronomeClick(metronomeBeat % 4 === 0);
             metronomeBeat += 1;
+            if (tempoStrip) {
+                tempoStrip.classList.add('is-ticking');
+                window.clearTimeout(metronomeVisualTimer);
+                metronomeVisualTimer = window.setTimeout(function () {
+                    tempoStrip.classList.remove('is-ticking');
+                }, 200);
+            }
         }
 
         function stopMetronome() {
             if (metronomeTimer !== null) window.clearInterval(metronomeTimer);
             metronomeTimer = null;
             metronomeBeat = 0;
+            window.clearTimeout(metronomeVisualTimer);
+            if (tempoStrip) tempoStrip.classList.remove('is-ticking');
             syncMetronomeButton(false);
         }
 
@@ -323,6 +363,7 @@
                 var label = document.createElement('span');
                 var beat = document.createElement('span');
                 var gestureName = document.createElement('strong');
+                var progress = document.createElement('span');
                 tile.className = 'brl__tile';
                 tile.setAttribute('aria-label', 'Movimento ' + ((startIndex + index) % 4 + 1) + ': ' + spokenGestureList(sounds));
                 beat.className = 'brl__beat';
@@ -333,10 +374,13 @@
                 tile.appendChild(label);
 
                 if (target === mainGrid) {
+                    progress.className = 'brl__beat-progress';
+                    progress.setAttribute('aria-hidden', 'true');
+                    tile.appendChild(progress);
                     gestureName.className = 'brl__gesture-name';
                     gestureName.textContent = sounds.map(function (sound) {
                         return gestureNames[sound] || sound;
-                    }).join(' + ');
+                    }).join(' → ');
                     tile.appendChild(gestureName);
                 }
 
@@ -344,7 +388,7 @@
             });
         }
 
-        function renderPattern(activeBlock) {
+        function renderPattern(activeBlock, animate) {
             var sequence = patterns[patternIndex];
             var firstBlock = sequence.slice(0, 4);
             var secondBlock = sequence.slice(4, 8);
@@ -360,6 +404,8 @@
             renderTiles(previewGrid, previewBlock, 0);
             preview.classList.remove('is-blank');
             preview.setAttribute('aria-hidden', 'false');
+            visibleBlock = activeBlock;
+            if (animate) animateBlocks();
         }
 
         function render() {
@@ -368,6 +414,7 @@
             status.textContent = '';
             syncEchoButton(false);
             renderPattern(0);
+            animateBlocks();
         }
 
         function playEchoSequence() {
@@ -378,6 +425,9 @@
             var timer = null;
             var stopped = false;
             var beatIndex = 0;
+            var nextBeatAt = 0;
+            var nextAudioAt = 0;
+            var gestureTimers = [];
 
             renderPattern(0);
             status.textContent = '';
@@ -387,12 +437,17 @@
                 Array.prototype.slice.call(root.querySelectorAll('.brl__tile.is-live')).forEach(function (tile) {
                     tile.classList.remove('is-live');
                 });
+                Array.prototype.slice.call(root.querySelectorAll('.brl__gesture-icon.is-struck')).forEach(function (icon) {
+                    icon.classList.remove('is-struck');
+                });
             }
 
             function stop() {
                 if (stopped) return;
                 stopped = true;
                 if (timer !== null) window.clearTimeout(timer);
+                gestureTimers.forEach(window.clearTimeout);
+                stopBodySounds();
                 root.classList.remove('is-changing');
                 clearHighlights();
                 renderPattern(0);
@@ -409,22 +464,52 @@
                 var blockIndex = sequenceIndex < 4 ? 0 : 1;
                 var sounds = sequence[sequenceIndex];
                 var targetTile;
+                var now = performance.now();
 
-                if (sequenceIndex % 4 === 0) renderPattern(blockIndex);
+                // Absolute deadlines prevent animation/render cost accumulating as drift.
+                // After a long stall restart cleanly; never cram missed beats together.
+                if (now > nextBeatAt + beatLength) {
+                    nextBeatAt = now;
+                    nextAudioAt = ac ? ac.currentTime : 0;
+                }
+                var audioWhen = nextAudioAt;
+
+                if (sequenceIndex % 4 === 0 && visibleBlock !== blockIndex) renderPattern(blockIndex, true);
                 targetTile = mainGrid.children[sequenceIndex % 4];
 
                 clearHighlights();
-                if (targetTile) targetTile.classList.add('is-live');
+                gestureTimers.forEach(window.clearTimeout);
+                gestureTimers = [];
+                if (targetTile) {
+                    targetTile.style.setProperty('--beat-duration', beatLength + 'ms');
+                    targetTile.classList.add('is-live');
+                }
+                var icons = targetTile ? targetTile.querySelectorAll('.brl__gesture-icon') : [];
                 sounds.forEach(function (sound, soundIndex) {
-                    playBodySound(sound, subdivisionDelay(soundIndex, sounds.length, beatLength));
+                    var delay = subdivisionDelay(soundIndex, sounds.length, beatLength);
+                    playBodySound(sound, delay, audioWhen);
+                    function strike() {
+                        if (stopped) return;
+                        Array.prototype.forEach.call(icons, function (icon, index) {
+                            icon.classList.toggle('is-struck', index === soundIndex);
+                        });
+                    }
+                    if (soundIndex === 0) strike();
+                    else gestureTimers.push(window.setTimeout(strike, Math.max(0, (audioWhen + delay - (ac ? ac.currentTime : audioWhen)) * 1000)));
                 });
 
                 beatIndex += 1;
-                timer = window.setTimeout(pulse, beatLength);
+                nextBeatAt += beatLength;
+                nextAudioAt += beatLength / 1000;
+                timer = window.setTimeout(pulse, Math.max(0, nextBeatAt - performance.now()));
             }
 
             prepareBodySamples(ac).then(function () {
-                if (!stopped) pulse();
+                if (!stopped) {
+                    nextBeatAt = performance.now();
+                    nextAudioAt = ac ? ac.currentTime : 0;
+                    pulse();
+                }
             });
         }
 
@@ -434,18 +519,19 @@
                 patternButtons.forEach(function (item) {
                     var active = item === button;
                     item.classList.toggle('is-active', active);
-                    item.setAttribute('aria-selected', active ? 'true' : 'false');
+                    item.setAttribute('aria-pressed', active ? 'true' : 'false');
                 });
                 render();
             });
         });
 
-        tempoButtons.forEach(function (button) {
+        tempoButtons.forEach(function (button, tempoIndex) {
             button.addEventListener('click', function () {
                 var echoWasRunning = echoRunning;
                 stopPlayback();
                 var metronomeWasRunning = metronomeTimer !== null;
                 beatLength = parseInt(button.getAttribute('data-beat-length'), 10) || 714;
+                if (tempoOptions) tempoOptions.style.setProperty('--tempo-index', tempoIndex);
 
                 tempoButtons.forEach(function (item) {
                     var active = item === button;
@@ -562,7 +648,8 @@
 
     gsap.registerPlugin(ScrollTrigger);
 
-    var lenis = new Lenis({ lerp: .08, smoothWheel: true });
+    var reduceScrollMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var lenis = new Lenis({ lerp: reduceScrollMotion ? 1 : .08, smoothWheel: !reduceScrollMotion });
     lenis.on('scroll', ScrollTrigger.update);
     gsap.ticker.add(function (time) { lenis.raf(time * 1000); });
     gsap.ticker.lagSmoothing(0);
@@ -588,7 +675,7 @@
             trigger: scrollElement,
             start: 'top top',
             end: 'bottom bottom',
-            scrub: 1,
+            scrub: reduceScrollMotion ? true : 1,
             invalidateOnRefresh: true,
             onUpdate: function (self) {
                 var index = Math.min(screenCount - 1, Math.floor(self.progress * screenCount + .05));
@@ -613,7 +700,7 @@
             var ratio = screenCount > 1 ? index / (screenCount - 1) : 0;
             var target = slideTrigger.start + ratio * (slideTrigger.end - slideTrigger.start);
             lenis.scrollTo(target, {
-                duration: 1.2,
+                duration: reduceScrollMotion ? 0 : 1.2,
                 easing: function (time) {
                     return time < .5 ? 2 * time * time : -1 + (4 - 2 * time) * time;
                 }
