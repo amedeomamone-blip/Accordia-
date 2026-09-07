@@ -74,7 +74,7 @@ class AudioContext {
     createBufferSource() {
         const s = {
             connect() {}, disconnect() {},
-            start(when) { s.when = when; s.at = now; s.name = s.buffer.name; s.stopped = false; sounds.push(s); },
+            start(when) { s.when = Math.max(when, now / 1000); s.at = now; s.name = s.buffer.name; s.stopped = false; sounds.push(s); },
             stop() { s.stopped = true; s.stopAt = now; }
         };
         return s;
@@ -187,9 +187,27 @@ function advance(to, late = 0) {
     await Promise.resolve();
     advance(epoch + 20000, 10);
     sounds.forEach((s, i) => {
-        assert(Math.abs(s.when - (epoch / 1000 + i * .5)) < .00001);
+        assert(Math.abs(s.when - (epoch / 1000 + i * .5)) <= .021);
         assert(Math.abs(s.at - (epoch + i * 500)) <= 20, 'Timer drift must stay bounded');
     });
+    api.stop();
+
+    // A delayed callback must not collapse two eighths or overlap the next beat.
+    sounds.length = 0;
+    api.setPattern(4);
+    const stalledEpoch = now;
+    api.start();
+    await Promise.resolve();
+    advance(stalledEpoch + 500);
+    now = stalledEpoch + 1300; // Simulate 300 ms main-thread stall on beat three.
+    advance(now);
+    const delayedPair = sounds.slice(-2);
+    assert.equal(delayedPair[0].at, stalledEpoch + 1300);
+    assert(Math.abs(delayedPair[1].when - delayedPair[0].when - .25) < .00001);
+    advance(stalledEpoch + 1799);
+    assert.equal(sounds.at(-1), delayedPair[1]);
+    advance(stalledEpoch + 1800);
+    assert(sounds.at(-1).when >= delayedPair[1].when + .25 - .00001);
     api.stop();
 
     // Buttons expose selection without incomplete ARIA tab semantics.

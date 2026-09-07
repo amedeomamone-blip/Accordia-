@@ -468,12 +468,10 @@
 
                 // Absolute deadlines prevent animation/render cost accumulating as drift.
                 // After a long stall restart cleanly; never cram missed beats together.
-                if (now > nextBeatAt + beatLength) {
+                if (now > nextBeatAt + beatLength * .1) {
                     nextBeatAt = now;
                     nextAudioAt = ac ? ac.currentTime : 0;
                 }
-                var audioWhen = nextAudioAt;
-
                 if (sequenceIndex % 4 === 0 && visibleBlock !== blockIndex) renderPattern(blockIndex, true);
                 targetTile = mainGrid.children[sequenceIndex % 4];
 
@@ -485,6 +483,9 @@
                     targetTile.classList.add('is-live');
                 }
                 var icons = targetTile ? targetTile.querySelectorAll('.brl__gesture-icon') : [];
+                // Capture after rendering: past Web Audio timestamps play immediately.
+                // Both eighths share this actual epoch, including after a block swap.
+                var audioWhen = ac ? Math.max(nextAudioAt, ac.currentTime) : nextAudioAt;
                 sounds.forEach(function (sound, soundIndex) {
                     var delay = subdivisionDelay(soundIndex, sounds.length, beatLength);
                     playBodySound(sound, delay, audioWhen);
