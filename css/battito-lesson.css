@@ -11,8 +11,9 @@
     --rhythm-3:        #9bb861;
     --rhythm-4:        #99aa46;
     --rhythm-muted:    rgba(52, 69, 42, .5);
-    --rhythm-tile-idle: #e9edef;
-    --rhythm-tile-preview: #f5f6f7;
+    --rhythm-tile-idle: #e8e8e8;
+    --rhythm-tile-preview: #f3f3f3;
+    --rhythm-number-size: .8vw;
     --rhythm-active:   #b9c7a6;
     --studio-ink:      #202822;
     --studio-line:     rgba(32, 40, 34, .12);
@@ -403,19 +404,11 @@ body[data-lesson="battito"] .brand--wordmark {
     align-items:     center;
     justify-content: center;
     color:           var(--rhythm-deep);
-    background:
-        linear-gradient(135deg, rgba(255, 255, 255, .82), transparent 58%),
-        linear-gradient(0deg, rgba(32, 40, 34, .035), transparent 24%),
-        var(--tile-base);
+    background:      var(--tile-base);
     font-family:     inherit;
     cursor:          pointer;
     transition:      background-color .2s ease, box-shadow .2s ease, transform .2s var(--studio-ease);
 }
-
-.brl__tile:nth-child(4n + 1) { --tile-base: #edf0f1; }
-.brl__tile:nth-child(4n + 2) { --tile-base: #e6eaec; }
-.brl__tile:nth-child(4n + 3) { --tile-base: #edf0f1; }
-.brl__tile:nth-child(4n)     { --tile-base: #e6eaec; }
 
 .brl__tile:nth-child(4n) { border-right: 0; }
 
@@ -432,29 +425,6 @@ body[data-lesson="battito"] .brand--wordmark {
         0 1.5rem 2.6rem -.8rem rgba(32, 40, 34, .14),
         0 .25rem .5rem -.2rem rgba(32, 40, 34, .12),
         0 0 0 1px rgba(32, 40, 34, .08);
-}
-
-.brl--echo .brl__row--main::before {
-    content:        "";
-    position:       absolute;
-    z-index:        4;
-    top:            0;
-    right:          0;
-    left:           0;
-    height:         1px;
-    pointer-events: none;
-    background:     linear-gradient(90deg, transparent, rgba(32, 40, 34, .28), transparent);
-}
-
-.brl--echo .brl__row--main .brl__tile::after,
-.brl--echo .brl__row--preview .brl__tile::after {
-    content:        "";
-    position:       absolute;
-    z-index:        0;
-    inset:          .5rem;
-    border:         1px solid rgba(255, 255, 255, .6);
-    border-bottom-color: rgba(32, 40, 34, .045);
-    pointer-events: none;
 }
 
 .brl--echo .brl__gesture-set {
@@ -493,13 +463,12 @@ body[data-lesson="battito"] .brand--wordmark {
     height:  var(--preview-tile);
     padding: calc(var(--preview-tile) * .06);
     border-color: rgba(32, 40, 34, .055);
-    background:
-        linear-gradient(135deg, rgba(255, 255, 255, .9), transparent 65%),
-        var(--tile-base);
+    background: var(--tile-base);
     cursor:  default;
 }
 
 .brl--echo .brl__preview {
+    margin-top: clamp(1rem, 2svh, 1.5rem);
     box-shadow:
         0 .8rem 1.6rem -.75rem rgba(32, 40, 34, .1),
         0 0 0 1px rgba(32, 40, 34, .07);
@@ -534,10 +503,10 @@ body[data-lesson="battito"] .brand--wordmark {
 .brl__beat {
     position:             absolute;
     z-index:              3;
-    left:                 calc(var(--tile) * .065);
-    bottom:               calc(var(--tile) * .055);
+    left:                 1.5vw;
+    bottom:               1.5vw;
     color:                rgba(17, 17, 17, .35);
-    font-size:            clamp(.72rem, 1vw, .95rem);
+    font-size:            var(--rhythm-number-size);
     font-weight:          700;
     letter-spacing:       .07em;
     font-variant-numeric: tabular-nums;
@@ -590,7 +559,7 @@ body[data-lesson="battito"] .brand--wordmark {
 .brl__row--preview .brl__beat {
     left:      calc(var(--preview-tile) * .08);
     bottom:    calc(var(--preview-tile) * .07);
-    font-size: clamp(.62rem, .75vw, .75rem);
+    font-size: var(--rhythm-number-size);
 }
 
 .brl__row--preview .brl__gesture-set--multiple .brl__gesture-icon {
@@ -599,9 +568,7 @@ body[data-lesson="battito"] .brand--wordmark {
 
 .brl__tile.is-live {
     z-index:    2;
-    background:
-        linear-gradient(135deg, rgba(255, 255, 255, .45), transparent 60%),
-        var(--rhythm-active);
+    background: var(--rhythm-active);
     filter:     none;
     box-shadow:
         inset 0 0 0 1px rgba(113, 138, 77, .5),
@@ -693,19 +660,19 @@ body[data-lesson="battito"] .brand--wordmark {
 
 .brl__tempo {
     min-height:      3rem;
-    padding:         .34rem .42rem .34rem .9rem;
-    border:          1px solid rgba(52, 69, 42, .12);
+    padding:         0;
+    border:          0;
     border-radius:   0;
     display:         flex;
     align-items:     center;
     justify-content: center;
     flex-wrap:       wrap;
     gap:             .55rem .75rem;
-    background:      linear-gradient(135deg, #ffffff, #f5f7f6);
-    box-shadow:
-        0 .4rem 1rem -.65rem rgba(32, 40, 34, .18),
-        inset 0 1px 0 rgba(255, 255, 255, .9);
+    background:      transparent;
+    box-shadow:      none;
 }
+
+.brl--echo .brl__tempo-label { display: none; }
 
 .brl__tempo-label {
     display:        inline-flex;
@@ -974,6 +941,8 @@ body[data-lesson="battito"] .brand--wordmark {
    Evita moltiplicazioni dentro calc(): alcune versioni di WebKit le
    scartano, facendo ricadere titolo e tile sulle vecchie coordinate. */
 @media (min-width: 601px) {
+    /* Match the index module exactly, including wide/short viewports. */
+    .brl { --tile: calc(100vw / 6); }
     .bintro-screen .barocco-header {
         top: calc(
             50svh - (100vw / 12) - var(--bintro-header-h, 4rem)
@@ -1053,6 +1022,8 @@ body[data-lesson="battito"] .brand--wordmark {
 
 /* ── tablet e mobile ───────────────────────────────────────────── */
 @media (max-width: 600px) {
+    .bintro-stage { --rhythm-number-size: 3vw; }
+    .brl__beat { left: 3.2vw; bottom: 3.2vw; }
     .bintro-progress { display: none; }
 
     .brl--echo { --echo-stack-gap: .75rem; }
