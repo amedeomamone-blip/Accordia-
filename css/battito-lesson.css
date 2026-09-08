@@ -45,8 +45,8 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .bintro-pin {
-    position: sticky;
-    top:      var(--bintro-header-h, 4rem);
+    position: relative;
+    top:      0;
     height:   calc(100svh - var(--bintro-header-h, 4rem));
     overflow: hidden;
 }
@@ -796,6 +796,8 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl--echo .brl__primary {
+    position:      relative;
+    padding-inline: 2.2rem;
     min-width:     8.5rem;
     min-height:    3rem;
     border-radius: 999px;
@@ -811,6 +813,8 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl--echo .brl__primary::before {
+    position: absolute;
+    left: 1.125rem;
     content: "";
     width: .65rem;
     height: .65rem;
@@ -1290,6 +1294,54 @@ body[data-lesson="battito"] .brand--wordmark {
     outline-offset: 5px;
 }
 .brl button { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+
+/* The toolbar fits the index's title-to-tile gap; it never moves the tiles. */
+@media (min-width: 601px) {
+    .brl--echo { --control-size: clamp(1.5rem, 2.5vw, 2.5rem); z-index: 4; }
+    .brl--echo .brl__toolbar {
+        min-height: var(--control-size);
+        bottom: calc(100% + min(.5rem, .5vw));
+    }
+    .brl--echo .brl__toolbar .brl__patterns,
+    .brl--echo .brl__toolbar .brl__tempo { min-height: var(--control-size); padding: 0; }
+    .brl--echo .brl__tempo-options { padding: 0; }
+    .brl--echo .brl__tempo-options::before {
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: calc((100% - .3rem) / 3);
+    }
+    .brl--echo .brl__tempo-option,
+    .brl--echo .brl__metronome-toggle {
+        height: var(--control-size);
+        min-height: var(--control-size);
+        padding-block: 0;
+    }
+    .brl--echo .brl__pattern-options { grid-template-columns: repeat(5, var(--control-size)); }
+    .brl--echo .brl__pattern {
+        width: var(--control-size);
+        min-width: var(--control-size);
+        height: var(--control-size);
+        padding: 0;
+    }
+}
+
+@media (min-width: 601px) and (max-width: 899px) {
+    .brl--echo .brl__toolbar {
+        bottom: calc(100% + clamp(3.08rem, 6.6vw, 7.04rem) + 4.52381vw + .75rem);
+    }
+}
+
+.brl__pattern,
+.brl__tempo-option,
+.brl__metronome-toggle,
+.brl__primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+}
 .brl__sound { color: #58605a; }
 .brl__sound:hover .brl__sound-icon { transform: translateY(-3px); }
 .brl__sound-icon { transition: transform .22s var(--studio-ease); }
