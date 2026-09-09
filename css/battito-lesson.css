@@ -11,8 +11,8 @@
     --rhythm-3:        #9bb861;
     --rhythm-4:        #99aa46;
     --rhythm-muted:    rgba(52, 69, 42, .5);
-    --rhythm-tile-idle: #e8e8e8;
-    --rhythm-tile-preview: #f3f3f3;
+    --rhythm-tile-idle: #ffffff;
+    --rhythm-tile-preview: #ffffff;
     --rhythm-number-size: .8vw;
     --rhythm-active:   #b9c7a6;
     --studio-ink:      #202822;
@@ -397,7 +397,7 @@ body[data-lesson="battito"] .brand--wordmark {
     aspect-ratio:    1;
     padding:         calc(var(--tile) * .09);
     border:          0;
-    border-right:    1px solid rgba(255, 255, 255, .92);
+    border-right:    0;
     border-bottom:   0;
     border-radius:   0;
     display:         flex;
@@ -459,7 +459,6 @@ body[data-lesson="battito"] .brand--wordmark {
     width:   var(--preview-tile);
     height:  var(--preview-tile);
     padding: calc(var(--preview-tile) * .06);
-    border-color: rgba(32, 40, 34, .055);
     background: var(--tile-base);
     cursor:  default;
 }
@@ -539,6 +538,7 @@ body[data-lesson="battito"] .brand--wordmark {
     object-fit: contain;
     filter: none;
     transform-origin: 50% 75%;
+    will-change: transform;
 }
 
 .brl__gesture-set--multiple {
@@ -1236,7 +1236,7 @@ body[data-lesson="battito"] .brand--wordmark {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 3px;
+    height: clamp(5px, .55vw, 8px);
     background: var(--rhythm-deep);
     transform: scaleX(0);
     transform-origin: left;
