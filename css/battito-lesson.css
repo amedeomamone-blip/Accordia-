@@ -510,18 +510,26 @@ body[data-lesson="battito"] .brand--wordmark {
 
 .brl__gesture-name {
     position:       absolute;
-    top:            calc(100% + .55rem);
-    left:           0;
-    width:          100%;
-    padding:        0 calc(var(--tile) * .065);
+    z-index:        3;
+    right:          1.5vw;
+    bottom:         1.5vw;
+    max-width:      68%;
     color:          #111111;
     font-family:    var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
     font-size:      clamp(1rem, 1.15vw, 1.2rem);
     font-weight:    700;
     letter-spacing: -.03em;
     line-height:    1.05;
-    text-align:     left;
+    text-align:     right;
+    white-space:    nowrap;
     pointer-events: none;
+}
+
+.brl__row--preview .brl__gesture-name {
+    right:       calc(var(--preview-tile) * .08);
+    bottom:      calc(var(--preview-tile) * .07);
+    max-width:   64%;
+    font-size:   clamp(.7rem, .9vw, .9rem);
 }
 
 .brl__gesture-set {
@@ -624,7 +632,7 @@ body[data-lesson="battito"] .brand--wordmark {
     padding-bottom: 0;
 }
 
-/* Barra di regia: metronomo a sinistra, sequenze a destra. */
+/* Sequenze centrate sopra i tile; metronomo nella fascia inferiore. */
 .brl--echo .brl__toolbar {
     position:        absolute;
     bottom:          calc(100% + var(--echo-stack-gap, .875rem));
@@ -635,11 +643,10 @@ body[data-lesson="battito"] .brand--wordmark {
     margin:          0 auto;
     display:         flex;
     align-items:     center;
-    justify-content: space-between;
-    gap:             clamp(1rem, 2.4vw, 2.5rem);
+    justify-content: center;
+    gap:             0;
 }
 
-.brl--echo .brl__toolbar .brl__tempo,
 .brl--echo .brl__toolbar .brl__patterns {
     width:         auto;
     margin:        0;
@@ -648,7 +655,22 @@ body[data-lesson="battito"] .brand--wordmark {
 
 .brl--echo .brl__toolbar .brl__patterns {
     min-height: 2.5rem;
-    justify-content: flex-end;
+    justify-content: center;
+}
+
+.brl--echo .brl__controls {
+    position: relative;
+    width: calc(4 * var(--tile));
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.brl--echo .brl__controls .brl__tempo {
+    position: absolute;
+    top: 0;
+    left: 0;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
 }
 
 .brl__tempo {
@@ -665,7 +687,25 @@ body[data-lesson="battito"] .brand--wordmark {
     box-shadow: none;
 }
 
-.brl--echo .brl__tempo-label { display: none; }
+.brl--echo .brl__tempo-label {
+    display: inline-flex;
+    color: var(--rhythm-deep);
+}
+
+.brl--echo .brl__tempo-label > span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.brl--echo .brl__tempo-icon {
+    width: 1.45rem;
+    height: 1.45rem;
+    stroke-width: 1.7;
+}
 
 .brl__tempo-label {
     display:        inline-flex;
@@ -1005,7 +1045,7 @@ body[data-lesson="battito"] .brand--wordmark {
     }
 
     .brl--echo .brl__tempo { padding: .2rem; gap: .3rem; flex-wrap: nowrap; }
-    .brl--echo .brl__tempo-icon { width: 1rem; }
+    .brl--echo .brl__tempo-icon { width: 1.25rem; height: 1.25rem; }
     .brl--echo .brl__pattern-options { grid-template-columns: repeat(5, 2rem); gap: .25rem; }
     .brl--echo .brl__pattern { width: 2rem; min-width: 2rem; height: 2rem; font-size: .875rem; }
 }
@@ -1162,7 +1202,19 @@ body[data-lesson="battito"] .brand--wordmark {
     }
 
     .brl--echo .brl__row--main { margin-bottom: calc(2.75rem + var(--echo-stack-gap)); }
-    .brl__gesture-name { padding-inline: .4rem; font-size: clamp(.8rem, 3.6vw, 1rem); line-height: 1.15; }
+    .brl__gesture-name {
+        right:       .4rem;
+        bottom:      .4rem;
+        max-width:   68%;
+        font-size:   clamp(.68rem, 2.8vw, .84rem);
+        line-height: 1;
+    }
+
+    .brl__row--preview .brl__gesture-name {
+        right:     .4rem;
+        bottom:    .4rem;
+        font-size: clamp(.5rem, 1.7vw, .66rem);
+    }
 
     .brl__tempo {
         max-width:  calc(100% - 1rem);
@@ -1303,7 +1355,7 @@ body[data-lesson="battito"] .brand--wordmark {
         bottom: calc(100% + min(.5rem, .5vw));
     }
     .brl--echo .brl__toolbar .brl__patterns,
-    .brl--echo .brl__toolbar .brl__tempo { min-height: var(--control-size); padding: 0; }
+    .brl--echo .brl__controls .brl__tempo { min-height: var(--control-size); padding: 0; }
     .brl--echo .brl__tempo-options { padding: 0; }
     .brl--echo .brl__tempo-options::before {
         top: 0;
@@ -1328,7 +1380,15 @@ body[data-lesson="battito"] .brand--wordmark {
 
 @media (min-width: 601px) and (max-width: 899px) {
     .brl--echo .brl__toolbar {
-        bottom: calc(100% + clamp(3.08rem, 6.6vw, 7.04rem) + 4.52381vw + .75rem);
+        bottom: calc(100% + min(.5rem, .5vw));
+    }
+
+    .brl--echo .brl__controls {
+        min-height: calc(3rem + var(--echo-stack-gap) + var(--control-size));
+    }
+
+    .brl--echo .brl__controls .brl__tempo {
+        top: calc(3rem + var(--echo-stack-gap));
     }
 }
 
@@ -1346,9 +1406,8 @@ body[data-lesson="battito"] .brand--wordmark {
 .brl__sound:hover .brl__sound-icon { transform: translateY(-3px); }
 .brl__sound-icon { transition: transform .22s var(--studio-ease); }
 
-/* ImagesBadge reference, adapted to numbered sequence buttons.
-   Reserve the expanded width: hover/focus can never reflow the lesson.
-   Touch and reduced-motion users retain the always-visible five-button grid. */
+/* ImagesBadge reference, adapted as an always-open numbered fan.
+   Its reserved width keeps the lesson geometry perfectly still. */
 @media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) and (min-width: 601px) {
     .brl--echo .brl__toolbar .brl__pattern-options {
         --fan-gap: .5rem;
@@ -1369,9 +1428,9 @@ body[data-lesson="battito"] .brand--wordmark {
     .brl--echo .brl__toolbar .brl__pattern {
         position: absolute;
         top: 0;
-        left: calc(100% - var(--control-size) - (4 - var(--fan-i)) * var(--fan-peek));
+        left: calc(var(--fan-i) * (var(--control-size) + var(--fan-gap)));
         z-index: calc(5 - var(--fan-i));
-        transform: rotate(var(--fan-rest));
+        transform: translateY(var(--fan-arc)) rotate(var(--fan-open));
         transition: left .34s cubic-bezier(.22, 1.12, .36, 1), transform .34s cubic-bezier(.22, 1.12, .36, 1), background-color .18s;
     }
 
