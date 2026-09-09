@@ -1346,6 +1346,50 @@ body[data-lesson="battito"] .brand--wordmark {
 .brl__sound:hover .brl__sound-icon { transform: translateY(-3px); }
 .brl__sound-icon { transition: transform .22s var(--studio-ease); }
 
+/* ImagesBadge reference, adapted to numbered sequence buttons.
+   Reserve the expanded width: hover/focus can never reflow the lesson.
+   Touch and reduced-motion users retain the always-visible five-button grid. */
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) and (min-width: 601px) {
+    .brl--echo .brl__toolbar .brl__pattern-options {
+        --fan-gap: .5rem;
+        --fan-peek: calc(var(--control-size) * .42);
+        position: relative;
+        display: block;
+        width: calc(5 * var(--control-size) + 4 * var(--fan-gap));
+        height: var(--control-size);
+        isolation: isolate;
+    }
+
+    .brl__pattern:nth-child(1) { --fan-i: 0; --fan-rest: -14deg; --fan-open: -4deg; --fan-arc: 2px; }
+    .brl__pattern:nth-child(2) { --fan-i: 1; --fan-rest: -7deg; --fan-open: -2deg; --fan-arc: .5px; }
+    .brl__pattern:nth-child(3) { --fan-i: 2; --fan-rest: -2deg; --fan-open: 0deg; --fan-arc: 0px; }
+    .brl__pattern:nth-child(4) { --fan-i: 3; --fan-rest: 5deg; --fan-open: 2deg; --fan-arc: .5px; }
+    .brl__pattern:nth-child(5) { --fan-i: 4; --fan-rest: 11deg; --fan-open: 4deg; --fan-arc: 2px; }
+
+    .brl--echo .brl__toolbar .brl__pattern {
+        position: absolute;
+        top: 0;
+        left: calc(100% - var(--control-size) - (4 - var(--fan-i)) * var(--fan-peek));
+        z-index: calc(5 - var(--fan-i));
+        transform: rotate(var(--fan-rest));
+        transition: left .34s cubic-bezier(.22, 1.12, .36, 1), transform .34s cubic-bezier(.22, 1.12, .36, 1), background-color .18s;
+    }
+
+    .brl--echo .brl__toolbar .brl__pattern.is-active { z-index: 6; }
+
+    .brl--echo .brl__pattern-options:hover .brl__pattern,
+    .brl--echo .brl__pattern-options:focus-within .brl__pattern {
+        left: calc(var(--fan-i) * (var(--control-size) + var(--fan-gap)));
+        transform: translateY(var(--fan-arc)) rotate(var(--fan-open));
+    }
+
+    .brl--echo .brl__pattern-options .brl__pattern:focus-visible,
+    .brl--echo .brl__pattern-options .brl__pattern:hover {
+        z-index: 7;
+        transform: translateY(-2px) rotate(0);
+    }
+}
+
 @keyframes brl-beat-progress { to { transform: scaleX(1); } }
 @keyframes brl-gesture-strike {
     0% { transform: scale(.97); }
