@@ -377,6 +377,8 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl__sequence {
+    position:       relative;
+    isolation:      isolate;
     display:        flex;
     flex-direction: column;
     align-items:    center;
@@ -426,20 +428,33 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl--echo .brl__row--main::before {
-    content: "";
-    position: absolute;
-    z-index: 0;
-    top: 0;
-    bottom: 0;
-    left: 50%;
-    width: 100vw;
-    background: var(--rhythm-action-band);
-    transform: translateX(-50%);
+    display: none;
+}
+
+.brl__action-band {
+    position:       absolute;
+    z-index:        0;
+    top:            0;
+    left:           50%;
+    width:          100vw;
+    height:         var(--tile);
+    overflow:       hidden;
+    background:
+        radial-gradient(circle at 24% 38%, rgba(163, 194, 142, .9), transparent 34%),
+        radial-gradient(circle at 72% 62%, rgba(185, 199, 166, .88), transparent 38%),
+        #f3f6ef;
+    transform:      translateX(-50%);
     pointer-events: none;
 }
 
+.brl__mesh {
+    display: block;
+    width:   100%;
+    height:  100%;
+}
+
 .brl--echo .brl__row--main .brl__tile {
-    z-index: 1;
+    z-index: 2;
     background: transparent;
 }
 
