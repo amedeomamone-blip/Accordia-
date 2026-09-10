@@ -671,22 +671,22 @@ body[data-lesson="battito"] .brand--wordmark {
     width:           calc(4 * var(--tile));
     min-height:      3rem;
     margin:          0 auto;
-    display:         flex;
+    display:         grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     align-items:     center;
-    justify-content: center;
     gap:             0;
 }
 
 .brl--echo .brl__toolbar > .brl__tempo {
-    position:        absolute;
-    top:             50%;
-    left:            0;
+    grid-column:     1;
+    justify-self:    center;
     flex-wrap:       nowrap;
-    justify-content: flex-start;
-    transform:       translateY(-50%);
+    justify-content: center;
 }
 
 .brl--echo .brl__toolbar .brl__patterns {
+    grid-column:   2;
+    justify-self:  center;
     width:         auto;
     margin:        0;
     flex:          0 0 auto;
@@ -762,7 +762,7 @@ body[data-lesson="battito"] .brand--wordmark {
     isolation:     isolate;
     display:       inline-flex;
     align-items:   center;
-    gap:           .25rem;
+    gap:           .35rem;
     padding:       0;
     border:        0;
     border-radius: 0;
@@ -775,10 +775,10 @@ body[data-lesson="battito"] .brand--wordmark {
 
 .brl__tempo-option {
     position:       relative;
-    width:          4rem;
+    width:          5.25rem;
     min-width:      0;
     min-height:     2.5rem;
-    padding:        .48rem .72rem;
+    padding:        .48rem 1rem;
     border:         0;
     border-radius:  999px;
     color:          #ffffff;
@@ -1058,14 +1058,14 @@ body[data-lesson="battito"] .brand--wordmark {
     }
 
     .brl--echo .brl__tempo-option {
-        width: 3rem;
-        padding-inline: .25rem;
+        width: 4rem;
+        padding-inline: .55rem;
         font-size: .75rem;
     }
 
     .brl--echo .brl__metronome-toggle {
-        min-width: 3rem;
-        padding-inline: .4rem;
+        min-width: 4rem;
+        padding-inline: .65rem;
         font-size: .75rem;
     }
 
@@ -1083,14 +1083,14 @@ body[data-lesson="battito"] .brand--wordmark {
     .brl--echo .brl__toolbar > .brl__tempo { gap: .18rem; }
     .brl--echo .brl__toolbar .brl__tempo-icon { width: 1rem; height: 1rem; }
     .brl--echo .brl__toolbar .brl__tempo-option {
-        width: 2.65rem;
-        padding-inline: .1rem;
-        font-size: .64rem;
+        width: 3.65rem;
+        padding-inline: .45rem;
+        font-size: .68rem;
     }
     .brl--echo .brl__toolbar .brl__metronome-toggle {
-        min-width: 2.65rem;
-        padding-inline: .15rem;
-        font-size: .64rem;
+        min-width: 3.65rem;
+        padding-inline: .55rem;
+        font-size: .68rem;
     }
 }
 
