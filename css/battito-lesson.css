@@ -1091,7 +1091,7 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 @media (min-width: 601px) and (max-width: 800px) {
-    .brl--echo .brl__toolbar { width: calc(100% - 2rem); bottom: calc(100% + .4rem); }
+    .brl--echo .brl__toolbar { width: calc(100% - 2rem); bottom: calc(100% + .65rem); }
     .brl--echo .brl__tempo { min-height: 2.4rem; }
     .brl--echo .brl__metronome-toggle { min-height: 2rem; }
     .brl--echo .brl__tempo-option { min-height: 1.8rem; }
@@ -1406,7 +1406,7 @@ body[data-lesson="battito"] .brand--wordmark {
     .brl--echo { --control-size: clamp(1.5rem, 2.5vw, 2.5rem); z-index: 4; }
     .brl--echo .brl__toolbar {
         min-height: var(--control-size);
-        bottom: calc(100% + min(.5rem, .5vw));
+        bottom: calc(100% + .8rem);
     }
     .brl--echo .brl__toolbar .brl__patterns,
     .brl--echo .brl__toolbar > .brl__tempo { min-height: var(--control-size); padding: 0; }
@@ -1434,7 +1434,7 @@ body[data-lesson="battito"] .brand--wordmark {
 
 @media (min-width: 601px) and (max-width: 899px) {
     .brl--echo .brl__toolbar {
-        bottom: calc(100% + min(.5rem, .5vw));
+        bottom: calc(100% + .65rem);
     }
 
     .brl--echo .brl__primary {
