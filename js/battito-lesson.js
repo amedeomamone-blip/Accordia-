@@ -156,7 +156,7 @@
 
     var gestureImages = {
         mani:  '../../../../assets/lesson/body-percussion/mani-3d.png',
-        petto: '../../../../assets/lesson/body-percussion/petto-3d.png',
+        petto: '../../../../assets/lesson/body-percussion/petto-coral-3d.png',
         cosce: '../../../../assets/lesson/body-percussion/cosce-3d.png'
     };
 

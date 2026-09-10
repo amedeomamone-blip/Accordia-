@@ -13,6 +13,7 @@
     --rhythm-muted:    rgba(52, 69, 42, .5);
     --rhythm-tile-idle: #ffffff;
     --rhythm-tile-preview: #ffffff;
+    --rhythm-action-band: #e8e8e8;
     --rhythm-number-size: .8vw;
     --rhythm-active:   #b9c7a6;
     --studio-ink:      #202822;
@@ -422,6 +423,24 @@ body[data-lesson="battito"] .brand--wordmark {
     position:   relative;
     isolation:  isolate;
     box-shadow: none;
+}
+
+.brl--echo .brl__row--main::before {
+    --action-band-overhang: clamp(.55rem, 1vw, .85rem);
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: calc(-1 * var(--action-band-overhang));
+    bottom: calc(-1 * var(--action-band-overhang));
+    left: 50%;
+    width: 100vw;
+    background: var(--rhythm-action-band);
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+.brl--echo .brl__row--main .brl__tile {
+    z-index: 1;
 }
 
 .brl--echo .brl__gesture-set {
