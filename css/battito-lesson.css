@@ -426,12 +426,11 @@ body[data-lesson="battito"] .brand--wordmark {
 }
 
 .brl--echo .brl__row--main::before {
-    --action-band-overhang: clamp(.55rem, 1vw, .85rem);
     content: "";
     position: absolute;
     z-index: 0;
-    top: calc(-1 * var(--action-band-overhang));
-    bottom: calc(-1 * var(--action-band-overhang));
+    top: 0;
+    bottom: 0;
     left: 50%;
     width: 100vw;
     background: var(--rhythm-action-band);
@@ -441,6 +440,7 @@ body[data-lesson="battito"] .brand--wordmark {
 
 .brl--echo .brl__row--main .brl__tile {
     z-index: 1;
+    background: transparent;
 }
 
 .brl--echo .brl__gesture-set {
@@ -686,10 +686,11 @@ body[data-lesson="battito"] .brand--wordmark {
 
 .brl--echo .brl__controls .brl__tempo {
     position: absolute;
-    top: 0;
+    top: 1.5rem;
     left: 0;
     flex-wrap: nowrap;
     justify-content: flex-start;
+    transform: translateY(-50%);
 }
 
 .brl__tempo {
@@ -1402,12 +1403,8 @@ body[data-lesson="battito"] .brand--wordmark {
         bottom: calc(100% + min(.5rem, .5vw));
     }
 
-    .brl--echo .brl__controls {
-        min-height: calc(3rem + var(--echo-stack-gap) + var(--control-size));
-    }
-
-    .brl--echo .brl__controls .brl__tempo {
-        top: calc(3rem + var(--echo-stack-gap));
+    .brl--echo .brl__primary {
+        justify-self: end;
     }
 }
 

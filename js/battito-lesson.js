@@ -377,13 +377,12 @@
                     progress.className = 'brl__beat-progress';
                     progress.setAttribute('aria-hidden', 'true');
                     tile.appendChild(progress);
+                    gestureName.className = 'brl__gesture-name';
+                    gestureName.textContent = sounds.map(function (sound) {
+                        return gestureNames[sound] || sound;
+                    }).join(' → ');
+                    tile.appendChild(gestureName);
                 }
-
-                gestureName.className = 'brl__gesture-name';
-                gestureName.textContent = sounds.map(function (sound) {
-                    return gestureNames[sound] || sound;
-                }).join(' → ');
-                tile.appendChild(gestureName);
 
                 target.appendChild(tile);
             });
