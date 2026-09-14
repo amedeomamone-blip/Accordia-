@@ -314,7 +314,7 @@
             echoRunning = running;
             playButton.classList.toggle('is-playing', running);
             playButton.setAttribute('aria-pressed', running ? 'true' : 'false');
-            playButton.textContent = running ? 'Stop' : 'Ascolta';
+            playButton.textContent = running ? 'Pausa' : 'Ascolta';
             root.classList.toggle('is-playing', running);
         }
 
@@ -450,7 +450,6 @@
                 stopBodySounds();
                 root.classList.remove('is-changing');
                 clearHighlights();
-                renderPattern(0);
                 syncEchoButton(false);
                 status.textContent = '';
             }

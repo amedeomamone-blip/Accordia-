@@ -160,6 +160,18 @@ body[data-lesson="battito"] .brand--wordmark {
     line-height:    1.1;
 }
 
+.bintro-screen[data-screen="1"] .barocco-intro__title {
+    text-align: center;
+}
+
+.bintro-screen[data-screen="1"] .barocco-intro__title-wrap {
+    overflow: visible;
+}
+
+.bintro-screen[data-screen="1"] .barocco-ticker__overlay {
+    overflow: hidden;
+}
+
 /* Effetto fluo: stessa tecnica e stessa palette della pagina Ritmo. */
 .bintro-screen .barocco-ticker__overlay {
     position:       absolute;
@@ -438,19 +450,9 @@ body[data-lesson="battito"] .brand--wordmark {
     left:           50%;
     width:          100vw;
     height:         var(--tile);
-    overflow:       hidden;
-    background:
-        radial-gradient(circle at 24% 38%, rgba(163, 194, 142, .9), transparent 34%),
-        radial-gradient(circle at 72% 62%, rgba(185, 199, 166, .88), transparent 38%),
-        #f3f6ef;
+    background:     var(--rhythm-action-band);
     transform:      translateX(-50%);
     pointer-events: none;
-}
-
-.brl__mesh {
-    display: block;
-    width:   100%;
-    height:  100%;
 }
 
 .brl--echo .brl__row--main .brl__tile {
@@ -1020,6 +1022,9 @@ body[data-lesson="battito"] .brand--wordmark {
 @media (min-width: 601px) {
     /* Match the index module exactly, including wide/short viewports. */
     .brl { --tile: calc(100vw / 6); }
+    .bintro-screen[data-screen="1"] .barocco-intro__title {
+        transform: translateX(-25%);
+    }
     .bintro-screen .barocco-header {
         top: calc(
             50svh - (100vw / 12) - var(--bintro-header-h, 4rem)

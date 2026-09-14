@@ -210,6 +210,16 @@ function advance(to, late = 0) {
     assert(sounds.at(-1).when >= delayedPair[1].when + .25 - .00001);
     api.stop();
 
+    // Pausing on the second bar must preserve it in the large, readable tiles.
+    api.setPattern(0);
+    const pauseEpoch = now;
+    api.start();
+    await Promise.resolve();
+    advance(pauseEpoch + 2000);
+    assert.equal(root.getAttribute('data-active-block'), '2');
+    api.stop();
+    assert.equal(root.getAttribute('data-active-block'), '2');
+
     // Buttons expose selection without incomplete ARIA tab semantics.
     root.querySelectorAll('.brl__pattern')[2].click();
     assert.equal(root.querySelectorAll('.brl__pattern')[2].getAttribute('aria-pressed'), 'true');
@@ -222,5 +232,5 @@ function advance(to, late = 0) {
     docEvents.visibilitychange.forEach(fn => fn());
     assert.equal(metro.getAttribute('aria-pressed'), 'false');
     assert.equal(ids['brl-echo-play'].getAttribute('aria-pressed'), 'false');
-    console.log('PASS: eighths, visual subdivisions, alternating 4+4 loop, cancellation, independent metronome, bounded drift, selection and hidden-page stop.');
+    console.log('PASS: eighths, visual subdivisions, alternating 4+4 loop, pause retention, cancellation, independent metronome, bounded drift, selection and hidden-page stop.');
 })().catch(error => { console.error(error); process.exitCode = 1; });
