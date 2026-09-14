@@ -443,18 +443,6 @@ body[data-lesson="battito"] .brand--wordmark {
     display: none;
 }
 
-.brl__action-band {
-    position:       absolute;
-    z-index:        0;
-    top:            0;
-    left:           50%;
-    width:          100vw;
-    height:         var(--tile);
-    background:     var(--rhythm-action-band);
-    transform:      translateX(-50%);
-    pointer-events: none;
-}
-
 .brl--echo .brl__row--main .brl__tile {
     z-index: 2;
     background: transparent;
