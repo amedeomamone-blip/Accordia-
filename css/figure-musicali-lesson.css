@@ -1,3 +1,11 @@
+@font-face {
+    font-family: "Bravura";
+    src: url("../assets/fonts/Bravura.otf") format("opentype");
+    font-display: block;
+    font-style: normal;
+    font-weight: 400;
+}
+
 :root {
     --reading: #A6BBD2;
     --reading-deep: #35485c;
@@ -183,6 +191,15 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
     justify-content: center;
 }
 .notation-glyph svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.notation-glyph .bravura-char {
+    display: block;
+    font-family: "Bravura", serif;
+    font-size: 4.8rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: .75;
+    transform: translateY(.04em);
+}
 
 .figure-family,
 .figure-pairs {
@@ -216,7 +233,7 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
 .figure-card:hover { background: var(--reading); color: #172330; }
 .figure-card .notation-glyph { position: absolute; top: .65rem; left: .45rem; width: clamp(2.8rem, 4vw, 4rem); height: clamp(3.8rem, 5.6vw, 5.4rem); }
 .figure-card strong { max-width: 100%; overflow: hidden; font-size: clamp(.65rem, .86vw, .95rem); text-overflow: ellipsis; }
-.figure-card > span:not(.music-symbol) { margin-top: .28rem; font-size: clamp(.62rem, .72vw, .82rem); opacity: .58; }
+.figure-card > span:not(.notation-glyph) { margin-top: .28rem; font-size: clamp(.62rem, .72vw, .82rem); opacity: .58; }
 .figure-card > i { width: max(8px, calc(100% * var(--value))); min-width: 8px; height: 5px; margin-top: .75rem; border-radius: 99px; background: currentColor; opacity: .7; }
 
 .figure-callout {
@@ -323,4 +340,110 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
 @media (prefers-reduced-motion: reduce) {
     .figure-header__glow i { animation: none; }
     .figure-lesson__viewport { scroll-behavior: auto; }
+}
+
+/* ================================================================
+   Geometria Accordia
+   La striscia riprende esattamente il modulo 14u (100vw / 6) usato
+   negli indici e nella prima schermata dell'Introduzione al Barocco.
+   Le sette figure conservano quindi la dimensione canonica e la
+   settima prosegue naturalmente verso destra.
+   ================================================================ */
+@media (min-width: 901px) {
+    .figure-screen { min-height: 0; }
+
+    .figure-header {
+        top: auto;
+        bottom: calc(50svh + (100vw / 12) - min(16px, 1.6vw) + 2 * var(--u));
+    }
+
+    .figure-content {
+        top: calc(50svh - (100vw / 12) - var(--lesson-header-h, 4rem) + min(16px, 1.6vw));
+    }
+
+    .figure-family,
+    .figure-pairs {
+        display: flex;
+        width: 100%;
+        padding: 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scroll-snap-type: x proximity;
+        scrollbar-width: none;
+    }
+
+    .figure-family::-webkit-scrollbar,
+    .figure-pairs::-webkit-scrollbar { display: none; }
+
+    .figure-card,
+    .figure-pair {
+        flex: 0 0 calc(14 * var(--u));
+        width: calc(14 * var(--u));
+        height: auto;
+        aspect-ratio: 1;
+        border-radius: 0;
+        scroll-snap-align: start;
+    }
+
+    .figure-card:first-child,
+    .figure-card:last-child,
+    .figure-pair:first-child,
+    .figure-pair:last-child { border-radius: 0; }
+
+    .figure-card { padding: calc(1.1 * var(--u)); }
+    .figure-card .notation-glyph {
+        top: calc(.8 * var(--u));
+        left: calc(.72 * var(--u));
+        width: calc(5 * var(--u));
+        height: calc(7 * var(--u));
+    }
+    .figure-card .notation-glyph .bravura-char { font-size: calc(7 * var(--u)); }
+    .figure-card strong { font-size: calc(.82 * var(--u)); }
+    .figure-card > span:not(.notation-glyph) { font-size: calc(.62 * var(--u)); }
+
+    .figure-pair { padding: calc(.8 * var(--u)); }
+    .figure-pair span i {
+        width: calc(4 * var(--u));
+        height: calc(5.5 * var(--u));
+    }
+    .figure-pair .notation-glyph .bravura-char { font-size: calc(5.4 * var(--u)); }
+
+    .figure-callout { display: none; }
+
+    .figure-description {
+        top: calc(50svh - (100vw / 12) - var(--lesson-header-h, 4rem) + min(16px, 1.6vw) + 16 * var(--u));
+        bottom: auto;
+        left: calc(28 * var(--u));
+        width: calc(28 * var(--u));
+        max-width: none;
+        font-size: calc(.85 * var(--u));
+        line-height: 1.85;
+    }
+
+    .figure-content--quiz {
+        left: calc(14 * var(--u));
+        right: calc(14 * var(--u));
+    }
+
+    .figure-quiz {
+        width: 100%;
+        min-height: 0;
+        height: calc(14 * var(--u));
+        border-radius: 0;
+    }
+}
+
+@media (max-width: 900px) {
+    .figure-header__title { font-size: clamp(1.25rem, 5.5vw, 1.9rem); }
+    .figure-family,
+    .figure-pairs { grid-template-columns: repeat(7, 44vw); }
+    .figure-card,
+    .figure-pair { height: auto; aspect-ratio: 1; border-radius: 0; }
+    .figure-card:first-child,
+    .figure-card:last-child,
+    .figure-pair:first-child,
+    .figure-pair:last-child,
+    .figure-quiz { border-radius: 0; }
+    .figure-card .notation-glyph .bravura-char { font-size: clamp(4rem, 20vw, 6rem); }
+    .figure-pair .notation-glyph .bravura-char { font-size: clamp(3.5rem, 16vw, 5.5rem); }
 }

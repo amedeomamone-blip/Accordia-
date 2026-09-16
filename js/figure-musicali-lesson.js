@@ -17,29 +17,21 @@
         sixtyfourth: { open: false, stem: true, flags: 4 }
     };
 
+    var NOTE_GLYPHS = {
+        whole: '&#x1D15D;', half: '&#x1D15E;', quarter: '&#x1D15F;',
+        eighth: '&#x1D160;', sixteenth: '&#x1D161;', thirtysecond: '&#x1D162;', sixtyfourth: '&#x1D163;'
+    };
+    var REST_GLYPHS = {
+        whole: '&#x1D13B;', half: '&#x1D13C;', quarter: '&#x1D13D;',
+        eighth: '&#x1D13E;', sixteenth: '&#x1D13F;', thirtysecond: '&#x1D140;', sixtyfourth: '&#x1D141;'
+    };
+
     function noteSvg(name) {
-        var figure = FIGURES[name] || FIGURES.quarter;
-        var head = '<ellipse cx="27" cy="72" rx="15" ry="9" transform="rotate(-17 27 72)" ' + (figure.open ? 'fill="white" stroke="currentColor" stroke-width="4"' : 'fill="currentColor"') + '/>';
-        var stem = figure.stem ? '<path d="M40 69V13" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>' : '';
-        var flags = '';
-        for (var i = 0; i < figure.flags; i += 1) {
-            var y = 13 + i * 11;
-            flags += '<path d="M40 ' + y + ' C57 ' + (y + 5) + ' 60 ' + (y + 18) + ' 47 ' + (y + 27) + '" fill="none" stroke="currentColor" stroke-width="5" stroke-linecap="round"/>';
-        }
-        return '<svg viewBox="0 0 72 96" aria-hidden="true" focusable="false">' + head + stem + flags + '</svg>';
+        return '<span class="bravura-char" aria-hidden="true">' + (NOTE_GLYPHS[name] || NOTE_GLYPHS.quarter) + '</span>';
     }
 
     function restSvg(name) {
-        if (name === 'whole') return '<svg viewBox="0 0 72 96" aria-hidden="true"><path d="M13 39H59" stroke="currentColor" stroke-width="3"/><rect x="24" y="40" width="24" height="10" rx="1" fill="currentColor"/></svg>';
-        if (name === 'half') return '<svg viewBox="0 0 72 96" aria-hidden="true"><path d="M13 57H59" stroke="currentColor" stroke-width="3"/><rect x="24" y="46" width="24" height="10" rx="1" fill="currentColor"/></svg>';
-        if (name === 'quarter') return '<svg viewBox="0 0 72 96" aria-hidden="true"><path d="M38 9C28 20 44 28 35 38C29 45 23 50 31 59L40 69C32 65 24 69 27 84C17 72 19 61 29 57C19 46 29 37 33 31C38 24 24 19 38 9Z" fill="currentColor"/></svg>';
-        var count = { eighth: 1, sixteenth: 2, thirtysecond: 3, sixtyfourth: 4 }[name] || 1;
-        var marks = '';
-        for (var i = 0; i < count; i += 1) {
-            var y = 19 + i * 14;
-            marks += '<circle cx="25" cy="' + y + '" r="5.5" fill="currentColor"/><path d="M29 ' + (y + 2) + ' C45 ' + (y + 4) + ' 47 ' + (y + 13) + ' 37 ' + (y + 21) + '" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>';
-        }
-        return '<svg viewBox="0 0 72 96" aria-hidden="true"><path d="M39 18L25 84" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>' + marks + '</svg>';
+        return '<span class="bravura-char" aria-hidden="true">' + (REST_GLYPHS[name] || REST_GLYPHS.quarter) + '</span>';
     }
 
     function drawNotation(root) {
@@ -99,9 +91,9 @@
     });
 
     var questions = [
-        { known: [{ figure: 'half', value: 2 }], answer: 2 },
-        { known: [{ figure: 'quarter', value: 1 }, { figure: 'quarter', value: 1 }, { figure: 'quarter', value: 1 }], answer: 1 },
-        { known: [{ figure: 'half', value: 2 }, { figure: 'quarter', value: 1 }, { figure: 'eighth', value: .5 }], answer: .5 }
+        { known: [{ figure: 'half', value: .5 }], answer: .5 },
+        { known: [{ figure: 'half', value: .5 }, { figure: 'quarter', value: .25 }], answer: .25 },
+        { known: [{ figure: 'half', value: .5 }, { figure: 'quarter', value: .25 }, { figure: 'eighth', value: .125 }], answer: .125 }
     ];
     var questionIndex = 0;
     var known = document.getElementById('quiz-known');
@@ -114,7 +106,7 @@
         var question = questions[questionIndex];
         if (!question || !known || !blank) return;
         known.innerHTML = question.known.map(function (item) {
-            return '<span aria-label="' + item.value + ' tempi"><i class="notation-glyph" data-figure="' + item.figure + '" aria-hidden="true"></i></span>';
+            return '<span aria-label="valore ' + item.value + '"><i class="notation-glyph" data-figure="' + item.figure + '" aria-hidden="true"></i></span>';
         }).join('');
         drawNotation(known);
         blank.textContent = '?';
@@ -136,7 +128,7 @@
                 blank.innerHTML = '<i class="notation-glyph" data-figure="' + option.getAttribute('data-figure') + '" aria-hidden="true"></i>';
                 drawNotation(blank);
                 blank.classList.add('is-filled');
-                feedback.textContent = 'Esatto: la battuta ora vale 4 tempi';
+                feedback.textContent = 'Esatto: le frazioni formano l’intero';
                 options.forEach(function (item) { item.disabled = true; });
             } else {
                 option.classList.add('is-wrong');
