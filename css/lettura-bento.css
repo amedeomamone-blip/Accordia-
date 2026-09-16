@@ -1,0 +1,49 @@
+/* Lettura — stessa gabbia dell'indice Ritmo, palette azzurro ardesia. */
+body[data-current-nucleus="lettura"] .brand--wordmark {
+    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1;
+    color: #18191b;
+    text-transform: none;
+    text-decoration: none;
+}
+
+body[data-current-nucleus="lettura"] .barocco-stage {
+    --tile-strip-accent: #A6BBD2;
+    --tile-strip-lit-num: rgba(24, 33, 43, .82);
+    --tile-strip-lit-arrow-bg: rgba(24, 33, 43, .13);
+    --tile-strip-lit-arrow-fg: #18212b;
+}
+
+body[data-current-nucleus="lettura"] .barocco-ticker__blob--1 { background: hsl(210, 34%, 69%); }
+body[data-current-nucleus="lettura"] .barocco-ticker__blob--2 { background: hsl(199, 43%, 76%); }
+body[data-current-nucleus="lettura"] .barocco-ticker__blob--3 { background: hsl(219, 38%, 66%); }
+body[data-current-nucleus="lettura"] .barocco-ticker__blob--4 { background: hsl(188, 31%, 76%); }
+
+body[data-current-nucleus="lettura"] .barocco-tile--placeholder {
+    cursor: default;
+}
+
+body[data-current-nucleus="lettura"] .barocco-tile--placeholder:hover .barocco-tile__face {
+    background-color: #e8e8e8;
+}
+
+body[data-current-nucleus="lettura"] .barocco-tile--placeholder:hover .barocco-tile__num {
+    color: rgba(17, 17, 17, .35);
+}
+
+body[data-current-nucleus="lettura"] .barocco-tile--placeholder:hover .barocco-tile__arrow {
+    color: rgba(17, 17, 17, .7);
+    background: rgba(17, 17, 17, .12);
+    transform: none;
+}
+
+body[data-current-nucleus="lettura"] .barocco-tile--placeholder:hover .barocco-tile__name {
+    color: #111111;
+}
+
+body[data-current-nucleus="lettura"] .barocco-tile--placeholder:hover .barocco-tile__sub {
+    color: rgba(17, 17, 17, .38);
+}
