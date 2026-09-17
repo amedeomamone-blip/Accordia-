@@ -182,6 +182,7 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
 .figure-description strong { color: rgba(17, 17, 17, .75); }
 
 .notation-glyph {
+    position: relative;
     display: inline-flex;
     width: 3.5rem;
     height: 4.6rem;
@@ -193,14 +194,33 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
 }
 .notation-glyph svg { display: block; width: 100%; height: 100%; overflow: visible; }
 .notation-glyph .bravura-char {
+    position: absolute;
+    top: 50%;
+    left: 50%;
     display: block;
     font-family: "Bravura", serif;
     font-size: 4.8rem;
     font-style: normal;
     font-weight: 400;
-    line-height: .75;
-    transform: translateY(.04em);
+    line-height: 0;
+    transform: translate(calc(-50% + var(--glyph-x, 0em)), var(--glyph-y, 0em));
 }
+
+/* Compensazione ottica basata sull'ingombro reale dei glifi Bravura. */
+.notation-glyph[data-figure="whole"]       { --glyph-y: .37em; }
+.notation-glyph[data-figure="half"],
+.notation-glyph[data-figure="quarter"],
+.notation-glyph[data-figure="eighth"],
+.notation-glyph[data-figure="sixteenth"]   { --glyph-y: .37em; }
+.notation-glyph[data-figure="thirtysecond"]{ --glyph-y: .445em; }
+.notation-glyph[data-figure="sixtyfourth"] { --glyph-y: .545em; }
+.notation-glyph[data-rest="whole"],
+.notation-glyph[data-rest="half"]          { --glyph-y: -.065em; }
+.notation-glyph[data-rest="quarter"]       { --glyph-y: 0em; }
+.notation-glyph[data-rest="eighth"]        { --glyph-y: -.035em; }
+.notation-glyph[data-rest="sixteenth"],
+.notation-glyph[data-rest="sixtyfourth"]   { --glyph-y: -.165em; }
+.notation-glyph[data-rest="thirtysecond"]  { --glyph-y: -.04em; }
 
 .figure-family,
 .figure-pairs {
@@ -323,7 +343,7 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
 .figure-quiz__status p { margin: 0; color: rgba(17, 17, 17, .45); font-size: .68rem; }
 .figure-quiz__status button { padding: .55rem .8rem; border: 0; border-radius: 999px; background: var(--reading-deep); color: #fff; font-size: .65rem; font-weight: 700; cursor: pointer; }
 
-@media (max-width: 900px) {
+@media (max-width: 600px) {
     body[data-lesson="figure-musicali"] { overflow: auto; }
     .figure-lesson { --u: calc(100vw / 28); height: auto; }
     .figure-lesson__viewport { height: auto; overflow: visible; scroll-snap-type: none; }
@@ -356,13 +376,11 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
 }
 
 /* ================================================================
-   Geometria Accordia
-   La striscia riprende esattamente il modulo 14u (100vw / 6) usato
-   negli indici e nella prima schermata dell'Introduzione al Barocco.
-   Le sette figure conservano quindi la dimensione canonica e la
-   settima prosegue naturalmente verso destra.
+   Geometria Accordia — sette figure in un'unica tavola.
+   Nessun tile: il ritmo visivo nasce da sette campi tipografici
+   uguali, aperti sul bianco e allineati alla gabbia della lezione.
    ================================================================ */
-@media (min-width: 901px) {
+@media (min-width: 601px) {
     .figure-screen { min-height: 0; }
 
     .figure-header {
@@ -376,26 +394,21 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
 
     .figure-family,
     .figure-pairs {
-        display: flex;
+        display: grid;
+        grid-template-columns: repeat(7, minmax(0, 1fr));
         width: 100%;
-        padding: 0;
-        overflow-x: auto;
-        overflow-y: hidden;
-        scroll-snap-type: x proximity;
-        scrollbar-width: none;
+        padding: 0 calc(3.5 * var(--u));
+        overflow: visible;
     }
-
-    .figure-family::-webkit-scrollbar,
-    .figure-pairs::-webkit-scrollbar { display: none; }
 
     .figure-card,
     .figure-pair {
-        flex: 0 0 calc(14 * var(--u));
-        width: calc(14 * var(--u));
-        height: auto;
-        aspect-ratio: 1;
+        width: 100%;
+        height: calc(14 * var(--u));
+        aspect-ratio: auto;
+        border: 0;
         border-radius: 0;
-        scroll-snap-align: start;
+        background: transparent;
     }
 
     .figure-card:first-child,
@@ -403,24 +416,35 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
     .figure-pair:first-child,
     .figure-pair:last-child { border-radius: 0; }
 
-    .figure-card { padding: calc(1.1 * var(--u)); }
+    .figure-card {
+        padding: calc(1.1 * var(--u)) calc(.35 * var(--u));
+        align-items: center;
+        text-align: center;
+    }
+    .figure-card.is-active,
+    .figure-card:hover { background: transparent; }
     .figure-card .notation-glyph {
-        top: 43%;
+        top: 42%;
         left: 50%;
-        width: calc(5 * var(--u));
-        height: calc(7 * var(--u));
+        width: calc(5.8 * var(--u));
+        height: calc(7.6 * var(--u));
         transform: translate(-50%, -50%);
     }
-    .figure-card .notation-glyph .bravura-char { font-size: calc(7 * var(--u)); }
-    .figure-card strong { font-size: calc(.82 * var(--u)); }
-    .figure-card > span:not(.notation-glyph) { font-size: calc(.62 * var(--u)); }
+    .figure-card .notation-glyph .bravura-char { font-size: calc(7.4 * var(--u)); }
+    .figure-card strong { font-size: clamp(.62rem, calc(.74 * var(--u)), .9rem); }
+    .figure-card > span:not(.notation-glyph) { font-size: clamp(.56rem, calc(.6 * var(--u)), .78rem); }
+    .figure-card > i { display: none; }
 
-    .figure-pair { padding: calc(.8 * var(--u)); }
-    .figure-pair span i {
-        width: calc(4 * var(--u));
-        height: calc(5.5 * var(--u));
+    .figure-pair {
+        padding: calc(.75 * var(--u)) calc(.55 * var(--u));
     }
-    .figure-pair .notation-glyph .bravura-char { font-size: calc(5.4 * var(--u)); }
+    .figure-pair:hover,
+    .figure-pair.is-active { background: transparent; }
+    .figure-pair span i {
+        width: calc(3.6 * var(--u));
+        height: calc(5 * var(--u));
+    }
+    .figure-pair .notation-glyph .bravura-char { font-size: calc(4.4 * var(--u)); }
 
     .figure-callout { display: none; }
 
@@ -447,12 +471,16 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
     }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 600px) {
     .figure-header__title { font-size: clamp(1.25rem, 5.5vw, 1.9rem); }
     .figure-family,
     .figure-pairs { grid-template-columns: repeat(7, 44vw); }
     .figure-card,
-    .figure-pair { height: auto; aspect-ratio: 1; border-radius: 0; }
+    .figure-pair { height: auto; aspect-ratio: 1; border: 0; border-radius: 0; background: transparent; }
+    .figure-card.is-active,
+    .figure-card:hover,
+    .figure-pair.is-active,
+    .figure-pair:hover { background: transparent; }
     .figure-card:first-child,
     .figure-card:last-child,
     .figure-pair:first-child,
