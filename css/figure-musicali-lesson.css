@@ -403,13 +403,14 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
     overflow-x: auto;
     align-items: center;
     justify-content: center;
-    gap: clamp(.28rem, .55vw, .65rem);
+    gap: clamp(.5rem, 1vw, 1.1rem);
     border-bottom: 1px solid var(--reading-line);
     scrollbar-width: none;
 }
 .figure-quiz__measure::-webkit-scrollbar { display: none; }
+.figure-quiz__measure { justify-content: safe center; }
 .figure-quiz__meter { margin-left: .15rem; color: var(--reading-deep); font-size: clamp(1.15rem, 1.45vw, 1.65rem); font-weight: 800; letter-spacing: -.04em; white-space: nowrap; }
-.figure-quiz__known { display: flex; min-width: 0; flex: 0 0 auto; align-items: center; justify-content: center; gap: clamp(.12rem, .3vw, .32rem); }
+.figure-quiz__known { display: flex; min-width: 0; flex: 0 0 auto; align-items: center; justify-content: center; gap: clamp(.35rem, .7vw, .75rem); }
 .figure-quiz__known span { display: inline-flex; width: clamp(2.2rem, 3.1vw, 3.25rem); height: clamp(3.6rem, 4.5vw, 4.8rem); flex: 0 0 auto; align-items: center; justify-content: center; color: var(--reading-deep); }
 .figure-quiz__known .notation-glyph { width: 100%; height: 100%; }
 .figure-quiz__known .notation-glyph .bravura-char { font-size: clamp(3.7rem, 4.8vw, 5.2rem); }
@@ -417,7 +418,7 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
 .figure-quiz__known.is-dense .notation-glyph .bravura-char { font-size: clamp(3.25rem, 4.05vw, 4.4rem); }
 .figure-quiz__operator,
 .figure-quiz__plus { flex: 0 0 auto; color: rgba(53, 72, 92, .3); font-size: clamp(.85rem, 1.15vw, 1.2rem); font-weight: 500; }
-.figure-quiz__blanks { display: flex; flex: 0 0 auto; align-items: center; gap: clamp(.18rem, .35vw, .38rem); }
+.figure-quiz__blanks { display: flex; flex: 0 0 auto; align-items: center; gap: clamp(.35rem, .7vw, .75rem); }
 .figure-quiz__blank {
     display: inline-flex;
     width: clamp(3.3rem, 4.4vw, 4.6rem);
@@ -497,7 +498,7 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
     font-family: var(--font-body, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
     font-size: 9.5px;
     font-weight: 650;
-    text-anchor: end;
+    text-anchor: start;
 }
 .note-tree__glyph {
     fill: rgba(53, 72, 92, .58);

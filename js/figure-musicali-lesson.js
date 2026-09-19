@@ -128,7 +128,7 @@
         levels.forEach(function (level, levelIndex) {
             var y = levelY[levelIndex];
             labels.push('<text class="note-tree__name" x="0" y="' + (y - 3) + '">' + level.name + '</text>');
-            labels.push('<text class="note-tree__value" x="118" y="' + (y + 10) + '">' + level.count + ' × ' + level.fraction + '</text>');
+            labels.push('<text class="note-tree__value" x="0" y="' + (y + 12) + '">' + level.count + ' × ' + level.fraction + '</text>');
             for (var i = 0; i < level.count; i += 1) {
                 var x = startX + ((i + .5) * treeWidth / level.count);
                 nodes.push('<text class="note-tree__glyph note-tree__glyph--' + levelIndex + '" x="' + x.toFixed(2) + '" y="' + y + '" font-size="' + level.size + '">' + NOTE_GLYPHS[level.figure] + '</text>');
@@ -272,7 +272,7 @@
         known.classList.toggle('is-dense', question.known.length > 5);
         drawNotation(known);
         renderBlanks(false);
-        feedback.textContent = 'Completa tutti i riquadri: conta anche quante figure servono';
+        feedback.textContent = '';
         if (number) number.textContent = String(questionIndex + 1).padStart(2, '0');
         if (progress) progress.style.width = ((questionIndex + 1) / questions.length * 100) + '%';
         if (previous) previous.disabled = questionIndex === 0;
