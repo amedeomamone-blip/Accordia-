@@ -90,15 +90,74 @@
         });
     });
 
-    var questions = [
-        { known: [{ figure: 'half', value: .5 }], answer: .5 },
-        { known: [{ figure: 'half', value: .5 }, { figure: 'quarter', value: .25 }], answer: .25 },
-        { known: [{ figure: 'half', value: .5 }, { figure: 'quarter', value: .25 }, { figure: 'eighth', value: .125 }], answer: .125 }
+    var quizFigures = [
+        { figure: 'half', value: .5, units: 32, fraction: '1/2' },
+        { figure: 'quarter', value: .25, units: 16, fraction: '1/4' },
+        { figure: 'eighth', value: .125, units: 8, fraction: '1/8' },
+        { figure: 'sixteenth', value: .0625, units: 4, fraction: '1/16' },
+        { figure: 'thirtysecond', value: .03125, units: 2, fraction: '1/32' },
+        { figure: 'sixtyfourth', value: .015625, units: 1, fraction: '1/64' }
     ];
+    var quizFigureByUnits = {};
+    quizFigures.forEach(function (item) { quizFigureByUnits[item.units] = item; });
+
+    function findCombinations(target, startIndex, current, results) {
+        if (target === 0) {
+            results.push(current.slice());
+            return;
+        }
+        if (current.length >= 8) return;
+        for (var i = startIndex; i < quizFigures.length; i += 1) {
+            var units = quizFigures[i].units;
+            if (units > target) continue;
+            current.push(units);
+            findCombinations(target - units, i, current, results);
+            current.pop();
+        }
+    }
+
+    function selectAcross(pool, count) {
+        if (pool.length <= count) return pool.slice();
+        var selected = [];
+        for (var i = 0; i < count; i += 1) {
+            var index = Math.round(i * (pool.length - 1) / (count - 1));
+            selected.push(pool[index]);
+        }
+        return selected;
+    }
+
+    function buildQuestionBank() {
+        var groups = quizFigures.map(function (answer) {
+            var combinations = [];
+            findCombinations(64 - answer.units, 0, [], combinations);
+            combinations.sort(function (a, b) {
+                if (a.length !== b.length) return a.length - b.length;
+                return b.join('-').localeCompare(a.join('-'));
+            });
+            return selectAcross(combinations, 8).map(function (combination) {
+                return {
+                    known: combination.map(function (units) { return quizFigureByUnits[units]; }),
+                    answer: answer.value,
+                    answerFigure: answer.figure
+                };
+            });
+        });
+        var bank = [];
+        for (var round = 0; round < 8; round += 1) {
+            var groupOrder = round % 2 ? [5, 3, 1, 4, 2, 0] : [0, 2, 4, 1, 3, 5];
+            groupOrder.forEach(function (groupIndex) { bank.push(groups[groupIndex][round]); });
+        }
+        return bank;
+    }
+
+    var questions = buildQuestionBank();
     var questionIndex = 0;
     var known = document.getElementById('quiz-known');
     var blank = document.getElementById('quiz-blank');
     var feedback = document.getElementById('quiz-feedback');
+    var number = document.getElementById('quiz-number');
+    var progress = document.getElementById('quiz-progress');
+    var previous = document.getElementById('quiz-prev');
     var next = document.getElementById('quiz-next');
     var options = Array.prototype.slice.call(document.querySelectorAll('#quiz-options button'));
 
@@ -106,12 +165,18 @@
         var question = questions[questionIndex];
         if (!question || !known || !blank) return;
         known.innerHTML = question.known.map(function (item) {
-            return '<span aria-label="valore ' + item.value + '"><i class="notation-glyph" data-figure="' + item.figure + '" aria-hidden="true"></i></span>';
-        }).join('');
+            return '<span aria-label="valore ' + item.fraction + '"><i class="notation-glyph" data-figure="' + item.figure + '" aria-hidden="true"></i></span>';
+        }).join('<b class="figure-quiz__operator" aria-hidden="true">+</b>');
+        known.setAttribute('aria-label', 'Valori noti: ' + question.known.map(function (item) { return item.fraction; }).join(' più '));
+        known.classList.toggle('is-dense', question.known.length > 6);
         drawNotation(known);
         blank.textContent = '?';
         blank.classList.remove('is-filled');
-        feedback.textContent = 'Osserva le durate e scegli';
+        feedback.textContent = 'Somma le figure e trova ciò che manca';
+        if (number) number.textContent = String(questionIndex + 1).padStart(2, '0');
+        if (progress) progress.style.width = ((questionIndex + 1) / questions.length * 100) + '%';
+        if (previous) previous.disabled = questionIndex === 0;
+        if (next) next.innerHTML = questionIndex === questions.length - 1 ? 'Ricomincia <span aria-hidden="true">↻</span>' : 'Prossimo <span aria-hidden="true">→</span>';
         options.forEach(function (option) {
             option.classList.remove('is-right', 'is-wrong');
             option.disabled = false;
@@ -128,14 +193,22 @@
                 blank.innerHTML = '<i class="notation-glyph" data-figure="' + option.getAttribute('data-figure') + '" aria-hidden="true"></i>';
                 drawNotation(blank);
                 blank.classList.add('is-filled');
-                feedback.textContent = 'Esatto: le frazioni formano l’intero';
+                feedback.textContent = 'Esatto: la somma ricostruisce l’intero';
                 options.forEach(function (item) { item.disabled = true; });
             } else {
                 option.classList.add('is-wrong');
-                feedback.textContent = 'Non ancora: prova a sommare di nuovo';
+                feedback.textContent = 'Quasi: osserva le frazioni e somma di nuovo';
             }
         });
     });
+
+    if (previous) {
+        previous.addEventListener('click', function () {
+            if (questionIndex === 0) return;
+            questionIndex -= 1;
+            renderQuestion();
+        });
+    }
 
     if (next) {
         next.addEventListener('click', function () {

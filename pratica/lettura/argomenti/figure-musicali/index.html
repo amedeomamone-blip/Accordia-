@@ -6,7 +6,7 @@
     <meta name="description" content="Le figure musicali: una prima lezione per riconoscere il valore relativo dei suoni e delle pause.">
     <title>Le figure musicali | Lettura | Amedeo</title>
     <link rel="stylesheet" href="../../../../css/style.css?v=1782800000">
-    <link rel="stylesheet" href="../../../../css/figure-musicali-lesson.css?v=1801600220">
+    <link rel="stylesheet" href="../../../../css/figure-musicali-lesson.css?v=1801800100">
 </head>
 <body data-nav="pratica" data-current-nucleus="lettura" data-lesson="figure-musicali">
     <header class="site-header" id="site-header">
@@ -86,13 +86,13 @@
 
                 <div class="figure-content figure-content--pairs">
                     <div class="figure-pairs" role="list" aria-label="Corrispondenza tra figure e pause">
-                        <button class="figure-pair" type="button" role="listitem"><span><b>Suono</b><i class="notation-glyph" data-figure="whole"></i></span><span><b>Pausa</b><i class="notation-glyph" data-rest="whole"></i></span><strong>1</strong><small>Semibreve</small></button>
-                        <button class="figure-pair" type="button" role="listitem"><span><b>Suono</b><i class="notation-glyph" data-figure="half"></i></span><span><b>Pausa</b><i class="notation-glyph" data-rest="half"></i></span><strong>1/2</strong><small>Minima</small></button>
-                        <button class="figure-pair" type="button" role="listitem"><span><b>Suono</b><i class="notation-glyph" data-figure="quarter"></i></span><span><b>Pausa</b><i class="notation-glyph" data-rest="quarter"></i></span><strong>1/4</strong><small>Semiminima</small></button>
-                        <button class="figure-pair" type="button" role="listitem"><span><b>Suono</b><i class="notation-glyph" data-figure="eighth"></i></span><span><b>Pausa</b><i class="notation-glyph" data-rest="eighth"></i></span><strong>1/8</strong><small>Croma</small></button>
-                        <button class="figure-pair" type="button" role="listitem"><span><b>Suono</b><i class="notation-glyph" data-figure="sixteenth"></i></span><span><b>Pausa</b><i class="notation-glyph" data-rest="sixteenth"></i></span><strong>1/16</strong><small>Semicroma</small></button>
-                        <button class="figure-pair" type="button" role="listitem"><span><b>Suono</b><i class="notation-glyph" data-figure="thirtysecond"></i></span><span><b>Pausa</b><i class="notation-glyph" data-rest="thirtysecond"></i></span><strong>1/32</strong><small>Biscroma</small></button>
-                        <button class="figure-pair" type="button" role="listitem"><span><b>Suono</b><i class="notation-glyph" data-figure="sixtyfourth"></i></span><span><b>Pausa</b><i class="notation-glyph" data-rest="sixtyfourth"></i></span><strong>1/64</strong><small>Semibiscroma</small></button>
+                        <button class="figure-pair" type="button" role="listitem"><span><b>Figura</b><i class="notation-glyph" data-figure="whole"></i></span><span><b>Pausa</b><i class="notation-glyph" data-rest="whole"></i></span><strong>1</strong><small>Semibreve</small></button>
+                        <button class="figure-pair" type="button" role="listitem"><span><b>Figura</b><i class="notation-glyph" data-figure="half"></i></span><span><b>Pausa</b><i class="notation-glyph" data-rest="half"></i></span><strong>1/2</strong><small>Minima</small></button>
+                        <button class="figure-pair" type="button" role="listitem"><span><b>Figura</b><i class="notation-glyph" data-figure="quarter"></i></span><span><b>Pausa</b><i class="notation-glyph" data-rest="quarter"></i></span><strong>1/4</strong><small>Semiminima</small></button>
+                        <button class="figure-pair" type="button" role="listitem"><span><b>Figura</b><i class="notation-glyph" data-figure="eighth"></i></span><span><b>Pausa</b><i class="notation-glyph" data-rest="eighth"></i></span><strong>1/8</strong><small>Croma</small></button>
+                        <button class="figure-pair" type="button" role="listitem"><span><b>Figura</b><i class="notation-glyph" data-figure="sixteenth"></i></span><span><b>Pausa</b><i class="notation-glyph" data-rest="sixteenth"></i></span><strong>1/16</strong><small>Semicroma</small></button>
+                        <button class="figure-pair" type="button" role="listitem"><span><b>Figura</b><i class="notation-glyph" data-figure="thirtysecond"></i></span><span><b>Pausa</b><i class="notation-glyph" data-rest="thirtysecond"></i></span><strong>1/32</strong><small>Biscroma</small></button>
+                        <button class="figure-pair" type="button" role="listitem"><span><b>Figura</b><i class="notation-glyph" data-figure="sixtyfourth"></i></span><span><b>Pausa</b><i class="notation-glyph" data-rest="sixtyfourth"></i></span><strong>1/64</strong><small>Semibiscroma</small></button>
                     </div>
                 </div>
 
@@ -109,32 +109,51 @@
                 </div>
 
                 <div class="figure-content figure-content--quiz">
-                    <div class="figure-quiz">
-                        <div class="figure-quiz__measure" aria-label="Battuta da completare">
-                            <span class="figure-quiz__meter">1</span>
-                            <div class="figure-quiz__known" id="quiz-known"></div>
-                            <span class="figure-quiz__plus" aria-hidden="true">+</span>
-                            <span class="figure-quiz__blank" id="quiz-blank" aria-label="Figura mancante">?</span>
-                            <span class="figure-quiz__bar" aria-hidden="true"></span>
+                    <div class="figure-quiz" aria-label="Esercizi sulle durate delle figure">
+                        <div class="figure-quiz__topline">
+                            <span class="figure-quiz__counter">ESERCIZIO <strong id="quiz-number">01</strong><i>/ 48</i></span>
+                            <span class="figure-quiz__goal">Completa il valore <strong>1</strong></span>
+                            <span class="figure-quiz__progress" aria-hidden="true"><i id="quiz-progress"></i></span>
                         </div>
-                        <div class="figure-quiz__answer">
-                            <span class="figure-quiz__prompt">Quale figura completa l’intero?</span>
-                            <div class="figure-quiz__options" id="quiz-options">
-                                <button type="button" data-value="0.5" data-figure="half"><span class="notation-glyph" data-figure="half" aria-hidden="true"></span><b>Minima</b><small>1/2</small></button>
-                                <button type="button" data-value="0.25" data-figure="quarter"><span class="notation-glyph" data-figure="quarter" aria-hidden="true"></span><b>Semiminima</b><small>1/4</small></button>
-                                <button type="button" data-value="0.125" data-figure="eighth"><span class="notation-glyph" data-figure="eighth" aria-hidden="true"></span><b>Croma</b><small>1/8</small></button>
+
+                        <div class="figure-quiz__workspace">
+                            <div class="figure-quiz__measure" aria-label="Somma da completare">
+                                <div class="figure-quiz__known" id="quiz-known"></div>
+                                <span class="figure-quiz__plus" aria-hidden="true">+</span>
+                                <span class="figure-quiz__blank" id="quiz-blank" aria-label="Figura mancante">?</span>
+                                <span class="figure-quiz__meter" aria-hidden="true">= 1</span>
+                                <span class="figure-quiz__bar" aria-hidden="true"></span>
                             </div>
-                            <div class="figure-quiz__status"><p id="quiz-feedback" aria-live="polite">Osserva le durate e scegli</p><button id="quiz-next" type="button">Nuovo esempio</button></div>
+
+                            <div class="figure-quiz__answer">
+                                <span class="figure-quiz__prompt">Scegli la figura mancante</span>
+                                <div class="figure-quiz__options" id="quiz-options">
+                                    <button type="button" data-value="0.5" data-figure="half"><span class="notation-glyph" data-figure="half" aria-hidden="true"></span><b>1/2</b><small>Minima</small></button>
+                                    <button type="button" data-value="0.25" data-figure="quarter"><span class="notation-glyph" data-figure="quarter" aria-hidden="true"></span><b>1/4</b><small>Semiminima</small></button>
+                                    <button type="button" data-value="0.125" data-figure="eighth"><span class="notation-glyph" data-figure="eighth" aria-hidden="true"></span><b>1/8</b><small>Croma</small></button>
+                                    <button type="button" data-value="0.0625" data-figure="sixteenth"><span class="notation-glyph" data-figure="sixteenth" aria-hidden="true"></span><b>1/16</b><small>Semicroma</small></button>
+                                    <button type="button" data-value="0.03125" data-figure="thirtysecond"><span class="notation-glyph" data-figure="thirtysecond" aria-hidden="true"></span><b>1/32</b><small>Biscroma</small></button>
+                                    <button type="button" data-value="0.015625" data-figure="sixtyfourth"><span class="notation-glyph" data-figure="sixtyfourth" aria-hidden="true"></span><b>1/64</b><small>Semibiscroma</small></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="figure-quiz__status">
+                            <p id="quiz-feedback" aria-live="polite">Somma le figure e trova ciò che manca</p>
+                            <div class="figure-quiz__nav">
+                                <button id="quiz-prev" type="button" aria-label="Esercizio precedente">←</button>
+                                <button id="quiz-next" type="button">Prossimo <span aria-hidden="true">→</span></button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <p class="figure-description">La <strong>semibreve vale 1</strong>. Somma le frazioni rappresentate dalle figure già presenti, trova la parte che manca e ricostruisci l’intero.</p>
+                <p class="figure-description">La <strong>semibreve vale 1</strong>. Hai 48 esercizi: somma le frazioni rappresentate dalle figure, trova la parte mancante e ricostruisci ogni volta l’intero.</p>
             </section>
         </div>
     </main>
 
     <script src="../../../../js/main.js?v=1782800000"></script>
-    <script src="../../../../js/figure-musicali-lesson.js?v=1801600120"></script>
+    <script src="../../../../js/figure-musicali-lesson.js?v=1801800100"></script>
 </body>
 </html>
