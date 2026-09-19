@@ -511,6 +511,9 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
 }
 .note-tree__glyph--0 { fill: var(--reading-selected); }
 .note-tree__glyph--1 { fill: rgba(53, 72, 92, .74); }
+.note-tree__beamed { stroke: none; fill: #69798a; }
+.note-tree__stem { fill: none; stroke: #69798a; stroke-width: 1; }
+.note-tree__beams { fill: #69798a; }
 
 @media (max-width: 600px) {
     body[data-lesson="figure-musicali"] { overflow: auto; }

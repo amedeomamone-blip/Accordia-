@@ -123,6 +123,7 @@
         var levelY = [38, 105, 172, 239, 306, 373, 440];
         var branches = [];
         var nodes = [];
+        var beams = [];
         var labels = [];
 
         levels.forEach(function (level, levelIndex) {
@@ -131,7 +132,21 @@
             labels.push('<text class="note-tree__value" x="0" y="' + (y + 12) + '">' + level.count + ' × ' + level.fraction + '</text>');
             for (var i = 0; i < level.count; i += 1) {
                 var x = startX + ((i + .5) * treeWidth / level.count);
-                nodes.push('<text class="note-tree__glyph note-tree__glyph--' + levelIndex + '" x="' + x.toFixed(2) + '" y="' + y + '" font-size="' + level.size + '">' + NOTE_GLYPHS[level.figure] + '</text>');
+                if (levelIndex < 3) {
+                    nodes.push('<text class="note-tree__glyph note-tree__glyph--' + levelIndex + '" x="' + x.toFixed(2) + '" y="' + y + '" font-size="' + level.size + '">' + NOTE_GLYPHS[level.figure] + '</text>');
+                } else {
+                    var rx = Math.max(3, level.size * .16);
+                    var ry = rx * .65;
+                    var stemX = x + rx * .86;
+                    var stemTop = y - Math.max(20, level.size * 1.05);
+                    nodes.push('<g class="note-tree__glyph note-tree__beamed"><ellipse cx="' + x + '" cy="' + y + '" rx="' + rx + '" ry="' + ry + '" transform="rotate(-22 ' + x + ' ' + y + ')"/><path d="M ' + stemX + ' ' + y + ' V ' + stemTop + '" class="note-tree__stem"/></g>');
+                    if (i % 2 === 0) {
+                        var rightStem = stemX + treeWidth / level.count;
+                        for (var beam = 0; beam < levelIndex - 2; beam += 1) {
+                            beams.push('<rect x="' + (stemX - .5) + '" y="' + (stemTop + beam * 3.5) + '" width="' + (rightStem - stemX + 1) + '" height="1.7"/>');
+                        }
+                    }
+                }
                 if (levelIndex > 0) {
                     var parentCount = levels[levelIndex - 1].count;
                     var parentIndex = Math.floor(i / 2);
@@ -141,7 +156,7 @@
             }
         });
 
-        root.innerHTML = '<svg viewBox="0 0 1200 465" aria-hidden="true" preserveAspectRatio="xMidYMid meet"><g class="note-tree__branches">' + branches.join('') + '</g><g class="note-tree__labels">' + labels.join('') + '</g><g class="note-tree__nodes">' + nodes.join('') + '</g></svg>';
+        root.innerHTML = '<svg viewBox="0 0 1200 465" aria-hidden="true" preserveAspectRatio="xMidYMid meet"><g class="note-tree__branches">' + branches.join('') + '</g><g class="note-tree__labels">' + labels.join('') + '</g><g class="note-tree__nodes">' + nodes.join('') + '</g><g class="note-tree__beams">' + beams.join('') + '</g></svg>';
         document.fonts.ready.then(function () {
             var glyphs = root.querySelectorAll('.note-tree__glyph');
             // End each branch outside the actual glyph bounds, with a clear white margin.
@@ -155,6 +170,9 @@
                     return Math.min(dx ? (box.width / 2 + 5) / Math.abs(dx) : Infinity, dy ? (box.height / 2 + 5) / Math.abs(dy) : Infinity);
                 }
                 var start = trim(a), end = trim(b);
+                if (glyphs[Number(line.dataset.child)].classList.contains('note-tree__beamed') && dy > 0) {
+                    end = (b.height / 2 + 5) / dy;
+                }
                 line.setAttribute('x1', ax + dx * start);
                 line.setAttribute('y1', ay + dy * start);
                 line.setAttribute('x2', bx - dx * end);
