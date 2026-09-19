@@ -645,15 +645,13 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
     }
 
     .figure-content--tree {
-        top: 7rem;
+        top: 9rem;
         left: 3vw;
         right: 3vw;
         bottom: 3.8rem;
         height: auto;
     }
     .figure-screen[data-screen="3"] .figure-header { top: 1.3rem; bottom: auto; }
-    .figure-screen[data-screen="3"] .figure-header__title { font-size: clamp(1.4rem, 2vw, 2.5rem); }
-    .figure-screen[data-screen="3"] .figure-description { top: auto; bottom: 1rem; width: 65vw; left: 17vw; font-size: .75rem; line-height: 1.5; }
 
     .figure-quiz {
         width: 100%;

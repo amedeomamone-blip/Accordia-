@@ -136,12 +136,32 @@
                     var parentCount = levels[levelIndex - 1].count;
                     var parentIndex = Math.floor(i / 2);
                     var parentX = startX + ((parentIndex + .5) * treeWidth / parentCount);
-                    branches.push('<line x1="' + parentX.toFixed(2) + '" y1="' + (levelY[levelIndex - 1] + 8) + '" x2="' + x.toFixed(2) + '" y2="' + (y - 11) + '"></line>');
+                    branches.push('<line data-parent="' + (parentCount - 1 + parentIndex) + '" data-child="' + (level.count - 1 + i) + '"></line>');
                 }
             }
         });
 
         root.innerHTML = '<svg viewBox="0 0 1200 465" aria-hidden="true" preserveAspectRatio="xMidYMid meet"><g class="note-tree__branches">' + branches.join('') + '</g><g class="note-tree__labels">' + labels.join('') + '</g><g class="note-tree__nodes">' + nodes.join('') + '</g></svg>';
+        document.fonts.ready.then(function () {
+            var glyphs = root.querySelectorAll('.note-tree__glyph');
+            // End each branch outside the actual glyph bounds, with a clear white margin.
+            root.querySelectorAll('.note-tree__branches line').forEach(function (line) {
+                var a = glyphs[Number(line.dataset.parent)].getBBox();
+                var b = glyphs[Number(line.dataset.child)].getBBox();
+                var ax = a.x + a.width / 2, ay = a.y + a.height / 2;
+                var bx = b.x + b.width / 2, by = b.y + b.height / 2;
+                var dx = bx - ax, dy = by - ay;
+                function trim(box) {
+                    return Math.min(dx ? (box.width / 2 + 5) / Math.abs(dx) : Infinity, dy ? (box.height / 2 + 5) / Math.abs(dy) : Infinity);
+                }
+                var start = trim(a), end = trim(b);
+                line.setAttribute('x1', ax + dx * start);
+                line.setAttribute('y1', ay + dy * start);
+                line.setAttribute('x2', bx - dx * end);
+                line.setAttribute('y2', by - dy * end);
+                if (start + end >= 1) line.style.display = 'none';
+            });
+        });
     }
 
     buildNoteTree();
