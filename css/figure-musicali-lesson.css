@@ -224,11 +224,36 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
 
 .figure-family,
 .figure-pairs {
+    --staff-gap: clamp(5px, calc(.38 * var(--u)), 8px);
+    --staff-inset: calc(7 * var(--u));
+    position: relative;
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
     width: 100%;
     padding: 0 calc(7 * var(--u));
+    isolation: isolate;
 }
+
+.figure-family::before,
+.figure-pairs::before {
+    position: absolute;
+    z-index: 0;
+    right: var(--staff-inset);
+    left: var(--staff-inset);
+    height: calc(var(--staff-gap) + var(--staff-gap) + var(--staff-gap) + var(--staff-gap) + 1px);
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(53, 72, 92, .095) 0,
+        rgba(53, 72, 92, .095) 1px,
+        transparent 1px,
+        transparent var(--staff-gap)
+    );
+    content: "";
+    pointer-events: none;
+    transform: translateY(-50%);
+}
+.figure-family::before { top: 59%; }
+.figure-pairs::before { top: 54%; }
 
 .figure-card {
     position: relative;
@@ -277,6 +302,8 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
 .figure-callout strong { color: var(--reading-deep); }
 
 .figure-pair {
+    position: relative;
+    z-index: 1;
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr auto auto;
@@ -298,6 +325,13 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
 .figure-pair span b { color: rgba(53, 72, 92, .45); font-size: clamp(.52rem, .55vw, .68rem); letter-spacing: .08em; text-transform: uppercase; }
 .figure-pair span i { width: clamp(2.1rem, 2.7vw, 3rem); height: clamp(3rem, 4vw, 4.2rem); margin-top: .3rem; }
 .figure-pair .notation-glyph { color: rgba(17, 17, 17, .38); transition: color .22s ease; }
+.figure-pair .notation-glyph[data-rest="whole"],
+.figure-pair .notation-glyph[data-rest="half"] { --glyph-y: .215em; }
+.figure-pair .notation-glyph[data-rest="quarter"] { --glyph-y: .28em; }
+.figure-pair .notation-glyph[data-rest="eighth"] { --glyph-y: .245em; }
+.figure-pair .notation-glyph[data-rest="sixteenth"],
+.figure-pair .notation-glyph[data-rest="sixtyfourth"] { --glyph-y: .115em; }
+.figure-pair .notation-glyph[data-rest="thirtysecond"] { --glyph-y: .24em; }
 .figure-pair.is-active .notation-glyph { color: var(--reading-selected); }
 .figure-pair > strong { grid-column: 1 / -1; margin-top: .25rem; font-size: clamp(1rem, 1.25vw, 1.35rem); }
 .figure-pair > small { grid-column: 1 / -1; margin-top: .2rem; overflow: hidden; font-size: clamp(.6rem, .7vw, .8rem); text-overflow: ellipsis; white-space: nowrap; opacity: .58; }
@@ -355,13 +389,16 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
     display: flex;
     min-width: 0;
     padding: .6rem 1rem .35rem;
+    overflow-x: auto;
     align-items: center;
     justify-content: center;
     gap: clamp(.28rem, .55vw, .65rem);
     border-bottom: 1px solid var(--reading-line);
+    scrollbar-width: none;
 }
+.figure-quiz__measure::-webkit-scrollbar { display: none; }
 .figure-quiz__meter { margin-left: .15rem; color: var(--reading-deep); font-size: clamp(1.15rem, 1.45vw, 1.65rem); font-weight: 800; letter-spacing: -.04em; white-space: nowrap; }
-.figure-quiz__known { display: flex; min-width: 0; align-items: center; justify-content: center; gap: clamp(.12rem, .3vw, .32rem); }
+.figure-quiz__known { display: flex; min-width: 0; flex: 0 0 auto; align-items: center; justify-content: center; gap: clamp(.12rem, .3vw, .32rem); }
 .figure-quiz__known span { display: inline-flex; width: clamp(2.2rem, 3.1vw, 3.25rem); height: clamp(3.6rem, 4.5vw, 4.8rem); flex: 0 0 auto; align-items: center; justify-content: center; color: var(--reading-deep); }
 .figure-quiz__known .notation-glyph { width: 100%; height: 100%; }
 .figure-quiz__known .notation-glyph .bravura-char { font-size: clamp(3.7rem, 4.8vw, 5.2rem); }
@@ -369,6 +406,7 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
 .figure-quiz__known.is-dense .notation-glyph .bravura-char { font-size: clamp(3.25rem, 4.05vw, 4.4rem); }
 .figure-quiz__operator,
 .figure-quiz__plus { flex: 0 0 auto; color: rgba(53, 72, 92, .3); font-size: clamp(.85rem, 1.15vw, 1.2rem); font-weight: 500; }
+.figure-quiz__blanks { display: flex; flex: 0 0 auto; align-items: center; gap: clamp(.18rem, .35vw, .38rem); }
 .figure-quiz__blank {
     display: inline-flex;
     width: clamp(3.3rem, 4.4vw, 4.6rem);
@@ -384,9 +422,15 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
     flex: 0 0 auto;
     transition: border-color .2s ease, background-color .2s ease, color .2s ease;
 }
+.figure-quiz__blank.has-choice { border-style: solid; border-color: rgba(53, 72, 92, .22); background: rgba(166, 187, 210, .16); }
 .figure-quiz__blank.is-filled { border-style: solid; border-color: var(--reading); background: var(--reading); color: var(--reading-deep); }
+.figure-quiz__blank.is-filled { width: clamp(5.25rem, 6.2vw, 6.2rem); border-radius: 999px; gap: .1rem; }
+.figure-quiz__blank.is-wrong { border-style: solid; border-color: rgba(180, 93, 84, .55); background: rgba(180, 93, 84, .07); color: #9c514a; }
+.figure-quiz__blank:disabled { cursor: default; opacity: 1; }
 .figure-quiz__blank .notation-glyph { width: 2.65rem; height: 3.6rem; }
 .figure-quiz__blank .notation-glyph .bravura-char { font-size: 4rem; }
+.figure-quiz__blank > strong { font-size: clamp(.66rem, .75vw, .82rem); letter-spacing: -.02em; }
+.figure-quiz__blanks.is-dense .figure-quiz__blank:not(.is-filled) { width: clamp(3rem, 3.8vw, 3.8rem); height: clamp(3rem, 3.8vw, 3.8rem); }
 .figure-quiz__bar { width: 2px; height: clamp(3.7rem, 4.9vw, 5rem); margin-left: .2rem; background: var(--reading-deep); }
 
 .figure-quiz__answer {
@@ -428,6 +472,34 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
 .figure-quiz__nav button:last-child { min-width: 6.2rem; border-color: var(--reading-deep); background: var(--reading-deep); color: #fff; }
 .figure-quiz__nav button:disabled { cursor: default; opacity: .25; }
 
+.note-tree { width: 100%; height: 100%; }
+.note-tree svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.note-tree__branches line { stroke: rgba(53, 72, 92, .14); stroke-width: .8; vector-effect: non-scaling-stroke; }
+.note-tree__name {
+    fill: rgba(17, 17, 17, .72);
+    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size: 12px;
+    font-weight: 750;
+}
+.note-tree__value {
+    fill: rgba(53, 72, 92, .46);
+    font-family: var(--font-body, -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size: 9.5px;
+    font-weight: 650;
+    text-anchor: end;
+}
+.note-tree__glyph {
+    fill: rgba(53, 72, 92, .58);
+    stroke: #fff;
+    stroke-width: 2.5px;
+    paint-order: stroke fill;
+    font-family: "Bravura", serif;
+    text-anchor: middle;
+    dominant-baseline: middle;
+}
+.note-tree__glyph--0 { fill: var(--reading-selected); }
+.note-tree__glyph--1 { fill: rgba(53, 72, 92, .74); }
+
 @media (max-width: 600px) {
     body[data-lesson="figure-musicali"] { overflow: auto; }
     .figure-lesson { --u: calc(100vw / 28); height: auto; }
@@ -451,6 +523,8 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
     .figure-quiz__options { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .figure-quiz__options button { min-height: 5rem; }
     .figure-quiz__status { padding-top: .75rem; align-items: flex-start; }
+    .figure-content--tree { overflow-x: auto; }
+    .note-tree { width: 65rem; height: 18rem; }
     .figure-lesson__progress { right: .6rem; }
 }
 
@@ -475,7 +549,7 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
    ================================================================ */
 @media (min-width: 601px) {
     .figure-screen { min-height: 0; }
-    .figure-screen[data-screen="3"] { --quiz-h: clamp(17rem, calc(17 * var(--u)), 20rem); }
+    .figure-screen[data-screen="4"] { --quiz-h: clamp(17rem, calc(17 * var(--u)), 20rem); }
 
     .figure-header {
         top: auto;
@@ -488,6 +562,7 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
 
     .figure-family,
     .figure-pairs {
+        --staff-inset: calc(3.5 * var(--u));
         display: grid;
         grid-template-columns: repeat(7, minmax(0, 1fr));
         width: 100%;
@@ -557,6 +632,12 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
         right: calc(14 * var(--u));
     }
 
+    .figure-content--tree {
+        left: calc(7 * var(--u));
+        right: calc(5 * var(--u));
+        height: calc(15 * var(--u));
+    }
+
     .figure-quiz {
         width: 100%;
         min-height: 0;
@@ -573,6 +654,8 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
     .figure-header__title { font-size: clamp(1.25rem, 5.5vw, 1.9rem); }
     .figure-family,
     .figure-pairs { grid-template-columns: repeat(7, 44vw); }
+    .figure-family::before,
+    .figure-pairs::before { right: auto; left: 0; width: 308vw; }
     .figure-card,
     .figure-pair { height: auto; aspect-ratio: 1; border: 0; border-radius: 0; background: transparent; }
     .figure-card.is-active,

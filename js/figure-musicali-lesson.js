@@ -90,6 +90,46 @@
         });
     });
 
+    function buildNoteTree() {
+        var root = document.getElementById('note-tree');
+        if (!root) return;
+        var levels = [
+            { name: 'Semibreve', fraction: '1', figure: 'whole', count: 1, size: 46 },
+            { name: 'Minima', fraction: '1/2', figure: 'half', count: 2, size: 38 },
+            { name: 'Semiminima', fraction: '1/4', figure: 'quarter', count: 4, size: 31 },
+            { name: 'Croma', fraction: '1/8', figure: 'eighth', count: 8, size: 25 },
+            { name: 'Semicroma', fraction: '1/16', figure: 'sixteenth', count: 16, size: 19 },
+            { name: 'Biscroma', fraction: '1/32', figure: 'thirtysecond', count: 32, size: 14 },
+            { name: 'Semibiscroma', fraction: '1/64', figure: 'sixtyfourth', count: 64, size: 10 }
+        ];
+        var startX = 260;
+        var treeWidth = 920;
+        var levelY = [25, 70, 113, 154, 193, 230, 266];
+        var branches = [];
+        var nodes = [];
+        var labels = [];
+
+        levels.forEach(function (level, levelIndex) {
+            var y = levelY[levelIndex];
+            labels.push('<text class="note-tree__name" x="0" y="' + (y - 3) + '">' + level.name + '</text>');
+            labels.push('<text class="note-tree__value" x="118" y="' + (y + 10) + '">' + level.count + ' × ' + level.fraction + '</text>');
+            for (var i = 0; i < level.count; i += 1) {
+                var x = startX + ((i + .5) * treeWidth / level.count);
+                nodes.push('<text class="note-tree__glyph note-tree__glyph--' + levelIndex + '" x="' + x.toFixed(2) + '" y="' + y + '" font-size="' + level.size + '">' + NOTE_GLYPHS[level.figure] + '</text>');
+                if (levelIndex > 0) {
+                    var parentCount = levels[levelIndex - 1].count;
+                    var parentIndex = Math.floor(i / 2);
+                    var parentX = startX + ((parentIndex + .5) * treeWidth / parentCount);
+                    branches.push('<line x1="' + parentX.toFixed(2) + '" y1="' + (levelY[levelIndex - 1] + 8) + '" x2="' + x.toFixed(2) + '" y2="' + (y - 11) + '"></line>');
+                }
+            }
+        });
+
+        root.innerHTML = '<svg viewBox="0 0 1200 284" aria-hidden="true" preserveAspectRatio="xMidYMid meet"><g class="note-tree__branches">' + branches.join('') + '</g><g class="note-tree__labels">' + labels.join('') + '</g><g class="note-tree__nodes">' + nodes.join('') + '</g></svg>';
+    }
+
+    buildNoteTree();
+
     var quizFigures = [
         { figure: 'half', value: .5, units: 32, fraction: '1/2' },
         { figure: 'quarter', value: .25, units: 16, fraction: '1/4' },
@@ -106,7 +146,7 @@
             results.push(current.slice());
             return;
         }
-        if (current.length >= 8) return;
+        if (current.length >= 10) return;
         for (var i = startIndex; i < quizFigures.length; i += 1) {
             var units = quizFigures[i].units;
             if (units > target) continue;
@@ -127,33 +167,52 @@
     }
 
     function buildQuestionBank() {
-        var groups = quizFigures.map(function (answer) {
-            var combinations = [];
-            findCombinations(64 - answer.units, 0, [], combinations);
-            combinations.sort(function (a, b) {
-                if (a.length !== b.length) return a.length - b.length;
-                return b.join('-').localeCompare(a.join('-'));
-            });
-            return selectAcross(combinations, 8).map(function (combination) {
-                return {
-                    known: combination.map(function (units) { return quizFigureByUnits[units]; }),
-                    answer: answer.value,
-                    answerFigure: answer.figure
-                };
-            });
+        var combinations = [];
+        findCombinations(64, 0, [], combinations);
+        combinations = combinations.filter(function (combination) {
+            return combination.length >= 4 && combination.length <= 10;
         });
-        var bank = [];
-        for (var round = 0; round < 8; round += 1) {
-            var groupOrder = round % 2 ? [5, 3, 1, 4, 2, 0] : [0, 2, 4, 1, 3, 5];
-            groupOrder.forEach(function (groupIndex) { bank.push(groups[groupIndex][round]); });
-        }
-        return bank;
+        combinations.sort(function (a, b) {
+            if (a.length !== b.length) return a.length - b.length;
+            return b.join('-').localeCompare(a.join('-'));
+        });
+
+        return selectAcross(combinations, 48).map(function (combination, questionNumber) {
+            var blankCount = Math.min(2 + (questionNumber % 3), combination.length - 2);
+            var alternating = [];
+            var offset = questionNumber % combination.length;
+            var i;
+            for (i = 0; i < combination.length; i += 2) alternating.push((offset + i) % combination.length);
+            for (i = 1; i < combination.length; i += 2) alternating.push((offset + i) % combination.length);
+
+            var missingIndexes = [];
+            alternating.forEach(function (index) {
+                if (missingIndexes.length >= blankCount || missingIndexes.indexOf(index) !== -1) return;
+                missingIndexes.push(index);
+            });
+
+            var knownItems = [];
+            var missingUnits = [];
+            combination.forEach(function (units, index) {
+                if (missingIndexes.indexOf(index) !== -1) missingUnits.push(units);
+                else knownItems.push(quizFigureByUnits[units]);
+            });
+
+            return {
+                blankCount: blankCount,
+                known: knownItems,
+                missingTotalUnits: missingUnits.reduce(function (total, units) { return total + units; }, 0)
+            };
+        });
     }
 
     var questions = buildQuestionBank();
     var questionIndex = 0;
+    var selectedAnswers = [];
+    var solved = false;
+    var attemptWrong = false;
     var known = document.getElementById('quiz-known');
-    var blank = document.getElementById('quiz-blank');
+    var blanks = document.getElementById('quiz-blanks');
     var feedback = document.getElementById('quiz-feedback');
     var number = document.getElementById('quiz-number');
     var progress = document.getElementById('quiz-progress');
@@ -161,43 +220,99 @@
     var next = document.getElementById('quiz-next');
     var options = Array.prototype.slice.call(document.querySelectorAll('#quiz-options button'));
 
+    function renderBlanks(revealValues) {
+        var question = questions[questionIndex];
+        if (!question || !blanks) return;
+        var content = [];
+        for (var i = 0; i < question.blankCount; i += 1) {
+            var answer = selectedAnswers[i];
+            var classes = 'figure-quiz__blank';
+            if (answer) classes += ' has-choice';
+            if (answer && revealValues) classes += ' is-filled';
+            if (answer && attemptWrong) classes += ' is-wrong';
+            var inside = answer
+                ? '<i class="notation-glyph" data-figure="' + answer.figure + '" aria-hidden="true"></i>' + (revealValues ? '<strong>' + answer.fraction + '</strong>' : '')
+                : '?';
+            var label = answer
+                ? (revealValues ? 'Risultato ' + (i + 1) + ': valore ' + answer.fraction : 'Riquadro ' + (i + 1) + ': valore ' + answer.fraction + '. Tocca per cancellare')
+                : 'Riquadro ' + (i + 1) + ' vuoto';
+            content.push('<button class="' + classes + '" type="button" data-blank-index="' + i + '" aria-label="' + label + '"' + (solved ? ' disabled' : '') + '>' + inside + '</button>');
+        }
+        blanks.innerHTML = content.join('<b class="figure-quiz__operator" aria-hidden="true">+</b>');
+        blanks.classList.toggle('is-dense', question.blankCount > 3);
+        drawNotation(blanks);
+    }
+
     function renderQuestion() {
         var question = questions[questionIndex];
-        if (!question || !known || !blank) return;
+        if (!question || !known || !blanks) return;
+        selectedAnswers = [];
+        solved = false;
+        attemptWrong = false;
         known.innerHTML = question.known.map(function (item) {
             return '<span aria-label="valore ' + item.fraction + '"><i class="notation-glyph" data-figure="' + item.figure + '" aria-hidden="true"></i></span>';
         }).join('<b class="figure-quiz__operator" aria-hidden="true">+</b>');
         known.setAttribute('aria-label', 'Valori noti: ' + question.known.map(function (item) { return item.fraction; }).join(' più '));
-        known.classList.toggle('is-dense', question.known.length > 6);
+        known.classList.toggle('is-dense', question.known.length > 5);
         drawNotation(known);
-        blank.textContent = '?';
-        blank.classList.remove('is-filled');
-        feedback.textContent = 'Somma le figure e trova ciò che manca';
+        renderBlanks(false);
+        feedback.textContent = 'Completa tutti i riquadri: conta anche quante figure servono';
         if (number) number.textContent = String(questionIndex + 1).padStart(2, '0');
         if (progress) progress.style.width = ((questionIndex + 1) / questions.length * 100) + '%';
         if (previous) previous.disabled = questionIndex === 0;
         if (next) next.innerHTML = questionIndex === questions.length - 1 ? 'Ricomincia <span aria-hidden="true">↻</span>' : 'Prossimo <span aria-hidden="true">→</span>';
         options.forEach(function (option) {
-            option.classList.remove('is-right', 'is-wrong');
+            option.classList.remove('is-right', 'is-wrong', 'is-selected');
             option.disabled = false;
+        });
+    }
+
+    if (blanks) {
+        blanks.addEventListener('click', function (event) {
+            var target = event.target.closest('.figure-quiz__blank');
+            if (!target || solved) return;
+            var index = Number(target.getAttribute('data-blank-index'));
+            if (!selectedAnswers[index]) return;
+            selectedAnswers.splice(index, 1);
+            attemptWrong = false;
+            renderBlanks(false);
+            feedback.textContent = 'Scelta cancellata: completa i riquadri rimasti';
         });
     }
 
     options.forEach(function (option) {
         option.addEventListener('click', function () {
             var question = questions[questionIndex];
-            var value = Number(option.getAttribute('data-value'));
-            options.forEach(function (item) { item.classList.remove('is-wrong'); });
-            if (value === question.answer) {
-                option.classList.add('is-right');
-                blank.innerHTML = '<i class="notation-glyph" data-figure="' + option.getAttribute('data-figure') + '" aria-hidden="true"></i>';
-                drawNotation(blank);
-                blank.classList.add('is-filled');
-                feedback.textContent = 'Esatto: la somma ricostruisce l’intero';
+            if (!question || solved) return;
+            if (selectedAnswers.length >= question.blankCount) {
+                feedback.textContent = 'I riquadri sono pieni: toccane uno per cambiare scelta';
+                return;
+            }
+
+            var units = Math.round(Number(option.getAttribute('data-value')) * 64);
+            selectedAnswers.push(quizFigureByUnits[units]);
+            attemptWrong = false;
+
+            if (selectedAnswers.length < question.blankCount) {
+                renderBlanks(false);
+                feedback.textContent = 'Continua: restano ' + (question.blankCount - selectedAnswers.length) + ' riquadri';
+                return;
+            }
+
+            var selectedTotal = selectedAnswers.reduce(function (total, answer) { return total + answer.units; }, 0);
+            if (selectedTotal === question.missingTotalUnits) {
+                solved = true;
+                renderBlanks(true);
+                options.forEach(function (item) {
+                    var wasUsed = selectedAnswers.some(function (answer) { return answer.figure === item.getAttribute('data-figure'); });
+                    item.classList.toggle('is-right', wasUsed);
+                });
+                feedback.textContent = 'Esatto: ' + selectedAnswers.map(function (answer) { return answer.fraction; }).join(' + ') + ' completa l’intero';
                 options.forEach(function (item) { item.disabled = true; });
             } else {
-                option.classList.add('is-wrong');
-                feedback.textContent = 'Quasi: osserva le frazioni e somma di nuovo';
+                attemptWrong = true;
+                renderBlanks(false);
+                feedback.textContent = 'La somma non completa 1: tocca un riquadro per correggerlo';
             }
         });
     });

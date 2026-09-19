@@ -6,7 +6,7 @@
     <meta name="description" content="Le figure musicali: una prima lezione per riconoscere il valore relativo dei suoni e delle pause.">
     <title>Le figure musicali | Lettura | Amedeo</title>
     <link rel="stylesheet" href="../../../../css/style.css?v=1782800000">
-    <link rel="stylesheet" href="../../../../css/figure-musicali-lesson.css?v=1801800100">
+    <link rel="stylesheet" href="../../../../css/figure-musicali-lesson.css?v=1801900300">
 </head>
 <body data-nav="pratica" data-current-nucleus="lettura" data-lesson="figure-musicali">
     <header class="site-header" id="site-header">
@@ -32,7 +32,8 @@
         <nav class="figure-lesson__progress" aria-label="Navigazione della lezione">
             <button class="figure-lesson__dot is-active" type="button" data-target="0" aria-label="Vai alla famiglia delle figure"></button>
             <button class="figure-lesson__dot" type="button" data-target="1" aria-label="Vai a figure e pause"></button>
-            <button class="figure-lesson__dot" type="button" data-target="2" aria-label="Vai all'attività finale"></button>
+            <button class="figure-lesson__dot" type="button" data-target="2" aria-label="Vai all’albero delle figure"></button>
+            <button class="figure-lesson__dot" type="button" data-target="3" aria-label="Vai all'attività finale"></button>
         </nav>
 
         <div class="figure-lesson__viewport" id="lesson-viewport">
@@ -101,9 +102,25 @@
 
             <section class="figure-screen" data-screen="3" aria-labelledby="figure-title-3">
                 <div class="figure-header">
+                    <span class="figure-header__eyebrow">LETTURA · PROPORZIONI</span>
+                    <div class="figure-header__title-wrap">
+                        <h2 class="figure-header__title" id="figure-title-3">L’albero<br>delle figure</h2>
+                        <span class="figure-header__glow" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+                    </div>
+                </div>
+
+                <div class="figure-content figure-content--tree">
+                    <div class="note-tree" id="note-tree" role="img" aria-label="Albero delle durate: una semibreve si divide in due minime, quattro semiminime, otto crome, sedici semicrome, trentadue biscrome e sessantaquattro semibiscrome"></div>
+                </div>
+
+                <p class="figure-description">Ogni ramo <strong>divide la durata in due</strong>. Scendendo di un livello, il numero delle figure raddoppia: 1, 2, 4, 8, 16, 32, 64.</p>
+            </section>
+
+            <section class="figure-screen" data-screen="4" aria-labelledby="figure-title-4">
+                <div class="figure-header">
                     <span class="figure-header__eyebrow">ATTIVITÀ · FRAZIONI</span>
                     <div class="figure-header__title-wrap">
-                        <h2 class="figure-header__title" id="figure-title-3">Completa<br>l’intero</h2>
+                        <h2 class="figure-header__title" id="figure-title-4">Completa<br>l’intero</h2>
                         <span class="figure-header__glow" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
                     </div>
                 </div>
@@ -120,20 +137,20 @@
                             <div class="figure-quiz__measure" aria-label="Somma da completare">
                                 <div class="figure-quiz__known" id="quiz-known"></div>
                                 <span class="figure-quiz__plus" aria-hidden="true">+</span>
-                                <span class="figure-quiz__blank" id="quiz-blank" aria-label="Figura mancante">?</span>
+                                <div class="figure-quiz__blanks" id="quiz-blanks" aria-label="Figure mancanti"></div>
                                 <span class="figure-quiz__meter" aria-hidden="true">= 1</span>
                                 <span class="figure-quiz__bar" aria-hidden="true"></span>
                             </div>
 
                             <div class="figure-quiz__answer">
-                                <span class="figure-quiz__prompt">Scegli la figura mancante</span>
+                                <span class="figure-quiz__prompt">Scegli le figure mancanti</span>
                                 <div class="figure-quiz__options" id="quiz-options">
-                                    <button type="button" data-value="0.5" data-figure="half"><span class="notation-glyph" data-figure="half" aria-hidden="true"></span><b>1/2</b><small>Minima</small></button>
-                                    <button type="button" data-value="0.25" data-figure="quarter"><span class="notation-glyph" data-figure="quarter" aria-hidden="true"></span><b>1/4</b><small>Semiminima</small></button>
-                                    <button type="button" data-value="0.125" data-figure="eighth"><span class="notation-glyph" data-figure="eighth" aria-hidden="true"></span><b>1/8</b><small>Croma</small></button>
-                                    <button type="button" data-value="0.0625" data-figure="sixteenth"><span class="notation-glyph" data-figure="sixteenth" aria-hidden="true"></span><b>1/16</b><small>Semicroma</small></button>
-                                    <button type="button" data-value="0.03125" data-figure="thirtysecond"><span class="notation-glyph" data-figure="thirtysecond" aria-hidden="true"></span><b>1/32</b><small>Biscroma</small></button>
-                                    <button type="button" data-value="0.015625" data-figure="sixtyfourth"><span class="notation-glyph" data-figure="sixtyfourth" aria-hidden="true"></span><b>1/64</b><small>Semibiscroma</small></button>
+                                    <button type="button" data-value="0.5" data-figure="half" data-fraction="1/2" aria-label="Minima, valore un mezzo"><span class="notation-glyph" data-figure="half" aria-hidden="true"></span></button>
+                                    <button type="button" data-value="0.25" data-figure="quarter" data-fraction="1/4" aria-label="Semiminima, valore un quarto"><span class="notation-glyph" data-figure="quarter" aria-hidden="true"></span></button>
+                                    <button type="button" data-value="0.125" data-figure="eighth" data-fraction="1/8" aria-label="Croma, valore un ottavo"><span class="notation-glyph" data-figure="eighth" aria-hidden="true"></span></button>
+                                    <button type="button" data-value="0.0625" data-figure="sixteenth" data-fraction="1/16" aria-label="Semicroma, valore un sedicesimo"><span class="notation-glyph" data-figure="sixteenth" aria-hidden="true"></span></button>
+                                    <button type="button" data-value="0.03125" data-figure="thirtysecond" data-fraction="1/32" aria-label="Biscroma, valore un trentaduesimo"><span class="notation-glyph" data-figure="thirtysecond" aria-hidden="true"></span></button>
+                                    <button type="button" data-value="0.015625" data-figure="sixtyfourth" data-fraction="1/64" aria-label="Semibiscroma, valore un sessantaquattresimo"><span class="notation-glyph" data-figure="sixtyfourth" aria-hidden="true"></span></button>
                                 </div>
                             </div>
                         </div>
@@ -148,12 +165,12 @@
                     </div>
                 </div>
 
-                <p class="figure-description">La <strong>semibreve vale 1</strong>. Hai 48 esercizi: somma le frazioni rappresentate dalle figure, trova la parte mancante e ricostruisci ogni volta l’intero.</p>
+                <p class="figure-description">La <strong>semibreve vale 1</strong>. Completa due, tre o quattro riquadri: puoi trovare combinazioni diverse, purché la somma ricostruisca esattamente l’intero.</p>
             </section>
         </div>
     </main>
 
     <script src="../../../../js/main.js?v=1782800000"></script>
-    <script src="../../../../js/figure-musicali-lesson.js?v=1801800100"></script>
+    <script src="../../../../js/figure-musicali-lesson.js?v=1801900300"></script>
 </body>
 </html>
