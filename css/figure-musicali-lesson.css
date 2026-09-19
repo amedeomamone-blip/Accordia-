@@ -252,8 +252,19 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
     pointer-events: none;
     transform: translateY(-50%);
 }
-.figure-family::before { top: 59%; }
-.figure-pairs::before { top: 54%; }
+.figure-family::before,
+.figure-pairs::before {
+    top: var(--staff-top, 59%);
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent), linear-gradient(to bottom, #000 65%, rgba(0,0,0,.18));
+    mask-composite: intersect;
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+}
+.figure-family .notation-glyph[data-figure],
+.figure-pairs .notation-glyph[data-figure] { --glyph-y: .37em; }
+.figure-card strong,
+.figure-card > span:not(.notation-glyph),
+.figure-pair > strong,
+.figure-pair > small { position: relative; z-index: 2; background: rgba(255,255,255,.92); box-shadow: 0 0 10px 7px rgba(255,255,255,.92); }
 
 .figure-card {
     position: relative;
@@ -633,10 +644,15 @@ body[data-current-nucleus="lettura"] .brand--wordmark {
     }
 
     .figure-content--tree {
-        left: calc(7 * var(--u));
-        right: calc(5 * var(--u));
-        height: calc(15 * var(--u));
+        top: 7rem;
+        left: 3vw;
+        right: 3vw;
+        bottom: 3.8rem;
+        height: auto;
     }
+    .figure-screen[data-screen="3"] .figure-header { top: 1.3rem; bottom: auto; }
+    .figure-screen[data-screen="3"] .figure-header__title { font-size: clamp(1.4rem, 2vw, 2.5rem); }
+    .figure-screen[data-screen="3"] .figure-description { top: auto; bottom: 1rem; width: 65vw; left: 17vw; font-size: .75rem; line-height: 1.5; }
 
     .figure-quiz {
         width: 100%;

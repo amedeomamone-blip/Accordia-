@@ -44,6 +44,22 @@
 
     drawNotation(document);
 
+    // Bravura uses four staff spaces per em; anchor the middle line to the notehead.
+    function alignStaves() {
+        document.querySelectorAll('.figure-family, .figure-pairs').forEach(function (row) {
+            var glyph = row.querySelector('[data-figure="quarter"]');
+            if (!glyph) return;
+            var char = glyph.querySelector('.bravura-char');
+            var fontSize = parseFloat(getComputedStyle(char).fontSize);
+            var box = glyph.getBoundingClientRect();
+            var rowBox = row.getBoundingClientRect();
+            row.style.setProperty('--staff-gap', (fontSize / 4) + 'px');
+            row.style.setProperty('--staff-top', (box.top - rowBox.top + box.height / 2 + fontSize * .37) + 'px');
+        });
+    }
+    document.fonts.ready.then(alignStaves);
+    window.addEventListener('resize', alignStaves);
+
     function syncHeight() {
         if (lesson && header) lesson.style.setProperty('--lesson-header-h', header.offsetHeight + 'px');
     }
@@ -102,9 +118,9 @@
             { name: 'Biscroma', fraction: '1/32', figure: 'thirtysecond', count: 32, size: 14 },
             { name: 'Semibiscroma', fraction: '1/64', figure: 'sixtyfourth', count: 64, size: 10 }
         ];
-        var startX = 260;
-        var treeWidth = 920;
-        var levelY = [25, 70, 113, 154, 193, 230, 266];
+        var startX = 170;
+        var treeWidth = 1010;
+        var levelY = [38, 105, 172, 239, 306, 373, 440];
         var branches = [];
         var nodes = [];
         var labels = [];
@@ -125,7 +141,7 @@
             }
         });
 
-        root.innerHTML = '<svg viewBox="0 0 1200 284" aria-hidden="true" preserveAspectRatio="xMidYMid meet"><g class="note-tree__branches">' + branches.join('') + '</g><g class="note-tree__labels">' + labels.join('') + '</g><g class="note-tree__nodes">' + nodes.join('') + '</g></svg>';
+        root.innerHTML = '<svg viewBox="0 0 1200 465" aria-hidden="true" preserveAspectRatio="xMidYMid meet"><g class="note-tree__branches">' + branches.join('') + '</g><g class="note-tree__labels">' + labels.join('') + '</g><g class="note-tree__nodes">' + nodes.join('') + '</g></svg>';
     }
 
     buildNoteTree();
