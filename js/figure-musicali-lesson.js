@@ -185,77 +185,96 @@
     buildNoteTree();
 
     var quizFigures = [
-        { figure: 'half', value: .5, units: 32, fraction: '1/2' },
-        { figure: 'quarter', value: .25, units: 16, fraction: '1/4' },
-        { figure: 'eighth', value: .125, units: 8, fraction: '1/8' },
-        { figure: 'sixteenth', value: .0625, units: 4, fraction: '1/16' },
-        { figure: 'thirtysecond', value: .03125, units: 2, fraction: '1/32' },
-        { figure: 'sixtyfourth', value: .015625, units: 1, fraction: '1/64' }
+        { figure: 'half', value: .5, units: 8, fraction: '1/2' },
+        { figure: 'quarter', value: .25, units: 4, fraction: '1/4' },
+        { figure: 'eighth', value: .125, units: 2, fraction: '1/8' },
+        { figure: 'sixteenth', value: .0625, units: 1, fraction: '1/16' }
     ];
     var quizFigureByUnits = {};
     quizFigures.forEach(function (item) { quizFigureByUnits[item.units] = item; });
 
-    function findCombinations(target, startIndex, current, results) {
-        if (target === 0) {
-            results.push(current.slice());
-            return;
-        }
-        if (current.length >= 10) return;
-        for (var i = startIndex; i < quizFigures.length; i += 1) {
-            var units = quizFigures[i].units;
-            if (units > target) continue;
-            current.push(units);
-            findCombinations(target - units, i, current, results);
-            current.pop();
-        }
-    }
-
-    function selectAcross(pool, count) {
-        if (pool.length <= count) return pool.slice();
-        var selected = [];
-        for (var i = 0; i < count; i += 1) {
-            var index = Math.round(i * (pool.length - 1) / (count - 1));
-            selected.push(pool[index]);
-        }
-        return selected;
-    }
-
     function buildQuestionBank() {
-        var combinations = [];
-        findCombinations(64, 0, [], combinations);
-        combinations = combinations.filter(function (combination) {
-            return combination.length >= 4 && combination.length <= 10;
-        });
-        combinations.sort(function (a, b) {
-            if (a.length !== b.length) return a.length - b.length;
-            return b.join('-').localeCompare(a.join('-'));
-        });
+        /*
+         * L'intero è diviso in 16 unità: minima 8, semiminima 4,
+         * croma 2, semicroma 1. Ogni riga contiene [figure note, figure
+         * mancanti]. La progressione è intenzionale: 1, 2, 3 e 4 spazi.
+         */
+        var bank = [
+            [[8], [8]],
+            [[4, 4], [8]],
+            [[8, 4], [4]],
+            [[8, 2, 2], [4]],
+            [[8, 4, 2], [2]],
+            [[4, 4, 4, 2], [2]],
+            [[8, 4, 2, 1], [1]],
+            [[4, 4, 4, 2, 1], [1]],
+            [[2, 2, 2, 2], [8]],
+            [[4, 4, 2, 2], [4]],
 
-        return selectAcross(combinations, 48).map(function (combination, questionNumber) {
-            var blankCount = Math.min(2 + (questionNumber % 3), combination.length - 2);
-            var alternating = [];
-            var offset = questionNumber % combination.length;
-            var i;
-            for (i = 0; i < combination.length; i += 2) alternating.push((offset + i) % combination.length);
-            for (i = 1; i < combination.length; i += 2) alternating.push((offset + i) % combination.length);
+            [[4], [8, 4]],
+            [[4, 2], [8, 2]],
+            [[4, 2, 1], [8, 1]],
+            [[8], [4, 4]],
+            [[8, 2], [4, 2]],
+            [[8, 2, 1], [4, 1]],
+            [[8, 4], [2, 2]],
+            [[8, 4, 1], [2, 1]],
+            [[8, 4, 2], [1, 1]],
+            [[2, 2], [8, 4]],
+            [[4, 1, 1], [8, 2]],
+            [[2, 2, 2, 1], [8, 1]],
+            [[4, 2, 2], [4, 4]],
+            [[8, 1, 1], [4, 2]],
+            [[4, 4, 2, 1], [4, 1]],
 
-            var missingIndexes = [];
-            alternating.forEach(function (index) {
-                if (missingIndexes.length >= blankCount || missingIndexes.indexOf(index) !== -1) return;
-                missingIndexes.push(index);
-            });
+            [[2], [8, 4, 2]],
+            [[2, 1], [8, 4, 1]],
+            [[4], [8, 2, 2]],
+            [[4, 1], [8, 2, 1]],
+            [[4, 2], [8, 1, 1]],
+            [[2, 2], [4, 4, 4]],
+            [[2, 2, 2], [4, 4, 2]],
+            [[4, 2, 1], [4, 4, 1]],
+            [[8], [4, 2, 2]],
+            [[8, 1], [4, 2, 1]],
+            [[8, 2], [4, 1, 1]],
+            [[4, 4, 2], [2, 2, 2]],
+            [[8, 2, 1], [2, 2, 1]],
+            [[8, 4], [2, 1, 1]],
+            [[8, 4, 1], [1, 1, 1]],
 
-            var knownItems = [];
-            var missingUnits = [];
-            combination.forEach(function (units, index) {
-                if (missingIndexes.indexOf(index) !== -1) missingUnits.push(units);
-                else knownItems.push(quizFigureByUnits[units]);
-            });
+            [[2], [4, 4, 4, 2]],
+            [[2, 1], [4, 4, 4, 1]],
+            [[4], [4, 4, 2, 2]],
+            [[4, 1], [4, 4, 2, 1]],
+            [[4, 2], [4, 4, 1, 1]],
+            [[2, 2, 2], [4, 2, 2, 2]],
+            [[4, 2, 1], [4, 2, 2, 1]],
+            [[8], [4, 2, 1, 1]],
+            [[8, 1], [2, 2, 2, 1]],
+            [[8, 2], [2, 2, 1, 1]]
+        ];
+
+        var previousBlankCount = 0;
+        return bank.map(function (entry, index) {
+            var knownUnits = entry[0];
+            var missingUnits = entry[1];
+            var allUnits = knownUnits.concat(missingUnits);
+            var total = allUnits.reduce(function (sum, units) { return sum + units; }, 0);
+            var validFigures = allUnits.every(function (units) { return Boolean(quizFigureByUnits[units]); });
+
+            if (total !== 16 || !validFigures) {
+                throw new Error('Esercizio ' + (index + 1) + ' non valido');
+            }
+            if (missingUnits.length < previousBlankCount) {
+                throw new Error('Progressione non valida all’esercizio ' + (index + 1));
+            }
+            previousBlankCount = missingUnits.length;
 
             return {
-                blankCount: blankCount,
-                known: knownItems,
-                missingTotalUnits: missingUnits.reduce(function (total, units) { return total + units; }, 0)
+                blankCount: missingUnits.length,
+                known: knownUnits.map(function (units) { return quizFigureByUnits[units]; }),
+                missingTotalUnits: missingUnits.reduce(function (sum, units) { return sum + units; }, 0)
             };
         });
     }
@@ -343,7 +362,7 @@
                 return;
             }
 
-            var units = Math.round(Number(option.getAttribute('data-value')) * 64);
+            var units = Math.round(Number(option.getAttribute('data-value')) * 16);
             selectedAnswers.push(quizFigureByUnits[units]);
             attemptWrong = false;
 
