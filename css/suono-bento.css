@@ -1,0 +1,50 @@
+/* Suono — stessa gabbia degli indici Ritmo e Lettura, palette sabbia. */
+body[data-current-nucleus="suono"] .brand--wordmark {
+    color: #18191b;
+    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: none;
+}
+
+body[data-current-nucleus="suono"] .barocco-stage {
+    --tile-strip-accent: #CDBF9A;
+    --tile-strip-lit-num: rgba(30, 27, 20, .78);
+    --tile-strip-lit-arrow-bg: rgba(30, 27, 20, .12);
+    --tile-strip-lit-arrow-fg: #1e1b14;
+}
+
+body[data-current-nucleus="suono"] .barocco-ticker__blob--1 { background: #8f7f54; }
+body[data-current-nucleus="suono"] .barocco-ticker__blob--2 { background: #b39f69; }
+body[data-current-nucleus="suono"] .barocco-ticker__blob--3 { background: #6f6343; }
+body[data-current-nucleus="suono"] .barocco-ticker__blob--4 { background: #9d8959; }
+
+body[data-current-nucleus="suono"] .barocco-intro__title {
+    z-index: 2;
+    color: transparent;
+    background: linear-gradient(100deg, #4d4633 0%, #9d8750 38%, #655a3b 68%, #3f3a2c 100%);
+    background-size: 220% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: suono-title-light 8s ease-in-out infinite alternate;
+}
+
+body[data-current-nucleus="suono"] .barocco-ticker__overlay { opacity: .22; }
+
+@keyframes suono-title-light {
+    to { background-position: 100% 0; }
+}
+
+body[data-current-nucleus="suono"] .barocco-tile--placeholder { cursor: default; }
+body[data-current-nucleus="suono"] .barocco-tile--placeholder:hover .barocco-tile__face { background-color: #e8e8e8; }
+body[data-current-nucleus="suono"] .barocco-tile--placeholder:hover .barocco-tile__num { color: rgba(17,17,17,.35); }
+body[data-current-nucleus="suono"] .barocco-tile--placeholder:hover .barocco-tile__arrow {
+    color: rgba(17,17,17,.7);
+    background: rgba(17,17,17,.12);
+    transform: none;
+}
+body[data-current-nucleus="suono"] .barocco-tile--placeholder:hover .barocco-tile__name { color: #111; }
+body[data-current-nucleus="suono"] .barocco-tile--placeholder:hover .barocco-tile__sub { color: rgba(17,17,17,.38); }
