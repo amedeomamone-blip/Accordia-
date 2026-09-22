@@ -27,6 +27,11 @@ body[data-lesson="misure-semplici"] .brand--wordmark {
     padding: 0 calc(3.5 * var(--u));
 }
 
+.measure-content--bars,
+.measure-content--examples {
+    padding: 0;
+}
+
 .time-signature {
     display: inline-grid;
     color: var(--reading-deep);
@@ -53,21 +58,24 @@ body[data-lesson="misure-semplici"] .brand--wordmark {
 /* 1. La battuta */
 .measure-strip {
     --staff-gap: clamp(5px, calc(.38 * var(--u)), 8px);
-    --staff-center: 59%;
+    --staff-inset: calc(3.5 * var(--u));
+    --staff-top: 59%;
     position: relative;
     display: grid;
     height: calc(14 * var(--u));
+    padding: 0 var(--staff-inset);
     overflow: hidden;
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    isolation: isolate;
 }
 
 .measure-strip::before,
-.measure-example::before {
+.measure-examples::before {
     position: absolute;
     z-index: 0;
-    right: 0;
-    left: 0;
-    top: var(--staff-center, 59%);
+    right: var(--staff-inset);
+    left: var(--staff-inset);
+    top: var(--staff-top, 59%);
     height: calc(var(--staff-gap) * 4 + 1px);
     background: repeating-linear-gradient(
         to bottom,
@@ -79,13 +87,15 @@ body[data-lesson="misure-semplici"] .brand--wordmark {
     content: "";
     pointer-events: none;
     transform: translateY(-50%);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
 }
 
 .measure-strip__start,
 .measure-strip__bar::after {
     position: absolute;
     z-index: 2;
-    top: calc(var(--staff-center) - (var(--staff-gap) * 2));
+    top: calc(var(--staff-top) - (var(--staff-gap) * 2));
     bottom: auto;
     width: 2px;
     height: calc(var(--staff-gap) * 4 + 1px);
@@ -93,7 +103,7 @@ body[data-lesson="misure-semplici"] .brand--wordmark {
     content: "";
 }
 
-.measure-strip__start { left: 0; }
+.measure-strip__start { left: var(--staff-inset); }
 .measure-strip__bar::after { right: 0; }
 
 .measure-strip__bar {
@@ -107,26 +117,32 @@ body[data-lesson="misure-semplici"] .brand--wordmark {
 .measure-strip__beat {
     position: relative;
     z-index: 1;
-    display: grid;
+    display: block;
     min-width: 0;
     flex: var(--beat-span) 1 0;
-    grid-template-rows: minmax(0, 1fr) calc(2.2 * var(--u));
-    place-items: center;
 }
 
 .measure-strip__beat > b {
-    align-self: start;
+    position: absolute;
+    right: 0;
+    bottom: calc(.7 * var(--u));
+    left: 0;
     color: rgba(53, 72, 92, .48);
     font-size: clamp(.6rem, calc(.66 * var(--u)), .82rem);
     font-weight: 750;
     letter-spacing: .08em;
+    text-align: center;
     white-space: nowrap;
 }
 
 .measure-strip .notation-glyph {
+    position: absolute;
+    top: 42%;
+    left: 50%;
     width: calc(5.8 * var(--u));
     height: calc(7.6 * var(--u));
     color: var(--reading-deep);
+    transform: translate(-50%, -50%);
 }
 
 .measure-strip .notation-glyph .bravura-char { font-size: calc(7.4 * var(--u)); }
@@ -195,56 +211,87 @@ body[data-lesson="misure-semplici"] .brand--wordmark {
 
 /* 3. Esempi */
 .measure-examples {
+    --staff-gap: clamp(5px, calc(.38 * var(--u)), 8px);
+    --staff-inset: calc(3.5 * var(--u));
+    --staff-top: 59%;
+    position: relative;
     display: grid;
     height: calc(14 * var(--u));
+    padding: 0 var(--staff-inset);
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    isolation: isolate;
 }
 
 .measure-example {
-    --staff-gap: clamp(5px, calc(.38 * var(--u)), 8px);
-    --staff-center: 54%;
     position: relative;
-    display: grid;
+    z-index: 1;
+    display: block;
     min-width: 0;
     height: calc(14 * var(--u));
-    padding: calc(1.1 * var(--u)) calc(1.25 * var(--u));
-    border-right: 1px solid var(--reading-line);
-    grid-template-columns: calc(4.8 * var(--u)) calc(3.4 * var(--u)) minmax(0, 1fr);
-    grid-template-rows: minmax(0, 1fr) auto auto;
-    align-items: center;
+    padding: 0;
 }
-.measure-example:last-child { border-right: 0; }
-.measure-example::before { right: calc(1.25 * var(--u)); left: calc(1.25 * var(--u)); }
-.measure-example > * { position: relative; z-index: 1; }
+
+.measure-example::after,
+.measure-example:first-child::before {
+    position: absolute;
+    z-index: 2;
+    top: calc(var(--staff-top) - (var(--staff-gap) * 2));
+    width: 2px;
+    height: calc(var(--staff-gap) * 4 + 1px);
+    background: var(--reading-deep);
+    content: "";
+}
+
+.measure-example::after { right: 0; }
+.measure-example:first-child::before { left: 0; }
+
 .measure-clef {
-    grid-column: 1;
-    grid-row: 1;
+    position: absolute;
+    z-index: 1;
+    top: 38.5%;
+    left: calc(.55 * var(--u));
+    width: calc(4.2 * var(--u));
     color: var(--reading-deep);
     font-family: "Bravura", serif;
-    font-size: calc(7.1 * var(--u));
+    font-size: calc(5.45 * var(--u));
     line-height: 1;
     text-align: center;
-    transform: translateY(calc(.25 * var(--u)));
+    transform: translateY(-50%);
 }
 .measure-example .time-signature {
-    grid-column: 2;
-    grid-row: 1;
-    font-size: calc(2.65 * var(--u));
+    position: absolute;
+    z-index: 1;
+    top: 44%;
+    left: calc(4.55 * var(--u));
+    font-size: calc(2.15 * var(--u));
+    transform: translateY(-50%);
 }
 .measure-example__notes {
+    position: absolute;
+    z-index: 1;
+    top: 42%;
+    right: calc(.65 * var(--u));
+    left: calc(7.35 * var(--u));
     display: flex;
     min-width: 0;
     height: calc(7.6 * var(--u));
-    grid-column: 3;
-    grid-row: 1;
     align-items: center;
     justify-content: space-evenly;
     gap: calc(.22 * var(--u));
+    transform: translateY(-50%);
 }
-.measure-example .notation-glyph { width: calc(3.4 * var(--u)); height: calc(5.8 * var(--u)); }
-.measure-example .notation-glyph .bravura-char { font-size: calc(5.7 * var(--u)); }
-.measure-example > strong { grid-column: 3; color: var(--reading-deep); font-size: clamp(.72rem, calc(.9 * var(--u)), 1rem); text-align: center; }
-.measure-example > small { grid-column: 3; margin-top: .25rem; color: rgba(17, 17, 17, .42); font-size: clamp(.56rem, calc(.61 * var(--u)), .72rem); text-align: center; }
+.measure-example .notation-glyph { width: calc(3.7 * var(--u)); height: calc(7.6 * var(--u)); }
+.measure-example .notation-glyph .bravura-char { font-size: calc(5.55 * var(--u)); }
+.measure-example > strong,
+.measure-example > small {
+    position: absolute;
+    right: calc(.65 * var(--u));
+    left: calc(7.35 * var(--u));
+    z-index: 2;
+    text-align: center;
+}
+.measure-example > strong { bottom: calc(1.7 * var(--u)); color: var(--reading-deep); font-size: clamp(.72rem, calc(.9 * var(--u)), 1rem); }
+.measure-example > small { bottom: calc(.75 * var(--u)); color: rgba(17, 17, 17, .42); font-size: clamp(.56rem, calc(.61 * var(--u)), .72rem); }
 
 /* 4. Esercizi */
 .measure-quiz__measure {
