@@ -1,0 +1,235 @@
+:root {
+    --reading: #A6BBD2;
+    --reading-selected: #7896B4;
+    --reading-deep: #35485c;
+    --reading-soft: #edf2f6;
+    --reading-line: rgba(53, 72, 92, .14);
+}
+
+body[data-lesson="misure-semplici"] {
+    overflow: hidden;
+    background: #fff;
+    color: #171a1d;
+}
+
+body[data-lesson="misure-semplici"] .brand--wordmark {
+    color: #18191b;
+    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size: 1.45rem;
+    font-weight: 800;
+    letter-spacing: 0;
+    line-height: 1;
+    text-decoration: none;
+    text-transform: none;
+}
+
+.measure-content {
+    padding: 0 calc(3.5 * var(--u));
+}
+
+.time-signature {
+    display: inline-grid;
+    color: var(--reading-deep);
+    font-family: var(--font-display, "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif);
+    font-size: clamp(2.25rem, calc(3.6 * var(--u)), 4.4rem);
+    font-weight: 850;
+    line-height: .72;
+    letter-spacing: -.08em;
+    place-items: center;
+}
+
+.time-signature b { display: block; }
+
+/* 1. La battuta */
+.measure-strip {
+    position: relative;
+    display: grid;
+    height: calc(11.8 * var(--u));
+    overflow: hidden;
+    border-top: 1px solid var(--reading-line);
+    border-bottom: 1px solid var(--reading-line);
+    background:
+        linear-gradient(to bottom,
+            transparent 19%, rgba(53, 72, 92, .12) 19%, rgba(53, 72, 92, .12) 20%,
+            transparent 20%, transparent 39%, rgba(53, 72, 92, .12) 39%, rgba(53, 72, 92, .12) 40%,
+            transparent 40%, transparent 59%, rgba(53, 72, 92, .12) 59%, rgba(53, 72, 92, .12) 60%,
+            transparent 60%, transparent 79%, rgba(53, 72, 92, .12) 79%, rgba(53, 72, 92, .12) 80%,
+            transparent 80%);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.measure-strip__start,
+.measure-strip__bar::after {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--reading-deep);
+    content: "";
+}
+
+.measure-strip__start { left: 0; }
+.measure-strip__bar::after { right: 0; }
+
+.measure-strip__bar {
+    position: relative;
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    justify-content: space-evenly;
+    color: var(--reading-deep);
+}
+
+.measure-strip__bar::before {
+    position: absolute;
+    bottom: .35rem;
+    left: 50%;
+    color: rgba(53, 72, 92, .45);
+    content: attr(data-count);
+    font-size: clamp(.56rem, calc(.6 * var(--u)), .76rem);
+    font-weight: 700;
+    letter-spacing: 1.25em;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.measure-strip .notation-glyph {
+    width: calc(5.2 * var(--u));
+    height: calc(7.4 * var(--u));
+    color: var(--reading-deep);
+}
+
+.measure-strip .notation-glyph .bravura-char { font-size: calc(6.6 * var(--u)); }
+
+.measure-key {
+    display: grid;
+    width: 44%;
+    margin: calc(.9 * var(--u)) 0 0 calc(24.5 * var(--u));
+    grid-template-columns: 1fr 1fr;
+    gap: calc(1.2 * var(--u));
+}
+
+.measure-key span {
+    display: grid;
+    grid-template-columns: .55rem 1fr;
+    column-gap: .55rem;
+}
+
+.measure-key i { width: .45rem; height: .45rem; margin-top: .18rem; border-radius: 50%; background: var(--reading); }
+.measure-key strong { color: var(--reading-deep); font-size: clamp(.66rem, calc(.78 * var(--u)), .92rem); }
+.measure-key small { grid-column: 2; color: rgba(17, 17, 17, .46); font-size: clamp(.58rem, calc(.62 * var(--u)), .76rem); line-height: 1.4; }
+
+/* 2. Numero di tempo */
+.meter-cards {
+    display: grid;
+    height: calc(14 * var(--u));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.meter-card {
+    position: relative;
+    display: grid;
+    min-width: 0;
+    padding: calc(1.2 * var(--u)) calc(2 * var(--u));
+    border: 0;
+    border-right: 1px solid var(--reading-line);
+    background: transparent;
+    color: #202428;
+    text-align: left;
+    grid-template-columns: calc(7 * var(--u)) 1fr;
+    grid-template-rows: auto auto 1fr;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color .22s ease;
+}
+
+.meter-card:last-child { border-right: 0; }
+.meter-card:hover,
+.meter-card.is-active { background: rgba(166, 187, 210, .12); }
+.meter-card .time-signature { grid-row: 1 / 4; }
+.meter-card > strong { align-self: end; font-size: clamp(.8rem, calc(1.05 * var(--u)), 1.2rem); }
+.meter-card > small { align-self: start; color: rgba(17, 17, 17, .44); font-size: clamp(.57rem, calc(.62 * var(--u)), .76rem); line-height: 1.35; }
+
+.meter-pulses { display: flex; margin: calc(.55 * var(--u)) 0; align-items: center; gap: .42rem; }
+.meter-pulses i { width: .52rem; height: .52rem; border-radius: 50%; background: rgba(53, 72, 92, .22); }
+.meter-pulses i:first-child { background: var(--reading-selected); transform: scale(1.2); }
+.meter-pulses i:nth-child(3) { background: rgba(120, 150, 180, .58); }
+
+.meter-callout {
+    display: none;
+    margin: .7rem 0 0 calc(24.5 * var(--u));
+    color: rgba(17, 17, 17, .52);
+    font-size: .8rem;
+}
+.meter-callout strong { color: var(--reading-deep); }
+
+/* 3. Esempi */
+.measure-examples {
+    display: grid;
+    height: calc(14 * var(--u));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.measure-example {
+    position: relative;
+    display: grid;
+    min-width: 0;
+    padding: calc(1.15 * var(--u)) calc(1.8 * var(--u));
+    border-right: 1px solid var(--reading-line);
+    grid-template-columns: calc(5 * var(--u)) 1fr;
+    grid-template-rows: 1fr auto auto;
+    align-items: center;
+}
+.measure-example:last-child { border-right: 0; }
+.measure-example .time-signature { grid-row: 1 / 4; font-size: calc(3.1 * var(--u)); }
+.measure-example > div { display: flex; min-width: 0; height: calc(7.2 * var(--u)); align-items: center; justify-content: center; gap: calc(.5 * var(--u)); }
+.measure-example .notation-glyph { width: calc(4 * var(--u)); height: calc(5.8 * var(--u)); }
+.measure-example .notation-glyph .bravura-char { font-size: calc(5.7 * var(--u)); }
+.measure-example > strong { color: var(--reading-deep); font-size: clamp(.72rem, calc(.9 * var(--u)), 1rem); text-align: center; }
+.measure-example > small { margin-top: .25rem; color: rgba(17, 17, 17, .42); font-size: clamp(.56rem, calc(.61 * var(--u)), .72rem); text-align: center; }
+
+/* 4. Esercizi */
+.measure-quiz__measure {
+    display: flex;
+    min-width: 0;
+    padding: .55rem 1rem .25rem;
+    overflow-x: auto;
+    align-items: center;
+    justify-content: safe center;
+    gap: clamp(.4rem, .8vw, .85rem);
+    border-bottom: 1px solid var(--reading-line);
+    scrollbar-width: none;
+}
+.measure-quiz__measure::-webkit-scrollbar { display: none; }
+.time-signature--quiz { min-width: 2.5rem; font-size: clamp(2.2rem, 3.1vw, 3.6rem); }
+.measure-quiz__barline { width: 2px; height: clamp(4rem, 5vw, 5.2rem); flex: 0 0 auto; background: var(--reading-deep); }
+.measure-quiz .figure-quiz__known span { width: clamp(2.15rem, 2.8vw, 3rem); }
+.measure-quiz .figure-quiz__blanks { gap: clamp(.28rem, .55vw, .6rem); }
+.measure-quiz .figure-quiz__options button:first-child { opacity: .34; }
+.measure-quiz .figure-quiz__options button:first-child.is-available { opacity: 1; }
+
+@media (min-width: 601px) {
+    .measure-lesson .figure-screen[data-screen="3"] .figure-header {
+        top: auto;
+        bottom: calc(50svh + (100vw / 12) - min(16px, 1.6vw) + 2 * var(--u));
+    }
+    .measure-content--quiz + .figure-description {
+        top: calc(50svh - (100vw / 12) - var(--lesson-header-h, 4rem) + min(16px, 1.6vw) + var(--quiz-h) + var(--u));
+    }
+}
+
+@media (max-width: 600px) {
+    body[data-lesson="misure-semplici"] { overflow: auto; }
+    .measure-content { padding: 0 1rem; }
+    .measure-strip { height: 9.5rem; }
+    .measure-strip .notation-glyph { width: 2.3rem; height: 4.3rem; }
+    .measure-strip .notation-glyph .bravura-char { font-size: 4rem; }
+    .measure-key { width: 100%; margin: 1rem 0 0; }
+    .meter-cards,
+    .measure-examples { height: auto; overflow-x: auto; grid-template-columns: repeat(3, 76vw); }
+    .meter-card,
+    .measure-example { min-height: 12rem; }
+    .meter-callout { display: block; margin: .85rem 0 0; }
+    .measure-quiz__measure { min-height: 8.5rem; justify-content: flex-start; }
+}
