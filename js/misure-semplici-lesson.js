@@ -31,10 +31,25 @@
     function syncGeometry() {
         if (!lesson || !header) return;
         lesson.style.setProperty('--lesson-header-h', header.offsetHeight + 'px');
+        document.querySelectorAll('.measure-strip, .measure-examples').forEach(function (row) {
+            var glyph = row.querySelector('[data-figure="quarter"]');
+            if (!glyph) return;
+            var char = glyph.querySelector('.bravura-char');
+            if (!char) return;
+            var fontSize = parseFloat(getComputedStyle(char).fontSize);
+            var box = glyph.getBoundingClientRect();
+            var rowBox = row.getBoundingClientRect();
+            row.style.setProperty('--staff-gap', (fontSize / 4) + 'px');
+            row.style.setProperty('--staff-top', (box.top - rowBox.top + box.height / 2 + fontSize * .37) + 'px');
+        });
     }
 
     syncGeometry();
     drawNotation(document);
+    document.querySelectorAll('.measure-clef').forEach(function (clef) {
+        clef.innerHTML = '<svg viewBox="0 -5 3 8" aria-hidden="true"><text x="0" y="0" font-family="Bravura" font-size="4" fill="currentColor">&#xE050;</text></svg>';
+    });
+    document.fonts.ready.then(syncGeometry);
     window.addEventListener('resize', syncGeometry);
     window.addEventListener('load', syncGeometry);
 
