@@ -7,7 +7,7 @@
     <title>Le misure semplici | Lettura | Amedeo</title>
     <link rel="stylesheet" href="../../../../css/style.css?v=1782800000">
     <link rel="stylesheet" href="../../../../css/figure-musicali-lesson.css?v=1802100400">
-    <link rel="stylesheet" href="../../../../css/misure-semplici-lesson.css?v=1802200100">
+    <link rel="stylesheet" href="../../../../css/misure-semplici-lesson.css?v=1802200200">
 </head>
 <body data-nav="pratica" data-current-nucleus="lettura" data-lesson="misure-semplici">
     <header class="site-header" id="site-header">
@@ -50,14 +50,19 @@
                 <div class="figure-content measure-content measure-content--bars">
                     <div class="measure-strip" aria-label="Tre battute separate da stanghette">
                         <span class="measure-strip__start" aria-hidden="true"></span>
-                        <div class="measure-strip__bar" data-count="1 2 3 4">
-                            <span class="notation-glyph" data-figure="quarter"></span><span class="notation-glyph" data-figure="quarter"></span><span class="notation-glyph" data-figure="quarter"></span><span class="notation-glyph" data-figure="quarter"></span>
+                        <div class="measure-strip__bar">
+                            <span class="measure-strip__beat" style="--beat-span: 1"><i class="notation-glyph" data-figure="quarter"></i><b>1</b></span>
+                            <span class="measure-strip__beat" style="--beat-span: 1"><i class="notation-glyph" data-figure="quarter"></i><b>2</b></span>
+                            <span class="measure-strip__beat" style="--beat-span: 1"><i class="notation-glyph" data-figure="quarter"></i><b>3</b></span>
+                            <span class="measure-strip__beat" style="--beat-span: 1"><i class="notation-glyph" data-figure="quarter"></i><b>4</b></span>
                         </div>
-                        <div class="measure-strip__bar" data-count="1 2 3 4">
-                            <span class="notation-glyph" data-figure="half"></span><span class="notation-glyph" data-figure="quarter"></span><span class="notation-glyph" data-figure="quarter"></span>
+                        <div class="measure-strip__bar">
+                            <span class="measure-strip__beat" style="--beat-span: 2"><i class="notation-glyph" data-figure="half"></i><b>1&nbsp;&nbsp;2</b></span>
+                            <span class="measure-strip__beat" style="--beat-span: 1"><i class="notation-glyph" data-figure="quarter"></i><b>3</b></span>
+                            <span class="measure-strip__beat" style="--beat-span: 1"><i class="notation-glyph" data-figure="quarter"></i><b>4</b></span>
                         </div>
-                        <div class="measure-strip__bar" data-count="1 2 3 4">
-                            <span class="notation-glyph" data-figure="whole"></span>
+                        <div class="measure-strip__bar">
+                            <span class="measure-strip__beat" style="--beat-span: 4"><i class="notation-glyph" data-figure="whole"></i><b>1&nbsp;&nbsp;2&nbsp;&nbsp;3&nbsp;&nbsp;4</b></span>
                         </div>
                     </div>
                     <div class="measure-key">
@@ -93,7 +98,7 @@
                     <p class="meter-callout" id="meter-callout" aria-live="polite"><strong>2/4.</strong> Due movimenti di semiminima: forte, debole.</p>
                 </div>
 
-                <p class="figure-description">Il numero in alto indica <strong>quanti movimenti</strong> contiene la battuta. Il numero in basso indica la figura che vale un movimento: nelle misure semplici qui studiate è la <strong>semiminima</strong>.</p>
+                <p class="figure-description">Il numero in alto indica <strong>in quante parti dobbiamo dividere la battuta</strong>, il numero di pulsazioni che contiamo. Il numero in basso indica il <strong>valore di ogni pulsazione</strong>: nelle misure semplici qui studiate è la semiminima.</p>
             </section>
 
             <section class="figure-screen" data-screen="3" aria-labelledby="measure-title-3">
@@ -106,10 +111,10 @@
                 </div>
 
                 <div class="figure-content measure-content measure-content--examples">
-                    <div class="measure-examples" aria-label="Esempi di battute complete">
-                        <article class="measure-example"><span class="time-signature"><b>2</b><b>4</b></span><div><i class="notation-glyph" data-figure="quarter"></i><i class="notation-glyph" data-figure="quarter"></i></div><strong>1 + 1</strong><small>due movimenti</small></article>
-                        <article class="measure-example"><span class="time-signature"><b>3</b><b>4</b></span><div><i class="notation-glyph" data-figure="half"></i><i class="notation-glyph" data-figure="quarter"></i></div><strong>2 + 1</strong><small>tre movimenti</small></article>
-                        <article class="measure-example"><span class="time-signature"><b>4</b><b>4</b></span><div><i class="notation-glyph" data-figure="half"></i><i class="notation-glyph" data-figure="quarter"></i><i class="notation-glyph" data-figure="eighth"></i><i class="notation-glyph" data-figure="eighth"></i></div><strong>2 + 1 + ½ + ½</strong><small>quattro movimenti</small></article>
+                    <div class="measure-examples" aria-label="Esempi di battute complete sul pentagramma">
+                        <article class="measure-example"><span class="measure-clef" aria-hidden="true">&#x1D11E;</span><span class="time-signature"><b>2</b><b>4</b></span><div class="measure-example__notes"><i class="notation-glyph" data-figure="quarter"></i><i class="notation-glyph" data-figure="quarter"></i></div><strong>1 + 1</strong><small>due pulsazioni</small></article>
+                        <article class="measure-example"><span class="measure-clef" aria-hidden="true">&#x1D11E;</span><span class="time-signature"><b>3</b><b>4</b></span><div class="measure-example__notes"><i class="notation-glyph" data-figure="half"></i><i class="notation-glyph" data-figure="quarter"></i></div><strong>2 + 1</strong><small>tre pulsazioni</small></article>
+                        <article class="measure-example"><span class="measure-clef" aria-hidden="true">&#x1D11E;</span><span class="time-signature"><b>4</b><b>4</b></span><div class="measure-example__notes"><i class="notation-glyph" data-figure="half"></i><i class="notation-glyph" data-figure="quarter"></i><i class="notation-glyph" data-figure="eighth"></i><i class="notation-glyph" data-figure="eighth"></i></div><strong>2 + 1 + ½ + ½</strong><small>quattro pulsazioni</small></article>
                     </div>
                 </div>
 
