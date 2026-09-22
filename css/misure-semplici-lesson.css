@@ -36,35 +36,59 @@ body[data-lesson="misure-semplici"] .brand--wordmark {
     line-height: .72;
     letter-spacing: -.08em;
     place-items: center;
+    row-gap: .1em;
 }
 
-.time-signature b { display: block; }
+.time-signature b {
+    display: block;
+    min-width: .72em;
+    text-align: center;
+}
+
+.time-signature b:first-child {
+    padding: 0 .06em .08em;
+    border-bottom: .055em solid currentColor;
+}
 
 /* 1. La battuta */
 .measure-strip {
+    --staff-gap: clamp(5px, calc(.38 * var(--u)), 8px);
+    --staff-center: 59%;
     position: relative;
     display: grid;
-    height: calc(11.8 * var(--u));
+    height: calc(14 * var(--u));
     overflow: hidden;
-    border-top: 1px solid var(--reading-line);
-    border-bottom: 1px solid var(--reading-line);
-    background:
-        linear-gradient(to bottom,
-            transparent 19%, rgba(53, 72, 92, .12) 19%, rgba(53, 72, 92, .12) 20%,
-            transparent 20%, transparent 39%, rgba(53, 72, 92, .12) 39%, rgba(53, 72, 92, .12) 40%,
-            transparent 40%, transparent 59%, rgba(53, 72, 92, .12) 59%, rgba(53, 72, 92, .12) 60%,
-            transparent 60%, transparent 79%, rgba(53, 72, 92, .12) 79%, rgba(53, 72, 92, .12) 80%,
-            transparent 80%);
     grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.measure-strip::before,
+.measure-example::before {
+    position: absolute;
+    z-index: 0;
+    right: 0;
+    left: 0;
+    top: var(--staff-center, 59%);
+    height: calc(var(--staff-gap) * 4 + 1px);
+    background: repeating-linear-gradient(
+        to bottom,
+        rgba(53, 72, 92, .095) 0,
+        rgba(53, 72, 92, .095) 1px,
+        transparent 1px,
+        transparent var(--staff-gap)
+    );
+    content: "";
+    pointer-events: none;
+    transform: translateY(-50%);
 }
 
 .measure-strip__start,
 .measure-strip__bar::after {
     position: absolute;
     z-index: 2;
-    top: 0;
-    bottom: 0;
+    top: calc(var(--staff-center) - (var(--staff-gap) * 2));
+    bottom: auto;
     width: 2px;
+    height: calc(var(--staff-gap) * 4 + 1px);
     background: var(--reading-deep);
     content: "";
 }
@@ -76,36 +100,41 @@ body[data-lesson="misure-semplici"] .brand--wordmark {
     position: relative;
     display: flex;
     min-width: 0;
-    align-items: center;
-    justify-content: space-evenly;
+    align-items: stretch;
     color: var(--reading-deep);
 }
 
-.measure-strip__bar::before {
-    position: absolute;
-    bottom: .35rem;
-    left: 50%;
-    color: rgba(53, 72, 92, .45);
-    content: attr(data-count);
-    font-size: clamp(.56rem, calc(.6 * var(--u)), .76rem);
-    font-weight: 700;
-    letter-spacing: 1.25em;
-    transform: translateX(-50%);
+.measure-strip__beat {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    min-width: 0;
+    flex: var(--beat-span) 1 0;
+    grid-template-rows: minmax(0, 1fr) calc(2.2 * var(--u));
+    place-items: center;
+}
+
+.measure-strip__beat > b {
+    align-self: start;
+    color: rgba(53, 72, 92, .48);
+    font-size: clamp(.6rem, calc(.66 * var(--u)), .82rem);
+    font-weight: 750;
+    letter-spacing: .08em;
     white-space: nowrap;
 }
 
 .measure-strip .notation-glyph {
-    width: calc(5.2 * var(--u));
-    height: calc(7.4 * var(--u));
+    width: calc(5.8 * var(--u));
+    height: calc(7.6 * var(--u));
     color: var(--reading-deep);
 }
 
-.measure-strip .notation-glyph .bravura-char { font-size: calc(6.6 * var(--u)); }
+.measure-strip .notation-glyph .bravura-char { font-size: calc(7.4 * var(--u)); }
 
 .measure-key {
     display: grid;
     width: 44%;
-    margin: calc(.9 * var(--u)) 0 0 calc(24.5 * var(--u));
+    margin: calc(-.75 * var(--u)) 0 0 calc(24.5 * var(--u));
     grid-template-columns: 1fr 1fr;
     gap: calc(1.2 * var(--u));
 }
@@ -172,22 +201,50 @@ body[data-lesson="misure-semplici"] .brand--wordmark {
 }
 
 .measure-example {
+    --staff-gap: clamp(5px, calc(.38 * var(--u)), 8px);
+    --staff-center: 54%;
     position: relative;
     display: grid;
     min-width: 0;
-    padding: calc(1.15 * var(--u)) calc(1.8 * var(--u));
+    height: calc(14 * var(--u));
+    padding: calc(1.1 * var(--u)) calc(1.25 * var(--u));
     border-right: 1px solid var(--reading-line);
-    grid-template-columns: calc(5 * var(--u)) 1fr;
-    grid-template-rows: 1fr auto auto;
+    grid-template-columns: calc(4.8 * var(--u)) calc(3.4 * var(--u)) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto auto;
     align-items: center;
 }
 .measure-example:last-child { border-right: 0; }
-.measure-example .time-signature { grid-row: 1 / 4; font-size: calc(3.1 * var(--u)); }
-.measure-example > div { display: flex; min-width: 0; height: calc(7.2 * var(--u)); align-items: center; justify-content: center; gap: calc(.5 * var(--u)); }
-.measure-example .notation-glyph { width: calc(4 * var(--u)); height: calc(5.8 * var(--u)); }
+.measure-example::before { right: calc(1.25 * var(--u)); left: calc(1.25 * var(--u)); }
+.measure-example > * { position: relative; z-index: 1; }
+.measure-clef {
+    grid-column: 1;
+    grid-row: 1;
+    color: var(--reading-deep);
+    font-family: "Bravura", serif;
+    font-size: calc(7.1 * var(--u));
+    line-height: 1;
+    text-align: center;
+    transform: translateY(calc(.25 * var(--u)));
+}
+.measure-example .time-signature {
+    grid-column: 2;
+    grid-row: 1;
+    font-size: calc(2.65 * var(--u));
+}
+.measure-example__notes {
+    display: flex;
+    min-width: 0;
+    height: calc(7.6 * var(--u));
+    grid-column: 3;
+    grid-row: 1;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: calc(.22 * var(--u));
+}
+.measure-example .notation-glyph { width: calc(3.4 * var(--u)); height: calc(5.8 * var(--u)); }
 .measure-example .notation-glyph .bravura-char { font-size: calc(5.7 * var(--u)); }
-.measure-example > strong { color: var(--reading-deep); font-size: clamp(.72rem, calc(.9 * var(--u)), 1rem); text-align: center; }
-.measure-example > small { margin-top: .25rem; color: rgba(17, 17, 17, .42); font-size: clamp(.56rem, calc(.61 * var(--u)), .72rem); text-align: center; }
+.measure-example > strong { grid-column: 3; color: var(--reading-deep); font-size: clamp(.72rem, calc(.9 * var(--u)), 1rem); text-align: center; }
+.measure-example > small { grid-column: 3; margin-top: .25rem; color: rgba(17, 17, 17, .42); font-size: clamp(.56rem, calc(.61 * var(--u)), .72rem); text-align: center; }
 
 /* 4. Esercizi */
 .measure-quiz__measure {
@@ -222,14 +279,14 @@ body[data-lesson="misure-semplici"] .brand--wordmark {
 @media (max-width: 600px) {
     body[data-lesson="misure-semplici"] { overflow: auto; }
     .measure-content { padding: 0 1rem; }
-    .measure-strip { height: 9.5rem; }
+    .measure-strip { height: 11.5rem; }
     .measure-strip .notation-glyph { width: 2.3rem; height: 4.3rem; }
     .measure-strip .notation-glyph .bravura-char { font-size: 4rem; }
     .measure-key { width: 100%; margin: 1rem 0 0; }
     .meter-cards,
     .measure-examples { height: auto; overflow-x: auto; grid-template-columns: repeat(3, 76vw); }
     .meter-card,
-    .measure-example { min-height: 12rem; }
+    .measure-example { min-height: 12rem; grid-template-columns: 3.8rem 2.8rem minmax(8rem, 1fr); }
     .meter-callout { display: block; margin: .85rem 0 0; }
     .measure-quiz__measure { min-height: 8.5rem; justify-content: flex-start; }
 }
