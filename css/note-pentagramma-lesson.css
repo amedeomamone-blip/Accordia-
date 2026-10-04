@@ -1,0 +1,36 @@
+/* Extend the typography, palette and slide navigation of the reading lessons. */
+body[data-lesson="note-pentagramma"] { overflow: hidden; background: #fff; color: #171a1d; }
+.notes-lesson .figure-screen { display: flex; flex-direction: column; justify-content: center; gap: 1.5rem; min-height: 38rem; padding: 2.5rem 0; height: auto; min-height: max(38rem, calc(100svh - var(--lesson-header-h))); }
+.notes-lesson .figure-header,
+.notes-lesson .figure-screen[data-screen="3"] .figure-header { position: relative; top: auto; bottom: auto; flex-shrink: 0; }
+.notes-lesson .figure-header__eyebrow { text-decoration: none; }
+.notes-lesson .figure-content { position: relative; top: auto; left: auto; right: auto; margin: 0; }
+.notes-content { width: min(100%, 76rem); margin-inline: auto !important; padding: 0 max(1.5rem, 8vw); }
+.notes-staff, .notes-hand { display: block; width: 100%; height: auto; max-height: 32svh; overflow: visible; color: var(--reading-deep); }
+.notes-content svg text { fill: currentColor; font-family: inherit; font-size: 18px; font-weight: 600; }
+.notes-staff__line { stroke: var(--reading-selected); stroke-width: 2; }
+.notes-staff__space { fill: var(--reading-soft); }
+.notes-staff__note { fill: var(--reading-deep); }
+.notes-content .notes-staff__name { font-size: 24px; font-weight: 800; }
+.notes-content .notes-staff__number { font-size: 21px; }
+.notes-hand__guide { stroke: var(--reading-selected); stroke-width: 1.5; stroke-dasharray: 5 5; }
+.notes-content .notes-hand__space { fill: var(--reading-deep); font-size: 23px; }
+.notes-lesson .figure-description { position: relative; top: auto; bottom: auto; left: auto; width: min(42rem, 62vw); margin: 0 0 0 calc(28 * var(--u)); font-size: clamp(.95rem, 1.05vw, 1.1rem); line-height: 1.7; padding-right: 2rem; }
+.notes-next { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin-left: calc(28 * var(--u)); padding-right: 2rem; font-size: .9rem; }
+.notes-next a { color: var(--reading-deep); text-underline-offset: .25em; }
+.notes-lesson .figure-lesson__dot { width: 24px; height: 24px; background: transparent; position: relative; }
+.notes-lesson .figure-lesson__dot::after { content: ''; position: absolute; width: 6px; height: 6px; inset: 9px; background: var(--reading-selected); border-radius: 50%; }
+.notes-lesson .figure-lesson__dot.is-active::after { background: var(--reading-deep); }
+.notes-lesson button:focus-visible, .notes-lesson a:focus-visible { outline: 2px solid var(--reading-deep); outline-offset: 4px; }
+@media (max-width: 600px) {
+ body[data-lesson="note-pentagramma"] { overflow: auto; }
+ .notes-lesson .figure-screen { padding: 2.5rem 1.25rem; gap: 1.5rem; min-height: calc(100svh - var(--lesson-header-h)); }
+ .notes-content { padding: 0; }
+ .notes-staff, .notes-hand { max-height: none; }
+ .notes-content svg text { font-size: 25px; }
+ .notes-content .notes-staff__name, .notes-content .notes-hand__space { font-size: 29px; }
+ .notes-lesson .figure-description { width: 100%; margin: 0; padding: 0 1rem 0 0; font-size: 1rem; }
+ .notes-next { margin: 0; padding: 0; }
+ .notes-lesson .figure-lesson__progress { right: .1rem; gap: .4rem; }
+}
+@media (prefers-reduced-motion: reduce) { .notes-lesson * { scroll-behavior: auto; } }
