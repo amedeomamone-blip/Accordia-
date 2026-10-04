@@ -11,6 +11,24 @@
     function syncHeight() {
         lesson.style.setProperty('--lesson-header-h', header.offsetHeight + 'px');
     }
+    // Same staff measurement as figure-musicali-lesson.js, using an unshifted
+    // semibreve as the reference; apply pitch offsets only after measurement.
+    function alignStaves() {
+        lesson.querySelectorAll('.notes-family').forEach(function (row) {
+            var glyphs = Array.from(row.querySelectorAll('.notation-glyph'));
+            glyphs.forEach(function (glyph) { glyph.style.setProperty('--pitch-step', 0); });
+            var glyph = glyphs[0];
+            var fontSize = parseFloat(getComputedStyle(glyph.querySelector('.bravura-char')).fontSize);
+            var box = glyph.getBoundingClientRect();
+            var rowBox = row.getBoundingClientRect();
+            row.style.setProperty('--staff-gap', (fontSize / 4) + 'px');
+            row.style.setProperty('--staff-top', (box.top - rowBox.top + box.height / 2 + fontSize * .37) + 'px');
+            glyphs.forEach(function (item) { item.style.setProperty('--pitch-step', item.dataset.step || 0); });
+        });
+    }
+    document.fonts.ready.then(alignStaves);
+    window.addEventListener('resize', alignStaves);
+    window.addEventListener('load', alignStaves);
     function activate(index) {
         dots.forEach(function (dot, i) {
             dot.classList.toggle('is-active', i === index);

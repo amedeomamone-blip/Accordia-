@@ -1,70 +1,49 @@
-/* The reading lessons share Bravura, the open page grid and full-width notation. */
+/* Shared lesson geometry, staff gradient/mask and glyph sizing come directly
+   from figure-musicali-lesson.css. Only pitch placement and counts vary here. */
 body[data-lesson="note-pentagramma"] { overflow: hidden; background: #fff; color: #171a1d; }
-.notes-lesson .figure-screen {
-    display: flex; flex-direction: column; justify-content: center;
-    gap: clamp(1.25rem, 3vh, 2.5rem); height: auto;
-    min-height: max(44rem, calc(100svh - var(--lesson-header-h)));
-    padding: 3rem 0;
-}
-.notes-lesson .figure-header,
-.notes-lesson .figure-screen[data-screen="3"] .figure-header { position: relative; top: auto; bottom: auto; flex-shrink: 0; }
 .notes-lesson .figure-header__eyebrow { text-decoration: none; }
-.notes-lesson .figure-content { position: relative; inset: auto; margin: 0; width: 100%; padding: 0; }
-.notes-score { width: 100%; overflow-x: auto; scrollbar-width: thin; scrollbar-color: var(--reading) transparent; }
-.notes-staff { display: block; width: 100%; height: auto; color: var(--reading-selected); }
-.notes-staff__line { stroke: #c6ced6; stroke-width: 1.25; }
-.notes-staff__space { fill: var(--reading-soft); }
-.notes-staff__counter { fill: var(--reading-selected); }
-.notes-staff text { font-family: var(--font-display, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif); fill: var(--reading-deep); }
-.notes-staff .notes-staff__glyph { font-family: "Bravura"; font-size: 160px; font-weight: 400; fill: var(--reading-selected); }
-.notes-staff .notes-staff__name { font-size: 32px; font-weight: 800; }
-.notes-staff .notes-staff__caption { font-size: 28px; font-weight: 700; letter-spacing: 2px; }
-.notes-staff .notes-staff__number { font-size: 26px; font-weight: 700; fill: #fff; }
-.notes-staff .notes-staff__space-number { font-size: 30px; font-weight: 700; }
-.notes-lesson .figure-description { position: relative; inset: auto; width: min(46rem, 62vw); margin: 0 0 0 calc(28 * var(--u)); padding-right: 2rem; font-size: clamp(1rem, 1.2vw, 1.25rem); line-height: 1.75; }
-.notes-hand-layout { display: grid; grid-template-columns: 1.12fr 1fr; align-items: center; gap: 4vw; padding: 0 8vw 0 4vw; }
-.notes-hand-figure { margin: 0; min-width: 0; }
-.notes-hand-figure img { display: block; width: 100%; height: 100%; max-height: 47svh; object-fit: contain; }
-.notes-hand-map { color: var(--reading-deep); }
-.notes-hand-map__heading { display: grid; grid-template-columns: 65% 35%; font-size: clamp(.8rem, 1.1vw, 1rem); font-weight: 700; letter-spacing: .08em; padding-bottom: 1.1rem; }
-.notes-hand-map__heading span:last-child { text-align: center; }
-.notes-hand-map__rows { display: grid; grid-template-rows: repeat(9, 1fr); }
-.notes-hand-map__line { display: grid; grid-template-columns: 37% 28% 35%; align-items: center; position: relative; min-height: 2rem; }
-.notes-hand-map__line::before { content: ''; position: absolute; left: 0; right: 0; top: 50%; height: 1px; background: #c6ced6; }
-.notes-hand-map__line > * { position: relative; z-index: 1; background: #fff; width: fit-content; padding: 0 .6rem; }
-.notes-hand-map__finger { color: #737d88; font-size: clamp(.85rem, 1.1vw, 1rem); }
-.notes-hand-map strong { font-size: clamp(1.5rem, 2.5vw, 2.7rem); line-height: 1; font-weight: 800; }
-.notes-hand-map__space { text-align: center; padding-left: 65%; min-height: 2rem; }
-.notes-hand-map__space strong { color: var(--reading-selected); }
-.notes-next { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin-left: calc(28 * var(--u)); padding-right: 2rem; font-size: .95rem; }
+.notes-family { grid-template-columns: repeat(var(--note-count), minmax(0, 1fr)); }
+.notes-family .figure-card { cursor: default; }
+.notes-family .notation-glyph { margin-top: calc(var(--pitch-step, 0) * var(--staff-gap) / 2); }
+/* The lowest notes need room below the shared staff before their captions. */
+.notes-family .figure-card strong { transform: translateY(calc(1.4 * var(--staff-gap))); }
+.notes-family--intro .notation-glyph { visibility: hidden; }
+.notes-family .figure-card .notes-count {
+    position: absolute; top: calc(var(--staff-top) + var(--count-step) * var(--staff-gap) / 2);
+    left: 50%; transform: translate(-50%, -50%); margin: 0 !important;
+    width: 1.6em; height: 1.6em; display: grid; place-items: center;
+    font-size: clamp(.8rem, 1.1vw, 1rem) !important; font-weight: 700;
+    color: var(--reading-deep); background: #fff; border-radius: 50%;
+    opacity: 1 !important; box-shadow: none !important;
+}
+.notes-family--intro .figure-card:last-child .notes-count { color: var(--reading-selected); background: transparent; }
+.notes-hand-scroll { width: 100%; height: 100%; overflow: auto; }
+.notes-hand-diagram { display: block; width: 100%; height: 100%; }
+.notes-hand-diagram text { font-family: var(--font-display, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif); dominant-baseline: middle; }
+.notes-hand-heading { font-size: 20px; letter-spacing: 2px; font-weight: 600; fill: var(--reading-deep); }
+.notes-hand-guide { fill: none; stroke: var(--reading-selected); stroke-width: 1.5; }
+.notes-hand-anchor { fill: var(--reading-deep); }
+.notes-hand-finger { font-size: 24px; fill: #737d88; }
+.notes-hand-note, .notes-hand-space { font-size: 42px; font-weight: 800; fill: var(--reading-deep); }
+.notes-hand-space { fill: var(--reading-selected); }
+.notes-next { position: absolute; bottom: 1rem; left: calc(28 * var(--u)); display: flex; gap: 2rem; font-size: .85rem; }
 .notes-next a { color: var(--reading-deep); text-underline-offset: .25em; }
-.notes-lesson .figure-lesson__dot { width: 24px; height: 24px; background: transparent; position: relative; }
-.notes-lesson .figure-lesson__dot::after { content: ''; position: absolute; width: 6px; height: 6px; inset: 9px; background: var(--reading-selected); border-radius: 50%; }
-.notes-lesson .figure-lesson__dot.is-active::after { background: var(--reading-deep); }
-.notes-lesson :is(button, a, .notes-score):focus-visible { outline: 2px solid var(--reading-deep); outline-offset: 3px; }
-@media (min-width: 1700px) { .notes-lesson .figure-screen { padding-block: 4rem; } }
-@media (max-width: 900px) and (min-width: 601px) {
-    .notes-hand-layout { padding: 0 4vw; gap: 2vw; }
-    .notes-lesson .figure-description { width: 70%; margin-left: 20%; }
-
+.notes-lesson :is(button, a, [tabindex]):focus-visible { outline: 2px solid var(--reading-deep); outline-offset: 3px; }
+@media (min-width: 601px) {
+    /* Slide 3 is a normal notation rail, not the source lesson's note tree. */
+    .notes-lesson .figure-screen[data-screen="3"] .figure-header {
+        top: auto; bottom: calc(50svh + (100vw / 12) - min(16px, 1.6vw) + 2 * var(--u));
+    }
+    .notes-screen--hand .figure-header { top: 1.3rem; bottom: auto; }
+    .notes-content--hand { top: 8rem; bottom: 9rem; }
+    .notes-screen--hand .figure-description { top: auto; bottom: 3.5rem; width: calc(42 * var(--u)); }
 }
 @media (max-width: 600px) {
     body[data-lesson="note-pentagramma"] { overflow: auto; }
-    .notes-lesson .figure-screen { padding: 2.5rem 0; gap: 2rem; min-height: calc(100svh - var(--lesson-header-h)); }
-    .notes-lesson .figure-header { padding: 0 1.5rem; }
-    .notes-lesson .figure-header__title { font-size: clamp(2rem, 8vw, 2.8rem); }
-    .notes-staff { width: 900px; max-width: none; }
-    .notes-lesson .figure-description { width: 100%; margin: 0; padding: 0 2rem 0 1.5rem; font-size: 1rem; }
-    .notes-hand-layout { grid-template-columns: 1fr; gap: 1rem; padding: 0 1.5rem; }
-    .notes-hand-figure img { max-height: 38svh; }
-    .notes-hand-map__heading { font-size: .8rem; }
-    .notes-hand-map__line, .notes-hand-map__space { min-height: 1.7rem; }
-    .notes-hand-map strong { font-size: 1.6rem; }
-    .notes-hand-map__finger { font-size: .9rem; }
-    .notes-next { margin: 0; padding: 0 1.5rem; }
-    .notes-lesson .figure-lesson__progress { right: .1rem; gap: .4rem; }
+    .notes-family { grid-template-columns: repeat(var(--note-count), 44vw); padding-bottom: 2.5rem; }
+    .notes-family::before { width: calc(var(--note-count) * 44vw); }
+    .notes-family .figure-card .notes-count { font-size: .9rem !important; }
+    .notes-content--hand { width: calc(100% + 2rem); margin-left: -1rem; }
+    .notes-hand-diagram { width: 900px; height: auto; max-width: none; }
+    .notes-next { position: static; margin-top: 1.5rem; flex-wrap: wrap; gap: 1rem; }
 }
-@media (prefers-reduced-motion: reduce) { .notes-lesson * { scroll-behavior: auto; } }
-
-.notes-scroll-hint { display: none; }
-@media (max-width: 600px) { .notes-scroll-hint { display: block; margin: .65rem 1.5rem 0; font-size: .85rem; color: #737d88; } }
