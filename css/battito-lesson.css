@@ -1515,3 +1515,31 @@ body[data-lesson="battito"] .brand--wordmark {
     .brl__tile.is-live .brl__beat-progress { transform: scaleX(1); }
     .brl__gesture-icon.is-struck { outline: 2px solid var(--rhythm-deep); outline-offset: 2px; }
 }
+
+/* Eight equally sized tiles; retain the original artwork and controls. */
+.brl--echo .brl__preview {
+    --preview-tile: var(--tile);
+    width: calc(4 * var(--tile));
+    margin-top: 0;
+}
+.brl--echo .brl__row--main { margin-bottom: 0; }
+.brl--echo .brl__row--preview {
+    grid-template-columns: repeat(4, var(--tile));
+}
+.brl--echo .brl__row--preview .brl__tile {
+    width: var(--tile);
+    height: var(--tile);
+    padding: calc(var(--tile) * .09);
+}
+@media (max-width: 600px) {
+    .brl--echo .brl__sequence,
+    .brl--echo .brl__preview { width: 100%; }
+    .brl--echo .brl__row { width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .brl--echo .brl__tile { width: 100%; height: auto; aspect-ratio: 1; }
+    .bintro-stage, .bintro-scroll, .bintro-pin, .bintro-screens,
+    .bintro-screen { height: auto; min-height: 100svh; overflow: visible; }
+    .brl--echo { position: relative; top: auto; margin-top: 5rem; }
+}
+@media (max-width: 600px) {
+    .brl--echo .brl__row .brl__tile { width: 100%; height: auto; aspect-ratio: 1; }
+}
