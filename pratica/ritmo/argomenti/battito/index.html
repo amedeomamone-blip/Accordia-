@@ -6,7 +6,7 @@
     <meta name="description" content="Gioco dell'eco con sequenze di body percussion per la classe.">
     <title>Gioco dell’eco · Body percussion | Ritmo | Amedeo</title>
     <link rel="stylesheet" href="../../../../css/style.css?v=1782800000">
-    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=2026101703">
+    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=2026101704">
 </head>
 <body data-nav="pratica" data-current-nucleus="ritmo" data-lesson="battito">
 
@@ -68,7 +68,6 @@
                                         <button class="brl__tempo-option" type="button" data-beat-length="500" aria-pressed="false" aria-label="Allegro, 120 battiti al minuto">Allegro</button>
                                     </div>
                                     <button class="brl__metronome-toggle" id="brl-metronome-toggle" type="button" aria-pressed="false">Avvia</button>
-                                    <button class="brl__metronome-toggle brl__accompaniment-toggle" id="brl-accompaniment-toggle" type="button" aria-pressed="false" aria-label="Avvia accompagnamento Passeggiata">Base · Passeggiata</button>
                                 </div>
                                 <div class="brl__patterns">
                                     <div class="brl__pattern-options" role="group" aria-label="Scegli la sequenza">
@@ -91,7 +90,11 @@
                             </div>
 
                             <div class="brl__controls">
-                                <button class="brl__primary" id="brl-echo-play" type="button" aria-pressed="false">Ascolta</button>
+                                <div class="brl__mix" role="group" aria-label="Parti da ascoltare">
+                                    <button class="brl__metronome-toggle is-active" id="brl-accompaniment-toggle" type="button" aria-pressed="true">Musica ON · Passeggiata</button>
+                                    <button class="brl__metronome-toggle is-active" id="brl-body-toggle" type="button" aria-pressed="true">Body percussion ON</button>
+                                </div>
+                                <button class="brl__primary" id="brl-echo-play" type="button" aria-pressed="false">Play</button>
                                 <p class="brl__status" id="brl-echo-status" aria-live="polite"></p>
                             </div>
                         </div>
@@ -105,7 +108,7 @@
     </main>
 
     <script src="../../../../js/main.js?v=1782800000"></script>
-    <script src="../../../../js/battito-lesson.js?v=2026101703"></script>
+    <script src="../../../../js/battito-lesson.js?v=2026101704"></script>
 
 </body>
 </html>
