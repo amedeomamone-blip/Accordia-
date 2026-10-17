@@ -327,7 +327,7 @@
             echoRunning = running;
             playButton.classList.toggle('is-playing', running);
             playButton.setAttribute('aria-pressed', running ? 'true' : 'false');
-            playButton.textContent = running ? 'Pausa' : 'Play';
+            playButton.textContent = running ? 'Pausa' : 'Ascolta';
             root.classList.toggle('is-playing', running);
         }
 
