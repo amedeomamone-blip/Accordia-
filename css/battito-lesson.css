@@ -563,28 +563,6 @@ body[data-lesson="battito"] .brand--wordmark {
     font-size:   clamp(.7rem, .9vw, .9rem);
 }
 
-/* Gioco dell'eco: entrambe le battute usano la stessa griglia 4×2.
-   La seconda riga mantiene la grafica di anteprima, ma non cambia
-   dimensione, larghezza o allineamento rispetto alla prima. */
-.brl--echo .brl__row--main,
-.brl--echo .brl__row--preview {
-    width:                  calc(4 * var(--tile));
-    grid-template-columns:  repeat(4, var(--tile));
-}
-
-.brl--echo .brl__row--main .brl__tile,
-.brl--echo .brl__row--preview .brl__tile {
-    width:   var(--tile);
-    height:  var(--tile);
-    padding: calc(var(--tile) * .09);
-}
-
-.brl--echo .brl__preview {
-    --preview-tile: var(--tile);
-    width:          calc(4 * var(--tile));
-    min-height:     var(--tile);
-}
-
 .brl__gesture-set {
     width:           100%;
     height:          100%;
@@ -1538,87 +1516,44 @@ body[data-lesson="battito"] .brand--wordmark {
     .brl__gesture-icon.is-struck { outline: 2px solid var(--rhythm-deep); outline-offset: 2px; }
 }
 
-/* Eight equally sized tiles; retain the original artwork and controls. */
-.brl--echo .brl__preview {
-    --preview-tile: var(--tile);
+/* A single grid owns all eight cells: wrappers cannot offset either row. */
+.brl--echo .brl__sequence {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: clamp(6px, .6vw, 10px);
     width: calc(4 * var(--tile));
-    margin-top: 0;
+    max-width: 100%;
 }
-.brl--echo .brl__row--main { margin-bottom: 0; }
-.brl--echo .brl__row--preview {
-    grid-template-columns: repeat(4, var(--tile));
-}
-.brl--echo .brl__row--preview .brl__tile {
-    width: var(--tile);
-    height: var(--tile);
-    padding: calc(var(--tile) * .09);
-}
-@media (max-width: 600px) {
-    .brl--echo .brl__sequence,
-    .brl--echo .brl__preview { width: 100%; }
-    .brl--echo .brl__row { width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .brl--echo .brl__tile { width: 100%; height: auto; aspect-ratio: 1; }
-    .bintro-stage, .bintro-scroll, .bintro-pin, .bintro-screens,
-    .bintro-screen { height: auto; min-height: 100svh; overflow: visible; }
-    .brl--echo { position: relative; top: auto; margin-top: 5rem; }
-}
-@media (max-width: 600px) {
-    .brl--echo .brl__row .brl__tile { width: 100%; height: auto; aspect-ratio: 1; }
-}
-
-/* The eight beats share one visible card system in both rows. */
-.brl--echo .brl__row {
-    gap: calc(var(--tile) * .025);
-    width: calc(4 * var(--tile) + 3 * var(--tile) * .025);
-}
-.brl--echo .brl__row--preview {
-    grid-template-columns: repeat(4, var(--tile));
-}
+.brl--echo .brl__row--main,
+.brl--echo .brl__row--preview,
+.brl--echo .brl__preview { display: contents; }
 .brl--echo .brl__row--main .brl__tile,
 .brl--echo .brl__row--preview .brl__tile {
     box-sizing: border-box;
+    width: 100%; height: auto; min-width: 0; aspect-ratio: 1;
+    padding: calc(var(--tile) * .09);
     background: #fbfcf8;
     border: 1px solid rgba(52, 69, 42, .18);
     border-radius: clamp(.45rem, 1vw, .85rem);
 }
-.brl--echo .brl__row--preview .brl__tile-label,
+.brl--echo .brl__tile.is-live { background: #e1ebd4; box-shadow: inset 0 0 0 3px #718a4d; }
 .brl--echo .brl__row--preview .brl__gesture-name {
-    font-size: inherit;
+    right: 1.5vw; bottom: 1.5vw; max-width: 68%; min-height: 2.5rem;
+    padding: .55rem 1rem; font-size: inherit;
 }
-.brl--echo .brl__row--preview .brl__gesture-name {
-    right: 1.5vw;
-    bottom: 1.5vw;
-    max-width: 68%;
-    min-height: 2.5rem;
-    padding: .55rem 1rem;
-}
+.brl--echo .brl__toolbar { grid-template-columns: auto auto; gap: 1rem; }
+.brl--echo .brl__toolbar > .brl__tempo { flex-wrap: wrap; }
+.brl__accompaniment-toggle { min-width: 9rem; white-space: nowrap; }
 @media (max-width: 600px) {
-    .brl--echo .brl__row--main,
-    .brl--echo .brl__row--preview {
-        width: 100%;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 2.5vw;
-    }
-    .brl--echo .brl__preview {
-        width: 100%;
-        min-height: 0;
-    }
-    .brl--echo .brl__row--main .brl__tile,
-    .brl--echo .brl__row--preview .brl__tile {
-        width: 100%;
-        height: auto;
-        aspect-ratio: 1;
-        padding: 3vw;
-    }
-    /* Mantieni identici i due blocchi anche quando la griglia passa a 2×2. */
-    .brl--echo .brl__row--preview {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+    .brl--echo .brl__sequence { width: 100%; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2.5vw; }
+    .brl--echo .brl__row .brl__tile { padding: 3vw; }
+    .bintro-stage, .bintro-scroll, .bintro-pin, .bintro-screens,
+    .bintro-screen { height: auto; min-height: 100svh; overflow: visible; }
+    .brl--echo { position: relative; top: auto; margin-top: 2rem; }
+    .brl--echo .brl__toolbar { position: relative; bottom: auto; width: 100%; grid-template-columns: 1fr; margin-bottom: 1rem; }
+    .brl--echo .brl__toolbar .brl__patterns { grid-column: 1; }
     .brl--echo .brl__row--preview .brl__gesture-name {
-        right: .4rem;
-        bottom: .4rem;
-        min-height: 1.85rem;
-        padding: .38rem .6rem;
+        right: .4rem; bottom: .4rem; min-height: 1.85rem; padding: .38rem .6rem;
         font-size: clamp(.68rem, 2.8vw, .84rem);
     }
 }
