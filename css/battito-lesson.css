@@ -1557,3 +1557,6 @@ body[data-lesson="battito"] .brand--wordmark {
         font-size: clamp(.68rem, 2.8vw, .84rem);
     }
 }
+
+.brl--echo .brl__mix { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; }
+.brl--echo .brl__mix button { width: auto; white-space: nowrap; padding: .6rem 1rem; }
