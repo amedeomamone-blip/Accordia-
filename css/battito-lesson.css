@@ -563,6 +563,28 @@ body[data-lesson="battito"] .brand--wordmark {
     font-size:   clamp(.7rem, .9vw, .9rem);
 }
 
+/* Gioco dell'eco: entrambe le battute usano la stessa griglia 4×2.
+   La seconda riga mantiene la grafica di anteprima, ma non cambia
+   dimensione, larghezza o allineamento rispetto alla prima. */
+.brl--echo .brl__row--main,
+.brl--echo .brl__row--preview {
+    width:                  calc(4 * var(--tile));
+    grid-template-columns:  repeat(4, var(--tile));
+}
+
+.brl--echo .brl__row--main .brl__tile,
+.brl--echo .brl__row--preview .brl__tile {
+    width:   var(--tile);
+    height:  var(--tile);
+    padding: calc(var(--tile) * .09);
+}
+
+.brl--echo .brl__preview {
+    --preview-tile: var(--tile);
+    width:          calc(4 * var(--tile));
+    min-height:     var(--tile);
+}
+
 .brl__gesture-set {
     width:           100%;
     height:          100%;
@@ -1571,18 +1593,26 @@ body[data-lesson="battito"] .brand--wordmark {
     padding: .55rem 1rem;
 }
 @media (max-width: 600px) {
-    .brl--echo .brl__row {
+    .brl--echo .brl__row--main,
+    .brl--echo .brl__row--preview {
         width: 100%;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 2.5vw;
     }
-    .brl--echo .brl__row--preview {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    .brl--echo .brl__preview {
+        width: 100%;
+        min-height: 0;
     }
     .brl--echo .brl__row--main .brl__tile,
     .brl--echo .brl__row--preview .brl__tile {
         width: 100%;
         height: auto;
         aspect-ratio: 1;
+        padding: 3vw;
+    }
+    /* Mantieni identici i due blocchi anche quando la griglia passa a 2×2. */
+    .brl--echo .brl__row--preview {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .brl--echo .brl__row--preview .brl__gesture-name {
         right: .4rem;
