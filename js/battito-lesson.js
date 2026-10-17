@@ -291,9 +291,12 @@
         var status = document.getElementById('brl-echo-status');
         var tempoButtons = Array.prototype.slice.call(root.querySelectorAll('.brl__tempo-option'));
         var metronomeButton = document.getElementById('brl-metronome-toggle');
+        var accompanimentButton = document.getElementById('brl-accompaniment-toggle');
         var beatLength = 714;
         var metronomeTimer = null;
         var metronomeBeat = 0;
+        var accompanimentTimer = null;
+        var accompanimentBeat = 0;
         var echoRunning = false;
         var tempoStrip = root.querySelector('.brl__tempo');
         var tempoOptions = root.querySelector('.brl__tempo-options');
@@ -353,6 +356,62 @@
             metronomePulse();
             metronomeTimer = window.setInterval(metronomePulse, beatLength);
             syncMetronomeButton(true);
+        }
+
+        function playAccompanimentBeat(index) {
+            var ac = getAudioContext();
+            if (!ac) return;
+            var when = ac.currentTime + .015;
+            var bass = [130.81, 130.81, 196, 174, 130.81, 130.81, 196, 174][index % 8];
+            var osc = ac.createOscillator();
+            var gain = ac.createGain();
+            osc.type = index % 4 === 0 ? 'triangle' : 'sine';
+            osc.frequency.setValueAtTime(bass, when);
+            gain.gain.setValueAtTime(index % 4 === 0 ? .11 : .07, when);
+            gain.gain.exponentialRampToValueAtTime(.001, when + Math.min(.42, beatLength / 1000 * .72));
+            osc.connect(gain);
+            gain.connect(ac.destination);
+            osc.start(when);
+            osc.stop(when + Math.min(.45, beatLength / 1000 * .8));
+
+            if (index % 2 === 0) {
+                var click = ac.createOscillator();
+                var clickGain = ac.createGain();
+                click.type = 'square';
+                click.frequency.setValueAtTime(index % 4 === 0 ? 660 : 520, when);
+                clickGain.gain.setValueAtTime(.025, when);
+                clickGain.gain.exponentialRampToValueAtTime(.001, when + .055);
+                click.connect(clickGain);
+                clickGain.connect(ac.destination);
+                click.start(when);
+                click.stop(when + .06);
+            }
+        }
+
+        function syncAccompanimentButton(running) {
+            if (!accompanimentButton) return;
+            accompanimentButton.classList.toggle('is-active', running);
+            accompanimentButton.setAttribute('aria-pressed', running ? 'true' : 'false');
+            accompanimentButton.textContent = running ? 'Ferma base' : 'Base';
+        }
+
+        function stopAccompaniment() {
+            if (accompanimentTimer !== null) window.clearInterval(accompanimentTimer);
+            accompanimentTimer = null;
+            accompanimentBeat = 0;
+            syncAccompanimentButton(false);
+        }
+
+        function startAccompaniment() {
+            stopAccompaniment();
+            getAudioContext();
+            playAccompanimentBeat(0);
+            accompanimentBeat = 1;
+            accompanimentTimer = window.setInterval(function () {
+                playAccompanimentBeat(accompanimentBeat);
+                accompanimentBeat = (accompanimentBeat + 1) % 8;
+            }, beatLength);
+            syncAccompanimentButton(true);
         }
 
         function renderTiles(target, soundsList, startIndex) {
@@ -531,6 +590,8 @@
                 var echoWasRunning = echoRunning;
                 stopPlayback();
                 var metronomeWasRunning = metronomeTimer !== null;
+                var accompanimentWasRunning = accompanimentTimer !== null;
+                stopAccompaniment();
                 beatLength = parseInt(button.getAttribute('data-beat-length'), 10) || 714;
                 if (tempoOptions) tempoOptions.style.setProperty('--tempo-index', tempoIndex);
 
@@ -543,6 +604,7 @@
                 status.textContent = button.textContent + ' · ' + Math.round(60000 / beatLength) + ' BPM';
                 renderPattern(0);
                 if (metronomeWasRunning) startMetronome();
+                if (accompanimentWasRunning) startAccompaniment();
                 if (echoWasRunning) playEchoSequence();
             });
         });
@@ -558,8 +620,18 @@
             });
         }
 
+        if (accompanimentButton) {
+            accompanimentButton.addEventListener('click', function () {
+                if (accompanimentTimer !== null) stopAccompaniment();
+                else startAccompaniment();
+            });
+        }
+
         document.addEventListener('visibilitychange', function () {
-            if (document.hidden) stopMetronome();
+            if (document.hidden) {
+                stopMetronome();
+                stopAccompaniment();
+            }
         });
 
         playButton.addEventListener('click', function () {
