@@ -297,13 +297,15 @@
         var metronomeBeat = 0;
         var accompanimentTimer = null;
         var accompanimentBeat = 0;
+        // Original 16-beat phrases: pitches, rests, instrumentation and rhythm differ.
         var accompanimentProfiles = [
-            { label: 'Legnetti', notes: [261.63, 261.63, 392, 261.63], type: 'triangle', gain: .085 },
-            { label: 'Tamburello', notes: [196, 196, 220, 196], type: 'sine', gain: .1 },
-            { label: 'Marimba', notes: [261.63, 329.63, 392, 329.63], type: 'triangle', gain: .09 },
-            { label: 'Girotondo', notes: [261.63, 349.23, 392, 349.23], type: 'sine', gain: .085 },
-            { label: 'Orchestra dolce', notes: [196, 261.63, 329.63, 261.63], type: 'triangle', gain: .1 }
+            { label: 'Passeggiata', voice: 'wood', melody: [72,0,76,0,79,0,76,0,74,0,77,0,72,0,0,0], bass: [48,48,53,48], rhythm: [0,2], subdivisions: false },
+            { label: 'Marcia allegra', voice: 'pluck', melody: [60,64,67,64,65,69,72,69,67,71,74,71,72,67,64,0], bass: [48,53,55,48], rhythm: [0,1,2,3], subdivisions: false },
+            { label: 'Danza di legno', voice: 'wood', melody: [72,76,79,81,79,76,74,0,77,81,84,81,79,76,72,0], bass: [48,57,53,55], rhythm: [0,2,3], subdivisions: true },
+            { label: 'Girotondo', voice: 'flute', melody: [67,69,71,72,74,72,71,0,69,71,72,69,67,64,60,0], bass: [48,55,53,48], rhythm: [0,2], subdivisions: false },
+            { label: 'Festa in cortile', voice: 'pluck', melody: [72,79,76,79,74,81,77,81,71,79,74,79,72,76,79,84], bass: [48,53,55,48], rhythm: [0,1,2,3], subdivisions: true }
         ];
+        var accompanimentSources = [];
         var echoRunning = false;
         var tempoStrip = root.querySelector('.brl__tempo');
         var tempoOptions = root.querySelector('.brl__tempo-options');
@@ -365,38 +367,40 @@
             syncMetronomeButton(true);
         }
 
+        function accompanimentNote(ac, midi, when, duration, voice, volume) {
+            if (!midi) return;
+            var partials = voice === 'wood' ? [1, 2.76, 5.4] : voice === 'pluck' ? [1, 2, 3, 4] : [1, 2];
+            partials.forEach(function (ratio, i) {
+                var osc = ac.createOscillator();
+                var gain = ac.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(440 * Math.pow(2, (midi - 69) / 12) * ratio, when);
+                var peak = volume / Math.pow(i + 1, 2);
+                gain.gain.setValueAtTime(.0001, when);
+                gain.gain.exponentialRampToValueAtTime(peak, when + (voice === 'flute' ? .045 : .006));
+                gain.gain.exponentialRampToValueAtTime(.0001, when + duration / (1 + i * .6));
+                osc.connect(gain); gain.connect(ac.destination);
+                accompanimentSources.push(osc);
+                osc.onended = function () {
+                    accompanimentSources = accompanimentSources.filter(function (item) { return item !== osc; });
+                    osc.disconnect(); gain.disconnect();
+                };
+                osc.start(when); osc.stop(when + duration);
+            });
+        }
+
         function playAccompanimentBeat(index) {
             var ac = getAudioContext();
             if (!ac) return;
             var when = ac.currentTime + .015;
-            var profile = accompanimentProfiles[patternIndex] || accompanimentProfiles[0];
-            var bass = profile.notes[index % 4];
-            var osc = ac.createOscillator();
-            var gain = ac.createGain();
-            var filter = ac.createBiquadFilter();
-            osc.type = profile.type;
-            osc.frequency.setValueAtTime(bass, when);
-            filter.type = 'lowpass';
-            filter.frequency.setValueAtTime(profile.label === 'Tamburello' ? 1200 : 1800, when);
-            gain.gain.setValueAtTime(profile.gain, when);
-            gain.gain.exponentialRampToValueAtTime(.001, when + Math.min(.55, beatLength / 1000 * .82));
-            osc.connect(filter);
-            filter.connect(gain);
-            gain.connect(ac.destination);
-            osc.start(when);
-            osc.stop(when + Math.min(.58, beatLength / 1000 * .9));
-
-            if (profile.label === 'Tamburello' || index % 2 === 0) {
-                var click = ac.createOscillator();
-                var clickGain = ac.createGain();
-                click.type = 'sine';
-                click.frequency.setValueAtTime(profile.label === 'Tamburello' ? 360 : 620, when);
-                clickGain.gain.setValueAtTime(profile.label === 'Tamburello' ? .035 : .018, when);
-                clickGain.gain.exponentialRampToValueAtTime(.001, when + .08);
-                click.connect(clickGain);
-                clickGain.connect(ac.destination);
-                click.start(when);
-                click.stop(when + .085);
+            var profile = accompanimentProfiles[patternIndex];
+            var beat = beatLength / 1000;
+            var step = index % 16;
+            accompanimentNote(ac, profile.melody[step], when, beat * .85, profile.voice, .07);
+            if (step % 4 === 0) accompanimentNote(ac, profile.bass[Math.floor(step / 4)], when, beat * 1.7, 'pluck', .065);
+            if (profile.rhythm.indexOf(step % 4) !== -1) accompanimentNote(ac, 43, when, .12, 'wood', .045);
+            if (profile.subdivisions && step % 2 === 1) {
+                accompanimentNote(ac, profile.melody[step] || 72, when + beat / 2, beat * .35, 'wood', .035);
             }
         }
 
@@ -413,6 +417,8 @@
             if (accompanimentTimer !== null) window.clearInterval(accompanimentTimer);
             accompanimentTimer = null;
             accompanimentBeat = 0;
+            accompanimentSources.slice().forEach(function (source) { try { source.stop(); } catch (error) {} });
+            accompanimentSources = [];
             syncAccompanimentButton(false);
         }
 
@@ -423,7 +429,7 @@
             accompanimentBeat = 1;
             accompanimentTimer = window.setInterval(function () {
                 playAccompanimentBeat(accompanimentBeat);
-                accompanimentBeat = (accompanimentBeat + 1) % 8;
+                accompanimentBeat = (accompanimentBeat + 1) % 16;
             }, beatLength);
             syncAccompanimentButton(true);
         }
@@ -591,6 +597,7 @@
                     item.classList.toggle('is-active', active);
                     item.setAttribute('aria-pressed', active ? 'true' : 'false');
                 });
+                if (accompanimentTimer !== null) startAccompaniment();
                 render();
             });
         });
