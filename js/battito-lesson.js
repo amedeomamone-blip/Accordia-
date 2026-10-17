@@ -452,16 +452,11 @@
             var sequence = patterns[patternIndex];
             var firstBlock = sequence.slice(0, 4);
             var secondBlock = sequence.slice(4, 8);
-            var mainBlock = activeBlock === 1 ? secondBlock : firstBlock;
-            var previewBlock = activeBlock === 1 ? firstBlock : secondBlock;
-            var mainLabel = activeBlock === 1 ? 'Seconda battuta in esecuzione' : 'Prima battuta in esecuzione';
-            var previewLabel = activeBlock === 1 ? 'Anteprima della prima battuta' : 'Anteprima della seconda battuta';
-
-            root.setAttribute('data-active-block', String(activeBlock + 1));
-            mainGrid.setAttribute('aria-label', mainLabel + ', movimenti da 1 a 4');
-            previewGrid.setAttribute('aria-label', previewLabel + ', movimenti da 1 a 4');
-            renderTiles(mainGrid, mainBlock, 0);
-            renderTiles(previewGrid, previewBlock, 0);
+            root.setAttribute('data-active-block', '1');
+            mainGrid.setAttribute('aria-label', 'Pulsazioni 1-4, prima battuta');
+            previewGrid.setAttribute('aria-label', 'Pulsazioni 5-8, seconda battuta');
+            renderTiles(mainGrid, firstBlock, 0);
+            renderTiles(previewGrid, secondBlock, 4);
             preview.classList.remove('is-blank');
             preview.setAttribute('aria-hidden', 'false');
             visibleBlock = activeBlock;
@@ -520,7 +515,6 @@
                 if (stopped) return;
 
                 var sequenceIndex = beatIndex % sequence.length;
-                var blockIndex = sequenceIndex < 4 ? 0 : 1;
                 var sounds = sequence[sequenceIndex];
                 var targetTile;
                 var now = performance.now();
@@ -531,8 +525,9 @@
                     nextBeatAt = now;
                     nextAudioAt = ac ? ac.currentTime : 0;
                 }
-                if (sequenceIndex % 4 === 0 && visibleBlock !== blockIndex) renderPattern(blockIndex, true);
-                targetTile = mainGrid.children[sequenceIndex % 4];
+                targetTile = sequenceIndex < 4
+                    ? mainGrid.children[sequenceIndex]
+                    : previewGrid.children[sequenceIndex - 4];
 
                 clearHighlights();
                 gestureTimers.forEach(window.clearTimeout);
