@@ -297,6 +297,13 @@
         var metronomeBeat = 0;
         var accompanimentTimer = null;
         var accompanimentBeat = 0;
+        var accompanimentProfiles = [
+            { label: 'Legnetti', notes: [261.63, 261.63, 392, 261.63], type: 'triangle', gain: .085 },
+            { label: 'Tamburello', notes: [196, 196, 220, 196], type: 'sine', gain: .1 },
+            { label: 'Marimba', notes: [261.63, 329.63, 392, 329.63], type: 'triangle', gain: .09 },
+            { label: 'Girotondo', notes: [261.63, 349.23, 392, 349.23], type: 'sine', gain: .085 },
+            { label: 'Orchestra dolce', notes: [196, 261.63, 329.63, 261.63], type: 'triangle', gain: .1 }
+        ];
         var echoRunning = false;
         var tempoStrip = root.querySelector('.brl__tempo');
         var tempoOptions = root.querySelector('.brl__tempo-options');
@@ -362,29 +369,34 @@
             var ac = getAudioContext();
             if (!ac) return;
             var when = ac.currentTime + .015;
-            var bass = [130.81, 130.81, 196, 174, 130.81, 130.81, 196, 174][index % 8];
+            var profile = accompanimentProfiles[patternIndex] || accompanimentProfiles[0];
+            var bass = profile.notes[index % 4];
             var osc = ac.createOscillator();
             var gain = ac.createGain();
-            osc.type = index % 4 === 0 ? 'triangle' : 'sine';
+            var filter = ac.createBiquadFilter();
+            osc.type = profile.type;
             osc.frequency.setValueAtTime(bass, when);
-            gain.gain.setValueAtTime(index % 4 === 0 ? .11 : .07, when);
-            gain.gain.exponentialRampToValueAtTime(.001, when + Math.min(.42, beatLength / 1000 * .72));
-            osc.connect(gain);
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(profile.label === 'Tamburello' ? 1200 : 1800, when);
+            gain.gain.setValueAtTime(profile.gain, when);
+            gain.gain.exponentialRampToValueAtTime(.001, when + Math.min(.55, beatLength / 1000 * .82));
+            osc.connect(filter);
+            filter.connect(gain);
             gain.connect(ac.destination);
             osc.start(when);
-            osc.stop(when + Math.min(.45, beatLength / 1000 * .8));
+            osc.stop(when + Math.min(.58, beatLength / 1000 * .9));
 
-            if (index % 2 === 0) {
+            if (profile.label === 'Tamburello' || index % 2 === 0) {
                 var click = ac.createOscillator();
                 var clickGain = ac.createGain();
-                click.type = 'square';
-                click.frequency.setValueAtTime(index % 4 === 0 ? 660 : 520, when);
-                clickGain.gain.setValueAtTime(.025, when);
-                clickGain.gain.exponentialRampToValueAtTime(.001, when + .055);
+                click.type = 'sine';
+                click.frequency.setValueAtTime(profile.label === 'Tamburello' ? 360 : 620, when);
+                clickGain.gain.setValueAtTime(profile.label === 'Tamburello' ? .035 : .018, when);
+                clickGain.gain.exponentialRampToValueAtTime(.001, when + .08);
                 click.connect(clickGain);
                 clickGain.connect(ac.destination);
                 click.start(when);
-                click.stop(when + .06);
+                click.stop(when + .085);
             }
         }
 
@@ -392,7 +404,9 @@
             if (!accompanimentButton) return;
             accompanimentButton.classList.toggle('is-active', running);
             accompanimentButton.setAttribute('aria-pressed', running ? 'true' : 'false');
-            accompanimentButton.textContent = running ? 'Ferma base' : 'Base';
+            var profile = accompanimentProfiles[patternIndex] || accompanimentProfiles[0];
+            accompanimentButton.textContent = running ? 'Ferma · ' + profile.label : 'Base · ' + profile.label;
+            accompanimentButton.setAttribute('aria-label', running ? 'Ferma accompagnamento ' + profile.label : 'Avvia accompagnamento ' + profile.label);
         }
 
         function stopAccompaniment() {
@@ -424,9 +438,9 @@
                 var gestureName = document.createElement('strong');
                 var progress = document.createElement('span');
                 tile.className = 'brl__tile';
-                tile.setAttribute('aria-label', 'Movimento ' + ((startIndex + index) % 4 + 1) + ': ' + spokenGestureList(sounds));
+                tile.setAttribute('aria-label', 'Movimento ' + (startIndex + index + 1) + ': ' + spokenGestureList(sounds));
                 beat.className = 'brl__beat';
-                beat.textContent = ('0' + ((startIndex + index) % 4 + 1)).slice(-2);
+                beat.textContent = ('0' + (startIndex + index + 1)).slice(-2);
                 label.className = 'brl__tile-label';
                 renderGestureSet(label, sounds);
                 tile.appendChild(beat);
@@ -469,6 +483,7 @@
             status.textContent = '';
             syncEchoButton(false);
             renderPattern(0);
+            syncAccompanimentButton(accompanimentTimer !== null);
             animateBlocks();
         }
 
