@@ -1543,3 +1543,52 @@ body[data-lesson="battito"] .brand--wordmark {
 @media (max-width: 600px) {
     .brl--echo .brl__row .brl__tile { width: 100%; height: auto; aspect-ratio: 1; }
 }
+
+/* The eight beats share one visible card system in both rows. */
+.brl--echo .brl__row {
+    gap: calc(var(--tile) * .025);
+    width: calc(4 * var(--tile) + 3 * var(--tile) * .025);
+}
+.brl--echo .brl__row--preview {
+    grid-template-columns: repeat(4, var(--tile));
+}
+.brl--echo .brl__row--main .brl__tile,
+.brl--echo .brl__row--preview .brl__tile {
+    box-sizing: border-box;
+    background: #fbfcf8;
+    border: 1px solid rgba(52, 69, 42, .18);
+    border-radius: clamp(.45rem, 1vw, .85rem);
+}
+.brl--echo .brl__row--preview .brl__tile-label,
+.brl--echo .brl__row--preview .brl__gesture-name {
+    font-size: inherit;
+}
+.brl--echo .brl__row--preview .brl__gesture-name {
+    right: 1.5vw;
+    bottom: 1.5vw;
+    max-width: 68%;
+    min-height: 2.5rem;
+    padding: .55rem 1rem;
+}
+@media (max-width: 600px) {
+    .brl--echo .brl__row {
+        width: 100%;
+        gap: 2.5vw;
+    }
+    .brl--echo .brl__row--preview {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .brl--echo .brl__row--main .brl__tile,
+    .brl--echo .brl__row--preview .brl__tile {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1;
+    }
+    .brl--echo .brl__row--preview .brl__gesture-name {
+        right: .4rem;
+        bottom: .4rem;
+        min-height: 1.85rem;
+        padding: .38rem .6rem;
+        font-size: clamp(.68rem, 2.8vw, .84rem);
+    }
+}
