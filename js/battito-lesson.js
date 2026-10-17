@@ -295,8 +295,9 @@
         var beatLength = 714;
         var metronomeTimer = null;
         var metronomeBeat = 0;
-        var accompanimentTimer = null;
-        var accompanimentBeat = 0;
+        var musicEnabled = true;
+        var bodyEnabled = true;
+        var bodyButton = document.getElementById('brl-body-toggle');
         // Original 16-beat phrases: pitches, rests, instrumentation and rhythm differ.
         var accompanimentProfiles = [
             { label: 'Passeggiata', voice: 'wood', melody: [72,0,76,0,79,0,76,0,74,0,77,0,72,0,0,0], bass: [48,48,53,48], rhythm: [0,2], subdivisions: false },
@@ -326,7 +327,7 @@
             echoRunning = running;
             playButton.classList.toggle('is-playing', running);
             playButton.setAttribute('aria-pressed', running ? 'true' : 'false');
-            playButton.textContent = running ? 'Pausa' : 'Ascolta';
+            playButton.textContent = running ? 'Pausa' : 'Play';
             root.classList.toggle('is-playing', running);
         }
 
@@ -389,10 +390,10 @@
             });
         }
 
-        function playAccompanimentBeat(index) {
+        function playAccompanimentBeat(index, when) {
             var ac = getAudioContext();
             if (!ac) return;
-            var when = ac.currentTime + .015;
+            if (when === undefined) when = ac.currentTime;
             var profile = accompanimentProfiles[patternIndex];
             var beat = beatLength / 1000;
             var step = index % 16;
@@ -404,34 +405,24 @@
             }
         }
 
-        function syncAccompanimentButton(running) {
-            if (!accompanimentButton) return;
-            accompanimentButton.classList.toggle('is-active', running);
-            accompanimentButton.setAttribute('aria-pressed', running ? 'true' : 'false');
-            var profile = accompanimentProfiles[patternIndex] || accompanimentProfiles[0];
-            accompanimentButton.textContent = running ? 'Ferma · ' + profile.label : 'Base · ' + profile.label;
-            accompanimentButton.setAttribute('aria-label', running ? 'Ferma accompagnamento ' + profile.label : 'Avvia accompagnamento ' + profile.label);
+        function syncAccompanimentButton() {
+            var profile = accompanimentProfiles[patternIndex];
+            if (accompanimentButton) {
+                accompanimentButton.classList.toggle('is-active', musicEnabled);
+                accompanimentButton.setAttribute('aria-pressed', String(musicEnabled));
+                accompanimentButton.textContent = 'Musica ' + (musicEnabled ? 'ON' : 'OFF') + ' · ' + profile.label;
+                accompanimentButton.setAttribute('aria-label', 'Musica: ' + profile.label + (musicEnabled ? ', attiva' : ', esclusa'));
+            }
+            if (bodyButton) {
+                bodyButton.classList.toggle('is-active', bodyEnabled);
+                bodyButton.setAttribute('aria-pressed', String(bodyEnabled));
+                bodyButton.textContent = 'Body percussion ' + (bodyEnabled ? 'ON' : 'OFF');
+            }
         }
 
         function stopAccompaniment() {
-            if (accompanimentTimer !== null) window.clearInterval(accompanimentTimer);
-            accompanimentTimer = null;
-            accompanimentBeat = 0;
             accompanimentSources.slice().forEach(function (source) { try { source.stop(); } catch (error) {} });
             accompanimentSources = [];
-            syncAccompanimentButton(false);
-        }
-
-        function startAccompaniment() {
-            stopAccompaniment();
-            getAudioContext();
-            playAccompanimentBeat(0);
-            accompanimentBeat = 1;
-            accompanimentTimer = window.setInterval(function () {
-                playAccompanimentBeat(accompanimentBeat);
-                accompanimentBeat = (accompanimentBeat + 1) % 16;
-            }, beatLength);
-            syncAccompanimentButton(true);
         }
 
         function renderTiles(target, soundsList, startIndex) {
@@ -489,7 +480,7 @@
             status.textContent = '';
             syncEchoButton(false);
             renderPattern(0);
-            syncAccompanimentButton(accompanimentTimer !== null);
+            syncAccompanimentButton();
             animateBlocks();
         }
 
@@ -524,6 +515,7 @@
                 if (timer !== null) window.clearTimeout(timer);
                 gestureTimers.forEach(window.clearTimeout);
                 stopBodySounds();
+                stopAccompaniment();
                 root.classList.remove('is-changing');
                 clearHighlights();
                 syncEchoButton(false);
@@ -561,9 +553,10 @@
                 // Capture after rendering: past Web Audio timestamps play immediately.
                 // Both eighths share this actual epoch, including after a block swap.
                 var audioWhen = ac ? Math.max(nextAudioAt, ac.currentTime) : nextAudioAt;
+                if (musicEnabled) playAccompanimentBeat(beatIndex, audioWhen);
                 sounds.forEach(function (sound, soundIndex) {
                     var delay = subdivisionDelay(soundIndex, sounds.length, beatLength);
-                    playBodySound(sound, delay, audioWhen);
+                    if (bodyEnabled) playBodySound(sound, delay, audioWhen);
                     function strike() {
                         if (stopped) return;
                         Array.prototype.forEach.call(icons, function (icon, index) {
@@ -591,14 +584,15 @@
 
         patternButtons.forEach(function (button) {
             button.addEventListener('click', function () {
+                var wasRunning = echoRunning;
                 patternIndex = parseInt(button.getAttribute('data-pattern'), 10) || 0;
                 patternButtons.forEach(function (item) {
                     var active = item === button;
                     item.classList.toggle('is-active', active);
                     item.setAttribute('aria-pressed', active ? 'true' : 'false');
                 });
-                if (accompanimentTimer !== null) startAccompaniment();
                 render();
+                if (wasRunning) playEchoSequence();
             });
         });
 
@@ -607,7 +601,6 @@
                 var echoWasRunning = echoRunning;
                 stopPlayback();
                 var metronomeWasRunning = metronomeTimer !== null;
-                var accompanimentWasRunning = accompanimentTimer !== null;
                 stopAccompaniment();
                 beatLength = parseInt(button.getAttribute('data-beat-length'), 10) || 714;
                 if (tempoOptions) tempoOptions.style.setProperty('--tempo-index', tempoIndex);
@@ -621,7 +614,6 @@
                 status.textContent = button.textContent + ' · ' + Math.round(60000 / beatLength) + ' BPM';
                 renderPattern(0);
                 if (metronomeWasRunning) startMetronome();
-                if (accompanimentWasRunning) startAccompaniment();
                 if (echoWasRunning) playEchoSequence();
             });
         });
@@ -639,10 +631,17 @@
 
         if (accompanimentButton) {
             accompanimentButton.addEventListener('click', function () {
-                if (accompanimentTimer !== null) stopAccompaniment();
-                else startAccompaniment();
+                musicEnabled = !musicEnabled;
+                if (!musicEnabled) stopAccompaniment();
+                syncAccompanimentButton();
             });
         }
+
+        if (bodyButton) bodyButton.addEventListener('click', function () {
+            bodyEnabled = !bodyEnabled;
+            if (!bodyEnabled) stopBodySounds();
+            syncAccompanimentButton();
+        });
 
         document.addEventListener('visibilitychange', function () {
             if (document.hidden) {
