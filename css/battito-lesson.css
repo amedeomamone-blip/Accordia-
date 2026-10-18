@@ -1560,3 +1560,54 @@ body[data-lesson="battito"] .brand--wordmark {
 
 .brl--echo .brl__mix { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; }
 .brl--echo .brl__mix button { width: auto; white-space: nowrap; padding: .6rem 1rem; }
+
+/* Center the complete lesson in the space below the measured site header.
+   Auto margins collapse when content is taller, keeping its top reachable. */
+body[data-lesson="battito"] .bintro-scroll,
+body[data-lesson="battito"] .bintro-pin,
+body[data-lesson="battito"] .bintro-screens {
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+}
+body[data-lesson="battito"] .bintro-stage { min-height: 0; }
+body[data-lesson="battito"] .bintro-screen {
+    display: flex;
+    flex-direction: column;
+    flex: none;
+    height: auto;
+    min-height: calc(100svh - var(--bintro-header-h, 4rem));
+    min-height: calc(100dvh - var(--bintro-header-h, 4rem));
+    padding-block: 1.5rem;
+    overflow: visible;
+}
+.echo-layout { width: 100%; min-width: 0; margin-block: auto; }
+.echo-layout .barocco-header {
+    position: relative;
+    inset: auto;
+    display: block;
+    margin-bottom: 1rem;
+}
+.echo-layout .barocco-intro__eyebrow {
+    padding: 0 1rem .3rem;
+    justify-content: center;
+    text-align: center;
+}
+.echo-layout .barocco-intro__title-wrap { padding: 0 1rem; }
+.bintro-screen[data-screen="1"] .echo-layout .barocco-intro__title { transform: none; }
+.echo-layout .brl--echo {
+    position: relative;
+    inset: auto;
+    margin: 0;
+    padding-bottom: 0;
+}
+.echo-layout .brl--echo .brl__toolbar {
+    position: relative;
+    inset: auto;
+    margin: 0 auto var(--echo-stack-gap);
+    overflow: visible;
+}
+.echo-layout .brl--echo .brl__primary { justify-self: center; }
+@media (max-width: 600px) {
+    .echo-layout .brl--echo .brl__toolbar { width: calc(100% - 2rem); }
+}
