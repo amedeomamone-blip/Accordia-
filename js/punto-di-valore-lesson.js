@@ -43,36 +43,40 @@
         if (event.key === 'ArrowUp' || event.key === 'PageUp') { event.preventDefault(); goToSlide(currentSlide - 1); }
     });
 
-    // Durate in movimenti, con semiminima = 1. Le frazioni usate sono binarie esatte.
+    // Valori riferiti alla semibreve = 1; il tempo di battuta resta espresso in quarti.
     var figures = {
-        whole: { glyph: '𝅝', label: 'Semibreve', value: 4 },
-        half: { glyph: '𝅗𝅥', label: 'Minima', value: 2 },
-        quarter: { glyph: '𝅘𝅥', label: 'Semiminima', value: 1 },
-        eighth: { glyph: '𝅘𝅥𝅮', label: 'Croma', value: .5 },
-        quarterRest: { glyph: '𝄽', label: 'Pausa di semiminima', value: 1 }
+        whole: { glyph: '𝅝', label: 'Semibreve', value: 1 },
+        half: { glyph: '𝅗𝅥', label: 'Minima', value: .5 },
+        quarter: { glyph: '𝅘𝅥', label: 'Semiminima', value: .25 },
+        eighth: { glyph: '𝅘𝅥𝅮', label: 'Croma', value: .125 },
+        quarterRest: { glyph: '𝄽', label: 'Pausa di semiminima', value: .25 }
     };
     function note(kind, dotted) {
         return '<svg class="pv-note" viewBox="0 0 1000 1200" aria-hidden="true"><text x="150" y="' + (kind === 'quarterRest' ? '650' : '950') + '">' + figures[kind].glyph + '</text>' + (dotted ? '<circle cx="' + (kind === 'whole' ? '805' : '650') + '" cy="' + (kind === 'quarterRest' ? '650' : '950') + '" r="58" class="pv-note__dot"/>' : '') + '</svg>';
     }
-    function format(value) { return ({ '.25': '¼', '.5': '½', '.75': '¾', '1.5': '1½' })[String(value).replace(/^0/, '')] || String(value); }
-    function movements(value) { return format(value) + (value < 1 ? ' di movimento' : value === 1 ? ' movimento' : ' movimenti'); }
+    function format(value) {
+        var numerator = Math.round(value * 16);
+        var denominator = 16;
+        while (numerator % 2 === 0 && denominator > 1) { numerator /= 2; denominator /= 2; }
+        return numerator + '/' + denominator;
+    }
     var questions = [
-        { type: 'value', figure: 'half', options: [2, 3, 4, 1] },
-        { type: 'value', figure: 'quarter', options: [2, .5, 1, 1.5] },
-        { type: 'value', figure: 'whole', options: [6, 4, 8, 2] },
-        { type: 'value', figure: 'eighth', options: [.5, 1, .75, 1.5] },
-        { type: 'addition', figure: 'half', options: [2, 1, .5, 3] },
-        { type: 'addition', figure: 'quarter', options: [1, 1.5, 2, .5] },
-        { type: 'measure', figure: 'quarter', meter: 2, options: [.5, 1, 1.5, 2] },
-        { type: 'measure', figure: 'quarter', meter: 3, options: [1, 2, 1.5, .5] },
-        { type: 'measure', figure: 'half', meter: 4, options: [2, 1, 3, .5] },
+        { type: 'value', figure: 'half', options: [0.5, 0.75, 1.0, 0.25] },
+        { type: 'value', figure: 'quarter', options: [0.5, 0.125, 0.25, 0.375] },
+        { type: 'value', figure: 'whole', options: [1.5, 1.0, 2.0, 0.5] },
+        { type: 'value', figure: 'eighth', options: [0.125, 0.25, 0.1875, 0.375] },
+        { type: 'addition', figure: 'half', options: [0.5, 0.25, 0.125, 0.75] },
+        { type: 'addition', figure: 'quarter', options: [0.25, 0.375, 0.5, 0.125] },
+        { type: 'measure', figure: 'quarter', meter: 2, options: [0.125, 0.25, 0.375, 0.5] },
+        { type: 'measure', figure: 'quarter', meter: 3, options: [0.25, 0.5, 0.375, 0.125] },
+        { type: 'measure', figure: 'half', meter: 4, options: [0.5, 0.25, 0.75, 0.125] },
         { type: 'equivalent', figure: 'half', second: 'quarter', options: ['whole', 'half', 'quarter', 'eighth'] },
         { type: 'equivalent', figure: 'quarter', second: 'eighth', options: ['quarter', 'whole', 'eighth', 'half'] },
-        { type: 'value', figure: 'quarterRest', options: [1, .5, 2, 1.5] }
+        { type: 'value', figure: 'quarterRest', options: [0.25, 0.125, 0.5, 0.375] }
     ];
     questions.forEach(function (q) {
         var base = figures[q.figure].value;
-        q.correct = q.type === 'addition' ? base / 2 : q.type === 'measure' ? q.meter - base * 1.5 : q.type === 'equivalent' ? q.figure : base * 1.5;
+        q.correct = q.type === 'addition' ? base / 2 : q.type === 'measure' ? q.meter / 4 - base * 1.5 : q.type === 'equivalent' ? q.figure : base * 1.5;
         if (q.options.filter(function (value) { return value === q.correct; }).length !== 1) throw new Error('Risposta non univoca.');
         if (q.type === 'equivalent' && figures[q.second].value !== base / 2) throw new Error('Equivalenza non valida.');
     });
@@ -87,7 +91,7 @@
     function explanation(q) {
         var base = figures[q.figure].value;
         var result = format(base) + ' + ' + format(base / 2) + ' = ' + format(base * 1.5) + '.';
-        if (q.type === 'measure') return 'Esatto: ' + format(base * 1.5) + ' + ' + format(q.correct) + ' = ' + q.meter + ' movimenti.';
+        if (q.type === 'measure') return 'Esatto: ' + format(base * 1.5) + ' + ' + format(q.correct) + ' = ' + q.meter + '/4.';
         if (q.type === 'addition') return 'Esatto: la metà di ' + format(base) + ' è ' + format(base / 2) + '.';
         return 'Esatto: ' + result;
     }
@@ -98,7 +102,7 @@
     function renderQuestion() {
         var q = questions[index];
         var label = figures[q.figure].label;
-        prompt.textContent = q.type === 'addition' ? 'Quanto aggiunge il punto alla ' + label.toLowerCase() + '?' : q.type === 'measure' ? 'Quanti movimenti mancano per completare la battuta?' : q.type === 'equivalent' ? 'Quale figura puntata ha la stessa durata totale?' : 'Quanto dura la ' + label.toLowerCase() + ' puntata?';
+        prompt.textContent = q.type === 'addition' ? 'Quanto aggiunge il punto alla ' + label.toLowerCase() + '?' : q.type === 'measure' ? 'Quale valore manca per completare la battuta?' : q.type === 'equivalent' ? 'Quale figura puntata ha la stessa durata totale?' : 'Qual è il valore della ' + label.toLowerCase() + ' puntata?';
         visual.innerHTML = note(q.figure, q.type !== 'equivalent');
         var visualLabel = label + ' puntata';
         if (q.type === 'measure') {
@@ -116,9 +120,9 @@
             var button = document.createElement('button');
             button.type = 'button';
             if (q.type === 'equivalent') {
-                button.innerHTML = note(value, true) + '<small>' + figures[value].label + ' puntata</small>';
-                button.setAttribute('aria-label', figures[value].label + ' puntata');
-            } else button.textContent = movements(value);
+                button.innerHTML = note(value, true) + '<small>' + figures[value].label + ' puntata · ' + format(figures[value].value * 1.5) + '</small>';
+                button.setAttribute('aria-label', figures[value].label + ' puntata, valore ' + format(figures[value].value * 1.5));
+            } else button.textContent = format(value);
             if (solved.has(index)) { button.disabled = true; button.classList.toggle('is-right', value === q.correct); }
             button.addEventListener('click', function () {
                 if (solved.has(index)) return;
@@ -136,7 +140,7 @@
             options.appendChild(button);
         });
         document.getElementById('pv-number').textContent = String(index + 1).padStart(2, '0');
-        feedback.textContent = solved.has(index) ? explanation(q) : 'Scegli una risposta. Semiminima = 1 movimento.';
+        feedback.textContent = solved.has(index) ? explanation(q) : 'Scegli il valore in frazione. Semiminima = 1/4.';
         previous.disabled = index === 0;
         next.textContent = index === questions.length - 1 ? 'Ricomincia ↻' : 'Prossimo →';
         updateScore();
