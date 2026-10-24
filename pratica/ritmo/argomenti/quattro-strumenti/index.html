@@ -108,7 +108,7 @@ function setup(){
  $('overview').innerHTML=song.map((bar,b)=>{
   let mini='';bar.forEach((part,i)=>{
    const y=15+i*23;mini+=$S('text',{x:0,y:y+4,'font-size':16,fill:colors[i]},['T1','T2','L','Tr'][i]);
-   for(const e of events(part)){const x=30+e.start*20,w=e.d*20;mini+=e.rest?$S('line',{x1:x+4,x2:x+w-4,y1:y,y2:y,stroke:'#8c9982','stroke-width':1.6}):$S('circle',{cx:x+4,cy:y,r:4.5,fill:colors[i]})+$S('line',{x1:x+4,x2:x+w-4,y1:y,y2:y,stroke:colors[i],'stroke-width':3})}
+   for(const e of events(part)){const x=30+e.start*20,w=e.d*20;mini+=e.rest?$S('line',{x1:x+4,x2:x+w-4,y1:y,y2:y,stroke:'#8c9982','stroke-width':1.6}):$S('circle',{cx:x+4,cy:y,r:4.5,fill:colors[i]})+$S('line',{x1:x+4,x2:x+w-4,y1:y,y2:y,stroke:colors[i],'stroke-width':1.5})}
   });return `<button data-bar="${b}" aria-label="Vai alla battuta ${b+1}, ${sections[Math.floor(b/4)]}"><span class="bar-title"><b>${b+1}</b><span>${b%4===0?sections[Math.floor(b/4)]:''}</span></span><svg viewBox="0 0 194 96" aria-hidden="true">${mini}</svg></button>`
  }).join('');ranges();reset();
 }
