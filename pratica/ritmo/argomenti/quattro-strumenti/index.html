@@ -21,21 +21,43 @@ dialog{border:1px solid var(--score-line);border-radius:12px;background:var(--sc
 @media(max-width:1000px){.identity{gap:12px}.identity h1{max-width:260px}.back-link{font-size:12px}.deck-header{gap:12px}.full-button{max-width:100px}.next-pair>span{display:none}.bar-title>span{display:none}.tempo-control{margin-right:4px}.tempo-control input{width:90px}}
 @media(max-width:700px){.lesson-deck{padding:0 12px;min-height:620px}.deck-header{align-items:flex-start;gap:8px;flex-direction:column}.identity{width:100%;justify-content:space-between}.identity h1{font-size:18px;max-width:none}.deck-nav{width:100%;justify-content:space-between}.topic-rail button{font-size:13px}.full-button{max-width:none}.slide-heading{min-height:48px}.slide-heading h2{font-size:20px}.slide-heading .meter{font-size:14px}.transport{flex-wrap:wrap;gap:8px}.transport-left,.transport-right{flex:1;justify-content:space-between}.transport-left .primary{min-width:120px}.transport-right input{width:90px}.page-navigation{gap:6px}.page-navigation button{padding:8px;min-width:44px}.position b{font-size:16px}.position span{font-size:12px}.voice-key{gap:8px 16px;font-size:12px}.mix{grid-template-columns:repeat(2,minmax(0,1fr))}#overview{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(8,minmax(75px,1fr));overflow:auto}#overview button{padding:4px}.bar-title>b{font-size:13px}.mode-buttons button{font-size:14px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}button:active{transform:none}}
+
+/* Vertical lesson navigation, shared interaction model with Figure musicali. */
+body{overflow:hidden}
+.lesson-deck{position:relative;min-height:0}
+.lesson-viewport{position:relative;height:100%;min-height:0;overflow-x:hidden;overflow-y:auto;scroll-snap-type:y mandatory;overscroll-behavior-y:contain;scrollbar-width:none;padding-right:40px}
+.lesson-viewport::-webkit-scrollbar{display:none}
+.lesson-slide{position:relative;height:100%;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden}
+.lesson-progress.topic-rail{position:absolute;top:50%;right:8px;z-index:2;display:flex;flex-direction:column;gap:2px;transform:translateY(-50%);padding:0;border:0;background:transparent;box-shadow:none;backdrop-filter:none}
+.lesson-progress.topic-rail button{display:grid;place-items:center;width:44px;height:44px;min-height:44px;padding:0;border:0;background:transparent;color:var(--score-accent)}
+.lesson-progress button span{display:block;width:6px;height:6px;border-radius:50%;background:var(--score-accent);opacity:.25;transition:transform .25s ease,opacity .25s ease}
+.lesson-progress button[aria-pressed=true] span{opacity:1;transform:scale(1.55)}
+.lesson-progress button:hover span{opacity:.75}
+.lesson-viewport:focus-visible{outline-offset:-3px}
+@media(min-width:1600px){.lesson-progress.topic-rail{right:24px}}
+@media(max-width:700px){.lesson-deck{min-height:0}.deck-header{flex-direction:row;align-items:center}.identity{width:auto;flex:1;flex-wrap:wrap;justify-content:flex-start;gap:4px 12px}.identity h1{font-size:17px}.deck-nav{width:auto}.full-button{font-size:12px}.lesson-viewport{padding-right:28px}.lesson-progress.topic-rail{right:0}.lesson-progress.topic-rail button{width:36px}.lesson-progress button span{width:5px;height:5px}}
+@media(prefers-reduced-motion:reduce){.lesson-progress button span{transition:none}}
 </style></head><body>
 <main class="lesson-deck">
  <header class="deck-header">
   <div class="identity"><a class="back-link" href="../../index.html">← Accordia / Ritmo</a><h1>Quattro strumenti, un’orchestra</h1></div>
-  <div class="deck-nav"><nav class="topic-rail" aria-label="Slide della lezione"><button data-slide="score" aria-pressed="true" aria-controls="scoreSlide">1 · Partitura</button><button data-slide="overview" aria-pressed="false" aria-controls="overviewSlide">2 · Panoramica</button></nav><button class="full-button" id="full">Schermo intero</button></div>
+  <div class="deck-nav"><button class="full-button" id="full">Schermo intero</button></div>
  </header>
+ <nav class="topic-rail lesson-progress" aria-label="Slide della lezione">
+  <button data-slide="score" aria-pressed="true" aria-current="step" aria-controls="scoreSlide" aria-label="Slide 1: partitura" title="Partitura"><span aria-hidden="true"></span></button>
+  <button data-slide="overview" aria-pressed="false" aria-controls="overviewSlide" aria-label="Slide 2: panoramica" title="Panoramica"><span aria-hidden="true"></span></button>
+ </nav>
+ <div id="lessonViewport" class="lesson-viewport" tabindex="0" aria-label="Lezione a scorrimento verticale">
  <section id="scoreSlide" class="lesson-slide" aria-label="Slide 1: partitura">
   <div class="slide-heading"><h2 id="section">Introduzione</h2><span class="meter">4/4 · ♩ = <span id="tempoText">80</span></span></div>
   <div class="scorewrap"><svg id="score" viewBox="0 0 1200 540" role="img" aria-label="Partitura ritmica a quattro parti"></svg></div>
   <div class="page-navigation"><button id="prev" aria-label="Due battute precedenti">← Precedenti</button><div class="position"><b id="pair">Battute 1–2 / 32</b><span id="status" role="status" aria-live="off">Pronti</span></div><div class="next-pair"><span id="next">A seguire 3–4</span><button id="forward" aria-label="Due battute successive">Successive →</button></div></div>
  </section>
- <section id="overviewSlide" class="lesson-slide" aria-label="Slide 2: panoramica generale" hidden>
+ <section id="overviewSlide" class="lesson-slide" aria-label="Slide 2: panoramica generale">
   <div class="slide-heading"><h2>Il brano completo</h2><span class="meter">32 battute · 4 strumenti</span></div>
   <div id="voiceKey" class="voice-key"></div><div id="overview" aria-label="Panoramica delle 32 battute"></div>
  </section>
+ </div>
  <footer class="deck-footer"><div class="transport">
   <div class="transport-left"><button class="primary" id="play">▶ Ascolta</button><button id="pause">Pausa</button><button id="stop">Arresta</button></div>
   <div class="transport-right"><label class="tempo-control">Tempo <input id="tempo" aria-label="Tempo in BPM" type="range" min="60" max="120" value="80"><output id="tempoOutput" for="tempo">80 BPM</output></label><span class="audio-meter" aria-hidden="true"><i id="level"></i></span><button id="options" aria-haspopup="dialog">Audio e opzioni</button></div>
@@ -79,12 +101,31 @@ function setup(){
   });return `<button data-bar="${b}" aria-label="Vai alla battuta ${b+1}, ${sections[Math.floor(b/4)]}"><span class="bar-title"><b>${b+1}</b><span>${b%4===0?sections[Math.floor(b/4)]:''}</span></span><svg viewBox="0 0 194 96" aria-hidden="true">${mini}</svg></button>`
  }).join('');ranges();reset();
 }
-function showSlide(id){
- for(const name of ['score','overview'])$(name+'Slide').hidden=name!==id;
- document.querySelectorAll('[data-slide]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.slide===id));
- if(id==='score')render();
+let activeSlide='score';
+const lessonViewport=$('lessonViewport');
+const slideNames=['score','overview'];
+function markSlide(id){
+ activeSlide=id;
+ document.querySelectorAll('[data-slide]').forEach(button=>{
+  const selected=button.dataset.slide===id;
+  button.setAttribute('aria-pressed',String(selected));
+  if(selected)button.setAttribute('aria-current','step');else button.removeAttribute('aria-current');
+ });
 }
-
+function showSlide(id){
+ if(!slideNames.includes(id))return;
+ const behavior=window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth';
+ lessonViewport.scrollTo({top:$(id+'Slide').offsetTop,behavior});
+}
+// Wheel, trackpad and touch stay native; observing scroll only updates the dots.
+lessonViewport.addEventListener('scroll',()=>{
+ const index=Math.min(slideNames.length-1,Math.max(0,Math.round(lessonViewport.scrollTop/Math.max(1,lessonViewport.clientHeight))));
+ markSlide(slideNames[index]);
+},{passive:true});
+if('ResizeObserver' in window){
+ const viewportObserver=new ResizeObserver(()=>lessonViewport.scrollTo({top:$(activeSlide+'Slide').offsetTop,behavior:'auto'}));
+ viewportObserver.observe(lessonViewport);
+}
 function ranges(){for(const id of ['from','to'])$(id).innerHTML=data.map((_,i)=>`<option value="${i}">${i+1}</option>`).join('');$('to').value=data.length-1}
 // A fixed two-bar system keeps every voice and beat in the same place.
 // Reserved bands: headings 0–58, note rows 78–516; annotations below notes.
@@ -245,12 +286,13 @@ $('options').onclick=()=>$('settings').showModal();
 $('closeSettings').onclick=()=>$('settings').close();
 document.addEventListener('keydown',e=>{
  if($('settings').open||/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;
- if(e.key==='ArrowLeft'&&!$('scoreSlide').hidden){e.preventDefault();movePage(-1)}
- if(e.key==='ArrowRight'&&!$('scoreSlide').hidden){e.preventDefault();movePage(1)}
- if(e.key===' '&&e.target===document.body){e.preventDefault();running?pause():play()}
+ if(['ArrowDown','PageDown','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();showSlide(e.key==='ArrowDown'||e.key==='PageDown'?'overview':'score')}
+ if(e.key==='ArrowLeft'&&activeSlide==='score'){e.preventDefault();movePage(-1)}
+ if(e.key==='ArrowRight'&&activeSlide==='score'){e.preventDefault();movePage(1)}
+ if(e.key===' '&&(e.target===document.body||e.target===lessonViewport)){e.preventDefault();running?pause():play()}
 });
 setup();
 document.fonts.load('58px Bravura').then(fonts=>{if(!fonts.length)setAudioMessage('Il carattere musicale non è disponibile: ricarica la pagina.');else render()}).catch(()=>setAudioMessage('Impossibile caricare le figure musicali. Ricarica la pagina.'));
-window.orchestra={song,events,rangePosition,pageSize,get state(){return{running,starting,saved,position,bpm,mode,audioState:ctx?.state,scheduled:nextStep,activeSources:sources.size}}};
+window.orchestra={song,events,rangePosition,pageSize,get state(){return{running,starting,saved,position,bpm,mode,activeSlide,audioState:ctx?.state,scheduled:nextStep,activeSources:sources.size}}};
 
 </script></body></html>
