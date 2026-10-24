@@ -37,6 +37,17 @@ body{overflow:hidden}
 @media(min-width:1600px){.lesson-progress.topic-rail{right:24px}}
 @media(max-width:700px){.lesson-deck{min-height:0}.deck-header{flex-direction:row;align-items:center}.identity{width:auto;flex:1;flex-wrap:wrap;justify-content:flex-start;gap:4px 12px}.identity h1{font-size:17px}.deck-nav{width:auto}.full-button{font-size:12px}.lesson-viewport{padding-right:28px}.lesson-progress.topic-rail{right:0}.lesson-progress.topic-rail button{width:36px}.lesson-progress button span{width:5px;height:5px}}
 @media(prefers-reduced-motion:reduce){.lesson-progress button span{transition:none}}
+
+/* The overview uses the full lateral space, including on wide LIM displays. */
+.lesson-deck{max-width:none}
+.deck-header,.deck-footer{width:100%;max-width:1752px;margin-inline:auto}
+#scoreSlide{width:100%;max-width:1712px;margin-inline:auto}
+#overviewSlide #overview{gap:6px}
+#overviewSlide #overview button{padding:6px}
+#overviewSlide .bar-title>b{font-size:18px}
+#overviewSlide .bar-title>span{font-size:12px}
+@media(min-width:1600px){.deck-header,.deck-footer{max-width:1720px}#scoreSlide{max-width:1680px}}
+@media(max-width:700px){#overviewSlide #overview button{padding:4px}#overviewSlide .bar-title>b{font-size:15px}}
 </style></head><body>
 <main class="lesson-deck">
  <header class="deck-header">
@@ -96,8 +107,8 @@ function setup(){
  $('voiceKey').innerHTML=names.map((n,i)=>`<span style="--voice:${colors[i]}"><i></i>${['T1','T2','L','Tr'][i]} · ${n}</span>`).join('');
  $('overview').innerHTML=song.map((bar,b)=>{
   let mini='';bar.forEach((part,i)=>{
-   const y=15+i*23;mini+=$S('text',{x:0,y:y+4,'font-size':12,fill:colors[i]},['T1','T2','L','Tr'][i]);
-   for(const e of events(part)){const x=30+e.start*20,w=e.d*20;mini+=e.rest?$S('line',{x1:x+4,x2:x+w-4,y1:y,y2:y,stroke:'#b7c1b0','stroke-width':1}):$S('circle',{cx:x+4,cy:y,r:3,fill:colors[i]})+$S('line',{x1:x+4,x2:x+w-4,y1:y,y2:y,stroke:colors[i],'stroke-width':2})}
+   const y=15+i*23;mini+=$S('text',{x:0,y:y+4,'font-size':16,fill:colors[i]},['T1','T2','L','Tr'][i]);
+   for(const e of events(part)){const x=30+e.start*20,w=e.d*20;mini+=e.rest?$S('line',{x1:x+4,x2:x+w-4,y1:y,y2:y,stroke:'#8c9982','stroke-width':1.6}):$S('circle',{cx:x+4,cy:y,r:4.5,fill:colors[i]})+$S('line',{x1:x+4,x2:x+w-4,y1:y,y2:y,stroke:colors[i],'stroke-width':3})}
   });return `<button data-bar="${b}" aria-label="Vai alla battuta ${b+1}, ${sections[Math.floor(b/4)]}"><span class="bar-title"><b>${b+1}</b><span>${b%4===0?sections[Math.floor(b/4)]:''}</span></span><svg viewBox="0 0 194 96" aria-hidden="true">${mini}</svg></button>`
  }).join('');ranges();reset();
 }
