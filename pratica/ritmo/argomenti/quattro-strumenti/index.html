@@ -178,7 +178,10 @@ for(const id of ['from','to'])$(id).onchange=()=>{if(Number($('from').value)>Num
 $('width').onchange=render;$('durations').onchange=render;$('loop').onchange=reset;
 function movePage(delta){pause();page=Math.max(0,Math.min(data.length-1,Math.floor(page/pageSize())*pageSize()+delta*pageSize()));$('from').value=page;if(Number($('to').value)<page)$('to').value=data.length-1;reset()}
 $('prev').onclick=()=>movePage(-1);$('forward').onclick=()=>movePage(1);
-$('full').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch{setAudioMessage('Schermo intero non disponibile in questo browser.')}};
+$('full').onclick=async()=>{
+ const entering=!document.body.classList.contains('immersive');document.body.classList.toggle('immersive',entering);$('full').textContent=entering?'Esci da schermo intero':'Schermo intero';render();
+ try{if(entering&&!document.fullscreenElement)await document.documentElement.requestFullscreen();else if(!entering&&document.fullscreenElement)await document.exitFullscreen()}catch{setAudioMessage(entering?'Modalità LIM attiva nella finestra del browser.':'Modalità normale.')}
+};
 document.addEventListener('fullscreenchange',()=>{document.body.classList.toggle('immersive',!!document.fullscreenElement);$('full').textContent=document.fullscreenElement?'Esci da schermo intero':'Schermo intero';render()});
 document.addEventListener('click',e=>{
  const t=e.target.closest('button');if(!t)return;
