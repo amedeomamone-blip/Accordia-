@@ -78,6 +78,13 @@ body{overflow:hidden}
 @media(max-width:1000px){.phase-badge{font-size:15px;min-width:120px;padding:6px 10px}.transport-right input[type=range]{width:88px}.transport-left #play{min-width:112px}.transport-left #echo{min-width:124px}.phrase-choices button{font-size:13px;padding:8px}}
 @media(max-width:700px){.slide-heading{flex-wrap:wrap;gap:8px}.slide-heading h2{font-size:18px}.phase-badge{font-size:13px;min-width:100px}.slide-heading .meter{font-size:12px}.transport-left{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}.transport-left #play,.transport-left #echo{min-width:0}.transport-left button{font-size:12px;padding:8px 5px}.transport-right{width:100%}.phrase-choices{grid-template-columns:repeat(5,minmax(0,1fr))}.phrase-choices button{font-size:12px;text-align:center}.phrase-choices .phrase-name{display:none}.mix{grid-template-columns:1fr}.overview-meta{display:none}}
 @media(max-width:700px){.deck-header{flex-wrap:wrap}.identity{flex-basis:100%}.deck-nav{width:100%;justify-content:space-between}.transport-left,.transport-right{flex:0 0 100%}.transport-right .audio-meter{display:none}.tempo-control{gap:6px;margin:0}.tempo-control input[type=range]{width:70px}.tempo-control output{min-width:58px;font-size:12px}.transport-right #options{font-size:13px;padding-inline:10px}}
+
+/* The current pulse glows while the next entries approach a fixed reading line. */
+.score-beat text{fill:#64705b}
+.score-beat .beat-wash{fill:#eaf0e3;opacity:0}
+.score-beat.is-current .beat-wash{opacity:.72}
+.score-beat.is-current text{fill:#263e19;font-weight:800}
+#scoreStrip{will-change:transform}
 </style></head><body>
 <main class="lesson-deck">
  <header class="deck-header"><div class="identity"><a class="back-link" href="../../index.html">← Accordia / Ritmo</a><h1>Gioco dell’eco</h1></div><div class="deck-nav"><span class="phase-badge" id="phaseBadge" data-phase="ready">Pronti</span><button class="full-button" id="full">Schermo intero</button></div></header>
@@ -85,7 +92,7 @@ body{overflow:hidden}
  <div id="lessonViewport" class="lesson-viewport" tabindex="0" aria-label="Lezione a scorrimento verticale">
   <section id="scoreSlide" class="lesson-slide" aria-label="Slide 1: partitura">
    <div class="slide-heading"><h2 id="section">Sequenza 1 · Passeggiata</h2><span class="meter">4/4 · ♩ = <span id="tempoText">84</span></span></div>
-   <div class="scorewrap"><svg id="score" viewBox="0 0 1200 540" role="img" aria-label="Due battute per Mani, Petto e Cosce"></svg></div>
+   <div class="scorewrap"><svg id="score" viewBox="0 0 1200 540" role="img" aria-label="Partitura scorrevole per Mani, Petto e Cosce"></svg></div>
    <div class="page-navigation"><button id="prev" aria-label="Sequenza precedente">← Precedente</button><div class="position"><b id="pair">Battute 1–2 / 10</b><span id="status" role="status" aria-live="off">Quattro pulsazioni di preparazione</span></div><div class="next-pair"><span id="next">A seguire 3–4</span><button id="forward" aria-label="Sequenza successiva">Successiva →</button></div></div>
   </section>
   <section id="overviewSlide" class="lesson-slide" aria-label="Slide 2: partitura d’insieme">
@@ -97,7 +104,7 @@ body{overflow:hidden}
  <footer class="deck-footer"><div class="transport"><div class="transport-left"><button class="primary" id="play">▶ Ascolta</button><button id="echo" aria-pressed="false">Gioco dell’eco</button><button id="pause">Pausa</button><button id="stop">Arresta</button></div><div class="transport-right"><label class="tempo-control">Tempo <input id="tempo" aria-label="Tempo in BPM" type="range" min="60" max="120" value="84"><output id="tempoOutput" for="tempo">84 BPM</output></label><span class="audio-meter" aria-hidden="true"><i id="level"></i></span><button id="options" aria-haspopup="dialog">Audio e opzioni</button></div></div><div id="audioNotice" class="audio-status"><span id="audioState" role="status" aria-live="polite"></span></div></footer>
 </main>
 <dialog id="settings" aria-labelledby="settingsTitle"><div class="dialog-header"><h2 id="settingsTitle">Audio e opzioni</h2><button id="closeSettings" autofocus>Chiudi</button></div>
- <div class="settings-row"><label>Modalità <select id="mode"><option value="listen">Ascolto continuo</option><option value="echo">Ascolta e ripeti</option><option value="guide">Suona con la guida</option></select></label><label>Percorso <select id="scope"><option value="selected">Sequenza scelta</option><option value="all">Tutte e cinque</option></select></label><label><input id="loop" type="checkbox" checked>Ripeti</label></div>
+ <div class="settings-row"><label>Modalità <select id="mode"><option value="listen">Ascolto continuo</option><option value="echo">Ascolta e ripeti</option><option value="guide">Suona con la guida</option></select></label><label>Percorso <select id="scope"><option value="all">Tutte e cinque</option><option value="selected">Sequenza scelta</option></select></label><label><input id="loop" type="checkbox">Ripeti</label></div>
  <div class="settings-row"><label><input id="music" type="checkbox" checked>Accompagnamento</label><label><input id="bodySound" type="checkbox" checked>Body percussion</label><label><input id="metro" type="checkbox">Metronomo</label></div>
  <div class="settings-row"><label><input id="durations" type="checkbox">Valori sotto le figure</label><button id="metroOnly">Solo metronomo</button><button id="testAudio">Prova audio</button></div>
  <div class="mix" id="mixer"></div><p class="settings-note" id="sampleState">Campioni di Mani, Petto e Cosce; accompagnamenti sintetici.</p>
@@ -146,46 +153,85 @@ const scoreData=patterns.map(compile);
 function events(part){let t=0;return part.map(v=>{const event={start:t,d:Math.abs(v),rest:v<0};t+=event.d;return event})}
 for(const phrase of scoreData)for(const bar of phrase)for(const part of bar)if(part.reduce((n,v)=>n+Math.abs(v),0)!==8)throw Error('Battuta incompleta');
 const glyphs={1:'\uE1D7',2:'\uE1D5',4:'\uE1D3'},rests={1:'\uE4E6',2:'\uE4E5',4:'\uE4E4'},values={1:'1/8',2:'1/4',4:'1/2'},figureNames={1:'croma',2:'semiminima',4:'minima'};
-let selected=0,mode='listen',scope='selected',activeSlide='score',bpm=84,position=0,response=false;
+let selected=0,mode='listen',scope='all',activeSlide='score',bpm=84,position=0,response=false;
 let running=false,starting=false,saved=-8,origin=0,nextStep=-8,timer=null,frame=0,startToken=0,lastStatus='';
 const enabled=[true,true,true],volumes=[.8,.85,.85];let solo=-1;
 
 /* === Full-size score and symbolic ensemble, driven by the same event data === */
-function renderScore(){
- const left=160,bw=508;let html='';
- $('section').textContent=`Sequenza ${selected+1} · ${profiles[selected].label}`;
- $('pair').textContent=`Battute ${selected*2+1}–${selected*2+2} / 10`;
- $('next').textContent=selected<4?`A seguire ${selected*2+3}–${selected*2+4}`:'Ultima sequenza';
- $('prev').disabled=selected===0;$('forward').disabled=selected===4;
- $('score').setAttribute('aria-label',`Sequenza ${selected+1}: battute ${selected*2+1} e ${selected*2+2}, Mani, Petto e Cosce`);
- for(let b=0;b<2;b++){
-  const x=left+b*bw;
-  html+=S('text',{class:'measure-heading',x:x+22,y:25,'font-size':20,'font-weight':700,fill:'#34452a'},`Battuta ${selected*2+b+1}`);
-  for(let beat=0;beat<4;beat++)html+=S('text',{x:x+14+beat*bw/4,y:55,'font-size':19,fill:'#64705b'},beat+1);
- }
- for(let i=0;i<3;i++){
-  const y=150+i*150;
-  html+=S('text',{class:'voice-label',x:12,y:y-2,'font-size':28,'font-weight':700,fill:colors[i]},names[i]);
-  for(let b=0;b<2;b++){
-   const x=left+b*bw;html+=S('line',{x1:x,x2:x,y1:y-76,y2:y+62,stroke:'#b5c0ac'});
-   html+=S('line',{x1:x,x2:x+bw,y1:y,y2:y,stroke:'#cbd3c4'});
-   for(const e of events(scoreData[selected][b][i])){
-    const ex=x+e.start*bw/8,cx=ex+14,w=e.d*bw/8;
-    let inner=S('title',{},`${names[i]}: ${e.rest?'pausa di ':''}${figureNames[e.d]}, ${values[e.d]}`);
-    inner+=S('rect',{class:'event-bg',x:ex+6,y:y-76,width:w-12,height:140,rx:4,fill:'#e5eddc'});
-    inner+=S('text',{class:'music note-ink',x:cx,y},e.rest?rests[e.d]:glyphs[e.d]);
-    inner+=S('rect',{class:'attack-marker',x:cx-2,y:y+15,width:26,height:4,rx:2,fill:colors[i]});
-    if($('durations').checked)inner+=S('text',{class:'note-value',x:cx,y:y+56,'font-size':20,fill:'#54634b'},values[e.d]);
-    html+=S('g',{class:'note-event','data-start':b*8+e.start,'data-end':b*8+e.start+e.d,'data-rest':e.rest,style:`--voice:${colors[i]}`},inner);
+// A rolling SVG window. Absolute musical time drives geometry and highlighting;
+// recycling an off-screen measure never changes the position of a visible note.
+function createScoreStrip(config){
+ const {left,span,rows,describe,svg}=config,bw=span/2,unitWidth=bw/8,anchor=left+100;
+ const tag=(name,attrs,body='')=>`<${name} ${Object.entries(attrs).map(([k,v])=>`${k}="${v}"`).join(' ')}>${body}</${name}>`;
+ let base=null,revision=0,cache='',nodes=[],beats=[],lastTime=0;
+ function invalidate(){revision++;cache=''}
+ function paint(time,lit){
+  time=Math.max(0,time);lastTime=time;
+  const first=Math.floor(time/8)-1,key=`${first}:${revision}`;
+  if(cache!==key){
+   base=first;cache=key;let moving='';
+   for(let b=first;b<first+5;b++){
+    const bar=describe(b);if(!bar)continue;const x=(b-first)*bw;
+    moving+=tag('text',{class:'measure-heading',x:x+14,y:25,'font-size':20,'font-weight':700,fill:'#34452a'},bar.label);
+    for(let beat=0;beat<4;beat++){
+     const start=b*8+beat*2,bx=x+beat*bw/4;
+     moving+=tag('g',{class:'score-beat','data-start':start},tag('rect',{class:'beat-wash',x:bx+4,y:34,width:bw/4-8,height:494,rx:5})+tag('text',{x:bx+14,y:55,'font-size':19},beat+1));
+    }
+    rows.forEach((row,i)=>{
+     const y=row.y;
+     moving+=tag('line',{x1:x,x2:x,y1:y-row.above,y2:y+row.below,stroke:'#b5c0ac'});
+     moving+=tag('line',{x1:x,x2:x+bw,y1:y,y2:y,stroke:'#cbd3c4'});
+     for(const e of events(bar.parts[i])){
+      const ex=x+e.start*unitWidth,cx=ex+14,w=e.d*unitWidth;
+      let inner=tag('title',{},`${names[i]}: ${e.rest?'pausa di ':''}${figureNames[e.d]}`);
+      inner+=tag('rect',{class:'event-bg',x:ex+5,y:y-row.above,width:w-10,height:row.above+row.below,rx:4,fill:'#e5eddc'});
+      inner+=tag('text',{class:'music note-ink',x:cx,y},e.rest?config.rests[e.d]:glyphs[e.d]);
+      inner+=tag('rect',{class:'attack-marker',x:cx-2,y:y+15,width:24,height:4,rx:2,fill:colors[i]});
+      if($('durations').checked)inner+=tag('text',{class:'note-value',x:cx,y:y+row.valueY,'font-size':row.valueSize,fill:'#54634b'},values[e.d]);
+      if(config.resonance&&i===3&&!e.rest){
+       inner+=tag('line',{class:'resonance',x1:cx+34,x2:ex+w-12,y1:y+14,y2:y+14,stroke:colors[i],'stroke-width':2});
+       inner+=tag('text',{x:ex+w-12,y:y+44,'text-anchor':'end','font-size':15,fill:colors[i]},'smorza');
+      }
+      moving+=tag('g',{class:'note-event','data-start':b*8+e.start,'data-end':b*8+e.start+e.d,'data-rest':e.rest,style:`--voice:${colors[i]}`},inner);
+     }
+     moving+=tag('line',{x1:x+bw,x2:x+bw,y1:y-row.above,y2:y+row.below,stroke:'#b5c0ac'});
+    });
    }
+   let fixed=rows.map((row,i)=>tag('text',{class:'voice-label',x:12,y:row.y-2,'font-size':config.labelSize,'font-weight':700,fill:colors[i]},names[i])).join('');
+   fixed+=tag('line',{id:'cursor',x1:anchor,x2:anchor,y1:65,y2:528,stroke:'#34452a','stroke-width':2,opacity:.6});
+   fixed+=tag('path',{d:`M ${anchor-5} 63 L ${anchor+5} 63 L ${anchor} 69 Z`,fill:'#34452a'});
+   $(svg).innerHTML=tag('defs',{},tag('clipPath',{id:'scoreClip'},tag('rect',{x:left,y:0,width:span,height:540})))+tag('g',{'clip-path':'url(#scoreClip)'},tag('g',{id:'scoreStrip'},moving))+fixed;
+   nodes=[...document.querySelectorAll('#score .note-event')];beats=[...document.querySelectorAll('#score .score-beat')];
   }
+  const translation=anchor-14-(time-base*8)*unitWidth;
+  $('scoreStrip').setAttribute('transform',`translate(${translation} 0)`);
+  $('cursor').setAttribute('visibility',lit?'visible':'hidden');
+  const pulse=Math.floor(time/2)*2;
+  for(const beat of beats)beat.classList.toggle('is-current',lit&&Number(beat.dataset.start)===pulse);
+  for(const g of nodes){const start=Number(g.dataset.start),active=lit&&time>=start&&time<Number(g.dataset.end);g.classList.toggle('is-active',active);g.classList.toggle('is-attack',active&&g.dataset.rest==='false'&&time<start+.32)}
  }
- html+=S('line',{x1:1176,x2:1176,y1:74,y2:512,stroke:'#b5c0ac'});
- html+=S('line',{id:'cursor',x1:174,x2:174,y1:65,y2:512,stroke:'#34452a','stroke-width':2,opacity:.5,visibility:'hidden'});
- $('score').innerHTML=html;
- document.querySelectorAll('[data-pattern]').forEach(b=>b.setAttribute('aria-pressed',Number(b.dataset.pattern)===selected?'true':'false'));
- highlight();
+ return {paint,invalidate,get state(){return {time:lastTime,base,unitWidth,anchor,lookahead:(left+span-anchor)/unitWidth}}};
 }
+
+let scoreTime=0;
+function echoBar(index){
+ if(index<0)return null;
+ const cycleBars=cycleLength()/8,totalBars=totalLength()/8;
+ if(!$('loop').checked&&index>=totalBars)return null;
+ const p=scope==='all'?Math.floor(index/cycleBars)%5:selected;
+ const responseBar=mode==='echo'&&index%cycleBars>=2;
+ return {parts:scoreData[p][index%2],label:`${responseBar?'Ripeti':'Battuta'} ${p*2+index%2+1}${mode==='echo'&&!responseBar?' · ascolta':''}`};
+}
+const scoreStrip=createScoreStrip({left:160,span:1016,rows:names.map((_,i)=>({y:150+i*150,above:76,below:62,valueY:56,valueSize:20})),describe:echoBar,svg:'score',rests,labelSize:28});
+function scoreLabels(){
+ $('section').textContent=`Sequenza ${selected+1} · ${profiles[selected].label}`;
+ $('pair').textContent=`Battuta ${selected*2+Math.floor(position/8)+1} / 10`;
+ $('next').textContent='Lettura continua';
+ $('prev').disabled=selected===0;$('forward').disabled=selected===4;
+ $('score').setAttribute('aria-label',`Partitura scorrevole: ${response?'ripeti':'battuta'} ${selected*2+Math.floor(position/8)+1}, Mani, Petto e Cosce`);
+ document.querySelectorAll('[data-pattern]').forEach(b=>b.setAttribute('aria-pressed',Number(b.dataset.pattern)===selected?'true':'false'));
+}
+function renderScore(){scoreStrip.invalidate();scoreLabels();highlight()}
 function renderEnsemble(){
  const left=160,pw=1016/5;let html='';
  for(let i=0;i<3;i++)html+=S('text',{x:12,y:148+i*150,'font-size':28,'font-weight':700,fill:colors[i]},names[i]);
@@ -210,14 +256,14 @@ function renderEnsemble(){
  $('ensemble').innerHTML=html;
 }
 function highlight(){
- const visible=running&&elapsed()>=0&&mode!=='metro';
- const x=174+position*1016/16;$('cursor').setAttribute('x1',x);$('cursor').setAttribute('x2',x);$('cursor').setAttribute('visibility',visible?'visible':'hidden');
+ const t=elapsed(),visible=(running||saved>=0)&&t>=0&&mode!=='metro';
+ if(running&&mode!=='metro')scoreTime=Math.max(0,t);
+ scoreStrip.paint(scoreTime,visible);scoreLabels();
  const pw=1016/5,ex=160+selected*pw+10+position*(pw-16)/16;
  $('ensembleCursor').setAttribute('x1',ex);$('ensembleCursor').setAttribute('x2',ex);$('ensembleCursor').setAttribute('visibility',visible?'visible':'hidden');
  document.querySelectorAll('.ensemble-column').forEach(g=>g.classList.toggle('is-current',Number(g.dataset.column)===selected));
- document.querySelectorAll('.note-event,.symbol-event').forEach(g=>{
-  const current=g.dataset.patternIndex===undefined||Number(g.dataset.patternIndex)===selected;
-  const on=Number(g.dataset.start),end=Number(g.dataset.end),active=visible&&current&&position>=on&&position<end;
+ document.querySelectorAll('.symbol-event').forEach(g=>{
+  const current=Number(g.dataset.patternIndex)===selected,on=Number(g.dataset.start),end=Number(g.dataset.end),active=visible&&current&&position>=on&&position<end;
   g.classList.toggle('is-active',active);g.classList.toggle('is-attack',active&&g.dataset.rest==='false'&&position<on+.32);
  });
 }
@@ -274,7 +320,7 @@ function accompaniment(p,index,time){
 function cycleLength(){return mode==='echo'?32:16}
 function totalLength(){return cycleLength()*(scope==='all'?5:1)}
 function locate(t){const cycle=cycleLength(),cycleIndex=Math.floor(t/cycle);return {phrase:scope==='all'?cycleIndex%5:selected,unit:t%16,response:mode==='echo'&&t%cycle>=16,beat:scope==='all'?Math.floor(t%cycle/2):Math.floor(t/2)}}
-function elapsed(){return running?(ctx.currentTime-origin)/(30/bpm):saved}
+function elapsed(){return running?Math.max(saved,(ctx.currentTime-origin)/(30/bpm)):saved}
 function halt(){clearInterval(timer);timer=null;cancelAnimationFrame(frame);frame=0;for(const source of sources){try{source.stop()}catch{}}sources.clear();$('level').style.transform='scaleX(0)'}
 function setPhase(phase,text){$('phaseBadge').dataset.phase=phase;$('phaseBadge').textContent=text}
 function fail(error){running=false;starting=false;halt();$('play').disabled=false;$('play').textContent='Riprova';setPhase('ready','Audio da attivare');message(`Audio non disponibile. ${error.message||'Riprova con un clic.'}`)}
@@ -303,20 +349,20 @@ const meterData=new Uint8Array(256);
 function animate(){
  if(!running)return;const time=elapsed();
  if(mode!=='metro'&&!$('loop').checked&&time>=totalLength()){
-  running=false;halt();saved=-8;position=0;response=false;if(scope==='all')selected=0;renderScore();$('play').disabled=false;$('play').textContent='▶ Riascolta';$('status').textContent='Percorso completato';setPhase('ready','Ben fatto');return;
+  scoreTime=totalLength();position=15.999;response=false;running=false;halt();saved=-8;renderScore();$('play').disabled=false;$('play').textContent='▶ Riascolta';$('status').textContent='Percorso completato';setPhase('ready','Ben fatto');return;
  }
  if(time<0){const n=Math.max(1,Math.min(4,Math.floor((time+8)/2)+1));setPhase('count',`${n} · preparazione`);$('status').textContent='Quattro pulsazioni, poi insieme'}
  else if(mode==='metro'){setPhase('count',`Pulsazione ${Math.floor(time%8/2)+1}`);$('status').textContent='Solo metronomo'}
  else{
-  const loc=locate(time);position=loc.unit;response=loc.response;if(selected!==loc.phrase){selected=loc.phrase;renderScore()}
+  const loc=locate(time);position=loc.unit;response=loc.response;if(selected!==loc.phrase)selected=loc.phrase
   setPhase(response?'response':'listen',response?'Tocca a voi':mode==='guide'?'Suonate voi':'Ascolta');
   const status=`${response?'Ripeti · ':''}battuta ${selected*2+Math.floor(position/8)+1} · pulsazione ${Math.floor(position%8/2)+1}`;
   if(status!==lastStatus){$('status').textContent=status;lastStatus=status}
  }
  highlight();analyser.getByteTimeDomainData(meterData);let rms=0;for(const n of meterData)rms+=((n-128)/128)**2;$('level').style.transform=`scaleX(${Math.min(1,Math.sqrt(rms/256)*9)})`;frame=requestAnimationFrame(animate);
 }
-function pause(){++startToken;starting=false;if(running)saved=elapsed();running=false;halt();$('play').disabled=false;$('play').textContent='Riprendi';$('status').textContent='In pausa';setPhase('ready','In pausa');highlight()}
-function reset(){++startToken;starting=false;running=false;halt();saved=-8;position=0;response=false;lastStatus='';if(scope==='all')selected=0;$('play').disabled=false;$('play').textContent=mode==='echo'?'▶ Avvia eco':mode==='guide'?'▶ Suona':'▶ Ascolta';$('status').textContent='Quattro pulsazioni di preparazione';setPhase('ready','Pronti');renderScore()}
+function pause(){++startToken;starting=false;if(running){saved=elapsed();scoreTime=Math.max(0,saved)}running=false;halt();$('play').disabled=false;$('play').textContent='Riprendi';$('status').textContent='In pausa';setPhase('ready','In pausa');highlight()}
+function reset(){++startToken;starting=false;running=false;halt();saved=-8;scoreTime=0;position=0;response=false;lastStatus='';if(scope==='all')selected=0;$('play').disabled=false;$('play').textContent=mode==='echo'?'▶ Avvia eco':mode==='guide'?'▶ Suona':'▶ Ascolta';$('status').textContent='Quattro pulsazioni di preparazione';setPhase('ready','Pronti');renderScore()}
 function setMode(next){mode=next;$('mode').value=next==='metro'?'listen':next;$('echo').setAttribute('aria-pressed',String(mode==='echo'))}
 async function startMode(next){setMode(next);if($('settings').open)$('settings').close();reset();await play()}
 function selectPattern(index){const resume=running;scope='selected';$('scope').value=scope;selected=Math.max(0,Math.min(4,index));reset();if(resume)play()}
@@ -359,6 +405,6 @@ document.addEventListener('keydown',e=>{
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&(running||starting))pause()});
 renderEnsemble();reset();
 document.fonts.load('80px Bravura').then(fonts=>{if(!fonts.length)message('Carattere musicale non disponibile: ricarica la pagina.');else renderScore()}).catch(()=>message('Impossibile caricare le figure musicali.'));
-window.echoLesson={patterns,scoreData,profiles,compile,events,locate,get state(){return {selected,mode,scope,activeSlide,running,starting,saved,position,response,bpm,audioState:ctx?.state,activeSources:sources.size}}};
+window.echoLesson={scoreStrip,echoBar,patterns,scoreData,profiles,compile,events,locate,get state(){return {selected,mode,scope,activeSlide,running,starting,saved,position,response,bpm,audioState:ctx?.state,activeSources:sources.size}}};
 
 </script></body></html>
