@@ -62,6 +62,41 @@ body{overflow:hidden}
 .score-beat.is-current text{fill:#263e19;font-weight:800}
 .reading-band{pointer-events:none}
 .gesture-icon{opacity:1}
+/* Controls follow the Ritmo lesson-selection tiles:
+   barocco-bento.css geometry/type and ritmo-bento.css sage accent. */
+:root{--lesson-button-surface:#e8e8e8;--lesson-button-accent:#B9C7A6;--lesson-button-ink:#111111}
+.lesson-deck button:not(.slide-dot),dialog button,
+.lesson-deck select,dialog select{
+ font-family:var(--font-display,"SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif);
+ font-weight:700;letter-spacing:-.03em;line-height:1.2;
+ border:1px solid transparent;border-radius:0;box-shadow:none;
+ background:var(--lesson-button-surface);color:var(--lesson-button-ink);
+ transition:background-color .2s ease,color .2s ease;
+}
+.lesson-deck button:not(.slide-dot),dialog button{font-size:14px;min-height:44px}
+.lesson-deck button:not(.slide-dot):not(:disabled):hover,dialog button:not(:disabled):hover,
+.lesson-deck select:hover,dialog select:hover{
+ background:var(--lesson-button-accent);color:var(--lesson-button-ink);
+}
+.lesson-deck button.primary:not(.slide-dot),dialog button.primary,
+.lesson-deck button[aria-pressed=true]:not(.slide-dot),dialog button[aria-pressed=true],
+.lesson-deck button[aria-current=true]:not(.slide-dot){
+ background:var(--lesson-button-accent);color:var(--lesson-button-ink);border-color:transparent;
+}
+.lesson-deck button:not(.slide-dot):active,dialog button:active{transform:none}
+.lesson-deck button:not(.slide-dot):disabled,dialog button:disabled{opacity:.48;cursor:default}
+.lesson-deck button:not(.slide-dot):focus-visible,dialog button:focus-visible,
+.lesson-deck select:focus-visible,dialog select:focus-visible{
+ outline:2px solid #34452a;outline-offset:3px;
+}
+@media(max-width:700px){
+ .lesson-deck button:not(.slide-dot),dialog button{font-size:12px}
+ .lesson-deck select,dialog select{font-size:13px}
+}
+@media(prefers-reduced-motion:reduce){
+ .lesson-deck button:not(.slide-dot),dialog button,.lesson-deck select,dialog select{transition:none}
+}
+
 </style></head><body>
 <main class="lesson-deck">
  <header class="deck-header">
@@ -69,8 +104,8 @@ body{overflow:hidden}
   <div class="deck-nav"><button class="full-button" id="full">Schermo intero</button></div>
  </header>
  <nav class="topic-rail lesson-progress" aria-label="Slide della lezione">
-  <button data-slide="score" aria-pressed="true" aria-current="step" aria-controls="scoreSlide" aria-label="Slide 1: partitura" title="Partitura"><span aria-hidden="true"></span></button>
-  <button data-slide="overview" aria-pressed="false" aria-controls="overviewSlide" aria-label="Slide 2: panoramica" title="Panoramica"><span aria-hidden="true"></span></button>
+  <button class="slide-dot" data-slide="score" aria-pressed="true" aria-current="step" aria-controls="scoreSlide" aria-label="Slide 1: partitura" title="Partitura"><span aria-hidden="true"></span></button>
+  <button class="slide-dot" data-slide="overview" aria-pressed="false" aria-controls="overviewSlide" aria-label="Slide 2: panoramica" title="Panoramica"><span aria-hidden="true"></span></button>
  </nav>
  <div id="lessonViewport" class="lesson-viewport" tabindex="0" aria-label="Lezione a scorrimento verticale">
  <section id="scoreSlide" class="lesson-slide" aria-label="Slide 1: partitura">

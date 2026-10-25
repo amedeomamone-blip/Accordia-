@@ -122,10 +122,45 @@ body{overflow:hidden}
  #worksheet::backdrop{display:none!important}.worksheet-controls{display:none!important}
  #worksheetPage{width:186mm!important;height:263.06mm!important;display:block!important;break-inside:avoid;print-color-adjust:exact}
 }
+/* Controls follow the Ritmo lesson-selection tiles:
+   barocco-bento.css geometry/type and ritmo-bento.css sage accent. */
+:root{--lesson-button-surface:#e8e8e8;--lesson-button-accent:#B9C7A6;--lesson-button-ink:#111111}
+.lesson-deck button:not(.slide-dot),dialog button,
+.lesson-deck select,dialog select{
+ font-family:var(--font-display,"SF Pro Display",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif);
+ font-weight:700;letter-spacing:-.03em;line-height:1.2;
+ border:1px solid transparent;border-radius:0;box-shadow:none;
+ background:var(--lesson-button-surface);color:var(--lesson-button-ink);
+ transition:background-color .2s ease,color .2s ease;
+}
+.lesson-deck button:not(.slide-dot),dialog button{font-size:14px;min-height:44px}
+.lesson-deck button:not(.slide-dot):not(:disabled):hover,dialog button:not(:disabled):hover,
+.lesson-deck select:hover,dialog select:hover{
+ background:var(--lesson-button-accent);color:var(--lesson-button-ink);
+}
+.lesson-deck button.primary:not(.slide-dot),dialog button.primary,
+.lesson-deck button[aria-pressed=true]:not(.slide-dot),dialog button[aria-pressed=true],
+.lesson-deck button[aria-current=true]:not(.slide-dot){
+ background:var(--lesson-button-accent);color:var(--lesson-button-ink);border-color:transparent;
+}
+.lesson-deck button:not(.slide-dot):active,dialog button:active{transform:none}
+.lesson-deck button:not(.slide-dot):disabled,dialog button:disabled{opacity:.48;cursor:default}
+.lesson-deck button:not(.slide-dot):focus-visible,dialog button:focus-visible,
+.lesson-deck select:focus-visible,dialog select:focus-visible{
+ outline:2px solid #34452a;outline-offset:3px;
+}
+@media(max-width:700px){
+ .lesson-deck button:not(.slide-dot),dialog button{font-size:12px}
+ .lesson-deck select,dialog select{font-size:13px}
+}
+@media(prefers-reduced-motion:reduce){
+ .lesson-deck button:not(.slide-dot),dialog button,.lesson-deck select,dialog select{transition:none}
+}
+
 </style></head><body>
 <main class="lesson-deck">
  <header class="deck-header"><div class="identity"><a class="back-link" href="../../index.html">← Accordia / Ritmo</a><h1>Gioco dell’eco</h1></div><div class="deck-nav"><span class="phase-badge" id="phaseBadge" data-phase="ready">Pronti</span><button class="full-button" id="full">Schermo intero</button></div></header>
- <nav class="topic-rail lesson-progress" aria-label="Slide della lezione"><button data-slide="score" aria-pressed="true" aria-current="step" aria-controls="scoreSlide" aria-label="Slide 1: segui i gesti" title="Segui i gesti"><span aria-hidden="true"></span></button><button data-slide="overview" aria-pressed="false" aria-controls="overviewSlide" aria-label="Slide 2: leggi le figure musicali" title="Figure musicali"><span aria-hidden="true"></span></button><button data-slide="panorama" aria-pressed="false" aria-controls="panoramaSlide" aria-label="Slide 3: panoramica generale" title="Panoramica generale"><span aria-hidden="true"></span></button></nav>
+ <nav class="topic-rail lesson-progress" aria-label="Slide della lezione"><button class="slide-dot" data-slide="score" aria-pressed="true" aria-current="step" aria-controls="scoreSlide" aria-label="Slide 1: segui i gesti" title="Segui i gesti"><span aria-hidden="true"></span></button><button class="slide-dot" data-slide="overview" aria-pressed="false" aria-controls="overviewSlide" aria-label="Slide 2: leggi le figure musicali" title="Figure musicali"><span aria-hidden="true"></span></button><button class="slide-dot" data-slide="panorama" aria-pressed="false" aria-controls="panoramaSlide" aria-label="Slide 3: panoramica generale" title="Panoramica generale"><span aria-hidden="true"></span></button></nav>
  <div id="lessonViewport" class="lesson-viewport" tabindex="0" aria-label="Lezione a scorrimento verticale">
   <section id="scoreSlide" class="lesson-slide" aria-label="Slide 1: segui i gesti">
    <div class="slide-heading"><div class="reading-title"><h2>1 · Segui i gesti</h2><span class="meter" id="section">Sequenza 1 · Passeggiata</span></div><span class="meter">4/4 · ♩ = <span id="tempoText">72</span></span></div>
@@ -148,7 +183,7 @@ body{overflow:hidden}
 <dialog id="settings" aria-labelledby="settingsTitle"><div class="dialog-header"><h2 id="settingsTitle">Audio e opzioni</h2><button id="closeSettings" autofocus>Chiudi</button></div>
  <div class="settings-row"><label>Modalità <select id="mode"><option value="listen">Ascolto continuo</option><option value="echo">Ascolta e ripeti</option><option value="guide">Suona con la guida</option></select></label><label>Percorso <select id="scope"><option value="all">Tutte e quindici</option><option value="selected">Sequenza scelta</option></select></label><label><input id="loop" type="checkbox" checked>Ripeti</label></div>
  <div class="settings-row"><label><input id="music" type="checkbox" checked>Accompagnamento</label><label><input id="bodySound" type="checkbox" checked>Body percussion</label><label><input id="metro" type="checkbox">Metronomo</label></div>
- <div class="settings-row"><label><input id="durations" type="checkbox">Valori sotto le figure</label><button id="worksheetFromOptions">Scheda da ricopiare</button><button id="metroOnly">Solo metronomo</button><button id="testAudio">Prova audio</button></div>
+ <div class="settings-row"><label><input id="durations" type="checkbox">Valori sotto le figure</label><button id="worksheetFromOptions">Scheda da ricopiare</button><button id="metroOnly">Solo metronomo</button><button id="testAudio">Prova audio</button><button id="restoreAudio">Ripristina audio</button></div>
  <div class="mix" id="mixer"></div><p class="settings-note" id="sampleState">Campioni di Mani, Petto e Cosce; accompagnamenti sintetici.</p>
  <p class="settings-note">Nella modalità Eco, ascolta due battute e ripetile nelle due successive. Durante la risposta i suoni corporei automatici tacciono.</p>
 </dialog>
@@ -377,13 +412,46 @@ function initAudio(){
  noiseBuffer=ctx.createBuffer(1,Math.ceil(ctx.sampleRate*.15),ctx.sampleRate);const data=noiseBuffer.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=Math.random()*2-1;
  ctx.onstatechange=()=>{if(running&&(ctx.state==='suspended'||ctx.state==='interrupted')){pause();message('Audio sospeso. Premi Riprendi.')}};
 }
+function normalizeSample(buffer){
+ if(!buffer||!buffer.numberOfChannels||!buffer.length)return null;
+ let peak=0;
+ for(let c=0;c<buffer.numberOfChannels;c++)for(const value of buffer.getChannelData(c)){
+  if(!Number.isFinite(value))return null;peak=Math.max(peak,Math.abs(value));
+ }
+ // Silent or near-silent recordings use the audible synthetic substitute.
+ if(peak<.72/32)return null;
+ const gain=.72/peak;
+ for(let c=0;c<buffer.numberOfChannels;c++){
+  const channel=buffer.getChannelData(c);for(let i=0;i<channel.length;i++)channel[i]*=gain;
+ }
+ return buffer;
+}
 async function prepareSamples(){
  if(samplePromise)return samplePromise;
+ const audioContext=ctx;
  samplePromise=Promise.all(keys.map(async key=>{
-  try{const r=await fetch(`../../../../assets/audio/body-percussion/${key}-1.wav`);if(!r.ok)throw Error('Campione assente');samples[key]=await ctx.decodeAudioData(await r.arrayBuffer())}catch{samples[key]=null}
- })).then(()=>{$('sampleState').textContent=keys.every(k=>samples[k])?'Campioni corporei originali di Mani, Petto e Cosce; accompagnamenti sintetici.':'Alcuni campioni non sono disponibili: per quelle voci viene usato un timbro sintetico sostitutivo.'});
+  const controller=new AbortController();let timeout;
+  try{
+   const decoded=(async()=>{
+    const r=await fetch(`../../../../assets/audio/body-percussion/${key}-1.wav`,{signal:controller.signal});
+    if(!r.ok)throw Error('Campione assente');
+    return normalizeSample(await audioContext.decodeAudioData(await r.arrayBuffer()));
+   })();
+   const deadline=new Promise((_,reject)=>{timeout=setTimeout(()=>{controller.abort();reject(Error('Caricamento audio scaduto'))},4000)});
+   samples[key]=await Promise.race([decoded,deadline]);
+  }catch{samples[key]=null}finally{clearTimeout(timeout)}
+ })).then(()=>{$('sampleState').textContent=keys.every(k=>samples[k])?'Suoni di mani, petto e cosce pronti.':'Per i campioni non disponibili viene usato un timbro sintetico sostitutivo.'});
  return samplePromise;
 }
+function restoreAudio(){
+ $('bodySound').checked=true;$('music').checked=true;solo=-1;
+ enabled.fill(true);volumes.splice(0,3,.8,.85,.85);
+ document.querySelectorAll('[data-enable]').forEach(input=>{input.checked=true});
+ document.querySelectorAll('[data-volume]').forEach(input=>{input.value=volumes[Number(input.dataset.volume)]});
+ document.querySelectorAll('[data-solo]').forEach(button=>button.setAttribute('aria-pressed','false'));
+ if(master)master.gain.value=.8;syncMixer();return startMode('listen');
+}
+
 function syncMixer(){if(!ctx)return;bodyGains.forEach((g,i)=>g.gain.setTargetAtTime($('bodySound').checked&&enabled[i]&&(solo<0||solo===i)?volumes[i]:0,ctx.currentTime,.008));musicGain.gain.setTargetAtTime($('music').checked?1:0,ctx.currentTime,.008)}
 function track(source,cleanup){sources.add(source);source.onended=()=>{sources.delete(source);source.disconnect();cleanup()}}
 function oscillator(time,duration,freq,amplitude,type,destination,endFreq){
@@ -422,7 +490,7 @@ function fail(error){running=false;starting=false;halt();$('play').disabled=fals
 async function play(){
  if(running||starting)return;const token=++startToken;starting=true;$('play').disabled=true;message('Attivazione audio…');
  try{
-  initAudio();await ctx.resume();await prepareSamples();if(token!==startToken)return;if(ctx.state!=='running')throw Error('Premi nuovamente Ascolta.');
+  initAudio();await ctx.resume();prepareSamples();if(token!==startToken)return;if(ctx.state!=='running')throw Error('Premi nuovamente Ascolta.');
   starting=false;running=true;origin=ctx.currentTime+.06-saved*30/bpm;nextStep=Math.ceil(saved-1e-7);$('play').textContent='In esecuzione';$('play').disabled=true;
   schedule();timer=setInterval(schedule,25);animate();message('');
  }catch(error){if(token===startToken)fail(error)}
@@ -461,7 +529,7 @@ function reset(){++startToken;starting=false;running=false;halt();saved=-8;score
 function setMode(next){mode=next;$('mode').value=next==='metro'?'listen':next;$('echo').setAttribute('aria-pressed',String(mode==='echo'))}
 async function startMode(next){setMode(next);if($('settings').open)$('settings').close();reset();await play()}
 function selectPattern(index){const resume=running;scope='selected';$('scope').value=scope;selected=Math.max(0,Math.min(patterns.length-1,index));reset();if(resume)play()}
-async function testVoice(i=0){pause();const token=++startToken;try{initAudio();await ctx.resume();await prepareSamples();if(token!==startToken)return;bodyTone(i,ctx.currentTime+.03,true);message('')}catch(e){if(token===startToken)fail(e)}}
+async function testVoice(i=0){pause();const token=++startToken;try{initAudio();await ctx.resume();prepareSamples();if(token!==startToken)return;bodyTone(i,ctx.currentTime+.03,true);message('')}catch(e){if(token===startToken)fail(e)}}
 
 /* === Native scroll-snap, keyboard, touch controls and progressive disclosure === */
 const viewport=$('lessonViewport'),slideNames=['score','overview','panorama'];
@@ -479,6 +547,7 @@ $('playAll').onclick=()=>{scope='all';$('scope').value=scope;$('loop').checked=t
 $('tempo').oninput=()=>{const resume=running;if(resume)pause();bpm=Number($('tempo').value);$('tempoText').textContent=bpm;$('tempoOutput').textContent=bpm+' BPM';if(resume)play()};
 $('mode').onchange=()=>{setMode($('mode').value);reset()};$('scope').onchange=()=>{scope=$('scope').value;reset()};$('loop').onchange=reset;$('durations').onchange=renderScore;
 for(const id of ['bodySound','music'])$(id).onchange=syncMixer;
+$('restoreAudio').onclick=restoreAudio;
 $('metroOnly').onclick=()=>startMode('metro');$('testAudio').onclick=()=>testVoice();
 $('options').onclick=()=>$('settings').showModal();$('closeSettings').onclick=()=>$('settings').close();
 $('full').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch{message('Impossibile attivare lo schermo intero in questo browser.')}};
@@ -507,6 +576,6 @@ $('worksheetPattern').onchange=renderWorksheet;$('printWorksheet').onclick=print
 $('playWhole').onclick=()=>$('playAll').onclick();
 renderPanorama();reset();
 document.fonts.load('80px Bravura').then(fonts=>{if(!fonts.length)message('Carattere musicale non disponibile: ricarica la pagina.');else renderScore()}).catch(()=>message('Impossibile caricare le figure musicali.'));
-window.echoLesson={worksheetScore,renderWorksheet,scoreStrip,notationStrip,gestureIcons,echoBar,patterns,scoreData,profiles,compile,events,locate,get state(){return {selected,mode,scope,activeSlide,running,starting,saved,position,response,bpm,audioState:ctx?.state,activeSources:sources.size}}};
+window.echoLesson={normalizeSample,restoreAudio,worksheetScore,renderWorksheet,scoreStrip,notationStrip,gestureIcons,echoBar,patterns,scoreData,profiles,compile,events,locate,get state(){return {selected,mode,scope,activeSlide,running,starting,saved,position,response,bpm,audioState:ctx?.state,activeSources:sources.size}}};
 
 </script></body></html>
