@@ -1,116 +1,364 @@
-<!DOCTYPE html>
-<html lang="it">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Gioco dell'eco con sequenze di body percussion per la classe.">
-    <title>Gioco dell’eco · Body percussion | Ritmo | Amedeo</title>
-    <link rel="stylesheet" href="../../../../css/style.css?v=1782800000">
-    <link rel="stylesheet" href="../../../../css/battito-lesson.css?v=2026101801">
-</head>
-<body data-nav="pratica" data-current-nucleus="ritmo" data-lesson="battito">
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Gioco dell’eco: cinque sequenze di body percussion, partitura a tre voci e panoramica d’insieme.">
+<title>Gioco dell’eco | Accordia</title><link rel="stylesheet" href="../../../../css/style.css"><style>
+@font-face{font-family:Bravura;src:url('../../../../assets/fonts/Bravura.otf') format('opentype');font-display:block}
+/* LIM: a white score sheet, four stable voices, two measures per page.
+   Existing Accordia type and muted instrument colours; 4/8px spacing.
+   Secondary controls live in a native dialog, outside the reading surface. */
+:root{--score-ink:#283324;--score-muted:#626e59;--score-line:#d8dfd1;--score-soft:#f4f6f0;--score-accent:#34452a;--score-paper:#fff}
+*{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;background:var(--score-paper);color:var(--score-ink)}body{font-family:var(--font-sans,Arial,sans-serif);-webkit-font-smoothing:antialiased;line-height:1.4}
+[hidden]{display:none!important}button,select,input{font:inherit}button,select{min-height:44px;border:1px solid var(--score-line);border-radius:6px;background:var(--score-paper);color:inherit;padding:8px 14px;cursor:pointer}button:hover{background:var(--score-soft)}button:active{transform:scale(.98)}button:disabled{opacity:.4;cursor:default;transform:none}button[aria-pressed=true],.primary{background:var(--score-accent);border-color:var(--score-accent);color:#fff}.primary:hover{background:#455b36}:focus-visible{outline:3px solid #637f4e;outline-offset:3px}a{color:inherit;text-decoration:none}label{display:flex;align-items:center;gap:8px}input[type=range]{width:128px;accent-color:var(--score-accent)}input[type=checkbox]{width:20px;height:20px;accent-color:var(--score-accent)}
+.lesson-deck{height:100vh;height:100dvh;min-height:560px;display:grid;grid-template-rows:auto minmax(0,1fr) auto;padding:0 24px;max-width:1800px;margin:auto}
+.deck-header{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:12px 0;border-bottom:1px solid var(--score-line)}.identity{display:flex;align-items:center;gap:20px;min-width:0}.back-link{font-size:14px;white-space:nowrap;padding:12px 0}.identity h1{font:700 clamp(18px,1.8vw,28px)/1.2 var(--font-display,Arial,sans-serif);letter-spacing:-.035em;margin:0}.deck-nav{display:flex;align-items:center;gap:8px;flex-shrink:0}.topic-rail{display:flex;gap:4px;position:static;padding:0;border:0;background:none;box-shadow:none;backdrop-filter:none;transition:none}.topic-rail button{font-size:14px;padding:8px 12px}.full-button{font-size:14px}
+.lesson-slide{min-height:0;display:grid;grid-template-rows:auto minmax(0,1fr) auto}.slide-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:62px;padding:12px 0}.slide-heading h2{font-size:23px;letter-spacing:-.02em;margin:0;font-weight:600}.slide-heading .meter{font-size:18px;color:var(--score-muted);font-variant-numeric:tabular-nums}.scorewrap{min-height:0;width:100%;display:flex;align-items:center;justify-content:center}#score{display:block;width:100%;height:100%;overflow:hidden}svg text{font-family:var(--font-sans,Arial,sans-serif)}.music{font-family:Bravura!important;font-size:64px;font-weight:normal}.note-event .note-ink{fill:var(--voice)}.note-event .event-bg,.attack-marker{opacity:0}.note-event.is-active .event-bg{opacity:1}.note-event.is-attack .note-ink{fill:#162910}.note-event.is-attack .attack-marker{opacity:1}.resonance{opacity:.5}.note-event.is-active .resonance{opacity:1}
+.page-navigation{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:16px;min-height:64px;padding:8px 0}.page-navigation>button{justify-self:start}.next-pair{justify-self:end;display:flex;gap:16px;align-items:center}.next-pair>span{font-size:14px;color:var(--score-muted)}.position{text-align:center;line-height:1.45;font-variant-numeric:tabular-nums}.position b{font-size:20px;font-weight:600;display:block}.position span{font-size:14px;color:var(--score-muted)}
+.deck-footer{border-top:1px solid var(--score-line);padding:12px 0}.transport{display:flex;gap:8px;align-items:center;justify-content:space-between}.transport-left,.transport-right{display:flex;gap:8px;align-items:center}.transport-left .primary{min-width:152px}.tempo-control{font-size:14px;gap:12px;margin-right:16px}.tempo-control output{min-width:68px;font-variant-numeric:tabular-nums}.audio-status{display:none;padding-top:10px;font-size:14px;color:#823d34}.audio-status.has-error{display:block}.audio-meter{display:inline-block;width:40px;height:4px;background:var(--score-line);overflow:hidden}.audio-meter i{display:block;height:100%;background:var(--score-accent);transform:scaleX(0);transform-origin:left}
+#overviewSlide{grid-template-rows:auto auto minmax(0,1fr);padding-bottom:12px}.voice-key{display:flex;gap:24px;flex-wrap:wrap;padding:0 0 12px;font-size:14px}.voice-key span{display:flex;align-items:center;gap:8px}.voice-key i{width:8px;height:8px;background:var(--voice);border-radius:50%}#overview{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));grid-template-rows:repeat(4,minmax(0,1fr));gap:8px;min-height:0}#overview button{padding:8px;min-width:0;min-height:0;display:grid;grid-template-rows:22px minmax(0,1fr);text-align:left;overflow:hidden}#overview button[aria-current=true]{border-color:var(--score-accent);background:var(--score-soft)}#overview svg{width:100%;height:100%;min-height:0}.bar-title{display:flex;align-items:center;gap:6px}.bar-title>b{font-size:16px}.bar-title>span{font-size:11px;color:var(--score-muted);white-space:nowrap}
+dialog{border:1px solid var(--score-line);border-radius:12px;background:var(--score-paper);color:var(--score-ink);padding:24px;width:min(880px,calc(100vw - 32px));max-height:calc(100dvh - 48px);overflow:auto}dialog::backdrop{background:rgba(32,42,26,.35)}.dialog-header{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:20px}.dialog-header h2{margin:0;font-size:24px}.settings-row,.mode-buttons{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:20px}.settings-row{gap:24px}.mix{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:20px 0}.channel{padding:12px;border-top:3px solid var(--voice);background:var(--score-soft);min-width:0}.channel label{font-size:14px;margin:12px 0}.channel input[type=range]{width:100%;min-width:0}.voice-actions{display:flex;gap:4px}.voice-actions button{font-size:14px;padding:8px 12px}.settings-note{font-size:13px;color:var(--score-muted);margin:8px 0 0}
+@media(min-width:1600px){.lesson-deck{padding-inline:40px}.deck-header{padding-block:16px}.slide-heading{min-height:72px}.page-navigation{min-height:76px}.deck-footer{padding-block:16px}}
+@media(max-width:1000px){.identity{gap:12px}.identity h1{max-width:260px}.back-link{font-size:12px}.deck-header{gap:12px}.full-button{max-width:100px}.next-pair>span{display:none}.bar-title>span{display:none}.tempo-control{margin-right:4px}.tempo-control input{width:90px}}
+@media(max-width:700px){.lesson-deck{padding:0 12px;min-height:620px}.deck-header{align-items:flex-start;gap:8px;flex-direction:column}.identity{width:100%;justify-content:space-between}.identity h1{font-size:18px;max-width:none}.deck-nav{width:100%;justify-content:space-between}.topic-rail button{font-size:13px}.full-button{max-width:none}.slide-heading{min-height:48px}.slide-heading h2{font-size:20px}.slide-heading .meter{font-size:14px}.transport{flex-wrap:wrap;gap:8px}.transport-left,.transport-right{flex:1;justify-content:space-between}.transport-left .primary{min-width:120px}.transport-right input{width:90px}.page-navigation{gap:6px}.page-navigation button{padding:8px;min-width:44px}.position b{font-size:16px}.position span{font-size:12px}.voice-key{gap:8px 16px;font-size:12px}.mix{grid-template-columns:repeat(2,minmax(0,1fr))}#overview{grid-template-columns:repeat(4,minmax(0,1fr));grid-template-rows:repeat(8,minmax(75px,1fr));overflow:auto}#overview button{padding:4px}.bar-title>b{font-size:13px}.mode-buttons button{font-size:14px}}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}button:active{transform:none}}
 
-    <header class="site-header" id="site-header">
-        <div class="shell site-header__inner">
-            <a class="brand brand--wordmark" href="../../../../index.html">amedeo</a>
-            <nav class="site-nav" aria-label="Navigazione principale">
-                <div class="site-nav__dropdown">
-                    <button class="site-nav__trigger" type="button" data-nav-link="timeline" aria-haspopup="true" aria-expanded="false">
-                        <span>Nuclei</span>
-                        <span class="site-nav__caret" aria-hidden="true"></span>
-                    </button>
-                    <div class="site-nav__menu" aria-label="Elenco dei nuclei">
-                        <a href="../../../../nuclei/medioevo/index.html">01 Il Medioevo</a><a href="../../../../nuclei/rinascimento/index.html">02 Il Rinascimento</a><a href="../../../../nuclei/barocco/index.html">03 Il Barocco</a><a href="../../../../nuclei/settecento-classicismo/index.html">04 Settecento e Classicismo</a><a href="../../../../nuclei/ottocento/index.html">05 L&#x27;Ottocento</a><a href="../../../../nuclei/novecento/index.html">06 Il Novecento</a>
-                    </div>
-                </div>
-                <a href="../../../../compiti/index.html" data-nav-link="compiti">Compiti di realtà</a>
-                <a href="../../../../docente/index.html" data-nav-link="docenti">Docenti</a>
-                <a href="../../../../pages/risorse.html" data-nav-link="strumenti">Strumenti</a>
-            </nav>
-        </div>
-    </header>
+/* Vertical lesson navigation, shared interaction model with Figure musicali. */
+body{overflow:hidden}
+.lesson-deck{position:relative;min-height:0}
+.lesson-viewport{position:relative;height:100%;min-height:0;overflow-x:hidden;overflow-y:auto;scroll-snap-type:y mandatory;overscroll-behavior-y:contain;scrollbar-width:none;padding-right:40px}
+.lesson-viewport::-webkit-scrollbar{display:none}
+.lesson-slide{position:relative;height:100%;scroll-snap-align:start;scroll-snap-stop:always;overflow:hidden}
+.lesson-progress.topic-rail{position:absolute;top:50%;right:8px;z-index:2;display:flex;flex-direction:column;gap:2px;transform:translateY(-50%);padding:0;border:0;background:transparent;box-shadow:none;backdrop-filter:none}
+.lesson-progress.topic-rail button{display:grid;place-items:center;width:44px;height:44px;min-height:44px;padding:0;border:0;background:transparent;color:var(--score-accent)}
+.lesson-progress button span{display:block;width:6px;height:6px;border-radius:50%;background:var(--score-accent);opacity:.25;transition:transform .25s ease,opacity .25s ease}
+.lesson-progress button[aria-pressed=true] span{opacity:1;transform:scale(1.55)}
+.lesson-progress button:hover span{opacity:.75}
+.lesson-viewport:focus-visible{outline-offset:-3px}
+@media(min-width:1600px){.lesson-progress.topic-rail{right:24px}}
+@media(max-width:700px){.lesson-deck{min-height:0}.deck-header{flex-direction:row;align-items:center}.identity{width:auto;flex:1;flex-wrap:wrap;justify-content:flex-start;gap:4px 12px}.identity h1{font-size:17px}.deck-nav{width:auto}.full-button{font-size:12px}.lesson-viewport{padding-right:28px}.lesson-progress.topic-rail{right:0}.lesson-progress.topic-rail button{width:36px}.lesson-progress button span{width:5px;height:5px}}
+@media(prefers-reduced-motion:reduce){.lesson-progress button span{transition:none}}
 
-    <main class="bintro-stage" id="bintro-stage">
+/* The overview uses the full lateral space, including on wide LIM displays. */
+.lesson-deck{max-width:none}
+.deck-header,.deck-footer{width:100%;max-width:1752px;margin-inline:auto}
+#scoreSlide{width:100%;max-width:1712px;margin-inline:auto}
+#overviewSlide #overview{gap:6px}
+#overviewSlide #overview button{padding:6px}
+#overviewSlide .bar-title>b{font-size:18px}
+#overviewSlide .bar-title>span{font-size:12px}
+@media(min-width:1600px){.deck-header,.deck-footer{max-width:1720px}#scoreSlide{max-width:1680px}}
+@media(max-width:700px){#overviewSlide #overview button{padding:4px}#overviewSlide .bar-title>b{font-size:15px}}
 
-        <div class="bintro-scroll" id="bintro-scroll">
-            <div class="bintro-pin" id="bintro-pin">
-                <div class="bintro-screens" id="bintro-screens">
+/* Echo: three fixed body-percussion staves, two measures, no gesture images. */
+.music{font-size:80px}
+.phase-badge{display:inline-flex;align-items:center;gap:8px;min-width:142px;justify-content:center;border:1px solid var(--score-line);border-radius:99px;padding:8px 16px;font-size:17px;font-weight:600;background:var(--score-soft);color:var(--score-accent)}
+.phase-badge[data-phase="response"]{background:#f4ece3;color:#795e37;border-color:#dfd1bb}
+.phase-badge[data-phase="response"]::before{content:'';width:7px;height:7px;border-radius:50%;background:currentColor}
+#overviewSlide{grid-template-rows:auto minmax(0,1fr) auto;padding-bottom:0}
+#ensemble{width:100%;height:100%;display:block;overflow:hidden}
+.ensemble-wrap{min-height:0;display:flex;align-items:center}
+.phrase-choices{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;padding:8px 0;min-height:64px}
+.phrase-choices button{padding:10px 12px;font-size:15px;text-align:left}
+.phrase-choices b{font-variant-numeric:tabular-nums;margin-right:6px}
+.ensemble-column .column-bg{fill:var(--score-soft);opacity:0}
+.ensemble-column.is-current .column-bg{opacity:1}
+.symbol-event .symbol-head{fill:var(--voice)}
+.symbol-event .symbol-tail{stroke:var(--voice);stroke-width:1.5}
+.symbol-event .symbol-halo{fill:var(--voice);opacity:0}
+.symbol-event.is-attack .symbol-halo{opacity:.2}
+.symbol-event.is-attack .symbol-head{fill:#1b2b13}
+.symbol-rest{stroke:#9ba591;stroke-width:1.2}
+.ensemble-column.is-current .measure-label{font-weight:700;fill:var(--score-accent)}
+.transport-left{flex-wrap:wrap}
+.transport-left #play{min-width:132px}
+.transport-left #echo{min-width:144px}
+.mix{grid-template-columns:repeat(3,minmax(0,1fr))}
+.settings-row select{max-width:100%}
+.status-line{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.status-line .settings-note{margin:0}
+.slide-heading .meter{white-space:nowrap}
+@media(max-width:1000px){.phase-badge{font-size:15px;min-width:120px;padding:6px 10px}.transport-right input[type=range]{width:88px}.transport-left #play{min-width:112px}.transport-left #echo{min-width:124px}.phrase-choices button{font-size:13px;padding:8px}}
+@media(max-width:700px){.slide-heading{flex-wrap:wrap;gap:8px}.slide-heading h2{font-size:18px}.phase-badge{font-size:13px;min-width:100px}.slide-heading .meter{font-size:12px}.transport-left{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%}.transport-left #play,.transport-left #echo{min-width:0}.transport-left button{font-size:12px;padding:8px 5px}.transport-right{width:100%}.phrase-choices{grid-template-columns:repeat(5,minmax(0,1fr))}.phrase-choices button{font-size:12px;text-align:center}.phrase-choices .phrase-name{display:none}.mix{grid-template-columns:1fr}.overview-meta{display:none}}
+@media(max-width:700px){.deck-header{flex-wrap:wrap}.identity{flex-basis:100%}.deck-nav{width:100%;justify-content:space-between}.transport-left,.transport-right{flex:0 0 100%}.transport-right .audio-meter{display:none}.tempo-control{gap:6px;margin:0}.tempo-control input[type=range]{width:70px}.tempo-control output{min-width:58px;font-size:12px}.transport-right #options{font-size:13px;padding-inline:10px}}
+</style></head><body>
+<main class="lesson-deck">
+ <header class="deck-header"><div class="identity"><a class="back-link" href="../../index.html">← Accordia / Ritmo</a><h1>Gioco dell’eco</h1></div><div class="deck-nav"><span class="phase-badge" id="phaseBadge" data-phase="ready">Pronti</span><button class="full-button" id="full">Schermo intero</button></div></header>
+ <nav class="topic-rail lesson-progress" aria-label="Slide della lezione"><button data-slide="score" aria-pressed="true" aria-current="step" aria-controls="scoreSlide" aria-label="Slide 1: partitura" title="Partitura"><span aria-hidden="true"></span></button><button data-slide="overview" aria-pressed="false" aria-controls="overviewSlide" aria-label="Slide 2: partitura d’insieme" title="Partitura d’insieme"><span aria-hidden="true"></span></button></nav>
+ <div id="lessonViewport" class="lesson-viewport" tabindex="0" aria-label="Lezione a scorrimento verticale">
+  <section id="scoreSlide" class="lesson-slide" aria-label="Slide 1: partitura">
+   <div class="slide-heading"><h2 id="section">Sequenza 1 · Passeggiata</h2><span class="meter">4/4 · ♩ = <span id="tempoText">84</span></span></div>
+   <div class="scorewrap"><svg id="score" viewBox="0 0 1200 540" role="img" aria-label="Due battute per Mani, Petto e Cosce"></svg></div>
+   <div class="page-navigation"><button id="prev" aria-label="Sequenza precedente">← Precedente</button><div class="position"><b id="pair">Battute 1–2 / 10</b><span id="status" role="status" aria-live="off">Quattro pulsazioni di preparazione</span></div><div class="next-pair"><span id="next">A seguire 3–4</span><button id="forward" aria-label="Sequenza successiva">Successiva →</button></div></div>
+  </section>
+  <section id="overviewSlide" class="lesson-slide" aria-label="Slide 2: partitura d’insieme">
+   <div class="slide-heading"><h2>Partitura d’insieme</h2><span class="meter overview-meta">5 sequenze · 10 battute</span><button id="playAll">▶ Ascolta tutte</button></div>
+   <div class="ensemble-wrap"><svg id="ensemble" viewBox="0 0 1200 540" role="img" aria-label="Tutte le cinque sequenze: punti per i colpi e linee per la durata, su tre righi"></svg></div>
+   <div class="phrase-choices" id="patterns" role="group" aria-label="Scegli una sequenza"></div>
+  </section>
+ </div>
+ <footer class="deck-footer"><div class="transport"><div class="transport-left"><button class="primary" id="play">▶ Ascolta</button><button id="echo" aria-pressed="false">Gioco dell’eco</button><button id="pause">Pausa</button><button id="stop">Arresta</button></div><div class="transport-right"><label class="tempo-control">Tempo <input id="tempo" aria-label="Tempo in BPM" type="range" min="60" max="120" value="84"><output id="tempoOutput" for="tempo">84 BPM</output></label><span class="audio-meter" aria-hidden="true"><i id="level"></i></span><button id="options" aria-haspopup="dialog">Audio e opzioni</button></div></div><div id="audioNotice" class="audio-status"><span id="audioState" role="status" aria-live="polite"></span></div></footer>
+</main>
+<dialog id="settings" aria-labelledby="settingsTitle"><div class="dialog-header"><h2 id="settingsTitle">Audio e opzioni</h2><button id="closeSettings" autofocus>Chiudi</button></div>
+ <div class="settings-row"><label>Modalità <select id="mode"><option value="listen">Ascolto continuo</option><option value="echo">Ascolta e ripeti</option><option value="guide">Suona con la guida</option></select></label><label>Percorso <select id="scope"><option value="selected">Sequenza scelta</option><option value="all">Tutte e cinque</option></select></label><label><input id="loop" type="checkbox" checked>Ripeti</label></div>
+ <div class="settings-row"><label><input id="music" type="checkbox" checked>Accompagnamento</label><label><input id="bodySound" type="checkbox" checked>Body percussion</label><label><input id="metro" type="checkbox">Metronomo</label></div>
+ <div class="settings-row"><label><input id="durations" type="checkbox">Valori sotto le figure</label><button id="metroOnly">Solo metronomo</button><button id="testAudio">Prova audio</button></div>
+ <div class="mix" id="mixer"></div><p class="settings-note" id="sampleState">Campioni di Mani, Petto e Cosce; accompagnamenti sintetici.</p>
+ <p class="settings-note">Nella modalità Eco, ascolta due battute e ripetile nelle due successive. Durante la risposta i suoni corporei automatici tacciono.</p>
+</dialog>
+<script>
+'use strict';
+/* === Musical material: the five existing sequences and accompaniments === */
+const patterns=[
+            [
+                ['cosce'], ['cosce'], ['cosce'], ['cosce'],
+                ['mani'], ['mani'], ['mani'], ['mani']
+            ],
+            [
+                ['cosce'], ['petto'], ['cosce'], ['mani'],
+                ['petto'], ['cosce'], ['mani'], ['mani']
+            ],
+            [
+                ['cosce'], ['mani'], ['cosce', 'petto'], ['mani'],
+                ['petto'], ['cosce', 'mani'], ['petto'], ['mani', 'mani']
+            ],
+            [
+                ['cosce', 'petto'], ['mani'], ['petto'], ['cosce', 'mani'],
+                ['mani', 'mani'], ['cosce'], ['petto', 'mani'], ['cosce']
+            ],
+            [
+                ['cosce', 'petto'], ['mani'], ['cosce', 'petto'], ['mani', 'mani'],
+                ['mani', 'petto'], ['cosce', 'mani'], ['petto', 'mani'], ['cosce', 'petto']
+            ]
+        ];
+const profiles=[
+            { label: 'Passeggiata', voice: 'wood', melody: [72,0,76,0,79,0,76,0,74,0,77,0,72,0,0,0], bass: [48,48,53,48], rhythm: [0,2], subdivisions: false },
+            { label: 'Marcia allegra', voice: 'pluck', melody: [60,64,67,64,65,69,72,69,67,71,74,71,72,67,64,0], bass: [48,53,55,48], rhythm: [0,1,2,3], subdivisions: false },
+            { label: 'Danza di legno', voice: 'wood', melody: [72,76,79,81,79,76,74,0,77,81,84,81,79,76,72,0], bass: [48,57,53,55], rhythm: [0,2,3], subdivisions: true },
+            { label: 'Girotondo', voice: 'flute', melody: [67,69,71,72,74,72,71,0,69,71,72,69,67,64,60,0], bass: [48,55,53,48], rhythm: [0,2], subdivisions: false },
+            { label: 'Festa in cortile', voice: 'pluck', melody: [72,79,76,79,74,81,77,81,71,79,74,79,72,76,79,84], bass: [48,53,55,48], rhythm: [0,1,2,3], subdivisions: true }
+        ];
+const $=id=>document.getElementById(id),names=['Mani','Petto','Cosce'],keys=['mani','petto','cosce'],colors=['#526d41','#925c58','#897047'];
+const S=(tag,attrs,body='')=>`<${tag} ${Object.entries(attrs).map(([k,v])=>`${k}="${v}"`).join(' ')}>${body}</${tag}>`;
+// One unit = an eighth note. In a double gesture the two attacks are successive.
+function compile(pattern){return [0,1].map(bar=>keys.map(key=>{
+ const hits=new Map();pattern.slice(bar*4,bar*4+4).forEach((beat,i)=>beat.forEach((gesture,j)=>{if(gesture===key)hits.set(i*2+j*2/beat.length,2/beat.length)}));
+ let out=[],u=0;while(u<8){if(hits.has(u)){const d=hits.get(u);out.push(d);u+=d}else if(u%4===0&&![0,1,2,3].some(d=>hits.has(u+d))){out.push(-4);u+=4}else if(u%2===0&&!hits.has(u+1)){out.push(-2);u+=2}else{out.push(-1);u++}}return out;
+}))}
+const scoreData=patterns.map(compile);
+function events(part){let t=0;return part.map(v=>{const event={start:t,d:Math.abs(v),rest:v<0};t+=event.d;return event})}
+for(const phrase of scoreData)for(const bar of phrase)for(const part of bar)if(part.reduce((n,v)=>n+Math.abs(v),0)!==8)throw Error('Battuta incompleta');
+const glyphs={1:'\uE1D7',2:'\uE1D5',4:'\uE1D3'},rests={1:'\uE4E6',2:'\uE4E5',4:'\uE4E4'},values={1:'1/8',2:'1/4',4:'1/2'},figureNames={1:'croma',2:'semiminima',4:'minima'};
+let selected=0,mode='listen',scope='selected',activeSlide='score',bpm=84,position=0,response=false;
+let running=false,starting=false,saved=-8,origin=0,nextStep=-8,timer=null,frame=0,startToken=0,lastStatus='';
+const enabled=[true,true,true],volumes=[.8,.85,.85];let solo=-1;
 
-                    <section class="bintro-screen" data-screen="1" aria-label="Schermata 1: Gioco dell'eco">
-                        <div class="echo-layout">
-                        <div class="barocco-header">
-                            <span class="barocco-intro__eyebrow">ATTIVITÀ</span>
-                            <div class="barocco-intro__title-wrap">
-                                <h2 class="barocco-intro__title">Gioco dell&rsquo;eco</h2>
-                                <span class="barocco-ticker__overlay" aria-hidden="true">
-                                    <span class="barocco-ticker__blob barocco-ticker__blob--1"></span>
-                                    <span class="barocco-ticker__blob barocco-ticker__blob--2"></span>
-                                    <span class="barocco-ticker__blob barocco-ticker__blob--3"></span>
-                                    <span class="barocco-ticker__blob barocco-ticker__blob--4"></span>
-                                </span>
-                            </div>
-                        </div>
+/* === Full-size score and symbolic ensemble, driven by the same event data === */
+function renderScore(){
+ const left=160,bw=508;let html='';
+ $('section').textContent=`Sequenza ${selected+1} · ${profiles[selected].label}`;
+ $('pair').textContent=`Battute ${selected*2+1}–${selected*2+2} / 10`;
+ $('next').textContent=selected<4?`A seguire ${selected*2+3}–${selected*2+4}`:'Ultima sequenza';
+ $('prev').disabled=selected===0;$('forward').disabled=selected===4;
+ $('score').setAttribute('aria-label',`Sequenza ${selected+1}: battute ${selected*2+1} e ${selected*2+2}, Mani, Petto e Cosce`);
+ for(let b=0;b<2;b++){
+  const x=left+b*bw;
+  html+=S('text',{class:'measure-heading',x:x+22,y:25,'font-size':20,'font-weight':700,fill:'#34452a'},`Battuta ${selected*2+b+1}`);
+  for(let beat=0;beat<4;beat++)html+=S('text',{x:x+14+beat*bw/4,y:55,'font-size':19,fill:'#64705b'},beat+1);
+ }
+ for(let i=0;i<3;i++){
+  const y=150+i*150;
+  html+=S('text',{class:'voice-label',x:12,y:y-2,'font-size':28,'font-weight':700,fill:colors[i]},names[i]);
+  for(let b=0;b<2;b++){
+   const x=left+b*bw;html+=S('line',{x1:x,x2:x,y1:y-76,y2:y+62,stroke:'#b5c0ac'});
+   html+=S('line',{x1:x,x2:x+bw,y1:y,y2:y,stroke:'#cbd3c4'});
+   for(const e of events(scoreData[selected][b][i])){
+    const ex=x+e.start*bw/8,cx=ex+14,w=e.d*bw/8;
+    let inner=S('title',{},`${names[i]}: ${e.rest?'pausa di ':''}${figureNames[e.d]}, ${values[e.d]}`);
+    inner+=S('rect',{class:'event-bg',x:ex+6,y:y-76,width:w-12,height:140,rx:4,fill:'#e5eddc'});
+    inner+=S('text',{class:'music note-ink',x:cx,y},e.rest?rests[e.d]:glyphs[e.d]);
+    inner+=S('rect',{class:'attack-marker',x:cx-2,y:y+15,width:26,height:4,rx:2,fill:colors[i]});
+    if($('durations').checked)inner+=S('text',{class:'note-value',x:cx,y:y+56,'font-size':20,fill:'#54634b'},values[e.d]);
+    html+=S('g',{class:'note-event','data-start':b*8+e.start,'data-end':b*8+e.start+e.d,'data-rest':e.rest,style:`--voice:${colors[i]}`},inner);
+   }
+  }
+ }
+ html+=S('line',{x1:1176,x2:1176,y1:74,y2:512,stroke:'#b5c0ac'});
+ html+=S('line',{id:'cursor',x1:174,x2:174,y1:65,y2:512,stroke:'#34452a','stroke-width':2,opacity:.5,visibility:'hidden'});
+ $('score').innerHTML=html;
+ document.querySelectorAll('[data-pattern]').forEach(b=>b.setAttribute('aria-pressed',Number(b.dataset.pattern)===selected?'true':'false'));
+ highlight();
+}
+function renderEnsemble(){
+ const left=160,pw=1016/5;let html='';
+ for(let i=0;i<3;i++)html+=S('text',{x:12,y:148+i*150,'font-size':28,'font-weight':700,fill:colors[i]},names[i]);
+ scoreData.forEach((phrase,p)=>{
+  const x=left+p*pw;let column=S('rect',{class:'column-bg',x:x+2,y:8,width:pw-4,height:514,rx:6});
+  column+=S('text',{x:x+12,y:28,'font-size':20,'font-weight':700,fill:'#34452a'},`Sequenza ${p+1}`);
+  column+=S('text',{class:'measure-label',x:x+12,y:55,'font-size':16,fill:'#64705b'},`Battute ${p*2+1}–${p*2+2}`);
+  for(let i=0;i<3;i++){
+   const y=150+i*150;column+=S('line',{x1:x,x2:x+pw,y1:y,y2:y,stroke:'#e0e5da'});
+   column+=S('line',{x1:x+pw/2,x2:x+pw/2,y1:y-30,y2:y+30,stroke:'#c5cdbf'});
+   for(let b=0;b<2;b++)for(const e of events(phrase[b][i])){
+    const sx=x+8+(b*8+e.start)*(pw-16)/16,w=e.d*(pw-16)/16;
+    const inner=e.rest?S('line',{class:'symbol-rest',x1:sx,x2:sx+w-4,y1:y,y2:y}):S('circle',{class:'symbol-halo',cx:sx+2,cy:y,r:8})+S('line',{class:'symbol-tail',x1:sx+2,x2:sx+w-3,y1:y,y2:y})+S('circle',{class:'symbol-head',cx:sx+2,cy:y,r:4.5});
+    column+=S('g',{class:'symbol-event','data-pattern-index':p,'data-start':b*8+e.start,'data-end':b*8+e.start+e.d,'data-rest':e.rest,style:`--voice:${colors[i]}`},inner);
+   }
+  }
+  html+=S('g',{class:'ensemble-column','data-column':p},column);
+  html+=S('line',{x1:x,x2:x,y1:74,y2:512,stroke:'#c5cdbf'});
+ });
+ html+=S('line',{x1:1176,x2:1176,y1:74,y2:512,stroke:'#c5cdbf'});
+ html+=S('line',{id:'ensembleCursor',x1:170,x2:170,y1:68,y2:512,stroke:'#34452a','stroke-width':1.5,opacity:.5,visibility:'hidden'});
+ $('ensemble').innerHTML=html;
+}
+function highlight(){
+ const visible=running&&elapsed()>=0&&mode!=='metro';
+ const x=174+position*1016/16;$('cursor').setAttribute('x1',x);$('cursor').setAttribute('x2',x);$('cursor').setAttribute('visibility',visible?'visible':'hidden');
+ const pw=1016/5,ex=160+selected*pw+10+position*(pw-16)/16;
+ $('ensembleCursor').setAttribute('x1',ex);$('ensembleCursor').setAttribute('x2',ex);$('ensembleCursor').setAttribute('visibility',visible?'visible':'hidden');
+ document.querySelectorAll('.ensemble-column').forEach(g=>g.classList.toggle('is-current',Number(g.dataset.column)===selected));
+ document.querySelectorAll('.note-event,.symbol-event').forEach(g=>{
+  const current=g.dataset.patternIndex===undefined||Number(g.dataset.patternIndex)===selected;
+  const on=Number(g.dataset.start),end=Number(g.dataset.end),active=visible&&current&&position>=on&&position<end;
+  g.classList.toggle('is-active',active);g.classList.toggle('is-attack',active&&g.dataset.rest==='false'&&position<on+.32);
+ });
+}
 
-                        <div class="brl brl--echo" id="brl-echo">
-                            <div class="brl__toolbar">
-                                <div class="brl__tempo" role="group" aria-label="Velocit&agrave; del metronomo">
-                                    <span class="brl__tempo-label">
-                                        <svg class="brl__tempo-icon" viewBox="0 0 24 24" aria-hidden="true">
-                                            <path d="M7.1 20h9.8l-1.7-13H8.8L7.1 20Z"></path>
-                                            <path d="M12 6.5 14.4 2"></path>
-                                            <path d="M12 9.5v6"></path>
-                                            <circle cx="12" cy="16.5" r="1"></circle>
-                                        </svg>
-                                        <span>Metronomo</span>
-                                    </span>
-                                    <div class="brl__tempo-options">
-                                        <button class="brl__tempo-option" type="button" data-beat-length="1000" aria-pressed="false" aria-label="Lento, 60 battiti al minuto">Lento</button>
-                                        <button class="brl__tempo-option is-active" type="button" data-beat-length="714" aria-pressed="true" aria-label="Andante, 84 battiti al minuto">Andante</button>
-                                        <button class="brl__tempo-option" type="button" data-beat-length="500" aria-pressed="false" aria-label="Allegro, 120 battiti al minuto">Allegro</button>
-                                    </div>
-                                    <button class="brl__metronome-toggle" id="brl-metronome-toggle" type="button" aria-pressed="false">Avvia</button>
-                                </div>
-                                <div class="brl__patterns">
-                                    <div class="brl__pattern-options" role="group" aria-label="Scegli la sequenza">
-                                        <button class="brl__pattern is-active" type="button" aria-label="Sequenza 1" aria-pressed="true" data-pattern="0">1</button>
-                                        <button class="brl__pattern" type="button" aria-label="Sequenza 2" aria-pressed="false" data-pattern="1">2</button>
-                                        <button class="brl__pattern" type="button" aria-label="Sequenza 3" aria-pressed="false" data-pattern="2">3</button>
-                                        <button class="brl__pattern" type="button" aria-label="Sequenza 4" aria-pressed="false" data-pattern="3">4</button>
-                                        <button class="brl__pattern" type="button" aria-label="Sequenza 5" aria-pressed="false" data-pattern="4">5</button>
-                                    </div>
-                                </div>
-                            </div>
+/* === Audio: original samples, original accompaniments, one Web Audio clock === */
+let ctx=null,master=null,analyser=null,bodyGains=[],musicGain=null,samples={},samplePromise=null,noiseBuffer=null;
+const sources=new Set();
+function message(text){$('audioState').textContent=text;$('audioNotice').classList.toggle('has-error',/non disponibile|sospeso|Impossibile/i.test(text))}
+function initAudio(){
+ if(ctx&&ctx.state!=='closed')return;
+ const Audio=window.AudioContext||window.webkitAudioContext;if(!Audio)throw Error('Questo browser non supporta l’audio.');
+ ctx=new Audio();master=ctx.createGain();master.gain.value=.8;
+ const compressor=ctx.createDynamicsCompressor();compressor.threshold.value=-12;compressor.ratio.value=5;analyser=ctx.createAnalyser();analyser.fftSize=256;
+ master.connect(compressor);compressor.connect(analyser);analyser.connect(ctx.destination);
+ bodyGains=keys.map(()=>{const g=ctx.createGain();g.connect(master);return g});musicGain=ctx.createGain();musicGain.connect(master);syncMixer();
+ noiseBuffer=ctx.createBuffer(1,Math.ceil(ctx.sampleRate*.15),ctx.sampleRate);const data=noiseBuffer.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=Math.random()*2-1;
+ ctx.onstatechange=()=>{if(running&&(ctx.state==='suspended'||ctx.state==='interrupted')){pause();message('Audio sospeso. Premi Riprendi.')}};
+}
+async function prepareSamples(){
+ if(samplePromise)return samplePromise;
+ samplePromise=Promise.all(keys.map(async key=>{
+  try{const r=await fetch(`../../../../assets/audio/body-percussion/${key}-1.wav`);if(!r.ok)throw Error('Campione assente');samples[key]=await ctx.decodeAudioData(await r.arrayBuffer())}catch{samples[key]=null}
+ })).then(()=>{$('sampleState').textContent=keys.every(k=>samples[k])?'Campioni corporei originali di Mani, Petto e Cosce; accompagnamenti sintetici.':'Alcuni campioni non sono disponibili: per quelle voci viene usato un timbro sintetico sostitutivo.'});
+ return samplePromise;
+}
+function syncMixer(){if(!ctx)return;bodyGains.forEach((g,i)=>g.gain.setTargetAtTime($('bodySound').checked&&enabled[i]&&(solo<0||solo===i)?volumes[i]:0,ctx.currentTime,.008));musicGain.gain.setTargetAtTime($('music').checked?1:0,ctx.currentTime,.008)}
+function track(source,cleanup){sources.add(source);source.onended=()=>{sources.delete(source);source.disconnect();cleanup()}}
+function oscillator(time,duration,freq,amplitude,type,destination,endFreq){
+ const o=ctx.createOscillator(),g=ctx.createGain();o.type=type;o.frequency.setValueAtTime(freq,time);if(endFreq)o.frequency.exponentialRampToValueAtTime(endFreq,time+Math.min(.06,duration*.7));
+ g.gain.setValueAtTime(.0001,time);g.gain.exponentialRampToValueAtTime(amplitude,time+.004);g.gain.exponentialRampToValueAtTime(.0001,time+duration);o.connect(g);g.connect(destination);track(o,()=>g.disconnect());o.start(time);o.stop(time+duration+.005);
+}
+function bodyTone(i,time,test=false){
+ time=Math.max(time,ctx.currentTime+.002);const output=test?master:bodyGains[i],buffer=samples[keys[i]];
+ if(buffer){const source=ctx.createBufferSource();source.buffer=buffer;source.connect(output);track(source,()=>{});source.start(time);return}
+ if(i===0){const source=ctx.createBufferSource(),filter=ctx.createBiquadFilter(),gain=ctx.createGain();source.buffer=noiseBuffer;filter.type='highpass';filter.frequency.value=1200;gain.gain.setValueAtTime(.4,time);gain.gain.exponentialRampToValueAtTime(.0001,time+.12);source.connect(filter);filter.connect(gain);gain.connect(output);track(source,()=>{filter.disconnect();gain.disconnect()});source.start(time);source.stop(time+.13)}
+ else oscillator(time,.12,i===1?150:330,.4,'triangle',output,i===1?80:140);
+}
+function tick(time,accent=false){oscillator(Math.max(time,ctx.currentTime+.002),.04,accent?1320:980,.13,'sine',master)}
+function accompanimentNote(midi,when,duration,voice,volume){
+ if(!midi)return;const partials=voice==='wood'?[1,2.76,5.4]:voice==='pluck'?[1,2,3,4]:[1,2];
+ partials.forEach((ratio,i)=>{
+  const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(440*2**((midi-69)/12)*ratio,when);
+  g.gain.setValueAtTime(.0001,when);g.gain.exponentialRampToValueAtTime(volume/(i+1)**2,when+(voice==='flute'?.045:.006));g.gain.exponentialRampToValueAtTime(.0001,when+duration/(1+i*.6));
+  o.connect(g);g.connect(musicGain);track(o,()=>g.disconnect());o.start(when);o.stop(when+duration);
+ });
+}
+function accompaniment(p,index,time){
+ const profile=profiles[p],beat=60/bpm,k=index%16;
+ accompanimentNote(profile.melody[k],time,beat*.85,profile.voice,.07);
+ if(k%4===0)accompanimentNote(profile.bass[Math.floor(k/4)],time,beat*1.7,'pluck',.065);
+ if(profile.rhythm.includes(k%4))accompanimentNote(43,time,.12,'wood',.045);
+ if(profile.subdivisions&&k%2===1)accompanimentNote(profile.melody[k]||72,time+beat/2,beat*.35,'wood',.035);
+}
+function cycleLength(){return mode==='echo'?32:16}
+function totalLength(){return cycleLength()*(scope==='all'?5:1)}
+function locate(t){const cycle=cycleLength(),cycleIndex=Math.floor(t/cycle);return {phrase:scope==='all'?cycleIndex%5:selected,unit:t%16,response:mode==='echo'&&t%cycle>=16,beat:scope==='all'?Math.floor(t%cycle/2):Math.floor(t/2)}}
+function elapsed(){return running?(ctx.currentTime-origin)/(30/bpm):saved}
+function halt(){clearInterval(timer);timer=null;cancelAnimationFrame(frame);frame=0;for(const source of sources){try{source.stop()}catch{}}sources.clear();$('level').style.transform='scaleX(0)'}
+function setPhase(phase,text){$('phaseBadge').dataset.phase=phase;$('phaseBadge').textContent=text}
+function fail(error){running=false;starting=false;halt();$('play').disabled=false;$('play').textContent='Riprova';setPhase('ready','Audio da attivare');message(`Audio non disponibile. ${error.message||'Riprova con un clic.'}`)}
+async function play(){
+ if(running||starting)return;const token=++startToken;starting=true;$('play').disabled=true;message('Attivazione audio…');
+ try{
+  initAudio();await ctx.resume();await prepareSamples();if(token!==startToken)return;if(ctx.state!=='running')throw Error('Premi nuovamente Ascolta.');
+  starting=false;running=true;origin=ctx.currentTime+.06-saved*30/bpm;nextStep=Math.ceil(saved-1e-7);$('play').textContent='In esecuzione';$('play').disabled=true;
+  schedule();timer=setInterval(schedule,25);animate();message('');
+ }catch(error){if(token===startToken)fail(error)}
+}
+function schedule(){
+ if(!running)return;const step=30/bpm,horizon=ctx.currentTime+.12,total=totalLength();
+ while(origin+nextStep*step<horizon){
+  const k=nextStep++,time=origin+k*step;if(time<ctx.currentTime-.03)continue;
+  if(k<0){if(k%2===0)tick(time,k===-8);continue}
+  if(mode==='metro'){if(k%2===0)tick(time,k%8===0);continue}
+  if(!$('loop').checked&&k>=total)break;
+  const loc=locate(k),bar=Math.floor(loc.unit/8),unit=loc.unit%8;
+  if($('metro').checked&&k%2===0)tick(time,unit===0);
+  if($('music').checked&&k%2===0)accompaniment(loc.phrase,loc.beat,time);
+  if(mode!=='guide'&&!loc.response)scoreData[loc.phrase][bar].forEach((part,i)=>{if(events(part).some(e=>e.start===unit&&!e.rest))bodyTone(i,time)});
+ }
+}
+const meterData=new Uint8Array(256);
+function animate(){
+ if(!running)return;const time=elapsed();
+ if(mode!=='metro'&&!$('loop').checked&&time>=totalLength()){
+  running=false;halt();saved=-8;position=0;response=false;if(scope==='all')selected=0;renderScore();$('play').disabled=false;$('play').textContent='▶ Riascolta';$('status').textContent='Percorso completato';setPhase('ready','Ben fatto');return;
+ }
+ if(time<0){const n=Math.max(1,Math.min(4,Math.floor((time+8)/2)+1));setPhase('count',`${n} · preparazione`);$('status').textContent='Quattro pulsazioni, poi insieme'}
+ else if(mode==='metro'){setPhase('count',`Pulsazione ${Math.floor(time%8/2)+1}`);$('status').textContent='Solo metronomo'}
+ else{
+  const loc=locate(time);position=loc.unit;response=loc.response;if(selected!==loc.phrase){selected=loc.phrase;renderScore()}
+  setPhase(response?'response':'listen',response?'Tocca a voi':mode==='guide'?'Suonate voi':'Ascolta');
+  const status=`${response?'Ripeti · ':''}battuta ${selected*2+Math.floor(position/8)+1} · pulsazione ${Math.floor(position%8/2)+1}`;
+  if(status!==lastStatus){$('status').textContent=status;lastStatus=status}
+ }
+ highlight();analyser.getByteTimeDomainData(meterData);let rms=0;for(const n of meterData)rms+=((n-128)/128)**2;$('level').style.transform=`scaleX(${Math.min(1,Math.sqrt(rms/256)*9)})`;frame=requestAnimationFrame(animate);
+}
+function pause(){++startToken;starting=false;if(running)saved=elapsed();running=false;halt();$('play').disabled=false;$('play').textContent='Riprendi';$('status').textContent='In pausa';setPhase('ready','In pausa');highlight()}
+function reset(){++startToken;starting=false;running=false;halt();saved=-8;position=0;response=false;lastStatus='';if(scope==='all')selected=0;$('play').disabled=false;$('play').textContent=mode==='echo'?'▶ Avvia eco':mode==='guide'?'▶ Suona':'▶ Ascolta';$('status').textContent='Quattro pulsazioni di preparazione';setPhase('ready','Pronti');renderScore()}
+function setMode(next){mode=next;$('mode').value=next==='metro'?'listen':next;$('echo').setAttribute('aria-pressed',String(mode==='echo'))}
+async function startMode(next){setMode(next);if($('settings').open)$('settings').close();reset();await play()}
+function selectPattern(index){const resume=running;scope='selected';$('scope').value=scope;selected=Math.max(0,Math.min(4,index));reset();if(resume)play()}
+async function testVoice(i=0){pause();const token=++startToken;try{initAudio();await ctx.resume();await prepareSamples();if(token!==startToken)return;bodyTone(i,ctx.currentTime+.03,true);message('')}catch(e){if(token===startToken)fail(e)}}
 
-                            <div class="brl__track">
-                                <div class="brl__sequence">
-                                    <div class="brl__row brl__row--main" id="brl-echo-grid" aria-label="Frase in esecuzione"></div>
-                                    <div class="brl__preview">
-                                        <div class="brl__row brl__row--preview" id="brl-echo-preview-grid" aria-label="Anteprima della frase successiva"></div>
-                                    </div>
-                                </div>
-                            </div>
+/* === Native scroll-snap, keyboard, touch controls and progressive disclosure === */
+const viewport=$('lessonViewport');
+function markSlide(id){activeSlide=id;document.querySelectorAll('[data-slide]').forEach(b=>{const on=b.dataset.slide===id;b.setAttribute('aria-pressed',String(on));if(on)b.setAttribute('aria-current','step');else b.removeAttribute('aria-current')})}
+function showSlide(id){viewport.scrollTo({top:$(id+'Slide').offsetTop,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})}
+viewport.addEventListener('scroll',()=>markSlide(viewport.scrollTop/Math.max(1,viewport.clientHeight)>=.5?'overview':'score'),{passive:true});
+if('ResizeObserver' in window)new ResizeObserver(()=>viewport.scrollTo({top:$(activeSlide+'Slide').offsetTop,behavior:'auto'})).observe(viewport);
+$('patterns').innerHTML=profiles.map((p,i)=>`<button data-pattern="${i}" aria-label="Sequenza ${i+1}: ${p.label}" aria-pressed="${i===0}"><b>${i+1}</b><span class="phrase-name">${p.label}</span></button>`).join('');
+$('mixer').innerHTML=names.map((n,i)=>`<div class="channel" style="--voice:${colors[i]}"><b>${n}</b><label><input data-enable="${i}" type="checkbox" checked>Ascolta voce</label><div class="voice-actions"><button data-solo="${i}" aria-pressed="false" aria-label="Solo ${n}">Solo</button><button data-test="${i}" aria-label="Prova ${n}">Prova</button></div><label>Volume <input data-volume="${i}" aria-label="Volume ${n}" type="range" min="0" max="1" step=".05" value="${volumes[i]}"></label></div>`).join('');
+$('play').onclick=()=>{if(mode==='metro'){setMode($('mode').value);reset()}play()};$('echo').onclick=()=>startMode('echo');$('pause').onclick=pause;$('stop').onclick=()=>{if(mode==='metro')setMode('listen');reset()};
+$('prev').onclick=()=>selectPattern(selected-1);$('forward').onclick=()=>selectPattern(selected+1);
+$('playAll').onclick=()=>{scope='all';$('scope').value=scope;$('loop').checked=false;startMode('listen')};
+$('tempo').oninput=()=>{const resume=running;if(resume)pause();bpm=Number($('tempo').value);$('tempoText').textContent=bpm;$('tempoOutput').textContent=bpm+' BPM';if(resume)play()};
+$('mode').onchange=()=>{setMode($('mode').value);reset()};$('scope').onchange=()=>{scope=$('scope').value;reset()};$('loop').onchange=reset;$('durations').onchange=renderScore;
+for(const id of ['bodySound','music'])$(id).onchange=syncMixer;
+$('metroOnly').onclick=()=>startMode('metro');$('testAudio').onclick=()=>testVoice();
+$('options').onclick=()=>$('settings').showModal();$('closeSettings').onclick=()=>$('settings').close();
+$('full').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen()}catch{message('Impossibile attivare lo schermo intero in questo browser.')}};
+document.addEventListener('fullscreenchange',()=>{$('full').textContent=document.fullscreenElement?'Riduci':'Schermo intero'});
+document.addEventListener('click',e=>{
+ const t=e.target.closest('button');if(!t)return;
+ if(t.dataset.pattern!==undefined){selectPattern(Number(t.dataset.pattern));showSlide('score')}
+ if(t.dataset.slide)showSlide(t.dataset.slide);
+ if(t.dataset.solo!==undefined){solo=solo===Number(t.dataset.solo)?-1:Number(t.dataset.solo);document.querySelectorAll('[data-solo]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.solo)===solo)));syncMixer()}
+ if(t.dataset.test!==undefined)testVoice(Number(t.dataset.test));
+});
+document.addEventListener('input',e=>{if(e.target.dataset.enable!==undefined){enabled[Number(e.target.dataset.enable)]=e.target.checked;syncMixer()}if(e.target.dataset.volume!==undefined){volumes[Number(e.target.dataset.volume)]=Number(e.target.value);syncMixer()}});
+document.addEventListener('keydown',e=>{
+ if($('settings').open||/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;
+ if(e.key==='ArrowLeft'&&activeSlide==='score'){e.preventDefault();selectPattern(selected-1)}
+ if(e.key==='ArrowRight'&&activeSlide==='score'){e.preventDefault();selectPattern(selected+1)}
+ if(e.key==='PageDown'||e.key==='ArrowDown'){e.preventDefault();showSlide('overview')}
+ if(e.key==='PageUp'||e.key==='ArrowUp'){e.preventDefault();showSlide('score')}
+ if(e.key===' '&&(e.target===document.body||e.target===viewport)){e.preventDefault();running?pause():play()}
+});
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&(running||starting))pause()});
+renderEnsemble();reset();
+document.fonts.load('80px Bravura').then(fonts=>{if(!fonts.length)message('Carattere musicale non disponibile: ricarica la pagina.');else renderScore()}).catch(()=>message('Impossibile caricare le figure musicali.'));
+window.echoLesson={patterns,scoreData,profiles,compile,events,locate,get state(){return {selected,mode,scope,activeSlide,running,starting,saved,position,response,bpm,audioState:ctx?.state,activeSources:sources.size}}};
 
-                            <div class="brl__controls">
-                                <div class="brl__mix" role="group" aria-label="Parti da ascoltare">
-                                    <button class="brl__metronome-toggle is-active" id="brl-accompaniment-toggle" type="button" aria-pressed="true">Musica ON · Passeggiata</button>
-                                    <button class="brl__metronome-toggle is-active" id="brl-body-toggle" type="button" aria-pressed="true">Body percussion ON</button>
-                                </div>
-                                <button class="brl__primary" id="brl-echo-play" type="button" aria-pressed="false">Ascolta</button>
-                                <p class="brl__status" id="brl-echo-status" aria-live="polite"></p>
-                            </div>
-                        </div>
-                        </div>
-                    </section>
-
-
-                </div>
-            </div>
-        </div>
-
-    </main>
-
-    <script src="../../../../js/main.js?v=1782800000"></script>
-    <script src="../../../../js/battito-lesson.js?v=2026101705"></script>
-
-</body>
-</html>
+</script></body></html>
