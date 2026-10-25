@@ -55,6 +55,18 @@ body{overflow:hidden}
 .score-beat.is-current .beat-wash{opacity:.72}
 .score-beat.is-current text{fill:#263e19;font-weight:800}
 #scoreStrip{will-change:transform}
+
+/* Full-width score and one steady, unbroken reading band. */
+#scoreSlide{max-width:none!important}
+.slide-heading{min-height:48px;padding-block:8px}
+.page-navigation{min-height:56px;padding-block:4px}
+.deck-header,.deck-footer{padding-block:8px}
+.scorewrap{overflow:hidden}
+.music{font-size:84px}
+.note-event .event-bg,.attack-marker,.beat-wash{display:none!important}
+.score-beat.is-current text{fill:#263e19;font-weight:800}
+.reading-band{pointer-events:none}
+.gesture-icon{opacity:1}
 </style></head><body>
 <main class="lesson-deck">
  <header class="deck-header">
@@ -148,7 +160,8 @@ function ranges(){for(const id of ['from','to'])$(id).innerHTML=data.map((_,i)=>
 // A rolling SVG window. Absolute musical time drives geometry and highlighting;
 // recycling an off-screen measure never changes the position of a visible note.
 function createScoreStrip(config){
- const {left,span,rows,describe,svg}=config,bw=span/2,unitWidth=bw/8,anchor=left+100;
+ const {left,span,rows,describe,svg,height=540}=config,bw=span/2,unitWidth=bw/8,anchor=left+100,offset=6;
+ const stripId=svg==='score'?'scoreStrip':svg+'Strip',cursorId=svg==='score'?'cursor':svg+'Cursor',clipId=svg+'Clip',bandId=svg+'Pulse';
  const tag=(name,attrs,body='')=>`<${name} ${Object.entries(attrs).map(([k,v])=>`${k}="${v}"`).join(' ')}>${body}</${name}>`;
  let base=null,revision=0,cache='',nodes=[],beats=[],lastTime=0;
  function invalidate(){revision++;cache=''}
@@ -159,25 +172,28 @@ function createScoreStrip(config){
    base=first;cache=key;let moving='';
    for(let b=first;b<first+5;b++){
     const bar=describe(b);if(!bar)continue;const x=(b-first)*bw;
-    moving+=tag('text',{class:'measure-heading',x:x+14,y:25,'font-size':20,'font-weight':700,fill:'#34452a'},bar.label);
+    moving+=tag('text',{class:'measure-heading',x:x+offset,y:25,'font-size':20,'font-weight':700,fill:'#34452a'},bar.label);
     for(let beat=0;beat<4;beat++){
      const start=b*8+beat*2,bx=x+beat*bw/4;
-     moving+=tag('g',{class:'score-beat','data-start':start},tag('rect',{class:'beat-wash',x:bx+4,y:34,width:bw/4-8,height:494,rx:5})+tag('text',{x:bx+14,y:55,'font-size':19},beat+1));
+     moving+=tag('g',{class:'score-beat','data-start':start},tag('text',{x:bx+offset,y:55,'font-size':19},beat+1));
     }
     rows.forEach((row,i)=>{
      const y=row.y;
      moving+=tag('line',{x1:x,x2:x,y1:y-row.above,y2:y+row.below,stroke:'#b5c0ac'});
      moving+=tag('line',{x1:x,x2:x+bw,y1:y,y2:y,stroke:'#cbd3c4'});
      for(const e of events(bar.parts[i])){
-      const ex=x+e.start*unitWidth,cx=ex+14,w=e.d*unitWidth;
+      const ex=x+e.start*unitWidth,cx=ex+offset,w=e.d*unitWidth;
       let inner=tag('title',{},`${names[i]}: ${e.rest?'pausa di ':''}${figureNames[e.d]}`);
-      inner+=tag('rect',{class:'event-bg',x:ex+5,y:y-row.above,width:w-10,height:row.above+row.below,rx:4,fill:'#e5eddc'});
-      inner+=tag('text',{class:'music note-ink',x:cx,y},e.rest?config.rests[e.d]:glyphs[e.d]);
-      inner+=tag('rect',{class:'attack-marker',x:cx-2,y:y+15,width:24,height:4,rx:2,fill:colors[i]});
-      if($('durations').checked)inner+=tag('text',{class:'note-value',x:cx,y:y+row.valueY,'font-size':row.valueSize,fill:'#54634b'},values[e.d]);
+      if(config.icons){
+       if(e.rest)inner+=tag('line',{class:'gesture-rest',x1:cx,x2:ex+w-12,y1:y,y2:y,stroke:'#adb5a6','stroke-width':2});
+       else {const size=Math.min(112,w-12);inner+=tag('image',{class:'gesture-icon',href:config.icons[i],x:cx-6,y:y-size*.62,width:size,height:size,preserveAspectRatio:'xMidYMid meet'});}
+      }else{
+       inner+=tag('text',{class:'music note-ink',x:cx,y},e.rest?config.rests[e.d]:glyphs[e.d]);
+       if($('durations').checked)inner+=tag('text',{class:'note-value',x:cx,y:y+row.valueY,'font-size':row.valueSize,fill:'#54634b'},values[e.d]);
+      }
       if(config.resonance&&i===3&&!e.rest){
        inner+=tag('line',{class:'resonance',x1:cx+34,x2:ex+w-12,y1:y+14,y2:y+14,stroke:colors[i],'stroke-width':2});
-       inner+=tag('text',{x:ex+w-12,y:y+44,'text-anchor':'end','font-size':15,fill:colors[i]},'smorza');
+       inner+=tag('text',{x:ex+w-12,y:y+48,'text-anchor':'end','font-size':15,fill:colors[i]},'smorza');
       }
       moving+=tag('g',{class:'note-event','data-start':b*8+e.start,'data-end':b*8+e.start+e.d,'data-rest':e.rest,style:`--voice:${colors[i]}`},inner);
      }
@@ -185,14 +201,16 @@ function createScoreStrip(config){
     });
    }
    let fixed=rows.map((row,i)=>tag('text',{class:'voice-label',x:12,y:row.y-2,'font-size':config.labelSize,'font-weight':700,fill:colors[i]},names[i])).join('');
-   fixed+=tag('line',{id:'cursor',x1:anchor,x2:anchor,y1:65,y2:528,stroke:'#34452a','stroke-width':2,opacity:.6});
-   fixed+=tag('path',{d:`M ${anchor-5} 63 L ${anchor+5} 63 L ${anchor} 69 Z`,fill:'#34452a'});
-   $(svg).innerHTML=tag('defs',{},tag('clipPath',{id:'scoreClip'},tag('rect',{x:left,y:0,width:span,height:540})))+tag('g',{'clip-path':'url(#scoreClip)'},tag('g',{id:'scoreStrip'},moving))+fixed;
-   nodes=[...document.querySelectorAll('#score .note-event')];beats=[...document.querySelectorAll('#score .score-beat')];
+   const band=tag('rect',{id:bandId,class:'reading-band',x:anchor-5,y:64,width:12,height:height-76,fill:'#6f8e54','fill-opacity':.16,visibility:'hidden'});
+   fixed+=tag('line',{id:cursorId,x1:anchor,x2:anchor,y1:64,y2:height-12,stroke:'#34452a','stroke-width':1.5,opacity:.7,visibility:'hidden'});
+   $(svg).setAttribute('viewBox',`0 0 1200 ${height}`);
+   $(svg).innerHTML=tag('defs',{},tag('clipPath',{id:clipId},tag('rect',{x:left,y:0,width:span,height})))+band+tag('g',{'clip-path':`url(#${clipId})`},tag('g',{id:stripId},moving))+fixed;
+   nodes=[...document.querySelectorAll(`#${svg} .note-event`)];beats=[...document.querySelectorAll(`#${svg} .score-beat`)];
   }
-  const translation=anchor-14-(time-base*8)*unitWidth;
-  $('scoreStrip').setAttribute('transform',`translate(${translation} 0)`);
-  $('cursor').setAttribute('visibility',lit?'visible':'hidden');
+  const translation=anchor-offset-(time-base*8)*unitWidth;
+  $(stripId).setAttribute('transform',`translate(${translation} 0)`);
+  $(cursorId).setAttribute('visibility',lit?'visible':'hidden');
+  $(bandId).setAttribute('visibility',lit?'visible':'hidden');
   const pulse=Math.floor(time/2)*2;
   for(const beat of beats)beat.classList.toggle('is-current',lit&&Number(beat.dataset.start)===pulse);
   for(const g of nodes){const start=Number(g.dataset.start),active=lit&&time>=start&&time<Number(g.dataset.end);g.classList.toggle('is-active',active);g.classList.toggle('is-attack',active&&g.dataset.rest==='false'&&time<start+.32)}
@@ -207,7 +225,7 @@ function orchestraBar(index){
  const b=lo/8+index%length;
  return {parts:data[b],label:`Battuta ${b+1}`};
 }
-const scoreStrip=createScoreStrip({left:200,span:976,rows:names.map((_,i)=>({y:140+i*112,above:62,below:50,valueY:44,valueSize:18})),describe:orchestraBar,svg:'score',rests:restGlyphs,labelSize:23,resonance:true});
+const scoreStrip=createScoreStrip({left:200,span:976,height:600,rows:names.map((_,i)=>({y:150+i*130,above:78,below:50,valueY:48,valueSize:18})),describe:orchestraBar,svg:'score',rests:restGlyphs,labelSize:23,resonance:true});
 function scoreLabels(){
  const b=Math.min(data.length-1,Math.floor(position/8));
  $('section').textContent=sections[Math.floor(b/4)];
@@ -336,7 +354,7 @@ document.addEventListener('keydown',e=>{
  if(e.key===' '&&(e.target===document.body||e.target===lessonViewport)){e.preventDefault();running?pause():play()}
 });
 setup();
-document.fonts.load('58px Bravura').then(fonts=>{if(!fonts.length)setAudioMessage('Il carattere musicale non è disponibile: ricarica la pagina.');else render()}).catch(()=>setAudioMessage('Impossibile caricare le figure musicali. Ricarica la pagina.'));
+document.fonts.load('84px Bravura').then(fonts=>{if(!fonts.length)setAudioMessage('Il carattere musicale non è disponibile: ricarica la pagina.');else render()}).catch(()=>setAudioMessage('Impossibile caricare le figure musicali. Ricarica la pagina.'));
 window.orchestra={scoreStrip,orchestraBar,song,events,rangePosition,pageSize,get state(){return{running,starting,saved,position,bpm,mode,activeSlide,audioState:ctx?.state,scheduled:nextStep,activeSources:sources.size}}};
 
 </script></body></html>
