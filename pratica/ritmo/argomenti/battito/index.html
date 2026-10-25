@@ -86,43 +86,41 @@ body{overflow:hidden}
 .score-beat.is-current text{fill:#263e19;font-weight:800}
 #scoreStrip{will-change:transform}
 
-/* Full-width score and one steady, unbroken reading band. */
-#scoreSlide{max-width:none!important}
-.slide-heading{min-height:48px;padding-block:8px}
-.page-navigation{min-height:56px;padding-block:4px}
-.deck-header,.deck-footer{padding-block:8px}
+/* Original score dimensions and one steady reading band. */
 .scorewrap{overflow:hidden}
-.music{font-size:84px}
 .note-event .event-bg,.attack-marker,.beat-wash{display:none!important}
 .score-beat.is-current text{fill:#263e19;font-weight:800}
 .reading-band{pointer-events:none}
 .gesture-icon{opacity:1}
 
 /* Two equivalent readings of the same rhythm. */
-.music{font-size:92px}
+.music{font-size:80px}
 #notationScore{display:block;width:100%;height:100%;overflow:hidden}
 #notationScoreStrip{will-change:transform}
 #overviewSlide{grid-template-rows:auto minmax(0,1fr) auto;padding-bottom:0}
 .reading-title{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
 .reading-title .meter{font-size:16px}
 @media(max-width:700px){.reading-title{gap:4px}.reading-title .meter{font-size:12px}.slide-heading h2{font-size:17px}.phrase-choices{min-height:56px}}
+
+#overviewSlide{max-width:1712px;margin-inline:auto}
+@media(min-width:1600px){#overviewSlide{max-width:1680px}}
 </style></head><body>
 <main class="lesson-deck">
  <header class="deck-header"><div class="identity"><a class="back-link" href="../../index.html">← Accordia / Ritmo</a><h1>Gioco dell’eco</h1></div><div class="deck-nav"><span class="phase-badge" id="phaseBadge" data-phase="ready">Pronti</span><button class="full-button" id="full">Schermo intero</button></div></header>
  <nav class="topic-rail lesson-progress" aria-label="Slide della lezione"><button data-slide="score" aria-pressed="true" aria-current="step" aria-controls="scoreSlide" aria-label="Slide 1: segui i gesti" title="Segui i gesti"><span aria-hidden="true"></span></button><button data-slide="overview" aria-pressed="false" aria-controls="overviewSlide" aria-label="Slide 2: leggi le figure musicali" title="Figure musicali"><span aria-hidden="true"></span></button></nav>
  <div id="lessonViewport" class="lesson-viewport" tabindex="0" aria-label="Lezione a scorrimento verticale">
   <section id="scoreSlide" class="lesson-slide" aria-label="Slide 1: segui i gesti">
-   <div class="slide-heading"><div class="reading-title"><h2>1 · Segui i gesti</h2><span class="meter" id="section">Sequenza 1 · Passeggiata</span></div><span class="meter">4/4 · ♩ = <span id="tempoText">84</span></span></div>
+   <div class="slide-heading"><div class="reading-title"><h2>1 · Segui i gesti</h2><span class="meter" id="section">Sequenza 1 · Passeggiata</span></div><span class="meter">4/4 · ♩ = <span id="tempoText">72</span></span></div>
    <div class="scorewrap"><svg id="score" viewBox="0 0 1200 540" role="img" aria-label="Partitura con icone di Mani, Petto e Cosce"></svg></div>
    <div class="page-navigation"><button id="prev" aria-label="Sequenza precedente">← Precedente</button><div class="position"><b id="pair">Battute 1–2 / 10</b><span id="status" role="status" aria-live="off">Quattro pulsazioni di preparazione</span></div><div class="next-pair"><span id="next">A seguire 3–4</span><button id="forward" aria-label="Sequenza successiva">Successiva →</button></div></div>
   </section>
   <section id="overviewSlide" class="lesson-slide" aria-label="Slide 2: leggi le figure musicali">
    <div class="slide-heading"><div class="reading-title"><h2>2 · Leggi le figure musicali</h2><span class="meter" id="notationSection">Sequenza 1 · Passeggiata</span></div><button id="playAll">▶ Ascolta tutte</button></div>
-   <div class="scorewrap"><svg id="notationScore" viewBox="0 0 1200 580" role="img" aria-label="Lo stesso ritmo con figure musicali per Mani, Petto e Cosce"></svg></div>
+   <div class="scorewrap"><svg id="notationScore" viewBox="0 0 1200 540" role="img" aria-label="Lo stesso ritmo con figure musicali per Mani, Petto e Cosce"></svg></div>
    <div class="phrase-choices" id="patterns" role="group" aria-label="Scegli una sequenza"></div>
   </section>
  </div>
- <footer class="deck-footer"><div class="transport"><div class="transport-left"><button class="primary" id="play">▶ Ascolta</button><button id="echo" aria-pressed="false">Gioco dell’eco</button><button id="pause">Pausa</button><button id="stop">Arresta</button></div><div class="transport-right"><label class="tempo-control">Tempo <input id="tempo" aria-label="Tempo in BPM" type="range" min="60" max="120" value="84"><output id="tempoOutput" for="tempo">84 BPM</output></label><span class="audio-meter" aria-hidden="true"><i id="level"></i></span><button id="options" aria-haspopup="dialog">Audio e opzioni</button></div></div><div id="audioNotice" class="audio-status"><span id="audioState" role="status" aria-live="polite"></span></div></footer>
+ <footer class="deck-footer"><div class="transport"><div class="transport-left"><button class="primary" id="play">▶ Ascolta</button><button id="echo" aria-pressed="false">Gioco dell’eco</button><button id="pause">Pausa</button><button id="stop">Arresta</button></div><div class="transport-right"><label class="tempo-control">Tempo <input id="tempo" aria-label="Tempo in BPM" type="range" min="60" max="120" value="72"><output id="tempoOutput" for="tempo">72 BPM</output></label><span class="audio-meter" aria-hidden="true"><i id="level"></i></span><button id="options" aria-haspopup="dialog">Audio e opzioni</button></div></div><div id="audioNotice" class="audio-status"><span id="audioState" role="status" aria-live="polite"></span></div></footer>
 </main>
 <dialog id="settings" aria-labelledby="settingsTitle"><div class="dialog-header"><h2 id="settingsTitle">Audio e opzioni</h2><button id="closeSettings" autofocus>Chiudi</button></div>
  <div class="settings-row"><label>Modalità <select id="mode"><option value="listen">Ascolto continuo</option><option value="echo">Ascolta e ripeti</option><option value="guide">Suona con la guida</option></select></label><label>Percorso <select id="scope"><option value="all">Tutte e cinque</option><option value="selected">Sequenza scelta</option></select></label><label><input id="loop" type="checkbox">Ripeti</label></div>
@@ -133,29 +131,8 @@ body{overflow:hidden}
 </dialog>
 <script>
 'use strict';
-/* === Musical material: the five existing sequences and accompaniments === */
-const patterns=[
-            [
-                ['cosce'], ['cosce'], ['cosce'], ['cosce'],
-                ['mani'], ['mani'], ['mani'], ['mani']
-            ],
-            [
-                ['cosce'], ['petto'], ['cosce'], ['mani'],
-                ['petto'], ['cosce'], ['mani'], ['mani']
-            ],
-            [
-                ['cosce'], ['mani'], ['cosce', 'petto'], ['mani'],
-                ['petto'], ['cosce', 'mani'], ['petto'], ['mani', 'mani']
-            ],
-            [
-                ['cosce', 'petto'], ['mani'], ['petto'], ['cosce', 'mani'],
-                ['mani', 'mani'], ['cosce'], ['petto', 'mani'], ['cosce']
-            ],
-            [
-                ['cosce', 'petto'], ['mani'], ['cosce', 'petto'], ['mani', 'mani'],
-                ['mani', 'petto'], ['cosce', 'mani'], ['petto', 'mani'], ['cosce', 'petto']
-            ]
-        ];
+/* === Musical material: the five repeated beginner sequences and original accompaniments === */
+const patterns=[[["cosce"],["cosce"],["mani"],["mani"],["cosce"],["cosce"],["mani"],["mani"]],[["petto"],["petto"],["mani"],["mani"],["petto"],["petto"],["mani"],["mani"]],[["cosce"],["cosce"],["mani"],["mani","mani"],["cosce"],["cosce"],["mani"],["mani","mani"]],[["mani"],["mani"],["petto"],["petto","petto"],["mani"],["mani"],["petto"],["petto","petto"]],[["mani"],["mani"],["cosce"],["cosce","cosce"],["mani"],["mani"],["cosce"],["cosce","cosce"]]];
 const profiles=[
             { label: 'Passeggiata', voice: 'wood', melody: [72,0,76,0,79,0,76,0,74,0,77,0,72,0,0,0], bass: [48,48,53,48], rhythm: [0,2], subdivisions: false },
             { label: 'Marcia allegra', voice: 'pluck', melody: [60,64,67,64,65,69,72,69,67,71,74,71,72,67,64,0], bass: [48,53,55,48], rhythm: [0,1,2,3], subdivisions: false },
@@ -174,7 +151,7 @@ const scoreData=patterns.map(compile);
 function events(part){let t=0;return part.map(v=>{const event={start:t,d:Math.abs(v),rest:v<0};t+=event.d;return event})}
 for(const phrase of scoreData)for(const bar of phrase)for(const part of bar)if(part.reduce((n,v)=>n+Math.abs(v),0)!==8)throw Error('Battuta incompleta');
 const glyphs={1:'\uE1D7',2:'\uE1D5',4:'\uE1D3'},rests={1:'\uE4E6',2:'\uE4E5',4:'\uE4E4'},values={1:'1/8',2:'1/4',4:'1/2'},figureNames={1:'croma',2:'semiminima',4:'minima'};
-let selected=0,mode='listen',scope='all',activeSlide='score',bpm=84,position=0,response=false;
+let selected=0,mode='listen',scope='all',activeSlide='score',bpm=72,position=0,response=false;
 let running=false,starting=false,saved=-8,origin=0,nextStep=-8,timer=null,frame=0,startToken=0,lastStatus='';
 const enabled=[true,true,true],volumes=[.8,.85,.85];let solo=-1;
 
@@ -208,7 +185,7 @@ function createScoreStrip(config){
       let inner=tag('title',{},`${names[i]}: ${e.rest?'pausa di ':''}${figureNames[e.d]}`);
       if(config.icons){
        if(e.rest)inner+=tag('line',{class:'gesture-rest',x1:cx,x2:ex+w-12,y1:y,y2:y,stroke:'#adb5a6','stroke-width':2});
-       else {const size=Math.min(112,w-12);inner+=tag('image',{class:'gesture-icon',href:config.icons[i],x:cx-6,y:y-size*.62,width:size,height:size,preserveAspectRatio:'xMidYMid meet'});}
+       else {const size=Math.min(96,w-12);inner+=tag('image',{class:'gesture-icon',href:config.icons[i],x:cx-6,y:y-size*.62,width:size,height:size,preserveAspectRatio:'xMidYMid meet'});}
       }else{
        inner+=tag('text',{class:'music note-ink',x:cx,y},e.rest?config.rests[e.d]:glyphs[e.d]);
        if($('durations').checked)inner+=tag('text',{class:'note-value',x:cx,y:y+row.valueY,'font-size':row.valueSize,fill:'#54634b'},values[e.d]);
@@ -250,7 +227,7 @@ function echoBar(index){
  return {parts:scoreData[p][index%2],label:`${responseBar?'Ripeti':'Battuta'} ${p*2+index%2+1}${mode==='echo'&&!responseBar?' · ascolta':''}`};
 }
 const gestureIcons=['mani-3d','petto-coral-3d','cosce-3d'].map(name=>`../../../../assets/lesson/body-percussion/${name}.png`);
-const echoLayout={left:160,span:1016,height:580,rows:names.map((_,i)=>({y:158+i*170,above:84,below:58,valueY:62,valueSize:20})),describe:echoBar,rests,labelSize:28};
+const echoLayout={left:160,span:1016,height:540,rows:names.map((_,i)=>({y:150+i*150,above:76,below:62,valueY:56,valueSize:20})),describe:echoBar,rests,labelSize:28};
 const scoreStrip=createScoreStrip({...echoLayout,svg:'score',icons:gestureIcons});
 const notationStrip=createScoreStrip({...echoLayout,svg:'notationScore'});
 function scoreLabels(){
@@ -404,7 +381,7 @@ document.addEventListener('keydown',e=>{
 });
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&(running||starting))pause()});
 reset();
-document.fonts.load('92px Bravura').then(fonts=>{if(!fonts.length)message('Carattere musicale non disponibile: ricarica la pagina.');else renderScore()}).catch(()=>message('Impossibile caricare le figure musicali.'));
+document.fonts.load('80px Bravura').then(fonts=>{if(!fonts.length)message('Carattere musicale non disponibile: ricarica la pagina.');else renderScore()}).catch(()=>message('Impossibile caricare le figure musicali.'));
 window.echoLesson={scoreStrip,notationStrip,gestureIcons,echoBar,patterns,scoreData,profiles,compile,events,locate,get state(){return {selected,mode,scope,activeSlide,running,starting,saved,position,response,bpm,audioState:ctx?.state,activeSources:sources.size}}};
 
 </script></body></html>
