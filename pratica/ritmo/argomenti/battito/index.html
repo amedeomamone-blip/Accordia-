@@ -1,5 +1,5 @@
 <!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="description" content="Gioco dell’eco: cinque sequenze di body percussion, partitura a tre voci e panoramica d’insieme.">
+<meta name="description" content="Gioco dell’eco: cinque sequenze di body percussion, partitura gestuale e lettura con le figure musicali.">
 <title>Gioco dell’eco | Accordia</title><link rel="stylesheet" href="../../../../css/style.css"><style>
 @font-face{font-family:Bravura;src:url('../../../../assets/fonts/Bravura.otf') format('opentype');font-display:block}
 /* LIM: a white score sheet, four stable voices, two measures per page.
@@ -85,19 +85,40 @@ body{overflow:hidden}
 .score-beat.is-current .beat-wash{opacity:.72}
 .score-beat.is-current text{fill:#263e19;font-weight:800}
 #scoreStrip{will-change:transform}
+
+/* Full-width score and one steady, unbroken reading band. */
+#scoreSlide{max-width:none!important}
+.slide-heading{min-height:48px;padding-block:8px}
+.page-navigation{min-height:56px;padding-block:4px}
+.deck-header,.deck-footer{padding-block:8px}
+.scorewrap{overflow:hidden}
+.music{font-size:84px}
+.note-event .event-bg,.attack-marker,.beat-wash{display:none!important}
+.score-beat.is-current text{fill:#263e19;font-weight:800}
+.reading-band{pointer-events:none}
+.gesture-icon{opacity:1}
+
+/* Two equivalent readings of the same rhythm. */
+.music{font-size:92px}
+#notationScore{display:block;width:100%;height:100%;overflow:hidden}
+#notationScoreStrip{will-change:transform}
+#overviewSlide{grid-template-rows:auto minmax(0,1fr) auto;padding-bottom:0}
+.reading-title{display:flex;align-items:baseline;gap:16px;flex-wrap:wrap}
+.reading-title .meter{font-size:16px}
+@media(max-width:700px){.reading-title{gap:4px}.reading-title .meter{font-size:12px}.slide-heading h2{font-size:17px}.phrase-choices{min-height:56px}}
 </style></head><body>
 <main class="lesson-deck">
  <header class="deck-header"><div class="identity"><a class="back-link" href="../../index.html">← Accordia / Ritmo</a><h1>Gioco dell’eco</h1></div><div class="deck-nav"><span class="phase-badge" id="phaseBadge" data-phase="ready">Pronti</span><button class="full-button" id="full">Schermo intero</button></div></header>
- <nav class="topic-rail lesson-progress" aria-label="Slide della lezione"><button data-slide="score" aria-pressed="true" aria-current="step" aria-controls="scoreSlide" aria-label="Slide 1: partitura" title="Partitura"><span aria-hidden="true"></span></button><button data-slide="overview" aria-pressed="false" aria-controls="overviewSlide" aria-label="Slide 2: partitura d’insieme" title="Partitura d’insieme"><span aria-hidden="true"></span></button></nav>
+ <nav class="topic-rail lesson-progress" aria-label="Slide della lezione"><button data-slide="score" aria-pressed="true" aria-current="step" aria-controls="scoreSlide" aria-label="Slide 1: segui i gesti" title="Segui i gesti"><span aria-hidden="true"></span></button><button data-slide="overview" aria-pressed="false" aria-controls="overviewSlide" aria-label="Slide 2: leggi le figure musicali" title="Figure musicali"><span aria-hidden="true"></span></button></nav>
  <div id="lessonViewport" class="lesson-viewport" tabindex="0" aria-label="Lezione a scorrimento verticale">
-  <section id="scoreSlide" class="lesson-slide" aria-label="Slide 1: partitura">
-   <div class="slide-heading"><h2 id="section">Sequenza 1 · Passeggiata</h2><span class="meter">4/4 · ♩ = <span id="tempoText">84</span></span></div>
-   <div class="scorewrap"><svg id="score" viewBox="0 0 1200 540" role="img" aria-label="Partitura scorrevole per Mani, Petto e Cosce"></svg></div>
+  <section id="scoreSlide" class="lesson-slide" aria-label="Slide 1: segui i gesti">
+   <div class="slide-heading"><div class="reading-title"><h2>1 · Segui i gesti</h2><span class="meter" id="section">Sequenza 1 · Passeggiata</span></div><span class="meter">4/4 · ♩ = <span id="tempoText">84</span></span></div>
+   <div class="scorewrap"><svg id="score" viewBox="0 0 1200 540" role="img" aria-label="Partitura con icone di Mani, Petto e Cosce"></svg></div>
    <div class="page-navigation"><button id="prev" aria-label="Sequenza precedente">← Precedente</button><div class="position"><b id="pair">Battute 1–2 / 10</b><span id="status" role="status" aria-live="off">Quattro pulsazioni di preparazione</span></div><div class="next-pair"><span id="next">A seguire 3–4</span><button id="forward" aria-label="Sequenza successiva">Successiva →</button></div></div>
   </section>
-  <section id="overviewSlide" class="lesson-slide" aria-label="Slide 2: partitura d’insieme">
-   <div class="slide-heading"><h2>Partitura d’insieme</h2><span class="meter overview-meta">5 sequenze · 10 battute</span><button id="playAll">▶ Ascolta tutte</button></div>
-   <div class="ensemble-wrap"><svg id="ensemble" viewBox="0 0 1200 540" role="img" aria-label="Tutte le cinque sequenze: punti per i colpi e linee per la durata, su tre righi"></svg></div>
+  <section id="overviewSlide" class="lesson-slide" aria-label="Slide 2: leggi le figure musicali">
+   <div class="slide-heading"><div class="reading-title"><h2>2 · Leggi le figure musicali</h2><span class="meter" id="notationSection">Sequenza 1 · Passeggiata</span></div><button id="playAll">▶ Ascolta tutte</button></div>
+   <div class="scorewrap"><svg id="notationScore" viewBox="0 0 1200 580" role="img" aria-label="Lo stesso ritmo con figure musicali per Mani, Petto e Cosce"></svg></div>
    <div class="phrase-choices" id="patterns" role="group" aria-label="Scegli una sequenza"></div>
   </section>
  </div>
@@ -161,7 +182,8 @@ const enabled=[true,true,true],volumes=[.8,.85,.85];let solo=-1;
 // A rolling SVG window. Absolute musical time drives geometry and highlighting;
 // recycling an off-screen measure never changes the position of a visible note.
 function createScoreStrip(config){
- const {left,span,rows,describe,svg}=config,bw=span/2,unitWidth=bw/8,anchor=left+100;
+ const {left,span,rows,describe,svg,height=540}=config,bw=span/2,unitWidth=bw/8,anchor=left+100,offset=6;
+ const stripId=svg==='score'?'scoreStrip':svg+'Strip',cursorId=svg==='score'?'cursor':svg+'Cursor',clipId=svg+'Clip',bandId=svg+'Pulse';
  const tag=(name,attrs,body='')=>`<${name} ${Object.entries(attrs).map(([k,v])=>`${k}="${v}"`).join(' ')}>${body}</${name}>`;
  let base=null,revision=0,cache='',nodes=[],beats=[],lastTime=0;
  function invalidate(){revision++;cache=''}
@@ -172,22 +194,25 @@ function createScoreStrip(config){
    base=first;cache=key;let moving='';
    for(let b=first;b<first+5;b++){
     const bar=describe(b);if(!bar)continue;const x=(b-first)*bw;
-    moving+=tag('text',{class:'measure-heading',x:x+14,y:25,'font-size':20,'font-weight':700,fill:'#34452a'},bar.label);
+    moving+=tag('text',{class:'measure-heading',x:x+offset,y:25,'font-size':20,'font-weight':700,fill:'#34452a'},bar.label);
     for(let beat=0;beat<4;beat++){
      const start=b*8+beat*2,bx=x+beat*bw/4;
-     moving+=tag('g',{class:'score-beat','data-start':start},tag('rect',{class:'beat-wash',x:bx+4,y:34,width:bw/4-8,height:494,rx:5})+tag('text',{x:bx+14,y:55,'font-size':19},beat+1));
+     moving+=tag('g',{class:'score-beat','data-start':start},tag('text',{x:bx+offset,y:55,'font-size':19},beat+1));
     }
     rows.forEach((row,i)=>{
      const y=row.y;
      moving+=tag('line',{x1:x,x2:x,y1:y-row.above,y2:y+row.below,stroke:'#b5c0ac'});
      moving+=tag('line',{x1:x,x2:x+bw,y1:y,y2:y,stroke:'#cbd3c4'});
      for(const e of events(bar.parts[i])){
-      const ex=x+e.start*unitWidth,cx=ex+14,w=e.d*unitWidth;
+      const ex=x+e.start*unitWidth,cx=ex+offset,w=e.d*unitWidth;
       let inner=tag('title',{},`${names[i]}: ${e.rest?'pausa di ':''}${figureNames[e.d]}`);
-      inner+=tag('rect',{class:'event-bg',x:ex+5,y:y-row.above,width:w-10,height:row.above+row.below,rx:4,fill:'#e5eddc'});
-      inner+=tag('text',{class:'music note-ink',x:cx,y},e.rest?config.rests[e.d]:glyphs[e.d]);
-      inner+=tag('rect',{class:'attack-marker',x:cx-2,y:y+15,width:24,height:4,rx:2,fill:colors[i]});
-      if($('durations').checked)inner+=tag('text',{class:'note-value',x:cx,y:y+row.valueY,'font-size':row.valueSize,fill:'#54634b'},values[e.d]);
+      if(config.icons){
+       if(e.rest)inner+=tag('line',{class:'gesture-rest',x1:cx,x2:ex+w-12,y1:y,y2:y,stroke:'#adb5a6','stroke-width':2});
+       else {const size=Math.min(112,w-12);inner+=tag('image',{class:'gesture-icon',href:config.icons[i],x:cx-6,y:y-size*.62,width:size,height:size,preserveAspectRatio:'xMidYMid meet'});}
+      }else{
+       inner+=tag('text',{class:'music note-ink',x:cx,y},e.rest?config.rests[e.d]:glyphs[e.d]);
+       if($('durations').checked)inner+=tag('text',{class:'note-value',x:cx,y:y+row.valueY,'font-size':row.valueSize,fill:'#54634b'},values[e.d]);
+      }
       if(config.resonance&&i===3&&!e.rest){
        inner+=tag('line',{class:'resonance',x1:cx+34,x2:ex+w-12,y1:y+14,y2:y+14,stroke:colors[i],'stroke-width':2});
        inner+=tag('text',{x:ex+w-12,y:y+44,'text-anchor':'end','font-size':15,fill:colors[i]},'smorza');
@@ -198,14 +223,16 @@ function createScoreStrip(config){
     });
    }
    let fixed=rows.map((row,i)=>tag('text',{class:'voice-label',x:12,y:row.y-2,'font-size':config.labelSize,'font-weight':700,fill:colors[i]},names[i])).join('');
-   fixed+=tag('line',{id:'cursor',x1:anchor,x2:anchor,y1:65,y2:528,stroke:'#34452a','stroke-width':2,opacity:.6});
-   fixed+=tag('path',{d:`M ${anchor-5} 63 L ${anchor+5} 63 L ${anchor} 69 Z`,fill:'#34452a'});
-   $(svg).innerHTML=tag('defs',{},tag('clipPath',{id:'scoreClip'},tag('rect',{x:left,y:0,width:span,height:540})))+tag('g',{'clip-path':'url(#scoreClip)'},tag('g',{id:'scoreStrip'},moving))+fixed;
-   nodes=[...document.querySelectorAll('#score .note-event')];beats=[...document.querySelectorAll('#score .score-beat')];
+   const band=tag('rect',{id:bandId,class:'reading-band',x:anchor-5,y:64,width:12,height:height-76,fill:'#6f8e54','fill-opacity':.16,visibility:'hidden'});
+   fixed+=tag('line',{id:cursorId,x1:anchor,x2:anchor,y1:64,y2:height-12,stroke:'#34452a','stroke-width':1.5,opacity:.7,visibility:'hidden'});
+   $(svg).setAttribute('viewBox',`0 0 1200 ${height}`);
+   $(svg).innerHTML=tag('defs',{},tag('clipPath',{id:clipId},tag('rect',{x:left,y:0,width:span,height})))+band+tag('g',{'clip-path':`url(#${clipId})`},tag('g',{id:stripId},moving))+fixed;
+   nodes=[...document.querySelectorAll(`#${svg} .note-event`)];beats=[...document.querySelectorAll(`#${svg} .score-beat`)];
   }
-  const translation=anchor-14-(time-base*8)*unitWidth;
-  $('scoreStrip').setAttribute('transform',`translate(${translation} 0)`);
-  $('cursor').setAttribute('visibility',lit?'visible':'hidden');
+  const translation=anchor-offset-(time-base*8)*unitWidth;
+  $(stripId).setAttribute('transform',`translate(${translation} 0)`);
+  $(cursorId).setAttribute('visibility',lit?'visible':'hidden');
+  $(bandId).setAttribute('visibility',lit?'visible':'hidden');
   const pulse=Math.floor(time/2)*2;
   for(const beat of beats)beat.classList.toggle('is-current',lit&&Number(beat.dataset.start)===pulse);
   for(const g of nodes){const start=Number(g.dataset.start),active=lit&&time>=start&&time<Number(g.dataset.end);g.classList.toggle('is-active',active);g.classList.toggle('is-attack',active&&g.dataset.rest==='false'&&time<start+.32)}
@@ -222,50 +249,23 @@ function echoBar(index){
  const responseBar=mode==='echo'&&index%cycleBars>=2;
  return {parts:scoreData[p][index%2],label:`${responseBar?'Ripeti':'Battuta'} ${p*2+index%2+1}${mode==='echo'&&!responseBar?' · ascolta':''}`};
 }
-const scoreStrip=createScoreStrip({left:160,span:1016,rows:names.map((_,i)=>({y:150+i*150,above:76,below:62,valueY:56,valueSize:20})),describe:echoBar,svg:'score',rests,labelSize:28});
+const gestureIcons=['mani-3d','petto-coral-3d','cosce-3d'].map(name=>`../../../../assets/lesson/body-percussion/${name}.png`);
+const echoLayout={left:160,span:1016,height:580,rows:names.map((_,i)=>({y:158+i*170,above:84,below:58,valueY:62,valueSize:20})),describe:echoBar,rests,labelSize:28};
+const scoreStrip=createScoreStrip({...echoLayout,svg:'score',icons:gestureIcons});
+const notationStrip=createScoreStrip({...echoLayout,svg:'notationScore'});
 function scoreLabels(){
- $('section').textContent=`Sequenza ${selected+1} · ${profiles[selected].label}`;
+ $('section').textContent=`Sequenza ${selected+1} · ${profiles[selected].label}`;$('notationSection').textContent=$('section').textContent;
  $('pair').textContent=`Battuta ${selected*2+Math.floor(position/8)+1} / 10`;
  $('next').textContent='Lettura continua';
  $('prev').disabled=selected===0;$('forward').disabled=selected===4;
- $('score').setAttribute('aria-label',`Partitura scorrevole: ${response?'ripeti':'battuta'} ${selected*2+Math.floor(position/8)+1}, Mani, Petto e Cosce`);
+ for(const id of ['score','notationScore'])$(id).setAttribute('aria-label',`${id==='score'?'Icone gestuali':'Figure musicali'}: ${response?'ripeti':'battuta'} ${selected*2+Math.floor(position/8)+1}, Mani, Petto e Cosce`);
  document.querySelectorAll('[data-pattern]').forEach(b=>b.setAttribute('aria-pressed',Number(b.dataset.pattern)===selected?'true':'false'));
 }
-function renderScore(){scoreStrip.invalidate();scoreLabels();highlight()}
-function renderEnsemble(){
- const left=160,pw=1016/5;let html='';
- for(let i=0;i<3;i++)html+=S('text',{x:12,y:148+i*150,'font-size':28,'font-weight':700,fill:colors[i]},names[i]);
- scoreData.forEach((phrase,p)=>{
-  const x=left+p*pw;let column=S('rect',{class:'column-bg',x:x+2,y:8,width:pw-4,height:514,rx:6});
-  column+=S('text',{x:x+12,y:28,'font-size':20,'font-weight':700,fill:'#34452a'},`Sequenza ${p+1}`);
-  column+=S('text',{class:'measure-label',x:x+12,y:55,'font-size':16,fill:'#64705b'},`Battute ${p*2+1}–${p*2+2}`);
-  for(let i=0;i<3;i++){
-   const y=150+i*150;column+=S('line',{x1:x,x2:x+pw,y1:y,y2:y,stroke:'#e0e5da'});
-   column+=S('line',{x1:x+pw/2,x2:x+pw/2,y1:y-30,y2:y+30,stroke:'#c5cdbf'});
-   for(let b=0;b<2;b++)for(const e of events(phrase[b][i])){
-    const sx=x+8+(b*8+e.start)*(pw-16)/16,w=e.d*(pw-16)/16;
-    const inner=e.rest?S('line',{class:'symbol-rest',x1:sx,x2:sx+w-4,y1:y,y2:y}):S('circle',{class:'symbol-halo',cx:sx+2,cy:y,r:8})+S('line',{class:'symbol-tail',x1:sx+2,x2:sx+w-3,y1:y,y2:y})+S('circle',{class:'symbol-head',cx:sx+2,cy:y,r:4.5});
-    column+=S('g',{class:'symbol-event','data-pattern-index':p,'data-start':b*8+e.start,'data-end':b*8+e.start+e.d,'data-rest':e.rest,style:`--voice:${colors[i]}`},inner);
-   }
-  }
-  html+=S('g',{class:'ensemble-column','data-column':p},column);
-  html+=S('line',{x1:x,x2:x,y1:74,y2:512,stroke:'#c5cdbf'});
- });
- html+=S('line',{x1:1176,x2:1176,y1:74,y2:512,stroke:'#c5cdbf'});
- html+=S('line',{id:'ensembleCursor',x1:170,x2:170,y1:68,y2:512,stroke:'#34452a','stroke-width':1.5,opacity:.5,visibility:'hidden'});
- $('ensemble').innerHTML=html;
-}
+function renderScore(){scoreStrip.invalidate();notationStrip.invalidate();scoreLabels();highlight()}
 function highlight(){
  const t=elapsed(),visible=(running||saved>=0)&&t>=0&&mode!=='metro';
  if(running&&mode!=='metro')scoreTime=Math.max(0,t);
- scoreStrip.paint(scoreTime,visible);scoreLabels();
- const pw=1016/5,ex=160+selected*pw+10+position*(pw-16)/16;
- $('ensembleCursor').setAttribute('x1',ex);$('ensembleCursor').setAttribute('x2',ex);$('ensembleCursor').setAttribute('visibility',visible?'visible':'hidden');
- document.querySelectorAll('.ensemble-column').forEach(g=>g.classList.toggle('is-current',Number(g.dataset.column)===selected));
- document.querySelectorAll('.symbol-event').forEach(g=>{
-  const current=Number(g.dataset.patternIndex)===selected,on=Number(g.dataset.start),end=Number(g.dataset.end),active=visible&&current&&position>=on&&position<end;
-  g.classList.toggle('is-active',active);g.classList.toggle('is-attack',active&&g.dataset.rest==='false'&&position<on+.32);
- });
+ scoreStrip.paint(scoreTime,visible);notationStrip.paint(scoreTime,visible);scoreLabels();
 }
 
 /* === Audio: original samples, original accompaniments, one Web Audio clock === */
@@ -388,7 +388,7 @@ $('full').onclick=async()=>{try{if(document.fullscreenElement)await document.exi
 document.addEventListener('fullscreenchange',()=>{$('full').textContent=document.fullscreenElement?'Riduci':'Schermo intero'});
 document.addEventListener('click',e=>{
  const t=e.target.closest('button');if(!t)return;
- if(t.dataset.pattern!==undefined){selectPattern(Number(t.dataset.pattern));showSlide('score')}
+ if(t.dataset.pattern!==undefined){selectPattern(Number(t.dataset.pattern))}
  if(t.dataset.slide)showSlide(t.dataset.slide);
  if(t.dataset.solo!==undefined){solo=solo===Number(t.dataset.solo)?-1:Number(t.dataset.solo);document.querySelectorAll('[data-solo]').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.solo)===solo)));syncMixer()}
  if(t.dataset.test!==undefined)testVoice(Number(t.dataset.test));
@@ -403,8 +403,8 @@ document.addEventListener('keydown',e=>{
  if(e.key===' '&&(e.target===document.body||e.target===viewport)){e.preventDefault();running?pause():play()}
 });
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&(running||starting))pause()});
-renderEnsemble();reset();
-document.fonts.load('80px Bravura').then(fonts=>{if(!fonts.length)message('Carattere musicale non disponibile: ricarica la pagina.');else renderScore()}).catch(()=>message('Impossibile caricare le figure musicali.'));
-window.echoLesson={scoreStrip,echoBar,patterns,scoreData,profiles,compile,events,locate,get state(){return {selected,mode,scope,activeSlide,running,starting,saved,position,response,bpm,audioState:ctx?.state,activeSources:sources.size}}};
+reset();
+document.fonts.load('92px Bravura').then(fonts=>{if(!fonts.length)message('Carattere musicale non disponibile: ricarica la pagina.');else renderScore()}).catch(()=>message('Impossibile caricare le figure musicali.'));
+window.echoLesson={scoreStrip,notationStrip,gestureIcons,echoBar,patterns,scoreData,profiles,compile,events,locate,get state(){return {selected,mode,scope,activeSlide,running,starting,saved,position,response,bpm,audioState:ctx?.state,activeSources:sources.size}}};
 
 </script></body></html>
