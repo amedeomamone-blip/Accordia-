@@ -48,6 +48,13 @@ body{overflow:hidden}
 #overviewSlide .bar-title>span{font-size:12px}
 @media(min-width:1600px){.deck-header,.deck-footer{max-width:1720px}#scoreSlide{max-width:1680px}}
 @media(max-width:700px){#overviewSlide #overview button{padding:4px}#overviewSlide .bar-title>b{font-size:15px}}
+
+/* The current pulse glows while the next entries approach a fixed reading line. */
+.score-beat text{fill:#64705b}
+.score-beat .beat-wash{fill:#eaf0e3;opacity:0}
+.score-beat.is-current .beat-wash{opacity:.72}
+.score-beat.is-current text{fill:#263e19;font-weight:800}
+#scoreStrip{will-change:transform}
 </style></head><body>
 <main class="lesson-deck">
  <header class="deck-header">
@@ -138,60 +145,86 @@ if('ResizeObserver' in window){
  viewportObserver.observe(lessonViewport);
 }
 function ranges(){for(const id of ['from','to'])$(id).innerHTML=data.map((_,i)=>`<option value="${i}">${i+1}</option>`).join('');$('to').value=data.length-1}
-// A fixed two-bar system keeps every voice and beat in the same place.
-// Reserved bands: headings 0–58, note rows 78–516; annotations below notes.
-function scoreLayout(){return {width:1200,left:200,span:976}}
-function render(){
- const layout=scoreLayout(),count=pageSize(),start=Math.floor(page/count)*count,end=start+count,bw=layout.span/count,showDurations=$('durations').checked;
- $('score').setAttribute('viewBox','0 0 1200 540');let html='';
- $('section').textContent=sections[Math.floor(start/4)];
- $('pair').textContent=`Battute ${start+1}–${end} / 32`;
- $('next').textContent=end<data.length?`A seguire ${end+1}–${end+2}`:'Ultime due battute';
- $('prev').disabled=start===0;$('forward').disabled=end===data.length;
- $('score').setAttribute('aria-label',`Partitura in quattro quarti, battute ${start+1} e ${end}: Tamburello 1, Tamburello 2, Legnetti e Triangolo`);
- for(let b=start;b<end;b++){
-  const x=layout.left+(b-start)*bw;
-  html+=$S('text',{class:'measure-heading',x:x+22,y:25,fill:'#34452a','font-size':20,'font-weight':700},`Battuta ${b+1}`);
-  for(let beat=0;beat<4;beat++)html+=$S('text',{class:'beat-heading',x:x+22+beat*bw/4,y:55,'font-size':19,fill:'#64705b'},beat+1);
- }
- for(let i=0;i<4;i++){
-  const y=140+i*112;
-  html+=$S('text',{class:'voice-label',x:12,y:y-2,fill:colors[i],'font-size':23,'font-weight':700},names[i]);
-  for(let b=start;b<end;b++){
-   const x=layout.left+(b-start)*bw;
-   html+=$S('line',{x1:x,y1:y-62,x2:x,y2:y+52,stroke:'#b5c0ac','stroke-width':1.2});
-   html+=$S('line',{class:'staff-line',x1:x,y1:y,x2:x+bw,y2:y,stroke:'#cbd3c4','stroke-width':1});
-   for(const e of events(data[b][i])){
-    const ex=x+e.start*bw/8,cx=ex+22,w=e.d*bw/8;
-    let inner=$S('title',{},`${names[i]}: ${e.rest?'pausa di ':''}${figureNames[e.d]}, ${values[e.d]}`);
-    inner+=$S('rect',{class:'event-bg',x:ex+6,y:y-62,width:w-12,height:112,rx:4,fill:'#e5eddc'});
-    inner+=$S('text',{class:'music note-ink',x:cx,y:y},e.rest?restGlyphs[e.d]:glyphs[e.d]);
-    inner+=$S('rect',{class:'attack-marker',x:cx-2,y:y+12,width:24,height:4,rx:2,fill:colors[i]});
-    if(showDurations)inner+=$S('text',{class:'note-value',x:cx,y:y+44,'font-size':18,fill:'#54634b'},values[e.d]);
-    if(i===3&&!e.rest){
-     inner+=$S('line',{class:'resonance',x1:cx+34,x2:ex+w-12,y1:y+14,y2:y+14,stroke:colors[i],'stroke-width':2});
-     inner+=$S('text',{class:'damp-label',x:ex+w-12,y:y+44,'text-anchor':'end','font-size':15,fill:colors[i]},'smorza');
+// A rolling SVG window. Absolute musical time drives geometry and highlighting;
+// recycling an off-screen measure never changes the position of a visible note.
+function createScoreStrip(config){
+ const {left,span,rows,describe,svg}=config,bw=span/2,unitWidth=bw/8,anchor=left+100;
+ const tag=(name,attrs,body='')=>`<${name} ${Object.entries(attrs).map(([k,v])=>`${k}="${v}"`).join(' ')}>${body}</${name}>`;
+ let base=null,revision=0,cache='',nodes=[],beats=[],lastTime=0;
+ function invalidate(){revision++;cache=''}
+ function paint(time,lit){
+  time=Math.max(0,time);lastTime=time;
+  const first=Math.floor(time/8)-1,key=`${first}:${revision}`;
+  if(cache!==key){
+   base=first;cache=key;let moving='';
+   for(let b=first;b<first+5;b++){
+    const bar=describe(b);if(!bar)continue;const x=(b-first)*bw;
+    moving+=tag('text',{class:'measure-heading',x:x+14,y:25,'font-size':20,'font-weight':700,fill:'#34452a'},bar.label);
+    for(let beat=0;beat<4;beat++){
+     const start=b*8+beat*2,bx=x+beat*bw/4;
+     moving+=tag('g',{class:'score-beat','data-start':start},tag('rect',{class:'beat-wash',x:bx+4,y:34,width:bw/4-8,height:494,rx:5})+tag('text',{x:bx+14,y:55,'font-size':19},beat+1));
     }
-    html+=$S('g',{class:'note-event','data-start':b*8+e.start,'data-end':b*8+e.start+e.d,'data-rest':e.rest,style:`--voice:${colors[i]}`},inner);
+    rows.forEach((row,i)=>{
+     const y=row.y;
+     moving+=tag('line',{x1:x,x2:x,y1:y-row.above,y2:y+row.below,stroke:'#b5c0ac'});
+     moving+=tag('line',{x1:x,x2:x+bw,y1:y,y2:y,stroke:'#cbd3c4'});
+     for(const e of events(bar.parts[i])){
+      const ex=x+e.start*unitWidth,cx=ex+14,w=e.d*unitWidth;
+      let inner=tag('title',{},`${names[i]}: ${e.rest?'pausa di ':''}${figureNames[e.d]}`);
+      inner+=tag('rect',{class:'event-bg',x:ex+5,y:y-row.above,width:w-10,height:row.above+row.below,rx:4,fill:'#e5eddc'});
+      inner+=tag('text',{class:'music note-ink',x:cx,y},e.rest?config.rests[e.d]:glyphs[e.d]);
+      inner+=tag('rect',{class:'attack-marker',x:cx-2,y:y+15,width:24,height:4,rx:2,fill:colors[i]});
+      if($('durations').checked)inner+=tag('text',{class:'note-value',x:cx,y:y+row.valueY,'font-size':row.valueSize,fill:'#54634b'},values[e.d]);
+      if(config.resonance&&i===3&&!e.rest){
+       inner+=tag('line',{class:'resonance',x1:cx+34,x2:ex+w-12,y1:y+14,y2:y+14,stroke:colors[i],'stroke-width':2});
+       inner+=tag('text',{x:ex+w-12,y:y+44,'text-anchor':'end','font-size':15,fill:colors[i]},'smorza');
+      }
+      moving+=tag('g',{class:'note-event','data-start':b*8+e.start,'data-end':b*8+e.start+e.d,'data-rest':e.rest,style:`--voice:${colors[i]}`},inner);
+     }
+     moving+=tag('line',{x1:x+bw,x2:x+bw,y1:y-row.above,y2:y+row.below,stroke:'#b5c0ac'});
+    });
    }
+   let fixed=rows.map((row,i)=>tag('text',{class:'voice-label',x:12,y:row.y-2,'font-size':config.labelSize,'font-weight':700,fill:colors[i]},names[i])).join('');
+   fixed+=tag('line',{id:'cursor',x1:anchor,x2:anchor,y1:65,y2:528,stroke:'#34452a','stroke-width':2,opacity:.6});
+   fixed+=tag('path',{d:`M ${anchor-5} 63 L ${anchor+5} 63 L ${anchor} 69 Z`,fill:'#34452a'});
+   $(svg).innerHTML=tag('defs',{},tag('clipPath',{id:'scoreClip'},tag('rect',{x:left,y:0,width:span,height:540})))+tag('g',{'clip-path':'url(#scoreClip)'},tag('g',{id:'scoreStrip'},moving))+fixed;
+   nodes=[...document.querySelectorAll('#score .note-event')];beats=[...document.querySelectorAll('#score .score-beat')];
   }
+  const translation=anchor-14-(time-base*8)*unitWidth;
+  $('scoreStrip').setAttribute('transform',`translate(${translation} 0)`);
+  $('cursor').setAttribute('visibility',lit?'visible':'hidden');
+  const pulse=Math.floor(time/2)*2;
+  for(const beat of beats)beat.classList.toggle('is-current',lit&&Number(beat.dataset.start)===pulse);
+  for(const g of nodes){const start=Number(g.dataset.start),active=lit&&time>=start&&time<Number(g.dataset.end);g.classList.toggle('is-active',active);g.classList.toggle('is-attack',active&&g.dataset.rest==='false'&&time<start+.32)}
  }
- html+=$S('line',{x1:layout.left+layout.span,x2:layout.left+layout.span,y1:78,y2:528,stroke:'#b5c0ac','stroke-width':1.2});
- html+=$S('line',{id:'cursor',x1:222,x2:222,y1:65,y2:528,stroke:'#34452a','stroke-width':2,opacity:.5,visibility:'hidden'});
- $('score').innerHTML=html;updateHighlight();updateOverview();
+ return {paint,invalidate,get state(){return {time:lastTime,base,unitWidth,anchor,lookahead:(left+span-anchor)/unitWidth}}};
 }
+
+let scoreTime=0;
+function orchestraBar(index){
+ const [lo,hi]=bounds(),length=(hi-lo)/8;
+ if(index<0||(!$('loop').checked&&index>=length))return null;
+ const b=lo/8+index%length;
+ return {parts:data[b],label:`Battuta ${b+1}`};
+}
+const scoreStrip=createScoreStrip({left:200,span:976,rows:names.map((_,i)=>({y:140+i*112,above:62,below:50,valueY:44,valueSize:18})),describe:orchestraBar,svg:'score',rests:restGlyphs,labelSize:23,resonance:true});
+function scoreLabels(){
+ const b=Math.min(data.length-1,Math.floor(position/8));
+ $('section').textContent=sections[Math.floor(b/4)];
+ $('pair').textContent=`Battuta ${b+1} / 32`;
+ $('next').textContent='Lettura continua';
+ $('prev').disabled=b===0;$('forward').disabled=b>=data.length-2;
+ $('score').setAttribute('aria-label',`Partitura scorrevole, battuta ${b+1}: Tamburello 1, Tamburello 2, Legnetti e Triangolo`);
+}
+function render(){scoreStrip.invalidate();scoreLabels();updateHighlight();updateOverview()}
 function updateOverview(){document.querySelectorAll('[data-bar]').forEach(b=>b.setAttribute('aria-current',Number(b.dataset.bar)===Math.floor(position/8)?'true':'false'))}
 
 function updateHighlight(){
- const visible=running&&savedPosition()>=0&&mode!=='blind',cursor=$('cursor'),count=pageSize();
- cursor.setAttribute('visibility',visible?'visible':'hidden');
- const layout=scoreLayout();const x=layout.left+22+(position-Math.floor(page/count)*count*8)*layout.span/count/8;cursor.setAttribute('x1',x);cursor.setAttribute('x2',x);
- document.querySelectorAll('.note-event').forEach(g=>{
-  const onset=Number(g.dataset.start),end=Number(g.dataset.end),active=visible&&position>=onset&&position<end;
-  g.classList.toggle('is-active',active);g.classList.toggle('is-attack',active&&g.dataset.rest==='false'&&position<onset+.35);
- });
+ const t=savedPosition(),visible=(running||saved>=0)&&t>=0&&mode!=='blind';
+ if(running)scoreTime=Math.max(0,t);
+ scoreStrip.paint(scoreTime,visible);scoreLabels();
 }
-function savedPosition(){return running?(ctx.currentTime-origin)/(30/bpm):saved}
+function savedPosition(){return running?Math.max(saved,(ctx.currentTime-origin)/(30/bpm)):saved}
 function stopSources(){for(const source of sources){try{source.stop()}catch{}}sources.clear()}
 function halt(){clearInterval(timer);timer=null;cancelAnimationFrame(frame);frame=0;stopSources();$('level').style.transform='scaleX(0)'}
 function syncMixer(){if(!ctx)return;voiceGains.forEach((g,i)=>g.gain.setTargetAtTime(enabled[i]&&(solo<0||solo===i)?volume[i]:0,ctx.currentTime,.008))}
@@ -251,21 +284,21 @@ const meterData=new Uint8Array(256);
 function animate(){
  if(!running)return;
  const elapsed=savedPosition(),[lo,hi]=bounds();
- if(elapsed>=hi-lo&&!$('loop').checked){running=false;halt();saved=-8;$('play').disabled=false;$('play').textContent='▶ Riascolta';$('status').textContent='Insieme, fino alla fine.';setAudioMessage('Esecuzione conclusa.');render();return}
+ if(elapsed>=hi-lo&&!$('loop').checked){scoreTime=hi-lo;position=hi-.000001;running=false;halt();saved=-8;$('play').disabled=false;$('play').textContent='▶ Riascolta';$('status').textContent='Insieme, fino alla fine.';setAudioMessage('Esecuzione conclusa.');render();return}
  if(elapsed<0){$('status').textContent=`Preparazione · ${Math.max(1,Math.min(4,Math.floor((elapsed+8)/2)+1))} / 4`}
  else{
   position=rangePosition(elapsed,lo,hi);const b=Math.floor(position/8),count=pageSize();
-  if(Math.floor(b/count)!==Math.floor(page/count)){page=b;render()}
+  page=b;
   const label=`Battuta ${b+1} · pulsazione ${Math.floor(position%8/2)+1}`;if(label!==lastBeatLabel){$('status').textContent=label;lastBeatLabel=label;updateOverview()}
  }
  updateHighlight();analyser.getByteTimeDomainData(meterData);let sum=0;for(const value of meterData)sum+=((value-128)/128)**2;$('level').style.transform=`scaleX(${Math.min(1,Math.sqrt(sum/meterData.length)*9)})`;
  frame=requestAnimationFrame(animate);
 }
 function pause(){
- ++startToken;starting=false;if(running)saved=savedPosition();running=false;halt();$('play').disabled=false;$('play').textContent='Riprendi';$('status').textContent='In pausa';setAudioMessage('In pausa · premi Riprendi.');updateHighlight();
+ ++startToken;starting=false;if(running){saved=savedPosition();scoreTime=Math.max(0,saved)}running=false;halt();$('play').disabled=false;$('play').textContent='Riprendi';$('status').textContent='In pausa';setAudioMessage('In pausa · premi Riprendi.');updateHighlight();
 }
 function reset(){
- ++startToken;starting=false;running=false;halt();saved=-8;position=bounds()[0];page=Math.floor(position/8);lastBeatLabel='';$('play').disabled=false;$('play').textContent=mode==='listen'?'▶ Ascolta':'▶ Suona';$('status').textContent='Pronti · 4 pulsazioni di preparazione';render();
+ ++startToken;starting=false;running=false;halt();saved=-8;scoreTime=0;position=bounds()[0];page=Math.floor(position/8);lastBeatLabel='';$('play').disabled=false;$('play').textContent=mode==='listen'?'▶ Ascolta':'▶ Suona';$('status').textContent='Pronti · 4 pulsazioni di preparazione';render();
 }
 async function chooseMode(next){if($('settings').open)$('settings').close();showSlide('score');mode=next;document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===mode));reset();await play()}
 async function testAudio(i=2){
@@ -304,6 +337,6 @@ document.addEventListener('keydown',e=>{
 });
 setup();
 document.fonts.load('58px Bravura').then(fonts=>{if(!fonts.length)setAudioMessage('Il carattere musicale non è disponibile: ricarica la pagina.');else render()}).catch(()=>setAudioMessage('Impossibile caricare le figure musicali. Ricarica la pagina.'));
-window.orchestra={song,events,rangePosition,pageSize,get state(){return{running,starting,saved,position,bpm,mode,activeSlide,audioState:ctx?.state,scheduled:nextStep,activeSources:sources.size}}};
+window.orchestra={scoreStrip,orchestraBar,song,events,rangePosition,pageSize,get state(){return{running,starting,saved,position,bpm,mode,activeSlide,audioState:ctx?.state,scheduled:nextStep,activeSources:sources.size}}};
 
 </script></body></html>
