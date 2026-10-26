@@ -42,4 +42,6 @@ Il 26 ottobre 2026 sono state lette le pagine pertinenti del volume fornito dal 
 
 ## Revisione del 26 ottobre 2026
 
-Hover delle tessere stabile, senza traslazioni e con testo scuro leggibile. Il pulsante Interactive Hover si applica ai comandi testuali, non ai segni musicali, alle risposte grafiche o ai punti di navigazione. I comandi devono andare a capo nel proprio contenitore. Lo scrubber delle lezioni Eco e Orchestra sostituisce i precedenti/successivi. La mano didattica è una sinistra aperta vista dal palmo; l’ordine mnemonico dal pollice al mignolo è esplicitato senza confonderlo con l’orientamento del pentagramma.
+Hover delle tessere stabile, senza traslazioni e con testo scuro leggibile. Il pulsante Interactive Hover si applica ai comandi testuali, non ai segni musicali, alle risposte grafiche o ai punti di navigazione. I comandi devono andare a capo nel proprio contenitore. Lo scrubber delle lezioni Eco e Orchestra sostituisce i precedenti/successivi. La mano didattica è una sinistra aperta vista dal palmo, resa con un’immagine naturale senza lettering; l’ordine mnemonico dal pollice al mignolo è esplicitato senza confonderlo con l’orientamento del pentagramma.
+
+La slide della mano usa flusso normale a griglia: titolo, contenuto e didascalia sono righe distinte. Non riutilizzare i posizionamenti assoluti delle altre slide. L’immagine deve usare `object-fit: contain` ed essere limitata allo spazio della propria riga.
