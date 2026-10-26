@@ -15,10 +15,10 @@
     };
 
     var FIGURES = {
-        8: { figure: 'whole', units: 8, beats: '4 mov.' },
-        4: { figure: 'half', units: 4, beats: '2 mov.' },
-        2: { figure: 'quarter', units: 2, beats: '1 mov.' },
-        1: { figure: 'eighth', units: 1, beats: '½ mov.' }
+        8: { figure: 'whole', units: 8, beats: '1 · 4 puls.' },
+        4: { figure: 'half', units: 4, beats: '1/2 · 2 puls.' },
+        2: { figure: 'quarter', units: 2, beats: '1/4 · 1 puls.' },
+        1: { figure: 'eighth', units: 1, beats: '1/8 · ½ puls.' }
     };
 
     function drawNotation(root) {

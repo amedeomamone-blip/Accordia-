@@ -97,12 +97,13 @@ body{overflow:hidden}
  .lesson-deck button:not(.slide-dot),dialog button,.lesson-deck select,dialog select{transition:none}
 }
 
-</style></head><body>
+</style><link rel="stylesheet" href="../../../../css/accordia-design-system.css?v=2026102501">
+</head><body data-design-system="practice" data-nav="pratica" data-current-nucleus="ritmo" data-score-deck="true"><header class="site-header" id="site-header"><div class="shell site-header__inner"><a class="brand brand--wordmark" href="../../../../index.html" aria-label="amedeo — pagina iniziale">amedeo</a></div></header>
 <main class="lesson-deck">
- <header class="deck-header">
-  <div class="identity"><a class="back-link" href="../../index.html">← amedeo / Ritmo</a><h1>Quattro strumenti, un’orchestra</h1></div>
-  <div class="deck-nav"><button class="full-button" id="full">Schermo intero</button></div>
- </header>
+ <div class="deck-header">
+  <div class="identity"><a class="back-link" href="../../index.html">Ritmo</a><h1>Quattro strumenti, un’orchestra</h1></div>
+  <div class="deck-nav"><button class="full-button" id="full" data-ui-icon="expand">Schermo intero</button></div>
+ </div>
  <nav class="topic-rail lesson-progress" aria-label="Slide della lezione">
   <button class="slide-dot" data-slide="score" aria-pressed="true" aria-current="step" aria-controls="scoreSlide" aria-label="Slide 1: partitura" title="Partitura"><span aria-hidden="true"></span></button>
   <button class="slide-dot" data-slide="overview" aria-pressed="false" aria-controls="overviewSlide" aria-label="Slide 2: panoramica" title="Panoramica"><span aria-hidden="true"></span></button>
@@ -111,7 +112,7 @@ body{overflow:hidden}
  <section id="scoreSlide" class="lesson-slide" aria-label="Slide 1: partitura">
   <div class="slide-heading"><h2 id="section">Introduzione</h2><span class="meter">4/4 · ♩ = <span id="tempoText">80</span></span></div>
   <div class="scorewrap"><svg id="score" viewBox="0 0 1200 540" role="img" aria-label="Partitura ritmica a quattro parti"></svg></div>
-  <div class="page-navigation"><button id="prev" aria-label="Due battute precedenti">← Precedenti</button><div class="position"><b id="pair">Battute 1–2 / 32</b><span id="status" role="status" aria-live="off">Pronti</span></div><div class="next-pair"><span id="next">A seguire 3–4</span><button id="forward" aria-label="Due battute successive">Successive →</button></div></div>
+  <div class="page-navigation"><button id="prev" aria-label="Due battute precedenti" data-ui-icon="prev">Precedenti</button><div class="position"><b id="pair">Battute 1–2 / 32</b><span id="status" role="status" aria-live="off">Pronti</span></div><div class="next-pair"><span id="next">A seguire 3–4</span><button id="forward" aria-label="Due battute successive" data-ui-icon="next">Successive</button></div></div>
  </section>
  <section id="overviewSlide" class="lesson-slide" aria-label="Slide 2: panoramica generale">
   <div class="slide-heading"><h2>Il brano completo</h2><span class="meter">32 battute · 4 strumenti</span></div>
@@ -119,15 +120,15 @@ body{overflow:hidden}
  </section>
  </div>
  <footer class="deck-footer"><div class="transport">
-  <div class="transport-left"><button class="primary" id="play">▶ Ascolta</button><button id="pause">Pausa</button><button id="stop">Arresta</button></div>
-  <div class="transport-right"><label class="tempo-control">Tempo <input id="tempo" aria-label="Tempo in BPM" type="range" min="60" max="120" value="80"><output id="tempoOutput" for="tempo">80 BPM</output></label><span class="audio-meter" aria-hidden="true"><i id="level"></i></span><button id="options" aria-haspopup="dialog">Audio e opzioni</button></div>
+  <div class="transport-left"><button class="primary" id="play" data-ui-icon="play">Ascolta</button><button id="pause" data-ui-icon="pause">Pausa</button><button id="stop" data-ui-icon="stop">Arresta</button></div>
+  <div class="transport-right"><label class="tempo-control">Tempo <input id="tempo" aria-label="Tempo in BPM" type="range" min="60" max="120" value="80"><output id="tempoOutput" for="tempo">80 BPM</output></label><span class="audio-meter" aria-hidden="true"><i id="level"></i></span><button id="options" aria-haspopup="dialog" data-ui-icon="settings">Audio e opzioni</button></div>
  </div><div id="audioNotice" class="audio-status"><span id="audioState" role="status" aria-live="polite">Premi Ascolta per avviare il brano.</span></div></footer>
 </main>
 <dialog id="settings" aria-labelledby="settingsTitle">
- <div class="dialog-header"><h2 id="settingsTitle">Audio e opzioni</h2><button id="closeSettings" autofocus>Chiudi</button></div>
- <div class="mode-buttons" role="group" aria-label="Scegli e avvia la modalità"><button id="listen" data-mode="listen" aria-pressed="true">▶ Ascolta</button><button data-mode="guide" aria-pressed="false">Suona con la guida</button><button data-mode="blind" aria-pressed="false">Suona senza evidenziazione</button></div>
+ <div class="dialog-header"><h2 id="settingsTitle">Audio e opzioni</h2><button id="closeSettings" autofocus data-ui-icon="close">Chiudi</button></div>
+ <div class="mode-buttons" role="group" aria-label="Scegli e avvia la modalità"><button id="listen" data-mode="listen" aria-pressed="true" data-ui-icon="play">Ascolta</button><button data-mode="guide" aria-pressed="false">Suona con la guida</button><button data-mode="blind" aria-pressed="false">Suona senza evidenziazione</button></div>
  <div class="settings-row"><label><input type="checkbox" id="metro" checked>Metronomo</label><label><input type="checkbox" id="durations">Valori sotto le figure</label><button id="testAudio">Prova audio</button></div>
- <div class="settings-row"><label>Da battuta <select id="from"></select></label><label>A battuta <select id="to"></select></label><label><input type="checkbox" id="loop">Ripeti intervallo</label><button id="home">All’inizio</button></div>
+ <div class="settings-row"><label>Da battuta <select id="from"></select></label><label>A battuta <select id="to"></select></label><label><input type="checkbox" id="loop">Ripeti intervallo</label><button id="home" data-ui-icon="reset">All’inizio</button></div>
  <div class="mix" id="mixer"></div><p class="settings-note">Timbri sintetici. Le modalità “Suona” lasciano il posto agli strumenti della classe.</p>
 </dialog>
 <script>
@@ -332,7 +333,7 @@ const meterData=new Uint8Array(256);
 function animate(){
  if(!running)return;
  const elapsed=savedPosition(),[lo,hi]=bounds();
- if(elapsed>=hi-lo&&!$('loop').checked){scoreTime=hi-lo;position=hi-.000001;running=false;halt();saved=-8;$('play').disabled=false;$('play').textContent='▶ Riascolta';$('status').textContent='Insieme, fino alla fine.';setAudioMessage('Esecuzione conclusa.');render();return}
+ if(elapsed>=hi-lo&&!$('loop').checked){scoreTime=hi-lo;position=hi-.000001;running=false;halt();saved=-8;$('play').disabled=false;$('play').textContent='Riascolta';$('status').textContent='Insieme, fino alla fine.';setAudioMessage('Esecuzione conclusa.');render();return}
  if(elapsed<0){$('status').textContent=`Preparazione · ${Math.max(1,Math.min(4,Math.floor((elapsed+8)/2)+1))} / 4`}
  else{
   position=rangePosition(elapsed,lo,hi);const b=Math.floor(position/8),count=pageSize();
@@ -346,7 +347,7 @@ function pause(){
  ++startToken;starting=false;if(running){saved=savedPosition();scoreTime=Math.max(0,saved)}running=false;halt();$('play').disabled=false;$('play').textContent='Riprendi';$('status').textContent='In pausa';setAudioMessage('In pausa · premi Riprendi.');updateHighlight();
 }
 function reset(){
- ++startToken;starting=false;running=false;halt();saved=-8;scoreTime=0;position=bounds()[0];page=Math.floor(position/8);lastBeatLabel='';$('play').disabled=false;$('play').textContent=mode==='listen'?'▶ Ascolta':'▶ Suona';$('status').textContent='Pronti · 4 pulsazioni di preparazione';render();
+ ++startToken;starting=false;running=false;halt();saved=-8;scoreTime=0;position=bounds()[0];page=Math.floor(position/8);lastBeatLabel='';$('play').disabled=false;$('play').textContent=mode==='listen'?'Ascolta':'Suona';$('status').textContent='Pronti · 4 pulsazioni di preparazione';render();
 }
 async function chooseMode(next){if($('settings').open)$('settings').close();showSlide('score');mode=next;document.querySelectorAll('[data-mode]').forEach(b=>b.setAttribute('aria-pressed',b.dataset.mode===mode));reset();await play()}
 async function testAudio(i=2){

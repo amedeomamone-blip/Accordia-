@@ -157,30 +157,31 @@ body{overflow:hidden}
  .lesson-deck button:not(.slide-dot),dialog button,.lesson-deck select,dialog select{transition:none}
 }
 
-</style></head><body>
+</style><link rel="stylesheet" href="../../../../css/accordia-design-system.css?v=2026102501">
+</head><body data-design-system="practice" data-nav="pratica" data-current-nucleus="ritmo" data-score-deck="true"><header class="site-header" id="site-header"><div class="shell site-header__inner"><a class="brand brand--wordmark" href="../../../../index.html" aria-label="amedeo — pagina iniziale">amedeo</a></div></header>
 <main class="lesson-deck">
- <header class="deck-header"><div class="identity"><a class="back-link" href="../../index.html">← amedeo / Ritmo</a><h1>Gioco dell’eco</h1></div><div class="deck-nav"><span class="phase-badge" id="phaseBadge" data-phase="ready">Pronti</span><button class="full-button" id="full">Schermo intero</button></div></header>
+ <div class="deck-header"><div class="identity"><a class="back-link" href="../../index.html">Ritmo</a><h1>Gioco dell’eco</h1></div><div class="deck-nav"><span class="phase-badge" id="phaseBadge" data-phase="ready">Pronti</span><button class="full-button" id="full" data-ui-icon="expand">Schermo intero</button></div></div>
  <nav class="topic-rail lesson-progress" aria-label="Slide della lezione"><button class="slide-dot" data-slide="score" aria-pressed="true" aria-current="step" aria-controls="scoreSlide" aria-label="Slide 1: segui i gesti" title="Segui i gesti"><span aria-hidden="true"></span></button><button class="slide-dot" data-slide="overview" aria-pressed="false" aria-controls="overviewSlide" aria-label="Slide 2: leggi le figure musicali" title="Figure musicali"><span aria-hidden="true"></span></button><button class="slide-dot" data-slide="panorama" aria-pressed="false" aria-controls="panoramaSlide" aria-label="Slide 3: panoramica generale" title="Panoramica generale"><span aria-hidden="true"></span></button></nav>
  <div id="lessonViewport" class="lesson-viewport" tabindex="0" aria-label="Lezione a scorrimento verticale">
   <section id="scoreSlide" class="lesson-slide" aria-label="Slide 1: segui i gesti">
    <div class="slide-heading"><div class="reading-title"><h2>1 · Segui i gesti</h2><span class="meter" id="section">Sequenza 1 · Passeggiata</span></div><span class="meter">4/4 · ♩ = <span id="tempoText">72</span></span></div>
    <div class="scorewrap"><svg id="score" viewBox="0 0 1200 540" role="img" aria-label="Partitura con icone di Mani, Petto e Cosce"></svg></div>
-   <div class="page-navigation"><button id="prev" aria-label="Sequenza precedente">← Precedente</button><div class="position"><b id="pair">Battute 1–2 / 30</b><span id="status" role="status" aria-live="off">Quattro pulsazioni di preparazione</span></div><div class="next-pair"><span id="next">A seguire 3–4</span><button id="forward" aria-label="Sequenza successiva">Successiva →</button></div></div>
+   <div class="page-navigation"><button id="prev" aria-label="Sequenza precedente" data-ui-icon="prev">Precedente</button><div class="position"><b id="pair">Battute 1–2 / 30</b><span id="status" role="status" aria-live="off">Quattro pulsazioni di preparazione</span></div><div class="next-pair"><span id="next">A seguire 3–4</span><button id="forward" aria-label="Sequenza successiva" data-ui-icon="next">Successiva</button></div></div>
   </section>
   <section id="overviewSlide" class="lesson-slide" aria-label="Slide 2: leggi le figure musicali">
-   <div class="slide-heading"><div class="reading-title"><h2>2 · Leggi le figure musicali</h2><span class="meter" id="notationSection">Sequenza 1 · Passeggiata</span></div><button id="playAll">▶ Ascolta tutte</button></div>
+   <div class="slide-heading"><div class="reading-title"><h2>2 · Leggi le figure musicali</h2><span class="meter" id="notationSection">Sequenza 1 · Passeggiata</span></div><button id="playAll" data-ui-icon="play">Ascolta tutte</button></div>
    <div class="scorewrap"><svg id="notationScore" viewBox="0 0 1200 540" role="img" aria-label="Lo stesso ritmo con figure musicali per Mani, Petto e Cosce"></svg></div>
    <div class="sequence-picker"><label for="sequencePicker">Sequenza</label><select id="sequencePicker" aria-label="Scegli una sequenza"></select><button data-slide="panorama">Tutte le battute</button></div>
   </section>
   <section id="panoramaSlide" class="lesson-slide" aria-label="Slide 3: panoramica generale">
    <div class="slide-heading"><h2>3 · Tutto il brano</h2><span class="meter">15 sequenze · 30 battute</span><button id="openWorksheet">Schede da completare</button></div>
    <div id="panoramaGrid" aria-label="Panoramica delle trenta battute"></div>
-   <div class="panorama-caption"><span>Punto: un colpo · linea: durata o attesa</span><button id="playWhole">▶ Ascolta tutto in loop</button></div>
+   <div class="panorama-caption"><span>Punto: un colpo · linea: durata o attesa</span><button id="playWhole" data-ui-icon="play">Ascolta tutto in loop</button></div>
   </section>
  </div>
- <footer class="deck-footer"><div class="transport"><div class="transport-left"><button class="primary" id="play">▶ Ascolta</button><button id="echo" aria-pressed="false">Gioco dell’eco</button><button id="pause">Pausa</button><button id="stop">Arresta</button></div><div class="transport-right"><label class="tempo-control">Tempo <input id="tempo" aria-label="Tempo in BPM" type="range" min="60" max="120" value="72"><output id="tempoOutput" for="tempo">72 BPM</output></label><span class="audio-meter" aria-hidden="true"><i id="level"></i></span><button id="options" aria-haspopup="dialog">Audio e opzioni</button></div></div><div id="audioNotice" class="audio-status"><span id="audioState" role="status" aria-live="polite"></span></div></footer>
+ <footer class="deck-footer"><div class="transport"><div class="transport-left"><button class="primary" id="play" data-ui-icon="play">Ascolta</button><button id="echo" aria-pressed="false">Gioco dell’eco</button><button id="pause" data-ui-icon="pause">Pausa</button><button id="stop" data-ui-icon="stop">Arresta</button></div><div class="transport-right"><label class="tempo-control">Tempo <input id="tempo" aria-label="Tempo in BPM" type="range" min="60" max="120" value="72"><output id="tempoOutput" for="tempo">72 BPM</output></label><span class="audio-meter" aria-hidden="true"><i id="level"></i></span><button id="options" aria-haspopup="dialog" data-ui-icon="settings">Audio e opzioni</button></div></div><div id="audioNotice" class="audio-status"><span id="audioState" role="status" aria-live="polite"></span></div></footer>
 </main>
-<dialog id="settings" aria-labelledby="settingsTitle"><div class="dialog-header"><h2 id="settingsTitle">Audio e opzioni</h2><button id="closeSettings" autofocus>Chiudi</button></div>
+<dialog id="settings" aria-labelledby="settingsTitle"><div class="dialog-header"><h2 id="settingsTitle">Audio e opzioni</h2><button id="closeSettings" autofocus data-ui-icon="close">Chiudi</button></div>
  <div class="settings-row"><label>Modalità <select id="mode"><option value="listen">Ascolto continuo</option><option value="echo">Ascolta e ripeti</option><option value="guide">Suona con la guida</option></select></label><label>Percorso <select id="scope"><option value="all">Tutte e quindici</option><option value="selected">Sequenza scelta</option></select></label><label><input id="loop" type="checkbox" checked>Ripeti</label></div>
  <div class="settings-row"><label><input id="music" type="checkbox" checked>Accompagnamento</label><label><input id="bodySound" type="checkbox" checked>Body percussion</label><label><input id="metro" type="checkbox">Metronomo</label></div>
  <div class="settings-row"><label><input id="durations" type="checkbox">Valori sotto le figure</label><button id="worksheetFromOptions">Schede da completare</button><button id="metroOnly">Solo metronomo</button><button id="testAudio">Prova audio</button><button id="restoreAudio">Ripristina audio</button></div>
@@ -499,7 +500,7 @@ const meterData=new Uint8Array(256);
 function animate(){
  if(!running)return;const time=elapsed();
  if(mode!=='metro'&&!$('loop').checked&&time>=totalLength()){
-  scoreTime=totalLength();position=15.999;response=false;running=false;halt();saved=-8;renderScore();$('play').disabled=false;$('play').textContent='▶ Riascolta';$('status').textContent='Percorso completato';setPhase('ready','Ben fatto');return;
+  scoreTime=totalLength();position=15.999;response=false;running=false;halt();saved=-8;renderScore();$('play').disabled=false;$('play').textContent='Riascolta';$('status').textContent='Percorso completato';setPhase('ready','Ben fatto');return;
  }
  if(time<0){const n=Math.max(1,Math.min(4,Math.floor((time+8)/2)+1));setPhase('count',`${n} · preparazione`);$('status').textContent='Quattro pulsazioni, poi insieme'}
  else if(mode==='metro'){setPhase('count',`Pulsazione ${Math.floor(time%8/2)+1}`);$('status').textContent='Solo metronomo'}
@@ -512,7 +513,7 @@ function animate(){
  highlight();analyser.getByteTimeDomainData(meterData);let rms=0;for(const n of meterData)rms+=((n-128)/128)**2;$('level').style.transform=`scaleX(${Math.min(1,Math.sqrt(rms/256)*9)})`;frame=requestAnimationFrame(animate);
 }
 function pause(){++startToken;starting=false;if(running){saved=elapsed();scoreTime=Math.max(0,saved)}running=false;halt();$('play').disabled=false;$('play').textContent='Riprendi';$('status').textContent='In pausa';setPhase('ready','In pausa');highlight()}
-function reset(){++startToken;starting=false;running=false;halt();saved=-8;scoreTime=0;position=0;response=false;lastStatus='';if(scope==='all')selected=0;$('play').disabled=false;$('play').textContent=mode==='echo'?'▶ Avvia eco':mode==='guide'?'▶ Suona':'▶ Ascolta';$('status').textContent='Quattro pulsazioni di preparazione';setPhase('ready','Pronti');renderScore()}
+function reset(){++startToken;starting=false;running=false;halt();saved=-8;scoreTime=0;position=0;response=false;lastStatus='';if(scope==='all')selected=0;$('play').disabled=false;$('play').textContent=mode==='echo'?'Avvia eco':mode==='guide'?'Suona':'Ascolta';$('status').textContent='Quattro pulsazioni di preparazione';setPhase('ready','Pronti');renderScore()}
 function setMode(next){mode=next;$('mode').value=next==='metro'?'listen':next;$('echo').setAttribute('aria-pressed',String(mode==='echo'))}
 async function startMode(next){setMode(next);if($('settings').open)$('settings').close();reset();await play()}
 function selectPattern(index){const resume=running;scope='selected';$('scope').value=scope;selected=Math.max(0,Math.min(patterns.length-1,index));reset();if(resume)play()}

@@ -4631,18 +4631,10 @@ def render_lesson_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str
     <title>{e(topic['title'])} | {e(nucleo['title'])} | Accordia</title>
     <link rel="stylesheet" href="{asset_url('../../../../css/style.css')}">
 {render_immersive_lesson_stylesheet(lesson) if immersive_preview else ""}
+<link rel="stylesheet" href="{asset_url('../../../../css/accordia-design-system.css')}">
 </head>
 <body data-nav="timeline" data-current-nucleus="{e(nucleo['slug'])}">
-    <header class="site-header">
-        <div class="shell site-header__inner">
-            <a class="brand" href="../../../../index.html">
-                <span class="brand__mark">A</span>
-                <span class="brand__text">
-                    <strong>Accordia</strong>
-                </span>
-            </a>
-        </div>
-    </header>
+    <header class="site-header" id="site-header"><div class="shell site-header__inner"><a class="brand brand--wordmark" href="../../../../index.html" aria-label="amedeo — pagina iniziale">amedeo</a></div></header>
 
     <main class="nucleus-page topic-page topic-page--lesson" style="--nucleus-accent: {e(nucleo['accent'])};">
 {main_content}
@@ -4877,19 +4869,10 @@ def render_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str:
     <meta name="description" content="{e(topic['title'])}: approfondimento del nucleo {e(nucleo['title'])}, con contenuti, ascolti, attività e collegamenti utili.">
     <title>{e(topic['title'])} | {e(nucleo['title'])} | Accordia</title>
     <link rel="stylesheet" href="{asset_url('../../../../css/style.css')}">
+<link rel="stylesheet" href="{asset_url('../../../../css/accordia-design-system.css')}">
 </head>
 <body data-nav="timeline" data-current-nucleus="{e(nucleo['slug'])}">
-    <header class="site-header">
-        <div class="shell site-header__inner">
-            <a class="brand" href="../../../../index.html">
-                <span class="brand__mark">A</span>
-                <span class="brand__text">
-                    <strong>Accordia</strong>
-                </span>
-            </a>
-{nav_dropdown("../../../../", nucleo["slug"])}
-        </div>
-    </header>
+    <header class="site-header" id="site-header"><div class="shell site-header__inner"><a class="brand brand--wordmark" href="../../../../index.html" aria-label="amedeo — pagina iniziale">amedeo</a></div></header>
 
     <main class="nucleus-page topic-page" style="--nucleus-accent: {e(nucleo['accent'])};">
         <section class="nucleus-hero nucleus-hero--topic">
@@ -5049,19 +5032,10 @@ def render_timeline_page() -> str:
     <title>{e(config["page_title"])}</title>
     <link rel="stylesheet" href="{asset_url('../css/style.css')}">
 {render_timeline_page_style(config["style"])}
+<link rel="stylesheet" href="{asset_url('../css/accordia-design-system.css')}">
 </head>
 <body data-nav="timeline">
-    <header class="site-header">
-        <div class="shell site-header__inner">
-            <a class="brand" href="../index.html">
-                <span class="brand__mark">A</span>
-                <span class="brand__text">
-                    <strong>Accordia</strong>
-                </span>
-            </a>
-{nav_dropdown("../")}
-        </div>
-    </header>
+    <header class="site-header" id="site-header"><div class="shell site-header__inner"><a class="brand brand--wordmark" href="../index.html" aria-label="amedeo — pagina iniziale">amedeo</a></div></header>
 
     <main class="timeline-editorial-page">
         <section class="timeline-editorial-hero">
@@ -5595,19 +5569,10 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
     <meta name="description" content="{e(page_description)}">
     <title>{e(nucleo['title'])} | Accordia</title>
     <link rel="stylesheet" href="{asset_url('../../css/style.css')}">
+<link rel="stylesheet" href="{asset_url('../../css/accordia-design-system.css')}">
 </head>
 <body data-nav="timeline" data-current-nucleus="{e(nucleo['slug'])}">
-    <header class="site-header">
-        <div class="shell site-header__inner">
-            <a class="brand" href="../../index.html">
-                <span class="brand__mark">A</span>
-                <span class="brand__text">
-                    <strong>Accordia</strong>
-                </span>
-            </a>
-{nav_dropdown("../../", nucleo["slug"])}
-        </div>
-    </header>
+    <header class="site-header" id="site-header"><div class="shell site-header__inner"><a class="brand brand--wordmark" href="../../index.html" aria-label="amedeo — pagina iniziale">amedeo</a></div></header>
 
     <main class="nucleus-page{main_extra_class}" style="--nucleus-accent: {e(nucleo['accent'])};">
 {hero_markup}

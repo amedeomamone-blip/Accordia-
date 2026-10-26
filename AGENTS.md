@@ -1,5 +1,9 @@
 # Accordia Workflow Notes
 
+- Permanent interface rules: read and follow `docs/design-system.md` before every UI or lesson edit. It records the teacher's 25 October 2026 instructions and takes precedence over older decorative rules. Use the shared stylesheet, header, utility icons and interaction states; do not introduce a new per-lesson visual system.
+- The header contains only `amedeo`, with the same placement and dimensions throughout the site. Keep lesson controls and titles below it.
+- For Lettura, distinguish figure values from pulse counts. Do not claim that a text follows Ciriaco until the supplied volume's relevant pages have actually been read.
+
 - Default workflow: after each completed work block, stage the changes, create a Git commit, and push to `origin/main`.
 - Exception: skip commit/push only if the user explicitly asks to keep changes local, pause before publishing, or review before pushing.
 - Before pushing, run the relevant verification for the change when practical, typically `make build` and `make check-links`.

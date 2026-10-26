@@ -1,0 +1,182 @@
+/* Accordia: one shared interface. See docs/design-system.md. */
+:root {
+  --font-sans: "SF Pro Text", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+  --font-display: var(--font-sans);
+  --ui-ink: #18191b;
+  --ui-muted: #555b60;
+  --ui-paper: #fff;
+  --ui-surface: #e8e8e8;
+  --ui-border: #737b80;
+  --ui-focus: #35485c;
+  --ui-accent: #a6bbd2;
+  --ui-soft: #edf2f6;
+  --ui-header-height: 64px;
+  --ui-gutter: clamp(16px, 4vw, 48px);
+}
+html body .site-header {
+  position: sticky; top: 0; z-index: 40;
+  height: var(--ui-header-height); min-height: var(--ui-header-height);
+  margin: 0; padding: 0; border: 0; box-shadow: none;
+  background: var(--ui-paper); backdrop-filter: none;
+}
+html body .site-header .site-header__inner {
+  width: min(calc(100% - var(--ui-gutter)), 1320px);
+  height: 100%; margin: 0 auto; padding: 0;
+  display: flex; align-items: center; justify-content: flex-start;
+}
+html body .site-header .brand--wordmark {
+  display: inline-flex; align-items: center; min-height: 44px;
+  margin: 0; padding: 0; gap: 0; border: 0;
+  color: var(--ui-ink); font-family: var(--font-sans);
+  font-size: 1.45rem; font-weight: 800; line-height: 1;
+  letter-spacing: 0; text-transform: none; text-decoration: none;
+}
+html body .site-header .brand--wordmark:focus-visible {
+  outline: 3px solid var(--ui-focus); outline-offset: 4px;
+}
+.site-links { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 24px; padding: 24px var(--ui-gutter); background: var(--ui-paper); }
+.site-links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ui-muted); font-size: 14px; text-underline-offset: 4px; }
+.site-links a:focus-visible { outline: 3px solid var(--ui-focus); outline-offset: 3px; }
+body[data-current-nucleus="ritmo"] {
+  --ui-accent: #b9c7a6; --ui-soft: #f0f3ec; --ui-focus: #34452a;
+}
+body[data-design-system="practice"] {
+  color: var(--ui-ink); background: var(--ui-paper);
+  font-family: var(--font-sans);
+  --score-ink: var(--ui-ink); --score-muted: var(--ui-muted);
+  --score-accent: var(--ui-focus); --score-soft: var(--ui-soft);
+  --lesson-button-surface: var(--ui-surface);
+  --lesson-button-accent: var(--ui-accent); --lesson-button-ink: var(--ui-ink);
+}
+/* Remove decorative motion; musical time and playback remain untouched. */
+body[data-design-system="practice"] :is(.figure-header__glow,.barocco-ticker__overlay) { display: none; }
+body[data-design-system="practice"] :is(.barocco-tile__face,.btl__tile,.rl-opt,.figure-card,.figure-pair) { animation: none; }
+body[data-design-system="practice"] :is(.figure-header__eyebrow,.barocco-intro__eyebrow,.figure-quiz__counter,.notes-hand-heading) {
+  text-transform: none; letter-spacing: 0; color: var(--ui-muted);
+}
+body[data-design-system="practice"] :is(.figure-header__title,.barocco-intro__title,.identity h1,.slide-heading h2) {
+  font-family: var(--font-sans); font-weight: 750; letter-spacing: -.035em; color: var(--ui-ink);
+}
+body[data-design-system="practice"] :is(.figure-description,.barocco-intro__body,.settings-note,.btl__note,.rl-feedback,.meter-callout) {
+  color: var(--ui-muted); font-family: var(--font-sans);
+}
+body[data-design-system="practice"] :is(.figure-description,.barocco-intro__body) { line-height: 1.6; }
+body[data-design-system="practice"] :is(.figure-header__eyebrow,.barocco-intro__eyebrow) { font-size: max(14px, .8rem); }
+body[data-design-system="practice"] :is(.figure-card strong,.figure-pair small) { font-size: clamp(14px, 1.1vw, 18px); }
+body[data-design-system="practice"] .figure-card > span:not(.notation-glyph) { font-size: clamp(14px, 1vw, 17px); color: var(--ui-muted); }
+body[data-design-system="practice"] :is(.barocco-tile__sub,.barocco-tile__num,.btl__num,.crp__name) { color: var(--ui-muted); }
+/* Transport and answer controls share the selection-menu geometry. */
+body[data-design-system="practice"] :is(.lesson-deck,dialog,.figure-quiz,.pv-quiz,.btl__controls,.crp-controls,.notes-next,.pv-links) :is(button,select,.worksheet-download,a),
+body[data-design-system="practice"] :is(.btt-chip,.btt-play,.lesson-button) {
+  min-height: 44px; border: 1px solid var(--ui-border); border-radius: 0;
+  background: var(--ui-surface); color: var(--ui-ink); box-shadow: none;
+  font-family: var(--font-sans); font-weight: 700; font-size: 14px; letter-spacing: -.015em;
+  text-transform: none; text-decoration: none;
+  transition: background-color 140ms ease, color 140ms ease;
+}
+body[data-design-system="practice"] :is(button,select,a):focus-visible {
+  outline: 3px solid var(--ui-focus); outline-offset: 3px;
+}
+body[data-design-system="practice"] button:not(:disabled):active { filter: brightness(.94); }
+body[data-design-system="practice"] :is(.lesson-deck,dialog,.figure-quiz,.pv-quiz,.btl__controls,.crp-controls) :is(button,select):not(:disabled):hover,
+body[data-design-system="practice"] :is(.lesson-button,.worksheet-download):hover { background: var(--ui-accent); color: var(--ui-ink); }
+body[data-design-system="practice"] :is(.lesson-deck,dialog) button:is(.primary,[aria-pressed="true"],[aria-current="true"]),
+body[data-design-system="practice"] .btt-chip.is-active {
+  background: var(--ui-accent); color: var(--ui-ink); border-color: var(--ui-focus);
+}
+body[data-design-system="practice"] button:disabled { opacity: .55; cursor: not-allowed; }
+body[data-design-system="practice"] :is(button.figure-card,button.figure-pair,button.meter-card) { border-radius: 0; }
+body[data-design-system="practice"] :is(button.figure-card,button.figure-pair,button.meter-card).is-active {
+  box-shadow: inset 0 -3px 0 var(--ui-focus);
+}
+body[data-design-system="practice"] :is(.figure-card,.figure-pair,.meter-card):hover { background-color: var(--ui-soft); }
+/* State colours are meaningful and retain text, symbols and accessible labels. */
+body[data-design-system="practice"] :is(.figure-quiz,.pv-quiz) button.is-correct { background: #dfebdc; color: #263e28; border-color: #3b663e; }
+body[data-design-system="practice"] :is(.figure-quiz,.pv-quiz) button.is-wrong { background: #f4e4df; color: #76392d; border-color: #8b493b; }
+body[data-design-system="practice"] dialog { border-radius: 0; border-color: var(--ui-border); }
+body[data-design-system="practice"] .phase-badge { border-radius: 0; border: 0; color: var(--ui-focus); background: var(--ui-soft); }
+body[data-design-system="practice"] .phase-badge[data-phase="response"] { color: #624b2c; background: #f4ece3; }
+/* Shared 44px navigation targets; the visible dot remains small. */
+body[data-design-system="practice"] :is(.figure-lesson__progress,.bintro-progress,.lesson-progress.topic-rail) { gap: 0; right: 4px; }
+body[data-design-system="practice"] :is(.figure-lesson__dot,.bintro-progress__dot,.lesson-progress.topic-rail .slide-dot) {
+  display: grid; place-items: center; width: 44px; height: 44px; min-height: 44px;
+  padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none;
+  transform: none; opacity: 1;
+}
+body[data-design-system="practice"] :is(.figure-lesson__dot,.bintro-progress__dot)::before,
+body[data-design-system="practice"] .lesson-progress.topic-rail .slide-dot span {
+  content: ""; display: block; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--ui-border); opacity: 1; transform: none;
+}
+body[data-design-system="practice"] :is(.figure-lesson__dot,.bintro-progress__dot).is-active::before,
+body[data-design-system="practice"] .lesson-progress.topic-rail .slide-dot[aria-pressed="true"] span {
+  width: 9px; height: 9px; background: var(--ui-focus);
+}
+body[data-design-system="practice"] .lesson-progress.topic-rail .slide-dot:hover { background: transparent; }
+/* Score decks use the same masthead, with their own task toolbar below. */
+body[data-score-deck] .lesson-deck { height: calc(100dvh - var(--ui-header-height)); }
+body[data-score-deck] .deck-header { border: 0; padding-block: 8px; }
+body[data-score-deck] .identity { gap: 16px; }
+body[data-score-deck] .identity h1 { font-size: clamp(18px, 1.8vw, 28px); }
+body[data-score-deck] .back-link { color: var(--ui-muted); text-decoration: underline; text-underline-offset: 4px; }
+body[data-score-deck] .lesson-deck .back-link { background: transparent; border: 0; font-weight: 600; }
+body[data-score-deck] .deck-footer { border: 0; }
+body[data-score-deck] .lesson-deck:fullscreen { height: 100dvh; background: var(--ui-paper); }
+/* Utility icons: one 24px grid, 1.75px strokes, never coloured emoji. */
+[data-ui-icon]::before {
+  content: ""; display: inline-block; width: 18px; height: 18px;
+  margin-right: 8px; vertical-align: -.2em; background: currentColor;
+  mask: var(--ui-icon) center / contain no-repeat;
+  -webkit-mask: var(--ui-icon) center / contain no-repeat;
+}
+.ui-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+/* Staff lines are information, not faded decoration. */
+body[data-design-system="practice"] :is(.figure-family,.figure-pairs,.measure-strip,.measure-examples)::before {
+  background: repeating-linear-gradient(to bottom, var(--ui-border) 0, var(--ui-border) 1px, transparent 1px, transparent var(--staff-gap));
+  mask-image: none; -webkit-mask-image: none;
+}
+body[data-design-system="practice"] .notes-hand-guide { stroke: var(--ui-border); }
+body[data-design-system="practice"] .notes-count { color: var(--ui-muted); }
+body[data-design-system="practice"] .rl-step:not(.is-on):not(.is-live) :is(.crp__sym,.crp__name) { color: var(--ui-muted); }
+body[data-design-system="practice"] .is-live :is(.crp__sym,.crp__name,.btl__num) { color: var(--ui-ink); }
+body[data-design-system="practice"] .is-live .rl-staff .rl-note { fill: var(--ui-ink); }
+body[data-design-system="practice"] .is-live .rl-staff :is(.rl-note--stroke,.rl-rest) { stroke: var(--ui-ink); }
+body[data-design-system="practice"] .rl-staff line { stroke: var(--ui-border); }
+body[data-design-system="practice"] .btt-play { font-size: 0; min-width: 44px; }
+body[data-design-system="practice"] .btt-play::before { margin: 0; }
+@media (min-width: 601px) {
+  body[data-design-system="practice"] .figure-description { font-size: clamp(15px, 1.12vw, 20px); }
+}
+@media (max-width: 700px) {
+  body[data-score-deck] .identity h1 { font-size: 17px; }
+  body[data-score-deck] .deck-header { gap: 8px; }
+  body[data-score-deck] [data-ui-icon]::before { width: 16px; height: 16px; margin-right: 4px; }
+  body[data-design-system="practice"] .lesson-viewport { padding-right: 32px; }
+  body[data-score-deck] .transport-left [data-ui-icon]::before { display: none; }
+  body[data-score-deck] .transport-left button { font-size: 13px; padding-inline: 5px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  body[data-design-system="practice"] * { scroll-behavior: auto !important; }
+  body[data-design-system="practice"] :is(button,a,select) { transition: none; }
+}
+@media print { .site-header { display: none !important; } }
+
+[data-ui-icon="play"] { --ui-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m8%205%2011%207-11%207Z%22%2F%3E%3C%2Fsvg%3E"); }
+
+[data-ui-icon="pause"] { --ui-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M8%205v14M16%205v14%22%2F%3E%3C%2Fsvg%3E"); }
+
+[data-ui-icon="stop"] { --ui-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20x%3D%226%22%20y%3D%226%22%20width%3D%2212%22%20height%3D%2212%22%2F%3E%3C%2Fsvg%3E"); }
+
+[data-ui-icon="prev"] { --ui-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m12%205-7%207%207%207M5%2012h15%22%2F%3E%3C%2Fsvg%3E"); }
+
+[data-ui-icon="next"] { --ui-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m12%205%207%207-7%207M4%2012h15%22%2F%3E%3C%2Fsvg%3E"); }
+
+[data-ui-icon="reset"] { --ui-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M4%2010a8%208%200%201%201%201%207M4%204v6h6%22%2F%3E%3C%2Fsvg%3E"); }
+
+[data-ui-icon="expand"] { --ui-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M9%204H4v5m11-5h5v5M4%2015v5h5m11-5v5h-5%22%2F%3E%3C%2Fsvg%3E"); }
+
+[data-ui-icon="settings"] { --ui-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22M4%207h16M4%2017h16M9%204v6m6%204v6%22%2F%3E%3C%2Fsvg%3E"); }
+
+[data-ui-icon="close"] { --ui-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m6%206%2012%2012M18%206%206%2018%22%2F%3E%3C%2Fsvg%3E"); }
+
+body[data-design-system="practice"] .btt-play.is-on { --ui-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20x%3D%226%22%20y%3D%226%22%20width%3D%2212%22%20height%3D%2212%22%2F%3E%3C%2Fsvg%3E"); }
