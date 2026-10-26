@@ -180,3 +180,34 @@ body[data-design-system="practice"] .btt-play::before { margin: 0; }
 [data-ui-icon="close"] { --ui-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Cpath%20d%3D%22m6%206%2012%2012M18%206%206%2018%22%2F%3E%3C%2Fsvg%3E"); }
 
 body[data-design-system="practice"] .btt-play.is-on { --ui-icon: url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20stroke%3D%22black%22%20stroke-width%3D%221.75%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22%3E%3Crect%20x%3D%226%22%20y%3D%226%22%20width%3D%2212%22%20height%3D%2212%22%2F%3E%3C%2Fsvg%3E"); }
+
+/* Stable hit areas and local hover feedback: no moving cards or pale labels. */
+html body :is(.barocco-tile,.timeline-card,.method-step-item):hover { transform:none; box-shadow:none; }
+html body .barocco-tile:is(:hover,:focus-visible) :is(.barocco-tile__name,.barocco-tile__sub) { color:var(--ui-ink); }
+html body .barocco-tile:is(:hover,:focus-visible) .barocco-tile__face:not(.barocco-tile__face--photo) { background:var(--tile-strip-accent,var(--ui-accent)); box-shadow:inset 0 -3px 0 var(--ui-focus); }
+html body .barocco-tile:is(:hover,:focus-visible) .barocco-tile__face:not(.barocco-tile__face--photo) :is(.barocco-tile__num,.barocco-tile__arrow) { color:#18191b; background:transparent; transform:none; }
+html body .barocco-tile:focus-visible { outline:3px solid var(--ui-focus); outline-offset:-3px; }
+html body :is(.figure-card,.figure-pair,.meter-card,.figure-quiz__options button):hover { transform:none; }
+html body :is(button.figure-card,button.figure-pair,button.meter-card):is(:hover,:focus-visible) { background:var(--ui-soft); box-shadow:inset 0 -3px 0 var(--ui-focus); color:var(--ui-ink); }
+html body :is(.figure-card,.figure-pair) .notation-glyph { color:var(--ui-ink); }
+html body .notes-family .figure-card:hover { background:transparent; box-shadow:none; }
+html body .figure-quiz__status { gap:12px; flex-wrap:wrap; }
+html body .figure-quiz__nav { display:flex; flex-wrap:wrap; gap:8px; flex-shrink:0; }
+html body .transport,html body .transport-left,html body .transport-right { flex-wrap:wrap; gap:8px; }
+/* The requested circle-to-fill button, sized by its label rather than a fixed width. */
+html body .ihb { position:relative; isolation:isolate; overflow:hidden; display:inline-flex; align-items:center; justify-content:center; min-height:44px; max-width:100%; width:auto; padding:10px 30px; border:1px solid var(--ui-border); border-radius:999px; background:var(--ui-paper); color:var(--ui-ink); font:600 14px/1.3 var(--font-sans); transform:none; box-shadow:none; white-space:normal; vertical-align:middle; }
+html body .ihb::before { content:''; position:absolute; width:7px; height:7px; left:12px; top:calc(50% - 3.5px); border-radius:50%; margin:0; background:var(--ui-accent,var(--accent,#a6bbd2)); mask:none; -webkit-mask:none; z-index:-1; transition:transform .25s ease; }
+html body .ihb-label { display:block; transition:transform .25s ease,opacity .25s ease; }
+html body .ihb-hover { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; gap:8px; padding:8px 16px; opacity:0; transform:translateX(-16px); pointer-events:none; transition:transform .25s ease,opacity .25s ease; }
+html body .ihb-hover::after { content:'→'; flex-shrink:0; }
+html body .ihb:is([aria-pressed=true],.primary) { background:var(--ui-accent); }
+@media(hover:hover){html body .ihb:not(:disabled):hover { background:var(--ui-paper); color:var(--ui-ink); transform:none; } html body .ihb:not(:disabled):hover::before { transform:scale(120); } html body .ihb:not(:disabled):hover .ihb-label { transform:translateX(24px); opacity:0; } html body .ihb:not(:disabled):hover .ihb-hover { transform:none; opacity:1; }}
+html body .ihb:focus-visible { outline:3px solid var(--ui-focus); outline-offset:3px; }
+html body .ihb:disabled { opacity:.5; cursor:not-allowed; }
+html body .lesson-deck .page-navigation { display:block; padding:4px 0; min-height:64px; }
+html body .score-seek { width:100%; min-height:32px; margin:0; accent-color:var(--ui-focus); cursor:pointer; display:block; }
+html body .score-seek:focus-visible { outline:2px solid var(--ui-focus); outline-offset:2px; }
+html body .notes-hand-diagram { width:100%; height:100%; min-width:0; }
+@media(prefers-reduced-motion:reduce){html body .ihb,html body .ihb * ,html body .ihb::before { transition:none; }}
+
+body:not([data-current-nucleus="lettura"]):not([data-current-nucleus="ritmo"]) { --ui-accent:var(--accent,#c37a6b); }

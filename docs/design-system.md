@@ -14,7 +14,7 @@ Queste regole derivano dalle istruzioni del docente del 25 ottobre 2026 e valgon
 
 - Bianco per il contenuto, grigio `#e8e8e8` per i comandi, inchiostro `#18191b`, testo secondario `#555b60`.
 - Lettura: azzurro ardesia `#a6bbd2`; Ritmo: salvia `#b9c7a6`. Stesse geometrie e stati; il colore distingue il percorso. I colori delle parti musicali sono funzionali e sempre accompagnati dai nomi.
-- Pulsanti coerenti con le tessere di selezione: angoli netti, peso 700, bersaglio minimo 44px, contrasto del bordo e del focus verificabile. Raggruppare per prossimità senza moltiplicare contenitori.
+- Pulsanti di azione arrotondati con effetto Interactive Hover contenuto nel bordo, peso 600, bersaglio minimo 44px, contrasto del bordo e del focus verificabile. Raggruppare per prossimità senza moltiplicare contenitori.
 - Icone di utilità vettoriali monocromatiche su griglia 24×24 con tratto 1.75px. Non mischiare emoji e simboli tipografici per la stessa azione. Le icone gestuali dell’eco sono materiale didattico e restano riconoscibili.
 - Hover, pressione, focus da tastiera, disabilitazione e selezione devono produrre stati distinguibili. Gli stati persistenti devono avere anche un’indicazione testuale o ARIA.
 - Niente bagliori, gradienti decorativi, lampeggiamenti continui o linee senza funzione. Conservare pentagrammi, stanghette e indicatori musicali necessari.
@@ -39,3 +39,7 @@ Queste regole derivano dalle istruzioni del docente del 25 ottobre 2026 e valgon
 ## Riferimento bibliografico verificato
 
 Il 26 ottobre 2026 sono state lette le pagine pertinenti del volume fornito dal docente: Letterio Ciriaco, *Compendio di teoria musicale, I corso*, Edizioni E.DI.M., Roma. I testi di Lettura sono rielaborazioni didattiche dei contenuti dei capitoli II–VI e XVIII, limitate agli argomenti già presenti. I riferimenti puntuali e le scelte terminologiche sono registrati in [Fonti delle lezioni di Lettura](lettura-fonti.md). Non pubblicare il PDF o scansioni del volume nel repository.
+
+## Revisione del 26 ottobre 2026
+
+Hover delle tessere stabile, senza traslazioni e con testo scuro leggibile. Il pulsante Interactive Hover si applica ai comandi testuali, non ai segni musicali, alle risposte grafiche o ai punti di navigazione. I comandi devono andare a capo nel proprio contenitore. Lo scrubber delle lezioni Eco e Orchestra sostituisce i precedenti/successivi. La mano didattica è una sinistra aperta vista dal palmo; l’ordine mnemonico dal pollice al mignolo è esplicitato senza confonderlo con l’orientamento del pentagramma.

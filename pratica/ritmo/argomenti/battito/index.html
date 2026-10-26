@@ -157,7 +157,7 @@ body{overflow:hidden}
  .lesson-deck button:not(.slide-dot),dialog button,.lesson-deck select,dialog select{transition:none}
 }
 
-</style><link rel="stylesheet" href="../../../../css/accordia-design-system.css?v=2026102501">
+</style><link rel="stylesheet" href="../../../../css/accordia-design-system.css?v=2026102602"><script defer src="../../../../js/interactive-hover-button.js?v=2026102602"></script>
 </head><body data-design-system="practice" data-nav="pratica" data-current-nucleus="ritmo" data-score-deck="true"><header class="site-header" id="site-header"><div class="shell site-header__inner"><a class="brand brand--wordmark" href="../../../../index.html" aria-label="amedeo — pagina iniziale">amedeo</a></div></header>
 <main class="lesson-deck">
  <div class="deck-header"><div class="identity"><a class="back-link" href="../../index.html">Ritmo</a><h1>Gioco dell’eco</h1></div><div class="deck-nav"><span class="phase-badge" id="phaseBadge" data-phase="ready">Pronti</span><button class="full-button" id="full" data-ui-icon="expand">Schermo intero</button></div></div>
@@ -166,8 +166,8 @@ body{overflow:hidden}
   <section id="scoreSlide" class="lesson-slide" aria-label="Slide 1: segui i gesti">
    <div class="slide-heading"><div class="reading-title"><h2>1 · Segui i gesti</h2><span class="meter" id="section">Sequenza 1 · Passeggiata</span></div><span class="meter">4/4 · ♩ = <span id="tempoText">72</span></span></div>
    <div class="scorewrap"><svg id="score" viewBox="0 0 1200 540" role="img" aria-label="Partitura con icone di Mani, Petto e Cosce"></svg></div>
-   <div class="page-navigation"><button id="prev" aria-label="Sequenza precedente" data-ui-icon="prev">Precedente</button><div class="position"><b id="pair">Battute 1–2 / 30</b><span id="status" role="status" aria-live="off">Quattro pulsazioni di preparazione</span></div><div class="next-pair"><span id="next">A seguire 3–4</span><button id="forward" aria-label="Sequenza successiva" data-ui-icon="next">Successiva</button></div></div>
-  </section>
+   <div class="page-navigation"><div class="position"><b id="pair">Battuta 1 / 30</b><input class="score-seek" id="scoreSeek" type="range" min="0" max="29" step="1" value="0" aria-label="Spostati alla battuta"><span id="status" role="status" aria-live="off">Pronti</span></div></div>
+ </section>
   <section id="overviewSlide" class="lesson-slide" aria-label="Slide 2: leggi le figure musicali">
    <div class="slide-heading"><div class="reading-title"><h2>2 · Leggi le figure musicali</h2><span class="meter" id="notationSection">Sequenza 1 · Passeggiata</span></div><button id="playAll" data-ui-icon="play">Ascolta tutte</button></div>
    <div class="scorewrap"><svg id="notationScore" viewBox="0 0 1200 540" role="img" aria-label="Lo stesso ritmo con figure musicali per Mani, Petto e Cosce"></svg></div>
@@ -271,6 +271,7 @@ function createScoreStrip(config){
    fixed+=tag('line',{id:cursorId,x1:anchor,x2:anchor,y1:64,y2:height-12,stroke:'#34452a','stroke-width':1.5,opacity:.7,visibility:'hidden'});
    $(svg).setAttribute('viewBox',`0 0 1200 ${height}`);
    $(svg).innerHTML=tag('defs',{},tag('clipPath',{id:clipId},tag('rect',{x:left,y:0,width:span,height})))+band+tag('g',{'clip-path':`url(#${clipId})`},tag('g',{id:stripId},moving))+fixed;
+   document.querySelectorAll(`#${svg} [data-rest="true"] .music`).forEach(n=>{if(!n.getBBox)return;const box=n.getBBox();if(box.height)n.setAttribute('dy',Number(n.getAttribute('y'))-box.y-box.height/2)});
    nodes=[...document.querySelectorAll(`#${svg} .note-event`)];beats=[...document.querySelectorAll(`#${svg} .score-beat`)];
   }
   const translation=anchor-offset-(time-base*8)*unitWidth;
@@ -299,9 +300,10 @@ const scoreStrip=createScoreStrip({...echoLayout,svg:'score',icons:gestureIcons}
 const notationStrip=createScoreStrip({...echoLayout,svg:'notationScore'});
 function scoreLabels(){
  $('section').textContent=`Sequenza ${selected+1} · ${profiles[selected].label}`;$('notationSection').textContent=$('section').textContent;
+ $('scoreSeek').value=selected*2+Math.floor(position/8);$('scoreSeek').setAttribute('aria-valuetext',`Battuta ${Number($('scoreSeek').value)+1} di 30`);
  $('pair').textContent=`Battuta ${selected*2+Math.floor(position/8)+1} / 30`;
- $('next').textContent='Lettura continua';
- $('prev').disabled=selected===0;$('forward').disabled=selected===patterns.length-1;
+
+
  for(const id of ['score','notationScore'])$(id).setAttribute('aria-label',`${id==='score'?'Icone gestuali':'Figure musicali'}: ${response?'ripeti':'battuta'} ${selected*2+Math.floor(position/8)+1}, Mani, Petto e Cosce`);
  $('sequencePicker').value=selected;
 }
@@ -530,8 +532,12 @@ $('sequencePicker').innerHTML=sequenceOptions;
 $('sequencePicker').onchange=()=>selectPattern(Number($('sequencePicker').value));
 $('mixer').innerHTML=names.map((n,i)=>`<div class="channel" style="--voice:${colors[i]}"><b>${n}</b><label><input data-enable="${i}" type="checkbox" checked>Ascolta voce</label><div class="voice-actions"><button data-solo="${i}" aria-pressed="false" aria-label="Solo ${n}">Solo</button><button data-test="${i}" aria-label="Prova ${n}">Prova</button></div><label>Volume <input data-volume="${i}" aria-label="Volume ${n}" type="range" min="0" max="1" step=".05" value="${volumes[i]}"></label></div>`).join('');
 $('play').onclick=()=>{if(mode==='metro'){setMode($('mode').value);reset()}play()};$('echo').onclick=()=>startMode('echo');$('pause').onclick=pause;$('stop').onclick=()=>{if(mode==='metro')setMode('listen');reset()};
-$('prev').onclick=()=>selectPattern(selected-1);$('forward').onclick=()=>selectPattern(selected+1);
+
 $('playAll').onclick=()=>{scope='all';$('scope').value=scope;$('loop').checked=true;startMode('listen')};
+let seekResume=false;
+$('scoreSeek').onpointerdown=()=>{seekResume=running;pause()};
+$('scoreSeek').onchange=()=>{const resume=seekResume;seekResume=false;if(resume)play()};
+$('scoreSeek').oninput=()=>{const target=Number($('scoreSeek').value),resume=running||seekResume;pause();scope='all';$('scope').value='all';selected=Math.floor(target/2);position=(target%2)*8;response=false;saved=selected*cycleLength()+position;scoreTime=saved;renderScore();seekResume=resume};
 $('tempo').oninput=()=>{const resume=running;if(resume)pause();bpm=Number($('tempo').value);$('tempoText').textContent=bpm;$('tempoOutput').textContent=bpm+' BPM';if(resume)play()};
 $('mode').onchange=()=>{setMode($('mode').value);reset()};$('scope').onchange=()=>{scope=$('scope').value;reset()};$('loop').onchange=reset;$('durations').onchange=renderScore;
 for(const id of ['bodySound','music'])$(id).onchange=syncMixer;

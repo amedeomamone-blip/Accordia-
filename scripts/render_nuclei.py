@@ -4631,7 +4631,7 @@ def render_lesson_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str
     <title>{e(topic['title'])} | {e(nucleo['title'])} | Accordia</title>
     <link rel="stylesheet" href="{asset_url('../../../../css/style.css')}">
 {render_immersive_lesson_stylesheet(lesson) if immersive_preview else ""}
-<link rel="stylesheet" href="{asset_url('../../../../css/accordia-design-system.css')}">
+<link rel="stylesheet" href="{asset_url('../../../../css/accordia-design-system.css')}"><script defer src="{asset_url('../../../../js/interactive-hover-button.js')}"></script>
 </head>
 <body data-nav="timeline" data-current-nucleus="{e(nucleo['slug'])}">
     <header class="site-header" id="site-header"><div class="shell site-header__inner"><a class="brand brand--wordmark" href="../../../../index.html" aria-label="amedeo — pagina iniziale">amedeo</a></div></header>
@@ -4869,7 +4869,7 @@ def render_topic_page(nucleo: dict, topic_index: int, topic: dict) -> str:
     <meta name="description" content="{e(topic['title'])}: approfondimento del nucleo {e(nucleo['title'])}, con contenuti, ascolti, attività e collegamenti utili.">
     <title>{e(topic['title'])} | {e(nucleo['title'])} | Accordia</title>
     <link rel="stylesheet" href="{asset_url('../../../../css/style.css')}">
-<link rel="stylesheet" href="{asset_url('../../../../css/accordia-design-system.css')}">
+<link rel="stylesheet" href="{asset_url('../../../../css/accordia-design-system.css')}"><script defer src="{asset_url('../../../../js/interactive-hover-button.js')}"></script>
 </head>
 <body data-nav="timeline" data-current-nucleus="{e(nucleo['slug'])}">
     <header class="site-header" id="site-header"><div class="shell site-header__inner"><a class="brand brand--wordmark" href="../../../../index.html" aria-label="amedeo — pagina iniziale">amedeo</a></div></header>
@@ -5032,7 +5032,7 @@ def render_timeline_page() -> str:
     <title>{e(config["page_title"])}</title>
     <link rel="stylesheet" href="{asset_url('../css/style.css')}">
 {render_timeline_page_style(config["style"])}
-<link rel="stylesheet" href="{asset_url('../css/accordia-design-system.css')}">
+<link rel="stylesheet" href="{asset_url('../css/accordia-design-system.css')}"><script defer src="{asset_url('../js/interactive-hover-button.js')}"></script>
 </head>
 <body data-nav="timeline">
     <header class="site-header" id="site-header"><div class="shell site-header__inner"><a class="brand brand--wordmark" href="../index.html" aria-label="amedeo — pagina iniziale">amedeo</a></div></header>
@@ -5569,7 +5569,7 @@ def render_nucleus_page(index: int, nucleo: dict, nuclei: list[dict]) -> str:
     <meta name="description" content="{e(page_description)}">
     <title>{e(nucleo['title'])} | Accordia</title>
     <link rel="stylesheet" href="{asset_url('../../css/style.css')}">
-<link rel="stylesheet" href="{asset_url('../../css/accordia-design-system.css')}">
+<link rel="stylesheet" href="{asset_url('../../css/accordia-design-system.css')}"><script defer src="{asset_url('../../js/interactive-hover-button.js')}"></script>
 </head>
 <body data-nav="timeline" data-current-nucleus="{e(nucleo['slug'])}">
     <header class="site-header" id="site-header"><div class="shell site-header__inner"><a class="brand brand--wordmark" href="../../index.html" aria-label="amedeo — pagina iniziale">amedeo</a></div></header>
