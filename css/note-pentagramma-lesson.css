@@ -17,6 +17,15 @@ body[data-lesson="note-pentagramma"] { overflow: hidden; background: #fff; color
     opacity: 1 !important; box-shadow: none !important;
 }
 .notes-family--intro .figure-card:last-child .notes-count { color: var(--reading-selected); background: transparent; }
+.notes-hand-scroll { width: 100%; height: 100%; overflow: auto; }
+.notes-hand-diagram { display: block; width: 100%; height: 100%; }
+.notes-hand-diagram text { font-family: var(--font-display, -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif); dominant-baseline: middle; }
+.notes-hand-heading { font-size: 20px; letter-spacing: 2px; font-weight: 600; fill: var(--reading-deep); }
+.notes-hand-guide { fill: none; stroke: var(--reading-selected); stroke-width: 1.5; }
+.notes-hand-anchor { fill: var(--reading-deep); }
+.notes-hand-finger { font-size: 24px; fill: #737d88; }
+.notes-hand-note, .notes-hand-space { font-size: 42px; font-weight: 800; fill: var(--reading-deep); }
+.notes-hand-space { fill: var(--reading-selected); }
 .notes-next { position: absolute; bottom: 1rem; left: calc(28 * var(--u)); display: flex; gap: 2rem; font-size: .85rem; }
 .notes-next a { color: var(--reading-deep); text-underline-offset: .25em; }
 .notes-lesson :is(button, a, [tabindex]):focus-visible { outline: 2px solid var(--reading-deep); outline-offset: 3px; }
@@ -25,44 +34,16 @@ body[data-lesson="note-pentagramma"] { overflow: hidden; background: #fff; color
     .notes-lesson .figure-screen[data-screen="3"] .figure-header {
         top: auto; bottom: calc(50svh + (100vw / 12) - min(16px, 1.6vw) + 2 * var(--u));
     }
+    .notes-screen--hand .figure-header { top: 1.3rem; bottom: auto; }
+    .notes-content--hand { top: 8rem; bottom: 9rem; }
+    .notes-screen--hand .figure-description { top: auto; bottom: 3.5rem; width: calc(42 * var(--u)); }
 }
 @media (max-width: 600px) {
     body[data-lesson="note-pentagramma"] { overflow: auto; }
     .notes-family { grid-template-columns: repeat(var(--note-count), 44vw); padding-bottom: 2.5rem; }
     .notes-family::before { width: calc(var(--note-count) * 44vw); }
     .notes-family .figure-card .notes-count { font-size: .9rem !important; }
-        .notes-next { position: static; margin-top: 1.5rem; flex-wrap: wrap; gap: 1rem; }
-}
-
-/* This slide uses normal layout flow: title, illustration and caption never overlap. */
-body[data-lesson="note-pentagramma"] .notes-screen--hand {
- display:grid; grid-template-rows:auto minmax(0,1fr) auto;
- gap:clamp(16px,2.5vh,28px); padding:24px max(48px,calc((100% - 1040px)/2));
- min-height:560px; box-sizing:border-box; overflow:visible;
-}
-.hand-lesson__header { display:block; position:static; }
-.hand-lesson__header a { display:inline-block; color:var(--ui-muted); font-size:14px; text-decoration:none; margin-bottom:10px; }
-.hand-lesson__header h2 { margin:0; font:750 clamp(26px,3vw,42px)/1.15 var(--font-sans); letter-spacing:-.035em; color:var(--ui-ink); }
-.hand-lesson__content { display:grid; grid-template-columns:minmax(0,1fr) minmax(240px,.8fr); align-items:center; gap:clamp(24px,6vw,80px); min-height:0; }
-.hand-lesson__figure { display:flex; align-items:center; justify-content:center; align-self:stretch; min-height:0; margin:0; }
-.hand-lesson__figure img { display:block; width:100%; height:100%; max-height:480px; object-fit:contain; }
-.hand-lesson__key { width:100%; max-width:320px; }
-.hand-lesson__key h3 { margin:0 0 12px; font-size:18px; font-weight:700; color:var(--ui-ink); }
-.hand-lesson__key dl { margin:0; }
-.hand-lesson__key dl > div { display:flex; align-items:baseline; justify-content:space-between; gap:24px; padding:5px 0; }
-.hand-lesson__key dt { font-size:clamp(16px,1.7vw,22px); color:var(--ui-muted); }
-.hand-lesson__key dd { margin:0; color:var(--ui-focus); font-size:clamp(23px,2.3vw,30px); font-weight:700; line-height:1.2; }
-.hand-lesson__spaces { margin:18px 0 0; color:var(--ui-muted); font-size:16px; line-height:1.6; }
-.hand-lesson__spaces strong { color:var(--ui-focus); font-size:20px; font-weight:650; }
-.hand-lesson__caption { position:static; margin:0; max-width:850px; font-size:clamp(15px,1.3vw,18px); line-height:1.5; color:var(--ui-muted); }
-@media(max-width:600px) {
- body[data-lesson="note-pentagramma"] .notes-screen--hand { height:auto; min-height:calc(100svh - 64px); padding:28px 44px 28px 20px; gap:24px; grid-template-rows:auto auto auto; }
- .hand-lesson__content { grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:16px; }
- .hand-lesson__figure img { height:300px; max-height:100%; }
- .hand-lesson__key h3 { font-size:16px; }
- .hand-lesson__key dt { font-size:14px; }
- .hand-lesson__key dd { font-size:22px; }
- .hand-lesson__key dl > div { gap:8px; }
- .hand-lesson__spaces { font-size:14px; }
- .hand-lesson__spaces strong { font-size:16px; }
+    .notes-content--hand { width: calc(100% + 2rem); margin-left: -1rem; }
+    .notes-hand-diagram { width: 900px; height: auto; max-width: none; }
+    .notes-next { position: static; margin-top: 1.5rem; flex-wrap: wrap; gap: 1rem; }
 }
