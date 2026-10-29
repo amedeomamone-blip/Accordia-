@@ -19,7 +19,16 @@ I testi del sito sono rielaborazioni sintetiche, non citazioni letterali. Il PDF
 - “Misura” e “battuta” indicano lo stesso spazio fra stanghette; i “tempi”, chiamati anche “movimenti”, sono le sue divisioni. Nel testo introduttivo si esplicita questa equivalenza, poi si preferisce “tempi”, come nel cap. V.
 - Nelle misure semplici la suddivisione di ciascun tempo è binaria. L’indicazione superiore conta i tempi; quella inferiore ne stabilisce il valore. Gli esempi esistenti restano in 2/4, 3/4 e 4/4, senza introdurre le misure composte.
 - Per i conteggi pratici si dichiara la pulsazione alla semiminima. La somma dei valori completa 2/4, 3/4 o 4/4: non si confonde il numeratore con una somma di frazioni.
-- Il punto semplice aggiunge metà del valore iniziale della figura o della pausa (cap. VI, p. 16). Restano gli esempi esistenti: non vengono aggiunte lezioni su punto doppio, triplo o legatura.
+- Il punto semplice aggiunge metà del valore iniziale della figura o della pausa (cap. VI, p. 16). Restano gli esempi esistenti; punto doppio e triplo non rientrano nel percorso attuale.
 - Quiz, esempi interattivi e istruzioni operative sono adattamenti del sito. Non vengono presentati come esercizi tratti dal libro.
 
 Le regole permanenti di presentazione sono in [Design system](design-system.md).
+
+## Ampliamento del 29 ottobre 2026
+
+La scala diatonica e le nuove spiegazioni sulla legatura sono contenuti didattici originali del sito: non si attribuiscono al volume pagine non esaminate. Il riferimento al Ciriaco nella pagina «Punto di valore» resta limitato al punto semplice.
+
+- Scala: sette gradi, cinque toni e due semitoni nell’ottava; esempio di Do maggiore, schema T–T–S–T–T–T–S. Tastiera con cinque tasti neri; diagramma con distanze proporzionali; ascolto sintetizzato nel temperamento equabile.
+- Legatura: note della stessa altezza, somma dei valori e un solo attacco, anche oltre la stanghetta. Il disegno oltre stanghetta è esplicitamente un frammento. Le pause non si legano; la legatura di frase è distinta da quella di valore.
+- Sono conservati i dodici esercizi sul punto, alternati a otto nuovi esercizi su legature e durate. La scala ha dieci esercizi. Ogni risposta corretta ha una spiegazione; errori, ritorno agli esercizi e riavvio hanno stati espliciti.
+- Verifica ripetibile: `scripts/test_reading_lessons.cjs`, con Playwright e un server locale (`make serve`). Il test usa una chiave delle trenta risposte indipendente dai dati della pagina e controlla tentativi, punteggio, ritorno, riavvio, tastiera, ascolto e assenza di overflow orizzontale a 1440, 1280, 390 e 320 pixel.

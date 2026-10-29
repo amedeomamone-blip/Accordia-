@@ -1,6 +1,6 @@
 (function () {
     'use strict';
-    var lesson = document.getElementById('punto-lesson');
+    var lesson = document.querySelector('#punto-lesson, #scala-lesson');
     if (!lesson) return;
     var viewport = document.getElementById('lesson-viewport');
     var header = document.getElementById('site-header');
@@ -74,7 +74,21 @@
         { type: 'equivalent', figure: 'quarter', second: 'eighth', options: ['quarter', 'whole', 'eighth', 'half'] },
         { type: 'value', figure: 'quarterRest', options: [0.25, 0.125, 0.5, 0.375] }
     ];
+    if (lesson.id === 'scala-lesson') questions = window.AccordiaReadingExercises.scale;
+    else {
+        // Interleave new tie tasks with all twelve original dot exercises.
+        var original = questions;
+        questions = [];
+        original.forEach(function (q, i) {
+            questions.push(q);
+            if (i < window.AccordiaReadingExercises.ties.length) questions.push(window.AccordiaReadingExercises.ties[i]);
+        });
+    }
     questions.forEach(function (q) {
+        if (q.type === 'custom') {
+            if (q.options.filter(function (value) { return value === q.correct; }).length !== 1) throw new Error('Risposta non univoca.');
+            return;
+        }
         var base = figures[q.figure].value;
         q.correct = q.type === 'addition' ? base / 2 : q.type === 'measure' ? q.meter / 4 - base * 1.5 : q.type === 'equivalent' ? q.figure : base * 1.5;
         if (q.options.filter(function (value) { return value === q.correct; }).length !== 1) throw new Error('Risposta non univoca.');
@@ -89,6 +103,7 @@
     var previous = document.getElementById('pv-prev');
     var next = document.getElementById('pv-next');
     function explanation(q) {
+        if (q.type === "custom") return "Esatto: " + q.explanation;
         var base = figures[q.figure].value;
         var result = format(base) + ' + ' + format(base / 2) + ' = ' + format(base * 1.5) + '.';
         if (q.type === 'measure') return 'Esatto: ' + format(base * 1.5) + ' + ' + format(q.correct) + ' = ' + q.meter + '/4.';
@@ -101,9 +116,9 @@
     }
     function renderQuestion() {
         var q = questions[index];
-        var label = figures[q.figure].label;
+        var label = q.type === 'custom' ? '' : figures[q.figure].label;
         prompt.textContent = q.type === 'addition' ? 'Quanto aggiunge il punto alla ' + label.toLowerCase() + '?' : q.type === 'measure' ? 'Quale valore manca per completare la battuta?' : q.type === 'equivalent' ? 'Quale figura puntata ha la stessa durata totale?' : 'Qual è il valore della ' + label.toLowerCase() + ' puntata?';
-        visual.innerHTML = note(q.figure, q.type !== 'equivalent');
+        visual.innerHTML = q.type === 'custom' ? '' : note(q.figure, q.type !== 'equivalent');
         var visualLabel = label + ' puntata';
         if (q.type === 'measure') {
             visual.innerHTML = '<span class="pv-meter" aria-hidden="true"><b>' + q.meter + '</b><b>4</b></span>' + visual.innerHTML + '<b class="pv-operator" aria-hidden="true">+</b><span class="pv-blank" aria-hidden="true">?</span><span class="pv-barline" aria-hidden="true"></span>';
@@ -113,6 +128,12 @@
             visual.innerHTML += '<b class="pv-operator" aria-hidden="true">+</b>' + note(q.second, false);
             visualLabel = label + ' più ' + figures[q.second].label.toLowerCase();
         }
+        if (q.type === 'custom') {
+            prompt.textContent = q.prompt;
+            visual.textContent = q.visual || '';
+            visualLabel = q.visual || '';
+        }
+        visual.hidden = q.type === 'custom' && !q.visual;
         visual.setAttribute('role', 'img');
         visual.setAttribute('aria-label', visualLabel);
         options.replaceChildren();
@@ -122,7 +143,7 @@
             if (q.type === 'equivalent') {
                 button.innerHTML = note(value, true) + '<small>' + figures[value].label + ' puntata · ' + format(figures[value].value * 1.5) + '</small>';
                 button.setAttribute('aria-label', figures[value].label + ' puntata, valore ' + format(figures[value].value * 1.5));
-            } else button.textContent = format(value);
+            } else button.textContent = q.type === 'custom' ? value : format(value);
             if (solved.has(index)) { button.disabled = true; button.classList.toggle('is-right', value === q.correct); }
             button.addEventListener('click', function () {
                 if (solved.has(index)) return;
@@ -130,17 +151,17 @@
                 if (value === q.correct) {
                     solved.add(index); button.classList.add('is-right');
                     Array.from(options.children).forEach(function (item) { item.disabled = true; });
-                    feedback.textContent = explanation(q) + (solved.size === questions.length ? ' Hai completato tutti i 12 esercizi.' : '');
+                    feedback.textContent = explanation(q) + (solved.size === questions.length ? ' Hai completato tutti i ' + questions.length + ' esercizi.' : '');
                     updateScore();
                 } else {
                     button.classList.add('is-wrong');
-                    feedback.textContent = q.type === 'measure' ? 'Riprova: calcola il valore puntato, poi sottrailo al totale della battuta.' : q.type === 'addition' ? 'Riprova: il punto aggiunge soltanto la metà del valore iniziale.' : 'Riprova: somma il valore iniziale e la sua metà.';
+                    feedback.textContent = q.type === 'custom' ? 'Riprova: ' + q.explanation : q.type === 'measure' ? 'Riprova: calcola il valore puntato, poi sottrailo al totale della battuta.' : q.type === 'addition' ? 'Riprova: il punto aggiunge soltanto la metà del valore iniziale.' : 'Riprova: somma il valore iniziale e la sua metà.';
                 }
             });
             options.appendChild(button);
         });
         document.getElementById('pv-number').textContent = String(index + 1).padStart(2, '0');
-        feedback.textContent = solved.has(index) ? explanation(q) : 'Scegli il valore in frazione. Semiminima = 1/4.';
+        feedback.textContent = solved.has(index) ? explanation(q) : (q.type === 'custom' ? 'Scegli una risposta.' : 'Scegli il valore in frazione. Semiminima = 1/4.');
         previous.disabled = index === 0;
         next.textContent = index === questions.length - 1 ? 'Ricomincia ↻' : 'Prossimo →';
         updateScore();
@@ -151,5 +172,6 @@
         else index += 1;
         renderQuestion();
     });
+    document.querySelector('.figure-quiz__counter i').textContent = '/ ' + questions.length;
     renderQuestion();
 }());
