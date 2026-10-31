@@ -97,7 +97,7 @@ body{overflow:hidden}
  .lesson-deck button:not(.slide-dot),dialog button,.lesson-deck select,dialog select{transition:none}
 }
 
-</style><link rel="stylesheet" href="../../../../css/accordia-design-system.css?v=2026102602"><script defer src="../../../../js/interactive-hover-button.js?v=2026102602"></script>
+</style><link rel="stylesheet" href="../../../../css/accordia-design-system.css?v=2026102602"><link rel="stylesheet" href="../../../../css/orchestra-writing.css?v=20261031"><script defer src="../../../../js/interactive-hover-button.js?v=2026102602"></script>
 </head><body data-design-system="practice" data-nav="pratica" data-current-nucleus="ritmo" data-score-deck="true"><header class="site-header" id="site-header"><div class="shell site-header__inner"><a class="brand brand--wordmark" href="../../../../index.html" aria-label="amedeo — pagina iniziale">amedeo</a></div></header>
 <main class="lesson-deck">
  <div class="deck-header">
@@ -107,6 +107,7 @@ body{overflow:hidden}
  <nav class="topic-rail lesson-progress" aria-label="Slide della lezione">
   <button class="slide-dot" data-slide="score" aria-pressed="true" aria-current="step" aria-controls="scoreSlide" aria-label="Slide 1: partitura" title="Partitura"><span aria-hidden="true"></span></button>
   <button class="slide-dot" data-slide="overview" aria-pressed="false" aria-controls="overviewSlide" aria-label="Slide 2: panoramica" title="Panoramica"><span aria-hidden="true"></span></button>
+  <button class="slide-dot" data-slide="write" aria-pressed="false" aria-controls="writeSlide" aria-label="Slide 3: ora scrivo io" title="Ora scrivo io"><span aria-hidden="true"></span></button>
  </nav>
  <div id="lessonViewport" class="lesson-viewport" tabindex="0" aria-label="Lezione a scorrimento verticale">
  <section id="scoreSlide" class="lesson-slide" aria-label="Slide 1: partitura">
@@ -117,6 +118,28 @@ body{overflow:hidden}
  <section id="overviewSlide" class="lesson-slide" aria-label="Slide 2: panoramica generale">
   <div class="slide-heading"><h2>Il brano completo</h2><span class="meter">32 battute · 3 strumenti</span></div>
   <div id="voiceKey" class="voice-key"></div><div id="overview" aria-label="Panoramica delle 32 battute"></div>
+ </section>
+ <section id="writeSlide" class="lesson-slide writing-slide" aria-label="Slide 3: ora scrivo io">
+  <div class="slide-heading"><h2>Ora scrivo io</h2><span class="meter">Ricopia la partitura · 4/4</span></div>
+  <div class="writing-choices">
+   <label>Strumento <select id="writeInstrument" aria-label="Scegli lo strumento"></select></label>
+   <label>Parte del brano <select id="writeSection" aria-label="Scegli la sezione">
+    <option value="strofa">Strofa</option><option value="pre">Pre-ritornello</option><option value="ritornello">Ritornello</option>
+   </select></label><strong id="writeLabel"></strong>
+  </div>
+  <div class="writing-workspace">
+   <div class="writing-group"><h3>La mia partitura</h3><svg id="modelScore" class="writing-staff" viewBox="0 0 1000 155" role="img" aria-label="Due battute modello con figure musicali"></svg></div>
+   <div class="writing-group"><h3>Ora scrivo io</h3><svg id="copyScore" class="writing-staff" viewBox="0 0 1000 155" role="group" aria-label="Due battute da completare: seleziona una figura e premi una pulsazione"></svg></div>
+   <div class="writing-toolbar" role="group" aria-label="Figure musicali da scrivere">
+    <button type="button" data-write-tool="Q" aria-pressed="true"><span class="writing-music" aria-hidden="true">&#xE1D5;</span>Semiminima</button>
+    <button type="button" data-write-tool="EE" aria-pressed="false"><span class="writing-music pair" aria-hidden="true">&#xE1D5;&#xE1D5;</span>Due crome</button>
+    <button type="button" data-write-tool="R" aria-pressed="false"><span class="writing-music" aria-hidden="true">&#xE4E5;</span>Pausa</button>
+    <button type="button" data-write-tool="H" aria-pressed="false"><span class="writing-music" aria-hidden="true">&#xE4E4;</span>Pausa di minima</button>
+    <button type="button" data-write-tool="X" aria-pressed="false">Gomma</button>
+    <button type="button" id="writeCheck">Controlla</button><button type="button" id="writeClear">Cancella tutto</button>
+   </div>
+   <p class="writing-result" id="writeFeedback" role="status" aria-live="polite"></p>
+  </div>
  </section>
  </div>
  <footer class="deck-footer"><div class="transport">
@@ -174,7 +197,7 @@ function setup(){
 }
 let activeSlide='score';
 const lessonViewport=$('lessonViewport');
-const slideNames=['score','overview'];
+const slideNames=['score','overview','write'];
 function markSlide(id){
  activeSlide=id;
  document.querySelectorAll('[data-slide]').forEach(button=>{
@@ -185,6 +208,7 @@ function markSlide(id){
 }
 function showSlide(id){
  if(!slideNames.includes(id))return;
+ if(id==='write'&&(running||starting))pause();
  const behavior=window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth';
  lessonViewport.scrollTo({top:$(id+'Slide').offsetTop,behavior});
 }
@@ -395,7 +419,7 @@ $('options').onclick=()=>$('settings').showModal();
 $('closeSettings').onclick=()=>$('settings').close();
 document.addEventListener('keydown',e=>{
  if($('settings').open||/INPUT|SELECT|TEXTAREA/.test(e.target.tagName))return;
- if(['ArrowDown','PageDown','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();showSlide(e.key==='ArrowDown'||e.key==='PageDown'?'overview':'score')}
+ if(['ArrowDown','PageDown','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();const direction=e.key==='ArrowDown'||e.key==='PageDown'?1:-1;const next=slideNames.indexOf(activeSlide)+direction;showSlide(slideNames[Math.max(0,Math.min(slideNames.length-1,next))])}
  if(e.key==='ArrowLeft'&&activeSlide==='score'){e.preventDefault();movePage(-1)}
  if(e.key==='ArrowRight'&&activeSlide==='score'){e.preventDefault();movePage(1)}
  if(e.key===' '&&(e.target===document.body||e.target===lessonViewport)){e.preventDefault();running?pause():play()}
@@ -404,4 +428,4 @@ setup();
 document.fonts.load('64px Bravura').then(fonts=>{if(!fonts.length)setAudioMessage('Il carattere musicale non è disponibile: ricarica la pagina.');else render()}).catch(()=>setAudioMessage('Impossibile caricare le figure musicali. Ricarica la pagina.'));
 window.orchestra={scoreStrip,orchestraBar,song,events,rangePosition,pageSize,names,writingPatterns,sectionForBar,get state(){return{running,starting,saved,position,bpm,mode,activeSlide,audioState:ctx?.state,scheduled:nextStep,activeSources:sources.size}}};
 
-</script></body></html>
+</script><script src="../../../../js/orchestra-writing.js?v=20261031"></script></body></html>
