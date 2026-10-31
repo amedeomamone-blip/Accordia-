@@ -1,0 +1,46 @@
+/* Laboratorio di copiatura: tre strumenti, tre sezioni.
+   Mantiene il design system Accordia. Nessuna modifica alle lezioni vicine. */
+.writing-slide{grid-template-rows:auto auto minmax(0,1fr);padding-bottom:12px}
+.writing-slide .slide-heading{min-height:64px}
+.writing-choices{display:flex;align-items:center;flex-wrap:wrap;gap:8px 20px;padding:8px 0}
+.writing-choices label{font-size:14px;color:var(--score-muted);font-weight:600}
+.writing-choices select{min-width:150px;color:var(--score-ink)}
+.writing-workspace{display:grid;grid-template-rows:auto auto auto auto;align-content:space-evenly;gap:6px;min-height:0;padding-bottom:6px}
+.writing-group{min-width:0}
+.writing-group h3{font-size:clamp(14px,1.5vw,19px);font-weight:700;margin:0 0 4px;letter-spacing:-.02em}
+.writing-staff{display:block;width:100%;height:clamp(92px,15vh,154px);background:transparent}
+.writing-staff .music{font-family:Bravura!important;font-weight:400;font-size:56px}
+.writing-staff .staff-note{fill:var(--score-ink)}
+.writing-staff .staff-rest{fill:var(--score-ink)}
+.writing-staff .staff-rule{stroke:#cad4c4;stroke-width:1.8}
+.writing-staff .bar-rule{stroke:#6a7965;stroke-width:2}
+.writing-staff .copy-hit{cursor:pointer;fill:transparent}
+.writing-staff .copy-hit:hover,.writing-staff .copy-hit:focus{fill:#e4eee0;fill-opacity:.4;outline:none;stroke:#506d48;stroke-width:2}
+.writing-staff .copy-hit[aria-pressed="true"]{stroke:#34452a;stroke-width:2.5;fill:#e2eae0;fill-opacity:.4}
+.writing-staff .staff-beat-label{fill:#687466;font-size:17px;font-family:var(--font-sans,Arial,sans-serif)}
+.writing-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:4px 0}
+.writing-toolbar button{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:14px}
+.writing-toolbar .writing-music{font-family:Bravura!important;font-size:27px;font-weight:400;line-height:1;vertical-align:middle}
+.writing-toolbar .writing-music.pair{letter-spacing:-7px;padding-right:7px}
+.writing-toolbar button[aria-pressed="true"]{background:var(--lesson-button-accent);border-color:#829376}
+.writing-result{display:flex;gap:16px;align-items:center;flex-wrap:wrap;padding:0;margin:0;font-size:14px;color:var(--score-muted);min-height:24px}
+.writing-result strong{color:var(--score-ink)}
+.writing-staff [role="button"]:focus-visible{stroke:#34452a;stroke-width:3;fill:#e2eae0;fill-opacity:.45}
+@media(max-width:850px){
+ .writing-choices{gap:8px 12px;padding-block:4px}
+ .writing-choices label{font-size:12px}
+ .writing-choices select{min-width:112px;padding:7px}
+ .writing-workspace{gap:4px}
+ .writing-staff{height:clamp(78px,15vh,122px)}
+ .writing-toolbar{gap:4px}
+ .writing-toolbar button{font-size:12px;padding:6px 8px;min-height:44px}
+ .writing-group h3{font-size:14px;margin:0}
+ .writing-result{font-size:12px}
+}
+@media(max-width:600px){
+ .writing-slide .slide-heading{min-height:44px;padding-block:4px}
+ .writing-choices{gap:4px 8px}
+ .writing-choices select{max-width:125px}
+ .writing-toolbar .writing-music{font-size:23px}
+}
+@media(prefers-reduced-motion:reduce){.writing-staff .copy-hit{transition:none}}
