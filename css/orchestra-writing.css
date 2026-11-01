@@ -44,3 +44,12 @@
  .writing-toolbar .writing-music{font-size:23px}
 }
 @media(prefers-reduced-motion:reduce){.writing-staff .copy-hit{transition:none}}
+
+
+/* Schede stampabili della lezione: link ai PDF archiviati nel sito. */
+.writing-handouts{flex-basis:100%;display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;padding:2px 0 0;min-width:0}
+.writing-handouts__label{color:var(--score-muted);font-size:12px;font-weight:700;white-space:nowrap}
+.writing-handouts a{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:5px 10px;border:1px solid var(--score-line);background:var(--score-soft);color:var(--score-ink);font-size:12px;font-weight:700;text-decoration:none;line-height:1.25;white-space:nowrap}
+.writing-handouts a:hover{background:var(--lesson-button-accent);color:var(--score-ink)}
+.writing-handouts a:focus-visible{outline:2px solid var(--score-accent);outline-offset:3px}
+@media(max-width:600px){.writing-handouts{gap:5px 8px}.writing-handouts a{min-height:30px;padding:4px 8px;font-size:11px}}
