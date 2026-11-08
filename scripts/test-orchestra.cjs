@@ -5,7 +5,8 @@ const match=html.match(/<script>([\s\S]*?)<\/script>/);
 assert(match,'script di riproduzione assente');
 for(const absent of ['Schermo intero','Audio e opzioni','id="overviewSlide"','id="writeSlide"','id="full"','4/4','Strofa'])
  assert(!html.includes(absent),'Elemento da eliminare ancora presente: '+absent);
-for(const id of ['play','pause','stop','score','tempo'])
+assert(html.includes('class="score-card"'),'riquadro della partitura mancante');
+for(const id of ['play','pause','stop','score','tempo','partsToggle','partsMenu','swap01','swap02','swap12','resetParts'])
  assert(html.includes('id="'+id+'"'),'Controllo non presente: '+id);
 let clock=10,attacks=0,stops=0,seq=0,raf=null,rejectResume=false;
 const timers=new Map(),elements=new Map(),listeners={};
@@ -19,6 +20,7 @@ function element(tag='div'){
 }
 function byId(id){if(!elements.has(id))elements.set(id,element());return elements.get(id)}
 byId('tempo').value='80';
+byId('partsMenu').hidden=true;
 const document={getElementById:byId,createElementNS(_ns,tag){return element(tag)},
  addEventListener(k,cb){listeners[k]=cb},fonts:{load(){return Promise.resolve([{}])}}};
 function param(){return {value:1,setValueAtTime(){},setTargetAtTime(){},linearRampToValueAtTime(){},exponentialRampToValueAtTime(){}}}
@@ -50,8 +52,25 @@ function advance(seconds){const total=Math.ceil(seconds/.05);for(let i=0;i<total
  assert.equal(app.song.length,1,'una sola battuta');
  assert.equal(JSON.stringify(Array.from(app.song[0],part=>Array.from(part))),JSON.stringify([[-2,2,-2,2],[2,1,1,2,-2],[2,-2,-4]]),'ostinato originale');
  assert(byId('score').children.length>0,'partitura SVG');
+ assert.deepStrictEqual([...app.state.partAssignments],[0,1,2],'parti originali');
+ byId('partsToggle').events.click();
+ assert.equal(byId('partsMenu').hidden,false,'menu di scambio aperto');
+ byId('swap01').events.click();
+ assert.equal(JSON.stringify([...app.state.partAssignments]),JSON.stringify([1,0,2]),'tamburello esegue il ritmo dei legnetti');
+ assert.equal(byId('partsMenu').hidden,true,'menu chiuso dopo la scelta');
+ const annotations=byId('score').children.filter(node=>node.attributes.class==='part-assignment').map(node=>node.textContent);
+ assert(annotations.includes('Parte dei legnetti'),'parte assegnata mostrata sotto tamburello');
+ assert(annotations.includes('Parte del tamburello'),'parte assegnata mostrata sotto legnetti');
+ app.resetParts();
+ assert.equal(JSON.stringify([...app.state.partAssignments]),JSON.stringify([0,1,2]),'ripristino delle parti');
  await app.play();assert.equal(app.state.running,true);assert.equal(timers.size,1);
- advance(14);
+ advance(7);
+ app.swapParts(0,2);
+ assert.equal(JSON.stringify([...app.state.partAssignments]),JSON.stringify([2,1,0]),'scambio parti durante riproduzione');
+ assert.equal(app.state.running,true,'la riproduzione prosegue dopo lo scambio');
+ advance(7);
+ app.resetParts();
+ assert.equal(app.state.running,true,'la riproduzione prosegue dopo il ripristino');
  assert.equal(app.state.running,true,'loop continuo oltre quattro battute');
  assert(attacks>40,'strumenti e metronomo in riproduzione');
  app.pause();const saved=app.state.saved;
@@ -67,5 +86,5 @@ function advance(seconds){const total=Math.ceil(seconds/.05);for(let i=0;i<total
  assert(byId('audioState').textContent.includes('Audio non disponibile'),'messaggio audio accessibile');
  rejectResume=false;await app.play();assert.equal(app.state.running,true,'retry');
  app.stop();
- console.log('PASS: unica battuta originale, SVG, loop, suono, pausa/ripresa, stop, BPM, gestione errore audio.');
+ console.log('PASS: card minimal, scambi e ripristino delle parti, SVG, loop, suono, pausa/ripresa, stop, BPM, gestione errore audio.');
 })().catch(error=>{console.error(error);process.exitCode=1});
