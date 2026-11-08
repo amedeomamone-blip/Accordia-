@@ -20,7 +20,7 @@ body{font-family:var(--font-sans,-apple-system,BlinkMacSystemFont,"Helvetica Neu
 .identity h1{font-size:clamp(18px,1.75vw,27px);letter-spacing:-.035em;line-height:1.1;font-weight:750;margin:0}
 .score-slide{min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;padding:0}
 /* Riferimento Apple 2048 x 1146: riquadro 1612 x 782; rapporto fisso 2,061:1. */
-.score-card{position:relative;width:min(78.71vw,141.34dvh,calc((77.84dvh - 64px)*2.0614),100%);aspect-ratio:1612/782;height:auto;max-height:100%;min-width:0;min-height:0;padding:clamp(20px,2.6vw,40px);display:grid;grid-template-rows:52px minmax(0,1fr);background:#fff;border:1px solid #d5d5d9;border-radius:clamp(24px,1.9vw,39px);box-shadow:none}
+.score-card{position:relative;width:min(78.71vw,141.34dvh,calc(160.45dvh - 132px),100%);aspect-ratio:1612/782;transform:translateX(.5vw);height:auto;max-height:100%;min-width:0;min-height:0;padding:clamp(20px,2.6vw,40px);display:grid;grid-template-rows:52px minmax(0,1fr);background:#fff;border:1px solid #d5d5d9;border-radius:clamp(24px,1.9vw,39px);box-shadow:none}
 .score-card__header{display:flex;align-items:flex-start;justify-content:flex-end;position:relative;z-index:3}
 body[data-design-system="practice"] .lesson-deck .score-card .parts-toggle{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:44px;min-height:44px;padding:0 17px;border-radius:999px;border:1px solid #d9dfd7;background:#fff;color:#222923;box-shadow:none;font:600 14px/1 var(--font-sans,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif);cursor:pointer;transition:border-color .16s,background-color .16s}
 body[data-design-system="practice"] .lesson-deck .score-card .parts-toggle:hover,body[data-design-system="practice"] .lesson-deck .score-card .parts-toggle[aria-expanded="true"]{background:#f0f3ee;border-color:#bac5b8;color:#222923}
@@ -46,7 +46,7 @@ body[data-design-system="practice"] .lesson-deck .score-card .parts-option--rese
 #score .beat-label.is-current{fill:#243917;font-weight:800}
 .deck-footer{height:100%;min-height:0;border-top:0;display:flex;align-items:center;justify-content:center;padding:0}
 .lesson-deck .transport{position:relative;display:flex;width:100%;height:100%;margin-inline:auto;align-items:center;justify-content:center;gap:clamp(14px,1vw,20px);flex-wrap:nowrap}
-.lesson-deck .transport-left{display:flex;align-items:center;justify-content:space-evenly;gap:6px;flex:none;width:clamp(216px,13.5vw,278px);height:clamp(58px,6.2dvh,72px);padding:5px 12px;border-radius:999px;background:#f2f2f4;transform:translateX(-20px);flex-wrap:nowrap}
+.lesson-deck .transport-left{display:flex;align-items:center;justify-content:space-evenly;gap:6px;flex:none;width:clamp(216px,13.5vw,278px);height:clamp(58px,6.2dvh,72px);padding:5px 12px;border-radius:999px;background:#f2f2f4;transform:translateX(-35px);flex-wrap:nowrap}
 body[data-design-system="practice"] .lesson-deck .transport .transport-round{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;min-width:46px;min-height:46px;max-width:46px;padding:0;border-radius:50%;border:1px solid #b3bcb0;background:#e8e8e8;color:#18191b;box-shadow:none;transition:background-color .16s ease,color .16s ease}
 body[data-design-system="practice"] .lesson-deck .transport .transport-round:not(:disabled):hover{background:#b9c7a6;color:#18191b}
 body[data-design-system="practice"] .lesson-deck .transport .transport-round[aria-pressed="true"]{background:#b9c7a6;border-color:#34452a;color:#18191b}
@@ -56,7 +56,7 @@ body[data-design-system="practice"] .lesson-deck .transport .transport-round[dat
 body[data-design-system="practice"] .lesson-deck .transport .transport-round[data-ui-icon="stop"]{--ui-icon:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22black%22%3E%3Crect%20x%3D%226%22%20y%3D%226%22%20width%3D%2212%22%20height%3D%2212%22%20rx%3D%221%22%2F%3E%3C%2Fsvg%3E")}
 body[data-design-system="practice"] .lesson-deck .transport .transport-round:focus-visible{outline:3px solid #34452a;outline-offset:3px}
 body[data-design-system="practice"] .lesson-deck .transport .transport-round:disabled{opacity:.46;cursor:default}
-.lesson-deck .transport-right{position:absolute;left:calc(50% + clamp(115px,7.2vw,148px));display:flex;align-items:center;justify-content:center;min-width:0;flex-wrap:nowrap}
+.lesson-deck .transport-right{position:absolute;left:calc(50% + clamp(110px,6.1vw,126px));display:flex;align-items:center;justify-content:center;min-width:0;flex-wrap:nowrap}
 .tempo-control{display:flex;align-items:center;gap:10px;height:58px;padding:0 15px;border-radius:999px;background:#f2f2f4;font-size:14px;font-weight:600;color:var(--score-muted);white-space:nowrap}
 .tempo-control input{width:clamp(90px,10vw,156px);accent-color:#34452a;cursor:pointer}
 .tempo-control output{min-width:66px;font-variant-numeric:tabular-nums;text-align:right;color:#18191b}
@@ -69,7 +69,7 @@ body[data-design-system="practice"] .lesson-deck .transport .transport-round:dis
  .deck-header{height:auto;min-height:66px;padding:8px 0}
  .identity{flex-wrap:wrap;gap:4px 14px}
  .identity h1{font-size:18px}
- .score-card{width:100%;height:auto;aspect-ratio:auto;min-height:420px;max-height:none;padding:18px 14px;border-radius:24px;grid-template-rows:50px minmax(0,1fr)}
+ .score-card{width:100%;height:auto;aspect-ratio:auto;transform:none;min-height:420px;max-height:none;padding:18px 14px;border-radius:24px;grid-template-rows:50px minmax(0,1fr)}
  .scorewrap{overflow-x:auto;overflow-y:hidden;justify-content:flex-start}
  #score{min-width:553px;width:70%;max-width:none;height:auto;aspect-ratio:1400/590;flex:none}
  .deck-footer{height:auto;min-height:142px;padding:14px 0}
@@ -78,8 +78,8 @@ body[data-design-system="practice"] .lesson-deck .transport .transport-round:dis
  .lesson-deck .transport-right{position:static}
  .tempo-control input{width:clamp(128px,35vw,200px)}
 }
-@media(min-width:701px) and (max-width:980px){.score-card{width:min(94%,141.34dvh,calc((77.84dvh - 64px)*2.0614));height:auto}.lesson-deck .transport-left{transform:none}.lesson-deck .transport-right{left:calc(50% + 124px)}.tempo-control input{width:105px}}
-@media(max-height:650px) and (min-width:701px){.lesson-deck{grid-template-rows:52px minmax(0,1fr) 78px}.deck-header{height:100%}.deck-footer{height:100%;min-height:0}.score-card{width:min(78.71vw,calc((100dvh - 64px - 130px)*2.0614));height:auto;padding:14px 24px}.score-card__header{height:44px}.lesson-deck .transport-left{height:58px}}
+@media(min-width:701px) and (max-width:980px){.score-card{width:min(94%,141.34dvh,calc(160.45dvh - 132px));height:auto}.lesson-deck .transport-left{transform:none}.lesson-deck .transport-right{left:calc(50% + 124px)}.tempo-control input{width:105px}}
+@media(max-height:650px) and (min-width:701px){.lesson-deck{grid-template-rows:52px minmax(0,1fr) 78px}.deck-header{height:100%}.deck-footer{height:100%;min-height:0}.score-card{width:min(78.71vw,calc(206.14dvh - 400px));height:auto;padding:14px 24px}.score-card__header{height:44px}.lesson-deck .transport-left{height:58px}}
 @media(prefers-reduced-motion:reduce){#score .pulse-band,.transport-round{transition:none!important}}
 </style>
 <link rel="stylesheet" href="../../../../css/accordia-design-system.css?v=2026102602">
