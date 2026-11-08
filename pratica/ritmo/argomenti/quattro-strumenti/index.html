@@ -20,7 +20,7 @@ body{font-family:var(--font-sans,-apple-system,BlinkMacSystemFont,"Helvetica Neu
 .identity h1{font-size:clamp(18px,1.75vw,27px);letter-spacing:-.035em;line-height:1.1;font-weight:750;margin:0}
 .score-slide{min-width:0;min-height:0;display:flex;align-items:center;justify-content:center}
 .scorewrap{width:100%;height:100%;min-width:0;min-height:0;display:flex;align-items:center;justify-content:center;overflow:hidden}
-#score{display:block;width:100%;height:100%;max-width:100%;max-height:100%;overflow:visible}
+#score{display:block;width:90%;height:90%;max-width:100%;max-height:100%;overflow:visible}
 #score text{font-family:var(--font-sans,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif)}
 #score .music{font-family:Bravura!important;font-size:86px;font-weight:normal}
 #score .voice-label{font-weight:750;font-size:27px;letter-spacing:-.02em}
@@ -32,12 +32,15 @@ body{font-family:var(--font-sans,-apple-system,BlinkMacSystemFont,"Helvetica Neu
 #score .pulse-band.is-visible{opacity:.8}
 #score .beat-label.is-current{fill:#243917;font-weight:800}
 .deck-footer{min-height:80px;border-top:1px solid #e6e9e2;display:flex;align-items:center;justify-content:center;padding:12px 0}
-.transport{display:flex;width:100%;align-items:center;justify-content:center;gap:clamp(18px,3vw,44px)}
+.transport{display:flex;width:100%;align-items:center;justify-content:center;gap:clamp(56px,8vw,132px)}
 .transport-left{display:flex;align-items:center;gap:10px;flex:none}
 body[data-design-system="practice"] .lesson-deck .transport .transport-round{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;min-width:52px;min-height:52px;max-width:52px;padding:0;border-radius:50%;border:1px solid #b3bcb0;background:#e8e8e8;color:#18191b;box-shadow:none;transition:background-color .16s ease,color .16s ease}
 body[data-design-system="practice"] .lesson-deck .transport .transport-round:not(:disabled):hover{background:#b9c7a6;color:#18191b}
 body[data-design-system="practice"] .lesson-deck .transport .transport-round[aria-pressed="true"]{background:#b9c7a6;border-color:#34452a;color:#18191b}
 body[data-design-system="practice"] .lesson-deck .transport .transport-round[data-ui-icon]::before{display:inline-block!important;width:23px;height:23px;margin:0!important;vertical-align:middle}
+body[data-design-system="practice"] .lesson-deck .transport .transport-round[data-ui-icon="play"]{--ui-icon:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22black%22%3E%3Cpath%20d%3D%22M7%204.5v15L19%2012z%22%2F%3E%3C%2Fsvg%3E")}
+body[data-design-system="practice"] .lesson-deck .transport .transport-round[data-ui-icon="pause"]{--ui-icon:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22black%22%3E%3Crect%20x%3D%226%22%20y%3D%224.5%22%20width%3D%224.5%22%20height%3D%2215%22%20rx%3D%22.8%22%2F%3E%3Crect%20x%3D%2213.5%22%20y%3D%224.5%22%20width%3D%224.5%22%20height%3D%2215%22%20rx%3D%22.8%22%2F%3E%3C%2Fsvg%3E")}
+body[data-design-system="practice"] .lesson-deck .transport .transport-round[data-ui-icon="stop"]{--ui-icon:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22black%22%3E%3Crect%20x%3D%226%22%20y%3D%226%22%20width%3D%2212%22%20height%3D%2212%22%20rx%3D%221%22%2F%3E%3C%2Fsvg%3E")}
 body[data-design-system="practice"] .lesson-deck .transport .transport-round:focus-visible{outline:3px solid #34452a;outline-offset:3px}
 body[data-design-system="practice"] .lesson-deck .transport .transport-round:disabled{opacity:.46;cursor:default}
 .transport-right{display:flex;align-items:center;justify-content:center;min-width:0}
@@ -54,9 +57,9 @@ body[data-design-system="practice"] .lesson-deck .transport .transport-round:dis
  .identity{flex-wrap:wrap;gap:4px 14px}
  .identity h1{font-size:18px}
  .scorewrap{overflow-x:auto;overflow-y:hidden;justify-content:flex-start}
- #score{min-width:790px;max-width:none;height:auto;aspect-ratio:1400/590;flex:none}
+ #score{min-width:720px;width:720px;max-width:none;height:auto;aspect-ratio:1400/590;flex:none}
  .deck-footer{min-height:112px}
- .transport{flex-wrap:wrap;gap:14px 24px}
+ .transport{flex-wrap:wrap;gap:20px 48px}
  .tempo-control input{width:clamp(128px,35vw,220px)}
 }
 @media(prefers-reduced-motion:reduce){#score .pulse-band,.transport-round{transition:none!important}}
