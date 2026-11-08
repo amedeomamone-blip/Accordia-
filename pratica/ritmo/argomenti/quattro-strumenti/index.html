@@ -13,13 +13,13 @@
 html,body{margin:0;width:100%;height:100%;background:var(--score-paper);color:var(--score-ink)}
 body{font-family:var(--font-sans,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif);overflow:hidden}
 [hidden]{display:none!important}
-.lesson-deck{height:calc(100dvh - 64px);min-height:0;max-width:none;margin:0 auto;padding:0 clamp(12px,2vw,32px);display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:0}
-.deck-header{height:clamp(48px,7vh,68px);display:flex;align-items:center;justify-content:flex-start;border-bottom:1px solid #e6e9e2}
+.lesson-deck{height:calc(100dvh - 64px);min-height:0;max-width:none;margin:0 auto;padding:0 clamp(10px,1.4vw,24px);display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:0}
+.deck-header{height:clamp(38px,5vh,52px);display:flex;align-items:center;justify-content:flex-start;border-bottom:1px solid #e6e9e2}
 .identity{display:flex;align-items:center;gap:clamp(12px,2vw,24px);min-width:0}
 .back-link{font-size:14px;color:var(--score-muted);white-space:nowrap;text-underline-offset:4px}
 .identity h1{font-size:clamp(18px,1.75vw,27px);letter-spacing:-.035em;line-height:1.1;font-weight:750;margin:0}
-.score-slide{min-width:0;min-height:0;display:flex;align-items:center;justify-content:center}
-.score-card{position:relative;width:min(100%,1480px);height:100%;max-height:680px;min-width:0;min-height:0;padding:clamp(16px,2.1vw,32px);display:grid;grid-template-rows:48px minmax(0,1fr);background:#fafbf9;border:1px solid #e0e5df;border-radius:30px;box-shadow:0 6px 30px rgba(22,32,19,.025)}
+.score-slide{min-width:0;min-height:0;display:flex;align-items:stretch;justify-content:center;padding:clamp(7px,1.2vh,14px) 0}
+.score-card{position:relative;width:100%;height:100%;min-width:0;min-height:0;padding:clamp(20px,2.8vw,52px);display:grid;grid-template-rows:52px minmax(0,1fr);background:linear-gradient(155deg,#fafbf8 0%,#f5f7f2 100%);border:1px solid #dce3da;border-radius:clamp(30px,3.2vw,54px);box-shadow:0 20px 65px rgba(22,32,19,.045),inset 0 1px 0 rgba(255,255,255,.84)}
 .score-card__header{display:flex;align-items:flex-start;justify-content:flex-end;position:relative;z-index:3}
 body[data-design-system="practice"] .lesson-deck .score-card .parts-toggle{display:inline-flex;align-items:center;justify-content:center;gap:9px;height:44px;min-height:44px;padding:0 17px;border-radius:999px;border:1px solid #d9dfd7;background:#fff;color:#222923;box-shadow:none;font:600 14px/1 var(--font-sans,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif);cursor:pointer;transition:border-color .16s,background-color .16s}
 body[data-design-system="practice"] .lesson-deck .score-card .parts-toggle:hover,body[data-design-system="practice"] .lesson-deck .score-card .parts-toggle[aria-expanded="true"]{background:#f0f3ee;border-color:#bac5b8;color:#222923}
@@ -43,7 +43,7 @@ body[data-design-system="practice"] .lesson-deck .score-card .parts-option--rese
 #score .pulse-band{fill:#e8efdd;opacity:0;transition:opacity .12s ease}
 #score .pulse-band.is-visible{opacity:.8}
 #score .beat-label.is-current{fill:#243917;font-weight:800}
-.deck-footer{min-height:80px;border-top:1px solid #e6e9e2;display:flex;align-items:center;justify-content:center;padding:12px 0}
+.deck-footer{min-height:76px;border-top:1px solid #e6e9e2;display:flex;align-items:center;justify-content:center;padding:10px 0}
 .transport{display:flex;width:calc(100% - clamp(64px,12vw,240px));margin-inline:auto;align-items:center;justify-content:space-between;gap:clamp(64px,10vw,160px)}
 .transport-left{display:flex;align-items:center;gap:10px;flex:none}
 body[data-design-system="practice"] .lesson-deck .transport .transport-round{display:inline-flex;align-items:center;justify-content:center;width:52px;height:52px;min-width:52px;min-height:52px;max-width:52px;padding:0;border-radius:50%;border:1px solid #b3bcb0;background:#e8e8e8;color:#18191b;box-shadow:none;transition:background-color .16s ease,color .16s ease}
@@ -68,7 +68,7 @@ body[data-design-system="practice"] .lesson-deck .transport .transport-round:dis
  .deck-header{height:auto;min-height:66px;padding:8px 0}
  .identity{flex-wrap:wrap;gap:4px 14px}
  .identity h1{font-size:18px}
- .score-card{height:auto;min-height:380px;padding:14px 12px;border-radius:20px;grid-template-rows:50px minmax(0,1fr)}
+ .score-card{height:auto;min-height:500px;padding:20px 14px;border-radius:28px;grid-template-rows:50px minmax(0,1fr)}
  .scorewrap{overflow-x:auto;overflow-y:hidden;justify-content:flex-start}
  #score{min-width:553px;width:70%;max-width:none;height:auto;aspect-ratio:1400/590;flex:none}
  .deck-footer{min-height:112px}
