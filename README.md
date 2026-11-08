@@ -25,7 +25,7 @@ La [timeline editoriale](timeline/index.html) è una pagina distinta dalla home 
 | [Lettura](pratica/lettura/index.html) | Figure musicali; note sul pentagramma; misure semplici; punto e legatura di valore; scala diatonica |
 | [Ritmo](pratica/ritmo/index.html) | Gioco dell’eco; Tre strumenti, un’orchestra; Corpo; Accenti; Durate; Incastri; Creazione |
 
-Il **Gioco dell’eco** comprende gesti per mani, petto e cosce, notazione musicale, panoramica, controlli audio e schede stampabili/scaricabili. **Tre strumenti, un’orchestra** comprende una partitura di 32 battute in 4/4 per tamburello, legnetti e triangolo, panoramica, attività di scrittura e tre PDF scaricabili.
+Il **Gioco dell’eco** comprende gesti per mani, petto e cosce, notazione musicale, panoramica, controlli audio e schede stampabili/scaricabili. **Tre strumenti, un’orchestra** presenta ora soltanto l’ostinato della prima battuta per tamburello, legnetti e triangolo, in ripetizione continua. La partitura SVG occupa lo spazio disponibile per la proiezione sulla LIM; tre controlli circolari (Play, Pausa, Stop) e il regolatore del tempo sostituiscono le altre slide e le opzioni audio.
 
 Il titolo dell’orchestra è cambiato, ma il percorso resta `pratica/ritmo/argomenti/quattro-strumenti/`. `marcia-di-topolino/` reindirizza a quella lezione: non è un secondo modulo da ripristinare. Anche `battito/` e `punto-di-valore/` mantengono i rispettivi URL storici.
 
@@ -58,7 +58,7 @@ make check-design   # header, navigazione e token di contrasto condivisi
 
 `make verify` esegue **build, check-links e check-design**, quindi modifica le pagine. Eseguirlo in una copia isolata quando si sta verificando il generatore; controllare il diff prima di riportarne gli output sul sito.
 
-Gli script `scripts/test-orchestra.cjs` e `scripts/test_battito.cjs` hanno errori già presenti nello stato esaminato: non costituiscono attualmente una suite verde. Il secondo verifica il vecchio `js/battito-lesson.js`, non lo script incorporato della pagina Eco attuale. Il test `scripts/test_reading_lessons.cjs` richiede Playwright, un browser e un server avviato; vedere [esiti e limiti della verifica](docs/stato-attuale.md).
+`scripts/test-orchestra.cjs` è stato aggiornato per la lezione a battuta unica: verifica ostinato, SVG, loop, riproduzione simulata, pausa/ripresa, stop, BPM ed errori audio. Il test va eseguito localmente con `node scripts/test-orchestra.cjs`: la verifica simulata non sostituisce l’ascolto reale o il controllo grafico nel browser. `scripts/test_battito.cjs` continua a verificare il vecchio `js/battito-lesson.js`, non lo script incorporato della pagina Eco attuale. Il test `scripts/test_reading_lessons.cjs` richiede Playwright, un browser e un server avviato; vedere [esiti e limiti della verifica](docs/stato-attuale.md).
 
 Al termine di un blocco completato: controllare il diff, eseguire le verifiche pertinenti, creare un commit e aggiornare `origin/main`, salvo richiesta esplicita di fermarsi prima o mantenere il lavoro locale.
 
