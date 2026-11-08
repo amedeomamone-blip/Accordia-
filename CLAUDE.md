@@ -1,207 +1,30 @@
-# Accordia — Design System
+# Accordia — guida per gli interventi
 
-Sito didattico di educazione musicale. L'estetica è: sobria, tipografica, senza decorazioni superflue. Ispirazione: Vercel (ink + canvas, tracking negativo, ombre sottili a strati). Identità propria: font Apple, accento terracotta (#C37A6B), tile squadrati con lampeggio animato.
+## Riferimenti da leggere
 
----
+1. [AGENTS.md](AGENTS.md): flusso di lavoro e vincoli operativi.
+2. [docs/design-system.md](docs/design-system.md): regole permanenti dell’interfaccia, prevalenti sui precedenti criteri decorativi.
+3. [README.md](README.md) e [docs/stato-attuale.md](docs/stato-attuale.md): mappa del sito, responsabilità dei file e verifiche.
 
-## Identità visiva
+Questa guida è stata allineata l’8 novembre 2026. Le precedenti prescrizioni di pulsanti sempre squadrati, bagliori e lampeggiamenti decorativi sono superate dalle regole condivise del 25–26 ottobre.
 
-- **Pagina di riferimento principale**: `nuclei/barocco/index.html` (tile bento + titolo glow)
-- **Font**: SF Pro Display / SF Pro Text (equivalente open-source: Inter 400/500/600/700/800)
-- **Colore text primario**: `#111111`
-- **Accento brand**: `#C37A6B` (terracotta) — usato come `var(--accent)` nei moduli lezione
-- **Sfondo**: `#ffffff` / `#fafafa` — mai colori di sfondo forti
+## Interfaccia condivisa
 
----
+- Header con il solo collegamento testuale `amedeo`; titoli e comandi della lezione sotto l’header.
+- Caricare `css/accordia-design-system.css` dopo gli stili locali. Non duplicare qui i token: il CSS e il documento di riferimento ne sono le fonti.
+- Contenuto bianco, comandi grigi, Lettura azzurro ardesia e Ritmo salvia. Non imporre l’accento terracotta del Barocco a tutte le lezioni.
+- Pulsanti di azione arrotondati, bersaglio minimo 44px e stati distinguibili per hover, pressione, focus, selezione e disabilitazione.
+- L’effetto Interactive Hover riguarda i comandi testuali, non i segni musicali o le risposte grafiche.
+- Sans serif condivisa; Bravura per la notazione. Conservare indicatori, pentagrammi, stanghette e colori con funzione didattica.
+- Nessun bagliore, gradiente decorativo o lampeggiamento continuo. Rispettare `prefers-reduced-motion` e conservare lo scorrimento funzionale delle partiture.
+- Verificare tastiera, touch, desktop, LIM 1280×720 e schermi piccoli; distinguere i controlli statici dalla verifica effettiva nel browser.
 
-## Token CSS (in `css/style.css`)
+## File e contenuti
 
-```css
-:root {
-    /* ── Canvas ── */
-    --canvas:          #ffffff;
-    --canvas-soft:     #fafafa;   /* sfondo pagina */
-    --canvas-soft-2:   #f5f5f5;   /* inset / alternanza */
+- Aprire la pagina e verificare gli script caricati prima di modificarli: Eco e Orchestra hanno logica incorporata, mentre alcuni file esterni sono storici.
+- Il titolo corrente è **Tre strumenti, un’orchestra**, con tre parti; mantenere l’URL `quattro-strumenti/` e il reindirizzamento `marcia-di-topolino/`.
+- Lettura include cinque argomenti, compresi punto e legatura di valore e scala diatonica. Le fonti documentate sono in `docs/lettura-fonti.md`; non attribuire a una fonte contenuti aggiuntivi non verificati.
+- Home e timeline editoriale presentano sei nuclei storici; il vecchio elenco di dieci nuclei è superato. Non presentare una tessera senza destinazione come funzione disponibile.
+- Il renderer storico può sovrascrivere pagine personalizzate. Per una rigenerazione, usare una copia isolata ed esaminare il diff prima di pubblicare.
 
-    /* ── Ink ── */
-    --ink:             #111111;   /* testo primario e CTA */
-    --body:            #4d4d4d;   /* testo secondario */
-    --mute:            #888888;   /* placeholder, note */
-    --on-ink:          #ffffff;   /* testo su superfici scure */
-
-    /* ── Hairlines ── */
-    --hairline:        #e8e8e8;   /* divisori 1px */
-    --hairline-strong: #a1a1a1;   /* divisori più marcati */
-
-    /* ── Accento brand ── */
-    --accent:          #C37A6B;   /* terracotta */
-    --accent-soft:     #f0ede8;   /* background soft */
-
-    /* ── Tipografia ── */
-    --font-display: "SF Pro Display", -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-    --font-sans:    "SF Pro Text",    -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
-
-    /* ── Spaziatura (base 4px) ── */
-    --sp-1:   4px;
-    --sp-2:   8px;
-    --sp-3:  12px;
-    --sp-4:  16px;
-    --sp-6:  24px;
-    --sp-8:  32px;
-    --sp-10: 40px;
-    --sp-12: 48px;
-    --sp-16: 64px;
-    --sp-24: 96px;
-
-    /* ── Border radius — sistema angolare ── */
-    --r-none: 0px;
-    --r-xs:   2px;   /* badge minimo */
-    --r-sm:   4px;   /* UI tight */
-    --r-md:   6px;   /* input, bottoni UI */
-    --r-lg:   8px;   /* card standard */
-
-    /* ── Elevazione (ombre a strati, mai singola drop pesante) ── */
-    --el-1: 0 1px 1px rgba(0,0,0,.03), inset 0 0 0 1px rgba(0,0,0,.06);
-    --el-2: 0 1px 1px rgba(0,0,0,.03), 0 2px 2px rgba(0,0,0,.04), inset 0 0 0 1px rgba(0,0,0,.06);
-    --el-3: 0 2px 2px rgba(0,0,0,.04), 0 8px 8px -8px rgba(0,0,0,.06), inset 0 0 0 1px rgba(0,0,0,.06);
-    --el-4: 0 2px 2px rgba(0,0,0,.04), 0 8px 16px -4px rgba(0,0,0,.08), inset 0 0 0 1px rgba(0,0,0,.06);
-
-    /* ── Layout ── */
-    --shell-max:    1320px;
-    --shell-gutter: clamp(1rem, 4vw, 3rem);
-    --touch-target: 44px;
-}
-```
-
----
-
-## Tipografia
-
-| Ruolo | Font | Size | Weight | Tracking | Line-height |
-|---|---|---|---|---|---|
-| Display XL (hero) | SF Pro Display | `clamp(2.5rem, 6vw, 4.5rem)` | 800 | `-0.045em` | 1.05 |
-| Display LG (sezione) | SF Pro Display | `clamp(1.8rem, 3.5vw, 3.2rem)` | 800 | `-0.04em` | 1.1 |
-| Display MD (card) | SF Pro Display | `clamp(1.3rem, 2vw, 2rem)` | 700 | `-0.03em` | 1.15 |
-| Body LG | SF Pro Text | `1.05rem` | 400 | `0` | 1.7 |
-| Body MD | SF Pro Text | `0.95rem` | 400 | `-0.01em` | 1.6 |
-| Body SM | SF Pro Text | `0.82rem` | 400 | `-0.01em` | 1.5 |
-| Caption / Eyebrow | SF Pro Text | `0.65–0.75rem` | 600 | `+0.1em` | 1 |
-
-**Regole:**
-- Tracking negativo è parte della voce. Non usare mai tracking positivo sui display.
-- Headline in sentence-case, mai tutto maiuscolo.
-- Peso massimo 800; non usare 900 o black.
-- Eyebrow (categoria, sezione): maiuscolo, tracking `+0.1em`, opacità 0.35–0.5.
-
----
-
-## Pulsanti e controlli
-
-| Componente | Radius | Padding | Note |
-|---|---|---|---|
-| CTA marketing | `--r-none` | `0.6rem 1.25rem` | Angoli vivi — no arrotondamenti |
-| Pulsante UI | `--r-none` | `0.5rem 1rem` | Angoli vivi |
-| Tab / chip | `--r-none` | `0.4rem 0.7rem` | Angoli vivi |
-| Badge informativo | `--r-xs` (2px) | `0.2rem 0.5rem` | Solo per elementi non interattivi |
-
-**Regola fondamentale**: nessun `border-radius` sui bottoni interattivi. Accordia usa angoli vivi (vivi, non arrotondati) per tutti i controlli cliccabili.
-
----
-
-## Card e superfici
-
-| Livello | Trattamento | Uso |
-|---|---|---|
-| Flat | nessun shadow, no border | sezioni full-bleed, sfondo scuro |
-| `--el-1` | hairline inset 1px | card base, tile a riposo |
-| `--el-2` | hairline + micro-drop | card secondarie, template |
-| `--el-3` | soft stack | card feature, modal leggere |
-| `--el-4` | float stack | pricing, callout principali |
-
-**Mai** usare `box-shadow: 0 8px 24px rgba(0,0,0,0.08)` (singola drop pesante) — solo ombre a strati.
-
----
-
-## Tile (pattern specifico Accordia)
-
-Ogni nucleo usa **tile quadrate** a larghezza `calc(N * 1vw)`, senza arrotondamenti, con:
-- Animazione lampeggio terracotta (`--accent`) ciclica a intervalli sfasati
-- Testo (titolo, numero) sotto la faccia quadrata
-- Breakpoint mobile: tile si scalano, no overflow orizzontale
-
----
-
-## Colori funzionali
-
-| Token | Hex | Uso |
-|---|---|---|
-| `--ink` | `#111111` | Testo primario, CTA principale |
-| `--body` | `#4d4d4d` | Testo secondario, nav link |
-| `--mute` | `#888888` | Placeholder, note, fine print |
-| `--hairline` | `#e8e8e8` | Divisori, bordi card |
-| `--accent` | `#C37A6B` | Accento brand (terracotta) |
-| `--canvas` | `#ffffff` | Card, dialog, modale |
-| `--canvas-soft` | `#fafafa` | Sfondo pagina |
-
----
-
-## Spaziatura
-
-Base unit: **4px**. Ogni padding, gap, margin è multiplo di 4.
-
-```
-4   8   12   16   24   32   40   48   64   96
-sp-1 sp-2 sp-3 sp-4 sp-6 sp-8 sp-10 sp-12 sp-16 sp-24
-```
-
-Padding interno card: `var(--sp-6)` (24px) standard, `var(--sp-8)` (32px) card grandi.  
-Gap tra elementi inline (bottoni, chip): `var(--sp-2)` (8px).
-
----
-
-## Layout e griglia
-
-- **Max width**: `1320px` (`--shell-max`)
-- **Gutter**: `clamp(1rem, 4vw, 3rem)` — si adatta dal mobile al desktop
-- **Touch target**: `44px` minimo per ogni elemento interattivo
-
-### Breakpoints
-
-| Nome | Width | Comportamento |
-|---|---|---|
-| Mobile | `< 600px` | Colonna singola, nav collassata |
-| Tablet | `600–960px` | 2 colonne se possibile |
-| Desktop | `> 960px` | Layout completo, tile full-width |
-
----
-
-## Responsive — regole
-
-1. **Non usare mai** `overflow: auto` su contenitori annidati dentro Lenis. Fare stare il contenuto nella schermata ridimensionando.
-2. **Immagini**: `max-width: 100%; height: auto` sempre.
-3. **Tile**: su mobile le tile scalano con `vw` o `%`, mai `px` fissi che creano overflow.
-4. **Font size**: usare sempre `clamp()` per i display: `clamp(min, vw-based, max)`.
-5. **Touch targets**: nessun bottone sotto `44px` di altezza su mobile.
-
----
-
-## Reference pages
-
-| Pagina | Uso come riferimento |
-|---|---|
-| `nuclei/barocco/index.html` | Tile, titolo, glow, tipografia display |
-| `nuclei/barocco/argomenti/il-barocco-in-coordinate/index.html` | Slide 3-screen, quiz, timeline |
-| `index.html` | Home / landing pattern |
-
----
-
-## Anti-pattern (mai fare)
-
-- `border-radius > 4px` sui bottoni interattivi
-- Shadow singola pesante (`box-shadow: 0 8px 24px ...`)
-- Font-weight > 800
-- Tracking positivo sui titoli display
-- `overflow-y: auto` su contenitori figli di Lenis
-- Colori di sfondo forti (solo `#fff`, `#fafafa`, `#f5f5f5`, `#111111`)
-- Testo body in font monospace
-- Headline in maiuscolo
+Per interventi sull’architettura Barocco leggere anche `docs/barocco-lesson-system.md`, applicando la precedenza delle regole condivise. Non estendere automaticamente le proporzioni delle card a spartiti o superfici interattive con esigenze diverse.

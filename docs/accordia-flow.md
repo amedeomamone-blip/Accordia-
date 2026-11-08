@@ -60,7 +60,7 @@ Ogni lezione mostra allo studente solo quattro movimenti:
 
 Accordia Flow oggi convive con due livelli del progetto:
 
-- la timeline pubblica a 10 nuclei, generata dal renderer editoriale
+- la timeline editoriale a 6 nuclei storici (verifica dell’8 novembre 2026), distinta dalla home con i percorsi Storia e Pratica
 - i moduli immersivi in `components/`, usati come laboratorio di interfaccia e contenuto
 
 I moduli immersivi gia presenti sono:
@@ -73,3 +73,7 @@ I moduli immersivi gia presenti sono:
 - `Dalle origini al mondo antico`
 
 Non tutti questi moduli devono essere necessariamente esposti nella timeline pubblica corrente, ma il Flow resta il riferimento comune per la loro evoluzione.
+
+### Stato e precedenza delle regole
+
+Questo documento descrive il modello dei moduli immersivi storici, non una struttura già applicata a tutte le lezioni di pratica. Per il catalogo corrente e i limiti del renderer leggere [lo stato verificato](stato-attuale.md). Le [regole permanenti dell’interfaccia](design-system.md) prevalgono sulle precedenti indicazioni decorative; le proporzioni delle card non vanno imposte agli spartiti.

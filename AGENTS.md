@@ -1,5 +1,9 @@
 # Accordia Workflow Notes
 
+- Current project map and verified status: read `README.md` and `docs/stato-attuale.md`. The home has six history tiles and a separate practice track; the editorial timeline and renderer also use six nuclei, superseding the old ten-nucleus documentation. Current practice includes five reading topics and “Tre strumenti, un’orchestra”, still at the historical `quattro-strumenti/` URL.
+- Build ownership warning (verified 8 November 2026): `scripts/render_nuclei.py` deletes and recreates `nuclei/` and does not preserve all published customizations. Run regeneration in an isolated copy and inspect its diff before adopting output. Documentation-only updates do not require regenerating pages. Passing link/design checks does not prove visual equivalence.
+- Inspect actual script tags before editing lesson logic. The current Eco and Orchestra pages contain inline scripts; `scripts/test_battito.cjs` targets the older external script. Do not report stale or failing tests as coverage of the current lesson.
+
 - Permanent interface rules: read and follow `docs/design-system.md` before every UI or lesson edit. It records the teacher's 25 October 2026 instructions and takes precedence over older decorative rules. Use the shared stylesheet, header, utility icons and interaction states; do not introduce a new per-lesson visual system.
 - The header contains only `amedeo`, with the same placement and dimensions throughout the site. Keep lesson controls and titles below it.
 - For Lettura, distinguish figure values from pulse counts. Do not claim that a text follows Ciriaco until the supplied volume's relevant pages have actually been read.
