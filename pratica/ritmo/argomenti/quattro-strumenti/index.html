@@ -36,7 +36,7 @@ body[data-design-system="practice"] .lesson-deck .score-card .parts-option--rese
 #score .music{font-family:Bravura!important;font-size:86px;font-weight:normal}
 #score .voice-label{font-weight:750;font-size:27px;letter-spacing:-.02em}
 #score .part-assignment{font-size:18px;font-weight:550;fill:#687267}
-#score .beat-label{font-size:25px;font-weight:650;fill:#596359}
+#score .beat-label{font-size:25px;font-weight:650;fill:#596359;font-variant-numeric:tabular-nums;dominant-baseline:alphabetic}
 #score .note-event .music{fill:var(--voice)}
 #score .note-event.is-active .music{fill:#1c2c12}
 #score .note-event.is-active .resonance{stroke:#1c2c12}
@@ -153,8 +153,9 @@ function buildScore(){
  add('title',{},score,'Ostinato della prima battuta');
  const band=add('rect',{id:'pulseBand',class:'pulse-band',x:left,y:65,width:unitWidth*2,height:475,rx:9});
  for(let beat=0;beat<4;beat++){
-  const x=left+(beat*2+.95)*unitWidth;
-  beatNodes.push(add('text',{x,y:66,'text-anchor':'middle',class:'beat-label'},score,String(beat+1)));
+  // Ogni numero si allinea verticalmente al primo simbolo della propria pulsazione.
+  const x=left+beat*2*unitWidth+14;
+  beatNodes.push(add('text',{x,y:66,'text-anchor':'start',class:'beat-label'},score,String(beat+1)));
  }
  names.forEach((name,i)=>{
   const pattern=song[0][partAssignments[i]],y=rows[i],color=colors[i];
