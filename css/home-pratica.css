@@ -1,7 +1,7 @@
 /* ============================================================
    Home — scena a doppia direzione
-   La hero "amedeo" sta al centro: scorrendo GIÙ entra "Storia della
-   musica" da destra; scorrendo SU entra "Pratica strumentale" da sinistra.
+   La hero "amedeo" sta al centro: scorrendo SU entra "Storia della
+   musica" da sinistra; scorrendo GIÙ entra "Pratica strumentale" da destra.
    Estende il comportamento già presente in home-nuclei-list.css.
    ============================================================ */
 
@@ -10,8 +10,85 @@ body[data-nav="home"] .scroll-scene {
     height: 340vh;
 }
 
-/* Striscia "Pratica": stessa banda verticale della striscia "Storia",
-   ma parte fuori schermo a SINISTRA (entra salendo). */
-body[data-nav="home"] .nuclei-grid-wrap--pratica {
+/* Storia a sinistra, Pratica a destra: le frecce seguono lo scroll reale. */
+body[data-nav="home"] .nuclei-grid-wrap:not(.nuclei-grid-wrap--pratica) {
     --tiles-shift-x: -120vw;
 }
+
+/* Discreet scroll cues frame the existing wordmark without moving it. */
+body[data-nav="home"] .home-scroll-cue {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: max-content;
+    max-width: calc(100% - 32px);
+    min-height: 44px;
+    margin: 0;
+    padding: 8px 12px;
+    border: 0;
+    border-radius: 4px;
+    background: transparent;
+    color: var(--ui-muted, #555b60);
+    font-family: var(--font-sans);
+    font-size: clamp(10px, .85vw, 12px);
+    font-weight: 400;
+    line-height: 1.5;
+    letter-spacing: .14em;
+    text-align: center;
+    cursor: pointer;
+    opacity: var(--home-cue-opacity, 1);
+    transition: color 180ms ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body[data-nav="home"] .home-scroll-cue--up {
+    bottom: calc(50% + var(--home-title-half-height, 8.323vw) + clamp(20px, 4vh, 40px));
+    transform: translateX(-50%);
+    --cue-travel: -4px;
+}
+
+body[data-nav="home"] .home-scroll-cue--down {
+    top: calc(50% + var(--home-title-half-height, 8.323vw) + clamp(20px, 4vh, 40px));
+    transform: translateX(-50%);
+    --cue-travel: 4px;
+}
+
+body[data-nav="home"] .home-scroll-cue__chevron {
+    display: block;
+    flex: 0 0 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    animation: home-cue-float 2.8s ease-in-out infinite;
+}
+
+body[data-nav="home"] .home-scroll-cue:hover,
+body[data-nav="home"] .home-scroll-cue:focus-visible { color: var(--ui-ink, #18191b); }
+body[data-nav="home"] .home-scroll-cue:focus-visible { outline: 2px solid var(--ui-focus); outline-offset: 4px; }
+body[data-nav="home"] .home-scroll-cue:active { color: var(--ui-focus); }
+body[data-nav="home"] .home-hero__frame--away .home-scroll-cue { visibility: hidden; pointer-events: none; }
+body[data-nav="home"] .home-hero__frame--away .home-scroll-cue__chevron { animation-play-state: paused; }
+
+@keyframes home-cue-float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(var(--cue-travel)); }
+}
+
+@media (max-height: 500px) {
+    body[data-nav="home"] .home-scroll-cue { gap: 2px; padding-block: 4px; font-size: 10px; }
+    body[data-nav="home"] .home-scroll-cue--up { bottom: calc(50% + var(--home-title-half-height, 8.323vw) + 8px); }
+    body[data-nav="home"] .home-scroll-cue--down { top: calc(50% + var(--home-title-half-height, 8.323vw) + 8px); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body[data-nav="home"] .home-scroll-cue { transition: none; }
+    body[data-nav="home"] .home-scroll-cue__chevron { animation: none; }
+}
+

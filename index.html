@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/home-timeline-responsive.css?v=1782700000">
     <link rel="stylesheet" href="css/home-timeline-flow-overrides.css?v=1782700000">
     <link rel="stylesheet" href="css/home-nuclei-list.css?v=1782800000">
-    <link rel="stylesheet" href="css/home-pratica.css?v=1782800000">
+    <link rel="stylesheet" href="css/home-pratica.css?v=2026111601">
 <link rel="stylesheet" href="css/accordia-design-system.css?v=2026102602"><script defer src="js/interactive-hover-button.js?v=2026102602"></script>
 </head>
 <body data-nav="home">
@@ -20,10 +20,19 @@
             <div class="scroll-stage">
                 <section class="home-hero">
                     <div class="shell">
-                        <div class="home-hero__frame"></div>
+                        <div class="home-hero__frame">
+                            <button class="home-scroll-cue home-scroll-cue--up" type="button" data-home-direction="-1" aria-controls="home-history" aria-label="Scorri verso l’alto: Storia della musica">
+                                <svg class="home-scroll-cue__chevron" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="m5 15 7-7 7 7" /></svg>
+                                <span>STORIA DELLA MUSICA</span>
+                            </button>
+                            <button class="home-scroll-cue home-scroll-cue--down" type="button" data-home-direction="1" aria-controls="home-practice" aria-label="Scorri verso il basso: Teoria musicale e pratica strumentale">
+                                <span>TEORIA MUSICALE E PRATICA STRUMENTALE</span>
+                                <svg class="home-scroll-cue__chevron" viewBox="0 0 24 24" width="24" height="24" aria-hidden="true" focusable="false"><path d="m5 9 7 7 7-7" /></svg>
+                            </button>
+                        </div>
                     </div>
                 </section>
-                <div class="nuclei-grid-wrap">
+                <div class="nuclei-grid-wrap" id="home-history">
                     <div class="nuclei-grid" aria-label="I sei nuclei di apprendimento">
                         <a class="nuclei-col" href="nuclei/medioevo/index.html" data-nucleus-link="medioevo" style="--accent:#D9C89E">
                             <span class="nuclei-col__tile">
@@ -87,7 +96,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="nuclei-grid-wrap nuclei-grid-wrap--pratica">
+                <div class="nuclei-grid-wrap nuclei-grid-wrap--pratica" id="home-practice">
                     <div class="nuclei-grid" aria-label="Le sei aree della pratica strumentale">
                         <a class="nuclei-col" href="pratica/suono/index.html" data-practice-link="suono" style="--accent:#CDBF9A">
                             <span class="nuclei-col__tile">
@@ -171,6 +180,7 @@
             const scrollStage = document.querySelector('.scroll-stage');
             const tilesWrap   = document.querySelector('.nuclei-grid-wrap');
             const praticaWrap = document.querySelector('.nuclei-grid-wrap--pratica');
+            const scrollCues  = document.querySelectorAll('[data-home-direction]');
             const reducedHeroMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
             const mobileHomeLayout = window.matchMedia('(max-width: 600px)');
 
@@ -179,7 +189,7 @@
             }
 
             // The sticky stage sits in the middle of the scene, so the hero word can be
-            // revealed by scrolling both up (Pratica, from the left) and down (Storia, from the right).
+            // revealed by scrolling up (Storia, from the left) or down (Pratica, from the right).
             function sceneScrollable() {
                 return scrollScene ? Math.max(0, scrollScene.offsetHeight - window.innerHeight) : 0;
             }
@@ -210,10 +220,35 @@
             }
 
             if (heroFrame) {
-                // Signed progress: -1 = Pratica fully in (scrolled up), 0 = hero centred, +1 = Storia fully in (scrolled down).
+                // Signed progress: -1 = Storia (up), 0 = hero, +1 = Pratica (down).
                 let heroCurrentProgress = 0;
                 let heroTargetProgress  = 0;
                 let heroFrameRequest    = 0;
+                let cuesHidden = false;
+                let pendingFocusWrap = null;
+
+                // Clicking or using the keyboard follows the same direction as scrolling.
+                scrollCues.forEach(function (cue) {
+                    cue.addEventListener('click', function () {
+                        const direction = Number(cue.dataset.homeDirection);
+                        pendingFocusWrap = direction < 0 ? tilesWrap : praticaWrap;
+                        window.scrollTo({
+                            top: direction < 0 ? 0 : sceneScrollable(),
+                            behavior: reducedHeroMotion.matches ? 'instant' : 'smooth'
+                        });
+                    });
+                });
+
+                function syncCueSpacing() {
+                    const titleStyle = window.getComputedStyle(heroFrame, '::before');
+                    const halfHeight = parseFloat(titleStyle.lineHeight) / 2;
+                    if (Number.isFinite(halfHeight)) {
+                        heroFrame.style.setProperty('--home-title-half-height', halfHeight + 'px');
+                    }
+                }
+                syncCueSpacing();
+                window.addEventListener('resize', syncCueSpacing);
+                window.addEventListener('load', syncCueSpacing);
 
                 function getHeroTravel() {
                     const w = heroFrame.clientWidth;
@@ -241,13 +276,12 @@
 
                 function renderHeroMotion() {
                     const delta     = heroTargetProgress - heroCurrentProgress;
-                    const smoothing = reducedHeroMotion.matches ? 0.3 : 0.14;
+                    const smoothing = reducedHeroMotion.matches ? 1 : 0.14;
 
                     heroCurrentProgress += delta * smoothing;
                     if (Math.abs(delta) < 0.001) heroCurrentProgress = heroTargetProgress;
 
-                    // Signed easing: scrolling down (progress > 0) moves the word left toward
-                    // Storia; scrolling up (progress < 0) moves it right toward Pratica.
+                    // Down moves the word left toward Pratica; up moves it right toward Storia.
                     const mag = 1 - Math.pow(1 - Math.abs(heroCurrentProgress), 3);
                     const easedSigned = Math.sign(heroCurrentProgress) * mag;
                     const travel = getHeroTravel();
@@ -255,8 +289,24 @@
                     heroFrame.style.setProperty('--home-hero-title-shift-x', `${(-travel.x * easedSigned).toFixed(2)}px`);
                     heroFrame.style.setProperty('--home-hero-title-shift-y', `${(travel.y * mag).toFixed(2)}px`);
 
-                    applyTiles(tilesWrap,   clamp(heroCurrentProgress, 0, 1), 1);   // Storia: enters from the right
-                    applyTiles(praticaWrap, clamp(-heroCurrentProgress, 0, 1), -1); // Pratica: enters from the left
+                    applyTiles(tilesWrap,   clamp(-heroCurrentProgress, 0, 1), -1); // Storia: enters from the left
+                    applyTiles(praticaWrap, clamp(heroCurrentProgress, 0, 1), 1);   // Pratica: enters from the right
+
+                    heroFrame.style.setProperty('--home-cue-opacity', clamp(1 - Math.abs(heroCurrentProgress) / 0.18, 0, 1).toFixed(3));
+                    const shouldHideCues = Math.abs(heroCurrentProgress) >= 0.18;
+                    if (shouldHideCues !== cuesHidden) {
+                        cuesHidden = shouldHideCues;
+                        heroFrame.classList.toggle('home-hero__frame--away', cuesHidden);
+                        scrollCues.forEach(function (cue) {
+                            cue.tabIndex = cuesHidden ? -1 : 0;
+                        });
+                    }
+
+                    if (pendingFocusWrap && Math.abs(heroCurrentProgress) > 0.99) {
+                        const destination = pendingFocusWrap.querySelector('a[href]');
+                        if (destination) destination.focus({ preventScroll: true });
+                        pendingFocusWrap = null;
+                    }
 
                     if (heroCurrentProgress !== heroTargetProgress) {
                         heroFrameRequest = window.requestAnimationFrame(renderHeroMotion);
@@ -289,3 +339,4 @@
     </script>
 </body>
 </html>
+
